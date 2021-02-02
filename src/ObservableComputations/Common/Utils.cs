@@ -703,8 +703,8 @@ namespace ObservableComputations
 						current.SetIsActive(true);
 						current.Initialize();
 						current.AddToUpstreamComputings(current);
-						current.ProcessSource();
 						current.InitializedFromSource = true;
+						current.ProcessSource();
 						current.OnPropertyChanged(IsActivePropertyChangedEventArgs);
 						current.SetActivationInProgress(false);
 						current.OnPropertyChanged(ActivationInProgressPropertyChangedEventArgs);

@@ -46,7 +46,6 @@ namespace ObservableComputations.Test
 			Assert.AreEqual(sourceScalar, testing.SourceScalar);
 			Assert.AreEqual(aggregateFunc, testing.AggregateFunc);
 			Assert.AreEqual(deaggregateFunc, testing.DeaggregateFunc);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -119,7 +118,6 @@ namespace ObservableComputations.Test
 			Assert.AreEqual(sourceScalar, testing.SourceScalar);
 			Assert.AreEqual(aggregateFunc, testing.AggregateFunc);
 			Assert.AreEqual(deaggregateFunc, testing.DeaggregateFunc);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -192,7 +190,6 @@ namespace ObservableComputations.Test
 			Assert.AreEqual(source, testing.Source);
 			Assert.AreEqual(aggregateFunc, testing.AggregateFunc);
 			Assert.AreEqual(deaggregateFunc, testing.DeaggregateFunc);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -260,7 +257,6 @@ namespace ObservableComputations.Test
 			Assert.AreEqual(source, testing.Source);
 			Assert.AreEqual(aggregateFunc, testing.AggregateFunc);
 			Assert.AreEqual(deaggregateFunc, testing.DeaggregateFunc);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -328,7 +324,6 @@ namespace ObservableComputations.Test
 
 			Assert.AreEqual(sourceScalar, testing.SourceScalar);
 			Assert.AreEqual(predicateExpression, testing.PredicateExpression);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -398,7 +393,6 @@ namespace ObservableComputations.Test
 
 			Assert.AreEqual(sourceScalar, testing.SourceScalar);
 			Assert.AreEqual(predicateExpression, testing.PredicateExpression);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -468,7 +462,6 @@ namespace ObservableComputations.Test
 
 			Assert.AreEqual(source, testing.Source);
 			Assert.AreEqual(predicateExpression, testing.PredicateExpression);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -533,7 +526,6 @@ namespace ObservableComputations.Test
 
 			Assert.AreEqual(source, testing.Source);
 			Assert.AreEqual(predicateExpression, testing.PredicateExpression);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -601,7 +593,6 @@ namespace ObservableComputations.Test
 
 			Assert.AreEqual(sourceScalar, testing.SourceScalar);
 			Assert.AreEqual(predicateExpression, testing.PredicateExpression);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -671,7 +662,6 @@ namespace ObservableComputations.Test
 
 			Assert.AreEqual(sourceScalar, testing.SourceScalar);
 			Assert.AreEqual(predicateExpression, testing.PredicateExpression);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -741,7 +731,6 @@ namespace ObservableComputations.Test
 
 			Assert.AreEqual(source, testing.Source);
 			Assert.AreEqual(predicateExpression, testing.PredicateExpression);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -806,7 +795,6 @@ namespace ObservableComputations.Test
 
 			Assert.AreEqual(source, testing.Source);
 			Assert.AreEqual(predicateExpression, testing.PredicateExpression);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -874,7 +862,6 @@ namespace ObservableComputations.Test
 
 			Assert.AreEqual(source, testing.Source);
 			Assert.AreEqual(item, testing.Item);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -939,7 +926,6 @@ namespace ObservableComputations.Test
 
 			Assert.AreEqual(source, testing.Source);
 			Assert.AreEqual(item, testing.Item);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -1004,7 +990,6 @@ namespace ObservableComputations.Test
 
 			Assert.AreEqual(source, testing.Source);
 			Assert.AreEqual(itemScalar, testing.ItemScalar);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -1074,7 +1059,6 @@ namespace ObservableComputations.Test
 
 			Assert.AreEqual(source, testing.Source);
 			Assert.AreEqual(itemScalar, testing.ItemScalar);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -1144,7 +1128,6 @@ namespace ObservableComputations.Test
 
 			Assert.AreEqual(sourceScalar, testing.SourceScalar);
 			Assert.AreEqual(item, testing.Item);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -1214,7 +1197,6 @@ namespace ObservableComputations.Test
 
 			Assert.AreEqual(sourceScalar, testing.SourceScalar);
 			Assert.AreEqual(item, testing.Item);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -1284,7 +1266,6 @@ namespace ObservableComputations.Test
 
 			Assert.AreEqual(sourceScalar, testing.SourceScalar);
 			Assert.AreEqual(itemScalar, testing.ItemScalar);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -1359,7 +1340,6 @@ namespace ObservableComputations.Test
 
 			Assert.AreEqual(sourceScalar, testing.SourceScalar);
 			Assert.AreEqual(itemScalar, testing.ItemScalar);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -1434,7 +1414,6 @@ namespace ObservableComputations.Test
 			var testing = sourceScalar.Averaging<int, double>().For(consumer);
 
 			Assert.AreEqual(sourceScalar, testing.SourceScalar);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -1501,7 +1480,6 @@ namespace ObservableComputations.Test
 			var testing = sourceScalar.Averaging<int, double>().For(consumer);
 
 			Assert.AreEqual(sourceScalar, testing.SourceScalar);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -1568,7 +1546,6 @@ namespace ObservableComputations.Test
 			var testing = source.Averaging<int, double>().For(consumer);
 
 			Assert.AreEqual(source, testing.Source);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -1630,7 +1607,6 @@ namespace ObservableComputations.Test
 			var testing = source.Averaging<int, double>().For(consumer);
 
 			Assert.AreEqual(source, testing.Source);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -1695,7 +1671,6 @@ namespace ObservableComputations.Test
 			var testing = sourceScalar.Casting<object>().For(consumer);
 
 			Assert.AreEqual(sourceScalar, testing.SourceScalar);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -1762,7 +1737,6 @@ namespace ObservableComputations.Test
 			var testing = source.Casting<object>().For(consumer);
 
 			Assert.AreEqual(source, testing.Source);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -1820,13 +1794,13 @@ namespace ObservableComputations.Test
 
 		
 		[Test, Combinatorial]
-		public void TestCollectionDispatching01(
-			[Values()] int destinationOcDispatcherPriority,
-			[Values()] int sourceOcDispatcherPriority)
+		public void TestCollectionDispatching01()
 		{
 			System.Collections.Specialized.INotifyCollectionChanged source = getItems();
 			ObservableComputations.IOcDispatcher destinationOcDispatcher = new OcDispatcher();
 			ObservableComputations.IOcDispatcher sourceOcDispatcher = new OcDispatcher();
+			int destinationOcDispatcherPriority = 0;
+			int sourceOcDispatcherPriority = 0;
 			object destinationOcDispatcherParameter = new object();
 			object sourceOcDispatcherParameter = new object();
 			OcConsumer consumer = new OcConsumer();
@@ -1846,32 +1820,38 @@ namespace ObservableComputations.Test
 			Assert.AreEqual(destinationOcDispatcherParameter, testing.DestinationOcDispatcherParameter);
 			Assert.AreEqual(sourceOcDispatcherParameter, testing.SourceOcDispatcherParameter);
 
+			void sync()
+			{
+				((OcDispatcher)sourceOcDispatcher).Invoke(() => {});
+				((OcDispatcher)destinationOcDispatcher).Invoke(() => {});
+			}
+
 			void test()
 			{
 				testing.ValidateConsistency();
-				var sourceValue = ((ObservableCollection<Item>)((System.Collections.Specialized.INotifyCollectionChanged)source));
+				sync(); var sourceValue = ((ObservableCollection<Item>)((System.Collections.Specialized.INotifyCollectionChanged)source));
 
 				if (sourceValue != null)
 				{		
-					sourceValue.Insert(2, new QuickTests.Item(1, true));
+					sync(); sourceValue.Insert(2, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
-					sourceValue[3] = new QuickTests.Item(7, true);
+					sync(); sourceValue[3] = new QuickTests.Item(7, true);
 					testing.ValidateConsistency();
-					sourceValue.RemoveAt(3);
+					sync(); sourceValue.RemoveAt(3);
 					testing.ValidateConsistency();
-					sourceValue.Move(1, 3);
+					sync(); sourceValue.Move(1, 3);
 					testing.ValidateConsistency();
-					sourceValue[2].Active = !sourceValue[2].Active;
+					sync(); sourceValue[2].Active = !sourceValue[2].Active;
 					testing.ValidateConsistency();
-					sourceValue[2].Num = sourceValue[2].Num + 1;
+					sync(); sourceValue[2].Num = sourceValue[2].Num + 1;
 					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
+					sync(); sourceValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					sourceValue.RemoveAt(1);
+					sync(); sourceValue.RemoveAt(1);
 					testing.ValidateConsistency();
-					sourceValue.Insert(0, new QuickTests.Item(1, true));
+					sync(); sourceValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
-					sourceValue.Insert(0, new QuickTests.Item(2, true));
+					sync(); sourceValue.Insert(0, new QuickTests.Item(2, true));
 					testing.ValidateConsistency();
 				}
 
@@ -1879,36 +1859,37 @@ namespace ObservableComputations.Test
 				listSource = ((IList)((System.Collections.Specialized.INotifyCollectionChanged)source));
 				if (listSource != null)
 				{
-					listSource.Clear();
+					sync(); listSource.Clear();
 					testing.ValidateConsistency();
 				}
 
 				if (sourceValue != null)
 				{
-					sourceValue.Insert(0, new QuickTests.Item(1, true));
-					sourceValue.Insert(1, new QuickTests.Item(2, true));
-					sourceValue.Insert(2, new QuickTests.Item(3, true));
-					sourceValue.Insert(3, new QuickTests.Item(3, true));
-					sourceValue.Insert(4, new QuickTests.Item(3, true));
+					sync(); sourceValue.Insert(0, new QuickTests.Item(1, true));
+					sync(); sourceValue.Insert(1, new QuickTests.Item(2, true));
+					sync(); sourceValue.Insert(2, new QuickTests.Item(3, true));
+					sync(); sourceValue.Insert(3, new QuickTests.Item(3, true));
+					sync(); sourceValue.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
 				testing.ValidateConsistency();
 			}
 
 			test();
-			consumer.Dispose();
-			((OcDispatcher)destinationOcDispatcher).Dispose();
+			sync(); consumer.Dispose();
 			((OcDispatcher)sourceOcDispatcher).Dispose();
+			
+			((OcDispatcher)destinationOcDispatcher).Dispose();
 		}
 		
 		[Test, Combinatorial]
-		public void TestCollectionDispatching02(
-			[Values()] int destinationOcDispatcherPriority,
-			[Values()] int sourceOcDispatcherPriority)
+		public void TestCollectionDispatching02()
 		{
 			System.Collections.Specialized.INotifyCollectionChanged source = getItems();
 			ObservableComputations.IOcDispatcher destinationOcDispatcher = new OcDispatcher();
 			ObservableComputations.IOcDispatcher sourceOcDispatcher = new OcDispatcher();
+			int destinationOcDispatcherPriority = 0;
+			int sourceOcDispatcherPriority = 0;
 			object destinationOcDispatcherParameter = new object();
 			OcConsumer consumer = new OcConsumer();
 			var testing = source.CollectionDispatching<Item>(
@@ -1925,32 +1906,38 @@ namespace ObservableComputations.Test
 			Assert.AreEqual(sourceOcDispatcherPriority, testing.SourceOcDispatcherPriority);
 			Assert.AreEqual(destinationOcDispatcherParameter, testing.DestinationOcDispatcherParameter);
 
+			void sync()
+			{
+				((OcDispatcher)sourceOcDispatcher).Invoke(() => {});
+				((OcDispatcher)destinationOcDispatcher).Invoke(() => {});
+			}
+
 			void test()
 			{
 				testing.ValidateConsistency();
-				var sourceValue = ((ObservableCollection<Item>)((System.Collections.Specialized.INotifyCollectionChanged)source));
+				sync(); var sourceValue = ((ObservableCollection<Item>)((System.Collections.Specialized.INotifyCollectionChanged)source));
 
 				if (sourceValue != null)
 				{		
-					sourceValue.Insert(2, new QuickTests.Item(1, true));
+					sync(); sourceValue.Insert(2, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
-					sourceValue[3] = new QuickTests.Item(7, true);
+					sync(); sourceValue[3] = new QuickTests.Item(7, true);
 					testing.ValidateConsistency();
-					sourceValue.RemoveAt(3);
+					sync(); sourceValue.RemoveAt(3);
 					testing.ValidateConsistency();
-					sourceValue.Move(1, 3);
+					sync(); sourceValue.Move(1, 3);
 					testing.ValidateConsistency();
-					sourceValue[2].Active = !sourceValue[2].Active;
+					sync(); sourceValue[2].Active = !sourceValue[2].Active;
 					testing.ValidateConsistency();
-					sourceValue[2].Num = sourceValue[2].Num + 1;
+					sync(); sourceValue[2].Num = sourceValue[2].Num + 1;
 					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
+					sync(); sourceValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					sourceValue.RemoveAt(1);
+					sync(); sourceValue.RemoveAt(1);
 					testing.ValidateConsistency();
-					sourceValue.Insert(0, new QuickTests.Item(1, true));
+					sync(); sourceValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
-					sourceValue.Insert(0, new QuickTests.Item(2, true));
+					sync(); sourceValue.Insert(0, new QuickTests.Item(2, true));
 					testing.ValidateConsistency();
 				}
 
@@ -1958,36 +1945,37 @@ namespace ObservableComputations.Test
 				listSource = ((IList)((System.Collections.Specialized.INotifyCollectionChanged)source));
 				if (listSource != null)
 				{
-					listSource.Clear();
+					sync(); listSource.Clear();
 					testing.ValidateConsistency();
 				}
 
 				if (sourceValue != null)
 				{
-					sourceValue.Insert(0, new QuickTests.Item(1, true));
-					sourceValue.Insert(1, new QuickTests.Item(2, true));
-					sourceValue.Insert(2, new QuickTests.Item(3, true));
-					sourceValue.Insert(3, new QuickTests.Item(3, true));
-					sourceValue.Insert(4, new QuickTests.Item(3, true));
+					sync(); sourceValue.Insert(0, new QuickTests.Item(1, true));
+					sync(); sourceValue.Insert(1, new QuickTests.Item(2, true));
+					sync(); sourceValue.Insert(2, new QuickTests.Item(3, true));
+					sync(); sourceValue.Insert(3, new QuickTests.Item(3, true));
+					sync(); sourceValue.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
 				testing.ValidateConsistency();
 			}
 
 			test();
-			consumer.Dispose();
-			((OcDispatcher)destinationOcDispatcher).Dispose();
+			sync(); consumer.Dispose();
 			((OcDispatcher)sourceOcDispatcher).Dispose();
+			
+			((OcDispatcher)destinationOcDispatcher).Dispose();
 		}
 		
 		[Test, Combinatorial]
-		public void TestCollectionDispatching03(
-			[Values()] int destinationOcDispatcherPriority,
-			[Values()] int sourceOcDispatcherPriority)
+		public void TestCollectionDispatching03()
 		{
 			System.Collections.Specialized.INotifyCollectionChanged source = getItems();
 			ObservableComputations.IOcDispatcher destinationOcDispatcher = new OcDispatcher();
 			ObservableComputations.IOcDispatcher sourceOcDispatcher = new OcDispatcher();
+			int destinationOcDispatcherPriority = 0;
+			int sourceOcDispatcherPriority = 0;
 			OcConsumer consumer = new OcConsumer();
 			var testing = source.CollectionDispatching<Item>(
 				destinationOcDispatcher,
@@ -2001,32 +1989,38 @@ namespace ObservableComputations.Test
 			Assert.AreEqual(destinationOcDispatcherPriority, testing.DestinationOcDispatcherPriority);
 			Assert.AreEqual(sourceOcDispatcherPriority, testing.SourceOcDispatcherPriority);
 
+			void sync()
+			{
+				((OcDispatcher)sourceOcDispatcher).Invoke(() => {});
+				((OcDispatcher)destinationOcDispatcher).Invoke(() => {});
+			}
+
 			void test()
 			{
 				testing.ValidateConsistency();
-				var sourceValue = ((ObservableCollection<Item>)((System.Collections.Specialized.INotifyCollectionChanged)source));
+				sync(); var sourceValue = ((ObservableCollection<Item>)((System.Collections.Specialized.INotifyCollectionChanged)source));
 
 				if (sourceValue != null)
 				{		
-					sourceValue.Insert(2, new QuickTests.Item(1, true));
+					sync(); sourceValue.Insert(2, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
-					sourceValue[3] = new QuickTests.Item(7, true);
+					sync(); sourceValue[3] = new QuickTests.Item(7, true);
 					testing.ValidateConsistency();
-					sourceValue.RemoveAt(3);
+					sync(); sourceValue.RemoveAt(3);
 					testing.ValidateConsistency();
-					sourceValue.Move(1, 3);
+					sync(); sourceValue.Move(1, 3);
 					testing.ValidateConsistency();
-					sourceValue[2].Active = !sourceValue[2].Active;
+					sync(); sourceValue[2].Active = !sourceValue[2].Active;
 					testing.ValidateConsistency();
-					sourceValue[2].Num = sourceValue[2].Num + 1;
+					sync(); sourceValue[2].Num = sourceValue[2].Num + 1;
 					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
+					sync(); sourceValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					sourceValue.RemoveAt(1);
+					sync(); sourceValue.RemoveAt(1);
 					testing.ValidateConsistency();
-					sourceValue.Insert(0, new QuickTests.Item(1, true));
+					sync(); sourceValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
-					sourceValue.Insert(0, new QuickTests.Item(2, true));
+					sync(); sourceValue.Insert(0, new QuickTests.Item(2, true));
 					testing.ValidateConsistency();
 				}
 
@@ -2034,35 +2028,36 @@ namespace ObservableComputations.Test
 				listSource = ((IList)((System.Collections.Specialized.INotifyCollectionChanged)source));
 				if (listSource != null)
 				{
-					listSource.Clear();
+					sync(); listSource.Clear();
 					testing.ValidateConsistency();
 				}
 
 				if (sourceValue != null)
 				{
-					sourceValue.Insert(0, new QuickTests.Item(1, true));
-					sourceValue.Insert(1, new QuickTests.Item(2, true));
-					sourceValue.Insert(2, new QuickTests.Item(3, true));
-					sourceValue.Insert(3, new QuickTests.Item(3, true));
-					sourceValue.Insert(4, new QuickTests.Item(3, true));
+					sync(); sourceValue.Insert(0, new QuickTests.Item(1, true));
+					sync(); sourceValue.Insert(1, new QuickTests.Item(2, true));
+					sync(); sourceValue.Insert(2, new QuickTests.Item(3, true));
+					sync(); sourceValue.Insert(3, new QuickTests.Item(3, true));
+					sync(); sourceValue.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
 				testing.ValidateConsistency();
 			}
 
 			test();
-			consumer.Dispose();
-			((OcDispatcher)destinationOcDispatcher).Dispose();
+			sync(); consumer.Dispose();
 			((OcDispatcher)sourceOcDispatcher).Dispose();
+			
+			((OcDispatcher)destinationOcDispatcher).Dispose();
 		}
 		
 		[Test, Combinatorial]
-		public void TestCollectionDispatching04(
-			[Values()] int destinationOcDispatcherPriority)
+		public void TestCollectionDispatching04()
 		{
 			System.Collections.Specialized.INotifyCollectionChanged source = getItems();
 			ObservableComputations.IOcDispatcher destinationOcDispatcher = new OcDispatcher();
 			ObservableComputations.IOcDispatcher sourceOcDispatcher = new OcDispatcher();
+			int destinationOcDispatcherPriority = 0;
 			object destinationOcDispatcherParameter = new object();
 			object sourceOcDispatcherParameter = new object();
 			OcConsumer consumer = new OcConsumer();
@@ -2080,32 +2075,38 @@ namespace ObservableComputations.Test
 			Assert.AreEqual(destinationOcDispatcherParameter, testing.DestinationOcDispatcherParameter);
 			Assert.AreEqual(sourceOcDispatcherParameter, testing.SourceOcDispatcherParameter);
 
+			void sync()
+			{
+				((OcDispatcher)sourceOcDispatcher).Invoke(() => {});
+				((OcDispatcher)destinationOcDispatcher).Invoke(() => {});
+			}
+
 			void test()
 			{
 				testing.ValidateConsistency();
-				var sourceValue = ((ObservableCollection<Item>)((System.Collections.Specialized.INotifyCollectionChanged)source));
+				sync(); var sourceValue = ((ObservableCollection<Item>)((System.Collections.Specialized.INotifyCollectionChanged)source));
 
 				if (sourceValue != null)
 				{		
-					sourceValue.Insert(2, new QuickTests.Item(1, true));
+					sync(); sourceValue.Insert(2, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
-					sourceValue[3] = new QuickTests.Item(7, true);
+					sync(); sourceValue[3] = new QuickTests.Item(7, true);
 					testing.ValidateConsistency();
-					sourceValue.RemoveAt(3);
+					sync(); sourceValue.RemoveAt(3);
 					testing.ValidateConsistency();
-					sourceValue.Move(1, 3);
+					sync(); sourceValue.Move(1, 3);
 					testing.ValidateConsistency();
-					sourceValue[2].Active = !sourceValue[2].Active;
+					sync(); sourceValue[2].Active = !sourceValue[2].Active;
 					testing.ValidateConsistency();
-					sourceValue[2].Num = sourceValue[2].Num + 1;
+					sync(); sourceValue[2].Num = sourceValue[2].Num + 1;
 					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
+					sync(); sourceValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					sourceValue.RemoveAt(1);
+					sync(); sourceValue.RemoveAt(1);
 					testing.ValidateConsistency();
-					sourceValue.Insert(0, new QuickTests.Item(1, true));
+					sync(); sourceValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
-					sourceValue.Insert(0, new QuickTests.Item(2, true));
+					sync(); sourceValue.Insert(0, new QuickTests.Item(2, true));
 					testing.ValidateConsistency();
 				}
 
@@ -2113,35 +2114,36 @@ namespace ObservableComputations.Test
 				listSource = ((IList)((System.Collections.Specialized.INotifyCollectionChanged)source));
 				if (listSource != null)
 				{
-					listSource.Clear();
+					sync(); listSource.Clear();
 					testing.ValidateConsistency();
 				}
 
 				if (sourceValue != null)
 				{
-					sourceValue.Insert(0, new QuickTests.Item(1, true));
-					sourceValue.Insert(1, new QuickTests.Item(2, true));
-					sourceValue.Insert(2, new QuickTests.Item(3, true));
-					sourceValue.Insert(3, new QuickTests.Item(3, true));
-					sourceValue.Insert(4, new QuickTests.Item(3, true));
+					sync(); sourceValue.Insert(0, new QuickTests.Item(1, true));
+					sync(); sourceValue.Insert(1, new QuickTests.Item(2, true));
+					sync(); sourceValue.Insert(2, new QuickTests.Item(3, true));
+					sync(); sourceValue.Insert(3, new QuickTests.Item(3, true));
+					sync(); sourceValue.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
 				testing.ValidateConsistency();
 			}
 
 			test();
-			consumer.Dispose();
-			((OcDispatcher)destinationOcDispatcher).Dispose();
+			sync(); consumer.Dispose();
 			((OcDispatcher)sourceOcDispatcher).Dispose();
+			
+			((OcDispatcher)destinationOcDispatcher).Dispose();
 		}
 		
 		[Test, Combinatorial]
-		public void TestCollectionDispatching05(
-			[Values()] int destinationOcDispatcherPriority)
+		public void TestCollectionDispatching05()
 		{
 			System.Collections.Specialized.INotifyCollectionChanged source = getItems();
 			ObservableComputations.IOcDispatcher destinationOcDispatcher = new OcDispatcher();
 			ObservableComputations.IOcDispatcher sourceOcDispatcher = new OcDispatcher();
+			int destinationOcDispatcherPriority = 0;
 			object destinationOcDispatcherParameter = new object();
 			OcConsumer consumer = new OcConsumer();
 			var testing = source.CollectionDispatching<Item>(
@@ -2156,32 +2158,38 @@ namespace ObservableComputations.Test
 			Assert.AreEqual(destinationOcDispatcherPriority, testing.DestinationOcDispatcherPriority);
 			Assert.AreEqual(destinationOcDispatcherParameter, testing.DestinationOcDispatcherParameter);
 
+			void sync()
+			{
+				((OcDispatcher)sourceOcDispatcher).Invoke(() => {});
+				((OcDispatcher)destinationOcDispatcher).Invoke(() => {});
+			}
+
 			void test()
 			{
 				testing.ValidateConsistency();
-				var sourceValue = ((ObservableCollection<Item>)((System.Collections.Specialized.INotifyCollectionChanged)source));
+				sync(); var sourceValue = ((ObservableCollection<Item>)((System.Collections.Specialized.INotifyCollectionChanged)source));
 
 				if (sourceValue != null)
 				{		
-					sourceValue.Insert(2, new QuickTests.Item(1, true));
+					sync(); sourceValue.Insert(2, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
-					sourceValue[3] = new QuickTests.Item(7, true);
+					sync(); sourceValue[3] = new QuickTests.Item(7, true);
 					testing.ValidateConsistency();
-					sourceValue.RemoveAt(3);
+					sync(); sourceValue.RemoveAt(3);
 					testing.ValidateConsistency();
-					sourceValue.Move(1, 3);
+					sync(); sourceValue.Move(1, 3);
 					testing.ValidateConsistency();
-					sourceValue[2].Active = !sourceValue[2].Active;
+					sync(); sourceValue[2].Active = !sourceValue[2].Active;
 					testing.ValidateConsistency();
-					sourceValue[2].Num = sourceValue[2].Num + 1;
+					sync(); sourceValue[2].Num = sourceValue[2].Num + 1;
 					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
+					sync(); sourceValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					sourceValue.RemoveAt(1);
+					sync(); sourceValue.RemoveAt(1);
 					testing.ValidateConsistency();
-					sourceValue.Insert(0, new QuickTests.Item(1, true));
+					sync(); sourceValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
-					sourceValue.Insert(0, new QuickTests.Item(2, true));
+					sync(); sourceValue.Insert(0, new QuickTests.Item(2, true));
 					testing.ValidateConsistency();
 				}
 
@@ -2189,35 +2197,36 @@ namespace ObservableComputations.Test
 				listSource = ((IList)((System.Collections.Specialized.INotifyCollectionChanged)source));
 				if (listSource != null)
 				{
-					listSource.Clear();
+					sync(); listSource.Clear();
 					testing.ValidateConsistency();
 				}
 
 				if (sourceValue != null)
 				{
-					sourceValue.Insert(0, new QuickTests.Item(1, true));
-					sourceValue.Insert(1, new QuickTests.Item(2, true));
-					sourceValue.Insert(2, new QuickTests.Item(3, true));
-					sourceValue.Insert(3, new QuickTests.Item(3, true));
-					sourceValue.Insert(4, new QuickTests.Item(3, true));
+					sync(); sourceValue.Insert(0, new QuickTests.Item(1, true));
+					sync(); sourceValue.Insert(1, new QuickTests.Item(2, true));
+					sync(); sourceValue.Insert(2, new QuickTests.Item(3, true));
+					sync(); sourceValue.Insert(3, new QuickTests.Item(3, true));
+					sync(); sourceValue.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
 				testing.ValidateConsistency();
 			}
 
 			test();
-			consumer.Dispose();
-			((OcDispatcher)destinationOcDispatcher).Dispose();
+			sync(); consumer.Dispose();
 			((OcDispatcher)sourceOcDispatcher).Dispose();
+			
+			((OcDispatcher)destinationOcDispatcher).Dispose();
 		}
 		
 		[Test, Combinatorial]
-		public void TestCollectionDispatching06(
-			[Values()] int destinationOcDispatcherPriority)
+		public void TestCollectionDispatching06()
 		{
 			System.Collections.Specialized.INotifyCollectionChanged source = getItems();
 			ObservableComputations.IOcDispatcher destinationOcDispatcher = new OcDispatcher();
 			ObservableComputations.IOcDispatcher sourceOcDispatcher = new OcDispatcher();
+			int destinationOcDispatcherPriority = 0;
 			OcConsumer consumer = new OcConsumer();
 			var testing = source.CollectionDispatching<Item>(
 				destinationOcDispatcher,
@@ -2229,32 +2238,38 @@ namespace ObservableComputations.Test
 			Assert.AreEqual(sourceOcDispatcher, testing.SourceOcDispatcher);
 			Assert.AreEqual(destinationOcDispatcherPriority, testing.DestinationOcDispatcherPriority);
 
+			void sync()
+			{
+				((OcDispatcher)sourceOcDispatcher).Invoke(() => {});
+				((OcDispatcher)destinationOcDispatcher).Invoke(() => {});
+			}
+
 			void test()
 			{
 				testing.ValidateConsistency();
-				var sourceValue = ((ObservableCollection<Item>)((System.Collections.Specialized.INotifyCollectionChanged)source));
+				sync(); var sourceValue = ((ObservableCollection<Item>)((System.Collections.Specialized.INotifyCollectionChanged)source));
 
 				if (sourceValue != null)
 				{		
-					sourceValue.Insert(2, new QuickTests.Item(1, true));
+					sync(); sourceValue.Insert(2, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
-					sourceValue[3] = new QuickTests.Item(7, true);
+					sync(); sourceValue[3] = new QuickTests.Item(7, true);
 					testing.ValidateConsistency();
-					sourceValue.RemoveAt(3);
+					sync(); sourceValue.RemoveAt(3);
 					testing.ValidateConsistency();
-					sourceValue.Move(1, 3);
+					sync(); sourceValue.Move(1, 3);
 					testing.ValidateConsistency();
-					sourceValue[2].Active = !sourceValue[2].Active;
+					sync(); sourceValue[2].Active = !sourceValue[2].Active;
 					testing.ValidateConsistency();
-					sourceValue[2].Num = sourceValue[2].Num + 1;
+					sync(); sourceValue[2].Num = sourceValue[2].Num + 1;
 					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
+					sync(); sourceValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					sourceValue.RemoveAt(1);
+					sync(); sourceValue.RemoveAt(1);
 					testing.ValidateConsistency();
-					sourceValue.Insert(0, new QuickTests.Item(1, true));
+					sync(); sourceValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
-					sourceValue.Insert(0, new QuickTests.Item(2, true));
+					sync(); sourceValue.Insert(0, new QuickTests.Item(2, true));
 					testing.ValidateConsistency();
 				}
 
@@ -2262,26 +2277,27 @@ namespace ObservableComputations.Test
 				listSource = ((IList)((System.Collections.Specialized.INotifyCollectionChanged)source));
 				if (listSource != null)
 				{
-					listSource.Clear();
+					sync(); listSource.Clear();
 					testing.ValidateConsistency();
 				}
 
 				if (sourceValue != null)
 				{
-					sourceValue.Insert(0, new QuickTests.Item(1, true));
-					sourceValue.Insert(1, new QuickTests.Item(2, true));
-					sourceValue.Insert(2, new QuickTests.Item(3, true));
-					sourceValue.Insert(3, new QuickTests.Item(3, true));
-					sourceValue.Insert(4, new QuickTests.Item(3, true));
+					sync(); sourceValue.Insert(0, new QuickTests.Item(1, true));
+					sync(); sourceValue.Insert(1, new QuickTests.Item(2, true));
+					sync(); sourceValue.Insert(2, new QuickTests.Item(3, true));
+					sync(); sourceValue.Insert(3, new QuickTests.Item(3, true));
+					sync(); sourceValue.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
 				testing.ValidateConsistency();
 			}
 
 			test();
-			consumer.Dispose();
-			((OcDispatcher)destinationOcDispatcher).Dispose();
+			sync(); consumer.Dispose();
 			((OcDispatcher)sourceOcDispatcher).Dispose();
+			
+			((OcDispatcher)destinationOcDispatcher).Dispose();
 		}
 		
 		[Test, Combinatorial]
@@ -2305,32 +2321,38 @@ namespace ObservableComputations.Test
 			Assert.AreEqual(destinationOcDispatcherParameter, testing.DestinationOcDispatcherParameter);
 			Assert.AreEqual(sourceOcDispatcherParameter, testing.SourceOcDispatcherParameter);
 
+			void sync()
+			{
+				((OcDispatcher)sourceOcDispatcher).Invoke(() => {});
+				((OcDispatcher)destinationOcDispatcher).Invoke(() => {});
+			}
+
 			void test()
 			{
 				testing.ValidateConsistency();
-				var sourceValue = ((ObservableCollection<Item>)((System.Collections.Specialized.INotifyCollectionChanged)source));
+				sync(); var sourceValue = ((ObservableCollection<Item>)((System.Collections.Specialized.INotifyCollectionChanged)source));
 
 				if (sourceValue != null)
 				{		
-					sourceValue.Insert(2, new QuickTests.Item(1, true));
+					sync(); sourceValue.Insert(2, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
-					sourceValue[3] = new QuickTests.Item(7, true);
+					sync(); sourceValue[3] = new QuickTests.Item(7, true);
 					testing.ValidateConsistency();
-					sourceValue.RemoveAt(3);
+					sync(); sourceValue.RemoveAt(3);
 					testing.ValidateConsistency();
-					sourceValue.Move(1, 3);
+					sync(); sourceValue.Move(1, 3);
 					testing.ValidateConsistency();
-					sourceValue[2].Active = !sourceValue[2].Active;
+					sync(); sourceValue[2].Active = !sourceValue[2].Active;
 					testing.ValidateConsistency();
-					sourceValue[2].Num = sourceValue[2].Num + 1;
+					sync(); sourceValue[2].Num = sourceValue[2].Num + 1;
 					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
+					sync(); sourceValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					sourceValue.RemoveAt(1);
+					sync(); sourceValue.RemoveAt(1);
 					testing.ValidateConsistency();
-					sourceValue.Insert(0, new QuickTests.Item(1, true));
+					sync(); sourceValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
-					sourceValue.Insert(0, new QuickTests.Item(2, true));
+					sync(); sourceValue.Insert(0, new QuickTests.Item(2, true));
 					testing.ValidateConsistency();
 				}
 
@@ -2338,26 +2360,27 @@ namespace ObservableComputations.Test
 				listSource = ((IList)((System.Collections.Specialized.INotifyCollectionChanged)source));
 				if (listSource != null)
 				{
-					listSource.Clear();
+					sync(); listSource.Clear();
 					testing.ValidateConsistency();
 				}
 
 				if (sourceValue != null)
 				{
-					sourceValue.Insert(0, new QuickTests.Item(1, true));
-					sourceValue.Insert(1, new QuickTests.Item(2, true));
-					sourceValue.Insert(2, new QuickTests.Item(3, true));
-					sourceValue.Insert(3, new QuickTests.Item(3, true));
-					sourceValue.Insert(4, new QuickTests.Item(3, true));
+					sync(); sourceValue.Insert(0, new QuickTests.Item(1, true));
+					sync(); sourceValue.Insert(1, new QuickTests.Item(2, true));
+					sync(); sourceValue.Insert(2, new QuickTests.Item(3, true));
+					sync(); sourceValue.Insert(3, new QuickTests.Item(3, true));
+					sync(); sourceValue.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
 				testing.ValidateConsistency();
 			}
 
 			test();
-			consumer.Dispose();
-			((OcDispatcher)destinationOcDispatcher).Dispose();
+			sync(); consumer.Dispose();
 			((OcDispatcher)sourceOcDispatcher).Dispose();
+			
+			((OcDispatcher)destinationOcDispatcher).Dispose();
 		}
 		
 		[Test, Combinatorial]
@@ -2378,32 +2401,38 @@ namespace ObservableComputations.Test
 			Assert.AreEqual(sourceOcDispatcher, testing.SourceOcDispatcher);
 			Assert.AreEqual(destinationOcDispatcherParameter, testing.DestinationOcDispatcherParameter);
 
+			void sync()
+			{
+				((OcDispatcher)sourceOcDispatcher).Invoke(() => {});
+				((OcDispatcher)destinationOcDispatcher).Invoke(() => {});
+			}
+
 			void test()
 			{
 				testing.ValidateConsistency();
-				var sourceValue = ((ObservableCollection<Item>)((System.Collections.Specialized.INotifyCollectionChanged)source));
+				sync(); var sourceValue = ((ObservableCollection<Item>)((System.Collections.Specialized.INotifyCollectionChanged)source));
 
 				if (sourceValue != null)
 				{		
-					sourceValue.Insert(2, new QuickTests.Item(1, true));
+					sync(); sourceValue.Insert(2, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
-					sourceValue[3] = new QuickTests.Item(7, true);
+					sync(); sourceValue[3] = new QuickTests.Item(7, true);
 					testing.ValidateConsistency();
-					sourceValue.RemoveAt(3);
+					sync(); sourceValue.RemoveAt(3);
 					testing.ValidateConsistency();
-					sourceValue.Move(1, 3);
+					sync(); sourceValue.Move(1, 3);
 					testing.ValidateConsistency();
-					sourceValue[2].Active = !sourceValue[2].Active;
+					sync(); sourceValue[2].Active = !sourceValue[2].Active;
 					testing.ValidateConsistency();
-					sourceValue[2].Num = sourceValue[2].Num + 1;
+					sync(); sourceValue[2].Num = sourceValue[2].Num + 1;
 					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
+					sync(); sourceValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					sourceValue.RemoveAt(1);
+					sync(); sourceValue.RemoveAt(1);
 					testing.ValidateConsistency();
-					sourceValue.Insert(0, new QuickTests.Item(1, true));
+					sync(); sourceValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
-					sourceValue.Insert(0, new QuickTests.Item(2, true));
+					sync(); sourceValue.Insert(0, new QuickTests.Item(2, true));
 					testing.ValidateConsistency();
 				}
 
@@ -2411,26 +2440,27 @@ namespace ObservableComputations.Test
 				listSource = ((IList)((System.Collections.Specialized.INotifyCollectionChanged)source));
 				if (listSource != null)
 				{
-					listSource.Clear();
+					sync(); listSource.Clear();
 					testing.ValidateConsistency();
 				}
 
 				if (sourceValue != null)
 				{
-					sourceValue.Insert(0, new QuickTests.Item(1, true));
-					sourceValue.Insert(1, new QuickTests.Item(2, true));
-					sourceValue.Insert(2, new QuickTests.Item(3, true));
-					sourceValue.Insert(3, new QuickTests.Item(3, true));
-					sourceValue.Insert(4, new QuickTests.Item(3, true));
+					sync(); sourceValue.Insert(0, new QuickTests.Item(1, true));
+					sync(); sourceValue.Insert(1, new QuickTests.Item(2, true));
+					sync(); sourceValue.Insert(2, new QuickTests.Item(3, true));
+					sync(); sourceValue.Insert(3, new QuickTests.Item(3, true));
+					sync(); sourceValue.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
 				testing.ValidateConsistency();
 			}
 
 			test();
-			consumer.Dispose();
-			((OcDispatcher)destinationOcDispatcher).Dispose();
+			sync(); consumer.Dispose();
 			((OcDispatcher)sourceOcDispatcher).Dispose();
+			
+			((OcDispatcher)destinationOcDispatcher).Dispose();
 		}
 		
 		[Test, Combinatorial]
@@ -2448,32 +2478,38 @@ namespace ObservableComputations.Test
 			Assert.AreEqual(destinationOcDispatcher, testing.DestinationOcDispatcher);
 			Assert.AreEqual(sourceOcDispatcher, testing.SourceOcDispatcher);
 
+			void sync()
+			{
+				((OcDispatcher)sourceOcDispatcher).Invoke(() => {});
+				((OcDispatcher)destinationOcDispatcher).Invoke(() => {});
+			}
+
 			void test()
 			{
 				testing.ValidateConsistency();
-				var sourceValue = ((ObservableCollection<Item>)((System.Collections.Specialized.INotifyCollectionChanged)source));
+				sync(); var sourceValue = ((ObservableCollection<Item>)((System.Collections.Specialized.INotifyCollectionChanged)source));
 
 				if (sourceValue != null)
 				{		
-					sourceValue.Insert(2, new QuickTests.Item(1, true));
+					sync(); sourceValue.Insert(2, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
-					sourceValue[3] = new QuickTests.Item(7, true);
+					sync(); sourceValue[3] = new QuickTests.Item(7, true);
 					testing.ValidateConsistency();
-					sourceValue.RemoveAt(3);
+					sync(); sourceValue.RemoveAt(3);
 					testing.ValidateConsistency();
-					sourceValue.Move(1, 3);
+					sync(); sourceValue.Move(1, 3);
 					testing.ValidateConsistency();
-					sourceValue[2].Active = !sourceValue[2].Active;
+					sync(); sourceValue[2].Active = !sourceValue[2].Active;
 					testing.ValidateConsistency();
-					sourceValue[2].Num = sourceValue[2].Num + 1;
+					sync(); sourceValue[2].Num = sourceValue[2].Num + 1;
 					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
+					sync(); sourceValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					sourceValue.RemoveAt(1);
+					sync(); sourceValue.RemoveAt(1);
 					testing.ValidateConsistency();
-					sourceValue.Insert(0, new QuickTests.Item(1, true));
+					sync(); sourceValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
-					sourceValue.Insert(0, new QuickTests.Item(2, true));
+					sync(); sourceValue.Insert(0, new QuickTests.Item(2, true));
 					testing.ValidateConsistency();
 				}
 
@@ -2481,35 +2517,36 @@ namespace ObservableComputations.Test
 				listSource = ((IList)((System.Collections.Specialized.INotifyCollectionChanged)source));
 				if (listSource != null)
 				{
-					listSource.Clear();
+					sync(); listSource.Clear();
 					testing.ValidateConsistency();
 				}
 
 				if (sourceValue != null)
 				{
-					sourceValue.Insert(0, new QuickTests.Item(1, true));
-					sourceValue.Insert(1, new QuickTests.Item(2, true));
-					sourceValue.Insert(2, new QuickTests.Item(3, true));
-					sourceValue.Insert(3, new QuickTests.Item(3, true));
-					sourceValue.Insert(4, new QuickTests.Item(3, true));
+					sync(); sourceValue.Insert(0, new QuickTests.Item(1, true));
+					sync(); sourceValue.Insert(1, new QuickTests.Item(2, true));
+					sync(); sourceValue.Insert(2, new QuickTests.Item(3, true));
+					sync(); sourceValue.Insert(3, new QuickTests.Item(3, true));
+					sync(); sourceValue.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
 				testing.ValidateConsistency();
 			}
 
 			test();
-			consumer.Dispose();
-			((OcDispatcher)destinationOcDispatcher).Dispose();
+			sync(); consumer.Dispose();
 			((OcDispatcher)sourceOcDispatcher).Dispose();
+			
+			((OcDispatcher)destinationOcDispatcher).Dispose();
 		}
 		
 		[Test, Combinatorial]
-		public void TestCollectionDispatching10(
-			[Values()] int destinationOcDispatcherPriority,
-			[Values()] int sourceOcDispatcherPriority)
+		public void TestCollectionDispatching10()
 		{
 			System.Collections.Specialized.INotifyCollectionChanged source = getItems();
 			ObservableComputations.IOcDispatcher destinationOcDispatcher = new OcDispatcher();
+			int destinationOcDispatcherPriority = 0;
+			int sourceOcDispatcherPriority = 0;
 			object destinationOcDispatcherParameter = new object();
 			object sourceOcDispatcherParameter = new object();
 			OcConsumer consumer = new OcConsumer();
@@ -2527,32 +2564,37 @@ namespace ObservableComputations.Test
 			Assert.AreEqual(destinationOcDispatcherParameter, testing.DestinationOcDispatcherParameter);
 			Assert.AreEqual(sourceOcDispatcherParameter, testing.SourceOcDispatcherParameter);
 
+			void sync()
+			{
+				((OcDispatcher)destinationOcDispatcher).Invoke(() => {});
+			}
+
 			void test()
 			{
 				testing.ValidateConsistency();
-				var sourceValue = ((ObservableCollection<Item>)((System.Collections.Specialized.INotifyCollectionChanged)source));
+				sync(); var sourceValue = ((ObservableCollection<Item>)((System.Collections.Specialized.INotifyCollectionChanged)source));
 
 				if (sourceValue != null)
 				{		
-					sourceValue.Insert(2, new QuickTests.Item(1, true));
+					sync(); sourceValue.Insert(2, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
-					sourceValue[3] = new QuickTests.Item(7, true);
+					sync(); sourceValue[3] = new QuickTests.Item(7, true);
 					testing.ValidateConsistency();
-					sourceValue.RemoveAt(3);
+					sync(); sourceValue.RemoveAt(3);
 					testing.ValidateConsistency();
-					sourceValue.Move(1, 3);
+					sync(); sourceValue.Move(1, 3);
 					testing.ValidateConsistency();
-					sourceValue[2].Active = !sourceValue[2].Active;
+					sync(); sourceValue[2].Active = !sourceValue[2].Active;
 					testing.ValidateConsistency();
-					sourceValue[2].Num = sourceValue[2].Num + 1;
+					sync(); sourceValue[2].Num = sourceValue[2].Num + 1;
 					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
+					sync(); sourceValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					sourceValue.RemoveAt(1);
+					sync(); sourceValue.RemoveAt(1);
 					testing.ValidateConsistency();
-					sourceValue.Insert(0, new QuickTests.Item(1, true));
+					sync(); sourceValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
-					sourceValue.Insert(0, new QuickTests.Item(2, true));
+					sync(); sourceValue.Insert(0, new QuickTests.Item(2, true));
 					testing.ValidateConsistency();
 				}
 
@@ -2560,34 +2602,35 @@ namespace ObservableComputations.Test
 				listSource = ((IList)((System.Collections.Specialized.INotifyCollectionChanged)source));
 				if (listSource != null)
 				{
-					listSource.Clear();
+					sync(); listSource.Clear();
 					testing.ValidateConsistency();
 				}
 
 				if (sourceValue != null)
 				{
-					sourceValue.Insert(0, new QuickTests.Item(1, true));
-					sourceValue.Insert(1, new QuickTests.Item(2, true));
-					sourceValue.Insert(2, new QuickTests.Item(3, true));
-					sourceValue.Insert(3, new QuickTests.Item(3, true));
-					sourceValue.Insert(4, new QuickTests.Item(3, true));
+					sync(); sourceValue.Insert(0, new QuickTests.Item(1, true));
+					sync(); sourceValue.Insert(1, new QuickTests.Item(2, true));
+					sync(); sourceValue.Insert(2, new QuickTests.Item(3, true));
+					sync(); sourceValue.Insert(3, new QuickTests.Item(3, true));
+					sync(); sourceValue.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
 				testing.ValidateConsistency();
 			}
 
 			test();
-			consumer.Dispose();
+			sync(); consumer.Dispose();
+			
 			((OcDispatcher)destinationOcDispatcher).Dispose();
 		}
 		
 		[Test, Combinatorial]
-		public void TestCollectionDispatching11(
-			[Values()] int destinationOcDispatcherPriority,
-			[Values()] int sourceOcDispatcherPriority)
+		public void TestCollectionDispatching11()
 		{
 			System.Collections.Specialized.INotifyCollectionChanged source = getItems();
 			ObservableComputations.IOcDispatcher destinationOcDispatcher = new OcDispatcher();
+			int destinationOcDispatcherPriority = 0;
+			int sourceOcDispatcherPriority = 0;
 			object destinationOcDispatcherParameter = new object();
 			OcConsumer consumer = new OcConsumer();
 			var testing = source.CollectionDispatching<Item>(
@@ -2602,32 +2645,37 @@ namespace ObservableComputations.Test
 			Assert.AreEqual(sourceOcDispatcherPriority, testing.SourceOcDispatcherPriority);
 			Assert.AreEqual(destinationOcDispatcherParameter, testing.DestinationOcDispatcherParameter);
 
+			void sync()
+			{
+				((OcDispatcher)destinationOcDispatcher).Invoke(() => {});
+			}
+
 			void test()
 			{
 				testing.ValidateConsistency();
-				var sourceValue = ((ObservableCollection<Item>)((System.Collections.Specialized.INotifyCollectionChanged)source));
+				sync(); var sourceValue = ((ObservableCollection<Item>)((System.Collections.Specialized.INotifyCollectionChanged)source));
 
 				if (sourceValue != null)
 				{		
-					sourceValue.Insert(2, new QuickTests.Item(1, true));
+					sync(); sourceValue.Insert(2, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
-					sourceValue[3] = new QuickTests.Item(7, true);
+					sync(); sourceValue[3] = new QuickTests.Item(7, true);
 					testing.ValidateConsistency();
-					sourceValue.RemoveAt(3);
+					sync(); sourceValue.RemoveAt(3);
 					testing.ValidateConsistency();
-					sourceValue.Move(1, 3);
+					sync(); sourceValue.Move(1, 3);
 					testing.ValidateConsistency();
-					sourceValue[2].Active = !sourceValue[2].Active;
+					sync(); sourceValue[2].Active = !sourceValue[2].Active;
 					testing.ValidateConsistency();
-					sourceValue[2].Num = sourceValue[2].Num + 1;
+					sync(); sourceValue[2].Num = sourceValue[2].Num + 1;
 					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
+					sync(); sourceValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					sourceValue.RemoveAt(1);
+					sync(); sourceValue.RemoveAt(1);
 					testing.ValidateConsistency();
-					sourceValue.Insert(0, new QuickTests.Item(1, true));
+					sync(); sourceValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
-					sourceValue.Insert(0, new QuickTests.Item(2, true));
+					sync(); sourceValue.Insert(0, new QuickTests.Item(2, true));
 					testing.ValidateConsistency();
 				}
 
@@ -2635,34 +2683,35 @@ namespace ObservableComputations.Test
 				listSource = ((IList)((System.Collections.Specialized.INotifyCollectionChanged)source));
 				if (listSource != null)
 				{
-					listSource.Clear();
+					sync(); listSource.Clear();
 					testing.ValidateConsistency();
 				}
 
 				if (sourceValue != null)
 				{
-					sourceValue.Insert(0, new QuickTests.Item(1, true));
-					sourceValue.Insert(1, new QuickTests.Item(2, true));
-					sourceValue.Insert(2, new QuickTests.Item(3, true));
-					sourceValue.Insert(3, new QuickTests.Item(3, true));
-					sourceValue.Insert(4, new QuickTests.Item(3, true));
+					sync(); sourceValue.Insert(0, new QuickTests.Item(1, true));
+					sync(); sourceValue.Insert(1, new QuickTests.Item(2, true));
+					sync(); sourceValue.Insert(2, new QuickTests.Item(3, true));
+					sync(); sourceValue.Insert(3, new QuickTests.Item(3, true));
+					sync(); sourceValue.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
 				testing.ValidateConsistency();
 			}
 
 			test();
-			consumer.Dispose();
+			sync(); consumer.Dispose();
+			
 			((OcDispatcher)destinationOcDispatcher).Dispose();
 		}
 		
 		[Test, Combinatorial]
-		public void TestCollectionDispatching12(
-			[Values()] int destinationOcDispatcherPriority,
-			[Values()] int sourceOcDispatcherPriority)
+		public void TestCollectionDispatching12()
 		{
 			System.Collections.Specialized.INotifyCollectionChanged source = getItems();
 			ObservableComputations.IOcDispatcher destinationOcDispatcher = new OcDispatcher();
+			int destinationOcDispatcherPriority = 0;
+			int sourceOcDispatcherPriority = 0;
 			OcConsumer consumer = new OcConsumer();
 			var testing = source.CollectionDispatching<Item>(
 				destinationOcDispatcher,
@@ -2674,32 +2723,37 @@ namespace ObservableComputations.Test
 			Assert.AreEqual(destinationOcDispatcherPriority, testing.DestinationOcDispatcherPriority);
 			Assert.AreEqual(sourceOcDispatcherPriority, testing.SourceOcDispatcherPriority);
 
+			void sync()
+			{
+				((OcDispatcher)destinationOcDispatcher).Invoke(() => {});
+			}
+
 			void test()
 			{
 				testing.ValidateConsistency();
-				var sourceValue = ((ObservableCollection<Item>)((System.Collections.Specialized.INotifyCollectionChanged)source));
+				sync(); var sourceValue = ((ObservableCollection<Item>)((System.Collections.Specialized.INotifyCollectionChanged)source));
 
 				if (sourceValue != null)
 				{		
-					sourceValue.Insert(2, new QuickTests.Item(1, true));
+					sync(); sourceValue.Insert(2, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
-					sourceValue[3] = new QuickTests.Item(7, true);
+					sync(); sourceValue[3] = new QuickTests.Item(7, true);
 					testing.ValidateConsistency();
-					sourceValue.RemoveAt(3);
+					sync(); sourceValue.RemoveAt(3);
 					testing.ValidateConsistency();
-					sourceValue.Move(1, 3);
+					sync(); sourceValue.Move(1, 3);
 					testing.ValidateConsistency();
-					sourceValue[2].Active = !sourceValue[2].Active;
+					sync(); sourceValue[2].Active = !sourceValue[2].Active;
 					testing.ValidateConsistency();
-					sourceValue[2].Num = sourceValue[2].Num + 1;
+					sync(); sourceValue[2].Num = sourceValue[2].Num + 1;
 					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
+					sync(); sourceValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					sourceValue.RemoveAt(1);
+					sync(); sourceValue.RemoveAt(1);
 					testing.ValidateConsistency();
-					sourceValue.Insert(0, new QuickTests.Item(1, true));
+					sync(); sourceValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
-					sourceValue.Insert(0, new QuickTests.Item(2, true));
+					sync(); sourceValue.Insert(0, new QuickTests.Item(2, true));
 					testing.ValidateConsistency();
 				}
 
@@ -2707,33 +2761,34 @@ namespace ObservableComputations.Test
 				listSource = ((IList)((System.Collections.Specialized.INotifyCollectionChanged)source));
 				if (listSource != null)
 				{
-					listSource.Clear();
+					sync(); listSource.Clear();
 					testing.ValidateConsistency();
 				}
 
 				if (sourceValue != null)
 				{
-					sourceValue.Insert(0, new QuickTests.Item(1, true));
-					sourceValue.Insert(1, new QuickTests.Item(2, true));
-					sourceValue.Insert(2, new QuickTests.Item(3, true));
-					sourceValue.Insert(3, new QuickTests.Item(3, true));
-					sourceValue.Insert(4, new QuickTests.Item(3, true));
+					sync(); sourceValue.Insert(0, new QuickTests.Item(1, true));
+					sync(); sourceValue.Insert(1, new QuickTests.Item(2, true));
+					sync(); sourceValue.Insert(2, new QuickTests.Item(3, true));
+					sync(); sourceValue.Insert(3, new QuickTests.Item(3, true));
+					sync(); sourceValue.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
 				testing.ValidateConsistency();
 			}
 
 			test();
-			consumer.Dispose();
+			sync(); consumer.Dispose();
+			
 			((OcDispatcher)destinationOcDispatcher).Dispose();
 		}
 		
 		[Test, Combinatorial]
-		public void TestCollectionDispatching13(
-			[Values()] int destinationOcDispatcherPriority)
+		public void TestCollectionDispatching13()
 		{
 			System.Collections.Specialized.INotifyCollectionChanged source = getItems();
 			ObservableComputations.IOcDispatcher destinationOcDispatcher = new OcDispatcher();
+			int destinationOcDispatcherPriority = 0;
 			object destinationOcDispatcherParameter = new object();
 			object sourceOcDispatcherParameter = new object();
 			OcConsumer consumer = new OcConsumer();
@@ -2749,32 +2804,37 @@ namespace ObservableComputations.Test
 			Assert.AreEqual(destinationOcDispatcherParameter, testing.DestinationOcDispatcherParameter);
 			Assert.AreEqual(sourceOcDispatcherParameter, testing.SourceOcDispatcherParameter);
 
+			void sync()
+			{
+				((OcDispatcher)destinationOcDispatcher).Invoke(() => {});
+			}
+
 			void test()
 			{
 				testing.ValidateConsistency();
-				var sourceValue = ((ObservableCollection<Item>)((System.Collections.Specialized.INotifyCollectionChanged)source));
+				sync(); var sourceValue = ((ObservableCollection<Item>)((System.Collections.Specialized.INotifyCollectionChanged)source));
 
 				if (sourceValue != null)
 				{		
-					sourceValue.Insert(2, new QuickTests.Item(1, true));
+					sync(); sourceValue.Insert(2, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
-					sourceValue[3] = new QuickTests.Item(7, true);
+					sync(); sourceValue[3] = new QuickTests.Item(7, true);
 					testing.ValidateConsistency();
-					sourceValue.RemoveAt(3);
+					sync(); sourceValue.RemoveAt(3);
 					testing.ValidateConsistency();
-					sourceValue.Move(1, 3);
+					sync(); sourceValue.Move(1, 3);
 					testing.ValidateConsistency();
-					sourceValue[2].Active = !sourceValue[2].Active;
+					sync(); sourceValue[2].Active = !sourceValue[2].Active;
 					testing.ValidateConsistency();
-					sourceValue[2].Num = sourceValue[2].Num + 1;
+					sync(); sourceValue[2].Num = sourceValue[2].Num + 1;
 					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
+					sync(); sourceValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					sourceValue.RemoveAt(1);
+					sync(); sourceValue.RemoveAt(1);
 					testing.ValidateConsistency();
-					sourceValue.Insert(0, new QuickTests.Item(1, true));
+					sync(); sourceValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
-					sourceValue.Insert(0, new QuickTests.Item(2, true));
+					sync(); sourceValue.Insert(0, new QuickTests.Item(2, true));
 					testing.ValidateConsistency();
 				}
 
@@ -2782,33 +2842,34 @@ namespace ObservableComputations.Test
 				listSource = ((IList)((System.Collections.Specialized.INotifyCollectionChanged)source));
 				if (listSource != null)
 				{
-					listSource.Clear();
+					sync(); listSource.Clear();
 					testing.ValidateConsistency();
 				}
 
 				if (sourceValue != null)
 				{
-					sourceValue.Insert(0, new QuickTests.Item(1, true));
-					sourceValue.Insert(1, new QuickTests.Item(2, true));
-					sourceValue.Insert(2, new QuickTests.Item(3, true));
-					sourceValue.Insert(3, new QuickTests.Item(3, true));
-					sourceValue.Insert(4, new QuickTests.Item(3, true));
+					sync(); sourceValue.Insert(0, new QuickTests.Item(1, true));
+					sync(); sourceValue.Insert(1, new QuickTests.Item(2, true));
+					sync(); sourceValue.Insert(2, new QuickTests.Item(3, true));
+					sync(); sourceValue.Insert(3, new QuickTests.Item(3, true));
+					sync(); sourceValue.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
 				testing.ValidateConsistency();
 			}
 
 			test();
-			consumer.Dispose();
+			sync(); consumer.Dispose();
+			
 			((OcDispatcher)destinationOcDispatcher).Dispose();
 		}
 		
 		[Test, Combinatorial]
-		public void TestCollectionDispatching14(
-			[Values()] int destinationOcDispatcherPriority)
+		public void TestCollectionDispatching14()
 		{
 			System.Collections.Specialized.INotifyCollectionChanged source = getItems();
 			ObservableComputations.IOcDispatcher destinationOcDispatcher = new OcDispatcher();
+			int destinationOcDispatcherPriority = 0;
 			object destinationOcDispatcherParameter = new object();
 			OcConsumer consumer = new OcConsumer();
 			var testing = source.CollectionDispatching<Item>(
@@ -2821,32 +2882,37 @@ namespace ObservableComputations.Test
 			Assert.AreEqual(destinationOcDispatcherPriority, testing.DestinationOcDispatcherPriority);
 			Assert.AreEqual(destinationOcDispatcherParameter, testing.DestinationOcDispatcherParameter);
 
+			void sync()
+			{
+				((OcDispatcher)destinationOcDispatcher).Invoke(() => {});
+			}
+
 			void test()
 			{
 				testing.ValidateConsistency();
-				var sourceValue = ((ObservableCollection<Item>)((System.Collections.Specialized.INotifyCollectionChanged)source));
+				sync(); var sourceValue = ((ObservableCollection<Item>)((System.Collections.Specialized.INotifyCollectionChanged)source));
 
 				if (sourceValue != null)
 				{		
-					sourceValue.Insert(2, new QuickTests.Item(1, true));
+					sync(); sourceValue.Insert(2, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
-					sourceValue[3] = new QuickTests.Item(7, true);
+					sync(); sourceValue[3] = new QuickTests.Item(7, true);
 					testing.ValidateConsistency();
-					sourceValue.RemoveAt(3);
+					sync(); sourceValue.RemoveAt(3);
 					testing.ValidateConsistency();
-					sourceValue.Move(1, 3);
+					sync(); sourceValue.Move(1, 3);
 					testing.ValidateConsistency();
-					sourceValue[2].Active = !sourceValue[2].Active;
+					sync(); sourceValue[2].Active = !sourceValue[2].Active;
 					testing.ValidateConsistency();
-					sourceValue[2].Num = sourceValue[2].Num + 1;
+					sync(); sourceValue[2].Num = sourceValue[2].Num + 1;
 					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
+					sync(); sourceValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					sourceValue.RemoveAt(1);
+					sync(); sourceValue.RemoveAt(1);
 					testing.ValidateConsistency();
-					sourceValue.Insert(0, new QuickTests.Item(1, true));
+					sync(); sourceValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
-					sourceValue.Insert(0, new QuickTests.Item(2, true));
+					sync(); sourceValue.Insert(0, new QuickTests.Item(2, true));
 					testing.ValidateConsistency();
 				}
 
@@ -2854,33 +2920,34 @@ namespace ObservableComputations.Test
 				listSource = ((IList)((System.Collections.Specialized.INotifyCollectionChanged)source));
 				if (listSource != null)
 				{
-					listSource.Clear();
+					sync(); listSource.Clear();
 					testing.ValidateConsistency();
 				}
 
 				if (sourceValue != null)
 				{
-					sourceValue.Insert(0, new QuickTests.Item(1, true));
-					sourceValue.Insert(1, new QuickTests.Item(2, true));
-					sourceValue.Insert(2, new QuickTests.Item(3, true));
-					sourceValue.Insert(3, new QuickTests.Item(3, true));
-					sourceValue.Insert(4, new QuickTests.Item(3, true));
+					sync(); sourceValue.Insert(0, new QuickTests.Item(1, true));
+					sync(); sourceValue.Insert(1, new QuickTests.Item(2, true));
+					sync(); sourceValue.Insert(2, new QuickTests.Item(3, true));
+					sync(); sourceValue.Insert(3, new QuickTests.Item(3, true));
+					sync(); sourceValue.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
 				testing.ValidateConsistency();
 			}
 
 			test();
-			consumer.Dispose();
+			sync(); consumer.Dispose();
+			
 			((OcDispatcher)destinationOcDispatcher).Dispose();
 		}
 		
 		[Test, Combinatorial]
-		public void TestCollectionDispatching15(
-			[Values()] int destinationOcDispatcherPriority)
+		public void TestCollectionDispatching15()
 		{
 			System.Collections.Specialized.INotifyCollectionChanged source = getItems();
 			ObservableComputations.IOcDispatcher destinationOcDispatcher = new OcDispatcher();
+			int destinationOcDispatcherPriority = 0;
 			OcConsumer consumer = new OcConsumer();
 			var testing = source.CollectionDispatching<Item>(
 				destinationOcDispatcher,
@@ -2890,32 +2957,37 @@ namespace ObservableComputations.Test
 			Assert.AreEqual(destinationOcDispatcher, testing.DestinationOcDispatcher);
 			Assert.AreEqual(destinationOcDispatcherPriority, testing.DestinationOcDispatcherPriority);
 
+			void sync()
+			{
+				((OcDispatcher)destinationOcDispatcher).Invoke(() => {});
+			}
+
 			void test()
 			{
 				testing.ValidateConsistency();
-				var sourceValue = ((ObservableCollection<Item>)((System.Collections.Specialized.INotifyCollectionChanged)source));
+				sync(); var sourceValue = ((ObservableCollection<Item>)((System.Collections.Specialized.INotifyCollectionChanged)source));
 
 				if (sourceValue != null)
 				{		
-					sourceValue.Insert(2, new QuickTests.Item(1, true));
+					sync(); sourceValue.Insert(2, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
-					sourceValue[3] = new QuickTests.Item(7, true);
+					sync(); sourceValue[3] = new QuickTests.Item(7, true);
 					testing.ValidateConsistency();
-					sourceValue.RemoveAt(3);
+					sync(); sourceValue.RemoveAt(3);
 					testing.ValidateConsistency();
-					sourceValue.Move(1, 3);
+					sync(); sourceValue.Move(1, 3);
 					testing.ValidateConsistency();
-					sourceValue[2].Active = !sourceValue[2].Active;
+					sync(); sourceValue[2].Active = !sourceValue[2].Active;
 					testing.ValidateConsistency();
-					sourceValue[2].Num = sourceValue[2].Num + 1;
+					sync(); sourceValue[2].Num = sourceValue[2].Num + 1;
 					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
+					sync(); sourceValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					sourceValue.RemoveAt(1);
+					sync(); sourceValue.RemoveAt(1);
 					testing.ValidateConsistency();
-					sourceValue.Insert(0, new QuickTests.Item(1, true));
+					sync(); sourceValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
-					sourceValue.Insert(0, new QuickTests.Item(2, true));
+					sync(); sourceValue.Insert(0, new QuickTests.Item(2, true));
 					testing.ValidateConsistency();
 				}
 
@@ -2923,24 +2995,25 @@ namespace ObservableComputations.Test
 				listSource = ((IList)((System.Collections.Specialized.INotifyCollectionChanged)source));
 				if (listSource != null)
 				{
-					listSource.Clear();
+					sync(); listSource.Clear();
 					testing.ValidateConsistency();
 				}
 
 				if (sourceValue != null)
 				{
-					sourceValue.Insert(0, new QuickTests.Item(1, true));
-					sourceValue.Insert(1, new QuickTests.Item(2, true));
-					sourceValue.Insert(2, new QuickTests.Item(3, true));
-					sourceValue.Insert(3, new QuickTests.Item(3, true));
-					sourceValue.Insert(4, new QuickTests.Item(3, true));
+					sync(); sourceValue.Insert(0, new QuickTests.Item(1, true));
+					sync(); sourceValue.Insert(1, new QuickTests.Item(2, true));
+					sync(); sourceValue.Insert(2, new QuickTests.Item(3, true));
+					sync(); sourceValue.Insert(3, new QuickTests.Item(3, true));
+					sync(); sourceValue.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
 				testing.ValidateConsistency();
 			}
 
 			test();
-			consumer.Dispose();
+			sync(); consumer.Dispose();
+			
 			((OcDispatcher)destinationOcDispatcher).Dispose();
 		}
 		
@@ -2962,32 +3035,37 @@ namespace ObservableComputations.Test
 			Assert.AreEqual(destinationOcDispatcherParameter, testing.DestinationOcDispatcherParameter);
 			Assert.AreEqual(sourceOcDispatcherParameter, testing.SourceOcDispatcherParameter);
 
+			void sync()
+			{
+				((OcDispatcher)destinationOcDispatcher).Invoke(() => {});
+			}
+
 			void test()
 			{
 				testing.ValidateConsistency();
-				var sourceValue = ((ObservableCollection<Item>)((System.Collections.Specialized.INotifyCollectionChanged)source));
+				sync(); var sourceValue = ((ObservableCollection<Item>)((System.Collections.Specialized.INotifyCollectionChanged)source));
 
 				if (sourceValue != null)
 				{		
-					sourceValue.Insert(2, new QuickTests.Item(1, true));
+					sync(); sourceValue.Insert(2, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
-					sourceValue[3] = new QuickTests.Item(7, true);
+					sync(); sourceValue[3] = new QuickTests.Item(7, true);
 					testing.ValidateConsistency();
-					sourceValue.RemoveAt(3);
+					sync(); sourceValue.RemoveAt(3);
 					testing.ValidateConsistency();
-					sourceValue.Move(1, 3);
+					sync(); sourceValue.Move(1, 3);
 					testing.ValidateConsistency();
-					sourceValue[2].Active = !sourceValue[2].Active;
+					sync(); sourceValue[2].Active = !sourceValue[2].Active;
 					testing.ValidateConsistency();
-					sourceValue[2].Num = sourceValue[2].Num + 1;
+					sync(); sourceValue[2].Num = sourceValue[2].Num + 1;
 					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
+					sync(); sourceValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					sourceValue.RemoveAt(1);
+					sync(); sourceValue.RemoveAt(1);
 					testing.ValidateConsistency();
-					sourceValue.Insert(0, new QuickTests.Item(1, true));
+					sync(); sourceValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
-					sourceValue.Insert(0, new QuickTests.Item(2, true));
+					sync(); sourceValue.Insert(0, new QuickTests.Item(2, true));
 					testing.ValidateConsistency();
 				}
 
@@ -2995,24 +3073,25 @@ namespace ObservableComputations.Test
 				listSource = ((IList)((System.Collections.Specialized.INotifyCollectionChanged)source));
 				if (listSource != null)
 				{
-					listSource.Clear();
+					sync(); listSource.Clear();
 					testing.ValidateConsistency();
 				}
 
 				if (sourceValue != null)
 				{
-					sourceValue.Insert(0, new QuickTests.Item(1, true));
-					sourceValue.Insert(1, new QuickTests.Item(2, true));
-					sourceValue.Insert(2, new QuickTests.Item(3, true));
-					sourceValue.Insert(3, new QuickTests.Item(3, true));
-					sourceValue.Insert(4, new QuickTests.Item(3, true));
+					sync(); sourceValue.Insert(0, new QuickTests.Item(1, true));
+					sync(); sourceValue.Insert(1, new QuickTests.Item(2, true));
+					sync(); sourceValue.Insert(2, new QuickTests.Item(3, true));
+					sync(); sourceValue.Insert(3, new QuickTests.Item(3, true));
+					sync(); sourceValue.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
 				testing.ValidateConsistency();
 			}
 
 			test();
-			consumer.Dispose();
+			sync(); consumer.Dispose();
+			
 			((OcDispatcher)destinationOcDispatcher).Dispose();
 		}
 		
@@ -3031,32 +3110,37 @@ namespace ObservableComputations.Test
 			Assert.AreEqual(destinationOcDispatcher, testing.DestinationOcDispatcher);
 			Assert.AreEqual(destinationOcDispatcherParameter, testing.DestinationOcDispatcherParameter);
 
+			void sync()
+			{
+				((OcDispatcher)destinationOcDispatcher).Invoke(() => {});
+			}
+
 			void test()
 			{
 				testing.ValidateConsistency();
-				var sourceValue = ((ObservableCollection<Item>)((System.Collections.Specialized.INotifyCollectionChanged)source));
+				sync(); var sourceValue = ((ObservableCollection<Item>)((System.Collections.Specialized.INotifyCollectionChanged)source));
 
 				if (sourceValue != null)
 				{		
-					sourceValue.Insert(2, new QuickTests.Item(1, true));
+					sync(); sourceValue.Insert(2, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
-					sourceValue[3] = new QuickTests.Item(7, true);
+					sync(); sourceValue[3] = new QuickTests.Item(7, true);
 					testing.ValidateConsistency();
-					sourceValue.RemoveAt(3);
+					sync(); sourceValue.RemoveAt(3);
 					testing.ValidateConsistency();
-					sourceValue.Move(1, 3);
+					sync(); sourceValue.Move(1, 3);
 					testing.ValidateConsistency();
-					sourceValue[2].Active = !sourceValue[2].Active;
+					sync(); sourceValue[2].Active = !sourceValue[2].Active;
 					testing.ValidateConsistency();
-					sourceValue[2].Num = sourceValue[2].Num + 1;
+					sync(); sourceValue[2].Num = sourceValue[2].Num + 1;
 					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
+					sync(); sourceValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					sourceValue.RemoveAt(1);
+					sync(); sourceValue.RemoveAt(1);
 					testing.ValidateConsistency();
-					sourceValue.Insert(0, new QuickTests.Item(1, true));
+					sync(); sourceValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
-					sourceValue.Insert(0, new QuickTests.Item(2, true));
+					sync(); sourceValue.Insert(0, new QuickTests.Item(2, true));
 					testing.ValidateConsistency();
 				}
 
@@ -3064,24 +3148,25 @@ namespace ObservableComputations.Test
 				listSource = ((IList)((System.Collections.Specialized.INotifyCollectionChanged)source));
 				if (listSource != null)
 				{
-					listSource.Clear();
+					sync(); listSource.Clear();
 					testing.ValidateConsistency();
 				}
 
 				if (sourceValue != null)
 				{
-					sourceValue.Insert(0, new QuickTests.Item(1, true));
-					sourceValue.Insert(1, new QuickTests.Item(2, true));
-					sourceValue.Insert(2, new QuickTests.Item(3, true));
-					sourceValue.Insert(3, new QuickTests.Item(3, true));
-					sourceValue.Insert(4, new QuickTests.Item(3, true));
+					sync(); sourceValue.Insert(0, new QuickTests.Item(1, true));
+					sync(); sourceValue.Insert(1, new QuickTests.Item(2, true));
+					sync(); sourceValue.Insert(2, new QuickTests.Item(3, true));
+					sync(); sourceValue.Insert(3, new QuickTests.Item(3, true));
+					sync(); sourceValue.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
 				testing.ValidateConsistency();
 			}
 
 			test();
-			consumer.Dispose();
+			sync(); consumer.Dispose();
+			
 			((OcDispatcher)destinationOcDispatcher).Dispose();
 		}
 		
@@ -3097,32 +3182,37 @@ namespace ObservableComputations.Test
 			Assert.AreEqual(source, testing.Source);
 			Assert.AreEqual(destinationOcDispatcher, testing.DestinationOcDispatcher);
 
+			void sync()
+			{
+				((OcDispatcher)destinationOcDispatcher).Invoke(() => {});
+			}
+
 			void test()
 			{
 				testing.ValidateConsistency();
-				var sourceValue = ((ObservableCollection<Item>)((System.Collections.Specialized.INotifyCollectionChanged)source));
+				sync(); var sourceValue = ((ObservableCollection<Item>)((System.Collections.Specialized.INotifyCollectionChanged)source));
 
 				if (sourceValue != null)
 				{		
-					sourceValue.Insert(2, new QuickTests.Item(1, true));
+					sync(); sourceValue.Insert(2, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
-					sourceValue[3] = new QuickTests.Item(7, true);
+					sync(); sourceValue[3] = new QuickTests.Item(7, true);
 					testing.ValidateConsistency();
-					sourceValue.RemoveAt(3);
+					sync(); sourceValue.RemoveAt(3);
 					testing.ValidateConsistency();
-					sourceValue.Move(1, 3);
+					sync(); sourceValue.Move(1, 3);
 					testing.ValidateConsistency();
-					sourceValue[2].Active = !sourceValue[2].Active;
+					sync(); sourceValue[2].Active = !sourceValue[2].Active;
 					testing.ValidateConsistency();
-					sourceValue[2].Num = sourceValue[2].Num + 1;
+					sync(); sourceValue[2].Num = sourceValue[2].Num + 1;
 					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
+					sync(); sourceValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					sourceValue.RemoveAt(1);
+					sync(); sourceValue.RemoveAt(1);
 					testing.ValidateConsistency();
-					sourceValue.Insert(0, new QuickTests.Item(1, true));
+					sync(); sourceValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
-					sourceValue.Insert(0, new QuickTests.Item(2, true));
+					sync(); sourceValue.Insert(0, new QuickTests.Item(2, true));
 					testing.ValidateConsistency();
 				}
 
@@ -3130,35 +3220,36 @@ namespace ObservableComputations.Test
 				listSource = ((IList)((System.Collections.Specialized.INotifyCollectionChanged)source));
 				if (listSource != null)
 				{
-					listSource.Clear();
+					sync(); listSource.Clear();
 					testing.ValidateConsistency();
 				}
 
 				if (sourceValue != null)
 				{
-					sourceValue.Insert(0, new QuickTests.Item(1, true));
-					sourceValue.Insert(1, new QuickTests.Item(2, true));
-					sourceValue.Insert(2, new QuickTests.Item(3, true));
-					sourceValue.Insert(3, new QuickTests.Item(3, true));
-					sourceValue.Insert(4, new QuickTests.Item(3, true));
+					sync(); sourceValue.Insert(0, new QuickTests.Item(1, true));
+					sync(); sourceValue.Insert(1, new QuickTests.Item(2, true));
+					sync(); sourceValue.Insert(2, new QuickTests.Item(3, true));
+					sync(); sourceValue.Insert(3, new QuickTests.Item(3, true));
+					sync(); sourceValue.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
 				testing.ValidateConsistency();
 			}
 
 			test();
-			consumer.Dispose();
+			sync(); consumer.Dispose();
+			
 			((OcDispatcher)destinationOcDispatcher).Dispose();
 		}
 		
 		[Test, Combinatorial]
-		public void TestCollectionDispatching19(
-			[Values()] int destinationOcDispatcherPriority,
-			[Values()] int sourceOcDispatcherPriority)
+		public void TestCollectionDispatching19()
 		{
 			ObservableCollection<Item> source = getItems();
 			ObservableComputations.IOcDispatcher destinationOcDispatcher = new OcDispatcher();
 			ObservableComputations.IOcDispatcher sourceOcDispatcher = new OcDispatcher();
+			int destinationOcDispatcherPriority = 0;
+			int sourceOcDispatcherPriority = 0;
 			object destinationOcDispatcherParameter = new object();
 			object sourceOcDispatcherParameter = new object();
 			OcConsumer consumer = new OcConsumer();
@@ -3178,32 +3269,38 @@ namespace ObservableComputations.Test
 			Assert.AreEqual(destinationOcDispatcherParameter, testing.DestinationOcDispatcherParameter);
 			Assert.AreEqual(sourceOcDispatcherParameter, testing.SourceOcDispatcherParameter);
 
+			void sync()
+			{
+				((OcDispatcher)sourceOcDispatcher).Invoke(() => {});
+				((OcDispatcher)destinationOcDispatcher).Invoke(() => {});
+			}
+
 			void test()
 			{
 				testing.ValidateConsistency();
-				var sourceValue = ((ObservableCollection<Item>)((ObservableCollection<Item>)source));
+				sync(); var sourceValue = ((ObservableCollection<Item>)((ObservableCollection<Item>)source));
 
 				if (sourceValue != null)
 				{		
-					sourceValue.Insert(2, new QuickTests.Item(1, true));
+					sync(); sourceValue.Insert(2, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
-					sourceValue[3] = new QuickTests.Item(7, true);
+					sync(); sourceValue[3] = new QuickTests.Item(7, true);
 					testing.ValidateConsistency();
-					sourceValue.RemoveAt(3);
+					sync(); sourceValue.RemoveAt(3);
 					testing.ValidateConsistency();
-					sourceValue.Move(1, 3);
+					sync(); sourceValue.Move(1, 3);
 					testing.ValidateConsistency();
-					sourceValue[2].Active = !sourceValue[2].Active;
+					sync(); sourceValue[2].Active = !sourceValue[2].Active;
 					testing.ValidateConsistency();
-					sourceValue[2].Num = sourceValue[2].Num + 1;
+					sync(); sourceValue[2].Num = sourceValue[2].Num + 1;
 					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
+					sync(); sourceValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					sourceValue.RemoveAt(1);
+					sync(); sourceValue.RemoveAt(1);
 					testing.ValidateConsistency();
-					sourceValue.Insert(0, new QuickTests.Item(1, true));
+					sync(); sourceValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
-					sourceValue.Insert(0, new QuickTests.Item(2, true));
+					sync(); sourceValue.Insert(0, new QuickTests.Item(2, true));
 					testing.ValidateConsistency();
 				}
 
@@ -3211,36 +3308,37 @@ namespace ObservableComputations.Test
 				listSource = ((IList)((ObservableCollection<Item>)source));
 				if (listSource != null)
 				{
-					listSource.Clear();
+					sync(); listSource.Clear();
 					testing.ValidateConsistency();
 				}
 
 				if (sourceValue != null)
 				{
-					sourceValue.Insert(0, new QuickTests.Item(1, true));
-					sourceValue.Insert(1, new QuickTests.Item(2, true));
-					sourceValue.Insert(2, new QuickTests.Item(3, true));
-					sourceValue.Insert(3, new QuickTests.Item(3, true));
-					sourceValue.Insert(4, new QuickTests.Item(3, true));
+					sync(); sourceValue.Insert(0, new QuickTests.Item(1, true));
+					sync(); sourceValue.Insert(1, new QuickTests.Item(2, true));
+					sync(); sourceValue.Insert(2, new QuickTests.Item(3, true));
+					sync(); sourceValue.Insert(3, new QuickTests.Item(3, true));
+					sync(); sourceValue.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
 				testing.ValidateConsistency();
 			}
 
 			test();
-			consumer.Dispose();
-			((OcDispatcher)destinationOcDispatcher).Dispose();
+			sync(); consumer.Dispose();
 			((OcDispatcher)sourceOcDispatcher).Dispose();
+			
+			((OcDispatcher)destinationOcDispatcher).Dispose();
 		}
 		
 		[Test, Combinatorial]
-		public void TestCollectionDispatching20(
-			[Values()] int destinationOcDispatcherPriority,
-			[Values()] int sourceOcDispatcherPriority)
+		public void TestCollectionDispatching20()
 		{
 			ObservableCollection<Item> source = getItems();
 			ObservableComputations.IOcDispatcher destinationOcDispatcher = new OcDispatcher();
 			ObservableComputations.IOcDispatcher sourceOcDispatcher = new OcDispatcher();
+			int destinationOcDispatcherPriority = 0;
+			int sourceOcDispatcherPriority = 0;
 			object destinationOcDispatcherParameter = new object();
 			OcConsumer consumer = new OcConsumer();
 			var testing = source.CollectionDispatching<Item>(
@@ -3257,32 +3355,38 @@ namespace ObservableComputations.Test
 			Assert.AreEqual(sourceOcDispatcherPriority, testing.SourceOcDispatcherPriority);
 			Assert.AreEqual(destinationOcDispatcherParameter, testing.DestinationOcDispatcherParameter);
 
+			void sync()
+			{
+				((OcDispatcher)sourceOcDispatcher).Invoke(() => {});
+				((OcDispatcher)destinationOcDispatcher).Invoke(() => {});
+			}
+
 			void test()
 			{
 				testing.ValidateConsistency();
-				var sourceValue = ((ObservableCollection<Item>)((ObservableCollection<Item>)source));
+				sync(); var sourceValue = ((ObservableCollection<Item>)((ObservableCollection<Item>)source));
 
 				if (sourceValue != null)
 				{		
-					sourceValue.Insert(2, new QuickTests.Item(1, true));
+					sync(); sourceValue.Insert(2, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
-					sourceValue[3] = new QuickTests.Item(7, true);
+					sync(); sourceValue[3] = new QuickTests.Item(7, true);
 					testing.ValidateConsistency();
-					sourceValue.RemoveAt(3);
+					sync(); sourceValue.RemoveAt(3);
 					testing.ValidateConsistency();
-					sourceValue.Move(1, 3);
+					sync(); sourceValue.Move(1, 3);
 					testing.ValidateConsistency();
-					sourceValue[2].Active = !sourceValue[2].Active;
+					sync(); sourceValue[2].Active = !sourceValue[2].Active;
 					testing.ValidateConsistency();
-					sourceValue[2].Num = sourceValue[2].Num + 1;
+					sync(); sourceValue[2].Num = sourceValue[2].Num + 1;
 					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
+					sync(); sourceValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					sourceValue.RemoveAt(1);
+					sync(); sourceValue.RemoveAt(1);
 					testing.ValidateConsistency();
-					sourceValue.Insert(0, new QuickTests.Item(1, true));
+					sync(); sourceValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
-					sourceValue.Insert(0, new QuickTests.Item(2, true));
+					sync(); sourceValue.Insert(0, new QuickTests.Item(2, true));
 					testing.ValidateConsistency();
 				}
 
@@ -3290,36 +3394,37 @@ namespace ObservableComputations.Test
 				listSource = ((IList)((ObservableCollection<Item>)source));
 				if (listSource != null)
 				{
-					listSource.Clear();
+					sync(); listSource.Clear();
 					testing.ValidateConsistency();
 				}
 
 				if (sourceValue != null)
 				{
-					sourceValue.Insert(0, new QuickTests.Item(1, true));
-					sourceValue.Insert(1, new QuickTests.Item(2, true));
-					sourceValue.Insert(2, new QuickTests.Item(3, true));
-					sourceValue.Insert(3, new QuickTests.Item(3, true));
-					sourceValue.Insert(4, new QuickTests.Item(3, true));
+					sync(); sourceValue.Insert(0, new QuickTests.Item(1, true));
+					sync(); sourceValue.Insert(1, new QuickTests.Item(2, true));
+					sync(); sourceValue.Insert(2, new QuickTests.Item(3, true));
+					sync(); sourceValue.Insert(3, new QuickTests.Item(3, true));
+					sync(); sourceValue.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
 				testing.ValidateConsistency();
 			}
 
 			test();
-			consumer.Dispose();
-			((OcDispatcher)destinationOcDispatcher).Dispose();
+			sync(); consumer.Dispose();
 			((OcDispatcher)sourceOcDispatcher).Dispose();
+			
+			((OcDispatcher)destinationOcDispatcher).Dispose();
 		}
 		
 		[Test, Combinatorial]
-		public void TestCollectionDispatching21(
-			[Values()] int destinationOcDispatcherPriority,
-			[Values()] int sourceOcDispatcherPriority)
+		public void TestCollectionDispatching21()
 		{
 			ObservableCollection<Item> source = getItems();
 			ObservableComputations.IOcDispatcher destinationOcDispatcher = new OcDispatcher();
 			ObservableComputations.IOcDispatcher sourceOcDispatcher = new OcDispatcher();
+			int destinationOcDispatcherPriority = 0;
+			int sourceOcDispatcherPriority = 0;
 			OcConsumer consumer = new OcConsumer();
 			var testing = source.CollectionDispatching<Item>(
 				destinationOcDispatcher,
@@ -3333,32 +3438,38 @@ namespace ObservableComputations.Test
 			Assert.AreEqual(destinationOcDispatcherPriority, testing.DestinationOcDispatcherPriority);
 			Assert.AreEqual(sourceOcDispatcherPriority, testing.SourceOcDispatcherPriority);
 
+			void sync()
+			{
+				((OcDispatcher)sourceOcDispatcher).Invoke(() => {});
+				((OcDispatcher)destinationOcDispatcher).Invoke(() => {});
+			}
+
 			void test()
 			{
 				testing.ValidateConsistency();
-				var sourceValue = ((ObservableCollection<Item>)((ObservableCollection<Item>)source));
+				sync(); var sourceValue = ((ObservableCollection<Item>)((ObservableCollection<Item>)source));
 
 				if (sourceValue != null)
 				{		
-					sourceValue.Insert(2, new QuickTests.Item(1, true));
+					sync(); sourceValue.Insert(2, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
-					sourceValue[3] = new QuickTests.Item(7, true);
+					sync(); sourceValue[3] = new QuickTests.Item(7, true);
 					testing.ValidateConsistency();
-					sourceValue.RemoveAt(3);
+					sync(); sourceValue.RemoveAt(3);
 					testing.ValidateConsistency();
-					sourceValue.Move(1, 3);
+					sync(); sourceValue.Move(1, 3);
 					testing.ValidateConsistency();
-					sourceValue[2].Active = !sourceValue[2].Active;
+					sync(); sourceValue[2].Active = !sourceValue[2].Active;
 					testing.ValidateConsistency();
-					sourceValue[2].Num = sourceValue[2].Num + 1;
+					sync(); sourceValue[2].Num = sourceValue[2].Num + 1;
 					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
+					sync(); sourceValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					sourceValue.RemoveAt(1);
+					sync(); sourceValue.RemoveAt(1);
 					testing.ValidateConsistency();
-					sourceValue.Insert(0, new QuickTests.Item(1, true));
+					sync(); sourceValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
-					sourceValue.Insert(0, new QuickTests.Item(2, true));
+					sync(); sourceValue.Insert(0, new QuickTests.Item(2, true));
 					testing.ValidateConsistency();
 				}
 
@@ -3366,35 +3477,36 @@ namespace ObservableComputations.Test
 				listSource = ((IList)((ObservableCollection<Item>)source));
 				if (listSource != null)
 				{
-					listSource.Clear();
+					sync(); listSource.Clear();
 					testing.ValidateConsistency();
 				}
 
 				if (sourceValue != null)
 				{
-					sourceValue.Insert(0, new QuickTests.Item(1, true));
-					sourceValue.Insert(1, new QuickTests.Item(2, true));
-					sourceValue.Insert(2, new QuickTests.Item(3, true));
-					sourceValue.Insert(3, new QuickTests.Item(3, true));
-					sourceValue.Insert(4, new QuickTests.Item(3, true));
+					sync(); sourceValue.Insert(0, new QuickTests.Item(1, true));
+					sync(); sourceValue.Insert(1, new QuickTests.Item(2, true));
+					sync(); sourceValue.Insert(2, new QuickTests.Item(3, true));
+					sync(); sourceValue.Insert(3, new QuickTests.Item(3, true));
+					sync(); sourceValue.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
 				testing.ValidateConsistency();
 			}
 
 			test();
-			consumer.Dispose();
-			((OcDispatcher)destinationOcDispatcher).Dispose();
+			sync(); consumer.Dispose();
 			((OcDispatcher)sourceOcDispatcher).Dispose();
+			
+			((OcDispatcher)destinationOcDispatcher).Dispose();
 		}
 		
 		[Test, Combinatorial]
-		public void TestCollectionDispatching22(
-			[Values()] int destinationOcDispatcherPriority)
+		public void TestCollectionDispatching22()
 		{
 			ObservableCollection<Item> source = getItems();
 			ObservableComputations.IOcDispatcher destinationOcDispatcher = new OcDispatcher();
 			ObservableComputations.IOcDispatcher sourceOcDispatcher = new OcDispatcher();
+			int destinationOcDispatcherPriority = 0;
 			object destinationOcDispatcherParameter = new object();
 			object sourceOcDispatcherParameter = new object();
 			OcConsumer consumer = new OcConsumer();
@@ -3412,32 +3524,38 @@ namespace ObservableComputations.Test
 			Assert.AreEqual(destinationOcDispatcherParameter, testing.DestinationOcDispatcherParameter);
 			Assert.AreEqual(sourceOcDispatcherParameter, testing.SourceOcDispatcherParameter);
 
+			void sync()
+			{
+				((OcDispatcher)sourceOcDispatcher).Invoke(() => {});
+				((OcDispatcher)destinationOcDispatcher).Invoke(() => {});
+			}
+
 			void test()
 			{
 				testing.ValidateConsistency();
-				var sourceValue = ((ObservableCollection<Item>)((ObservableCollection<Item>)source));
+				sync(); var sourceValue = ((ObservableCollection<Item>)((ObservableCollection<Item>)source));
 
 				if (sourceValue != null)
 				{		
-					sourceValue.Insert(2, new QuickTests.Item(1, true));
+					sync(); sourceValue.Insert(2, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
-					sourceValue[3] = new QuickTests.Item(7, true);
+					sync(); sourceValue[3] = new QuickTests.Item(7, true);
 					testing.ValidateConsistency();
-					sourceValue.RemoveAt(3);
+					sync(); sourceValue.RemoveAt(3);
 					testing.ValidateConsistency();
-					sourceValue.Move(1, 3);
+					sync(); sourceValue.Move(1, 3);
 					testing.ValidateConsistency();
-					sourceValue[2].Active = !sourceValue[2].Active;
+					sync(); sourceValue[2].Active = !sourceValue[2].Active;
 					testing.ValidateConsistency();
-					sourceValue[2].Num = sourceValue[2].Num + 1;
+					sync(); sourceValue[2].Num = sourceValue[2].Num + 1;
 					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
+					sync(); sourceValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					sourceValue.RemoveAt(1);
+					sync(); sourceValue.RemoveAt(1);
 					testing.ValidateConsistency();
-					sourceValue.Insert(0, new QuickTests.Item(1, true));
+					sync(); sourceValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
-					sourceValue.Insert(0, new QuickTests.Item(2, true));
+					sync(); sourceValue.Insert(0, new QuickTests.Item(2, true));
 					testing.ValidateConsistency();
 				}
 
@@ -3445,35 +3563,36 @@ namespace ObservableComputations.Test
 				listSource = ((IList)((ObservableCollection<Item>)source));
 				if (listSource != null)
 				{
-					listSource.Clear();
+					sync(); listSource.Clear();
 					testing.ValidateConsistency();
 				}
 
 				if (sourceValue != null)
 				{
-					sourceValue.Insert(0, new QuickTests.Item(1, true));
-					sourceValue.Insert(1, new QuickTests.Item(2, true));
-					sourceValue.Insert(2, new QuickTests.Item(3, true));
-					sourceValue.Insert(3, new QuickTests.Item(3, true));
-					sourceValue.Insert(4, new QuickTests.Item(3, true));
+					sync(); sourceValue.Insert(0, new QuickTests.Item(1, true));
+					sync(); sourceValue.Insert(1, new QuickTests.Item(2, true));
+					sync(); sourceValue.Insert(2, new QuickTests.Item(3, true));
+					sync(); sourceValue.Insert(3, new QuickTests.Item(3, true));
+					sync(); sourceValue.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
 				testing.ValidateConsistency();
 			}
 
 			test();
-			consumer.Dispose();
-			((OcDispatcher)destinationOcDispatcher).Dispose();
+			sync(); consumer.Dispose();
 			((OcDispatcher)sourceOcDispatcher).Dispose();
+			
+			((OcDispatcher)destinationOcDispatcher).Dispose();
 		}
 		
 		[Test, Combinatorial]
-		public void TestCollectionDispatching23(
-			[Values()] int destinationOcDispatcherPriority)
+		public void TestCollectionDispatching23()
 		{
 			ObservableCollection<Item> source = getItems();
 			ObservableComputations.IOcDispatcher destinationOcDispatcher = new OcDispatcher();
 			ObservableComputations.IOcDispatcher sourceOcDispatcher = new OcDispatcher();
+			int destinationOcDispatcherPriority = 0;
 			object destinationOcDispatcherParameter = new object();
 			OcConsumer consumer = new OcConsumer();
 			var testing = source.CollectionDispatching<Item>(
@@ -3488,32 +3607,38 @@ namespace ObservableComputations.Test
 			Assert.AreEqual(destinationOcDispatcherPriority, testing.DestinationOcDispatcherPriority);
 			Assert.AreEqual(destinationOcDispatcherParameter, testing.DestinationOcDispatcherParameter);
 
+			void sync()
+			{
+				((OcDispatcher)sourceOcDispatcher).Invoke(() => {});
+				((OcDispatcher)destinationOcDispatcher).Invoke(() => {});
+			}
+
 			void test()
 			{
 				testing.ValidateConsistency();
-				var sourceValue = ((ObservableCollection<Item>)((ObservableCollection<Item>)source));
+				sync(); var sourceValue = ((ObservableCollection<Item>)((ObservableCollection<Item>)source));
 
 				if (sourceValue != null)
 				{		
-					sourceValue.Insert(2, new QuickTests.Item(1, true));
+					sync(); sourceValue.Insert(2, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
-					sourceValue[3] = new QuickTests.Item(7, true);
+					sync(); sourceValue[3] = new QuickTests.Item(7, true);
 					testing.ValidateConsistency();
-					sourceValue.RemoveAt(3);
+					sync(); sourceValue.RemoveAt(3);
 					testing.ValidateConsistency();
-					sourceValue.Move(1, 3);
+					sync(); sourceValue.Move(1, 3);
 					testing.ValidateConsistency();
-					sourceValue[2].Active = !sourceValue[2].Active;
+					sync(); sourceValue[2].Active = !sourceValue[2].Active;
 					testing.ValidateConsistency();
-					sourceValue[2].Num = sourceValue[2].Num + 1;
+					sync(); sourceValue[2].Num = sourceValue[2].Num + 1;
 					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
+					sync(); sourceValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					sourceValue.RemoveAt(1);
+					sync(); sourceValue.RemoveAt(1);
 					testing.ValidateConsistency();
-					sourceValue.Insert(0, new QuickTests.Item(1, true));
+					sync(); sourceValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
-					sourceValue.Insert(0, new QuickTests.Item(2, true));
+					sync(); sourceValue.Insert(0, new QuickTests.Item(2, true));
 					testing.ValidateConsistency();
 				}
 
@@ -3521,35 +3646,36 @@ namespace ObservableComputations.Test
 				listSource = ((IList)((ObservableCollection<Item>)source));
 				if (listSource != null)
 				{
-					listSource.Clear();
+					sync(); listSource.Clear();
 					testing.ValidateConsistency();
 				}
 
 				if (sourceValue != null)
 				{
-					sourceValue.Insert(0, new QuickTests.Item(1, true));
-					sourceValue.Insert(1, new QuickTests.Item(2, true));
-					sourceValue.Insert(2, new QuickTests.Item(3, true));
-					sourceValue.Insert(3, new QuickTests.Item(3, true));
-					sourceValue.Insert(4, new QuickTests.Item(3, true));
+					sync(); sourceValue.Insert(0, new QuickTests.Item(1, true));
+					sync(); sourceValue.Insert(1, new QuickTests.Item(2, true));
+					sync(); sourceValue.Insert(2, new QuickTests.Item(3, true));
+					sync(); sourceValue.Insert(3, new QuickTests.Item(3, true));
+					sync(); sourceValue.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
 				testing.ValidateConsistency();
 			}
 
 			test();
-			consumer.Dispose();
-			((OcDispatcher)destinationOcDispatcher).Dispose();
+			sync(); consumer.Dispose();
 			((OcDispatcher)sourceOcDispatcher).Dispose();
+			
+			((OcDispatcher)destinationOcDispatcher).Dispose();
 		}
 		
 		[Test, Combinatorial]
-		public void TestCollectionDispatching24(
-			[Values()] int destinationOcDispatcherPriority)
+		public void TestCollectionDispatching24()
 		{
 			ObservableCollection<Item> source = getItems();
 			ObservableComputations.IOcDispatcher destinationOcDispatcher = new OcDispatcher();
 			ObservableComputations.IOcDispatcher sourceOcDispatcher = new OcDispatcher();
+			int destinationOcDispatcherPriority = 0;
 			OcConsumer consumer = new OcConsumer();
 			var testing = source.CollectionDispatching<Item>(
 				destinationOcDispatcher,
@@ -3561,32 +3687,38 @@ namespace ObservableComputations.Test
 			Assert.AreEqual(sourceOcDispatcher, testing.SourceOcDispatcher);
 			Assert.AreEqual(destinationOcDispatcherPriority, testing.DestinationOcDispatcherPriority);
 
+			void sync()
+			{
+				((OcDispatcher)sourceOcDispatcher).Invoke(() => {});
+				((OcDispatcher)destinationOcDispatcher).Invoke(() => {});
+			}
+
 			void test()
 			{
 				testing.ValidateConsistency();
-				var sourceValue = ((ObservableCollection<Item>)((ObservableCollection<Item>)source));
+				sync(); var sourceValue = ((ObservableCollection<Item>)((ObservableCollection<Item>)source));
 
 				if (sourceValue != null)
 				{		
-					sourceValue.Insert(2, new QuickTests.Item(1, true));
+					sync(); sourceValue.Insert(2, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
-					sourceValue[3] = new QuickTests.Item(7, true);
+					sync(); sourceValue[3] = new QuickTests.Item(7, true);
 					testing.ValidateConsistency();
-					sourceValue.RemoveAt(3);
+					sync(); sourceValue.RemoveAt(3);
 					testing.ValidateConsistency();
-					sourceValue.Move(1, 3);
+					sync(); sourceValue.Move(1, 3);
 					testing.ValidateConsistency();
-					sourceValue[2].Active = !sourceValue[2].Active;
+					sync(); sourceValue[2].Active = !sourceValue[2].Active;
 					testing.ValidateConsistency();
-					sourceValue[2].Num = sourceValue[2].Num + 1;
+					sync(); sourceValue[2].Num = sourceValue[2].Num + 1;
 					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
+					sync(); sourceValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					sourceValue.RemoveAt(1);
+					sync(); sourceValue.RemoveAt(1);
 					testing.ValidateConsistency();
-					sourceValue.Insert(0, new QuickTests.Item(1, true));
+					sync(); sourceValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
-					sourceValue.Insert(0, new QuickTests.Item(2, true));
+					sync(); sourceValue.Insert(0, new QuickTests.Item(2, true));
 					testing.ValidateConsistency();
 				}
 
@@ -3594,26 +3726,27 @@ namespace ObservableComputations.Test
 				listSource = ((IList)((ObservableCollection<Item>)source));
 				if (listSource != null)
 				{
-					listSource.Clear();
+					sync(); listSource.Clear();
 					testing.ValidateConsistency();
 				}
 
 				if (sourceValue != null)
 				{
-					sourceValue.Insert(0, new QuickTests.Item(1, true));
-					sourceValue.Insert(1, new QuickTests.Item(2, true));
-					sourceValue.Insert(2, new QuickTests.Item(3, true));
-					sourceValue.Insert(3, new QuickTests.Item(3, true));
-					sourceValue.Insert(4, new QuickTests.Item(3, true));
+					sync(); sourceValue.Insert(0, new QuickTests.Item(1, true));
+					sync(); sourceValue.Insert(1, new QuickTests.Item(2, true));
+					sync(); sourceValue.Insert(2, new QuickTests.Item(3, true));
+					sync(); sourceValue.Insert(3, new QuickTests.Item(3, true));
+					sync(); sourceValue.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
 				testing.ValidateConsistency();
 			}
 
 			test();
-			consumer.Dispose();
-			((OcDispatcher)destinationOcDispatcher).Dispose();
+			sync(); consumer.Dispose();
 			((OcDispatcher)sourceOcDispatcher).Dispose();
+			
+			((OcDispatcher)destinationOcDispatcher).Dispose();
 		}
 		
 		[Test, Combinatorial]
@@ -3637,32 +3770,38 @@ namespace ObservableComputations.Test
 			Assert.AreEqual(destinationOcDispatcherParameter, testing.DestinationOcDispatcherParameter);
 			Assert.AreEqual(sourceOcDispatcherParameter, testing.SourceOcDispatcherParameter);
 
+			void sync()
+			{
+				((OcDispatcher)sourceOcDispatcher).Invoke(() => {});
+				((OcDispatcher)destinationOcDispatcher).Invoke(() => {});
+			}
+
 			void test()
 			{
 				testing.ValidateConsistency();
-				var sourceValue = ((ObservableCollection<Item>)((ObservableCollection<Item>)source));
+				sync(); var sourceValue = ((ObservableCollection<Item>)((ObservableCollection<Item>)source));
 
 				if (sourceValue != null)
 				{		
-					sourceValue.Insert(2, new QuickTests.Item(1, true));
+					sync(); sourceValue.Insert(2, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
-					sourceValue[3] = new QuickTests.Item(7, true);
+					sync(); sourceValue[3] = new QuickTests.Item(7, true);
 					testing.ValidateConsistency();
-					sourceValue.RemoveAt(3);
+					sync(); sourceValue.RemoveAt(3);
 					testing.ValidateConsistency();
-					sourceValue.Move(1, 3);
+					sync(); sourceValue.Move(1, 3);
 					testing.ValidateConsistency();
-					sourceValue[2].Active = !sourceValue[2].Active;
+					sync(); sourceValue[2].Active = !sourceValue[2].Active;
 					testing.ValidateConsistency();
-					sourceValue[2].Num = sourceValue[2].Num + 1;
+					sync(); sourceValue[2].Num = sourceValue[2].Num + 1;
 					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
+					sync(); sourceValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					sourceValue.RemoveAt(1);
+					sync(); sourceValue.RemoveAt(1);
 					testing.ValidateConsistency();
-					sourceValue.Insert(0, new QuickTests.Item(1, true));
+					sync(); sourceValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
-					sourceValue.Insert(0, new QuickTests.Item(2, true));
+					sync(); sourceValue.Insert(0, new QuickTests.Item(2, true));
 					testing.ValidateConsistency();
 				}
 
@@ -3670,26 +3809,27 @@ namespace ObservableComputations.Test
 				listSource = ((IList)((ObservableCollection<Item>)source));
 				if (listSource != null)
 				{
-					listSource.Clear();
+					sync(); listSource.Clear();
 					testing.ValidateConsistency();
 				}
 
 				if (sourceValue != null)
 				{
-					sourceValue.Insert(0, new QuickTests.Item(1, true));
-					sourceValue.Insert(1, new QuickTests.Item(2, true));
-					sourceValue.Insert(2, new QuickTests.Item(3, true));
-					sourceValue.Insert(3, new QuickTests.Item(3, true));
-					sourceValue.Insert(4, new QuickTests.Item(3, true));
+					sync(); sourceValue.Insert(0, new QuickTests.Item(1, true));
+					sync(); sourceValue.Insert(1, new QuickTests.Item(2, true));
+					sync(); sourceValue.Insert(2, new QuickTests.Item(3, true));
+					sync(); sourceValue.Insert(3, new QuickTests.Item(3, true));
+					sync(); sourceValue.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
 				testing.ValidateConsistency();
 			}
 
 			test();
-			consumer.Dispose();
-			((OcDispatcher)destinationOcDispatcher).Dispose();
+			sync(); consumer.Dispose();
 			((OcDispatcher)sourceOcDispatcher).Dispose();
+			
+			((OcDispatcher)destinationOcDispatcher).Dispose();
 		}
 		
 		[Test, Combinatorial]
@@ -3710,32 +3850,38 @@ namespace ObservableComputations.Test
 			Assert.AreEqual(sourceOcDispatcher, testing.SourceOcDispatcher);
 			Assert.AreEqual(destinationOcDispatcherParameter, testing.DestinationOcDispatcherParameter);
 
+			void sync()
+			{
+				((OcDispatcher)sourceOcDispatcher).Invoke(() => {});
+				((OcDispatcher)destinationOcDispatcher).Invoke(() => {});
+			}
+
 			void test()
 			{
 				testing.ValidateConsistency();
-				var sourceValue = ((ObservableCollection<Item>)((ObservableCollection<Item>)source));
+				sync(); var sourceValue = ((ObservableCollection<Item>)((ObservableCollection<Item>)source));
 
 				if (sourceValue != null)
 				{		
-					sourceValue.Insert(2, new QuickTests.Item(1, true));
+					sync(); sourceValue.Insert(2, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
-					sourceValue[3] = new QuickTests.Item(7, true);
+					sync(); sourceValue[3] = new QuickTests.Item(7, true);
 					testing.ValidateConsistency();
-					sourceValue.RemoveAt(3);
+					sync(); sourceValue.RemoveAt(3);
 					testing.ValidateConsistency();
-					sourceValue.Move(1, 3);
+					sync(); sourceValue.Move(1, 3);
 					testing.ValidateConsistency();
-					sourceValue[2].Active = !sourceValue[2].Active;
+					sync(); sourceValue[2].Active = !sourceValue[2].Active;
 					testing.ValidateConsistency();
-					sourceValue[2].Num = sourceValue[2].Num + 1;
+					sync(); sourceValue[2].Num = sourceValue[2].Num + 1;
 					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
+					sync(); sourceValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					sourceValue.RemoveAt(1);
+					sync(); sourceValue.RemoveAt(1);
 					testing.ValidateConsistency();
-					sourceValue.Insert(0, new QuickTests.Item(1, true));
+					sync(); sourceValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
-					sourceValue.Insert(0, new QuickTests.Item(2, true));
+					sync(); sourceValue.Insert(0, new QuickTests.Item(2, true));
 					testing.ValidateConsistency();
 				}
 
@@ -3743,26 +3889,27 @@ namespace ObservableComputations.Test
 				listSource = ((IList)((ObservableCollection<Item>)source));
 				if (listSource != null)
 				{
-					listSource.Clear();
+					sync(); listSource.Clear();
 					testing.ValidateConsistency();
 				}
 
 				if (sourceValue != null)
 				{
-					sourceValue.Insert(0, new QuickTests.Item(1, true));
-					sourceValue.Insert(1, new QuickTests.Item(2, true));
-					sourceValue.Insert(2, new QuickTests.Item(3, true));
-					sourceValue.Insert(3, new QuickTests.Item(3, true));
-					sourceValue.Insert(4, new QuickTests.Item(3, true));
+					sync(); sourceValue.Insert(0, new QuickTests.Item(1, true));
+					sync(); sourceValue.Insert(1, new QuickTests.Item(2, true));
+					sync(); sourceValue.Insert(2, new QuickTests.Item(3, true));
+					sync(); sourceValue.Insert(3, new QuickTests.Item(3, true));
+					sync(); sourceValue.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
 				testing.ValidateConsistency();
 			}
 
 			test();
-			consumer.Dispose();
-			((OcDispatcher)destinationOcDispatcher).Dispose();
+			sync(); consumer.Dispose();
 			((OcDispatcher)sourceOcDispatcher).Dispose();
+			
+			((OcDispatcher)destinationOcDispatcher).Dispose();
 		}
 		
 		[Test, Combinatorial]
@@ -3780,32 +3927,38 @@ namespace ObservableComputations.Test
 			Assert.AreEqual(destinationOcDispatcher, testing.DestinationOcDispatcher);
 			Assert.AreEqual(sourceOcDispatcher, testing.SourceOcDispatcher);
 
+			void sync()
+			{
+				((OcDispatcher)sourceOcDispatcher).Invoke(() => {});
+				((OcDispatcher)destinationOcDispatcher).Invoke(() => {});
+			}
+
 			void test()
 			{
 				testing.ValidateConsistency();
-				var sourceValue = ((ObservableCollection<Item>)((ObservableCollection<Item>)source));
+				sync(); var sourceValue = ((ObservableCollection<Item>)((ObservableCollection<Item>)source));
 
 				if (sourceValue != null)
 				{		
-					sourceValue.Insert(2, new QuickTests.Item(1, true));
+					sync(); sourceValue.Insert(2, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
-					sourceValue[3] = new QuickTests.Item(7, true);
+					sync(); sourceValue[3] = new QuickTests.Item(7, true);
 					testing.ValidateConsistency();
-					sourceValue.RemoveAt(3);
+					sync(); sourceValue.RemoveAt(3);
 					testing.ValidateConsistency();
-					sourceValue.Move(1, 3);
+					sync(); sourceValue.Move(1, 3);
 					testing.ValidateConsistency();
-					sourceValue[2].Active = !sourceValue[2].Active;
+					sync(); sourceValue[2].Active = !sourceValue[2].Active;
 					testing.ValidateConsistency();
-					sourceValue[2].Num = sourceValue[2].Num + 1;
+					sync(); sourceValue[2].Num = sourceValue[2].Num + 1;
 					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
+					sync(); sourceValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					sourceValue.RemoveAt(1);
+					sync(); sourceValue.RemoveAt(1);
 					testing.ValidateConsistency();
-					sourceValue.Insert(0, new QuickTests.Item(1, true));
+					sync(); sourceValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
-					sourceValue.Insert(0, new QuickTests.Item(2, true));
+					sync(); sourceValue.Insert(0, new QuickTests.Item(2, true));
 					testing.ValidateConsistency();
 				}
 
@@ -3813,35 +3966,36 @@ namespace ObservableComputations.Test
 				listSource = ((IList)((ObservableCollection<Item>)source));
 				if (listSource != null)
 				{
-					listSource.Clear();
+					sync(); listSource.Clear();
 					testing.ValidateConsistency();
 				}
 
 				if (sourceValue != null)
 				{
-					sourceValue.Insert(0, new QuickTests.Item(1, true));
-					sourceValue.Insert(1, new QuickTests.Item(2, true));
-					sourceValue.Insert(2, new QuickTests.Item(3, true));
-					sourceValue.Insert(3, new QuickTests.Item(3, true));
-					sourceValue.Insert(4, new QuickTests.Item(3, true));
+					sync(); sourceValue.Insert(0, new QuickTests.Item(1, true));
+					sync(); sourceValue.Insert(1, new QuickTests.Item(2, true));
+					sync(); sourceValue.Insert(2, new QuickTests.Item(3, true));
+					sync(); sourceValue.Insert(3, new QuickTests.Item(3, true));
+					sync(); sourceValue.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
 				testing.ValidateConsistency();
 			}
 
 			test();
-			consumer.Dispose();
-			((OcDispatcher)destinationOcDispatcher).Dispose();
+			sync(); consumer.Dispose();
 			((OcDispatcher)sourceOcDispatcher).Dispose();
+			
+			((OcDispatcher)destinationOcDispatcher).Dispose();
 		}
 		
 		[Test, Combinatorial]
-		public void TestCollectionDispatching28(
-			[Values()] int destinationOcDispatcherPriority,
-			[Values()] int sourceOcDispatcherPriority)
+		public void TestCollectionDispatching28()
 		{
 			ObservableCollection<Item> source = getItems();
 			ObservableComputations.IOcDispatcher destinationOcDispatcher = new OcDispatcher();
+			int destinationOcDispatcherPriority = 0;
+			int sourceOcDispatcherPriority = 0;
 			object destinationOcDispatcherParameter = new object();
 			object sourceOcDispatcherParameter = new object();
 			OcConsumer consumer = new OcConsumer();
@@ -3859,32 +4013,37 @@ namespace ObservableComputations.Test
 			Assert.AreEqual(destinationOcDispatcherParameter, testing.DestinationOcDispatcherParameter);
 			Assert.AreEqual(sourceOcDispatcherParameter, testing.SourceOcDispatcherParameter);
 
+			void sync()
+			{
+				((OcDispatcher)destinationOcDispatcher).Invoke(() => {});
+			}
+
 			void test()
 			{
 				testing.ValidateConsistency();
-				var sourceValue = ((ObservableCollection<Item>)((ObservableCollection<Item>)source));
+				sync(); var sourceValue = ((ObservableCollection<Item>)((ObservableCollection<Item>)source));
 
 				if (sourceValue != null)
 				{		
-					sourceValue.Insert(2, new QuickTests.Item(1, true));
+					sync(); sourceValue.Insert(2, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
-					sourceValue[3] = new QuickTests.Item(7, true);
+					sync(); sourceValue[3] = new QuickTests.Item(7, true);
 					testing.ValidateConsistency();
-					sourceValue.RemoveAt(3);
+					sync(); sourceValue.RemoveAt(3);
 					testing.ValidateConsistency();
-					sourceValue.Move(1, 3);
+					sync(); sourceValue.Move(1, 3);
 					testing.ValidateConsistency();
-					sourceValue[2].Active = !sourceValue[2].Active;
+					sync(); sourceValue[2].Active = !sourceValue[2].Active;
 					testing.ValidateConsistency();
-					sourceValue[2].Num = sourceValue[2].Num + 1;
+					sync(); sourceValue[2].Num = sourceValue[2].Num + 1;
 					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
+					sync(); sourceValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					sourceValue.RemoveAt(1);
+					sync(); sourceValue.RemoveAt(1);
 					testing.ValidateConsistency();
-					sourceValue.Insert(0, new QuickTests.Item(1, true));
+					sync(); sourceValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
-					sourceValue.Insert(0, new QuickTests.Item(2, true));
+					sync(); sourceValue.Insert(0, new QuickTests.Item(2, true));
 					testing.ValidateConsistency();
 				}
 
@@ -3892,34 +4051,35 @@ namespace ObservableComputations.Test
 				listSource = ((IList)((ObservableCollection<Item>)source));
 				if (listSource != null)
 				{
-					listSource.Clear();
+					sync(); listSource.Clear();
 					testing.ValidateConsistency();
 				}
 
 				if (sourceValue != null)
 				{
-					sourceValue.Insert(0, new QuickTests.Item(1, true));
-					sourceValue.Insert(1, new QuickTests.Item(2, true));
-					sourceValue.Insert(2, new QuickTests.Item(3, true));
-					sourceValue.Insert(3, new QuickTests.Item(3, true));
-					sourceValue.Insert(4, new QuickTests.Item(3, true));
+					sync(); sourceValue.Insert(0, new QuickTests.Item(1, true));
+					sync(); sourceValue.Insert(1, new QuickTests.Item(2, true));
+					sync(); sourceValue.Insert(2, new QuickTests.Item(3, true));
+					sync(); sourceValue.Insert(3, new QuickTests.Item(3, true));
+					sync(); sourceValue.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
 				testing.ValidateConsistency();
 			}
 
 			test();
-			consumer.Dispose();
+			sync(); consumer.Dispose();
+			
 			((OcDispatcher)destinationOcDispatcher).Dispose();
 		}
 		
 		[Test, Combinatorial]
-		public void TestCollectionDispatching29(
-			[Values()] int destinationOcDispatcherPriority,
-			[Values()] int sourceOcDispatcherPriority)
+		public void TestCollectionDispatching29()
 		{
 			ObservableCollection<Item> source = getItems();
 			ObservableComputations.IOcDispatcher destinationOcDispatcher = new OcDispatcher();
+			int destinationOcDispatcherPriority = 0;
+			int sourceOcDispatcherPriority = 0;
 			object destinationOcDispatcherParameter = new object();
 			OcConsumer consumer = new OcConsumer();
 			var testing = source.CollectionDispatching<Item>(
@@ -3934,32 +4094,37 @@ namespace ObservableComputations.Test
 			Assert.AreEqual(sourceOcDispatcherPriority, testing.SourceOcDispatcherPriority);
 			Assert.AreEqual(destinationOcDispatcherParameter, testing.DestinationOcDispatcherParameter);
 
+			void sync()
+			{
+				((OcDispatcher)destinationOcDispatcher).Invoke(() => {});
+			}
+
 			void test()
 			{
 				testing.ValidateConsistency();
-				var sourceValue = ((ObservableCollection<Item>)((ObservableCollection<Item>)source));
+				sync(); var sourceValue = ((ObservableCollection<Item>)((ObservableCollection<Item>)source));
 
 				if (sourceValue != null)
 				{		
-					sourceValue.Insert(2, new QuickTests.Item(1, true));
+					sync(); sourceValue.Insert(2, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
-					sourceValue[3] = new QuickTests.Item(7, true);
+					sync(); sourceValue[3] = new QuickTests.Item(7, true);
 					testing.ValidateConsistency();
-					sourceValue.RemoveAt(3);
+					sync(); sourceValue.RemoveAt(3);
 					testing.ValidateConsistency();
-					sourceValue.Move(1, 3);
+					sync(); sourceValue.Move(1, 3);
 					testing.ValidateConsistency();
-					sourceValue[2].Active = !sourceValue[2].Active;
+					sync(); sourceValue[2].Active = !sourceValue[2].Active;
 					testing.ValidateConsistency();
-					sourceValue[2].Num = sourceValue[2].Num + 1;
+					sync(); sourceValue[2].Num = sourceValue[2].Num + 1;
 					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
+					sync(); sourceValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					sourceValue.RemoveAt(1);
+					sync(); sourceValue.RemoveAt(1);
 					testing.ValidateConsistency();
-					sourceValue.Insert(0, new QuickTests.Item(1, true));
+					sync(); sourceValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
-					sourceValue.Insert(0, new QuickTests.Item(2, true));
+					sync(); sourceValue.Insert(0, new QuickTests.Item(2, true));
 					testing.ValidateConsistency();
 				}
 
@@ -3967,34 +4132,35 @@ namespace ObservableComputations.Test
 				listSource = ((IList)((ObservableCollection<Item>)source));
 				if (listSource != null)
 				{
-					listSource.Clear();
+					sync(); listSource.Clear();
 					testing.ValidateConsistency();
 				}
 
 				if (sourceValue != null)
 				{
-					sourceValue.Insert(0, new QuickTests.Item(1, true));
-					sourceValue.Insert(1, new QuickTests.Item(2, true));
-					sourceValue.Insert(2, new QuickTests.Item(3, true));
-					sourceValue.Insert(3, new QuickTests.Item(3, true));
-					sourceValue.Insert(4, new QuickTests.Item(3, true));
+					sync(); sourceValue.Insert(0, new QuickTests.Item(1, true));
+					sync(); sourceValue.Insert(1, new QuickTests.Item(2, true));
+					sync(); sourceValue.Insert(2, new QuickTests.Item(3, true));
+					sync(); sourceValue.Insert(3, new QuickTests.Item(3, true));
+					sync(); sourceValue.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
 				testing.ValidateConsistency();
 			}
 
 			test();
-			consumer.Dispose();
+			sync(); consumer.Dispose();
+			
 			((OcDispatcher)destinationOcDispatcher).Dispose();
 		}
 		
 		[Test, Combinatorial]
-		public void TestCollectionDispatching30(
-			[Values()] int destinationOcDispatcherPriority,
-			[Values()] int sourceOcDispatcherPriority)
+		public void TestCollectionDispatching30()
 		{
 			ObservableCollection<Item> source = getItems();
 			ObservableComputations.IOcDispatcher destinationOcDispatcher = new OcDispatcher();
+			int destinationOcDispatcherPriority = 0;
+			int sourceOcDispatcherPriority = 0;
 			OcConsumer consumer = new OcConsumer();
 			var testing = source.CollectionDispatching<Item>(
 				destinationOcDispatcher,
@@ -4006,32 +4172,37 @@ namespace ObservableComputations.Test
 			Assert.AreEqual(destinationOcDispatcherPriority, testing.DestinationOcDispatcherPriority);
 			Assert.AreEqual(sourceOcDispatcherPriority, testing.SourceOcDispatcherPriority);
 
+			void sync()
+			{
+				((OcDispatcher)destinationOcDispatcher).Invoke(() => {});
+			}
+
 			void test()
 			{
 				testing.ValidateConsistency();
-				var sourceValue = ((ObservableCollection<Item>)((ObservableCollection<Item>)source));
+				sync(); var sourceValue = ((ObservableCollection<Item>)((ObservableCollection<Item>)source));
 
 				if (sourceValue != null)
 				{		
-					sourceValue.Insert(2, new QuickTests.Item(1, true));
+					sync(); sourceValue.Insert(2, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
-					sourceValue[3] = new QuickTests.Item(7, true);
+					sync(); sourceValue[3] = new QuickTests.Item(7, true);
 					testing.ValidateConsistency();
-					sourceValue.RemoveAt(3);
+					sync(); sourceValue.RemoveAt(3);
 					testing.ValidateConsistency();
-					sourceValue.Move(1, 3);
+					sync(); sourceValue.Move(1, 3);
 					testing.ValidateConsistency();
-					sourceValue[2].Active = !sourceValue[2].Active;
+					sync(); sourceValue[2].Active = !sourceValue[2].Active;
 					testing.ValidateConsistency();
-					sourceValue[2].Num = sourceValue[2].Num + 1;
+					sync(); sourceValue[2].Num = sourceValue[2].Num + 1;
 					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
+					sync(); sourceValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					sourceValue.RemoveAt(1);
+					sync(); sourceValue.RemoveAt(1);
 					testing.ValidateConsistency();
-					sourceValue.Insert(0, new QuickTests.Item(1, true));
+					sync(); sourceValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
-					sourceValue.Insert(0, new QuickTests.Item(2, true));
+					sync(); sourceValue.Insert(0, new QuickTests.Item(2, true));
 					testing.ValidateConsistency();
 				}
 
@@ -4039,33 +4210,34 @@ namespace ObservableComputations.Test
 				listSource = ((IList)((ObservableCollection<Item>)source));
 				if (listSource != null)
 				{
-					listSource.Clear();
+					sync(); listSource.Clear();
 					testing.ValidateConsistency();
 				}
 
 				if (sourceValue != null)
 				{
-					sourceValue.Insert(0, new QuickTests.Item(1, true));
-					sourceValue.Insert(1, new QuickTests.Item(2, true));
-					sourceValue.Insert(2, new QuickTests.Item(3, true));
-					sourceValue.Insert(3, new QuickTests.Item(3, true));
-					sourceValue.Insert(4, new QuickTests.Item(3, true));
+					sync(); sourceValue.Insert(0, new QuickTests.Item(1, true));
+					sync(); sourceValue.Insert(1, new QuickTests.Item(2, true));
+					sync(); sourceValue.Insert(2, new QuickTests.Item(3, true));
+					sync(); sourceValue.Insert(3, new QuickTests.Item(3, true));
+					sync(); sourceValue.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
 				testing.ValidateConsistency();
 			}
 
 			test();
-			consumer.Dispose();
+			sync(); consumer.Dispose();
+			
 			((OcDispatcher)destinationOcDispatcher).Dispose();
 		}
 		
 		[Test, Combinatorial]
-		public void TestCollectionDispatching31(
-			[Values()] int destinationOcDispatcherPriority)
+		public void TestCollectionDispatching31()
 		{
 			ObservableCollection<Item> source = getItems();
 			ObservableComputations.IOcDispatcher destinationOcDispatcher = new OcDispatcher();
+			int destinationOcDispatcherPriority = 0;
 			object destinationOcDispatcherParameter = new object();
 			object sourceOcDispatcherParameter = new object();
 			OcConsumer consumer = new OcConsumer();
@@ -4081,32 +4253,37 @@ namespace ObservableComputations.Test
 			Assert.AreEqual(destinationOcDispatcherParameter, testing.DestinationOcDispatcherParameter);
 			Assert.AreEqual(sourceOcDispatcherParameter, testing.SourceOcDispatcherParameter);
 
+			void sync()
+			{
+				((OcDispatcher)destinationOcDispatcher).Invoke(() => {});
+			}
+
 			void test()
 			{
 				testing.ValidateConsistency();
-				var sourceValue = ((ObservableCollection<Item>)((ObservableCollection<Item>)source));
+				sync(); var sourceValue = ((ObservableCollection<Item>)((ObservableCollection<Item>)source));
 
 				if (sourceValue != null)
 				{		
-					sourceValue.Insert(2, new QuickTests.Item(1, true));
+					sync(); sourceValue.Insert(2, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
-					sourceValue[3] = new QuickTests.Item(7, true);
+					sync(); sourceValue[3] = new QuickTests.Item(7, true);
 					testing.ValidateConsistency();
-					sourceValue.RemoveAt(3);
+					sync(); sourceValue.RemoveAt(3);
 					testing.ValidateConsistency();
-					sourceValue.Move(1, 3);
+					sync(); sourceValue.Move(1, 3);
 					testing.ValidateConsistency();
-					sourceValue[2].Active = !sourceValue[2].Active;
+					sync(); sourceValue[2].Active = !sourceValue[2].Active;
 					testing.ValidateConsistency();
-					sourceValue[2].Num = sourceValue[2].Num + 1;
+					sync(); sourceValue[2].Num = sourceValue[2].Num + 1;
 					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
+					sync(); sourceValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					sourceValue.RemoveAt(1);
+					sync(); sourceValue.RemoveAt(1);
 					testing.ValidateConsistency();
-					sourceValue.Insert(0, new QuickTests.Item(1, true));
+					sync(); sourceValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
-					sourceValue.Insert(0, new QuickTests.Item(2, true));
+					sync(); sourceValue.Insert(0, new QuickTests.Item(2, true));
 					testing.ValidateConsistency();
 				}
 
@@ -4114,33 +4291,34 @@ namespace ObservableComputations.Test
 				listSource = ((IList)((ObservableCollection<Item>)source));
 				if (listSource != null)
 				{
-					listSource.Clear();
+					sync(); listSource.Clear();
 					testing.ValidateConsistency();
 				}
 
 				if (sourceValue != null)
 				{
-					sourceValue.Insert(0, new QuickTests.Item(1, true));
-					sourceValue.Insert(1, new QuickTests.Item(2, true));
-					sourceValue.Insert(2, new QuickTests.Item(3, true));
-					sourceValue.Insert(3, new QuickTests.Item(3, true));
-					sourceValue.Insert(4, new QuickTests.Item(3, true));
+					sync(); sourceValue.Insert(0, new QuickTests.Item(1, true));
+					sync(); sourceValue.Insert(1, new QuickTests.Item(2, true));
+					sync(); sourceValue.Insert(2, new QuickTests.Item(3, true));
+					sync(); sourceValue.Insert(3, new QuickTests.Item(3, true));
+					sync(); sourceValue.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
 				testing.ValidateConsistency();
 			}
 
 			test();
-			consumer.Dispose();
+			sync(); consumer.Dispose();
+			
 			((OcDispatcher)destinationOcDispatcher).Dispose();
 		}
 		
 		[Test, Combinatorial]
-		public void TestCollectionDispatching32(
-			[Values()] int destinationOcDispatcherPriority)
+		public void TestCollectionDispatching32()
 		{
 			ObservableCollection<Item> source = getItems();
 			ObservableComputations.IOcDispatcher destinationOcDispatcher = new OcDispatcher();
+			int destinationOcDispatcherPriority = 0;
 			object destinationOcDispatcherParameter = new object();
 			OcConsumer consumer = new OcConsumer();
 			var testing = source.CollectionDispatching<Item>(
@@ -4153,32 +4331,37 @@ namespace ObservableComputations.Test
 			Assert.AreEqual(destinationOcDispatcherPriority, testing.DestinationOcDispatcherPriority);
 			Assert.AreEqual(destinationOcDispatcherParameter, testing.DestinationOcDispatcherParameter);
 
+			void sync()
+			{
+				((OcDispatcher)destinationOcDispatcher).Invoke(() => {});
+			}
+
 			void test()
 			{
 				testing.ValidateConsistency();
-				var sourceValue = ((ObservableCollection<Item>)((ObservableCollection<Item>)source));
+				sync(); var sourceValue = ((ObservableCollection<Item>)((ObservableCollection<Item>)source));
 
 				if (sourceValue != null)
 				{		
-					sourceValue.Insert(2, new QuickTests.Item(1, true));
+					sync(); sourceValue.Insert(2, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
-					sourceValue[3] = new QuickTests.Item(7, true);
+					sync(); sourceValue[3] = new QuickTests.Item(7, true);
 					testing.ValidateConsistency();
-					sourceValue.RemoveAt(3);
+					sync(); sourceValue.RemoveAt(3);
 					testing.ValidateConsistency();
-					sourceValue.Move(1, 3);
+					sync(); sourceValue.Move(1, 3);
 					testing.ValidateConsistency();
-					sourceValue[2].Active = !sourceValue[2].Active;
+					sync(); sourceValue[2].Active = !sourceValue[2].Active;
 					testing.ValidateConsistency();
-					sourceValue[2].Num = sourceValue[2].Num + 1;
+					sync(); sourceValue[2].Num = sourceValue[2].Num + 1;
 					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
+					sync(); sourceValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					sourceValue.RemoveAt(1);
+					sync(); sourceValue.RemoveAt(1);
 					testing.ValidateConsistency();
-					sourceValue.Insert(0, new QuickTests.Item(1, true));
+					sync(); sourceValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
-					sourceValue.Insert(0, new QuickTests.Item(2, true));
+					sync(); sourceValue.Insert(0, new QuickTests.Item(2, true));
 					testing.ValidateConsistency();
 				}
 
@@ -4186,33 +4369,34 @@ namespace ObservableComputations.Test
 				listSource = ((IList)((ObservableCollection<Item>)source));
 				if (listSource != null)
 				{
-					listSource.Clear();
+					sync(); listSource.Clear();
 					testing.ValidateConsistency();
 				}
 
 				if (sourceValue != null)
 				{
-					sourceValue.Insert(0, new QuickTests.Item(1, true));
-					sourceValue.Insert(1, new QuickTests.Item(2, true));
-					sourceValue.Insert(2, new QuickTests.Item(3, true));
-					sourceValue.Insert(3, new QuickTests.Item(3, true));
-					sourceValue.Insert(4, new QuickTests.Item(3, true));
+					sync(); sourceValue.Insert(0, new QuickTests.Item(1, true));
+					sync(); sourceValue.Insert(1, new QuickTests.Item(2, true));
+					sync(); sourceValue.Insert(2, new QuickTests.Item(3, true));
+					sync(); sourceValue.Insert(3, new QuickTests.Item(3, true));
+					sync(); sourceValue.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
 				testing.ValidateConsistency();
 			}
 
 			test();
-			consumer.Dispose();
+			sync(); consumer.Dispose();
+			
 			((OcDispatcher)destinationOcDispatcher).Dispose();
 		}
 		
 		[Test, Combinatorial]
-		public void TestCollectionDispatching33(
-			[Values()] int destinationOcDispatcherPriority)
+		public void TestCollectionDispatching33()
 		{
 			ObservableCollection<Item> source = getItems();
 			ObservableComputations.IOcDispatcher destinationOcDispatcher = new OcDispatcher();
+			int destinationOcDispatcherPriority = 0;
 			OcConsumer consumer = new OcConsumer();
 			var testing = source.CollectionDispatching<Item>(
 				destinationOcDispatcher,
@@ -4222,32 +4406,37 @@ namespace ObservableComputations.Test
 			Assert.AreEqual(destinationOcDispatcher, testing.DestinationOcDispatcher);
 			Assert.AreEqual(destinationOcDispatcherPriority, testing.DestinationOcDispatcherPriority);
 
+			void sync()
+			{
+				((OcDispatcher)destinationOcDispatcher).Invoke(() => {});
+			}
+
 			void test()
 			{
 				testing.ValidateConsistency();
-				var sourceValue = ((ObservableCollection<Item>)((ObservableCollection<Item>)source));
+				sync(); var sourceValue = ((ObservableCollection<Item>)((ObservableCollection<Item>)source));
 
 				if (sourceValue != null)
 				{		
-					sourceValue.Insert(2, new QuickTests.Item(1, true));
+					sync(); sourceValue.Insert(2, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
-					sourceValue[3] = new QuickTests.Item(7, true);
+					sync(); sourceValue[3] = new QuickTests.Item(7, true);
 					testing.ValidateConsistency();
-					sourceValue.RemoveAt(3);
+					sync(); sourceValue.RemoveAt(3);
 					testing.ValidateConsistency();
-					sourceValue.Move(1, 3);
+					sync(); sourceValue.Move(1, 3);
 					testing.ValidateConsistency();
-					sourceValue[2].Active = !sourceValue[2].Active;
+					sync(); sourceValue[2].Active = !sourceValue[2].Active;
 					testing.ValidateConsistency();
-					sourceValue[2].Num = sourceValue[2].Num + 1;
+					sync(); sourceValue[2].Num = sourceValue[2].Num + 1;
 					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
+					sync(); sourceValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					sourceValue.RemoveAt(1);
+					sync(); sourceValue.RemoveAt(1);
 					testing.ValidateConsistency();
-					sourceValue.Insert(0, new QuickTests.Item(1, true));
+					sync(); sourceValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
-					sourceValue.Insert(0, new QuickTests.Item(2, true));
+					sync(); sourceValue.Insert(0, new QuickTests.Item(2, true));
 					testing.ValidateConsistency();
 				}
 
@@ -4255,24 +4444,25 @@ namespace ObservableComputations.Test
 				listSource = ((IList)((ObservableCollection<Item>)source));
 				if (listSource != null)
 				{
-					listSource.Clear();
+					sync(); listSource.Clear();
 					testing.ValidateConsistency();
 				}
 
 				if (sourceValue != null)
 				{
-					sourceValue.Insert(0, new QuickTests.Item(1, true));
-					sourceValue.Insert(1, new QuickTests.Item(2, true));
-					sourceValue.Insert(2, new QuickTests.Item(3, true));
-					sourceValue.Insert(3, new QuickTests.Item(3, true));
-					sourceValue.Insert(4, new QuickTests.Item(3, true));
+					sync(); sourceValue.Insert(0, new QuickTests.Item(1, true));
+					sync(); sourceValue.Insert(1, new QuickTests.Item(2, true));
+					sync(); sourceValue.Insert(2, new QuickTests.Item(3, true));
+					sync(); sourceValue.Insert(3, new QuickTests.Item(3, true));
+					sync(); sourceValue.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
 				testing.ValidateConsistency();
 			}
 
 			test();
-			consumer.Dispose();
+			sync(); consumer.Dispose();
+			
 			((OcDispatcher)destinationOcDispatcher).Dispose();
 		}
 		
@@ -4294,32 +4484,37 @@ namespace ObservableComputations.Test
 			Assert.AreEqual(destinationOcDispatcherParameter, testing.DestinationOcDispatcherParameter);
 			Assert.AreEqual(sourceOcDispatcherParameter, testing.SourceOcDispatcherParameter);
 
+			void sync()
+			{
+				((OcDispatcher)destinationOcDispatcher).Invoke(() => {});
+			}
+
 			void test()
 			{
 				testing.ValidateConsistency();
-				var sourceValue = ((ObservableCollection<Item>)((ObservableCollection<Item>)source));
+				sync(); var sourceValue = ((ObservableCollection<Item>)((ObservableCollection<Item>)source));
 
 				if (sourceValue != null)
 				{		
-					sourceValue.Insert(2, new QuickTests.Item(1, true));
+					sync(); sourceValue.Insert(2, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
-					sourceValue[3] = new QuickTests.Item(7, true);
+					sync(); sourceValue[3] = new QuickTests.Item(7, true);
 					testing.ValidateConsistency();
-					sourceValue.RemoveAt(3);
+					sync(); sourceValue.RemoveAt(3);
 					testing.ValidateConsistency();
-					sourceValue.Move(1, 3);
+					sync(); sourceValue.Move(1, 3);
 					testing.ValidateConsistency();
-					sourceValue[2].Active = !sourceValue[2].Active;
+					sync(); sourceValue[2].Active = !sourceValue[2].Active;
 					testing.ValidateConsistency();
-					sourceValue[2].Num = sourceValue[2].Num + 1;
+					sync(); sourceValue[2].Num = sourceValue[2].Num + 1;
 					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
+					sync(); sourceValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					sourceValue.RemoveAt(1);
+					sync(); sourceValue.RemoveAt(1);
 					testing.ValidateConsistency();
-					sourceValue.Insert(0, new QuickTests.Item(1, true));
+					sync(); sourceValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
-					sourceValue.Insert(0, new QuickTests.Item(2, true));
+					sync(); sourceValue.Insert(0, new QuickTests.Item(2, true));
 					testing.ValidateConsistency();
 				}
 
@@ -4327,24 +4522,25 @@ namespace ObservableComputations.Test
 				listSource = ((IList)((ObservableCollection<Item>)source));
 				if (listSource != null)
 				{
-					listSource.Clear();
+					sync(); listSource.Clear();
 					testing.ValidateConsistency();
 				}
 
 				if (sourceValue != null)
 				{
-					sourceValue.Insert(0, new QuickTests.Item(1, true));
-					sourceValue.Insert(1, new QuickTests.Item(2, true));
-					sourceValue.Insert(2, new QuickTests.Item(3, true));
-					sourceValue.Insert(3, new QuickTests.Item(3, true));
-					sourceValue.Insert(4, new QuickTests.Item(3, true));
+					sync(); sourceValue.Insert(0, new QuickTests.Item(1, true));
+					sync(); sourceValue.Insert(1, new QuickTests.Item(2, true));
+					sync(); sourceValue.Insert(2, new QuickTests.Item(3, true));
+					sync(); sourceValue.Insert(3, new QuickTests.Item(3, true));
+					sync(); sourceValue.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
 				testing.ValidateConsistency();
 			}
 
 			test();
-			consumer.Dispose();
+			sync(); consumer.Dispose();
+			
 			((OcDispatcher)destinationOcDispatcher).Dispose();
 		}
 		
@@ -4363,32 +4559,37 @@ namespace ObservableComputations.Test
 			Assert.AreEqual(destinationOcDispatcher, testing.DestinationOcDispatcher);
 			Assert.AreEqual(destinationOcDispatcherParameter, testing.DestinationOcDispatcherParameter);
 
+			void sync()
+			{
+				((OcDispatcher)destinationOcDispatcher).Invoke(() => {});
+			}
+
 			void test()
 			{
 				testing.ValidateConsistency();
-				var sourceValue = ((ObservableCollection<Item>)((ObservableCollection<Item>)source));
+				sync(); var sourceValue = ((ObservableCollection<Item>)((ObservableCollection<Item>)source));
 
 				if (sourceValue != null)
 				{		
-					sourceValue.Insert(2, new QuickTests.Item(1, true));
+					sync(); sourceValue.Insert(2, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
-					sourceValue[3] = new QuickTests.Item(7, true);
+					sync(); sourceValue[3] = new QuickTests.Item(7, true);
 					testing.ValidateConsistency();
-					sourceValue.RemoveAt(3);
+					sync(); sourceValue.RemoveAt(3);
 					testing.ValidateConsistency();
-					sourceValue.Move(1, 3);
+					sync(); sourceValue.Move(1, 3);
 					testing.ValidateConsistency();
-					sourceValue[2].Active = !sourceValue[2].Active;
+					sync(); sourceValue[2].Active = !sourceValue[2].Active;
 					testing.ValidateConsistency();
-					sourceValue[2].Num = sourceValue[2].Num + 1;
+					sync(); sourceValue[2].Num = sourceValue[2].Num + 1;
 					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
+					sync(); sourceValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					sourceValue.RemoveAt(1);
+					sync(); sourceValue.RemoveAt(1);
 					testing.ValidateConsistency();
-					sourceValue.Insert(0, new QuickTests.Item(1, true));
+					sync(); sourceValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
-					sourceValue.Insert(0, new QuickTests.Item(2, true));
+					sync(); sourceValue.Insert(0, new QuickTests.Item(2, true));
 					testing.ValidateConsistency();
 				}
 
@@ -4396,24 +4597,25 @@ namespace ObservableComputations.Test
 				listSource = ((IList)((ObservableCollection<Item>)source));
 				if (listSource != null)
 				{
-					listSource.Clear();
+					sync(); listSource.Clear();
 					testing.ValidateConsistency();
 				}
 
 				if (sourceValue != null)
 				{
-					sourceValue.Insert(0, new QuickTests.Item(1, true));
-					sourceValue.Insert(1, new QuickTests.Item(2, true));
-					sourceValue.Insert(2, new QuickTests.Item(3, true));
-					sourceValue.Insert(3, new QuickTests.Item(3, true));
-					sourceValue.Insert(4, new QuickTests.Item(3, true));
+					sync(); sourceValue.Insert(0, new QuickTests.Item(1, true));
+					sync(); sourceValue.Insert(1, new QuickTests.Item(2, true));
+					sync(); sourceValue.Insert(2, new QuickTests.Item(3, true));
+					sync(); sourceValue.Insert(3, new QuickTests.Item(3, true));
+					sync(); sourceValue.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
 				testing.ValidateConsistency();
 			}
 
 			test();
-			consumer.Dispose();
+			sync(); consumer.Dispose();
+			
 			((OcDispatcher)destinationOcDispatcher).Dispose();
 		}
 		
@@ -4429,32 +4631,37 @@ namespace ObservableComputations.Test
 			Assert.AreEqual(source, testing.Source);
 			Assert.AreEqual(destinationOcDispatcher, testing.DestinationOcDispatcher);
 
+			void sync()
+			{
+				((OcDispatcher)destinationOcDispatcher).Invoke(() => {});
+			}
+
 			void test()
 			{
 				testing.ValidateConsistency();
-				var sourceValue = ((ObservableCollection<Item>)((ObservableCollection<Item>)source));
+				sync(); var sourceValue = ((ObservableCollection<Item>)((ObservableCollection<Item>)source));
 
 				if (sourceValue != null)
 				{		
-					sourceValue.Insert(2, new QuickTests.Item(1, true));
+					sync(); sourceValue.Insert(2, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
-					sourceValue[3] = new QuickTests.Item(7, true);
+					sync(); sourceValue[3] = new QuickTests.Item(7, true);
 					testing.ValidateConsistency();
-					sourceValue.RemoveAt(3);
+					sync(); sourceValue.RemoveAt(3);
 					testing.ValidateConsistency();
-					sourceValue.Move(1, 3);
+					sync(); sourceValue.Move(1, 3);
 					testing.ValidateConsistency();
-					sourceValue[2].Active = !sourceValue[2].Active;
+					sync(); sourceValue[2].Active = !sourceValue[2].Active;
 					testing.ValidateConsistency();
-					sourceValue[2].Num = sourceValue[2].Num + 1;
+					sync(); sourceValue[2].Num = sourceValue[2].Num + 1;
 					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
+					sync(); sourceValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					sourceValue.RemoveAt(1);
+					sync(); sourceValue.RemoveAt(1);
 					testing.ValidateConsistency();
-					sourceValue.Insert(0, new QuickTests.Item(1, true));
+					sync(); sourceValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
-					sourceValue.Insert(0, new QuickTests.Item(2, true));
+					sync(); sourceValue.Insert(0, new QuickTests.Item(2, true));
 					testing.ValidateConsistency();
 				}
 
@@ -4462,35 +4669,36 @@ namespace ObservableComputations.Test
 				listSource = ((IList)((ObservableCollection<Item>)source));
 				if (listSource != null)
 				{
-					listSource.Clear();
+					sync(); listSource.Clear();
 					testing.ValidateConsistency();
 				}
 
 				if (sourceValue != null)
 				{
-					sourceValue.Insert(0, new QuickTests.Item(1, true));
-					sourceValue.Insert(1, new QuickTests.Item(2, true));
-					sourceValue.Insert(2, new QuickTests.Item(3, true));
-					sourceValue.Insert(3, new QuickTests.Item(3, true));
-					sourceValue.Insert(4, new QuickTests.Item(3, true));
+					sync(); sourceValue.Insert(0, new QuickTests.Item(1, true));
+					sync(); sourceValue.Insert(1, new QuickTests.Item(2, true));
+					sync(); sourceValue.Insert(2, new QuickTests.Item(3, true));
+					sync(); sourceValue.Insert(3, new QuickTests.Item(3, true));
+					sync(); sourceValue.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
 				testing.ValidateConsistency();
 			}
 
 			test();
-			consumer.Dispose();
+			sync(); consumer.Dispose();
+			
 			((OcDispatcher)destinationOcDispatcher).Dispose();
 		}
 		
 		[Test, Combinatorial]
-		public void TestCollectionDispatching37(
-			[Values()] int destinationOcDispatcherPriority,
-			[Values()] int sourceOcDispatcherPriority)
+		public void TestCollectionDispatching37()
 		{
 			Scalar<System.Collections.Specialized.INotifyCollectionChanged> sourceScalar = getScalar<System.Collections.Specialized.INotifyCollectionChanged>(getItems());
 			ObservableComputations.IOcDispatcher destinationOcDispatcher = new OcDispatcher();
 			ObservableComputations.IOcDispatcher sourceOcDispatcher = new OcDispatcher();
+			int destinationOcDispatcherPriority = 0;
+			int sourceOcDispatcherPriority = 0;
 			object destinationOcDispatcherParameter = new object();
 			object sourceOcDispatcherParameter = new object();
 			OcConsumer consumer = new OcConsumer();
@@ -4510,32 +4718,38 @@ namespace ObservableComputations.Test
 			Assert.AreEqual(destinationOcDispatcherParameter, testing.DestinationOcDispatcherParameter);
 			Assert.AreEqual(sourceOcDispatcherParameter, testing.SourceOcDispatcherParameter);
 
+			void sync()
+			{
+				((OcDispatcher)sourceOcDispatcher).Invoke(() => {});
+				((OcDispatcher)destinationOcDispatcher).Invoke(() => {});
+			}
+
 			void test()
 			{
 				testing.ValidateConsistency();
-				var sourceScalarValue = ((ObservableCollection<Item>)((System.Collections.Specialized.INotifyCollectionChanged)sourceScalar.Value));
+				sync(); var sourceScalarValue = ((ObservableCollection<Item>)((System.Collections.Specialized.INotifyCollectionChanged)sourceScalar.Value));
 
 				if (sourceScalarValue != null)
 				{		
-					sourceScalarValue.Insert(2, new QuickTests.Item(1, true));
+					sync(); sourceScalarValue.Insert(2, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
-					sourceScalarValue[3] = new QuickTests.Item(7, true);
+					sync(); sourceScalarValue[3] = new QuickTests.Item(7, true);
 					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(3);
+					sync(); sourceScalarValue.RemoveAt(3);
 					testing.ValidateConsistency();
-					sourceScalarValue.Move(1, 3);
+					sync(); sourceScalarValue.Move(1, 3);
 					testing.ValidateConsistency();
-					sourceScalarValue[2].Active = !sourceScalarValue[2].Active;
+					sync(); sourceScalarValue[2].Active = !sourceScalarValue[2].Active;
 					testing.ValidateConsistency();
-					sourceScalarValue[2].Num = sourceScalarValue[2].Num + 1;
+					sync(); sourceScalarValue[2].Num = sourceScalarValue[2].Num + 1;
 					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
+					sync(); sourceScalarValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(1);
+					sync(); sourceScalarValue.RemoveAt(1);
 					testing.ValidateConsistency();
-					sourceScalarValue.Insert(0, new QuickTests.Item(1, true));
+					sync(); sourceScalarValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
-					sourceScalarValue.Insert(0, new QuickTests.Item(2, true));
+					sync(); sourceScalarValue.Insert(0, new QuickTests.Item(2, true));
 					testing.ValidateConsistency();
 				}
 
@@ -4543,17 +4757,17 @@ namespace ObservableComputations.Test
 				listSource = ((IList)((System.Collections.Specialized.INotifyCollectionChanged)sourceScalar.Value));
 				if (listSource != null)
 				{
-					listSource.Clear();
+					sync(); listSource.Clear();
 					testing.ValidateConsistency();
 				}
 
 				if (sourceScalarValue != null)
 				{
-					sourceScalarValue.Insert(0, new QuickTests.Item(1, true));
-					sourceScalarValue.Insert(1, new QuickTests.Item(2, true));
-					sourceScalarValue.Insert(2, new QuickTests.Item(3, true));
-					sourceScalarValue.Insert(3, new QuickTests.Item(3, true));
-					sourceScalarValue.Insert(4, new QuickTests.Item(3, true));
+					sync(); sourceScalarValue.Insert(0, new QuickTests.Item(1, true));
+					sync(); sourceScalarValue.Insert(1, new QuickTests.Item(2, true));
+					sync(); sourceScalarValue.Insert(2, new QuickTests.Item(3, true));
+					sync(); sourceScalarValue.Insert(3, new QuickTests.Item(3, true));
+					sync(); sourceScalarValue.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
 				testing.ValidateConsistency();
@@ -4561,23 +4775,24 @@ namespace ObservableComputations.Test
 
 			test();
 
-			((Scalar<System.Collections.Specialized.INotifyCollectionChanged>)sourceScalar).Touch();
+			sync(); ((Scalar<System.Collections.Specialized.INotifyCollectionChanged>)sourceScalar).Touch();
 			test();
-			((Scalar<System.Collections.Specialized.INotifyCollectionChanged>)sourceScalar).Change(null);
+			sync(); ((Scalar<System.Collections.Specialized.INotifyCollectionChanged>)sourceScalar).Change(null);
 			test();
-			consumer.Dispose();
-			((OcDispatcher)destinationOcDispatcher).Dispose();
+			sync(); consumer.Dispose();
 			((OcDispatcher)sourceOcDispatcher).Dispose();
+			
+			((OcDispatcher)destinationOcDispatcher).Dispose();
 		}
 		
 		[Test, Combinatorial]
-		public void TestCollectionDispatching38(
-			[Values()] int destinationOcDispatcherPriority,
-			[Values()] int sourceOcDispatcherPriority)
+		public void TestCollectionDispatching38()
 		{
 			Scalar<System.Collections.Specialized.INotifyCollectionChanged> sourceScalar = getScalar<System.Collections.Specialized.INotifyCollectionChanged>(getItems());
 			ObservableComputations.IOcDispatcher destinationOcDispatcher = new OcDispatcher();
 			ObservableComputations.IOcDispatcher sourceOcDispatcher = new OcDispatcher();
+			int destinationOcDispatcherPriority = 0;
+			int sourceOcDispatcherPriority = 0;
 			object destinationOcDispatcherParameter = new object();
 			OcConsumer consumer = new OcConsumer();
 			var testing = sourceScalar.CollectionDispatching<Item>(
@@ -4594,32 +4809,38 @@ namespace ObservableComputations.Test
 			Assert.AreEqual(sourceOcDispatcherPriority, testing.SourceOcDispatcherPriority);
 			Assert.AreEqual(destinationOcDispatcherParameter, testing.DestinationOcDispatcherParameter);
 
+			void sync()
+			{
+				((OcDispatcher)sourceOcDispatcher).Invoke(() => {});
+				((OcDispatcher)destinationOcDispatcher).Invoke(() => {});
+			}
+
 			void test()
 			{
 				testing.ValidateConsistency();
-				var sourceScalarValue = ((ObservableCollection<Item>)((System.Collections.Specialized.INotifyCollectionChanged)sourceScalar.Value));
+				sync(); var sourceScalarValue = ((ObservableCollection<Item>)((System.Collections.Specialized.INotifyCollectionChanged)sourceScalar.Value));
 
 				if (sourceScalarValue != null)
 				{		
-					sourceScalarValue.Insert(2, new QuickTests.Item(1, true));
+					sync(); sourceScalarValue.Insert(2, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
-					sourceScalarValue[3] = new QuickTests.Item(7, true);
+					sync(); sourceScalarValue[3] = new QuickTests.Item(7, true);
 					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(3);
+					sync(); sourceScalarValue.RemoveAt(3);
 					testing.ValidateConsistency();
-					sourceScalarValue.Move(1, 3);
+					sync(); sourceScalarValue.Move(1, 3);
 					testing.ValidateConsistency();
-					sourceScalarValue[2].Active = !sourceScalarValue[2].Active;
+					sync(); sourceScalarValue[2].Active = !sourceScalarValue[2].Active;
 					testing.ValidateConsistency();
-					sourceScalarValue[2].Num = sourceScalarValue[2].Num + 1;
+					sync(); sourceScalarValue[2].Num = sourceScalarValue[2].Num + 1;
 					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
+					sync(); sourceScalarValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(1);
+					sync(); sourceScalarValue.RemoveAt(1);
 					testing.ValidateConsistency();
-					sourceScalarValue.Insert(0, new QuickTests.Item(1, true));
+					sync(); sourceScalarValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
-					sourceScalarValue.Insert(0, new QuickTests.Item(2, true));
+					sync(); sourceScalarValue.Insert(0, new QuickTests.Item(2, true));
 					testing.ValidateConsistency();
 				}
 
@@ -4627,17 +4848,17 @@ namespace ObservableComputations.Test
 				listSource = ((IList)((System.Collections.Specialized.INotifyCollectionChanged)sourceScalar.Value));
 				if (listSource != null)
 				{
-					listSource.Clear();
+					sync(); listSource.Clear();
 					testing.ValidateConsistency();
 				}
 
 				if (sourceScalarValue != null)
 				{
-					sourceScalarValue.Insert(0, new QuickTests.Item(1, true));
-					sourceScalarValue.Insert(1, new QuickTests.Item(2, true));
-					sourceScalarValue.Insert(2, new QuickTests.Item(3, true));
-					sourceScalarValue.Insert(3, new QuickTests.Item(3, true));
-					sourceScalarValue.Insert(4, new QuickTests.Item(3, true));
+					sync(); sourceScalarValue.Insert(0, new QuickTests.Item(1, true));
+					sync(); sourceScalarValue.Insert(1, new QuickTests.Item(2, true));
+					sync(); sourceScalarValue.Insert(2, new QuickTests.Item(3, true));
+					sync(); sourceScalarValue.Insert(3, new QuickTests.Item(3, true));
+					sync(); sourceScalarValue.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
 				testing.ValidateConsistency();
@@ -4645,23 +4866,24 @@ namespace ObservableComputations.Test
 
 			test();
 
-			((Scalar<System.Collections.Specialized.INotifyCollectionChanged>)sourceScalar).Touch();
+			sync(); ((Scalar<System.Collections.Specialized.INotifyCollectionChanged>)sourceScalar).Touch();
 			test();
-			((Scalar<System.Collections.Specialized.INotifyCollectionChanged>)sourceScalar).Change(null);
+			sync(); ((Scalar<System.Collections.Specialized.INotifyCollectionChanged>)sourceScalar).Change(null);
 			test();
-			consumer.Dispose();
-			((OcDispatcher)destinationOcDispatcher).Dispose();
+			sync(); consumer.Dispose();
 			((OcDispatcher)sourceOcDispatcher).Dispose();
+			
+			((OcDispatcher)destinationOcDispatcher).Dispose();
 		}
 		
 		[Test, Combinatorial]
-		public void TestCollectionDispatching39(
-			[Values()] int destinationOcDispatcherPriority,
-			[Values()] int sourceOcDispatcherPriority)
+		public void TestCollectionDispatching39()
 		{
 			Scalar<System.Collections.Specialized.INotifyCollectionChanged> sourceScalar = getScalar<System.Collections.Specialized.INotifyCollectionChanged>(getItems());
 			ObservableComputations.IOcDispatcher destinationOcDispatcher = new OcDispatcher();
 			ObservableComputations.IOcDispatcher sourceOcDispatcher = new OcDispatcher();
+			int destinationOcDispatcherPriority = 0;
+			int sourceOcDispatcherPriority = 0;
 			OcConsumer consumer = new OcConsumer();
 			var testing = sourceScalar.CollectionDispatching<Item>(
 				destinationOcDispatcher,
@@ -4675,32 +4897,38 @@ namespace ObservableComputations.Test
 			Assert.AreEqual(destinationOcDispatcherPriority, testing.DestinationOcDispatcherPriority);
 			Assert.AreEqual(sourceOcDispatcherPriority, testing.SourceOcDispatcherPriority);
 
+			void sync()
+			{
+				((OcDispatcher)sourceOcDispatcher).Invoke(() => {});
+				((OcDispatcher)destinationOcDispatcher).Invoke(() => {});
+			}
+
 			void test()
 			{
 				testing.ValidateConsistency();
-				var sourceScalarValue = ((ObservableCollection<Item>)((System.Collections.Specialized.INotifyCollectionChanged)sourceScalar.Value));
+				sync(); var sourceScalarValue = ((ObservableCollection<Item>)((System.Collections.Specialized.INotifyCollectionChanged)sourceScalar.Value));
 
 				if (sourceScalarValue != null)
 				{		
-					sourceScalarValue.Insert(2, new QuickTests.Item(1, true));
+					sync(); sourceScalarValue.Insert(2, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
-					sourceScalarValue[3] = new QuickTests.Item(7, true);
+					sync(); sourceScalarValue[3] = new QuickTests.Item(7, true);
 					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(3);
+					sync(); sourceScalarValue.RemoveAt(3);
 					testing.ValidateConsistency();
-					sourceScalarValue.Move(1, 3);
+					sync(); sourceScalarValue.Move(1, 3);
 					testing.ValidateConsistency();
-					sourceScalarValue[2].Active = !sourceScalarValue[2].Active;
+					sync(); sourceScalarValue[2].Active = !sourceScalarValue[2].Active;
 					testing.ValidateConsistency();
-					sourceScalarValue[2].Num = sourceScalarValue[2].Num + 1;
+					sync(); sourceScalarValue[2].Num = sourceScalarValue[2].Num + 1;
 					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
+					sync(); sourceScalarValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(1);
+					sync(); sourceScalarValue.RemoveAt(1);
 					testing.ValidateConsistency();
-					sourceScalarValue.Insert(0, new QuickTests.Item(1, true));
+					sync(); sourceScalarValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
-					sourceScalarValue.Insert(0, new QuickTests.Item(2, true));
+					sync(); sourceScalarValue.Insert(0, new QuickTests.Item(2, true));
 					testing.ValidateConsistency();
 				}
 
@@ -4708,17 +4936,17 @@ namespace ObservableComputations.Test
 				listSource = ((IList)((System.Collections.Specialized.INotifyCollectionChanged)sourceScalar.Value));
 				if (listSource != null)
 				{
-					listSource.Clear();
+					sync(); listSource.Clear();
 					testing.ValidateConsistency();
 				}
 
 				if (sourceScalarValue != null)
 				{
-					sourceScalarValue.Insert(0, new QuickTests.Item(1, true));
-					sourceScalarValue.Insert(1, new QuickTests.Item(2, true));
-					sourceScalarValue.Insert(2, new QuickTests.Item(3, true));
-					sourceScalarValue.Insert(3, new QuickTests.Item(3, true));
-					sourceScalarValue.Insert(4, new QuickTests.Item(3, true));
+					sync(); sourceScalarValue.Insert(0, new QuickTests.Item(1, true));
+					sync(); sourceScalarValue.Insert(1, new QuickTests.Item(2, true));
+					sync(); sourceScalarValue.Insert(2, new QuickTests.Item(3, true));
+					sync(); sourceScalarValue.Insert(3, new QuickTests.Item(3, true));
+					sync(); sourceScalarValue.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
 				testing.ValidateConsistency();
@@ -4726,22 +4954,23 @@ namespace ObservableComputations.Test
 
 			test();
 
-			((Scalar<System.Collections.Specialized.INotifyCollectionChanged>)sourceScalar).Touch();
+			sync(); ((Scalar<System.Collections.Specialized.INotifyCollectionChanged>)sourceScalar).Touch();
 			test();
-			((Scalar<System.Collections.Specialized.INotifyCollectionChanged>)sourceScalar).Change(null);
+			sync(); ((Scalar<System.Collections.Specialized.INotifyCollectionChanged>)sourceScalar).Change(null);
 			test();
-			consumer.Dispose();
-			((OcDispatcher)destinationOcDispatcher).Dispose();
+			sync(); consumer.Dispose();
 			((OcDispatcher)sourceOcDispatcher).Dispose();
+			
+			((OcDispatcher)destinationOcDispatcher).Dispose();
 		}
 		
 		[Test, Combinatorial]
-		public void TestCollectionDispatching40(
-			[Values()] int destinationOcDispatcherPriority)
+		public void TestCollectionDispatching40()
 		{
 			Scalar<System.Collections.Specialized.INotifyCollectionChanged> sourceScalar = getScalar<System.Collections.Specialized.INotifyCollectionChanged>(getItems());
 			ObservableComputations.IOcDispatcher destinationOcDispatcher = new OcDispatcher();
 			ObservableComputations.IOcDispatcher sourceOcDispatcher = new OcDispatcher();
+			int destinationOcDispatcherPriority = 0;
 			object destinationOcDispatcherParameter = new object();
 			object sourceOcDispatcherParameter = new object();
 			OcConsumer consumer = new OcConsumer();
@@ -4759,32 +4988,38 @@ namespace ObservableComputations.Test
 			Assert.AreEqual(destinationOcDispatcherParameter, testing.DestinationOcDispatcherParameter);
 			Assert.AreEqual(sourceOcDispatcherParameter, testing.SourceOcDispatcherParameter);
 
+			void sync()
+			{
+				((OcDispatcher)sourceOcDispatcher).Invoke(() => {});
+				((OcDispatcher)destinationOcDispatcher).Invoke(() => {});
+			}
+
 			void test()
 			{
 				testing.ValidateConsistency();
-				var sourceScalarValue = ((ObservableCollection<Item>)((System.Collections.Specialized.INotifyCollectionChanged)sourceScalar.Value));
+				sync(); var sourceScalarValue = ((ObservableCollection<Item>)((System.Collections.Specialized.INotifyCollectionChanged)sourceScalar.Value));
 
 				if (sourceScalarValue != null)
 				{		
-					sourceScalarValue.Insert(2, new QuickTests.Item(1, true));
+					sync(); sourceScalarValue.Insert(2, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
-					sourceScalarValue[3] = new QuickTests.Item(7, true);
+					sync(); sourceScalarValue[3] = new QuickTests.Item(7, true);
 					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(3);
+					sync(); sourceScalarValue.RemoveAt(3);
 					testing.ValidateConsistency();
-					sourceScalarValue.Move(1, 3);
+					sync(); sourceScalarValue.Move(1, 3);
 					testing.ValidateConsistency();
-					sourceScalarValue[2].Active = !sourceScalarValue[2].Active;
+					sync(); sourceScalarValue[2].Active = !sourceScalarValue[2].Active;
 					testing.ValidateConsistency();
-					sourceScalarValue[2].Num = sourceScalarValue[2].Num + 1;
+					sync(); sourceScalarValue[2].Num = sourceScalarValue[2].Num + 1;
 					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
+					sync(); sourceScalarValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(1);
+					sync(); sourceScalarValue.RemoveAt(1);
 					testing.ValidateConsistency();
-					sourceScalarValue.Insert(0, new QuickTests.Item(1, true));
+					sync(); sourceScalarValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
-					sourceScalarValue.Insert(0, new QuickTests.Item(2, true));
+					sync(); sourceScalarValue.Insert(0, new QuickTests.Item(2, true));
 					testing.ValidateConsistency();
 				}
 
@@ -4792,17 +5027,17 @@ namespace ObservableComputations.Test
 				listSource = ((IList)((System.Collections.Specialized.INotifyCollectionChanged)sourceScalar.Value));
 				if (listSource != null)
 				{
-					listSource.Clear();
+					sync(); listSource.Clear();
 					testing.ValidateConsistency();
 				}
 
 				if (sourceScalarValue != null)
 				{
-					sourceScalarValue.Insert(0, new QuickTests.Item(1, true));
-					sourceScalarValue.Insert(1, new QuickTests.Item(2, true));
-					sourceScalarValue.Insert(2, new QuickTests.Item(3, true));
-					sourceScalarValue.Insert(3, new QuickTests.Item(3, true));
-					sourceScalarValue.Insert(4, new QuickTests.Item(3, true));
+					sync(); sourceScalarValue.Insert(0, new QuickTests.Item(1, true));
+					sync(); sourceScalarValue.Insert(1, new QuickTests.Item(2, true));
+					sync(); sourceScalarValue.Insert(2, new QuickTests.Item(3, true));
+					sync(); sourceScalarValue.Insert(3, new QuickTests.Item(3, true));
+					sync(); sourceScalarValue.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
 				testing.ValidateConsistency();
@@ -4810,22 +5045,23 @@ namespace ObservableComputations.Test
 
 			test();
 
-			((Scalar<System.Collections.Specialized.INotifyCollectionChanged>)sourceScalar).Touch();
+			sync(); ((Scalar<System.Collections.Specialized.INotifyCollectionChanged>)sourceScalar).Touch();
 			test();
-			((Scalar<System.Collections.Specialized.INotifyCollectionChanged>)sourceScalar).Change(null);
+			sync(); ((Scalar<System.Collections.Specialized.INotifyCollectionChanged>)sourceScalar).Change(null);
 			test();
-			consumer.Dispose();
-			((OcDispatcher)destinationOcDispatcher).Dispose();
+			sync(); consumer.Dispose();
 			((OcDispatcher)sourceOcDispatcher).Dispose();
+			
+			((OcDispatcher)destinationOcDispatcher).Dispose();
 		}
 		
 		[Test, Combinatorial]
-		public void TestCollectionDispatching41(
-			[Values()] int destinationOcDispatcherPriority)
+		public void TestCollectionDispatching41()
 		{
 			Scalar<System.Collections.Specialized.INotifyCollectionChanged> sourceScalar = getScalar<System.Collections.Specialized.INotifyCollectionChanged>(getItems());
 			ObservableComputations.IOcDispatcher destinationOcDispatcher = new OcDispatcher();
 			ObservableComputations.IOcDispatcher sourceOcDispatcher = new OcDispatcher();
+			int destinationOcDispatcherPriority = 0;
 			object destinationOcDispatcherParameter = new object();
 			OcConsumer consumer = new OcConsumer();
 			var testing = sourceScalar.CollectionDispatching<Item>(
@@ -4840,32 +5076,38 @@ namespace ObservableComputations.Test
 			Assert.AreEqual(destinationOcDispatcherPriority, testing.DestinationOcDispatcherPriority);
 			Assert.AreEqual(destinationOcDispatcherParameter, testing.DestinationOcDispatcherParameter);
 
+			void sync()
+			{
+				((OcDispatcher)sourceOcDispatcher).Invoke(() => {});
+				((OcDispatcher)destinationOcDispatcher).Invoke(() => {});
+			}
+
 			void test()
 			{
 				testing.ValidateConsistency();
-				var sourceScalarValue = ((ObservableCollection<Item>)((System.Collections.Specialized.INotifyCollectionChanged)sourceScalar.Value));
+				sync(); var sourceScalarValue = ((ObservableCollection<Item>)((System.Collections.Specialized.INotifyCollectionChanged)sourceScalar.Value));
 
 				if (sourceScalarValue != null)
 				{		
-					sourceScalarValue.Insert(2, new QuickTests.Item(1, true));
+					sync(); sourceScalarValue.Insert(2, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
-					sourceScalarValue[3] = new QuickTests.Item(7, true);
+					sync(); sourceScalarValue[3] = new QuickTests.Item(7, true);
 					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(3);
+					sync(); sourceScalarValue.RemoveAt(3);
 					testing.ValidateConsistency();
-					sourceScalarValue.Move(1, 3);
+					sync(); sourceScalarValue.Move(1, 3);
 					testing.ValidateConsistency();
-					sourceScalarValue[2].Active = !sourceScalarValue[2].Active;
+					sync(); sourceScalarValue[2].Active = !sourceScalarValue[2].Active;
 					testing.ValidateConsistency();
-					sourceScalarValue[2].Num = sourceScalarValue[2].Num + 1;
+					sync(); sourceScalarValue[2].Num = sourceScalarValue[2].Num + 1;
 					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
+					sync(); sourceScalarValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(1);
+					sync(); sourceScalarValue.RemoveAt(1);
 					testing.ValidateConsistency();
-					sourceScalarValue.Insert(0, new QuickTests.Item(1, true));
+					sync(); sourceScalarValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
-					sourceScalarValue.Insert(0, new QuickTests.Item(2, true));
+					sync(); sourceScalarValue.Insert(0, new QuickTests.Item(2, true));
 					testing.ValidateConsistency();
 				}
 
@@ -4873,17 +5115,17 @@ namespace ObservableComputations.Test
 				listSource = ((IList)((System.Collections.Specialized.INotifyCollectionChanged)sourceScalar.Value));
 				if (listSource != null)
 				{
-					listSource.Clear();
+					sync(); listSource.Clear();
 					testing.ValidateConsistency();
 				}
 
 				if (sourceScalarValue != null)
 				{
-					sourceScalarValue.Insert(0, new QuickTests.Item(1, true));
-					sourceScalarValue.Insert(1, new QuickTests.Item(2, true));
-					sourceScalarValue.Insert(2, new QuickTests.Item(3, true));
-					sourceScalarValue.Insert(3, new QuickTests.Item(3, true));
-					sourceScalarValue.Insert(4, new QuickTests.Item(3, true));
+					sync(); sourceScalarValue.Insert(0, new QuickTests.Item(1, true));
+					sync(); sourceScalarValue.Insert(1, new QuickTests.Item(2, true));
+					sync(); sourceScalarValue.Insert(2, new QuickTests.Item(3, true));
+					sync(); sourceScalarValue.Insert(3, new QuickTests.Item(3, true));
+					sync(); sourceScalarValue.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
 				testing.ValidateConsistency();
@@ -4891,22 +5133,23 @@ namespace ObservableComputations.Test
 
 			test();
 
-			((Scalar<System.Collections.Specialized.INotifyCollectionChanged>)sourceScalar).Touch();
+			sync(); ((Scalar<System.Collections.Specialized.INotifyCollectionChanged>)sourceScalar).Touch();
 			test();
-			((Scalar<System.Collections.Specialized.INotifyCollectionChanged>)sourceScalar).Change(null);
+			sync(); ((Scalar<System.Collections.Specialized.INotifyCollectionChanged>)sourceScalar).Change(null);
 			test();
-			consumer.Dispose();
-			((OcDispatcher)destinationOcDispatcher).Dispose();
+			sync(); consumer.Dispose();
 			((OcDispatcher)sourceOcDispatcher).Dispose();
+			
+			((OcDispatcher)destinationOcDispatcher).Dispose();
 		}
 		
 		[Test, Combinatorial]
-		public void TestCollectionDispatching42(
-			[Values()] int destinationOcDispatcherPriority)
+		public void TestCollectionDispatching42()
 		{
 			Scalar<System.Collections.Specialized.INotifyCollectionChanged> sourceScalar = getScalar<System.Collections.Specialized.INotifyCollectionChanged>(getItems());
 			ObservableComputations.IOcDispatcher destinationOcDispatcher = new OcDispatcher();
 			ObservableComputations.IOcDispatcher sourceOcDispatcher = new OcDispatcher();
+			int destinationOcDispatcherPriority = 0;
 			OcConsumer consumer = new OcConsumer();
 			var testing = sourceScalar.CollectionDispatching<Item>(
 				destinationOcDispatcher,
@@ -4918,32 +5161,38 @@ namespace ObservableComputations.Test
 			Assert.AreEqual(sourceOcDispatcher, testing.SourceOcDispatcher);
 			Assert.AreEqual(destinationOcDispatcherPriority, testing.DestinationOcDispatcherPriority);
 
+			void sync()
+			{
+				((OcDispatcher)sourceOcDispatcher).Invoke(() => {});
+				((OcDispatcher)destinationOcDispatcher).Invoke(() => {});
+			}
+
 			void test()
 			{
 				testing.ValidateConsistency();
-				var sourceScalarValue = ((ObservableCollection<Item>)((System.Collections.Specialized.INotifyCollectionChanged)sourceScalar.Value));
+				sync(); var sourceScalarValue = ((ObservableCollection<Item>)((System.Collections.Specialized.INotifyCollectionChanged)sourceScalar.Value));
 
 				if (sourceScalarValue != null)
 				{		
-					sourceScalarValue.Insert(2, new QuickTests.Item(1, true));
+					sync(); sourceScalarValue.Insert(2, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
-					sourceScalarValue[3] = new QuickTests.Item(7, true);
+					sync(); sourceScalarValue[3] = new QuickTests.Item(7, true);
 					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(3);
+					sync(); sourceScalarValue.RemoveAt(3);
 					testing.ValidateConsistency();
-					sourceScalarValue.Move(1, 3);
+					sync(); sourceScalarValue.Move(1, 3);
 					testing.ValidateConsistency();
-					sourceScalarValue[2].Active = !sourceScalarValue[2].Active;
+					sync(); sourceScalarValue[2].Active = !sourceScalarValue[2].Active;
 					testing.ValidateConsistency();
-					sourceScalarValue[2].Num = sourceScalarValue[2].Num + 1;
+					sync(); sourceScalarValue[2].Num = sourceScalarValue[2].Num + 1;
 					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
+					sync(); sourceScalarValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(1);
+					sync(); sourceScalarValue.RemoveAt(1);
 					testing.ValidateConsistency();
-					sourceScalarValue.Insert(0, new QuickTests.Item(1, true));
+					sync(); sourceScalarValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
-					sourceScalarValue.Insert(0, new QuickTests.Item(2, true));
+					sync(); sourceScalarValue.Insert(0, new QuickTests.Item(2, true));
 					testing.ValidateConsistency();
 				}
 
@@ -4951,17 +5200,17 @@ namespace ObservableComputations.Test
 				listSource = ((IList)((System.Collections.Specialized.INotifyCollectionChanged)sourceScalar.Value));
 				if (listSource != null)
 				{
-					listSource.Clear();
+					sync(); listSource.Clear();
 					testing.ValidateConsistency();
 				}
 
 				if (sourceScalarValue != null)
 				{
-					sourceScalarValue.Insert(0, new QuickTests.Item(1, true));
-					sourceScalarValue.Insert(1, new QuickTests.Item(2, true));
-					sourceScalarValue.Insert(2, new QuickTests.Item(3, true));
-					sourceScalarValue.Insert(3, new QuickTests.Item(3, true));
-					sourceScalarValue.Insert(4, new QuickTests.Item(3, true));
+					sync(); sourceScalarValue.Insert(0, new QuickTests.Item(1, true));
+					sync(); sourceScalarValue.Insert(1, new QuickTests.Item(2, true));
+					sync(); sourceScalarValue.Insert(2, new QuickTests.Item(3, true));
+					sync(); sourceScalarValue.Insert(3, new QuickTests.Item(3, true));
+					sync(); sourceScalarValue.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
 				testing.ValidateConsistency();
@@ -4969,13 +5218,14 @@ namespace ObservableComputations.Test
 
 			test();
 
-			((Scalar<System.Collections.Specialized.INotifyCollectionChanged>)sourceScalar).Touch();
+			sync(); ((Scalar<System.Collections.Specialized.INotifyCollectionChanged>)sourceScalar).Touch();
 			test();
-			((Scalar<System.Collections.Specialized.INotifyCollectionChanged>)sourceScalar).Change(null);
+			sync(); ((Scalar<System.Collections.Specialized.INotifyCollectionChanged>)sourceScalar).Change(null);
 			test();
-			consumer.Dispose();
-			((OcDispatcher)destinationOcDispatcher).Dispose();
+			sync(); consumer.Dispose();
 			((OcDispatcher)sourceOcDispatcher).Dispose();
+			
+			((OcDispatcher)destinationOcDispatcher).Dispose();
 		}
 		
 		[Test, Combinatorial]
@@ -4999,32 +5249,38 @@ namespace ObservableComputations.Test
 			Assert.AreEqual(destinationOcDispatcherParameter, testing.DestinationOcDispatcherParameter);
 			Assert.AreEqual(sourceOcDispatcherParameter, testing.SourceOcDispatcherParameter);
 
+			void sync()
+			{
+				((OcDispatcher)sourceOcDispatcher).Invoke(() => {});
+				((OcDispatcher)destinationOcDispatcher).Invoke(() => {});
+			}
+
 			void test()
 			{
 				testing.ValidateConsistency();
-				var sourceScalarValue = ((ObservableCollection<Item>)((System.Collections.Specialized.INotifyCollectionChanged)sourceScalar.Value));
+				sync(); var sourceScalarValue = ((ObservableCollection<Item>)((System.Collections.Specialized.INotifyCollectionChanged)sourceScalar.Value));
 
 				if (sourceScalarValue != null)
 				{		
-					sourceScalarValue.Insert(2, new QuickTests.Item(1, true));
+					sync(); sourceScalarValue.Insert(2, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
-					sourceScalarValue[3] = new QuickTests.Item(7, true);
+					sync(); sourceScalarValue[3] = new QuickTests.Item(7, true);
 					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(3);
+					sync(); sourceScalarValue.RemoveAt(3);
 					testing.ValidateConsistency();
-					sourceScalarValue.Move(1, 3);
+					sync(); sourceScalarValue.Move(1, 3);
 					testing.ValidateConsistency();
-					sourceScalarValue[2].Active = !sourceScalarValue[2].Active;
+					sync(); sourceScalarValue[2].Active = !sourceScalarValue[2].Active;
 					testing.ValidateConsistency();
-					sourceScalarValue[2].Num = sourceScalarValue[2].Num + 1;
+					sync(); sourceScalarValue[2].Num = sourceScalarValue[2].Num + 1;
 					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
+					sync(); sourceScalarValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(1);
+					sync(); sourceScalarValue.RemoveAt(1);
 					testing.ValidateConsistency();
-					sourceScalarValue.Insert(0, new QuickTests.Item(1, true));
+					sync(); sourceScalarValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
-					sourceScalarValue.Insert(0, new QuickTests.Item(2, true));
+					sync(); sourceScalarValue.Insert(0, new QuickTests.Item(2, true));
 					testing.ValidateConsistency();
 				}
 
@@ -5032,17 +5288,17 @@ namespace ObservableComputations.Test
 				listSource = ((IList)((System.Collections.Specialized.INotifyCollectionChanged)sourceScalar.Value));
 				if (listSource != null)
 				{
-					listSource.Clear();
+					sync(); listSource.Clear();
 					testing.ValidateConsistency();
 				}
 
 				if (sourceScalarValue != null)
 				{
-					sourceScalarValue.Insert(0, new QuickTests.Item(1, true));
-					sourceScalarValue.Insert(1, new QuickTests.Item(2, true));
-					sourceScalarValue.Insert(2, new QuickTests.Item(3, true));
-					sourceScalarValue.Insert(3, new QuickTests.Item(3, true));
-					sourceScalarValue.Insert(4, new QuickTests.Item(3, true));
+					sync(); sourceScalarValue.Insert(0, new QuickTests.Item(1, true));
+					sync(); sourceScalarValue.Insert(1, new QuickTests.Item(2, true));
+					sync(); sourceScalarValue.Insert(2, new QuickTests.Item(3, true));
+					sync(); sourceScalarValue.Insert(3, new QuickTests.Item(3, true));
+					sync(); sourceScalarValue.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
 				testing.ValidateConsistency();
@@ -5050,13 +5306,14 @@ namespace ObservableComputations.Test
 
 			test();
 
-			((Scalar<System.Collections.Specialized.INotifyCollectionChanged>)sourceScalar).Touch();
+			sync(); ((Scalar<System.Collections.Specialized.INotifyCollectionChanged>)sourceScalar).Touch();
 			test();
-			((Scalar<System.Collections.Specialized.INotifyCollectionChanged>)sourceScalar).Change(null);
+			sync(); ((Scalar<System.Collections.Specialized.INotifyCollectionChanged>)sourceScalar).Change(null);
 			test();
-			consumer.Dispose();
-			((OcDispatcher)destinationOcDispatcher).Dispose();
+			sync(); consumer.Dispose();
 			((OcDispatcher)sourceOcDispatcher).Dispose();
+			
+			((OcDispatcher)destinationOcDispatcher).Dispose();
 		}
 		
 		[Test, Combinatorial]
@@ -5077,32 +5334,38 @@ namespace ObservableComputations.Test
 			Assert.AreEqual(sourceOcDispatcher, testing.SourceOcDispatcher);
 			Assert.AreEqual(destinationOcDispatcherParameter, testing.DestinationOcDispatcherParameter);
 
+			void sync()
+			{
+				((OcDispatcher)sourceOcDispatcher).Invoke(() => {});
+				((OcDispatcher)destinationOcDispatcher).Invoke(() => {});
+			}
+
 			void test()
 			{
 				testing.ValidateConsistency();
-				var sourceScalarValue = ((ObservableCollection<Item>)((System.Collections.Specialized.INotifyCollectionChanged)sourceScalar.Value));
+				sync(); var sourceScalarValue = ((ObservableCollection<Item>)((System.Collections.Specialized.INotifyCollectionChanged)sourceScalar.Value));
 
 				if (sourceScalarValue != null)
 				{		
-					sourceScalarValue.Insert(2, new QuickTests.Item(1, true));
+					sync(); sourceScalarValue.Insert(2, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
-					sourceScalarValue[3] = new QuickTests.Item(7, true);
+					sync(); sourceScalarValue[3] = new QuickTests.Item(7, true);
 					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(3);
+					sync(); sourceScalarValue.RemoveAt(3);
 					testing.ValidateConsistency();
-					sourceScalarValue.Move(1, 3);
+					sync(); sourceScalarValue.Move(1, 3);
 					testing.ValidateConsistency();
-					sourceScalarValue[2].Active = !sourceScalarValue[2].Active;
+					sync(); sourceScalarValue[2].Active = !sourceScalarValue[2].Active;
 					testing.ValidateConsistency();
-					sourceScalarValue[2].Num = sourceScalarValue[2].Num + 1;
+					sync(); sourceScalarValue[2].Num = sourceScalarValue[2].Num + 1;
 					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
+					sync(); sourceScalarValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(1);
+					sync(); sourceScalarValue.RemoveAt(1);
 					testing.ValidateConsistency();
-					sourceScalarValue.Insert(0, new QuickTests.Item(1, true));
+					sync(); sourceScalarValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
-					sourceScalarValue.Insert(0, new QuickTests.Item(2, true));
+					sync(); sourceScalarValue.Insert(0, new QuickTests.Item(2, true));
 					testing.ValidateConsistency();
 				}
 
@@ -5110,17 +5373,17 @@ namespace ObservableComputations.Test
 				listSource = ((IList)((System.Collections.Specialized.INotifyCollectionChanged)sourceScalar.Value));
 				if (listSource != null)
 				{
-					listSource.Clear();
+					sync(); listSource.Clear();
 					testing.ValidateConsistency();
 				}
 
 				if (sourceScalarValue != null)
 				{
-					sourceScalarValue.Insert(0, new QuickTests.Item(1, true));
-					sourceScalarValue.Insert(1, new QuickTests.Item(2, true));
-					sourceScalarValue.Insert(2, new QuickTests.Item(3, true));
-					sourceScalarValue.Insert(3, new QuickTests.Item(3, true));
-					sourceScalarValue.Insert(4, new QuickTests.Item(3, true));
+					sync(); sourceScalarValue.Insert(0, new QuickTests.Item(1, true));
+					sync(); sourceScalarValue.Insert(1, new QuickTests.Item(2, true));
+					sync(); sourceScalarValue.Insert(2, new QuickTests.Item(3, true));
+					sync(); sourceScalarValue.Insert(3, new QuickTests.Item(3, true));
+					sync(); sourceScalarValue.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
 				testing.ValidateConsistency();
@@ -5128,13 +5391,14 @@ namespace ObservableComputations.Test
 
 			test();
 
-			((Scalar<System.Collections.Specialized.INotifyCollectionChanged>)sourceScalar).Touch();
+			sync(); ((Scalar<System.Collections.Specialized.INotifyCollectionChanged>)sourceScalar).Touch();
 			test();
-			((Scalar<System.Collections.Specialized.INotifyCollectionChanged>)sourceScalar).Change(null);
+			sync(); ((Scalar<System.Collections.Specialized.INotifyCollectionChanged>)sourceScalar).Change(null);
 			test();
-			consumer.Dispose();
-			((OcDispatcher)destinationOcDispatcher).Dispose();
+			sync(); consumer.Dispose();
 			((OcDispatcher)sourceOcDispatcher).Dispose();
+			
+			((OcDispatcher)destinationOcDispatcher).Dispose();
 		}
 		
 		[Test, Combinatorial]
@@ -5152,32 +5416,38 @@ namespace ObservableComputations.Test
 			Assert.AreEqual(destinationOcDispatcher, testing.DestinationOcDispatcher);
 			Assert.AreEqual(sourceOcDispatcher, testing.SourceOcDispatcher);
 
+			void sync()
+			{
+				((OcDispatcher)sourceOcDispatcher).Invoke(() => {});
+				((OcDispatcher)destinationOcDispatcher).Invoke(() => {});
+			}
+
 			void test()
 			{
 				testing.ValidateConsistency();
-				var sourceScalarValue = ((ObservableCollection<Item>)((System.Collections.Specialized.INotifyCollectionChanged)sourceScalar.Value));
+				sync(); var sourceScalarValue = ((ObservableCollection<Item>)((System.Collections.Specialized.INotifyCollectionChanged)sourceScalar.Value));
 
 				if (sourceScalarValue != null)
 				{		
-					sourceScalarValue.Insert(2, new QuickTests.Item(1, true));
+					sync(); sourceScalarValue.Insert(2, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
-					sourceScalarValue[3] = new QuickTests.Item(7, true);
+					sync(); sourceScalarValue[3] = new QuickTests.Item(7, true);
 					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(3);
+					sync(); sourceScalarValue.RemoveAt(3);
 					testing.ValidateConsistency();
-					sourceScalarValue.Move(1, 3);
+					sync(); sourceScalarValue.Move(1, 3);
 					testing.ValidateConsistency();
-					sourceScalarValue[2].Active = !sourceScalarValue[2].Active;
+					sync(); sourceScalarValue[2].Active = !sourceScalarValue[2].Active;
 					testing.ValidateConsistency();
-					sourceScalarValue[2].Num = sourceScalarValue[2].Num + 1;
+					sync(); sourceScalarValue[2].Num = sourceScalarValue[2].Num + 1;
 					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
+					sync(); sourceScalarValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(1);
+					sync(); sourceScalarValue.RemoveAt(1);
 					testing.ValidateConsistency();
-					sourceScalarValue.Insert(0, new QuickTests.Item(1, true));
+					sync(); sourceScalarValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
-					sourceScalarValue.Insert(0, new QuickTests.Item(2, true));
+					sync(); sourceScalarValue.Insert(0, new QuickTests.Item(2, true));
 					testing.ValidateConsistency();
 				}
 
@@ -5185,17 +5455,17 @@ namespace ObservableComputations.Test
 				listSource = ((IList)((System.Collections.Specialized.INotifyCollectionChanged)sourceScalar.Value));
 				if (listSource != null)
 				{
-					listSource.Clear();
+					sync(); listSource.Clear();
 					testing.ValidateConsistency();
 				}
 
 				if (sourceScalarValue != null)
 				{
-					sourceScalarValue.Insert(0, new QuickTests.Item(1, true));
-					sourceScalarValue.Insert(1, new QuickTests.Item(2, true));
-					sourceScalarValue.Insert(2, new QuickTests.Item(3, true));
-					sourceScalarValue.Insert(3, new QuickTests.Item(3, true));
-					sourceScalarValue.Insert(4, new QuickTests.Item(3, true));
+					sync(); sourceScalarValue.Insert(0, new QuickTests.Item(1, true));
+					sync(); sourceScalarValue.Insert(1, new QuickTests.Item(2, true));
+					sync(); sourceScalarValue.Insert(2, new QuickTests.Item(3, true));
+					sync(); sourceScalarValue.Insert(3, new QuickTests.Item(3, true));
+					sync(); sourceScalarValue.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
 				testing.ValidateConsistency();
@@ -5203,22 +5473,23 @@ namespace ObservableComputations.Test
 
 			test();
 
-			((Scalar<System.Collections.Specialized.INotifyCollectionChanged>)sourceScalar).Touch();
+			sync(); ((Scalar<System.Collections.Specialized.INotifyCollectionChanged>)sourceScalar).Touch();
 			test();
-			((Scalar<System.Collections.Specialized.INotifyCollectionChanged>)sourceScalar).Change(null);
+			sync(); ((Scalar<System.Collections.Specialized.INotifyCollectionChanged>)sourceScalar).Change(null);
 			test();
-			consumer.Dispose();
-			((OcDispatcher)destinationOcDispatcher).Dispose();
+			sync(); consumer.Dispose();
 			((OcDispatcher)sourceOcDispatcher).Dispose();
+			
+			((OcDispatcher)destinationOcDispatcher).Dispose();
 		}
 		
 		[Test, Combinatorial]
-		public void TestCollectionDispatching46(
-			[Values()] int destinationOcDispatcherPriority,
-			[Values()] int sourceOcDispatcherPriority)
+		public void TestCollectionDispatching46()
 		{
 			Scalar<System.Collections.Specialized.INotifyCollectionChanged> sourceScalar = getScalar<System.Collections.Specialized.INotifyCollectionChanged>(getItems());
 			ObservableComputations.IOcDispatcher destinationOcDispatcher = new OcDispatcher();
+			int destinationOcDispatcherPriority = 0;
+			int sourceOcDispatcherPriority = 0;
 			object destinationOcDispatcherParameter = new object();
 			object sourceOcDispatcherParameter = new object();
 			OcConsumer consumer = new OcConsumer();
@@ -5236,32 +5507,37 @@ namespace ObservableComputations.Test
 			Assert.AreEqual(destinationOcDispatcherParameter, testing.DestinationOcDispatcherParameter);
 			Assert.AreEqual(sourceOcDispatcherParameter, testing.SourceOcDispatcherParameter);
 
+			void sync()
+			{
+				((OcDispatcher)destinationOcDispatcher).Invoke(() => {});
+			}
+
 			void test()
 			{
 				testing.ValidateConsistency();
-				var sourceScalarValue = ((ObservableCollection<Item>)((System.Collections.Specialized.INotifyCollectionChanged)sourceScalar.Value));
+				sync(); var sourceScalarValue = ((ObservableCollection<Item>)((System.Collections.Specialized.INotifyCollectionChanged)sourceScalar.Value));
 
 				if (sourceScalarValue != null)
 				{		
-					sourceScalarValue.Insert(2, new QuickTests.Item(1, true));
+					sync(); sourceScalarValue.Insert(2, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
-					sourceScalarValue[3] = new QuickTests.Item(7, true);
+					sync(); sourceScalarValue[3] = new QuickTests.Item(7, true);
 					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(3);
+					sync(); sourceScalarValue.RemoveAt(3);
 					testing.ValidateConsistency();
-					sourceScalarValue.Move(1, 3);
+					sync(); sourceScalarValue.Move(1, 3);
 					testing.ValidateConsistency();
-					sourceScalarValue[2].Active = !sourceScalarValue[2].Active;
+					sync(); sourceScalarValue[2].Active = !sourceScalarValue[2].Active;
 					testing.ValidateConsistency();
-					sourceScalarValue[2].Num = sourceScalarValue[2].Num + 1;
+					sync(); sourceScalarValue[2].Num = sourceScalarValue[2].Num + 1;
 					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
+					sync(); sourceScalarValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(1);
+					sync(); sourceScalarValue.RemoveAt(1);
 					testing.ValidateConsistency();
-					sourceScalarValue.Insert(0, new QuickTests.Item(1, true));
+					sync(); sourceScalarValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
-					sourceScalarValue.Insert(0, new QuickTests.Item(2, true));
+					sync(); sourceScalarValue.Insert(0, new QuickTests.Item(2, true));
 					testing.ValidateConsistency();
 				}
 
@@ -5269,17 +5545,17 @@ namespace ObservableComputations.Test
 				listSource = ((IList)((System.Collections.Specialized.INotifyCollectionChanged)sourceScalar.Value));
 				if (listSource != null)
 				{
-					listSource.Clear();
+					sync(); listSource.Clear();
 					testing.ValidateConsistency();
 				}
 
 				if (sourceScalarValue != null)
 				{
-					sourceScalarValue.Insert(0, new QuickTests.Item(1, true));
-					sourceScalarValue.Insert(1, new QuickTests.Item(2, true));
-					sourceScalarValue.Insert(2, new QuickTests.Item(3, true));
-					sourceScalarValue.Insert(3, new QuickTests.Item(3, true));
-					sourceScalarValue.Insert(4, new QuickTests.Item(3, true));
+					sync(); sourceScalarValue.Insert(0, new QuickTests.Item(1, true));
+					sync(); sourceScalarValue.Insert(1, new QuickTests.Item(2, true));
+					sync(); sourceScalarValue.Insert(2, new QuickTests.Item(3, true));
+					sync(); sourceScalarValue.Insert(3, new QuickTests.Item(3, true));
+					sync(); sourceScalarValue.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
 				testing.ValidateConsistency();
@@ -5287,21 +5563,22 @@ namespace ObservableComputations.Test
 
 			test();
 
-			((Scalar<System.Collections.Specialized.INotifyCollectionChanged>)sourceScalar).Touch();
+			sync(); ((Scalar<System.Collections.Specialized.INotifyCollectionChanged>)sourceScalar).Touch();
 			test();
-			((Scalar<System.Collections.Specialized.INotifyCollectionChanged>)sourceScalar).Change(null);
+			sync(); ((Scalar<System.Collections.Specialized.INotifyCollectionChanged>)sourceScalar).Change(null);
 			test();
-			consumer.Dispose();
+			sync(); consumer.Dispose();
+			
 			((OcDispatcher)destinationOcDispatcher).Dispose();
 		}
 		
 		[Test, Combinatorial]
-		public void TestCollectionDispatching47(
-			[Values()] int destinationOcDispatcherPriority,
-			[Values()] int sourceOcDispatcherPriority)
+		public void TestCollectionDispatching47()
 		{
 			Scalar<System.Collections.Specialized.INotifyCollectionChanged> sourceScalar = getScalar<System.Collections.Specialized.INotifyCollectionChanged>(getItems());
 			ObservableComputations.IOcDispatcher destinationOcDispatcher = new OcDispatcher();
+			int destinationOcDispatcherPriority = 0;
+			int sourceOcDispatcherPriority = 0;
 			object destinationOcDispatcherParameter = new object();
 			OcConsumer consumer = new OcConsumer();
 			var testing = sourceScalar.CollectionDispatching<Item>(
@@ -5316,32 +5593,37 @@ namespace ObservableComputations.Test
 			Assert.AreEqual(sourceOcDispatcherPriority, testing.SourceOcDispatcherPriority);
 			Assert.AreEqual(destinationOcDispatcherParameter, testing.DestinationOcDispatcherParameter);
 
+			void sync()
+			{
+				((OcDispatcher)destinationOcDispatcher).Invoke(() => {});
+			}
+
 			void test()
 			{
 				testing.ValidateConsistency();
-				var sourceScalarValue = ((ObservableCollection<Item>)((System.Collections.Specialized.INotifyCollectionChanged)sourceScalar.Value));
+				sync(); var sourceScalarValue = ((ObservableCollection<Item>)((System.Collections.Specialized.INotifyCollectionChanged)sourceScalar.Value));
 
 				if (sourceScalarValue != null)
 				{		
-					sourceScalarValue.Insert(2, new QuickTests.Item(1, true));
+					sync(); sourceScalarValue.Insert(2, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
-					sourceScalarValue[3] = new QuickTests.Item(7, true);
+					sync(); sourceScalarValue[3] = new QuickTests.Item(7, true);
 					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(3);
+					sync(); sourceScalarValue.RemoveAt(3);
 					testing.ValidateConsistency();
-					sourceScalarValue.Move(1, 3);
+					sync(); sourceScalarValue.Move(1, 3);
 					testing.ValidateConsistency();
-					sourceScalarValue[2].Active = !sourceScalarValue[2].Active;
+					sync(); sourceScalarValue[2].Active = !sourceScalarValue[2].Active;
 					testing.ValidateConsistency();
-					sourceScalarValue[2].Num = sourceScalarValue[2].Num + 1;
+					sync(); sourceScalarValue[2].Num = sourceScalarValue[2].Num + 1;
 					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
+					sync(); sourceScalarValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(1);
+					sync(); sourceScalarValue.RemoveAt(1);
 					testing.ValidateConsistency();
-					sourceScalarValue.Insert(0, new QuickTests.Item(1, true));
+					sync(); sourceScalarValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
-					sourceScalarValue.Insert(0, new QuickTests.Item(2, true));
+					sync(); sourceScalarValue.Insert(0, new QuickTests.Item(2, true));
 					testing.ValidateConsistency();
 				}
 
@@ -5349,17 +5631,17 @@ namespace ObservableComputations.Test
 				listSource = ((IList)((System.Collections.Specialized.INotifyCollectionChanged)sourceScalar.Value));
 				if (listSource != null)
 				{
-					listSource.Clear();
+					sync(); listSource.Clear();
 					testing.ValidateConsistency();
 				}
 
 				if (sourceScalarValue != null)
 				{
-					sourceScalarValue.Insert(0, new QuickTests.Item(1, true));
-					sourceScalarValue.Insert(1, new QuickTests.Item(2, true));
-					sourceScalarValue.Insert(2, new QuickTests.Item(3, true));
-					sourceScalarValue.Insert(3, new QuickTests.Item(3, true));
-					sourceScalarValue.Insert(4, new QuickTests.Item(3, true));
+					sync(); sourceScalarValue.Insert(0, new QuickTests.Item(1, true));
+					sync(); sourceScalarValue.Insert(1, new QuickTests.Item(2, true));
+					sync(); sourceScalarValue.Insert(2, new QuickTests.Item(3, true));
+					sync(); sourceScalarValue.Insert(3, new QuickTests.Item(3, true));
+					sync(); sourceScalarValue.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
 				testing.ValidateConsistency();
@@ -5367,21 +5649,22 @@ namespace ObservableComputations.Test
 
 			test();
 
-			((Scalar<System.Collections.Specialized.INotifyCollectionChanged>)sourceScalar).Touch();
+			sync(); ((Scalar<System.Collections.Specialized.INotifyCollectionChanged>)sourceScalar).Touch();
 			test();
-			((Scalar<System.Collections.Specialized.INotifyCollectionChanged>)sourceScalar).Change(null);
+			sync(); ((Scalar<System.Collections.Specialized.INotifyCollectionChanged>)sourceScalar).Change(null);
 			test();
-			consumer.Dispose();
+			sync(); consumer.Dispose();
+			
 			((OcDispatcher)destinationOcDispatcher).Dispose();
 		}
 		
 		[Test, Combinatorial]
-		public void TestCollectionDispatching48(
-			[Values()] int destinationOcDispatcherPriority,
-			[Values()] int sourceOcDispatcherPriority)
+		public void TestCollectionDispatching48()
 		{
 			Scalar<System.Collections.Specialized.INotifyCollectionChanged> sourceScalar = getScalar<System.Collections.Specialized.INotifyCollectionChanged>(getItems());
 			ObservableComputations.IOcDispatcher destinationOcDispatcher = new OcDispatcher();
+			int destinationOcDispatcherPriority = 0;
+			int sourceOcDispatcherPriority = 0;
 			OcConsumer consumer = new OcConsumer();
 			var testing = sourceScalar.CollectionDispatching<Item>(
 				destinationOcDispatcher,
@@ -5393,32 +5676,37 @@ namespace ObservableComputations.Test
 			Assert.AreEqual(destinationOcDispatcherPriority, testing.DestinationOcDispatcherPriority);
 			Assert.AreEqual(sourceOcDispatcherPriority, testing.SourceOcDispatcherPriority);
 
+			void sync()
+			{
+				((OcDispatcher)destinationOcDispatcher).Invoke(() => {});
+			}
+
 			void test()
 			{
 				testing.ValidateConsistency();
-				var sourceScalarValue = ((ObservableCollection<Item>)((System.Collections.Specialized.INotifyCollectionChanged)sourceScalar.Value));
+				sync(); var sourceScalarValue = ((ObservableCollection<Item>)((System.Collections.Specialized.INotifyCollectionChanged)sourceScalar.Value));
 
 				if (sourceScalarValue != null)
 				{		
-					sourceScalarValue.Insert(2, new QuickTests.Item(1, true));
+					sync(); sourceScalarValue.Insert(2, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
-					sourceScalarValue[3] = new QuickTests.Item(7, true);
+					sync(); sourceScalarValue[3] = new QuickTests.Item(7, true);
 					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(3);
+					sync(); sourceScalarValue.RemoveAt(3);
 					testing.ValidateConsistency();
-					sourceScalarValue.Move(1, 3);
+					sync(); sourceScalarValue.Move(1, 3);
 					testing.ValidateConsistency();
-					sourceScalarValue[2].Active = !sourceScalarValue[2].Active;
+					sync(); sourceScalarValue[2].Active = !sourceScalarValue[2].Active;
 					testing.ValidateConsistency();
-					sourceScalarValue[2].Num = sourceScalarValue[2].Num + 1;
+					sync(); sourceScalarValue[2].Num = sourceScalarValue[2].Num + 1;
 					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
+					sync(); sourceScalarValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(1);
+					sync(); sourceScalarValue.RemoveAt(1);
 					testing.ValidateConsistency();
-					sourceScalarValue.Insert(0, new QuickTests.Item(1, true));
+					sync(); sourceScalarValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
-					sourceScalarValue.Insert(0, new QuickTests.Item(2, true));
+					sync(); sourceScalarValue.Insert(0, new QuickTests.Item(2, true));
 					testing.ValidateConsistency();
 				}
 
@@ -5426,17 +5714,17 @@ namespace ObservableComputations.Test
 				listSource = ((IList)((System.Collections.Specialized.INotifyCollectionChanged)sourceScalar.Value));
 				if (listSource != null)
 				{
-					listSource.Clear();
+					sync(); listSource.Clear();
 					testing.ValidateConsistency();
 				}
 
 				if (sourceScalarValue != null)
 				{
-					sourceScalarValue.Insert(0, new QuickTests.Item(1, true));
-					sourceScalarValue.Insert(1, new QuickTests.Item(2, true));
-					sourceScalarValue.Insert(2, new QuickTests.Item(3, true));
-					sourceScalarValue.Insert(3, new QuickTests.Item(3, true));
-					sourceScalarValue.Insert(4, new QuickTests.Item(3, true));
+					sync(); sourceScalarValue.Insert(0, new QuickTests.Item(1, true));
+					sync(); sourceScalarValue.Insert(1, new QuickTests.Item(2, true));
+					sync(); sourceScalarValue.Insert(2, new QuickTests.Item(3, true));
+					sync(); sourceScalarValue.Insert(3, new QuickTests.Item(3, true));
+					sync(); sourceScalarValue.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
 				testing.ValidateConsistency();
@@ -5444,20 +5732,21 @@ namespace ObservableComputations.Test
 
 			test();
 
-			((Scalar<System.Collections.Specialized.INotifyCollectionChanged>)sourceScalar).Touch();
+			sync(); ((Scalar<System.Collections.Specialized.INotifyCollectionChanged>)sourceScalar).Touch();
 			test();
-			((Scalar<System.Collections.Specialized.INotifyCollectionChanged>)sourceScalar).Change(null);
+			sync(); ((Scalar<System.Collections.Specialized.INotifyCollectionChanged>)sourceScalar).Change(null);
 			test();
-			consumer.Dispose();
+			sync(); consumer.Dispose();
+			
 			((OcDispatcher)destinationOcDispatcher).Dispose();
 		}
 		
 		[Test, Combinatorial]
-		public void TestCollectionDispatching49(
-			[Values()] int destinationOcDispatcherPriority)
+		public void TestCollectionDispatching49()
 		{
 			Scalar<System.Collections.Specialized.INotifyCollectionChanged> sourceScalar = getScalar<System.Collections.Specialized.INotifyCollectionChanged>(getItems());
 			ObservableComputations.IOcDispatcher destinationOcDispatcher = new OcDispatcher();
+			int destinationOcDispatcherPriority = 0;
 			object destinationOcDispatcherParameter = new object();
 			object sourceOcDispatcherParameter = new object();
 			OcConsumer consumer = new OcConsumer();
@@ -5473,32 +5762,37 @@ namespace ObservableComputations.Test
 			Assert.AreEqual(destinationOcDispatcherParameter, testing.DestinationOcDispatcherParameter);
 			Assert.AreEqual(sourceOcDispatcherParameter, testing.SourceOcDispatcherParameter);
 
+			void sync()
+			{
+				((OcDispatcher)destinationOcDispatcher).Invoke(() => {});
+			}
+
 			void test()
 			{
 				testing.ValidateConsistency();
-				var sourceScalarValue = ((ObservableCollection<Item>)((System.Collections.Specialized.INotifyCollectionChanged)sourceScalar.Value));
+				sync(); var sourceScalarValue = ((ObservableCollection<Item>)((System.Collections.Specialized.INotifyCollectionChanged)sourceScalar.Value));
 
 				if (sourceScalarValue != null)
 				{		
-					sourceScalarValue.Insert(2, new QuickTests.Item(1, true));
+					sync(); sourceScalarValue.Insert(2, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
-					sourceScalarValue[3] = new QuickTests.Item(7, true);
+					sync(); sourceScalarValue[3] = new QuickTests.Item(7, true);
 					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(3);
+					sync(); sourceScalarValue.RemoveAt(3);
 					testing.ValidateConsistency();
-					sourceScalarValue.Move(1, 3);
+					sync(); sourceScalarValue.Move(1, 3);
 					testing.ValidateConsistency();
-					sourceScalarValue[2].Active = !sourceScalarValue[2].Active;
+					sync(); sourceScalarValue[2].Active = !sourceScalarValue[2].Active;
 					testing.ValidateConsistency();
-					sourceScalarValue[2].Num = sourceScalarValue[2].Num + 1;
+					sync(); sourceScalarValue[2].Num = sourceScalarValue[2].Num + 1;
 					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
+					sync(); sourceScalarValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(1);
+					sync(); sourceScalarValue.RemoveAt(1);
 					testing.ValidateConsistency();
-					sourceScalarValue.Insert(0, new QuickTests.Item(1, true));
+					sync(); sourceScalarValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
-					sourceScalarValue.Insert(0, new QuickTests.Item(2, true));
+					sync(); sourceScalarValue.Insert(0, new QuickTests.Item(2, true));
 					testing.ValidateConsistency();
 				}
 
@@ -5506,17 +5800,17 @@ namespace ObservableComputations.Test
 				listSource = ((IList)((System.Collections.Specialized.INotifyCollectionChanged)sourceScalar.Value));
 				if (listSource != null)
 				{
-					listSource.Clear();
+					sync(); listSource.Clear();
 					testing.ValidateConsistency();
 				}
 
 				if (sourceScalarValue != null)
 				{
-					sourceScalarValue.Insert(0, new QuickTests.Item(1, true));
-					sourceScalarValue.Insert(1, new QuickTests.Item(2, true));
-					sourceScalarValue.Insert(2, new QuickTests.Item(3, true));
-					sourceScalarValue.Insert(3, new QuickTests.Item(3, true));
-					sourceScalarValue.Insert(4, new QuickTests.Item(3, true));
+					sync(); sourceScalarValue.Insert(0, new QuickTests.Item(1, true));
+					sync(); sourceScalarValue.Insert(1, new QuickTests.Item(2, true));
+					sync(); sourceScalarValue.Insert(2, new QuickTests.Item(3, true));
+					sync(); sourceScalarValue.Insert(3, new QuickTests.Item(3, true));
+					sync(); sourceScalarValue.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
 				testing.ValidateConsistency();
@@ -5524,20 +5818,21 @@ namespace ObservableComputations.Test
 
 			test();
 
-			((Scalar<System.Collections.Specialized.INotifyCollectionChanged>)sourceScalar).Touch();
+			sync(); ((Scalar<System.Collections.Specialized.INotifyCollectionChanged>)sourceScalar).Touch();
 			test();
-			((Scalar<System.Collections.Specialized.INotifyCollectionChanged>)sourceScalar).Change(null);
+			sync(); ((Scalar<System.Collections.Specialized.INotifyCollectionChanged>)sourceScalar).Change(null);
 			test();
-			consumer.Dispose();
+			sync(); consumer.Dispose();
+			
 			((OcDispatcher)destinationOcDispatcher).Dispose();
 		}
 		
 		[Test, Combinatorial]
-		public void TestCollectionDispatching50(
-			[Values()] int destinationOcDispatcherPriority)
+		public void TestCollectionDispatching50()
 		{
 			Scalar<System.Collections.Specialized.INotifyCollectionChanged> sourceScalar = getScalar<System.Collections.Specialized.INotifyCollectionChanged>(getItems());
 			ObservableComputations.IOcDispatcher destinationOcDispatcher = new OcDispatcher();
+			int destinationOcDispatcherPriority = 0;
 			object destinationOcDispatcherParameter = new object();
 			OcConsumer consumer = new OcConsumer();
 			var testing = sourceScalar.CollectionDispatching<Item>(
@@ -5550,32 +5845,37 @@ namespace ObservableComputations.Test
 			Assert.AreEqual(destinationOcDispatcherPriority, testing.DestinationOcDispatcherPriority);
 			Assert.AreEqual(destinationOcDispatcherParameter, testing.DestinationOcDispatcherParameter);
 
+			void sync()
+			{
+				((OcDispatcher)destinationOcDispatcher).Invoke(() => {});
+			}
+
 			void test()
 			{
 				testing.ValidateConsistency();
-				var sourceScalarValue = ((ObservableCollection<Item>)((System.Collections.Specialized.INotifyCollectionChanged)sourceScalar.Value));
+				sync(); var sourceScalarValue = ((ObservableCollection<Item>)((System.Collections.Specialized.INotifyCollectionChanged)sourceScalar.Value));
 
 				if (sourceScalarValue != null)
 				{		
-					sourceScalarValue.Insert(2, new QuickTests.Item(1, true));
+					sync(); sourceScalarValue.Insert(2, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
-					sourceScalarValue[3] = new QuickTests.Item(7, true);
+					sync(); sourceScalarValue[3] = new QuickTests.Item(7, true);
 					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(3);
+					sync(); sourceScalarValue.RemoveAt(3);
 					testing.ValidateConsistency();
-					sourceScalarValue.Move(1, 3);
+					sync(); sourceScalarValue.Move(1, 3);
 					testing.ValidateConsistency();
-					sourceScalarValue[2].Active = !sourceScalarValue[2].Active;
+					sync(); sourceScalarValue[2].Active = !sourceScalarValue[2].Active;
 					testing.ValidateConsistency();
-					sourceScalarValue[2].Num = sourceScalarValue[2].Num + 1;
+					sync(); sourceScalarValue[2].Num = sourceScalarValue[2].Num + 1;
 					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
+					sync(); sourceScalarValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(1);
+					sync(); sourceScalarValue.RemoveAt(1);
 					testing.ValidateConsistency();
-					sourceScalarValue.Insert(0, new QuickTests.Item(1, true));
+					sync(); sourceScalarValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
-					sourceScalarValue.Insert(0, new QuickTests.Item(2, true));
+					sync(); sourceScalarValue.Insert(0, new QuickTests.Item(2, true));
 					testing.ValidateConsistency();
 				}
 
@@ -5583,17 +5883,17 @@ namespace ObservableComputations.Test
 				listSource = ((IList)((System.Collections.Specialized.INotifyCollectionChanged)sourceScalar.Value));
 				if (listSource != null)
 				{
-					listSource.Clear();
+					sync(); listSource.Clear();
 					testing.ValidateConsistency();
 				}
 
 				if (sourceScalarValue != null)
 				{
-					sourceScalarValue.Insert(0, new QuickTests.Item(1, true));
-					sourceScalarValue.Insert(1, new QuickTests.Item(2, true));
-					sourceScalarValue.Insert(2, new QuickTests.Item(3, true));
-					sourceScalarValue.Insert(3, new QuickTests.Item(3, true));
-					sourceScalarValue.Insert(4, new QuickTests.Item(3, true));
+					sync(); sourceScalarValue.Insert(0, new QuickTests.Item(1, true));
+					sync(); sourceScalarValue.Insert(1, new QuickTests.Item(2, true));
+					sync(); sourceScalarValue.Insert(2, new QuickTests.Item(3, true));
+					sync(); sourceScalarValue.Insert(3, new QuickTests.Item(3, true));
+					sync(); sourceScalarValue.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
 				testing.ValidateConsistency();
@@ -5601,20 +5901,21 @@ namespace ObservableComputations.Test
 
 			test();
 
-			((Scalar<System.Collections.Specialized.INotifyCollectionChanged>)sourceScalar).Touch();
+			sync(); ((Scalar<System.Collections.Specialized.INotifyCollectionChanged>)sourceScalar).Touch();
 			test();
-			((Scalar<System.Collections.Specialized.INotifyCollectionChanged>)sourceScalar).Change(null);
+			sync(); ((Scalar<System.Collections.Specialized.INotifyCollectionChanged>)sourceScalar).Change(null);
 			test();
-			consumer.Dispose();
+			sync(); consumer.Dispose();
+			
 			((OcDispatcher)destinationOcDispatcher).Dispose();
 		}
 		
 		[Test, Combinatorial]
-		public void TestCollectionDispatching51(
-			[Values()] int destinationOcDispatcherPriority)
+		public void TestCollectionDispatching51()
 		{
 			Scalar<System.Collections.Specialized.INotifyCollectionChanged> sourceScalar = getScalar<System.Collections.Specialized.INotifyCollectionChanged>(getItems());
 			ObservableComputations.IOcDispatcher destinationOcDispatcher = new OcDispatcher();
+			int destinationOcDispatcherPriority = 0;
 			OcConsumer consumer = new OcConsumer();
 			var testing = sourceScalar.CollectionDispatching<Item>(
 				destinationOcDispatcher,
@@ -5624,32 +5925,37 @@ namespace ObservableComputations.Test
 			Assert.AreEqual(destinationOcDispatcher, testing.DestinationOcDispatcher);
 			Assert.AreEqual(destinationOcDispatcherPriority, testing.DestinationOcDispatcherPriority);
 
+			void sync()
+			{
+				((OcDispatcher)destinationOcDispatcher).Invoke(() => {});
+			}
+
 			void test()
 			{
 				testing.ValidateConsistency();
-				var sourceScalarValue = ((ObservableCollection<Item>)((System.Collections.Specialized.INotifyCollectionChanged)sourceScalar.Value));
+				sync(); var sourceScalarValue = ((ObservableCollection<Item>)((System.Collections.Specialized.INotifyCollectionChanged)sourceScalar.Value));
 
 				if (sourceScalarValue != null)
 				{		
-					sourceScalarValue.Insert(2, new QuickTests.Item(1, true));
+					sync(); sourceScalarValue.Insert(2, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
-					sourceScalarValue[3] = new QuickTests.Item(7, true);
+					sync(); sourceScalarValue[3] = new QuickTests.Item(7, true);
 					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(3);
+					sync(); sourceScalarValue.RemoveAt(3);
 					testing.ValidateConsistency();
-					sourceScalarValue.Move(1, 3);
+					sync(); sourceScalarValue.Move(1, 3);
 					testing.ValidateConsistency();
-					sourceScalarValue[2].Active = !sourceScalarValue[2].Active;
+					sync(); sourceScalarValue[2].Active = !sourceScalarValue[2].Active;
 					testing.ValidateConsistency();
-					sourceScalarValue[2].Num = sourceScalarValue[2].Num + 1;
+					sync(); sourceScalarValue[2].Num = sourceScalarValue[2].Num + 1;
 					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
+					sync(); sourceScalarValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(1);
+					sync(); sourceScalarValue.RemoveAt(1);
 					testing.ValidateConsistency();
-					sourceScalarValue.Insert(0, new QuickTests.Item(1, true));
+					sync(); sourceScalarValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
-					sourceScalarValue.Insert(0, new QuickTests.Item(2, true));
+					sync(); sourceScalarValue.Insert(0, new QuickTests.Item(2, true));
 					testing.ValidateConsistency();
 				}
 
@@ -5657,17 +5963,17 @@ namespace ObservableComputations.Test
 				listSource = ((IList)((System.Collections.Specialized.INotifyCollectionChanged)sourceScalar.Value));
 				if (listSource != null)
 				{
-					listSource.Clear();
+					sync(); listSource.Clear();
 					testing.ValidateConsistency();
 				}
 
 				if (sourceScalarValue != null)
 				{
-					sourceScalarValue.Insert(0, new QuickTests.Item(1, true));
-					sourceScalarValue.Insert(1, new QuickTests.Item(2, true));
-					sourceScalarValue.Insert(2, new QuickTests.Item(3, true));
-					sourceScalarValue.Insert(3, new QuickTests.Item(3, true));
-					sourceScalarValue.Insert(4, new QuickTests.Item(3, true));
+					sync(); sourceScalarValue.Insert(0, new QuickTests.Item(1, true));
+					sync(); sourceScalarValue.Insert(1, new QuickTests.Item(2, true));
+					sync(); sourceScalarValue.Insert(2, new QuickTests.Item(3, true));
+					sync(); sourceScalarValue.Insert(3, new QuickTests.Item(3, true));
+					sync(); sourceScalarValue.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
 				testing.ValidateConsistency();
@@ -5675,11 +5981,12 @@ namespace ObservableComputations.Test
 
 			test();
 
-			((Scalar<System.Collections.Specialized.INotifyCollectionChanged>)sourceScalar).Touch();
+			sync(); ((Scalar<System.Collections.Specialized.INotifyCollectionChanged>)sourceScalar).Touch();
 			test();
-			((Scalar<System.Collections.Specialized.INotifyCollectionChanged>)sourceScalar).Change(null);
+			sync(); ((Scalar<System.Collections.Specialized.INotifyCollectionChanged>)sourceScalar).Change(null);
 			test();
-			consumer.Dispose();
+			sync(); consumer.Dispose();
+			
 			((OcDispatcher)destinationOcDispatcher).Dispose();
 		}
 		
@@ -5701,32 +6008,37 @@ namespace ObservableComputations.Test
 			Assert.AreEqual(destinationOcDispatcherParameter, testing.DestinationOcDispatcherParameter);
 			Assert.AreEqual(sourceOcDispatcherParameter, testing.SourceOcDispatcherParameter);
 
+			void sync()
+			{
+				((OcDispatcher)destinationOcDispatcher).Invoke(() => {});
+			}
+
 			void test()
 			{
 				testing.ValidateConsistency();
-				var sourceScalarValue = ((ObservableCollection<Item>)((System.Collections.Specialized.INotifyCollectionChanged)sourceScalar.Value));
+				sync(); var sourceScalarValue = ((ObservableCollection<Item>)((System.Collections.Specialized.INotifyCollectionChanged)sourceScalar.Value));
 
 				if (sourceScalarValue != null)
 				{		
-					sourceScalarValue.Insert(2, new QuickTests.Item(1, true));
+					sync(); sourceScalarValue.Insert(2, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
-					sourceScalarValue[3] = new QuickTests.Item(7, true);
+					sync(); sourceScalarValue[3] = new QuickTests.Item(7, true);
 					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(3);
+					sync(); sourceScalarValue.RemoveAt(3);
 					testing.ValidateConsistency();
-					sourceScalarValue.Move(1, 3);
+					sync(); sourceScalarValue.Move(1, 3);
 					testing.ValidateConsistency();
-					sourceScalarValue[2].Active = !sourceScalarValue[2].Active;
+					sync(); sourceScalarValue[2].Active = !sourceScalarValue[2].Active;
 					testing.ValidateConsistency();
-					sourceScalarValue[2].Num = sourceScalarValue[2].Num + 1;
+					sync(); sourceScalarValue[2].Num = sourceScalarValue[2].Num + 1;
 					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
+					sync(); sourceScalarValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(1);
+					sync(); sourceScalarValue.RemoveAt(1);
 					testing.ValidateConsistency();
-					sourceScalarValue.Insert(0, new QuickTests.Item(1, true));
+					sync(); sourceScalarValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
-					sourceScalarValue.Insert(0, new QuickTests.Item(2, true));
+					sync(); sourceScalarValue.Insert(0, new QuickTests.Item(2, true));
 					testing.ValidateConsistency();
 				}
 
@@ -5734,17 +6046,17 @@ namespace ObservableComputations.Test
 				listSource = ((IList)((System.Collections.Specialized.INotifyCollectionChanged)sourceScalar.Value));
 				if (listSource != null)
 				{
-					listSource.Clear();
+					sync(); listSource.Clear();
 					testing.ValidateConsistency();
 				}
 
 				if (sourceScalarValue != null)
 				{
-					sourceScalarValue.Insert(0, new QuickTests.Item(1, true));
-					sourceScalarValue.Insert(1, new QuickTests.Item(2, true));
-					sourceScalarValue.Insert(2, new QuickTests.Item(3, true));
-					sourceScalarValue.Insert(3, new QuickTests.Item(3, true));
-					sourceScalarValue.Insert(4, new QuickTests.Item(3, true));
+					sync(); sourceScalarValue.Insert(0, new QuickTests.Item(1, true));
+					sync(); sourceScalarValue.Insert(1, new QuickTests.Item(2, true));
+					sync(); sourceScalarValue.Insert(2, new QuickTests.Item(3, true));
+					sync(); sourceScalarValue.Insert(3, new QuickTests.Item(3, true));
+					sync(); sourceScalarValue.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
 				testing.ValidateConsistency();
@@ -5752,11 +6064,12 @@ namespace ObservableComputations.Test
 
 			test();
 
-			((Scalar<System.Collections.Specialized.INotifyCollectionChanged>)sourceScalar).Touch();
+			sync(); ((Scalar<System.Collections.Specialized.INotifyCollectionChanged>)sourceScalar).Touch();
 			test();
-			((Scalar<System.Collections.Specialized.INotifyCollectionChanged>)sourceScalar).Change(null);
+			sync(); ((Scalar<System.Collections.Specialized.INotifyCollectionChanged>)sourceScalar).Change(null);
 			test();
-			consumer.Dispose();
+			sync(); consumer.Dispose();
+			
 			((OcDispatcher)destinationOcDispatcher).Dispose();
 		}
 		
@@ -5775,32 +6088,37 @@ namespace ObservableComputations.Test
 			Assert.AreEqual(destinationOcDispatcher, testing.DestinationOcDispatcher);
 			Assert.AreEqual(destinationOcDispatcherParameter, testing.DestinationOcDispatcherParameter);
 
+			void sync()
+			{
+				((OcDispatcher)destinationOcDispatcher).Invoke(() => {});
+			}
+
 			void test()
 			{
 				testing.ValidateConsistency();
-				var sourceScalarValue = ((ObservableCollection<Item>)((System.Collections.Specialized.INotifyCollectionChanged)sourceScalar.Value));
+				sync(); var sourceScalarValue = ((ObservableCollection<Item>)((System.Collections.Specialized.INotifyCollectionChanged)sourceScalar.Value));
 
 				if (sourceScalarValue != null)
 				{		
-					sourceScalarValue.Insert(2, new QuickTests.Item(1, true));
+					sync(); sourceScalarValue.Insert(2, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
-					sourceScalarValue[3] = new QuickTests.Item(7, true);
+					sync(); sourceScalarValue[3] = new QuickTests.Item(7, true);
 					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(3);
+					sync(); sourceScalarValue.RemoveAt(3);
 					testing.ValidateConsistency();
-					sourceScalarValue.Move(1, 3);
+					sync(); sourceScalarValue.Move(1, 3);
 					testing.ValidateConsistency();
-					sourceScalarValue[2].Active = !sourceScalarValue[2].Active;
+					sync(); sourceScalarValue[2].Active = !sourceScalarValue[2].Active;
 					testing.ValidateConsistency();
-					sourceScalarValue[2].Num = sourceScalarValue[2].Num + 1;
+					sync(); sourceScalarValue[2].Num = sourceScalarValue[2].Num + 1;
 					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
+					sync(); sourceScalarValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(1);
+					sync(); sourceScalarValue.RemoveAt(1);
 					testing.ValidateConsistency();
-					sourceScalarValue.Insert(0, new QuickTests.Item(1, true));
+					sync(); sourceScalarValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
-					sourceScalarValue.Insert(0, new QuickTests.Item(2, true));
+					sync(); sourceScalarValue.Insert(0, new QuickTests.Item(2, true));
 					testing.ValidateConsistency();
 				}
 
@@ -5808,17 +6126,17 @@ namespace ObservableComputations.Test
 				listSource = ((IList)((System.Collections.Specialized.INotifyCollectionChanged)sourceScalar.Value));
 				if (listSource != null)
 				{
-					listSource.Clear();
+					sync(); listSource.Clear();
 					testing.ValidateConsistency();
 				}
 
 				if (sourceScalarValue != null)
 				{
-					sourceScalarValue.Insert(0, new QuickTests.Item(1, true));
-					sourceScalarValue.Insert(1, new QuickTests.Item(2, true));
-					sourceScalarValue.Insert(2, new QuickTests.Item(3, true));
-					sourceScalarValue.Insert(3, new QuickTests.Item(3, true));
-					sourceScalarValue.Insert(4, new QuickTests.Item(3, true));
+					sync(); sourceScalarValue.Insert(0, new QuickTests.Item(1, true));
+					sync(); sourceScalarValue.Insert(1, new QuickTests.Item(2, true));
+					sync(); sourceScalarValue.Insert(2, new QuickTests.Item(3, true));
+					sync(); sourceScalarValue.Insert(3, new QuickTests.Item(3, true));
+					sync(); sourceScalarValue.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
 				testing.ValidateConsistency();
@@ -5826,11 +6144,12 @@ namespace ObservableComputations.Test
 
 			test();
 
-			((Scalar<System.Collections.Specialized.INotifyCollectionChanged>)sourceScalar).Touch();
+			sync(); ((Scalar<System.Collections.Specialized.INotifyCollectionChanged>)sourceScalar).Touch();
 			test();
-			((Scalar<System.Collections.Specialized.INotifyCollectionChanged>)sourceScalar).Change(null);
+			sync(); ((Scalar<System.Collections.Specialized.INotifyCollectionChanged>)sourceScalar).Change(null);
 			test();
-			consumer.Dispose();
+			sync(); consumer.Dispose();
+			
 			((OcDispatcher)destinationOcDispatcher).Dispose();
 		}
 		
@@ -5846,32 +6165,37 @@ namespace ObservableComputations.Test
 			Assert.AreEqual(sourceScalar, testing.SourceScalar);
 			Assert.AreEqual(destinationOcDispatcher, testing.DestinationOcDispatcher);
 
+			void sync()
+			{
+				((OcDispatcher)destinationOcDispatcher).Invoke(() => {});
+			}
+
 			void test()
 			{
 				testing.ValidateConsistency();
-				var sourceScalarValue = ((ObservableCollection<Item>)((System.Collections.Specialized.INotifyCollectionChanged)sourceScalar.Value));
+				sync(); var sourceScalarValue = ((ObservableCollection<Item>)((System.Collections.Specialized.INotifyCollectionChanged)sourceScalar.Value));
 
 				if (sourceScalarValue != null)
 				{		
-					sourceScalarValue.Insert(2, new QuickTests.Item(1, true));
+					sync(); sourceScalarValue.Insert(2, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
-					sourceScalarValue[3] = new QuickTests.Item(7, true);
+					sync(); sourceScalarValue[3] = new QuickTests.Item(7, true);
 					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(3);
+					sync(); sourceScalarValue.RemoveAt(3);
 					testing.ValidateConsistency();
-					sourceScalarValue.Move(1, 3);
+					sync(); sourceScalarValue.Move(1, 3);
 					testing.ValidateConsistency();
-					sourceScalarValue[2].Active = !sourceScalarValue[2].Active;
+					sync(); sourceScalarValue[2].Active = !sourceScalarValue[2].Active;
 					testing.ValidateConsistency();
-					sourceScalarValue[2].Num = sourceScalarValue[2].Num + 1;
+					sync(); sourceScalarValue[2].Num = sourceScalarValue[2].Num + 1;
 					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
+					sync(); sourceScalarValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(1);
+					sync(); sourceScalarValue.RemoveAt(1);
 					testing.ValidateConsistency();
-					sourceScalarValue.Insert(0, new QuickTests.Item(1, true));
+					sync(); sourceScalarValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
-					sourceScalarValue.Insert(0, new QuickTests.Item(2, true));
+					sync(); sourceScalarValue.Insert(0, new QuickTests.Item(2, true));
 					testing.ValidateConsistency();
 				}
 
@@ -5879,17 +6203,17 @@ namespace ObservableComputations.Test
 				listSource = ((IList)((System.Collections.Specialized.INotifyCollectionChanged)sourceScalar.Value));
 				if (listSource != null)
 				{
-					listSource.Clear();
+					sync(); listSource.Clear();
 					testing.ValidateConsistency();
 				}
 
 				if (sourceScalarValue != null)
 				{
-					sourceScalarValue.Insert(0, new QuickTests.Item(1, true));
-					sourceScalarValue.Insert(1, new QuickTests.Item(2, true));
-					sourceScalarValue.Insert(2, new QuickTests.Item(3, true));
-					sourceScalarValue.Insert(3, new QuickTests.Item(3, true));
-					sourceScalarValue.Insert(4, new QuickTests.Item(3, true));
+					sync(); sourceScalarValue.Insert(0, new QuickTests.Item(1, true));
+					sync(); sourceScalarValue.Insert(1, new QuickTests.Item(2, true));
+					sync(); sourceScalarValue.Insert(2, new QuickTests.Item(3, true));
+					sync(); sourceScalarValue.Insert(3, new QuickTests.Item(3, true));
+					sync(); sourceScalarValue.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
 				testing.ValidateConsistency();
@@ -5897,22 +6221,23 @@ namespace ObservableComputations.Test
 
 			test();
 
-			((Scalar<System.Collections.Specialized.INotifyCollectionChanged>)sourceScalar).Touch();
+			sync(); ((Scalar<System.Collections.Specialized.INotifyCollectionChanged>)sourceScalar).Touch();
 			test();
-			((Scalar<System.Collections.Specialized.INotifyCollectionChanged>)sourceScalar).Change(null);
+			sync(); ((Scalar<System.Collections.Specialized.INotifyCollectionChanged>)sourceScalar).Change(null);
 			test();
-			consumer.Dispose();
+			sync(); consumer.Dispose();
+			
 			((OcDispatcher)destinationOcDispatcher).Dispose();
 		}
 		
 		[Test, Combinatorial]
-		public void TestCollectionDispatching55(
-			[Values()] int destinationOcDispatcherPriority,
-			[Values()] int sourceOcDispatcherPriority)
+		public void TestCollectionDispatching55()
 		{
 			Scalar<ObservableCollection<Item>> sourceScalar = getScalar<ObservableCollection<Item>>(getItems());
 			ObservableComputations.IOcDispatcher destinationOcDispatcher = new OcDispatcher();
 			ObservableComputations.IOcDispatcher sourceOcDispatcher = new OcDispatcher();
+			int destinationOcDispatcherPriority = 0;
+			int sourceOcDispatcherPriority = 0;
 			object destinationOcDispatcherParameter = new object();
 			object sourceOcDispatcherParameter = new object();
 			OcConsumer consumer = new OcConsumer();
@@ -5932,32 +6257,38 @@ namespace ObservableComputations.Test
 			Assert.AreEqual(destinationOcDispatcherParameter, testing.DestinationOcDispatcherParameter);
 			Assert.AreEqual(sourceOcDispatcherParameter, testing.SourceOcDispatcherParameter);
 
+			void sync()
+			{
+				((OcDispatcher)sourceOcDispatcher).Invoke(() => {});
+				((OcDispatcher)destinationOcDispatcher).Invoke(() => {});
+			}
+
 			void test()
 			{
 				testing.ValidateConsistency();
-				var sourceScalarValue = ((ObservableCollection<Item>)((ObservableCollection<Item>)sourceScalar.Value));
+				sync(); var sourceScalarValue = ((ObservableCollection<Item>)((ObservableCollection<Item>)sourceScalar.Value));
 
 				if (sourceScalarValue != null)
 				{		
-					sourceScalarValue.Insert(2, new QuickTests.Item(1, true));
+					sync(); sourceScalarValue.Insert(2, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
-					sourceScalarValue[3] = new QuickTests.Item(7, true);
+					sync(); sourceScalarValue[3] = new QuickTests.Item(7, true);
 					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(3);
+					sync(); sourceScalarValue.RemoveAt(3);
 					testing.ValidateConsistency();
-					sourceScalarValue.Move(1, 3);
+					sync(); sourceScalarValue.Move(1, 3);
 					testing.ValidateConsistency();
-					sourceScalarValue[2].Active = !sourceScalarValue[2].Active;
+					sync(); sourceScalarValue[2].Active = !sourceScalarValue[2].Active;
 					testing.ValidateConsistency();
-					sourceScalarValue[2].Num = sourceScalarValue[2].Num + 1;
+					sync(); sourceScalarValue[2].Num = sourceScalarValue[2].Num + 1;
 					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
+					sync(); sourceScalarValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(1);
+					sync(); sourceScalarValue.RemoveAt(1);
 					testing.ValidateConsistency();
-					sourceScalarValue.Insert(0, new QuickTests.Item(1, true));
+					sync(); sourceScalarValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
-					sourceScalarValue.Insert(0, new QuickTests.Item(2, true));
+					sync(); sourceScalarValue.Insert(0, new QuickTests.Item(2, true));
 					testing.ValidateConsistency();
 				}
 
@@ -5965,17 +6296,17 @@ namespace ObservableComputations.Test
 				listSource = ((IList)((ObservableCollection<Item>)sourceScalar.Value));
 				if (listSource != null)
 				{
-					listSource.Clear();
+					sync(); listSource.Clear();
 					testing.ValidateConsistency();
 				}
 
 				if (sourceScalarValue != null)
 				{
-					sourceScalarValue.Insert(0, new QuickTests.Item(1, true));
-					sourceScalarValue.Insert(1, new QuickTests.Item(2, true));
-					sourceScalarValue.Insert(2, new QuickTests.Item(3, true));
-					sourceScalarValue.Insert(3, new QuickTests.Item(3, true));
-					sourceScalarValue.Insert(4, new QuickTests.Item(3, true));
+					sync(); sourceScalarValue.Insert(0, new QuickTests.Item(1, true));
+					sync(); sourceScalarValue.Insert(1, new QuickTests.Item(2, true));
+					sync(); sourceScalarValue.Insert(2, new QuickTests.Item(3, true));
+					sync(); sourceScalarValue.Insert(3, new QuickTests.Item(3, true));
+					sync(); sourceScalarValue.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
 				testing.ValidateConsistency();
@@ -5983,23 +6314,24 @@ namespace ObservableComputations.Test
 
 			test();
 
-			((Scalar<ObservableCollection<Item>>)sourceScalar).Touch();
+			sync(); ((Scalar<ObservableCollection<Item>>)sourceScalar).Touch();
 			test();
-			((Scalar<ObservableCollection<Item>>)sourceScalar).Change(null);
+			sync(); ((Scalar<ObservableCollection<Item>>)sourceScalar).Change(null);
 			test();
-			consumer.Dispose();
-			((OcDispatcher)destinationOcDispatcher).Dispose();
+			sync(); consumer.Dispose();
 			((OcDispatcher)sourceOcDispatcher).Dispose();
+			
+			((OcDispatcher)destinationOcDispatcher).Dispose();
 		}
 		
 		[Test, Combinatorial]
-		public void TestCollectionDispatching56(
-			[Values()] int destinationOcDispatcherPriority,
-			[Values()] int sourceOcDispatcherPriority)
+		public void TestCollectionDispatching56()
 		{
 			Scalar<ObservableCollection<Item>> sourceScalar = getScalar<ObservableCollection<Item>>(getItems());
 			ObservableComputations.IOcDispatcher destinationOcDispatcher = new OcDispatcher();
 			ObservableComputations.IOcDispatcher sourceOcDispatcher = new OcDispatcher();
+			int destinationOcDispatcherPriority = 0;
+			int sourceOcDispatcherPriority = 0;
 			object destinationOcDispatcherParameter = new object();
 			OcConsumer consumer = new OcConsumer();
 			var testing = sourceScalar.CollectionDispatching<Item>(
@@ -6016,32 +6348,38 @@ namespace ObservableComputations.Test
 			Assert.AreEqual(sourceOcDispatcherPriority, testing.SourceOcDispatcherPriority);
 			Assert.AreEqual(destinationOcDispatcherParameter, testing.DestinationOcDispatcherParameter);
 
+			void sync()
+			{
+				((OcDispatcher)sourceOcDispatcher).Invoke(() => {});
+				((OcDispatcher)destinationOcDispatcher).Invoke(() => {});
+			}
+
 			void test()
 			{
 				testing.ValidateConsistency();
-				var sourceScalarValue = ((ObservableCollection<Item>)((ObservableCollection<Item>)sourceScalar.Value));
+				sync(); var sourceScalarValue = ((ObservableCollection<Item>)((ObservableCollection<Item>)sourceScalar.Value));
 
 				if (sourceScalarValue != null)
 				{		
-					sourceScalarValue.Insert(2, new QuickTests.Item(1, true));
+					sync(); sourceScalarValue.Insert(2, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
-					sourceScalarValue[3] = new QuickTests.Item(7, true);
+					sync(); sourceScalarValue[3] = new QuickTests.Item(7, true);
 					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(3);
+					sync(); sourceScalarValue.RemoveAt(3);
 					testing.ValidateConsistency();
-					sourceScalarValue.Move(1, 3);
+					sync(); sourceScalarValue.Move(1, 3);
 					testing.ValidateConsistency();
-					sourceScalarValue[2].Active = !sourceScalarValue[2].Active;
+					sync(); sourceScalarValue[2].Active = !sourceScalarValue[2].Active;
 					testing.ValidateConsistency();
-					sourceScalarValue[2].Num = sourceScalarValue[2].Num + 1;
+					sync(); sourceScalarValue[2].Num = sourceScalarValue[2].Num + 1;
 					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
+					sync(); sourceScalarValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(1);
+					sync(); sourceScalarValue.RemoveAt(1);
 					testing.ValidateConsistency();
-					sourceScalarValue.Insert(0, new QuickTests.Item(1, true));
+					sync(); sourceScalarValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
-					sourceScalarValue.Insert(0, new QuickTests.Item(2, true));
+					sync(); sourceScalarValue.Insert(0, new QuickTests.Item(2, true));
 					testing.ValidateConsistency();
 				}
 
@@ -6049,17 +6387,17 @@ namespace ObservableComputations.Test
 				listSource = ((IList)((ObservableCollection<Item>)sourceScalar.Value));
 				if (listSource != null)
 				{
-					listSource.Clear();
+					sync(); listSource.Clear();
 					testing.ValidateConsistency();
 				}
 
 				if (sourceScalarValue != null)
 				{
-					sourceScalarValue.Insert(0, new QuickTests.Item(1, true));
-					sourceScalarValue.Insert(1, new QuickTests.Item(2, true));
-					sourceScalarValue.Insert(2, new QuickTests.Item(3, true));
-					sourceScalarValue.Insert(3, new QuickTests.Item(3, true));
-					sourceScalarValue.Insert(4, new QuickTests.Item(3, true));
+					sync(); sourceScalarValue.Insert(0, new QuickTests.Item(1, true));
+					sync(); sourceScalarValue.Insert(1, new QuickTests.Item(2, true));
+					sync(); sourceScalarValue.Insert(2, new QuickTests.Item(3, true));
+					sync(); sourceScalarValue.Insert(3, new QuickTests.Item(3, true));
+					sync(); sourceScalarValue.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
 				testing.ValidateConsistency();
@@ -6067,23 +6405,24 @@ namespace ObservableComputations.Test
 
 			test();
 
-			((Scalar<ObservableCollection<Item>>)sourceScalar).Touch();
+			sync(); ((Scalar<ObservableCollection<Item>>)sourceScalar).Touch();
 			test();
-			((Scalar<ObservableCollection<Item>>)sourceScalar).Change(null);
+			sync(); ((Scalar<ObservableCollection<Item>>)sourceScalar).Change(null);
 			test();
-			consumer.Dispose();
-			((OcDispatcher)destinationOcDispatcher).Dispose();
+			sync(); consumer.Dispose();
 			((OcDispatcher)sourceOcDispatcher).Dispose();
+			
+			((OcDispatcher)destinationOcDispatcher).Dispose();
 		}
 		
 		[Test, Combinatorial]
-		public void TestCollectionDispatching57(
-			[Values()] int destinationOcDispatcherPriority,
-			[Values()] int sourceOcDispatcherPriority)
+		public void TestCollectionDispatching57()
 		{
 			Scalar<ObservableCollection<Item>> sourceScalar = getScalar<ObservableCollection<Item>>(getItems());
 			ObservableComputations.IOcDispatcher destinationOcDispatcher = new OcDispatcher();
 			ObservableComputations.IOcDispatcher sourceOcDispatcher = new OcDispatcher();
+			int destinationOcDispatcherPriority = 0;
+			int sourceOcDispatcherPriority = 0;
 			OcConsumer consumer = new OcConsumer();
 			var testing = sourceScalar.CollectionDispatching<Item>(
 				destinationOcDispatcher,
@@ -6097,32 +6436,38 @@ namespace ObservableComputations.Test
 			Assert.AreEqual(destinationOcDispatcherPriority, testing.DestinationOcDispatcherPriority);
 			Assert.AreEqual(sourceOcDispatcherPriority, testing.SourceOcDispatcherPriority);
 
+			void sync()
+			{
+				((OcDispatcher)sourceOcDispatcher).Invoke(() => {});
+				((OcDispatcher)destinationOcDispatcher).Invoke(() => {});
+			}
+
 			void test()
 			{
 				testing.ValidateConsistency();
-				var sourceScalarValue = ((ObservableCollection<Item>)((ObservableCollection<Item>)sourceScalar.Value));
+				sync(); var sourceScalarValue = ((ObservableCollection<Item>)((ObservableCollection<Item>)sourceScalar.Value));
 
 				if (sourceScalarValue != null)
 				{		
-					sourceScalarValue.Insert(2, new QuickTests.Item(1, true));
+					sync(); sourceScalarValue.Insert(2, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
-					sourceScalarValue[3] = new QuickTests.Item(7, true);
+					sync(); sourceScalarValue[3] = new QuickTests.Item(7, true);
 					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(3);
+					sync(); sourceScalarValue.RemoveAt(3);
 					testing.ValidateConsistency();
-					sourceScalarValue.Move(1, 3);
+					sync(); sourceScalarValue.Move(1, 3);
 					testing.ValidateConsistency();
-					sourceScalarValue[2].Active = !sourceScalarValue[2].Active;
+					sync(); sourceScalarValue[2].Active = !sourceScalarValue[2].Active;
 					testing.ValidateConsistency();
-					sourceScalarValue[2].Num = sourceScalarValue[2].Num + 1;
+					sync(); sourceScalarValue[2].Num = sourceScalarValue[2].Num + 1;
 					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
+					sync(); sourceScalarValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(1);
+					sync(); sourceScalarValue.RemoveAt(1);
 					testing.ValidateConsistency();
-					sourceScalarValue.Insert(0, new QuickTests.Item(1, true));
+					sync(); sourceScalarValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
-					sourceScalarValue.Insert(0, new QuickTests.Item(2, true));
+					sync(); sourceScalarValue.Insert(0, new QuickTests.Item(2, true));
 					testing.ValidateConsistency();
 				}
 
@@ -6130,17 +6475,17 @@ namespace ObservableComputations.Test
 				listSource = ((IList)((ObservableCollection<Item>)sourceScalar.Value));
 				if (listSource != null)
 				{
-					listSource.Clear();
+					sync(); listSource.Clear();
 					testing.ValidateConsistency();
 				}
 
 				if (sourceScalarValue != null)
 				{
-					sourceScalarValue.Insert(0, new QuickTests.Item(1, true));
-					sourceScalarValue.Insert(1, new QuickTests.Item(2, true));
-					sourceScalarValue.Insert(2, new QuickTests.Item(3, true));
-					sourceScalarValue.Insert(3, new QuickTests.Item(3, true));
-					sourceScalarValue.Insert(4, new QuickTests.Item(3, true));
+					sync(); sourceScalarValue.Insert(0, new QuickTests.Item(1, true));
+					sync(); sourceScalarValue.Insert(1, new QuickTests.Item(2, true));
+					sync(); sourceScalarValue.Insert(2, new QuickTests.Item(3, true));
+					sync(); sourceScalarValue.Insert(3, new QuickTests.Item(3, true));
+					sync(); sourceScalarValue.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
 				testing.ValidateConsistency();
@@ -6148,22 +6493,23 @@ namespace ObservableComputations.Test
 
 			test();
 
-			((Scalar<ObservableCollection<Item>>)sourceScalar).Touch();
+			sync(); ((Scalar<ObservableCollection<Item>>)sourceScalar).Touch();
 			test();
-			((Scalar<ObservableCollection<Item>>)sourceScalar).Change(null);
+			sync(); ((Scalar<ObservableCollection<Item>>)sourceScalar).Change(null);
 			test();
-			consumer.Dispose();
-			((OcDispatcher)destinationOcDispatcher).Dispose();
+			sync(); consumer.Dispose();
 			((OcDispatcher)sourceOcDispatcher).Dispose();
+			
+			((OcDispatcher)destinationOcDispatcher).Dispose();
 		}
 		
 		[Test, Combinatorial]
-		public void TestCollectionDispatching58(
-			[Values()] int destinationOcDispatcherPriority)
+		public void TestCollectionDispatching58()
 		{
 			Scalar<ObservableCollection<Item>> sourceScalar = getScalar<ObservableCollection<Item>>(getItems());
 			ObservableComputations.IOcDispatcher destinationOcDispatcher = new OcDispatcher();
 			ObservableComputations.IOcDispatcher sourceOcDispatcher = new OcDispatcher();
+			int destinationOcDispatcherPriority = 0;
 			object destinationOcDispatcherParameter = new object();
 			object sourceOcDispatcherParameter = new object();
 			OcConsumer consumer = new OcConsumer();
@@ -6181,32 +6527,38 @@ namespace ObservableComputations.Test
 			Assert.AreEqual(destinationOcDispatcherParameter, testing.DestinationOcDispatcherParameter);
 			Assert.AreEqual(sourceOcDispatcherParameter, testing.SourceOcDispatcherParameter);
 
+			void sync()
+			{
+				((OcDispatcher)sourceOcDispatcher).Invoke(() => {});
+				((OcDispatcher)destinationOcDispatcher).Invoke(() => {});
+			}
+
 			void test()
 			{
 				testing.ValidateConsistency();
-				var sourceScalarValue = ((ObservableCollection<Item>)((ObservableCollection<Item>)sourceScalar.Value));
+				sync(); var sourceScalarValue = ((ObservableCollection<Item>)((ObservableCollection<Item>)sourceScalar.Value));
 
 				if (sourceScalarValue != null)
 				{		
-					sourceScalarValue.Insert(2, new QuickTests.Item(1, true));
+					sync(); sourceScalarValue.Insert(2, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
-					sourceScalarValue[3] = new QuickTests.Item(7, true);
+					sync(); sourceScalarValue[3] = new QuickTests.Item(7, true);
 					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(3);
+					sync(); sourceScalarValue.RemoveAt(3);
 					testing.ValidateConsistency();
-					sourceScalarValue.Move(1, 3);
+					sync(); sourceScalarValue.Move(1, 3);
 					testing.ValidateConsistency();
-					sourceScalarValue[2].Active = !sourceScalarValue[2].Active;
+					sync(); sourceScalarValue[2].Active = !sourceScalarValue[2].Active;
 					testing.ValidateConsistency();
-					sourceScalarValue[2].Num = sourceScalarValue[2].Num + 1;
+					sync(); sourceScalarValue[2].Num = sourceScalarValue[2].Num + 1;
 					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
+					sync(); sourceScalarValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(1);
+					sync(); sourceScalarValue.RemoveAt(1);
 					testing.ValidateConsistency();
-					sourceScalarValue.Insert(0, new QuickTests.Item(1, true));
+					sync(); sourceScalarValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
-					sourceScalarValue.Insert(0, new QuickTests.Item(2, true));
+					sync(); sourceScalarValue.Insert(0, new QuickTests.Item(2, true));
 					testing.ValidateConsistency();
 				}
 
@@ -6214,17 +6566,17 @@ namespace ObservableComputations.Test
 				listSource = ((IList)((ObservableCollection<Item>)sourceScalar.Value));
 				if (listSource != null)
 				{
-					listSource.Clear();
+					sync(); listSource.Clear();
 					testing.ValidateConsistency();
 				}
 
 				if (sourceScalarValue != null)
 				{
-					sourceScalarValue.Insert(0, new QuickTests.Item(1, true));
-					sourceScalarValue.Insert(1, new QuickTests.Item(2, true));
-					sourceScalarValue.Insert(2, new QuickTests.Item(3, true));
-					sourceScalarValue.Insert(3, new QuickTests.Item(3, true));
-					sourceScalarValue.Insert(4, new QuickTests.Item(3, true));
+					sync(); sourceScalarValue.Insert(0, new QuickTests.Item(1, true));
+					sync(); sourceScalarValue.Insert(1, new QuickTests.Item(2, true));
+					sync(); sourceScalarValue.Insert(2, new QuickTests.Item(3, true));
+					sync(); sourceScalarValue.Insert(3, new QuickTests.Item(3, true));
+					sync(); sourceScalarValue.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
 				testing.ValidateConsistency();
@@ -6232,22 +6584,23 @@ namespace ObservableComputations.Test
 
 			test();
 
-			((Scalar<ObservableCollection<Item>>)sourceScalar).Touch();
+			sync(); ((Scalar<ObservableCollection<Item>>)sourceScalar).Touch();
 			test();
-			((Scalar<ObservableCollection<Item>>)sourceScalar).Change(null);
+			sync(); ((Scalar<ObservableCollection<Item>>)sourceScalar).Change(null);
 			test();
-			consumer.Dispose();
-			((OcDispatcher)destinationOcDispatcher).Dispose();
+			sync(); consumer.Dispose();
 			((OcDispatcher)sourceOcDispatcher).Dispose();
+			
+			((OcDispatcher)destinationOcDispatcher).Dispose();
 		}
 		
 		[Test, Combinatorial]
-		public void TestCollectionDispatching59(
-			[Values()] int destinationOcDispatcherPriority)
+		public void TestCollectionDispatching59()
 		{
 			Scalar<ObservableCollection<Item>> sourceScalar = getScalar<ObservableCollection<Item>>(getItems());
 			ObservableComputations.IOcDispatcher destinationOcDispatcher = new OcDispatcher();
 			ObservableComputations.IOcDispatcher sourceOcDispatcher = new OcDispatcher();
+			int destinationOcDispatcherPriority = 0;
 			object destinationOcDispatcherParameter = new object();
 			OcConsumer consumer = new OcConsumer();
 			var testing = sourceScalar.CollectionDispatching<Item>(
@@ -6262,32 +6615,38 @@ namespace ObservableComputations.Test
 			Assert.AreEqual(destinationOcDispatcherPriority, testing.DestinationOcDispatcherPriority);
 			Assert.AreEqual(destinationOcDispatcherParameter, testing.DestinationOcDispatcherParameter);
 
+			void sync()
+			{
+				((OcDispatcher)sourceOcDispatcher).Invoke(() => {});
+				((OcDispatcher)destinationOcDispatcher).Invoke(() => {});
+			}
+
 			void test()
 			{
 				testing.ValidateConsistency();
-				var sourceScalarValue = ((ObservableCollection<Item>)((ObservableCollection<Item>)sourceScalar.Value));
+				sync(); var sourceScalarValue = ((ObservableCollection<Item>)((ObservableCollection<Item>)sourceScalar.Value));
 
 				if (sourceScalarValue != null)
 				{		
-					sourceScalarValue.Insert(2, new QuickTests.Item(1, true));
+					sync(); sourceScalarValue.Insert(2, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
-					sourceScalarValue[3] = new QuickTests.Item(7, true);
+					sync(); sourceScalarValue[3] = new QuickTests.Item(7, true);
 					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(3);
+					sync(); sourceScalarValue.RemoveAt(3);
 					testing.ValidateConsistency();
-					sourceScalarValue.Move(1, 3);
+					sync(); sourceScalarValue.Move(1, 3);
 					testing.ValidateConsistency();
-					sourceScalarValue[2].Active = !sourceScalarValue[2].Active;
+					sync(); sourceScalarValue[2].Active = !sourceScalarValue[2].Active;
 					testing.ValidateConsistency();
-					sourceScalarValue[2].Num = sourceScalarValue[2].Num + 1;
+					sync(); sourceScalarValue[2].Num = sourceScalarValue[2].Num + 1;
 					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
+					sync(); sourceScalarValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(1);
+					sync(); sourceScalarValue.RemoveAt(1);
 					testing.ValidateConsistency();
-					sourceScalarValue.Insert(0, new QuickTests.Item(1, true));
+					sync(); sourceScalarValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
-					sourceScalarValue.Insert(0, new QuickTests.Item(2, true));
+					sync(); sourceScalarValue.Insert(0, new QuickTests.Item(2, true));
 					testing.ValidateConsistency();
 				}
 
@@ -6295,17 +6654,17 @@ namespace ObservableComputations.Test
 				listSource = ((IList)((ObservableCollection<Item>)sourceScalar.Value));
 				if (listSource != null)
 				{
-					listSource.Clear();
+					sync(); listSource.Clear();
 					testing.ValidateConsistency();
 				}
 
 				if (sourceScalarValue != null)
 				{
-					sourceScalarValue.Insert(0, new QuickTests.Item(1, true));
-					sourceScalarValue.Insert(1, new QuickTests.Item(2, true));
-					sourceScalarValue.Insert(2, new QuickTests.Item(3, true));
-					sourceScalarValue.Insert(3, new QuickTests.Item(3, true));
-					sourceScalarValue.Insert(4, new QuickTests.Item(3, true));
+					sync(); sourceScalarValue.Insert(0, new QuickTests.Item(1, true));
+					sync(); sourceScalarValue.Insert(1, new QuickTests.Item(2, true));
+					sync(); sourceScalarValue.Insert(2, new QuickTests.Item(3, true));
+					sync(); sourceScalarValue.Insert(3, new QuickTests.Item(3, true));
+					sync(); sourceScalarValue.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
 				testing.ValidateConsistency();
@@ -6313,22 +6672,23 @@ namespace ObservableComputations.Test
 
 			test();
 
-			((Scalar<ObservableCollection<Item>>)sourceScalar).Touch();
+			sync(); ((Scalar<ObservableCollection<Item>>)sourceScalar).Touch();
 			test();
-			((Scalar<ObservableCollection<Item>>)sourceScalar).Change(null);
+			sync(); ((Scalar<ObservableCollection<Item>>)sourceScalar).Change(null);
 			test();
-			consumer.Dispose();
-			((OcDispatcher)destinationOcDispatcher).Dispose();
+			sync(); consumer.Dispose();
 			((OcDispatcher)sourceOcDispatcher).Dispose();
+			
+			((OcDispatcher)destinationOcDispatcher).Dispose();
 		}
 		
 		[Test, Combinatorial]
-		public void TestCollectionDispatching60(
-			[Values()] int destinationOcDispatcherPriority)
+		public void TestCollectionDispatching60()
 		{
 			Scalar<ObservableCollection<Item>> sourceScalar = getScalar<ObservableCollection<Item>>(getItems());
 			ObservableComputations.IOcDispatcher destinationOcDispatcher = new OcDispatcher();
 			ObservableComputations.IOcDispatcher sourceOcDispatcher = new OcDispatcher();
+			int destinationOcDispatcherPriority = 0;
 			OcConsumer consumer = new OcConsumer();
 			var testing = sourceScalar.CollectionDispatching<Item>(
 				destinationOcDispatcher,
@@ -6340,32 +6700,38 @@ namespace ObservableComputations.Test
 			Assert.AreEqual(sourceOcDispatcher, testing.SourceOcDispatcher);
 			Assert.AreEqual(destinationOcDispatcherPriority, testing.DestinationOcDispatcherPriority);
 
+			void sync()
+			{
+				((OcDispatcher)sourceOcDispatcher).Invoke(() => {});
+				((OcDispatcher)destinationOcDispatcher).Invoke(() => {});
+			}
+
 			void test()
 			{
 				testing.ValidateConsistency();
-				var sourceScalarValue = ((ObservableCollection<Item>)((ObservableCollection<Item>)sourceScalar.Value));
+				sync(); var sourceScalarValue = ((ObservableCollection<Item>)((ObservableCollection<Item>)sourceScalar.Value));
 
 				if (sourceScalarValue != null)
 				{		
-					sourceScalarValue.Insert(2, new QuickTests.Item(1, true));
+					sync(); sourceScalarValue.Insert(2, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
-					sourceScalarValue[3] = new QuickTests.Item(7, true);
+					sync(); sourceScalarValue[3] = new QuickTests.Item(7, true);
 					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(3);
+					sync(); sourceScalarValue.RemoveAt(3);
 					testing.ValidateConsistency();
-					sourceScalarValue.Move(1, 3);
+					sync(); sourceScalarValue.Move(1, 3);
 					testing.ValidateConsistency();
-					sourceScalarValue[2].Active = !sourceScalarValue[2].Active;
+					sync(); sourceScalarValue[2].Active = !sourceScalarValue[2].Active;
 					testing.ValidateConsistency();
-					sourceScalarValue[2].Num = sourceScalarValue[2].Num + 1;
+					sync(); sourceScalarValue[2].Num = sourceScalarValue[2].Num + 1;
 					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
+					sync(); sourceScalarValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(1);
+					sync(); sourceScalarValue.RemoveAt(1);
 					testing.ValidateConsistency();
-					sourceScalarValue.Insert(0, new QuickTests.Item(1, true));
+					sync(); sourceScalarValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
-					sourceScalarValue.Insert(0, new QuickTests.Item(2, true));
+					sync(); sourceScalarValue.Insert(0, new QuickTests.Item(2, true));
 					testing.ValidateConsistency();
 				}
 
@@ -6373,17 +6739,17 @@ namespace ObservableComputations.Test
 				listSource = ((IList)((ObservableCollection<Item>)sourceScalar.Value));
 				if (listSource != null)
 				{
-					listSource.Clear();
+					sync(); listSource.Clear();
 					testing.ValidateConsistency();
 				}
 
 				if (sourceScalarValue != null)
 				{
-					sourceScalarValue.Insert(0, new QuickTests.Item(1, true));
-					sourceScalarValue.Insert(1, new QuickTests.Item(2, true));
-					sourceScalarValue.Insert(2, new QuickTests.Item(3, true));
-					sourceScalarValue.Insert(3, new QuickTests.Item(3, true));
-					sourceScalarValue.Insert(4, new QuickTests.Item(3, true));
+					sync(); sourceScalarValue.Insert(0, new QuickTests.Item(1, true));
+					sync(); sourceScalarValue.Insert(1, new QuickTests.Item(2, true));
+					sync(); sourceScalarValue.Insert(2, new QuickTests.Item(3, true));
+					sync(); sourceScalarValue.Insert(3, new QuickTests.Item(3, true));
+					sync(); sourceScalarValue.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
 				testing.ValidateConsistency();
@@ -6391,13 +6757,14 @@ namespace ObservableComputations.Test
 
 			test();
 
-			((Scalar<ObservableCollection<Item>>)sourceScalar).Touch();
+			sync(); ((Scalar<ObservableCollection<Item>>)sourceScalar).Touch();
 			test();
-			((Scalar<ObservableCollection<Item>>)sourceScalar).Change(null);
+			sync(); ((Scalar<ObservableCollection<Item>>)sourceScalar).Change(null);
 			test();
-			consumer.Dispose();
-			((OcDispatcher)destinationOcDispatcher).Dispose();
+			sync(); consumer.Dispose();
 			((OcDispatcher)sourceOcDispatcher).Dispose();
+			
+			((OcDispatcher)destinationOcDispatcher).Dispose();
 		}
 		
 		[Test, Combinatorial]
@@ -6421,32 +6788,38 @@ namespace ObservableComputations.Test
 			Assert.AreEqual(destinationOcDispatcherParameter, testing.DestinationOcDispatcherParameter);
 			Assert.AreEqual(sourceOcDispatcherParameter, testing.SourceOcDispatcherParameter);
 
+			void sync()
+			{
+				((OcDispatcher)sourceOcDispatcher).Invoke(() => {});
+				((OcDispatcher)destinationOcDispatcher).Invoke(() => {});
+			}
+
 			void test()
 			{
 				testing.ValidateConsistency();
-				var sourceScalarValue = ((ObservableCollection<Item>)((ObservableCollection<Item>)sourceScalar.Value));
+				sync(); var sourceScalarValue = ((ObservableCollection<Item>)((ObservableCollection<Item>)sourceScalar.Value));
 
 				if (sourceScalarValue != null)
 				{		
-					sourceScalarValue.Insert(2, new QuickTests.Item(1, true));
+					sync(); sourceScalarValue.Insert(2, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
-					sourceScalarValue[3] = new QuickTests.Item(7, true);
+					sync(); sourceScalarValue[3] = new QuickTests.Item(7, true);
 					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(3);
+					sync(); sourceScalarValue.RemoveAt(3);
 					testing.ValidateConsistency();
-					sourceScalarValue.Move(1, 3);
+					sync(); sourceScalarValue.Move(1, 3);
 					testing.ValidateConsistency();
-					sourceScalarValue[2].Active = !sourceScalarValue[2].Active;
+					sync(); sourceScalarValue[2].Active = !sourceScalarValue[2].Active;
 					testing.ValidateConsistency();
-					sourceScalarValue[2].Num = sourceScalarValue[2].Num + 1;
+					sync(); sourceScalarValue[2].Num = sourceScalarValue[2].Num + 1;
 					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
+					sync(); sourceScalarValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(1);
+					sync(); sourceScalarValue.RemoveAt(1);
 					testing.ValidateConsistency();
-					sourceScalarValue.Insert(0, new QuickTests.Item(1, true));
+					sync(); sourceScalarValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
-					sourceScalarValue.Insert(0, new QuickTests.Item(2, true));
+					sync(); sourceScalarValue.Insert(0, new QuickTests.Item(2, true));
 					testing.ValidateConsistency();
 				}
 
@@ -6454,17 +6827,17 @@ namespace ObservableComputations.Test
 				listSource = ((IList)((ObservableCollection<Item>)sourceScalar.Value));
 				if (listSource != null)
 				{
-					listSource.Clear();
+					sync(); listSource.Clear();
 					testing.ValidateConsistency();
 				}
 
 				if (sourceScalarValue != null)
 				{
-					sourceScalarValue.Insert(0, new QuickTests.Item(1, true));
-					sourceScalarValue.Insert(1, new QuickTests.Item(2, true));
-					sourceScalarValue.Insert(2, new QuickTests.Item(3, true));
-					sourceScalarValue.Insert(3, new QuickTests.Item(3, true));
-					sourceScalarValue.Insert(4, new QuickTests.Item(3, true));
+					sync(); sourceScalarValue.Insert(0, new QuickTests.Item(1, true));
+					sync(); sourceScalarValue.Insert(1, new QuickTests.Item(2, true));
+					sync(); sourceScalarValue.Insert(2, new QuickTests.Item(3, true));
+					sync(); sourceScalarValue.Insert(3, new QuickTests.Item(3, true));
+					sync(); sourceScalarValue.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
 				testing.ValidateConsistency();
@@ -6472,13 +6845,14 @@ namespace ObservableComputations.Test
 
 			test();
 
-			((Scalar<ObservableCollection<Item>>)sourceScalar).Touch();
+			sync(); ((Scalar<ObservableCollection<Item>>)sourceScalar).Touch();
 			test();
-			((Scalar<ObservableCollection<Item>>)sourceScalar).Change(null);
+			sync(); ((Scalar<ObservableCollection<Item>>)sourceScalar).Change(null);
 			test();
-			consumer.Dispose();
-			((OcDispatcher)destinationOcDispatcher).Dispose();
+			sync(); consumer.Dispose();
 			((OcDispatcher)sourceOcDispatcher).Dispose();
+			
+			((OcDispatcher)destinationOcDispatcher).Dispose();
 		}
 		
 		[Test, Combinatorial]
@@ -6499,32 +6873,38 @@ namespace ObservableComputations.Test
 			Assert.AreEqual(sourceOcDispatcher, testing.SourceOcDispatcher);
 			Assert.AreEqual(destinationOcDispatcherParameter, testing.DestinationOcDispatcherParameter);
 
+			void sync()
+			{
+				((OcDispatcher)sourceOcDispatcher).Invoke(() => {});
+				((OcDispatcher)destinationOcDispatcher).Invoke(() => {});
+			}
+
 			void test()
 			{
 				testing.ValidateConsistency();
-				var sourceScalarValue = ((ObservableCollection<Item>)((ObservableCollection<Item>)sourceScalar.Value));
+				sync(); var sourceScalarValue = ((ObservableCollection<Item>)((ObservableCollection<Item>)sourceScalar.Value));
 
 				if (sourceScalarValue != null)
 				{		
-					sourceScalarValue.Insert(2, new QuickTests.Item(1, true));
+					sync(); sourceScalarValue.Insert(2, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
-					sourceScalarValue[3] = new QuickTests.Item(7, true);
+					sync(); sourceScalarValue[3] = new QuickTests.Item(7, true);
 					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(3);
+					sync(); sourceScalarValue.RemoveAt(3);
 					testing.ValidateConsistency();
-					sourceScalarValue.Move(1, 3);
+					sync(); sourceScalarValue.Move(1, 3);
 					testing.ValidateConsistency();
-					sourceScalarValue[2].Active = !sourceScalarValue[2].Active;
+					sync(); sourceScalarValue[2].Active = !sourceScalarValue[2].Active;
 					testing.ValidateConsistency();
-					sourceScalarValue[2].Num = sourceScalarValue[2].Num + 1;
+					sync(); sourceScalarValue[2].Num = sourceScalarValue[2].Num + 1;
 					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
+					sync(); sourceScalarValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(1);
+					sync(); sourceScalarValue.RemoveAt(1);
 					testing.ValidateConsistency();
-					sourceScalarValue.Insert(0, new QuickTests.Item(1, true));
+					sync(); sourceScalarValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
-					sourceScalarValue.Insert(0, new QuickTests.Item(2, true));
+					sync(); sourceScalarValue.Insert(0, new QuickTests.Item(2, true));
 					testing.ValidateConsistency();
 				}
 
@@ -6532,17 +6912,17 @@ namespace ObservableComputations.Test
 				listSource = ((IList)((ObservableCollection<Item>)sourceScalar.Value));
 				if (listSource != null)
 				{
-					listSource.Clear();
+					sync(); listSource.Clear();
 					testing.ValidateConsistency();
 				}
 
 				if (sourceScalarValue != null)
 				{
-					sourceScalarValue.Insert(0, new QuickTests.Item(1, true));
-					sourceScalarValue.Insert(1, new QuickTests.Item(2, true));
-					sourceScalarValue.Insert(2, new QuickTests.Item(3, true));
-					sourceScalarValue.Insert(3, new QuickTests.Item(3, true));
-					sourceScalarValue.Insert(4, new QuickTests.Item(3, true));
+					sync(); sourceScalarValue.Insert(0, new QuickTests.Item(1, true));
+					sync(); sourceScalarValue.Insert(1, new QuickTests.Item(2, true));
+					sync(); sourceScalarValue.Insert(2, new QuickTests.Item(3, true));
+					sync(); sourceScalarValue.Insert(3, new QuickTests.Item(3, true));
+					sync(); sourceScalarValue.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
 				testing.ValidateConsistency();
@@ -6550,13 +6930,14 @@ namespace ObservableComputations.Test
 
 			test();
 
-			((Scalar<ObservableCollection<Item>>)sourceScalar).Touch();
+			sync(); ((Scalar<ObservableCollection<Item>>)sourceScalar).Touch();
 			test();
-			((Scalar<ObservableCollection<Item>>)sourceScalar).Change(null);
+			sync(); ((Scalar<ObservableCollection<Item>>)sourceScalar).Change(null);
 			test();
-			consumer.Dispose();
-			((OcDispatcher)destinationOcDispatcher).Dispose();
+			sync(); consumer.Dispose();
 			((OcDispatcher)sourceOcDispatcher).Dispose();
+			
+			((OcDispatcher)destinationOcDispatcher).Dispose();
 		}
 		
 		[Test, Combinatorial]
@@ -6574,32 +6955,38 @@ namespace ObservableComputations.Test
 			Assert.AreEqual(destinationOcDispatcher, testing.DestinationOcDispatcher);
 			Assert.AreEqual(sourceOcDispatcher, testing.SourceOcDispatcher);
 
+			void sync()
+			{
+				((OcDispatcher)sourceOcDispatcher).Invoke(() => {});
+				((OcDispatcher)destinationOcDispatcher).Invoke(() => {});
+			}
+
 			void test()
 			{
 				testing.ValidateConsistency();
-				var sourceScalarValue = ((ObservableCollection<Item>)((ObservableCollection<Item>)sourceScalar.Value));
+				sync(); var sourceScalarValue = ((ObservableCollection<Item>)((ObservableCollection<Item>)sourceScalar.Value));
 
 				if (sourceScalarValue != null)
 				{		
-					sourceScalarValue.Insert(2, new QuickTests.Item(1, true));
+					sync(); sourceScalarValue.Insert(2, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
-					sourceScalarValue[3] = new QuickTests.Item(7, true);
+					sync(); sourceScalarValue[3] = new QuickTests.Item(7, true);
 					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(3);
+					sync(); sourceScalarValue.RemoveAt(3);
 					testing.ValidateConsistency();
-					sourceScalarValue.Move(1, 3);
+					sync(); sourceScalarValue.Move(1, 3);
 					testing.ValidateConsistency();
-					sourceScalarValue[2].Active = !sourceScalarValue[2].Active;
+					sync(); sourceScalarValue[2].Active = !sourceScalarValue[2].Active;
 					testing.ValidateConsistency();
-					sourceScalarValue[2].Num = sourceScalarValue[2].Num + 1;
+					sync(); sourceScalarValue[2].Num = sourceScalarValue[2].Num + 1;
 					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
+					sync(); sourceScalarValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(1);
+					sync(); sourceScalarValue.RemoveAt(1);
 					testing.ValidateConsistency();
-					sourceScalarValue.Insert(0, new QuickTests.Item(1, true));
+					sync(); sourceScalarValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
-					sourceScalarValue.Insert(0, new QuickTests.Item(2, true));
+					sync(); sourceScalarValue.Insert(0, new QuickTests.Item(2, true));
 					testing.ValidateConsistency();
 				}
 
@@ -6607,17 +6994,17 @@ namespace ObservableComputations.Test
 				listSource = ((IList)((ObservableCollection<Item>)sourceScalar.Value));
 				if (listSource != null)
 				{
-					listSource.Clear();
+					sync(); listSource.Clear();
 					testing.ValidateConsistency();
 				}
 
 				if (sourceScalarValue != null)
 				{
-					sourceScalarValue.Insert(0, new QuickTests.Item(1, true));
-					sourceScalarValue.Insert(1, new QuickTests.Item(2, true));
-					sourceScalarValue.Insert(2, new QuickTests.Item(3, true));
-					sourceScalarValue.Insert(3, new QuickTests.Item(3, true));
-					sourceScalarValue.Insert(4, new QuickTests.Item(3, true));
+					sync(); sourceScalarValue.Insert(0, new QuickTests.Item(1, true));
+					sync(); sourceScalarValue.Insert(1, new QuickTests.Item(2, true));
+					sync(); sourceScalarValue.Insert(2, new QuickTests.Item(3, true));
+					sync(); sourceScalarValue.Insert(3, new QuickTests.Item(3, true));
+					sync(); sourceScalarValue.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
 				testing.ValidateConsistency();
@@ -6625,22 +7012,23 @@ namespace ObservableComputations.Test
 
 			test();
 
-			((Scalar<ObservableCollection<Item>>)sourceScalar).Touch();
+			sync(); ((Scalar<ObservableCollection<Item>>)sourceScalar).Touch();
 			test();
-			((Scalar<ObservableCollection<Item>>)sourceScalar).Change(null);
+			sync(); ((Scalar<ObservableCollection<Item>>)sourceScalar).Change(null);
 			test();
-			consumer.Dispose();
-			((OcDispatcher)destinationOcDispatcher).Dispose();
+			sync(); consumer.Dispose();
 			((OcDispatcher)sourceOcDispatcher).Dispose();
+			
+			((OcDispatcher)destinationOcDispatcher).Dispose();
 		}
 		
 		[Test, Combinatorial]
-		public void TestCollectionDispatching64(
-			[Values()] int destinationOcDispatcherPriority,
-			[Values()] int sourceOcDispatcherPriority)
+		public void TestCollectionDispatching64()
 		{
 			Scalar<ObservableCollection<Item>> sourceScalar = getScalar<ObservableCollection<Item>>(getItems());
 			ObservableComputations.IOcDispatcher destinationOcDispatcher = new OcDispatcher();
+			int destinationOcDispatcherPriority = 0;
+			int sourceOcDispatcherPriority = 0;
 			object destinationOcDispatcherParameter = new object();
 			object sourceOcDispatcherParameter = new object();
 			OcConsumer consumer = new OcConsumer();
@@ -6658,32 +7046,37 @@ namespace ObservableComputations.Test
 			Assert.AreEqual(destinationOcDispatcherParameter, testing.DestinationOcDispatcherParameter);
 			Assert.AreEqual(sourceOcDispatcherParameter, testing.SourceOcDispatcherParameter);
 
+			void sync()
+			{
+				((OcDispatcher)destinationOcDispatcher).Invoke(() => {});
+			}
+
 			void test()
 			{
 				testing.ValidateConsistency();
-				var sourceScalarValue = ((ObservableCollection<Item>)((ObservableCollection<Item>)sourceScalar.Value));
+				sync(); var sourceScalarValue = ((ObservableCollection<Item>)((ObservableCollection<Item>)sourceScalar.Value));
 
 				if (sourceScalarValue != null)
 				{		
-					sourceScalarValue.Insert(2, new QuickTests.Item(1, true));
+					sync(); sourceScalarValue.Insert(2, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
-					sourceScalarValue[3] = new QuickTests.Item(7, true);
+					sync(); sourceScalarValue[3] = new QuickTests.Item(7, true);
 					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(3);
+					sync(); sourceScalarValue.RemoveAt(3);
 					testing.ValidateConsistency();
-					sourceScalarValue.Move(1, 3);
+					sync(); sourceScalarValue.Move(1, 3);
 					testing.ValidateConsistency();
-					sourceScalarValue[2].Active = !sourceScalarValue[2].Active;
+					sync(); sourceScalarValue[2].Active = !sourceScalarValue[2].Active;
 					testing.ValidateConsistency();
-					sourceScalarValue[2].Num = sourceScalarValue[2].Num + 1;
+					sync(); sourceScalarValue[2].Num = sourceScalarValue[2].Num + 1;
 					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
+					sync(); sourceScalarValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(1);
+					sync(); sourceScalarValue.RemoveAt(1);
 					testing.ValidateConsistency();
-					sourceScalarValue.Insert(0, new QuickTests.Item(1, true));
+					sync(); sourceScalarValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
-					sourceScalarValue.Insert(0, new QuickTests.Item(2, true));
+					sync(); sourceScalarValue.Insert(0, new QuickTests.Item(2, true));
 					testing.ValidateConsistency();
 				}
 
@@ -6691,17 +7084,17 @@ namespace ObservableComputations.Test
 				listSource = ((IList)((ObservableCollection<Item>)sourceScalar.Value));
 				if (listSource != null)
 				{
-					listSource.Clear();
+					sync(); listSource.Clear();
 					testing.ValidateConsistency();
 				}
 
 				if (sourceScalarValue != null)
 				{
-					sourceScalarValue.Insert(0, new QuickTests.Item(1, true));
-					sourceScalarValue.Insert(1, new QuickTests.Item(2, true));
-					sourceScalarValue.Insert(2, new QuickTests.Item(3, true));
-					sourceScalarValue.Insert(3, new QuickTests.Item(3, true));
-					sourceScalarValue.Insert(4, new QuickTests.Item(3, true));
+					sync(); sourceScalarValue.Insert(0, new QuickTests.Item(1, true));
+					sync(); sourceScalarValue.Insert(1, new QuickTests.Item(2, true));
+					sync(); sourceScalarValue.Insert(2, new QuickTests.Item(3, true));
+					sync(); sourceScalarValue.Insert(3, new QuickTests.Item(3, true));
+					sync(); sourceScalarValue.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
 				testing.ValidateConsistency();
@@ -6709,21 +7102,22 @@ namespace ObservableComputations.Test
 
 			test();
 
-			((Scalar<ObservableCollection<Item>>)sourceScalar).Touch();
+			sync(); ((Scalar<ObservableCollection<Item>>)sourceScalar).Touch();
 			test();
-			((Scalar<ObservableCollection<Item>>)sourceScalar).Change(null);
+			sync(); ((Scalar<ObservableCollection<Item>>)sourceScalar).Change(null);
 			test();
-			consumer.Dispose();
+			sync(); consumer.Dispose();
+			
 			((OcDispatcher)destinationOcDispatcher).Dispose();
 		}
 		
 		[Test, Combinatorial]
-		public void TestCollectionDispatching65(
-			[Values()] int destinationOcDispatcherPriority,
-			[Values()] int sourceOcDispatcherPriority)
+		public void TestCollectionDispatching65()
 		{
 			Scalar<ObservableCollection<Item>> sourceScalar = getScalar<ObservableCollection<Item>>(getItems());
 			ObservableComputations.IOcDispatcher destinationOcDispatcher = new OcDispatcher();
+			int destinationOcDispatcherPriority = 0;
+			int sourceOcDispatcherPriority = 0;
 			object destinationOcDispatcherParameter = new object();
 			OcConsumer consumer = new OcConsumer();
 			var testing = sourceScalar.CollectionDispatching<Item>(
@@ -6738,32 +7132,37 @@ namespace ObservableComputations.Test
 			Assert.AreEqual(sourceOcDispatcherPriority, testing.SourceOcDispatcherPriority);
 			Assert.AreEqual(destinationOcDispatcherParameter, testing.DestinationOcDispatcherParameter);
 
+			void sync()
+			{
+				((OcDispatcher)destinationOcDispatcher).Invoke(() => {});
+			}
+
 			void test()
 			{
 				testing.ValidateConsistency();
-				var sourceScalarValue = ((ObservableCollection<Item>)((ObservableCollection<Item>)sourceScalar.Value));
+				sync(); var sourceScalarValue = ((ObservableCollection<Item>)((ObservableCollection<Item>)sourceScalar.Value));
 
 				if (sourceScalarValue != null)
 				{		
-					sourceScalarValue.Insert(2, new QuickTests.Item(1, true));
+					sync(); sourceScalarValue.Insert(2, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
-					sourceScalarValue[3] = new QuickTests.Item(7, true);
+					sync(); sourceScalarValue[3] = new QuickTests.Item(7, true);
 					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(3);
+					sync(); sourceScalarValue.RemoveAt(3);
 					testing.ValidateConsistency();
-					sourceScalarValue.Move(1, 3);
+					sync(); sourceScalarValue.Move(1, 3);
 					testing.ValidateConsistency();
-					sourceScalarValue[2].Active = !sourceScalarValue[2].Active;
+					sync(); sourceScalarValue[2].Active = !sourceScalarValue[2].Active;
 					testing.ValidateConsistency();
-					sourceScalarValue[2].Num = sourceScalarValue[2].Num + 1;
+					sync(); sourceScalarValue[2].Num = sourceScalarValue[2].Num + 1;
 					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
+					sync(); sourceScalarValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(1);
+					sync(); sourceScalarValue.RemoveAt(1);
 					testing.ValidateConsistency();
-					sourceScalarValue.Insert(0, new QuickTests.Item(1, true));
+					sync(); sourceScalarValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
-					sourceScalarValue.Insert(0, new QuickTests.Item(2, true));
+					sync(); sourceScalarValue.Insert(0, new QuickTests.Item(2, true));
 					testing.ValidateConsistency();
 				}
 
@@ -6771,17 +7170,17 @@ namespace ObservableComputations.Test
 				listSource = ((IList)((ObservableCollection<Item>)sourceScalar.Value));
 				if (listSource != null)
 				{
-					listSource.Clear();
+					sync(); listSource.Clear();
 					testing.ValidateConsistency();
 				}
 
 				if (sourceScalarValue != null)
 				{
-					sourceScalarValue.Insert(0, new QuickTests.Item(1, true));
-					sourceScalarValue.Insert(1, new QuickTests.Item(2, true));
-					sourceScalarValue.Insert(2, new QuickTests.Item(3, true));
-					sourceScalarValue.Insert(3, new QuickTests.Item(3, true));
-					sourceScalarValue.Insert(4, new QuickTests.Item(3, true));
+					sync(); sourceScalarValue.Insert(0, new QuickTests.Item(1, true));
+					sync(); sourceScalarValue.Insert(1, new QuickTests.Item(2, true));
+					sync(); sourceScalarValue.Insert(2, new QuickTests.Item(3, true));
+					sync(); sourceScalarValue.Insert(3, new QuickTests.Item(3, true));
+					sync(); sourceScalarValue.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
 				testing.ValidateConsistency();
@@ -6789,21 +7188,22 @@ namespace ObservableComputations.Test
 
 			test();
 
-			((Scalar<ObservableCollection<Item>>)sourceScalar).Touch();
+			sync(); ((Scalar<ObservableCollection<Item>>)sourceScalar).Touch();
 			test();
-			((Scalar<ObservableCollection<Item>>)sourceScalar).Change(null);
+			sync(); ((Scalar<ObservableCollection<Item>>)sourceScalar).Change(null);
 			test();
-			consumer.Dispose();
+			sync(); consumer.Dispose();
+			
 			((OcDispatcher)destinationOcDispatcher).Dispose();
 		}
 		
 		[Test, Combinatorial]
-		public void TestCollectionDispatching66(
-			[Values()] int destinationOcDispatcherPriority,
-			[Values()] int sourceOcDispatcherPriority)
+		public void TestCollectionDispatching66()
 		{
 			Scalar<ObservableCollection<Item>> sourceScalar = getScalar<ObservableCollection<Item>>(getItems());
 			ObservableComputations.IOcDispatcher destinationOcDispatcher = new OcDispatcher();
+			int destinationOcDispatcherPriority = 0;
+			int sourceOcDispatcherPriority = 0;
 			OcConsumer consumer = new OcConsumer();
 			var testing = sourceScalar.CollectionDispatching<Item>(
 				destinationOcDispatcher,
@@ -6815,32 +7215,37 @@ namespace ObservableComputations.Test
 			Assert.AreEqual(destinationOcDispatcherPriority, testing.DestinationOcDispatcherPriority);
 			Assert.AreEqual(sourceOcDispatcherPriority, testing.SourceOcDispatcherPriority);
 
+			void sync()
+			{
+				((OcDispatcher)destinationOcDispatcher).Invoke(() => {});
+			}
+
 			void test()
 			{
 				testing.ValidateConsistency();
-				var sourceScalarValue = ((ObservableCollection<Item>)((ObservableCollection<Item>)sourceScalar.Value));
+				sync(); var sourceScalarValue = ((ObservableCollection<Item>)((ObservableCollection<Item>)sourceScalar.Value));
 
 				if (sourceScalarValue != null)
 				{		
-					sourceScalarValue.Insert(2, new QuickTests.Item(1, true));
+					sync(); sourceScalarValue.Insert(2, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
-					sourceScalarValue[3] = new QuickTests.Item(7, true);
+					sync(); sourceScalarValue[3] = new QuickTests.Item(7, true);
 					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(3);
+					sync(); sourceScalarValue.RemoveAt(3);
 					testing.ValidateConsistency();
-					sourceScalarValue.Move(1, 3);
+					sync(); sourceScalarValue.Move(1, 3);
 					testing.ValidateConsistency();
-					sourceScalarValue[2].Active = !sourceScalarValue[2].Active;
+					sync(); sourceScalarValue[2].Active = !sourceScalarValue[2].Active;
 					testing.ValidateConsistency();
-					sourceScalarValue[2].Num = sourceScalarValue[2].Num + 1;
+					sync(); sourceScalarValue[2].Num = sourceScalarValue[2].Num + 1;
 					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
+					sync(); sourceScalarValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(1);
+					sync(); sourceScalarValue.RemoveAt(1);
 					testing.ValidateConsistency();
-					sourceScalarValue.Insert(0, new QuickTests.Item(1, true));
+					sync(); sourceScalarValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
-					sourceScalarValue.Insert(0, new QuickTests.Item(2, true));
+					sync(); sourceScalarValue.Insert(0, new QuickTests.Item(2, true));
 					testing.ValidateConsistency();
 				}
 
@@ -6848,17 +7253,17 @@ namespace ObservableComputations.Test
 				listSource = ((IList)((ObservableCollection<Item>)sourceScalar.Value));
 				if (listSource != null)
 				{
-					listSource.Clear();
+					sync(); listSource.Clear();
 					testing.ValidateConsistency();
 				}
 
 				if (sourceScalarValue != null)
 				{
-					sourceScalarValue.Insert(0, new QuickTests.Item(1, true));
-					sourceScalarValue.Insert(1, new QuickTests.Item(2, true));
-					sourceScalarValue.Insert(2, new QuickTests.Item(3, true));
-					sourceScalarValue.Insert(3, new QuickTests.Item(3, true));
-					sourceScalarValue.Insert(4, new QuickTests.Item(3, true));
+					sync(); sourceScalarValue.Insert(0, new QuickTests.Item(1, true));
+					sync(); sourceScalarValue.Insert(1, new QuickTests.Item(2, true));
+					sync(); sourceScalarValue.Insert(2, new QuickTests.Item(3, true));
+					sync(); sourceScalarValue.Insert(3, new QuickTests.Item(3, true));
+					sync(); sourceScalarValue.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
 				testing.ValidateConsistency();
@@ -6866,20 +7271,21 @@ namespace ObservableComputations.Test
 
 			test();
 
-			((Scalar<ObservableCollection<Item>>)sourceScalar).Touch();
+			sync(); ((Scalar<ObservableCollection<Item>>)sourceScalar).Touch();
 			test();
-			((Scalar<ObservableCollection<Item>>)sourceScalar).Change(null);
+			sync(); ((Scalar<ObservableCollection<Item>>)sourceScalar).Change(null);
 			test();
-			consumer.Dispose();
+			sync(); consumer.Dispose();
+			
 			((OcDispatcher)destinationOcDispatcher).Dispose();
 		}
 		
 		[Test, Combinatorial]
-		public void TestCollectionDispatching67(
-			[Values()] int destinationOcDispatcherPriority)
+		public void TestCollectionDispatching67()
 		{
 			Scalar<ObservableCollection<Item>> sourceScalar = getScalar<ObservableCollection<Item>>(getItems());
 			ObservableComputations.IOcDispatcher destinationOcDispatcher = new OcDispatcher();
+			int destinationOcDispatcherPriority = 0;
 			object destinationOcDispatcherParameter = new object();
 			object sourceOcDispatcherParameter = new object();
 			OcConsumer consumer = new OcConsumer();
@@ -6895,32 +7301,37 @@ namespace ObservableComputations.Test
 			Assert.AreEqual(destinationOcDispatcherParameter, testing.DestinationOcDispatcherParameter);
 			Assert.AreEqual(sourceOcDispatcherParameter, testing.SourceOcDispatcherParameter);
 
+			void sync()
+			{
+				((OcDispatcher)destinationOcDispatcher).Invoke(() => {});
+			}
+
 			void test()
 			{
 				testing.ValidateConsistency();
-				var sourceScalarValue = ((ObservableCollection<Item>)((ObservableCollection<Item>)sourceScalar.Value));
+				sync(); var sourceScalarValue = ((ObservableCollection<Item>)((ObservableCollection<Item>)sourceScalar.Value));
 
 				if (sourceScalarValue != null)
 				{		
-					sourceScalarValue.Insert(2, new QuickTests.Item(1, true));
+					sync(); sourceScalarValue.Insert(2, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
-					sourceScalarValue[3] = new QuickTests.Item(7, true);
+					sync(); sourceScalarValue[3] = new QuickTests.Item(7, true);
 					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(3);
+					sync(); sourceScalarValue.RemoveAt(3);
 					testing.ValidateConsistency();
-					sourceScalarValue.Move(1, 3);
+					sync(); sourceScalarValue.Move(1, 3);
 					testing.ValidateConsistency();
-					sourceScalarValue[2].Active = !sourceScalarValue[2].Active;
+					sync(); sourceScalarValue[2].Active = !sourceScalarValue[2].Active;
 					testing.ValidateConsistency();
-					sourceScalarValue[2].Num = sourceScalarValue[2].Num + 1;
+					sync(); sourceScalarValue[2].Num = sourceScalarValue[2].Num + 1;
 					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
+					sync(); sourceScalarValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(1);
+					sync(); sourceScalarValue.RemoveAt(1);
 					testing.ValidateConsistency();
-					sourceScalarValue.Insert(0, new QuickTests.Item(1, true));
+					sync(); sourceScalarValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
-					sourceScalarValue.Insert(0, new QuickTests.Item(2, true));
+					sync(); sourceScalarValue.Insert(0, new QuickTests.Item(2, true));
 					testing.ValidateConsistency();
 				}
 
@@ -6928,17 +7339,17 @@ namespace ObservableComputations.Test
 				listSource = ((IList)((ObservableCollection<Item>)sourceScalar.Value));
 				if (listSource != null)
 				{
-					listSource.Clear();
+					sync(); listSource.Clear();
 					testing.ValidateConsistency();
 				}
 
 				if (sourceScalarValue != null)
 				{
-					sourceScalarValue.Insert(0, new QuickTests.Item(1, true));
-					sourceScalarValue.Insert(1, new QuickTests.Item(2, true));
-					sourceScalarValue.Insert(2, new QuickTests.Item(3, true));
-					sourceScalarValue.Insert(3, new QuickTests.Item(3, true));
-					sourceScalarValue.Insert(4, new QuickTests.Item(3, true));
+					sync(); sourceScalarValue.Insert(0, new QuickTests.Item(1, true));
+					sync(); sourceScalarValue.Insert(1, new QuickTests.Item(2, true));
+					sync(); sourceScalarValue.Insert(2, new QuickTests.Item(3, true));
+					sync(); sourceScalarValue.Insert(3, new QuickTests.Item(3, true));
+					sync(); sourceScalarValue.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
 				testing.ValidateConsistency();
@@ -6946,20 +7357,21 @@ namespace ObservableComputations.Test
 
 			test();
 
-			((Scalar<ObservableCollection<Item>>)sourceScalar).Touch();
+			sync(); ((Scalar<ObservableCollection<Item>>)sourceScalar).Touch();
 			test();
-			((Scalar<ObservableCollection<Item>>)sourceScalar).Change(null);
+			sync(); ((Scalar<ObservableCollection<Item>>)sourceScalar).Change(null);
 			test();
-			consumer.Dispose();
+			sync(); consumer.Dispose();
+			
 			((OcDispatcher)destinationOcDispatcher).Dispose();
 		}
 		
 		[Test, Combinatorial]
-		public void TestCollectionDispatching68(
-			[Values()] int destinationOcDispatcherPriority)
+		public void TestCollectionDispatching68()
 		{
 			Scalar<ObservableCollection<Item>> sourceScalar = getScalar<ObservableCollection<Item>>(getItems());
 			ObservableComputations.IOcDispatcher destinationOcDispatcher = new OcDispatcher();
+			int destinationOcDispatcherPriority = 0;
 			object destinationOcDispatcherParameter = new object();
 			OcConsumer consumer = new OcConsumer();
 			var testing = sourceScalar.CollectionDispatching<Item>(
@@ -6972,32 +7384,37 @@ namespace ObservableComputations.Test
 			Assert.AreEqual(destinationOcDispatcherPriority, testing.DestinationOcDispatcherPriority);
 			Assert.AreEqual(destinationOcDispatcherParameter, testing.DestinationOcDispatcherParameter);
 
+			void sync()
+			{
+				((OcDispatcher)destinationOcDispatcher).Invoke(() => {});
+			}
+
 			void test()
 			{
 				testing.ValidateConsistency();
-				var sourceScalarValue = ((ObservableCollection<Item>)((ObservableCollection<Item>)sourceScalar.Value));
+				sync(); var sourceScalarValue = ((ObservableCollection<Item>)((ObservableCollection<Item>)sourceScalar.Value));
 
 				if (sourceScalarValue != null)
 				{		
-					sourceScalarValue.Insert(2, new QuickTests.Item(1, true));
+					sync(); sourceScalarValue.Insert(2, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
-					sourceScalarValue[3] = new QuickTests.Item(7, true);
+					sync(); sourceScalarValue[3] = new QuickTests.Item(7, true);
 					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(3);
+					sync(); sourceScalarValue.RemoveAt(3);
 					testing.ValidateConsistency();
-					sourceScalarValue.Move(1, 3);
+					sync(); sourceScalarValue.Move(1, 3);
 					testing.ValidateConsistency();
-					sourceScalarValue[2].Active = !sourceScalarValue[2].Active;
+					sync(); sourceScalarValue[2].Active = !sourceScalarValue[2].Active;
 					testing.ValidateConsistency();
-					sourceScalarValue[2].Num = sourceScalarValue[2].Num + 1;
+					sync(); sourceScalarValue[2].Num = sourceScalarValue[2].Num + 1;
 					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
+					sync(); sourceScalarValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(1);
+					sync(); sourceScalarValue.RemoveAt(1);
 					testing.ValidateConsistency();
-					sourceScalarValue.Insert(0, new QuickTests.Item(1, true));
+					sync(); sourceScalarValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
-					sourceScalarValue.Insert(0, new QuickTests.Item(2, true));
+					sync(); sourceScalarValue.Insert(0, new QuickTests.Item(2, true));
 					testing.ValidateConsistency();
 				}
 
@@ -7005,17 +7422,17 @@ namespace ObservableComputations.Test
 				listSource = ((IList)((ObservableCollection<Item>)sourceScalar.Value));
 				if (listSource != null)
 				{
-					listSource.Clear();
+					sync(); listSource.Clear();
 					testing.ValidateConsistency();
 				}
 
 				if (sourceScalarValue != null)
 				{
-					sourceScalarValue.Insert(0, new QuickTests.Item(1, true));
-					sourceScalarValue.Insert(1, new QuickTests.Item(2, true));
-					sourceScalarValue.Insert(2, new QuickTests.Item(3, true));
-					sourceScalarValue.Insert(3, new QuickTests.Item(3, true));
-					sourceScalarValue.Insert(4, new QuickTests.Item(3, true));
+					sync(); sourceScalarValue.Insert(0, new QuickTests.Item(1, true));
+					sync(); sourceScalarValue.Insert(1, new QuickTests.Item(2, true));
+					sync(); sourceScalarValue.Insert(2, new QuickTests.Item(3, true));
+					sync(); sourceScalarValue.Insert(3, new QuickTests.Item(3, true));
+					sync(); sourceScalarValue.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
 				testing.ValidateConsistency();
@@ -7023,20 +7440,21 @@ namespace ObservableComputations.Test
 
 			test();
 
-			((Scalar<ObservableCollection<Item>>)sourceScalar).Touch();
+			sync(); ((Scalar<ObservableCollection<Item>>)sourceScalar).Touch();
 			test();
-			((Scalar<ObservableCollection<Item>>)sourceScalar).Change(null);
+			sync(); ((Scalar<ObservableCollection<Item>>)sourceScalar).Change(null);
 			test();
-			consumer.Dispose();
+			sync(); consumer.Dispose();
+			
 			((OcDispatcher)destinationOcDispatcher).Dispose();
 		}
 		
 		[Test, Combinatorial]
-		public void TestCollectionDispatching69(
-			[Values()] int destinationOcDispatcherPriority)
+		public void TestCollectionDispatching69()
 		{
 			Scalar<ObservableCollection<Item>> sourceScalar = getScalar<ObservableCollection<Item>>(getItems());
 			ObservableComputations.IOcDispatcher destinationOcDispatcher = new OcDispatcher();
+			int destinationOcDispatcherPriority = 0;
 			OcConsumer consumer = new OcConsumer();
 			var testing = sourceScalar.CollectionDispatching<Item>(
 				destinationOcDispatcher,
@@ -7046,32 +7464,37 @@ namespace ObservableComputations.Test
 			Assert.AreEqual(destinationOcDispatcher, testing.DestinationOcDispatcher);
 			Assert.AreEqual(destinationOcDispatcherPriority, testing.DestinationOcDispatcherPriority);
 
+			void sync()
+			{
+				((OcDispatcher)destinationOcDispatcher).Invoke(() => {});
+			}
+
 			void test()
 			{
 				testing.ValidateConsistency();
-				var sourceScalarValue = ((ObservableCollection<Item>)((ObservableCollection<Item>)sourceScalar.Value));
+				sync(); var sourceScalarValue = ((ObservableCollection<Item>)((ObservableCollection<Item>)sourceScalar.Value));
 
 				if (sourceScalarValue != null)
 				{		
-					sourceScalarValue.Insert(2, new QuickTests.Item(1, true));
+					sync(); sourceScalarValue.Insert(2, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
-					sourceScalarValue[3] = new QuickTests.Item(7, true);
+					sync(); sourceScalarValue[3] = new QuickTests.Item(7, true);
 					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(3);
+					sync(); sourceScalarValue.RemoveAt(3);
 					testing.ValidateConsistency();
-					sourceScalarValue.Move(1, 3);
+					sync(); sourceScalarValue.Move(1, 3);
 					testing.ValidateConsistency();
-					sourceScalarValue[2].Active = !sourceScalarValue[2].Active;
+					sync(); sourceScalarValue[2].Active = !sourceScalarValue[2].Active;
 					testing.ValidateConsistency();
-					sourceScalarValue[2].Num = sourceScalarValue[2].Num + 1;
+					sync(); sourceScalarValue[2].Num = sourceScalarValue[2].Num + 1;
 					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
+					sync(); sourceScalarValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(1);
+					sync(); sourceScalarValue.RemoveAt(1);
 					testing.ValidateConsistency();
-					sourceScalarValue.Insert(0, new QuickTests.Item(1, true));
+					sync(); sourceScalarValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
-					sourceScalarValue.Insert(0, new QuickTests.Item(2, true));
+					sync(); sourceScalarValue.Insert(0, new QuickTests.Item(2, true));
 					testing.ValidateConsistency();
 				}
 
@@ -7079,17 +7502,17 @@ namespace ObservableComputations.Test
 				listSource = ((IList)((ObservableCollection<Item>)sourceScalar.Value));
 				if (listSource != null)
 				{
-					listSource.Clear();
+					sync(); listSource.Clear();
 					testing.ValidateConsistency();
 				}
 
 				if (sourceScalarValue != null)
 				{
-					sourceScalarValue.Insert(0, new QuickTests.Item(1, true));
-					sourceScalarValue.Insert(1, new QuickTests.Item(2, true));
-					sourceScalarValue.Insert(2, new QuickTests.Item(3, true));
-					sourceScalarValue.Insert(3, new QuickTests.Item(3, true));
-					sourceScalarValue.Insert(4, new QuickTests.Item(3, true));
+					sync(); sourceScalarValue.Insert(0, new QuickTests.Item(1, true));
+					sync(); sourceScalarValue.Insert(1, new QuickTests.Item(2, true));
+					sync(); sourceScalarValue.Insert(2, new QuickTests.Item(3, true));
+					sync(); sourceScalarValue.Insert(3, new QuickTests.Item(3, true));
+					sync(); sourceScalarValue.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
 				testing.ValidateConsistency();
@@ -7097,11 +7520,12 @@ namespace ObservableComputations.Test
 
 			test();
 
-			((Scalar<ObservableCollection<Item>>)sourceScalar).Touch();
+			sync(); ((Scalar<ObservableCollection<Item>>)sourceScalar).Touch();
 			test();
-			((Scalar<ObservableCollection<Item>>)sourceScalar).Change(null);
+			sync(); ((Scalar<ObservableCollection<Item>>)sourceScalar).Change(null);
 			test();
-			consumer.Dispose();
+			sync(); consumer.Dispose();
+			
 			((OcDispatcher)destinationOcDispatcher).Dispose();
 		}
 		
@@ -7123,32 +7547,37 @@ namespace ObservableComputations.Test
 			Assert.AreEqual(destinationOcDispatcherParameter, testing.DestinationOcDispatcherParameter);
 			Assert.AreEqual(sourceOcDispatcherParameter, testing.SourceOcDispatcherParameter);
 
+			void sync()
+			{
+				((OcDispatcher)destinationOcDispatcher).Invoke(() => {});
+			}
+
 			void test()
 			{
 				testing.ValidateConsistency();
-				var sourceScalarValue = ((ObservableCollection<Item>)((ObservableCollection<Item>)sourceScalar.Value));
+				sync(); var sourceScalarValue = ((ObservableCollection<Item>)((ObservableCollection<Item>)sourceScalar.Value));
 
 				if (sourceScalarValue != null)
 				{		
-					sourceScalarValue.Insert(2, new QuickTests.Item(1, true));
+					sync(); sourceScalarValue.Insert(2, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
-					sourceScalarValue[3] = new QuickTests.Item(7, true);
+					sync(); sourceScalarValue[3] = new QuickTests.Item(7, true);
 					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(3);
+					sync(); sourceScalarValue.RemoveAt(3);
 					testing.ValidateConsistency();
-					sourceScalarValue.Move(1, 3);
+					sync(); sourceScalarValue.Move(1, 3);
 					testing.ValidateConsistency();
-					sourceScalarValue[2].Active = !sourceScalarValue[2].Active;
+					sync(); sourceScalarValue[2].Active = !sourceScalarValue[2].Active;
 					testing.ValidateConsistency();
-					sourceScalarValue[2].Num = sourceScalarValue[2].Num + 1;
+					sync(); sourceScalarValue[2].Num = sourceScalarValue[2].Num + 1;
 					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
+					sync(); sourceScalarValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(1);
+					sync(); sourceScalarValue.RemoveAt(1);
 					testing.ValidateConsistency();
-					sourceScalarValue.Insert(0, new QuickTests.Item(1, true));
+					sync(); sourceScalarValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
-					sourceScalarValue.Insert(0, new QuickTests.Item(2, true));
+					sync(); sourceScalarValue.Insert(0, new QuickTests.Item(2, true));
 					testing.ValidateConsistency();
 				}
 
@@ -7156,17 +7585,17 @@ namespace ObservableComputations.Test
 				listSource = ((IList)((ObservableCollection<Item>)sourceScalar.Value));
 				if (listSource != null)
 				{
-					listSource.Clear();
+					sync(); listSource.Clear();
 					testing.ValidateConsistency();
 				}
 
 				if (sourceScalarValue != null)
 				{
-					sourceScalarValue.Insert(0, new QuickTests.Item(1, true));
-					sourceScalarValue.Insert(1, new QuickTests.Item(2, true));
-					sourceScalarValue.Insert(2, new QuickTests.Item(3, true));
-					sourceScalarValue.Insert(3, new QuickTests.Item(3, true));
-					sourceScalarValue.Insert(4, new QuickTests.Item(3, true));
+					sync(); sourceScalarValue.Insert(0, new QuickTests.Item(1, true));
+					sync(); sourceScalarValue.Insert(1, new QuickTests.Item(2, true));
+					sync(); sourceScalarValue.Insert(2, new QuickTests.Item(3, true));
+					sync(); sourceScalarValue.Insert(3, new QuickTests.Item(3, true));
+					sync(); sourceScalarValue.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
 				testing.ValidateConsistency();
@@ -7174,11 +7603,12 @@ namespace ObservableComputations.Test
 
 			test();
 
-			((Scalar<ObservableCollection<Item>>)sourceScalar).Touch();
+			sync(); ((Scalar<ObservableCollection<Item>>)sourceScalar).Touch();
 			test();
-			((Scalar<ObservableCollection<Item>>)sourceScalar).Change(null);
+			sync(); ((Scalar<ObservableCollection<Item>>)sourceScalar).Change(null);
 			test();
-			consumer.Dispose();
+			sync(); consumer.Dispose();
+			
 			((OcDispatcher)destinationOcDispatcher).Dispose();
 		}
 		
@@ -7197,32 +7627,37 @@ namespace ObservableComputations.Test
 			Assert.AreEqual(destinationOcDispatcher, testing.DestinationOcDispatcher);
 			Assert.AreEqual(destinationOcDispatcherParameter, testing.DestinationOcDispatcherParameter);
 
+			void sync()
+			{
+				((OcDispatcher)destinationOcDispatcher).Invoke(() => {});
+			}
+
 			void test()
 			{
 				testing.ValidateConsistency();
-				var sourceScalarValue = ((ObservableCollection<Item>)((ObservableCollection<Item>)sourceScalar.Value));
+				sync(); var sourceScalarValue = ((ObservableCollection<Item>)((ObservableCollection<Item>)sourceScalar.Value));
 
 				if (sourceScalarValue != null)
 				{		
-					sourceScalarValue.Insert(2, new QuickTests.Item(1, true));
+					sync(); sourceScalarValue.Insert(2, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
-					sourceScalarValue[3] = new QuickTests.Item(7, true);
+					sync(); sourceScalarValue[3] = new QuickTests.Item(7, true);
 					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(3);
+					sync(); sourceScalarValue.RemoveAt(3);
 					testing.ValidateConsistency();
-					sourceScalarValue.Move(1, 3);
+					sync(); sourceScalarValue.Move(1, 3);
 					testing.ValidateConsistency();
-					sourceScalarValue[2].Active = !sourceScalarValue[2].Active;
+					sync(); sourceScalarValue[2].Active = !sourceScalarValue[2].Active;
 					testing.ValidateConsistency();
-					sourceScalarValue[2].Num = sourceScalarValue[2].Num + 1;
+					sync(); sourceScalarValue[2].Num = sourceScalarValue[2].Num + 1;
 					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
+					sync(); sourceScalarValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(1);
+					sync(); sourceScalarValue.RemoveAt(1);
 					testing.ValidateConsistency();
-					sourceScalarValue.Insert(0, new QuickTests.Item(1, true));
+					sync(); sourceScalarValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
-					sourceScalarValue.Insert(0, new QuickTests.Item(2, true));
+					sync(); sourceScalarValue.Insert(0, new QuickTests.Item(2, true));
 					testing.ValidateConsistency();
 				}
 
@@ -7230,17 +7665,17 @@ namespace ObservableComputations.Test
 				listSource = ((IList)((ObservableCollection<Item>)sourceScalar.Value));
 				if (listSource != null)
 				{
-					listSource.Clear();
+					sync(); listSource.Clear();
 					testing.ValidateConsistency();
 				}
 
 				if (sourceScalarValue != null)
 				{
-					sourceScalarValue.Insert(0, new QuickTests.Item(1, true));
-					sourceScalarValue.Insert(1, new QuickTests.Item(2, true));
-					sourceScalarValue.Insert(2, new QuickTests.Item(3, true));
-					sourceScalarValue.Insert(3, new QuickTests.Item(3, true));
-					sourceScalarValue.Insert(4, new QuickTests.Item(3, true));
+					sync(); sourceScalarValue.Insert(0, new QuickTests.Item(1, true));
+					sync(); sourceScalarValue.Insert(1, new QuickTests.Item(2, true));
+					sync(); sourceScalarValue.Insert(2, new QuickTests.Item(3, true));
+					sync(); sourceScalarValue.Insert(3, new QuickTests.Item(3, true));
+					sync(); sourceScalarValue.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
 				testing.ValidateConsistency();
@@ -7248,11 +7683,12 @@ namespace ObservableComputations.Test
 
 			test();
 
-			((Scalar<ObservableCollection<Item>>)sourceScalar).Touch();
+			sync(); ((Scalar<ObservableCollection<Item>>)sourceScalar).Touch();
 			test();
-			((Scalar<ObservableCollection<Item>>)sourceScalar).Change(null);
+			sync(); ((Scalar<ObservableCollection<Item>>)sourceScalar).Change(null);
 			test();
-			consumer.Dispose();
+			sync(); consumer.Dispose();
+			
 			((OcDispatcher)destinationOcDispatcher).Dispose();
 		}
 		
@@ -7268,32 +7704,37 @@ namespace ObservableComputations.Test
 			Assert.AreEqual(sourceScalar, testing.SourceScalar);
 			Assert.AreEqual(destinationOcDispatcher, testing.DestinationOcDispatcher);
 
+			void sync()
+			{
+				((OcDispatcher)destinationOcDispatcher).Invoke(() => {});
+			}
+
 			void test()
 			{
 				testing.ValidateConsistency();
-				var sourceScalarValue = ((ObservableCollection<Item>)((ObservableCollection<Item>)sourceScalar.Value));
+				sync(); var sourceScalarValue = ((ObservableCollection<Item>)((ObservableCollection<Item>)sourceScalar.Value));
 
 				if (sourceScalarValue != null)
 				{		
-					sourceScalarValue.Insert(2, new QuickTests.Item(1, true));
+					sync(); sourceScalarValue.Insert(2, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
-					sourceScalarValue[3] = new QuickTests.Item(7, true);
+					sync(); sourceScalarValue[3] = new QuickTests.Item(7, true);
 					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(3);
+					sync(); sourceScalarValue.RemoveAt(3);
 					testing.ValidateConsistency();
-					sourceScalarValue.Move(1, 3);
+					sync(); sourceScalarValue.Move(1, 3);
 					testing.ValidateConsistency();
-					sourceScalarValue[2].Active = !sourceScalarValue[2].Active;
+					sync(); sourceScalarValue[2].Active = !sourceScalarValue[2].Active;
 					testing.ValidateConsistency();
-					sourceScalarValue[2].Num = sourceScalarValue[2].Num + 1;
+					sync(); sourceScalarValue[2].Num = sourceScalarValue[2].Num + 1;
 					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
+					sync(); sourceScalarValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(1);
+					sync(); sourceScalarValue.RemoveAt(1);
 					testing.ValidateConsistency();
-					sourceScalarValue.Insert(0, new QuickTests.Item(1, true));
+					sync(); sourceScalarValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
-					sourceScalarValue.Insert(0, new QuickTests.Item(2, true));
+					sync(); sourceScalarValue.Insert(0, new QuickTests.Item(2, true));
 					testing.ValidateConsistency();
 				}
 
@@ -7301,17 +7742,17 @@ namespace ObservableComputations.Test
 				listSource = ((IList)((ObservableCollection<Item>)sourceScalar.Value));
 				if (listSource != null)
 				{
-					listSource.Clear();
+					sync(); listSource.Clear();
 					testing.ValidateConsistency();
 				}
 
 				if (sourceScalarValue != null)
 				{
-					sourceScalarValue.Insert(0, new QuickTests.Item(1, true));
-					sourceScalarValue.Insert(1, new QuickTests.Item(2, true));
-					sourceScalarValue.Insert(2, new QuickTests.Item(3, true));
-					sourceScalarValue.Insert(3, new QuickTests.Item(3, true));
-					sourceScalarValue.Insert(4, new QuickTests.Item(3, true));
+					sync(); sourceScalarValue.Insert(0, new QuickTests.Item(1, true));
+					sync(); sourceScalarValue.Insert(1, new QuickTests.Item(2, true));
+					sync(); sourceScalarValue.Insert(2, new QuickTests.Item(3, true));
+					sync(); sourceScalarValue.Insert(3, new QuickTests.Item(3, true));
+					sync(); sourceScalarValue.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
 				testing.ValidateConsistency();
@@ -7319,11 +7760,12 @@ namespace ObservableComputations.Test
 
 			test();
 
-			((Scalar<ObservableCollection<Item>>)sourceScalar).Touch();
+			sync(); ((Scalar<ObservableCollection<Item>>)sourceScalar).Touch();
 			test();
-			((Scalar<ObservableCollection<Item>>)sourceScalar).Change(null);
+			sync(); ((Scalar<ObservableCollection<Item>>)sourceScalar).Change(null);
 			test();
-			consumer.Dispose();
+			sync(); consumer.Dispose();
+			
 			((OcDispatcher)destinationOcDispatcher).Dispose();
 		}
 		#endregion
@@ -7343,7 +7785,6 @@ namespace ObservableComputations.Test
 
 			Assert.AreEqual(source, testing.Source);
 			Assert.AreEqual(resumeType, testing.ResumeType);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -7446,7 +7887,6 @@ namespace ObservableComputations.Test
 				initialIsPaused).For(consumer);
 
 			Assert.AreEqual(source, testing.Source);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -7535,7 +7975,6 @@ namespace ObservableComputations.Test
 
 			Assert.AreEqual(source, testing.Source);
 			Assert.AreEqual(resumeType, testing.ResumeType);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -7636,7 +8075,6 @@ namespace ObservableComputations.Test
 			var testing = source.CollectionPausing<Item>().For(consumer);
 
 			Assert.AreEqual(source, testing.Source);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -7727,7 +8165,6 @@ namespace ObservableComputations.Test
 
 			Assert.AreEqual(source, testing.Source);
 			Assert.AreEqual(resumeType, testing.ResumeType);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -7830,7 +8267,6 @@ namespace ObservableComputations.Test
 				initialIsPaused).For(consumer);
 
 			Assert.AreEqual(source, testing.Source);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -7919,7 +8355,6 @@ namespace ObservableComputations.Test
 
 			Assert.AreEqual(source, testing.Source);
 			Assert.AreEqual(resumeType, testing.ResumeType);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -8020,7 +8455,6 @@ namespace ObservableComputations.Test
 			var testing = source.CollectionPausing<Item>().For(consumer);
 
 			Assert.AreEqual(source, testing.Source);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -8111,7 +8545,6 @@ namespace ObservableComputations.Test
 
 			Assert.AreEqual(sourceScalar, testing.SourceScalar);
 			Assert.AreEqual(resumeType, testing.ResumeType);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -8195,7 +8628,6 @@ namespace ObservableComputations.Test
 				initialIsPaused).For(consumer);
 
 			Assert.AreEqual(sourceScalar, testing.SourceScalar);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -8265,7 +8697,6 @@ namespace ObservableComputations.Test
 
 			Assert.AreEqual(sourceScalar, testing.SourceScalar);
 			Assert.AreEqual(resumeType, testing.ResumeType);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -8347,7 +8778,6 @@ namespace ObservableComputations.Test
 			var testing = sourceScalar.CollectionPausing<Item>().For(consumer);
 
 			Assert.AreEqual(sourceScalar, testing.SourceScalar);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -8419,7 +8849,6 @@ namespace ObservableComputations.Test
 
 			Assert.AreEqual(sourceScalar, testing.SourceScalar);
 			Assert.AreEqual(resumeType, testing.ResumeType);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -8503,7 +8932,6 @@ namespace ObservableComputations.Test
 				initialIsPaused).For(consumer);
 
 			Assert.AreEqual(sourceScalar, testing.SourceScalar);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -8573,7 +9001,6 @@ namespace ObservableComputations.Test
 
 			Assert.AreEqual(sourceScalar, testing.SourceScalar);
 			Assert.AreEqual(resumeType, testing.ResumeType);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -8655,7 +9082,6 @@ namespace ObservableComputations.Test
 			var testing = sourceScalar.CollectionPausing<Item>().For(consumer);
 
 			Assert.AreEqual(sourceScalar, testing.SourceScalar);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -8728,7 +9154,6 @@ namespace ObservableComputations.Test
 			Assert.AreEqual(source, testing.Source);
 			Assert.AreEqual(isPausedScalar, testing.IsPausedScalar);
 			Assert.AreEqual(resumeType, testing.ResumeType);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -8852,7 +9277,6 @@ namespace ObservableComputations.Test
 
 			Assert.AreEqual(source, testing.Source);
 			Assert.AreEqual(isPausedScalar, testing.IsPausedScalar);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -8964,7 +9388,6 @@ namespace ObservableComputations.Test
 			Assert.AreEqual(source, testing.Source);
 			Assert.AreEqual(isPausedScalar, testing.IsPausedScalar);
 			Assert.AreEqual(resumeType, testing.ResumeType);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -9088,7 +9511,6 @@ namespace ObservableComputations.Test
 
 			Assert.AreEqual(source, testing.Source);
 			Assert.AreEqual(isPausedScalar, testing.IsPausedScalar);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -9200,7 +9622,6 @@ namespace ObservableComputations.Test
 			Assert.AreEqual(sourceScalar, testing.SourceScalar);
 			Assert.AreEqual(isPausedScalar, testing.IsPausedScalar);
 			Assert.AreEqual(resumeType, testing.ResumeType);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -9305,7 +9726,6 @@ namespace ObservableComputations.Test
 
 			Assert.AreEqual(sourceScalar, testing.SourceScalar);
 			Assert.AreEqual(isPausedScalar, testing.IsPausedScalar);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -9398,7 +9818,6 @@ namespace ObservableComputations.Test
 			Assert.AreEqual(sourceScalar, testing.SourceScalar);
 			Assert.AreEqual(isPausedScalar, testing.IsPausedScalar);
 			Assert.AreEqual(resumeType, testing.ResumeType);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -9503,7 +9922,6 @@ namespace ObservableComputations.Test
 
 			Assert.AreEqual(sourceScalar, testing.SourceScalar);
 			Assert.AreEqual(isPausedScalar, testing.IsPausedScalar);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -9593,7 +10011,6 @@ namespace ObservableComputations.Test
 			var testing = sourceScalar.Concatenating<Item>().For(consumer);
 
 			Assert.AreEqual(sourceScalar, testing.SourceScalar);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -9637,7 +10054,6 @@ namespace ObservableComputations.Test
 			var testing = sourceScalar.Concatenating<Item>().For(consumer);
 
 			Assert.AreEqual(sourceScalar, testing.SourceScalar);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -9681,7 +10097,6 @@ namespace ObservableComputations.Test
 			var testing = source.Concatenating<Item>().For(consumer);
 
 			Assert.AreEqual(source, testing.Source);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -9720,7 +10135,6 @@ namespace ObservableComputations.Test
 			var testing = source.Concatenating<Item>().For(consumer);
 
 			Assert.AreEqual(source, testing.Source);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -9759,7 +10173,6 @@ namespace ObservableComputations.Test
 			OcConsumer consumer = new OcConsumer();
 			var testing = source1.Concatenating<Item>(
 				source2).For(consumer);
-
 
 			void test()
 			{
@@ -9864,7 +10277,6 @@ namespace ObservableComputations.Test
 			var testing = source1.Concatenating<Item>(
 				source2).For(consumer);
 
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -9967,7 +10379,6 @@ namespace ObservableComputations.Test
 			OcConsumer consumer = new OcConsumer();
 			var testing = source1.Concatenating<Item>(
 				source2).For(consumer);
-
 
 			void test()
 			{
@@ -10072,7 +10483,6 @@ namespace ObservableComputations.Test
 			var testing = source1.Concatenating<Item>(
 				source2).For(consumer);
 
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -10175,7 +10585,6 @@ namespace ObservableComputations.Test
 			OcConsumer consumer = new OcConsumer();
 			var testing = source1Scalar.Concatenating<Item>(
 				source2).For(consumer);
-
 
 			void test()
 			{
@@ -10285,7 +10694,6 @@ namespace ObservableComputations.Test
 			var testing = source1Scalar.Concatenating<Item>(
 				source2).For(consumer);
 
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -10393,7 +10801,6 @@ namespace ObservableComputations.Test
 			OcConsumer consumer = new OcConsumer();
 			var testing = source1Scalar.Concatenating<Item>(
 				source2).For(consumer);
-
 
 			void test()
 			{
@@ -10503,7 +10910,6 @@ namespace ObservableComputations.Test
 			var testing = source1Scalar.Concatenating<Item>(
 				source2).For(consumer);
 
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -10611,7 +11017,6 @@ namespace ObservableComputations.Test
 			OcConsumer consumer = new OcConsumer();
 			var testing = source1Scalar.Concatenating<Item>(
 				source2Scalar).For(consumer);
-
 
 			void test()
 			{
@@ -10726,7 +11131,6 @@ namespace ObservableComputations.Test
 			var testing = source1Scalar.Concatenating<Item>(
 				source2Scalar).For(consumer);
 
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -10839,7 +11243,6 @@ namespace ObservableComputations.Test
 			OcConsumer consumer = new OcConsumer();
 			var testing = source1Scalar.Concatenating<Item>(
 				source2Scalar).For(consumer);
-
 
 			void test()
 			{
@@ -10954,7 +11357,6 @@ namespace ObservableComputations.Test
 			var testing = source1Scalar.Concatenating<Item>(
 				source2Scalar).For(consumer);
 
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -11068,7 +11470,6 @@ namespace ObservableComputations.Test
 			var testing = source1.Concatenating<Item>(
 				source2Scalar).For(consumer);
 
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -11176,7 +11577,6 @@ namespace ObservableComputations.Test
 			OcConsumer consumer = new OcConsumer();
 			var testing = source1.Concatenating<Item>(
 				source2Scalar).For(consumer);
-
 
 			void test()
 			{
@@ -11286,7 +11686,6 @@ namespace ObservableComputations.Test
 			var testing = source1.Concatenating<Item>(
 				source2Scalar).For(consumer);
 
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -11394,7 +11793,6 @@ namespace ObservableComputations.Test
 			OcConsumer consumer = new OcConsumer();
 			var testing = source1.Concatenating<Item>(
 				source2Scalar).For(consumer);
-
 
 			void test()
 			{
@@ -11515,7 +11913,6 @@ namespace ObservableComputations.Test
 			Assert.AreEqual(keySelectorExpression, testing.KeySelectorExpression);
 			Assert.AreEqual(valueSelectorExpression, testing.ValueSelectorExpression);
 			Assert.AreEqual(equalityComparer, testing.EqualityComparer);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -11588,7 +11985,6 @@ namespace ObservableComputations.Test
 			Assert.AreEqual(sourceScalar, testing.SourceScalar);
 			Assert.AreEqual(keySelectorExpression, testing.KeySelectorExpression);
 			Assert.AreEqual(valueSelectorExpression, testing.ValueSelectorExpression);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -11664,7 +12060,6 @@ namespace ObservableComputations.Test
 			Assert.AreEqual(keySelectorExpression, testing.KeySelectorExpression);
 			Assert.AreEqual(valueSelectorExpression, testing.ValueSelectorExpression);
 			Assert.AreEqual(equalityComparer, testing.EqualityComparer);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -11737,7 +12132,6 @@ namespace ObservableComputations.Test
 			Assert.AreEqual(sourceScalar, testing.SourceScalar);
 			Assert.AreEqual(keySelectorExpression, testing.KeySelectorExpression);
 			Assert.AreEqual(valueSelectorExpression, testing.ValueSelectorExpression);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -11813,7 +12207,6 @@ namespace ObservableComputations.Test
 			Assert.AreEqual(keySelectorExpression, testing.KeySelectorExpression);
 			Assert.AreEqual(valueSelectorExpression, testing.ValueSelectorExpression);
 			Assert.AreEqual(equalityComparer, testing.EqualityComparer);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -11881,7 +12274,6 @@ namespace ObservableComputations.Test
 			Assert.AreEqual(source, testing.Source);
 			Assert.AreEqual(keySelectorExpression, testing.KeySelectorExpression);
 			Assert.AreEqual(valueSelectorExpression, testing.ValueSelectorExpression);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -11952,7 +12344,6 @@ namespace ObservableComputations.Test
 			Assert.AreEqual(keySelectorExpression, testing.KeySelectorExpression);
 			Assert.AreEqual(valueSelectorExpression, testing.ValueSelectorExpression);
 			Assert.AreEqual(equalityComparer, testing.EqualityComparer);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -12020,7 +12411,6 @@ namespace ObservableComputations.Test
 			Assert.AreEqual(source, testing.Source);
 			Assert.AreEqual(keySelectorExpression, testing.KeySelectorExpression);
 			Assert.AreEqual(valueSelectorExpression, testing.ValueSelectorExpression);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -12091,7 +12481,6 @@ namespace ObservableComputations.Test
 			Assert.AreEqual(keySelectorExpression, testing.KeySelectorExpression);
 			Assert.AreEqual(valueSelectorExpression, testing.ValueSelectorExpression);
 			Assert.AreEqual(equalityComparerScalar, testing.EqualityComparerScalar);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -12172,7 +12561,6 @@ namespace ObservableComputations.Test
 			Assert.AreEqual(keySelectorExpression, testing.KeySelectorExpression);
 			Assert.AreEqual(valueSelectorExpression, testing.ValueSelectorExpression);
 			Assert.AreEqual(equalityComparerScalar, testing.EqualityComparerScalar);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -12253,7 +12641,6 @@ namespace ObservableComputations.Test
 			Assert.AreEqual(keySelectorExpression, testing.KeySelectorExpression);
 			Assert.AreEqual(valueSelectorExpression, testing.ValueSelectorExpression);
 			Assert.AreEqual(equalityComparerScalar, testing.EqualityComparerScalar);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -12329,7 +12716,6 @@ namespace ObservableComputations.Test
 			Assert.AreEqual(keySelectorExpression, testing.KeySelectorExpression);
 			Assert.AreEqual(valueSelectorExpression, testing.ValueSelectorExpression);
 			Assert.AreEqual(equalityComparerScalar, testing.EqualityComparerScalar);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -12405,7 +12791,6 @@ namespace ObservableComputations.Test
 			Assert.AreEqual(sourceScalar, testing.SourceScalar);
 			Assert.AreEqual(itemScalar, testing.ItemScalar);
 			Assert.AreEqual(equalityComparerScalar, testing.EqualityComparerScalar);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -12483,7 +12868,6 @@ namespace ObservableComputations.Test
 
 			Assert.AreEqual(sourceScalar, testing.SourceScalar);
 			Assert.AreEqual(itemScalar, testing.ItemScalar);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -12561,7 +12945,6 @@ namespace ObservableComputations.Test
 			Assert.AreEqual(sourceScalar, testing.SourceScalar);
 			Assert.AreEqual(itemScalar, testing.ItemScalar);
 			Assert.AreEqual(equalityComparerScalar, testing.EqualityComparerScalar);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -12639,7 +13022,6 @@ namespace ObservableComputations.Test
 
 			Assert.AreEqual(sourceScalar, testing.SourceScalar);
 			Assert.AreEqual(itemScalar, testing.ItemScalar);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -12717,7 +13099,6 @@ namespace ObservableComputations.Test
 			Assert.AreEqual(sourceScalar, testing.SourceScalar);
 			Assert.AreEqual(item, testing.Item);
 			Assert.AreEqual(equalityComparerScalar, testing.EqualityComparerScalar);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -12790,7 +13171,6 @@ namespace ObservableComputations.Test
 
 			Assert.AreEqual(sourceScalar, testing.SourceScalar);
 			Assert.AreEqual(item, testing.Item);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -12863,7 +13243,6 @@ namespace ObservableComputations.Test
 			Assert.AreEqual(sourceScalar, testing.SourceScalar);
 			Assert.AreEqual(item, testing.Item);
 			Assert.AreEqual(equalityComparerScalar, testing.EqualityComparerScalar);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -12936,7 +13315,6 @@ namespace ObservableComputations.Test
 
 			Assert.AreEqual(sourceScalar, testing.SourceScalar);
 			Assert.AreEqual(item, testing.Item);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -13009,7 +13387,6 @@ namespace ObservableComputations.Test
 			Assert.AreEqual(sourceScalar, testing.SourceScalar);
 			Assert.AreEqual(itemScalar, testing.ItemScalar);
 			Assert.AreEqual(equalityComparer, testing.EqualityComparer);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -13087,7 +13464,6 @@ namespace ObservableComputations.Test
 			Assert.AreEqual(sourceScalar, testing.SourceScalar);
 			Assert.AreEqual(itemScalar, testing.ItemScalar);
 			Assert.AreEqual(equalityComparer, testing.EqualityComparer);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -13165,7 +13541,6 @@ namespace ObservableComputations.Test
 			Assert.AreEqual(sourceScalar, testing.SourceScalar);
 			Assert.AreEqual(item, testing.Item);
 			Assert.AreEqual(equalityComparer, testing.EqualityComparer);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -13238,7 +13613,6 @@ namespace ObservableComputations.Test
 			Assert.AreEqual(sourceScalar, testing.SourceScalar);
 			Assert.AreEqual(item, testing.Item);
 			Assert.AreEqual(equalityComparer, testing.EqualityComparer);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -13311,7 +13685,6 @@ namespace ObservableComputations.Test
 			Assert.AreEqual(source, testing.Source);
 			Assert.AreEqual(itemScalar, testing.ItemScalar);
 			Assert.AreEqual(equalityComparerScalar, testing.EqualityComparerScalar);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -13384,7 +13757,6 @@ namespace ObservableComputations.Test
 
 			Assert.AreEqual(source, testing.Source);
 			Assert.AreEqual(itemScalar, testing.ItemScalar);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -13457,7 +13829,6 @@ namespace ObservableComputations.Test
 			Assert.AreEqual(source, testing.Source);
 			Assert.AreEqual(itemScalar, testing.ItemScalar);
 			Assert.AreEqual(equalityComparerScalar, testing.EqualityComparerScalar);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -13530,7 +13901,6 @@ namespace ObservableComputations.Test
 
 			Assert.AreEqual(source, testing.Source);
 			Assert.AreEqual(itemScalar, testing.ItemScalar);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -13603,7 +13973,6 @@ namespace ObservableComputations.Test
 			Assert.AreEqual(source, testing.Source);
 			Assert.AreEqual(item, testing.Item);
 			Assert.AreEqual(equalityComparerScalar, testing.EqualityComparerScalar);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -13671,7 +14040,6 @@ namespace ObservableComputations.Test
 
 			Assert.AreEqual(source, testing.Source);
 			Assert.AreEqual(item, testing.Item);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -13739,7 +14107,6 @@ namespace ObservableComputations.Test
 			Assert.AreEqual(source, testing.Source);
 			Assert.AreEqual(item, testing.Item);
 			Assert.AreEqual(equalityComparerScalar, testing.EqualityComparerScalar);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -13807,7 +14174,6 @@ namespace ObservableComputations.Test
 
 			Assert.AreEqual(source, testing.Source);
 			Assert.AreEqual(item, testing.Item);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -13875,7 +14241,6 @@ namespace ObservableComputations.Test
 			Assert.AreEqual(source, testing.Source);
 			Assert.AreEqual(itemScalar, testing.ItemScalar);
 			Assert.AreEqual(equalityComparer, testing.EqualityComparer);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -13948,7 +14313,6 @@ namespace ObservableComputations.Test
 			Assert.AreEqual(source, testing.Source);
 			Assert.AreEqual(itemScalar, testing.ItemScalar);
 			Assert.AreEqual(equalityComparer, testing.EqualityComparer);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -14021,7 +14385,6 @@ namespace ObservableComputations.Test
 			Assert.AreEqual(source, testing.Source);
 			Assert.AreEqual(item, testing.Item);
 			Assert.AreEqual(equalityComparer, testing.EqualityComparer);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -14089,7 +14452,6 @@ namespace ObservableComputations.Test
 			Assert.AreEqual(source, testing.Source);
 			Assert.AreEqual(item, testing.Item);
 			Assert.AreEqual(equalityComparer, testing.EqualityComparer);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -14163,7 +14525,6 @@ namespace ObservableComputations.Test
 			Assert.AreEqual(keySelectorExpression, testing.KeySelectorExpression);
 			Assert.AreEqual(valueSelectorExpression, testing.ValueSelectorExpression);
 			Assert.AreEqual(equalityComparer, testing.EqualityComparer);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -14236,7 +14597,6 @@ namespace ObservableComputations.Test
 			Assert.AreEqual(sourceScalar, testing.SourceScalar);
 			Assert.AreEqual(keySelectorExpression, testing.KeySelectorExpression);
 			Assert.AreEqual(valueSelectorExpression, testing.ValueSelectorExpression);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -14312,7 +14672,6 @@ namespace ObservableComputations.Test
 			Assert.AreEqual(keySelectorExpression, testing.KeySelectorExpression);
 			Assert.AreEqual(valueSelectorExpression, testing.ValueSelectorExpression);
 			Assert.AreEqual(equalityComparer, testing.EqualityComparer);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -14385,7 +14744,6 @@ namespace ObservableComputations.Test
 			Assert.AreEqual(sourceScalar, testing.SourceScalar);
 			Assert.AreEqual(keySelectorExpression, testing.KeySelectorExpression);
 			Assert.AreEqual(valueSelectorExpression, testing.ValueSelectorExpression);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -14461,7 +14819,6 @@ namespace ObservableComputations.Test
 			Assert.AreEqual(keySelectorExpression, testing.KeySelectorExpression);
 			Assert.AreEqual(valueSelectorExpression, testing.ValueSelectorExpression);
 			Assert.AreEqual(equalityComparer, testing.EqualityComparer);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -14529,7 +14886,6 @@ namespace ObservableComputations.Test
 			Assert.AreEqual(source, testing.Source);
 			Assert.AreEqual(keySelectorExpression, testing.KeySelectorExpression);
 			Assert.AreEqual(valueSelectorExpression, testing.ValueSelectorExpression);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -14600,7 +14956,6 @@ namespace ObservableComputations.Test
 			Assert.AreEqual(keySelectorExpression, testing.KeySelectorExpression);
 			Assert.AreEqual(valueSelectorExpression, testing.ValueSelectorExpression);
 			Assert.AreEqual(equalityComparer, testing.EqualityComparer);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -14668,7 +15023,6 @@ namespace ObservableComputations.Test
 			Assert.AreEqual(source, testing.Source);
 			Assert.AreEqual(keySelectorExpression, testing.KeySelectorExpression);
 			Assert.AreEqual(valueSelectorExpression, testing.ValueSelectorExpression);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -14739,7 +15093,6 @@ namespace ObservableComputations.Test
 			Assert.AreEqual(keySelectorExpression, testing.KeySelectorExpression);
 			Assert.AreEqual(valueSelectorExpression, testing.ValueSelectorExpression);
 			Assert.AreEqual(equalityComparerScalar, testing.EqualityComparerScalar);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -14820,7 +15173,6 @@ namespace ObservableComputations.Test
 			Assert.AreEqual(keySelectorExpression, testing.KeySelectorExpression);
 			Assert.AreEqual(valueSelectorExpression, testing.ValueSelectorExpression);
 			Assert.AreEqual(equalityComparerScalar, testing.EqualityComparerScalar);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -14901,7 +15253,6 @@ namespace ObservableComputations.Test
 			Assert.AreEqual(keySelectorExpression, testing.KeySelectorExpression);
 			Assert.AreEqual(valueSelectorExpression, testing.ValueSelectorExpression);
 			Assert.AreEqual(equalityComparerScalar, testing.EqualityComparerScalar);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -14977,7 +15328,6 @@ namespace ObservableComputations.Test
 			Assert.AreEqual(keySelectorExpression, testing.KeySelectorExpression);
 			Assert.AreEqual(valueSelectorExpression, testing.ValueSelectorExpression);
 			Assert.AreEqual(equalityComparerScalar, testing.EqualityComparerScalar);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -15050,7 +15400,6 @@ namespace ObservableComputations.Test
 
 			Assert.AreEqual(source, testing.Source);
 			Assert.AreEqual(equalityComparer, testing.EqualityComparer);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -15074,7 +15423,6 @@ namespace ObservableComputations.Test
 			var testing = source.Differing<int>().For(consumer);
 
 			Assert.AreEqual(source, testing.Source);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -15101,7 +15449,6 @@ namespace ObservableComputations.Test
 
 			Assert.AreEqual(source, testing.Source);
 			Assert.AreEqual(equalityComparerScalar, testing.EqualityComparerScalar);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -15139,7 +15486,6 @@ namespace ObservableComputations.Test
 			Assert.AreEqual(sourceScalar, testing.SourceScalar);
 			Assert.AreEqual(equalityComparerScalar, testing.EqualityComparerScalar);
 			Assert.AreEqual(initialCapacity, testing.InitialCapacity);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -15214,7 +15560,6 @@ namespace ObservableComputations.Test
 
 			Assert.AreEqual(sourceScalar, testing.SourceScalar);
 			Assert.AreEqual(equalityComparerScalar, testing.EqualityComparerScalar);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -15289,7 +15634,6 @@ namespace ObservableComputations.Test
 
 			Assert.AreEqual(sourceScalar, testing.SourceScalar);
 			Assert.AreEqual(initialCapacity, testing.InitialCapacity);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -15356,7 +15700,6 @@ namespace ObservableComputations.Test
 			var testing = sourceScalar.Distincting<Item>().For(consumer);
 
 			Assert.AreEqual(sourceScalar, testing.SourceScalar);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -15429,7 +15772,6 @@ namespace ObservableComputations.Test
 			Assert.AreEqual(sourceScalar, testing.SourceScalar);
 			Assert.AreEqual(equalityComparerScalar, testing.EqualityComparerScalar);
 			Assert.AreEqual(initialCapacity, testing.InitialCapacity);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -15504,7 +15846,6 @@ namespace ObservableComputations.Test
 
 			Assert.AreEqual(sourceScalar, testing.SourceScalar);
 			Assert.AreEqual(equalityComparerScalar, testing.EqualityComparerScalar);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -15579,7 +15920,6 @@ namespace ObservableComputations.Test
 
 			Assert.AreEqual(sourceScalar, testing.SourceScalar);
 			Assert.AreEqual(initialCapacity, testing.InitialCapacity);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -15646,7 +15986,6 @@ namespace ObservableComputations.Test
 			var testing = sourceScalar.Distincting<Item>().For(consumer);
 
 			Assert.AreEqual(sourceScalar, testing.SourceScalar);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -15719,7 +16058,6 @@ namespace ObservableComputations.Test
 			Assert.AreEqual(source, testing.Source);
 			Assert.AreEqual(equalityComparerScalar, testing.EqualityComparerScalar);
 			Assert.AreEqual(initialCapacity, testing.InitialCapacity);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -15789,7 +16127,6 @@ namespace ObservableComputations.Test
 
 			Assert.AreEqual(source, testing.Source);
 			Assert.AreEqual(equalityComparerScalar, testing.EqualityComparerScalar);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -15859,7 +16196,6 @@ namespace ObservableComputations.Test
 
 			Assert.AreEqual(source, testing.Source);
 			Assert.AreEqual(initialCapacity, testing.InitialCapacity);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -15921,7 +16257,6 @@ namespace ObservableComputations.Test
 			var testing = source.Distincting<Item>().For(consumer);
 
 			Assert.AreEqual(source, testing.Source);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -15989,7 +16324,6 @@ namespace ObservableComputations.Test
 			Assert.AreEqual(source, testing.Source);
 			Assert.AreEqual(equalityComparerScalar, testing.EqualityComparerScalar);
 			Assert.AreEqual(initialCapacity, testing.InitialCapacity);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -16059,7 +16393,6 @@ namespace ObservableComputations.Test
 
 			Assert.AreEqual(source, testing.Source);
 			Assert.AreEqual(equalityComparerScalar, testing.EqualityComparerScalar);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -16129,7 +16462,6 @@ namespace ObservableComputations.Test
 
 			Assert.AreEqual(source, testing.Source);
 			Assert.AreEqual(initialCapacity, testing.InitialCapacity);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -16191,7 +16523,6 @@ namespace ObservableComputations.Test
 			var testing = source.Distincting<Item>().For(consumer);
 
 			Assert.AreEqual(source, testing.Source);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -16259,7 +16590,6 @@ namespace ObservableComputations.Test
 			Assert.AreEqual(source, testing.Source);
 			Assert.AreEqual(equalityComparer, testing.EqualityComparer);
 			Assert.AreEqual(initialCapacity, testing.InitialCapacity);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -16324,7 +16654,6 @@ namespace ObservableComputations.Test
 
 			Assert.AreEqual(source, testing.Source);
 			Assert.AreEqual(equalityComparer, testing.EqualityComparer);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -16392,7 +16721,6 @@ namespace ObservableComputations.Test
 			Assert.AreEqual(source, testing.Source);
 			Assert.AreEqual(equalityComparer, testing.EqualityComparer);
 			Assert.AreEqual(initialCapacity, testing.InitialCapacity);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -16457,7 +16785,6 @@ namespace ObservableComputations.Test
 
 			Assert.AreEqual(source, testing.Source);
 			Assert.AreEqual(equalityComparer, testing.EqualityComparer);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -16525,7 +16852,6 @@ namespace ObservableComputations.Test
 			Assert.AreEqual(sourceScalar, testing.SourceScalar);
 			Assert.AreEqual(equalityComparer, testing.EqualityComparer);
 			Assert.AreEqual(initialCapacity, testing.InitialCapacity);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -16595,7 +16921,6 @@ namespace ObservableComputations.Test
 
 			Assert.AreEqual(sourceScalar, testing.SourceScalar);
 			Assert.AreEqual(equalityComparer, testing.EqualityComparer);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -16668,7 +16993,6 @@ namespace ObservableComputations.Test
 			Assert.AreEqual(sourceScalar, testing.SourceScalar);
 			Assert.AreEqual(equalityComparer, testing.EqualityComparer);
 			Assert.AreEqual(initialCapacity, testing.InitialCapacity);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -16738,7 +17062,6 @@ namespace ObservableComputations.Test
 
 			Assert.AreEqual(sourceScalar, testing.SourceScalar);
 			Assert.AreEqual(equalityComparer, testing.EqualityComparer);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -16817,7 +17140,6 @@ namespace ObservableComputations.Test
 			Assert.AreEqual(source2Scalar, testing.Source2Scalar);
 			Assert.AreEqual(equalityComparerScalar, testing.EqualityComparerScalar);
 			Assert.AreEqual(initialCapacity, testing.InitialCapacity);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -16939,7 +17261,6 @@ namespace ObservableComputations.Test
 			Assert.AreEqual(source1Scalar, testing.Source1Scalar);
 			Assert.AreEqual(source2Scalar, testing.Source2Scalar);
 			Assert.AreEqual(equalityComparerScalar, testing.EqualityComparerScalar);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -17061,7 +17382,6 @@ namespace ObservableComputations.Test
 			Assert.AreEqual(source1Scalar, testing.Source1Scalar);
 			Assert.AreEqual(source2Scalar, testing.Source2Scalar);
 			Assert.AreEqual(initialCapacity, testing.InitialCapacity);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -17177,7 +17497,6 @@ namespace ObservableComputations.Test
 
 			Assert.AreEqual(source1Scalar, testing.Source1Scalar);
 			Assert.AreEqual(source2Scalar, testing.Source2Scalar);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -17299,7 +17618,6 @@ namespace ObservableComputations.Test
 			Assert.AreEqual(source2Scalar, testing.Source2Scalar);
 			Assert.AreEqual(equalityComparerScalar, testing.EqualityComparerScalar);
 			Assert.AreEqual(initialCapacity, testing.InitialCapacity);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -17421,7 +17739,6 @@ namespace ObservableComputations.Test
 			Assert.AreEqual(source1Scalar, testing.Source1Scalar);
 			Assert.AreEqual(source2Scalar, testing.Source2Scalar);
 			Assert.AreEqual(equalityComparerScalar, testing.EqualityComparerScalar);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -17543,7 +17860,6 @@ namespace ObservableComputations.Test
 			Assert.AreEqual(source1Scalar, testing.Source1Scalar);
 			Assert.AreEqual(source2Scalar, testing.Source2Scalar);
 			Assert.AreEqual(initialCapacity, testing.InitialCapacity);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -17659,7 +17975,6 @@ namespace ObservableComputations.Test
 
 			Assert.AreEqual(source1Scalar, testing.Source1Scalar);
 			Assert.AreEqual(source2Scalar, testing.Source2Scalar);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -17781,7 +18096,6 @@ namespace ObservableComputations.Test
 			Assert.AreEqual(source2Scalar, testing.Source2Scalar);
 			Assert.AreEqual(equalityComparerScalar, testing.EqualityComparerScalar);
 			Assert.AreEqual(initialCapacity, testing.InitialCapacity);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -17903,7 +18217,6 @@ namespace ObservableComputations.Test
 			Assert.AreEqual(source1Scalar, testing.Source1Scalar);
 			Assert.AreEqual(source2Scalar, testing.Source2Scalar);
 			Assert.AreEqual(equalityComparerScalar, testing.EqualityComparerScalar);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -18025,7 +18338,6 @@ namespace ObservableComputations.Test
 			Assert.AreEqual(source1Scalar, testing.Source1Scalar);
 			Assert.AreEqual(source2Scalar, testing.Source2Scalar);
 			Assert.AreEqual(initialCapacity, testing.InitialCapacity);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -18141,7 +18453,6 @@ namespace ObservableComputations.Test
 
 			Assert.AreEqual(source1Scalar, testing.Source1Scalar);
 			Assert.AreEqual(source2Scalar, testing.Source2Scalar);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -18263,7 +18574,6 @@ namespace ObservableComputations.Test
 			Assert.AreEqual(source2Scalar, testing.Source2Scalar);
 			Assert.AreEqual(equalityComparerScalar, testing.EqualityComparerScalar);
 			Assert.AreEqual(initialCapacity, testing.InitialCapacity);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -18385,7 +18695,6 @@ namespace ObservableComputations.Test
 			Assert.AreEqual(source1Scalar, testing.Source1Scalar);
 			Assert.AreEqual(source2Scalar, testing.Source2Scalar);
 			Assert.AreEqual(equalityComparerScalar, testing.EqualityComparerScalar);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -18507,7 +18816,6 @@ namespace ObservableComputations.Test
 			Assert.AreEqual(source1Scalar, testing.Source1Scalar);
 			Assert.AreEqual(source2Scalar, testing.Source2Scalar);
 			Assert.AreEqual(initialCapacity, testing.InitialCapacity);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -18623,7 +18931,6 @@ namespace ObservableComputations.Test
 
 			Assert.AreEqual(source1Scalar, testing.Source1Scalar);
 			Assert.AreEqual(source2Scalar, testing.Source2Scalar);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -18745,7 +19052,6 @@ namespace ObservableComputations.Test
 			Assert.AreEqual(source2, testing.Source2);
 			Assert.AreEqual(equalityComparerScalar, testing.EqualityComparerScalar);
 			Assert.AreEqual(initialCapacity, testing.InitialCapacity);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -18862,7 +19168,6 @@ namespace ObservableComputations.Test
 			Assert.AreEqual(source1Scalar, testing.Source1Scalar);
 			Assert.AreEqual(source2, testing.Source2);
 			Assert.AreEqual(equalityComparerScalar, testing.EqualityComparerScalar);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -18979,7 +19284,6 @@ namespace ObservableComputations.Test
 			Assert.AreEqual(source1Scalar, testing.Source1Scalar);
 			Assert.AreEqual(source2, testing.Source2);
 			Assert.AreEqual(initialCapacity, testing.InitialCapacity);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -19090,7 +19394,6 @@ namespace ObservableComputations.Test
 
 			Assert.AreEqual(source1Scalar, testing.Source1Scalar);
 			Assert.AreEqual(source2, testing.Source2);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -19207,7 +19510,6 @@ namespace ObservableComputations.Test
 			Assert.AreEqual(source2, testing.Source2);
 			Assert.AreEqual(equalityComparerScalar, testing.EqualityComparerScalar);
 			Assert.AreEqual(initialCapacity, testing.InitialCapacity);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -19324,7 +19626,6 @@ namespace ObservableComputations.Test
 			Assert.AreEqual(source1Scalar, testing.Source1Scalar);
 			Assert.AreEqual(source2, testing.Source2);
 			Assert.AreEqual(equalityComparerScalar, testing.EqualityComparerScalar);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -19441,7 +19742,6 @@ namespace ObservableComputations.Test
 			Assert.AreEqual(source1Scalar, testing.Source1Scalar);
 			Assert.AreEqual(source2, testing.Source2);
 			Assert.AreEqual(initialCapacity, testing.InitialCapacity);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -19552,7 +19852,6 @@ namespace ObservableComputations.Test
 
 			Assert.AreEqual(source1Scalar, testing.Source1Scalar);
 			Assert.AreEqual(source2, testing.Source2);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -19669,7 +19968,6 @@ namespace ObservableComputations.Test
 			Assert.AreEqual(source2, testing.Source2);
 			Assert.AreEqual(equalityComparerScalar, testing.EqualityComparerScalar);
 			Assert.AreEqual(initialCapacity, testing.InitialCapacity);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -19786,7 +20084,6 @@ namespace ObservableComputations.Test
 			Assert.AreEqual(source1Scalar, testing.Source1Scalar);
 			Assert.AreEqual(source2, testing.Source2);
 			Assert.AreEqual(equalityComparerScalar, testing.EqualityComparerScalar);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -19903,7 +20200,6 @@ namespace ObservableComputations.Test
 			Assert.AreEqual(source1Scalar, testing.Source1Scalar);
 			Assert.AreEqual(source2, testing.Source2);
 			Assert.AreEqual(initialCapacity, testing.InitialCapacity);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -20014,7 +20310,6 @@ namespace ObservableComputations.Test
 
 			Assert.AreEqual(source1Scalar, testing.Source1Scalar);
 			Assert.AreEqual(source2, testing.Source2);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -20131,7 +20426,6 @@ namespace ObservableComputations.Test
 			Assert.AreEqual(source2, testing.Source2);
 			Assert.AreEqual(equalityComparerScalar, testing.EqualityComparerScalar);
 			Assert.AreEqual(initialCapacity, testing.InitialCapacity);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -20248,7 +20542,6 @@ namespace ObservableComputations.Test
 			Assert.AreEqual(source1Scalar, testing.Source1Scalar);
 			Assert.AreEqual(source2, testing.Source2);
 			Assert.AreEqual(equalityComparerScalar, testing.EqualityComparerScalar);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -20365,7 +20658,6 @@ namespace ObservableComputations.Test
 			Assert.AreEqual(source1Scalar, testing.Source1Scalar);
 			Assert.AreEqual(source2, testing.Source2);
 			Assert.AreEqual(initialCapacity, testing.InitialCapacity);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -20476,7 +20768,6 @@ namespace ObservableComputations.Test
 
 			Assert.AreEqual(source1Scalar, testing.Source1Scalar);
 			Assert.AreEqual(source2, testing.Source2);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -20593,7 +20884,6 @@ namespace ObservableComputations.Test
 			Assert.AreEqual(source2, testing.Source2);
 			Assert.AreEqual(equalityComparer, testing.EqualityComparer);
 			Assert.AreEqual(initialCapacity, testing.InitialCapacity);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -20707,7 +20997,6 @@ namespace ObservableComputations.Test
 			Assert.AreEqual(source1Scalar, testing.Source1Scalar);
 			Assert.AreEqual(source2, testing.Source2);
 			Assert.AreEqual(equalityComparer, testing.EqualityComparer);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -20824,7 +21113,6 @@ namespace ObservableComputations.Test
 			Assert.AreEqual(source2, testing.Source2);
 			Assert.AreEqual(equalityComparer, testing.EqualityComparer);
 			Assert.AreEqual(initialCapacity, testing.InitialCapacity);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -20938,7 +21226,6 @@ namespace ObservableComputations.Test
 			Assert.AreEqual(source1Scalar, testing.Source1Scalar);
 			Assert.AreEqual(source2, testing.Source2);
 			Assert.AreEqual(equalityComparer, testing.EqualityComparer);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -21055,7 +21342,6 @@ namespace ObservableComputations.Test
 			Assert.AreEqual(source2, testing.Source2);
 			Assert.AreEqual(equalityComparer, testing.EqualityComparer);
 			Assert.AreEqual(initialCapacity, testing.InitialCapacity);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -21169,7 +21455,6 @@ namespace ObservableComputations.Test
 			Assert.AreEqual(source1Scalar, testing.Source1Scalar);
 			Assert.AreEqual(source2, testing.Source2);
 			Assert.AreEqual(equalityComparer, testing.EqualityComparer);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -21286,7 +21571,6 @@ namespace ObservableComputations.Test
 			Assert.AreEqual(source2, testing.Source2);
 			Assert.AreEqual(equalityComparer, testing.EqualityComparer);
 			Assert.AreEqual(initialCapacity, testing.InitialCapacity);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -21400,7 +21684,6 @@ namespace ObservableComputations.Test
 			Assert.AreEqual(source1Scalar, testing.Source1Scalar);
 			Assert.AreEqual(source2, testing.Source2);
 			Assert.AreEqual(equalityComparer, testing.EqualityComparer);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -21517,7 +21800,6 @@ namespace ObservableComputations.Test
 			Assert.AreEqual(source2Scalar, testing.Source2Scalar);
 			Assert.AreEqual(equalityComparer, testing.EqualityComparer);
 			Assert.AreEqual(initialCapacity, testing.InitialCapacity);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -21636,7 +21918,6 @@ namespace ObservableComputations.Test
 			Assert.AreEqual(source1Scalar, testing.Source1Scalar);
 			Assert.AreEqual(source2Scalar, testing.Source2Scalar);
 			Assert.AreEqual(equalityComparer, testing.EqualityComparer);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -21758,7 +22039,6 @@ namespace ObservableComputations.Test
 			Assert.AreEqual(source2Scalar, testing.Source2Scalar);
 			Assert.AreEqual(equalityComparer, testing.EqualityComparer);
 			Assert.AreEqual(initialCapacity, testing.InitialCapacity);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -21877,7 +22157,6 @@ namespace ObservableComputations.Test
 			Assert.AreEqual(source1Scalar, testing.Source1Scalar);
 			Assert.AreEqual(source2Scalar, testing.Source2Scalar);
 			Assert.AreEqual(equalityComparer, testing.EqualityComparer);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -21999,7 +22278,6 @@ namespace ObservableComputations.Test
 			Assert.AreEqual(source2Scalar, testing.Source2Scalar);
 			Assert.AreEqual(equalityComparer, testing.EqualityComparer);
 			Assert.AreEqual(initialCapacity, testing.InitialCapacity);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -22118,7 +22396,6 @@ namespace ObservableComputations.Test
 			Assert.AreEqual(source1Scalar, testing.Source1Scalar);
 			Assert.AreEqual(source2Scalar, testing.Source2Scalar);
 			Assert.AreEqual(equalityComparer, testing.EqualityComparer);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -22240,7 +22517,6 @@ namespace ObservableComputations.Test
 			Assert.AreEqual(source2Scalar, testing.Source2Scalar);
 			Assert.AreEqual(equalityComparer, testing.EqualityComparer);
 			Assert.AreEqual(initialCapacity, testing.InitialCapacity);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -22359,7 +22635,6 @@ namespace ObservableComputations.Test
 			Assert.AreEqual(source1Scalar, testing.Source1Scalar);
 			Assert.AreEqual(source2Scalar, testing.Source2Scalar);
 			Assert.AreEqual(equalityComparer, testing.EqualityComparer);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -22481,7 +22756,6 @@ namespace ObservableComputations.Test
 			Assert.AreEqual(source2Scalar, testing.Source2Scalar);
 			Assert.AreEqual(equalityComparerScalar, testing.EqualityComparerScalar);
 			Assert.AreEqual(initialCapacity, testing.InitialCapacity);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -22598,7 +22872,6 @@ namespace ObservableComputations.Test
 			Assert.AreEqual(source1, testing.Source1);
 			Assert.AreEqual(source2Scalar, testing.Source2Scalar);
 			Assert.AreEqual(equalityComparerScalar, testing.EqualityComparerScalar);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -22715,7 +22988,6 @@ namespace ObservableComputations.Test
 			Assert.AreEqual(source1, testing.Source1);
 			Assert.AreEqual(source2Scalar, testing.Source2Scalar);
 			Assert.AreEqual(initialCapacity, testing.InitialCapacity);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -22826,7 +23098,6 @@ namespace ObservableComputations.Test
 
 			Assert.AreEqual(source1, testing.Source1);
 			Assert.AreEqual(source2Scalar, testing.Source2Scalar);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -22943,7 +23214,6 @@ namespace ObservableComputations.Test
 			Assert.AreEqual(source2Scalar, testing.Source2Scalar);
 			Assert.AreEqual(equalityComparerScalar, testing.EqualityComparerScalar);
 			Assert.AreEqual(initialCapacity, testing.InitialCapacity);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -23060,7 +23330,6 @@ namespace ObservableComputations.Test
 			Assert.AreEqual(source1, testing.Source1);
 			Assert.AreEqual(source2Scalar, testing.Source2Scalar);
 			Assert.AreEqual(equalityComparerScalar, testing.EqualityComparerScalar);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -23177,7 +23446,6 @@ namespace ObservableComputations.Test
 			Assert.AreEqual(source1, testing.Source1);
 			Assert.AreEqual(source2Scalar, testing.Source2Scalar);
 			Assert.AreEqual(initialCapacity, testing.InitialCapacity);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -23288,7 +23556,6 @@ namespace ObservableComputations.Test
 
 			Assert.AreEqual(source1, testing.Source1);
 			Assert.AreEqual(source2Scalar, testing.Source2Scalar);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -23405,7 +23672,6 @@ namespace ObservableComputations.Test
 			Assert.AreEqual(source2Scalar, testing.Source2Scalar);
 			Assert.AreEqual(equalityComparerScalar, testing.EqualityComparerScalar);
 			Assert.AreEqual(initialCapacity, testing.InitialCapacity);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -23522,7 +23788,6 @@ namespace ObservableComputations.Test
 			Assert.AreEqual(source1, testing.Source1);
 			Assert.AreEqual(source2Scalar, testing.Source2Scalar);
 			Assert.AreEqual(equalityComparerScalar, testing.EqualityComparerScalar);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -23639,7 +23904,6 @@ namespace ObservableComputations.Test
 			Assert.AreEqual(source1, testing.Source1);
 			Assert.AreEqual(source2Scalar, testing.Source2Scalar);
 			Assert.AreEqual(initialCapacity, testing.InitialCapacity);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -23750,7 +24014,6 @@ namespace ObservableComputations.Test
 
 			Assert.AreEqual(source1, testing.Source1);
 			Assert.AreEqual(source2Scalar, testing.Source2Scalar);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -23867,7 +24130,6 @@ namespace ObservableComputations.Test
 			Assert.AreEqual(source2Scalar, testing.Source2Scalar);
 			Assert.AreEqual(equalityComparerScalar, testing.EqualityComparerScalar);
 			Assert.AreEqual(initialCapacity, testing.InitialCapacity);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -23984,7 +24246,6 @@ namespace ObservableComputations.Test
 			Assert.AreEqual(source1, testing.Source1);
 			Assert.AreEqual(source2Scalar, testing.Source2Scalar);
 			Assert.AreEqual(equalityComparerScalar, testing.EqualityComparerScalar);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -24101,7 +24362,6 @@ namespace ObservableComputations.Test
 			Assert.AreEqual(source1, testing.Source1);
 			Assert.AreEqual(source2Scalar, testing.Source2Scalar);
 			Assert.AreEqual(initialCapacity, testing.InitialCapacity);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -24212,7 +24472,6 @@ namespace ObservableComputations.Test
 
 			Assert.AreEqual(source1, testing.Source1);
 			Assert.AreEqual(source2Scalar, testing.Source2Scalar);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -24329,7 +24588,6 @@ namespace ObservableComputations.Test
 			Assert.AreEqual(source2, testing.Source2);
 			Assert.AreEqual(equalityComparerScalar, testing.EqualityComparerScalar);
 			Assert.AreEqual(initialCapacity, testing.InitialCapacity);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -24441,7 +24699,6 @@ namespace ObservableComputations.Test
 			Assert.AreEqual(source1, testing.Source1);
 			Assert.AreEqual(source2, testing.Source2);
 			Assert.AreEqual(equalityComparerScalar, testing.EqualityComparerScalar);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -24553,7 +24810,6 @@ namespace ObservableComputations.Test
 			Assert.AreEqual(source1, testing.Source1);
 			Assert.AreEqual(source2, testing.Source2);
 			Assert.AreEqual(initialCapacity, testing.InitialCapacity);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -24659,7 +24915,6 @@ namespace ObservableComputations.Test
 
 			Assert.AreEqual(source1, testing.Source1);
 			Assert.AreEqual(source2, testing.Source2);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -24771,7 +25026,6 @@ namespace ObservableComputations.Test
 			Assert.AreEqual(source2, testing.Source2);
 			Assert.AreEqual(equalityComparerScalar, testing.EqualityComparerScalar);
 			Assert.AreEqual(initialCapacity, testing.InitialCapacity);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -24883,7 +25137,6 @@ namespace ObservableComputations.Test
 			Assert.AreEqual(source1, testing.Source1);
 			Assert.AreEqual(source2, testing.Source2);
 			Assert.AreEqual(equalityComparerScalar, testing.EqualityComparerScalar);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -24995,7 +25248,6 @@ namespace ObservableComputations.Test
 			Assert.AreEqual(source1, testing.Source1);
 			Assert.AreEqual(source2, testing.Source2);
 			Assert.AreEqual(initialCapacity, testing.InitialCapacity);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -25101,7 +25353,6 @@ namespace ObservableComputations.Test
 
 			Assert.AreEqual(source1, testing.Source1);
 			Assert.AreEqual(source2, testing.Source2);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -25213,7 +25464,6 @@ namespace ObservableComputations.Test
 			Assert.AreEqual(source2, testing.Source2);
 			Assert.AreEqual(equalityComparerScalar, testing.EqualityComparerScalar);
 			Assert.AreEqual(initialCapacity, testing.InitialCapacity);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -25325,7 +25575,6 @@ namespace ObservableComputations.Test
 			Assert.AreEqual(source1, testing.Source1);
 			Assert.AreEqual(source2, testing.Source2);
 			Assert.AreEqual(equalityComparerScalar, testing.EqualityComparerScalar);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -25437,7 +25686,6 @@ namespace ObservableComputations.Test
 			Assert.AreEqual(source1, testing.Source1);
 			Assert.AreEqual(source2, testing.Source2);
 			Assert.AreEqual(initialCapacity, testing.InitialCapacity);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -25543,7 +25791,6 @@ namespace ObservableComputations.Test
 
 			Assert.AreEqual(source1, testing.Source1);
 			Assert.AreEqual(source2, testing.Source2);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -25655,7 +25902,6 @@ namespace ObservableComputations.Test
 			Assert.AreEqual(source2, testing.Source2);
 			Assert.AreEqual(equalityComparerScalar, testing.EqualityComparerScalar);
 			Assert.AreEqual(initialCapacity, testing.InitialCapacity);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -25767,7 +26013,6 @@ namespace ObservableComputations.Test
 			Assert.AreEqual(source1, testing.Source1);
 			Assert.AreEqual(source2, testing.Source2);
 			Assert.AreEqual(equalityComparerScalar, testing.EqualityComparerScalar);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -25879,7 +26124,6 @@ namespace ObservableComputations.Test
 			Assert.AreEqual(source1, testing.Source1);
 			Assert.AreEqual(source2, testing.Source2);
 			Assert.AreEqual(initialCapacity, testing.InitialCapacity);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -25985,7 +26229,6 @@ namespace ObservableComputations.Test
 
 			Assert.AreEqual(source1, testing.Source1);
 			Assert.AreEqual(source2, testing.Source2);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -26097,7 +26340,6 @@ namespace ObservableComputations.Test
 			Assert.AreEqual(source2, testing.Source2);
 			Assert.AreEqual(equalityComparer, testing.EqualityComparer);
 			Assert.AreEqual(initialCapacity, testing.InitialCapacity);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -26206,7 +26448,6 @@ namespace ObservableComputations.Test
 			Assert.AreEqual(source1, testing.Source1);
 			Assert.AreEqual(source2, testing.Source2);
 			Assert.AreEqual(equalityComparer, testing.EqualityComparer);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -26318,7 +26559,6 @@ namespace ObservableComputations.Test
 			Assert.AreEqual(source2, testing.Source2);
 			Assert.AreEqual(equalityComparer, testing.EqualityComparer);
 			Assert.AreEqual(initialCapacity, testing.InitialCapacity);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -26427,7 +26667,6 @@ namespace ObservableComputations.Test
 			Assert.AreEqual(source1, testing.Source1);
 			Assert.AreEqual(source2, testing.Source2);
 			Assert.AreEqual(equalityComparer, testing.EqualityComparer);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -26539,7 +26778,6 @@ namespace ObservableComputations.Test
 			Assert.AreEqual(source2, testing.Source2);
 			Assert.AreEqual(equalityComparer, testing.EqualityComparer);
 			Assert.AreEqual(initialCapacity, testing.InitialCapacity);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -26648,7 +26886,6 @@ namespace ObservableComputations.Test
 			Assert.AreEqual(source1, testing.Source1);
 			Assert.AreEqual(source2, testing.Source2);
 			Assert.AreEqual(equalityComparer, testing.EqualityComparer);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -26760,7 +26997,6 @@ namespace ObservableComputations.Test
 			Assert.AreEqual(source2, testing.Source2);
 			Assert.AreEqual(equalityComparer, testing.EqualityComparer);
 			Assert.AreEqual(initialCapacity, testing.InitialCapacity);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -26869,7 +27105,6 @@ namespace ObservableComputations.Test
 			Assert.AreEqual(source1, testing.Source1);
 			Assert.AreEqual(source2, testing.Source2);
 			Assert.AreEqual(equalityComparer, testing.EqualityComparer);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -26981,7 +27216,6 @@ namespace ObservableComputations.Test
 			Assert.AreEqual(source2Scalar, testing.Source2Scalar);
 			Assert.AreEqual(equalityComparer, testing.EqualityComparer);
 			Assert.AreEqual(initialCapacity, testing.InitialCapacity);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -27095,7 +27329,6 @@ namespace ObservableComputations.Test
 			Assert.AreEqual(source1, testing.Source1);
 			Assert.AreEqual(source2Scalar, testing.Source2Scalar);
 			Assert.AreEqual(equalityComparer, testing.EqualityComparer);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -27212,7 +27445,6 @@ namespace ObservableComputations.Test
 			Assert.AreEqual(source2Scalar, testing.Source2Scalar);
 			Assert.AreEqual(equalityComparer, testing.EqualityComparer);
 			Assert.AreEqual(initialCapacity, testing.InitialCapacity);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -27326,7 +27558,6 @@ namespace ObservableComputations.Test
 			Assert.AreEqual(source1, testing.Source1);
 			Assert.AreEqual(source2Scalar, testing.Source2Scalar);
 			Assert.AreEqual(equalityComparer, testing.EqualityComparer);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -27443,7 +27674,6 @@ namespace ObservableComputations.Test
 			Assert.AreEqual(source2Scalar, testing.Source2Scalar);
 			Assert.AreEqual(equalityComparer, testing.EqualityComparer);
 			Assert.AreEqual(initialCapacity, testing.InitialCapacity);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -27557,7 +27787,6 @@ namespace ObservableComputations.Test
 			Assert.AreEqual(source1, testing.Source1);
 			Assert.AreEqual(source2Scalar, testing.Source2Scalar);
 			Assert.AreEqual(equalityComparer, testing.EqualityComparer);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -27674,7 +27903,6 @@ namespace ObservableComputations.Test
 			Assert.AreEqual(source2Scalar, testing.Source2Scalar);
 			Assert.AreEqual(equalityComparer, testing.EqualityComparer);
 			Assert.AreEqual(initialCapacity, testing.InitialCapacity);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -27788,7 +28016,6 @@ namespace ObservableComputations.Test
 			Assert.AreEqual(source1, testing.Source1);
 			Assert.AreEqual(source2Scalar, testing.Source2Scalar);
 			Assert.AreEqual(equalityComparer, testing.EqualityComparer);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -27899,7 +28126,6 @@ namespace ObservableComputations.Test
 			var testing = sourceScalar.Extending<Item>().For(consumer);
 
 			Assert.AreEqual(sourceScalar, testing.SourceScalar);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -27966,7 +28192,6 @@ namespace ObservableComputations.Test
 			var testing = sourceScalar.Extending<Item>().For(consumer);
 
 			Assert.AreEqual(sourceScalar, testing.SourceScalar);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -28033,7 +28258,6 @@ namespace ObservableComputations.Test
 			var testing = source.Extending<Item>().For(consumer);
 
 			Assert.AreEqual(source, testing.Source);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -28095,7 +28319,6 @@ namespace ObservableComputations.Test
 			var testing = source.Extending<Item>().For(consumer);
 
 			Assert.AreEqual(source, testing.Source);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -28166,7 +28389,6 @@ namespace ObservableComputations.Test
 			Assert.AreEqual(sourceScalar, testing.SourceScalar);
 			Assert.AreEqual(predicateExpression, testing.PredicateExpression);
 			Assert.AreEqual(initialCapacity, testing.InitialCapacity);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -28236,7 +28458,6 @@ namespace ObservableComputations.Test
 
 			Assert.AreEqual(sourceScalar, testing.SourceScalar);
 			Assert.AreEqual(predicateExpression, testing.PredicateExpression);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -28309,7 +28530,6 @@ namespace ObservableComputations.Test
 			Assert.AreEqual(sourceScalar, testing.SourceScalar);
 			Assert.AreEqual(predicateExpression, testing.PredicateExpression);
 			Assert.AreEqual(initialCapacity, testing.InitialCapacity);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -28379,7 +28599,6 @@ namespace ObservableComputations.Test
 
 			Assert.AreEqual(sourceScalar, testing.SourceScalar);
 			Assert.AreEqual(predicateExpression, testing.PredicateExpression);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -28452,7 +28671,6 @@ namespace ObservableComputations.Test
 			Assert.AreEqual(source, testing.Source);
 			Assert.AreEqual(predicateExpression, testing.PredicateExpression);
 			Assert.AreEqual(initialCapacity, testing.InitialCapacity);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -28517,7 +28735,6 @@ namespace ObservableComputations.Test
 
 			Assert.AreEqual(source, testing.Source);
 			Assert.AreEqual(predicateExpression, testing.PredicateExpression);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -28585,7 +28802,6 @@ namespace ObservableComputations.Test
 			Assert.AreEqual(source, testing.Source);
 			Assert.AreEqual(predicateExpression, testing.PredicateExpression);
 			Assert.AreEqual(initialCapacity, testing.InitialCapacity);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -28650,7 +28866,6 @@ namespace ObservableComputations.Test
 
 			Assert.AreEqual(source, testing.Source);
 			Assert.AreEqual(predicateExpression, testing.PredicateExpression);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -28718,7 +28933,6 @@ namespace ObservableComputations.Test
 
 			Assert.AreEqual(sourceScalar, testing.SourceScalar);
 			Assert.AreEqual(defaultValue, testing.DefaultValue);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -28785,7 +28999,6 @@ namespace ObservableComputations.Test
 			var testing = sourceScalar.FirstComputing<Item>().For(consumer);
 
 			Assert.AreEqual(sourceScalar, testing.SourceScalar);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -28855,7 +29068,6 @@ namespace ObservableComputations.Test
 
 			Assert.AreEqual(sourceScalar, testing.SourceScalar);
 			Assert.AreEqual(defaultValue, testing.DefaultValue);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -28922,7 +29134,6 @@ namespace ObservableComputations.Test
 			var testing = sourceScalar.FirstComputing<Item>().For(consumer);
 
 			Assert.AreEqual(sourceScalar, testing.SourceScalar);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -28992,7 +29203,6 @@ namespace ObservableComputations.Test
 
 			Assert.AreEqual(source, testing.Source);
 			Assert.AreEqual(defaultValue, testing.DefaultValue);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -29054,7 +29264,6 @@ namespace ObservableComputations.Test
 			var testing = source.FirstComputing<Item>().For(consumer);
 
 			Assert.AreEqual(source, testing.Source);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -29119,7 +29328,6 @@ namespace ObservableComputations.Test
 
 			Assert.AreEqual(source, testing.Source);
 			Assert.AreEqual(defaultValue, testing.DefaultValue);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -29181,7 +29389,6 @@ namespace ObservableComputations.Test
 			var testing = source.FirstComputing<Item>().For(consumer);
 
 			Assert.AreEqual(source, testing.Source);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -29255,7 +29462,6 @@ namespace ObservableComputations.Test
 			Assert.AreEqual(keySelectorExpression, testing.KeySelectorExpression);
 			Assert.AreEqual(equalityComparerScalar, testing.EqualityComparerScalar);
 			Assert.AreEqual(initialCapacity, testing.InitialCapacity);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -29333,7 +29539,6 @@ namespace ObservableComputations.Test
 			Assert.AreEqual(sourceScalar, testing.SourceScalar);
 			Assert.AreEqual(keySelectorExpression, testing.KeySelectorExpression);
 			Assert.AreEqual(equalityComparerScalar, testing.EqualityComparerScalar);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -29411,7 +29616,6 @@ namespace ObservableComputations.Test
 			Assert.AreEqual(sourceScalar, testing.SourceScalar);
 			Assert.AreEqual(keySelectorExpression, testing.KeySelectorExpression);
 			Assert.AreEqual(initialCapacity, testing.InitialCapacity);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -29481,7 +29685,6 @@ namespace ObservableComputations.Test
 
 			Assert.AreEqual(sourceScalar, testing.SourceScalar);
 			Assert.AreEqual(keySelectorExpression, testing.KeySelectorExpression);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -29557,7 +29760,6 @@ namespace ObservableComputations.Test
 			Assert.AreEqual(keySelectorExpression, testing.KeySelectorExpression);
 			Assert.AreEqual(equalityComparerScalar, testing.EqualityComparerScalar);
 			Assert.AreEqual(initialCapacity, testing.InitialCapacity);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -29635,7 +29837,6 @@ namespace ObservableComputations.Test
 			Assert.AreEqual(sourceScalar, testing.SourceScalar);
 			Assert.AreEqual(keySelectorExpression, testing.KeySelectorExpression);
 			Assert.AreEqual(equalityComparerScalar, testing.EqualityComparerScalar);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -29713,7 +29914,6 @@ namespace ObservableComputations.Test
 			Assert.AreEqual(sourceScalar, testing.SourceScalar);
 			Assert.AreEqual(keySelectorExpression, testing.KeySelectorExpression);
 			Assert.AreEqual(initialCapacity, testing.InitialCapacity);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -29783,7 +29983,6 @@ namespace ObservableComputations.Test
 
 			Assert.AreEqual(sourceScalar, testing.SourceScalar);
 			Assert.AreEqual(keySelectorExpression, testing.KeySelectorExpression);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -29859,7 +30058,6 @@ namespace ObservableComputations.Test
 			Assert.AreEqual(keySelectorExpression, testing.KeySelectorExpression);
 			Assert.AreEqual(equalityComparerScalar, testing.EqualityComparerScalar);
 			Assert.AreEqual(initialCapacity, testing.InitialCapacity);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -29932,7 +30130,6 @@ namespace ObservableComputations.Test
 			Assert.AreEqual(source, testing.Source);
 			Assert.AreEqual(keySelectorExpression, testing.KeySelectorExpression);
 			Assert.AreEqual(equalityComparerScalar, testing.EqualityComparerScalar);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -30005,7 +30202,6 @@ namespace ObservableComputations.Test
 			Assert.AreEqual(source, testing.Source);
 			Assert.AreEqual(keySelectorExpression, testing.KeySelectorExpression);
 			Assert.AreEqual(initialCapacity, testing.InitialCapacity);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -30070,7 +30266,6 @@ namespace ObservableComputations.Test
 
 			Assert.AreEqual(source, testing.Source);
 			Assert.AreEqual(keySelectorExpression, testing.KeySelectorExpression);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -30141,7 +30336,6 @@ namespace ObservableComputations.Test
 			Assert.AreEqual(keySelectorExpression, testing.KeySelectorExpression);
 			Assert.AreEqual(equalityComparerScalar, testing.EqualityComparerScalar);
 			Assert.AreEqual(initialCapacity, testing.InitialCapacity);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -30214,7 +30408,6 @@ namespace ObservableComputations.Test
 			Assert.AreEqual(source, testing.Source);
 			Assert.AreEqual(keySelectorExpression, testing.KeySelectorExpression);
 			Assert.AreEqual(equalityComparerScalar, testing.EqualityComparerScalar);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -30287,7 +30480,6 @@ namespace ObservableComputations.Test
 			Assert.AreEqual(source, testing.Source);
 			Assert.AreEqual(keySelectorExpression, testing.KeySelectorExpression);
 			Assert.AreEqual(initialCapacity, testing.InitialCapacity);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -30352,7 +30544,6 @@ namespace ObservableComputations.Test
 
 			Assert.AreEqual(source, testing.Source);
 			Assert.AreEqual(keySelectorExpression, testing.KeySelectorExpression);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -30423,7 +30614,6 @@ namespace ObservableComputations.Test
 			Assert.AreEqual(keySelectorExpression, testing.KeySelectorExpression);
 			Assert.AreEqual(equalityComparer, testing.EqualityComparer);
 			Assert.AreEqual(initialCapacity, testing.InitialCapacity);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -30496,7 +30686,6 @@ namespace ObservableComputations.Test
 			Assert.AreEqual(sourceScalar, testing.SourceScalar);
 			Assert.AreEqual(keySelectorExpression, testing.KeySelectorExpression);
 			Assert.AreEqual(equalityComparer, testing.EqualityComparer);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -30572,7 +30761,6 @@ namespace ObservableComputations.Test
 			Assert.AreEqual(keySelectorExpression, testing.KeySelectorExpression);
 			Assert.AreEqual(equalityComparer, testing.EqualityComparer);
 			Assert.AreEqual(initialCapacity, testing.InitialCapacity);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -30645,7 +30833,6 @@ namespace ObservableComputations.Test
 			Assert.AreEqual(sourceScalar, testing.SourceScalar);
 			Assert.AreEqual(keySelectorExpression, testing.KeySelectorExpression);
 			Assert.AreEqual(equalityComparer, testing.EqualityComparer);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -30721,7 +30908,6 @@ namespace ObservableComputations.Test
 			Assert.AreEqual(keySelectorExpression, testing.KeySelectorExpression);
 			Assert.AreEqual(equalityComparer, testing.EqualityComparer);
 			Assert.AreEqual(initialCapacity, testing.InitialCapacity);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -30789,7 +30975,6 @@ namespace ObservableComputations.Test
 			Assert.AreEqual(source, testing.Source);
 			Assert.AreEqual(keySelectorExpression, testing.KeySelectorExpression);
 			Assert.AreEqual(equalityComparer, testing.EqualityComparer);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -30860,7 +31045,6 @@ namespace ObservableComputations.Test
 			Assert.AreEqual(keySelectorExpression, testing.KeySelectorExpression);
 			Assert.AreEqual(equalityComparer, testing.EqualityComparer);
 			Assert.AreEqual(initialCapacity, testing.InitialCapacity);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -30928,7 +31112,6 @@ namespace ObservableComputations.Test
 			Assert.AreEqual(source, testing.Source);
 			Assert.AreEqual(keySelectorExpression, testing.KeySelectorExpression);
 			Assert.AreEqual(equalityComparer, testing.EqualityComparer);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -31005,7 +31188,6 @@ namespace ObservableComputations.Test
 			Assert.AreEqual(outerKeySelector, testing.OuterKeySelector);
 			Assert.AreEqual(innerKeySelector, testing.InnerKeySelector);
 			Assert.AreEqual(equalityComparerScalar, testing.EqualityComparerScalar);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -31132,7 +31314,6 @@ namespace ObservableComputations.Test
 			Assert.AreEqual(innerSourceScalar, testing.InnerSourceScalar);
 			Assert.AreEqual(outerKeySelector, testing.OuterKeySelector);
 			Assert.AreEqual(innerKeySelector, testing.InnerKeySelector);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -31257,7 +31438,6 @@ namespace ObservableComputations.Test
 			Assert.AreEqual(outerKeySelector, testing.OuterKeySelector);
 			Assert.AreEqual(innerKeySelector, testing.InnerKeySelector);
 			Assert.AreEqual(equalityComparerScalar, testing.EqualityComparerScalar);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -31384,7 +31564,6 @@ namespace ObservableComputations.Test
 			Assert.AreEqual(innerSourceScalar, testing.InnerSourceScalar);
 			Assert.AreEqual(outerKeySelector, testing.OuterKeySelector);
 			Assert.AreEqual(innerKeySelector, testing.InnerKeySelector);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -31509,7 +31688,6 @@ namespace ObservableComputations.Test
 			Assert.AreEqual(outerKeySelector, testing.OuterKeySelector);
 			Assert.AreEqual(innerKeySelector, testing.InnerKeySelector);
 			Assert.AreEqual(equalityComparerScalar, testing.EqualityComparerScalar);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -31636,7 +31814,6 @@ namespace ObservableComputations.Test
 			Assert.AreEqual(innerSourceScalar, testing.InnerSourceScalar);
 			Assert.AreEqual(outerKeySelector, testing.OuterKeySelector);
 			Assert.AreEqual(innerKeySelector, testing.InnerKeySelector);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -31761,7 +31938,6 @@ namespace ObservableComputations.Test
 			Assert.AreEqual(outerKeySelector, testing.OuterKeySelector);
 			Assert.AreEqual(innerKeySelector, testing.InnerKeySelector);
 			Assert.AreEqual(equalityComparerScalar, testing.EqualityComparerScalar);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -31888,7 +32064,6 @@ namespace ObservableComputations.Test
 			Assert.AreEqual(innerSourceScalar, testing.InnerSourceScalar);
 			Assert.AreEqual(outerKeySelector, testing.OuterKeySelector);
 			Assert.AreEqual(innerKeySelector, testing.InnerKeySelector);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -32013,7 +32188,6 @@ namespace ObservableComputations.Test
 			Assert.AreEqual(outerKeySelector, testing.OuterKeySelector);
 			Assert.AreEqual(innerKeySelector, testing.InnerKeySelector);
 			Assert.AreEqual(equalityComparerScalar, testing.EqualityComparerScalar);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -32135,7 +32309,6 @@ namespace ObservableComputations.Test
 			Assert.AreEqual(innerSource, testing.InnerSource);
 			Assert.AreEqual(outerKeySelector, testing.OuterKeySelector);
 			Assert.AreEqual(innerKeySelector, testing.InnerKeySelector);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -32255,7 +32428,6 @@ namespace ObservableComputations.Test
 			Assert.AreEqual(outerKeySelector, testing.OuterKeySelector);
 			Assert.AreEqual(innerKeySelector, testing.InnerKeySelector);
 			Assert.AreEqual(equalityComparerScalar, testing.EqualityComparerScalar);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -32377,7 +32549,6 @@ namespace ObservableComputations.Test
 			Assert.AreEqual(innerSource, testing.InnerSource);
 			Assert.AreEqual(outerKeySelector, testing.OuterKeySelector);
 			Assert.AreEqual(innerKeySelector, testing.InnerKeySelector);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -32497,7 +32668,6 @@ namespace ObservableComputations.Test
 			Assert.AreEqual(outerKeySelector, testing.OuterKeySelector);
 			Assert.AreEqual(innerKeySelector, testing.InnerKeySelector);
 			Assert.AreEqual(equalityComparerScalar, testing.EqualityComparerScalar);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -32619,7 +32789,6 @@ namespace ObservableComputations.Test
 			Assert.AreEqual(innerSource, testing.InnerSource);
 			Assert.AreEqual(outerKeySelector, testing.OuterKeySelector);
 			Assert.AreEqual(innerKeySelector, testing.InnerKeySelector);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -32739,7 +32908,6 @@ namespace ObservableComputations.Test
 			Assert.AreEqual(outerKeySelector, testing.OuterKeySelector);
 			Assert.AreEqual(innerKeySelector, testing.InnerKeySelector);
 			Assert.AreEqual(equalityComparerScalar, testing.EqualityComparerScalar);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -32861,7 +33029,6 @@ namespace ObservableComputations.Test
 			Assert.AreEqual(innerSource, testing.InnerSource);
 			Assert.AreEqual(outerKeySelector, testing.OuterKeySelector);
 			Assert.AreEqual(innerKeySelector, testing.InnerKeySelector);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -32981,7 +33148,6 @@ namespace ObservableComputations.Test
 			Assert.AreEqual(outerKeySelector, testing.OuterKeySelector);
 			Assert.AreEqual(innerKeySelector, testing.InnerKeySelector);
 			Assert.AreEqual(equalityComparer, testing.EqualityComparer);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -33101,7 +33267,6 @@ namespace ObservableComputations.Test
 			Assert.AreEqual(outerKeySelector, testing.OuterKeySelector);
 			Assert.AreEqual(innerKeySelector, testing.InnerKeySelector);
 			Assert.AreEqual(equalityComparer, testing.EqualityComparer);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -33221,7 +33386,6 @@ namespace ObservableComputations.Test
 			Assert.AreEqual(outerKeySelector, testing.OuterKeySelector);
 			Assert.AreEqual(innerKeySelector, testing.InnerKeySelector);
 			Assert.AreEqual(equalityComparer, testing.EqualityComparer);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -33341,7 +33505,6 @@ namespace ObservableComputations.Test
 			Assert.AreEqual(outerKeySelector, testing.OuterKeySelector);
 			Assert.AreEqual(innerKeySelector, testing.InnerKeySelector);
 			Assert.AreEqual(equalityComparer, testing.EqualityComparer);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -33461,7 +33624,6 @@ namespace ObservableComputations.Test
 			Assert.AreEqual(outerKeySelector, testing.OuterKeySelector);
 			Assert.AreEqual(innerKeySelector, testing.InnerKeySelector);
 			Assert.AreEqual(equalityComparer, testing.EqualityComparer);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -33586,7 +33748,6 @@ namespace ObservableComputations.Test
 			Assert.AreEqual(outerKeySelector, testing.OuterKeySelector);
 			Assert.AreEqual(innerKeySelector, testing.InnerKeySelector);
 			Assert.AreEqual(equalityComparer, testing.EqualityComparer);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -33711,7 +33872,6 @@ namespace ObservableComputations.Test
 			Assert.AreEqual(outerKeySelector, testing.OuterKeySelector);
 			Assert.AreEqual(innerKeySelector, testing.InnerKeySelector);
 			Assert.AreEqual(equalityComparer, testing.EqualityComparer);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -33836,7 +33996,6 @@ namespace ObservableComputations.Test
 			Assert.AreEqual(outerKeySelector, testing.OuterKeySelector);
 			Assert.AreEqual(innerKeySelector, testing.InnerKeySelector);
 			Assert.AreEqual(equalityComparer, testing.EqualityComparer);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -33961,7 +34120,6 @@ namespace ObservableComputations.Test
 			Assert.AreEqual(outerKeySelector, testing.OuterKeySelector);
 			Assert.AreEqual(innerKeySelector, testing.InnerKeySelector);
 			Assert.AreEqual(equalityComparerScalar, testing.EqualityComparerScalar);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -34083,7 +34241,6 @@ namespace ObservableComputations.Test
 			Assert.AreEqual(innerSourceScalar, testing.InnerSourceScalar);
 			Assert.AreEqual(outerKeySelector, testing.OuterKeySelector);
 			Assert.AreEqual(innerKeySelector, testing.InnerKeySelector);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -34203,7 +34360,6 @@ namespace ObservableComputations.Test
 			Assert.AreEqual(outerKeySelector, testing.OuterKeySelector);
 			Assert.AreEqual(innerKeySelector, testing.InnerKeySelector);
 			Assert.AreEqual(equalityComparerScalar, testing.EqualityComparerScalar);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -34325,7 +34481,6 @@ namespace ObservableComputations.Test
 			Assert.AreEqual(innerSourceScalar, testing.InnerSourceScalar);
 			Assert.AreEqual(outerKeySelector, testing.OuterKeySelector);
 			Assert.AreEqual(innerKeySelector, testing.InnerKeySelector);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -34445,7 +34600,6 @@ namespace ObservableComputations.Test
 			Assert.AreEqual(outerKeySelector, testing.OuterKeySelector);
 			Assert.AreEqual(innerKeySelector, testing.InnerKeySelector);
 			Assert.AreEqual(equalityComparerScalar, testing.EqualityComparerScalar);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -34567,7 +34721,6 @@ namespace ObservableComputations.Test
 			Assert.AreEqual(innerSourceScalar, testing.InnerSourceScalar);
 			Assert.AreEqual(outerKeySelector, testing.OuterKeySelector);
 			Assert.AreEqual(innerKeySelector, testing.InnerKeySelector);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -34687,7 +34840,6 @@ namespace ObservableComputations.Test
 			Assert.AreEqual(outerKeySelector, testing.OuterKeySelector);
 			Assert.AreEqual(innerKeySelector, testing.InnerKeySelector);
 			Assert.AreEqual(equalityComparerScalar, testing.EqualityComparerScalar);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -34809,7 +34961,6 @@ namespace ObservableComputations.Test
 			Assert.AreEqual(innerSourceScalar, testing.InnerSourceScalar);
 			Assert.AreEqual(outerKeySelector, testing.OuterKeySelector);
 			Assert.AreEqual(innerKeySelector, testing.InnerKeySelector);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -34929,7 +35080,6 @@ namespace ObservableComputations.Test
 			Assert.AreEqual(outerKeySelector, testing.OuterKeySelector);
 			Assert.AreEqual(innerKeySelector, testing.InnerKeySelector);
 			Assert.AreEqual(equalityComparerScalar, testing.EqualityComparerScalar);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -35046,7 +35196,6 @@ namespace ObservableComputations.Test
 			Assert.AreEqual(innerSource, testing.InnerSource);
 			Assert.AreEqual(outerKeySelector, testing.OuterKeySelector);
 			Assert.AreEqual(innerKeySelector, testing.InnerKeySelector);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -35161,7 +35310,6 @@ namespace ObservableComputations.Test
 			Assert.AreEqual(outerKeySelector, testing.OuterKeySelector);
 			Assert.AreEqual(innerKeySelector, testing.InnerKeySelector);
 			Assert.AreEqual(equalityComparerScalar, testing.EqualityComparerScalar);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -35278,7 +35426,6 @@ namespace ObservableComputations.Test
 			Assert.AreEqual(innerSource, testing.InnerSource);
 			Assert.AreEqual(outerKeySelector, testing.OuterKeySelector);
 			Assert.AreEqual(innerKeySelector, testing.InnerKeySelector);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -35393,7 +35540,6 @@ namespace ObservableComputations.Test
 			Assert.AreEqual(outerKeySelector, testing.OuterKeySelector);
 			Assert.AreEqual(innerKeySelector, testing.InnerKeySelector);
 			Assert.AreEqual(equalityComparerScalar, testing.EqualityComparerScalar);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -35510,7 +35656,6 @@ namespace ObservableComputations.Test
 			Assert.AreEqual(innerSource, testing.InnerSource);
 			Assert.AreEqual(outerKeySelector, testing.OuterKeySelector);
 			Assert.AreEqual(innerKeySelector, testing.InnerKeySelector);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -35625,7 +35770,6 @@ namespace ObservableComputations.Test
 			Assert.AreEqual(outerKeySelector, testing.OuterKeySelector);
 			Assert.AreEqual(innerKeySelector, testing.InnerKeySelector);
 			Assert.AreEqual(equalityComparerScalar, testing.EqualityComparerScalar);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -35742,7 +35886,6 @@ namespace ObservableComputations.Test
 			Assert.AreEqual(innerSource, testing.InnerSource);
 			Assert.AreEqual(outerKeySelector, testing.OuterKeySelector);
 			Assert.AreEqual(innerKeySelector, testing.InnerKeySelector);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -35857,7 +36000,6 @@ namespace ObservableComputations.Test
 			Assert.AreEqual(outerKeySelector, testing.OuterKeySelector);
 			Assert.AreEqual(innerKeySelector, testing.InnerKeySelector);
 			Assert.AreEqual(equalityComparer, testing.EqualityComparer);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -35972,7 +36114,6 @@ namespace ObservableComputations.Test
 			Assert.AreEqual(outerKeySelector, testing.OuterKeySelector);
 			Assert.AreEqual(innerKeySelector, testing.InnerKeySelector);
 			Assert.AreEqual(equalityComparer, testing.EqualityComparer);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -36087,7 +36228,6 @@ namespace ObservableComputations.Test
 			Assert.AreEqual(outerKeySelector, testing.OuterKeySelector);
 			Assert.AreEqual(innerKeySelector, testing.InnerKeySelector);
 			Assert.AreEqual(equalityComparer, testing.EqualityComparer);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -36202,7 +36342,6 @@ namespace ObservableComputations.Test
 			Assert.AreEqual(outerKeySelector, testing.OuterKeySelector);
 			Assert.AreEqual(innerKeySelector, testing.InnerKeySelector);
 			Assert.AreEqual(equalityComparer, testing.EqualityComparer);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -36317,7 +36456,6 @@ namespace ObservableComputations.Test
 			Assert.AreEqual(outerKeySelector, testing.OuterKeySelector);
 			Assert.AreEqual(innerKeySelector, testing.InnerKeySelector);
 			Assert.AreEqual(equalityComparer, testing.EqualityComparer);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -36437,7 +36575,6 @@ namespace ObservableComputations.Test
 			Assert.AreEqual(outerKeySelector, testing.OuterKeySelector);
 			Assert.AreEqual(innerKeySelector, testing.InnerKeySelector);
 			Assert.AreEqual(equalityComparer, testing.EqualityComparer);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -36557,7 +36694,6 @@ namespace ObservableComputations.Test
 			Assert.AreEqual(outerKeySelector, testing.OuterKeySelector);
 			Assert.AreEqual(innerKeySelector, testing.InnerKeySelector);
 			Assert.AreEqual(equalityComparer, testing.EqualityComparer);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -36677,7 +36813,6 @@ namespace ObservableComputations.Test
 			Assert.AreEqual(outerKeySelector, testing.OuterKeySelector);
 			Assert.AreEqual(innerKeySelector, testing.InnerKeySelector);
 			Assert.AreEqual(equalityComparer, testing.EqualityComparer);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -36794,7 +36929,6 @@ namespace ObservableComputations.Test
 			Assert.AreEqual(sourceScalar, testing.SourceScalar);
 			Assert.AreEqual(keySelectorExpression, testing.KeySelectorExpression);
 			Assert.AreEqual(equalityComparer, testing.EqualityComparer);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -36864,7 +36998,6 @@ namespace ObservableComputations.Test
 
 			Assert.AreEqual(sourceScalar, testing.SourceScalar);
 			Assert.AreEqual(keySelectorExpression, testing.KeySelectorExpression);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -36937,7 +37070,6 @@ namespace ObservableComputations.Test
 			Assert.AreEqual(sourceScalar, testing.SourceScalar);
 			Assert.AreEqual(keySelectorExpression, testing.KeySelectorExpression);
 			Assert.AreEqual(equalityComparer, testing.EqualityComparer);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -37007,7 +37139,6 @@ namespace ObservableComputations.Test
 
 			Assert.AreEqual(sourceScalar, testing.SourceScalar);
 			Assert.AreEqual(keySelectorExpression, testing.KeySelectorExpression);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -37080,7 +37211,6 @@ namespace ObservableComputations.Test
 			Assert.AreEqual(source, testing.Source);
 			Assert.AreEqual(keySelectorExpression, testing.KeySelectorExpression);
 			Assert.AreEqual(equalityComparer, testing.EqualityComparer);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -37145,7 +37275,6 @@ namespace ObservableComputations.Test
 
 			Assert.AreEqual(source, testing.Source);
 			Assert.AreEqual(keySelectorExpression, testing.KeySelectorExpression);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -37213,7 +37342,6 @@ namespace ObservableComputations.Test
 			Assert.AreEqual(source, testing.Source);
 			Assert.AreEqual(keySelectorExpression, testing.KeySelectorExpression);
 			Assert.AreEqual(equalityComparer, testing.EqualityComparer);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -37278,7 +37406,6 @@ namespace ObservableComputations.Test
 
 			Assert.AreEqual(source, testing.Source);
 			Assert.AreEqual(keySelectorExpression, testing.KeySelectorExpression);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -37346,7 +37473,6 @@ namespace ObservableComputations.Test
 			Assert.AreEqual(sourceScalar, testing.SourceScalar);
 			Assert.AreEqual(keySelectorExpression, testing.KeySelectorExpression);
 			Assert.AreEqual(equalityComparerScalar, testing.EqualityComparerScalar);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -37424,7 +37550,6 @@ namespace ObservableComputations.Test
 			Assert.AreEqual(sourceScalar, testing.SourceScalar);
 			Assert.AreEqual(keySelectorExpression, testing.KeySelectorExpression);
 			Assert.AreEqual(equalityComparerScalar, testing.EqualityComparerScalar);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -37502,7 +37627,6 @@ namespace ObservableComputations.Test
 			Assert.AreEqual(source, testing.Source);
 			Assert.AreEqual(keySelectorExpression, testing.KeySelectorExpression);
 			Assert.AreEqual(equalityComparerScalar, testing.EqualityComparerScalar);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -37575,7 +37699,6 @@ namespace ObservableComputations.Test
 			Assert.AreEqual(source, testing.Source);
 			Assert.AreEqual(keySelectorExpression, testing.KeySelectorExpression);
 			Assert.AreEqual(equalityComparerScalar, testing.EqualityComparerScalar);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -37651,7 +37774,6 @@ namespace ObservableComputations.Test
 			Assert.AreEqual(sourceScalar, testing.SourceScalar);
 			Assert.AreEqual(predicateExpression, testing.PredicateExpression);
 			Assert.AreEqual(initialCapacity, testing.InitialCapacity);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -37721,7 +37843,6 @@ namespace ObservableComputations.Test
 
 			Assert.AreEqual(sourceScalar, testing.SourceScalar);
 			Assert.AreEqual(predicateExpression, testing.PredicateExpression);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -37794,7 +37915,6 @@ namespace ObservableComputations.Test
 			Assert.AreEqual(sourceScalar, testing.SourceScalar);
 			Assert.AreEqual(predicateExpression, testing.PredicateExpression);
 			Assert.AreEqual(initialCapacity, testing.InitialCapacity);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -37864,7 +37984,6 @@ namespace ObservableComputations.Test
 
 			Assert.AreEqual(sourceScalar, testing.SourceScalar);
 			Assert.AreEqual(predicateExpression, testing.PredicateExpression);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -37937,7 +38056,6 @@ namespace ObservableComputations.Test
 			Assert.AreEqual(source, testing.Source);
 			Assert.AreEqual(predicateExpression, testing.PredicateExpression);
 			Assert.AreEqual(initialCapacity, testing.InitialCapacity);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -38002,7 +38120,6 @@ namespace ObservableComputations.Test
 
 			Assert.AreEqual(source, testing.Source);
 			Assert.AreEqual(predicateExpression, testing.PredicateExpression);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -38070,7 +38187,6 @@ namespace ObservableComputations.Test
 			Assert.AreEqual(source, testing.Source);
 			Assert.AreEqual(predicateExpression, testing.PredicateExpression);
 			Assert.AreEqual(initialCapacity, testing.InitialCapacity);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -38135,7 +38251,6 @@ namespace ObservableComputations.Test
 
 			Assert.AreEqual(source, testing.Source);
 			Assert.AreEqual(predicateExpression, testing.PredicateExpression);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -38209,7 +38324,6 @@ namespace ObservableComputations.Test
 			Assert.AreEqual(source2Scalar, testing.Source2Scalar);
 			Assert.AreEqual(equalityComparerScalar, testing.EqualityComparerScalar);
 			Assert.AreEqual(initialCapacity, testing.InitialCapacity);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -38331,7 +38445,6 @@ namespace ObservableComputations.Test
 			Assert.AreEqual(source1Scalar, testing.Source1Scalar);
 			Assert.AreEqual(source2Scalar, testing.Source2Scalar);
 			Assert.AreEqual(equalityComparerScalar, testing.EqualityComparerScalar);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -38453,7 +38566,6 @@ namespace ObservableComputations.Test
 			Assert.AreEqual(source1Scalar, testing.Source1Scalar);
 			Assert.AreEqual(source2Scalar, testing.Source2Scalar);
 			Assert.AreEqual(initialCapacity, testing.InitialCapacity);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -38569,7 +38681,6 @@ namespace ObservableComputations.Test
 
 			Assert.AreEqual(source1Scalar, testing.Source1Scalar);
 			Assert.AreEqual(source2Scalar, testing.Source2Scalar);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -38691,7 +38802,6 @@ namespace ObservableComputations.Test
 			Assert.AreEqual(source2Scalar, testing.Source2Scalar);
 			Assert.AreEqual(equalityComparerScalar, testing.EqualityComparerScalar);
 			Assert.AreEqual(initialCapacity, testing.InitialCapacity);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -38813,7 +38923,6 @@ namespace ObservableComputations.Test
 			Assert.AreEqual(source1Scalar, testing.Source1Scalar);
 			Assert.AreEqual(source2Scalar, testing.Source2Scalar);
 			Assert.AreEqual(equalityComparerScalar, testing.EqualityComparerScalar);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -38935,7 +39044,6 @@ namespace ObservableComputations.Test
 			Assert.AreEqual(source1Scalar, testing.Source1Scalar);
 			Assert.AreEqual(source2Scalar, testing.Source2Scalar);
 			Assert.AreEqual(initialCapacity, testing.InitialCapacity);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -39051,7 +39159,6 @@ namespace ObservableComputations.Test
 
 			Assert.AreEqual(source1Scalar, testing.Source1Scalar);
 			Assert.AreEqual(source2Scalar, testing.Source2Scalar);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -39173,7 +39280,6 @@ namespace ObservableComputations.Test
 			Assert.AreEqual(source2Scalar, testing.Source2Scalar);
 			Assert.AreEqual(equalityComparerScalar, testing.EqualityComparerScalar);
 			Assert.AreEqual(initialCapacity, testing.InitialCapacity);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -39295,7 +39401,6 @@ namespace ObservableComputations.Test
 			Assert.AreEqual(source1Scalar, testing.Source1Scalar);
 			Assert.AreEqual(source2Scalar, testing.Source2Scalar);
 			Assert.AreEqual(equalityComparerScalar, testing.EqualityComparerScalar);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -39417,7 +39522,6 @@ namespace ObservableComputations.Test
 			Assert.AreEqual(source1Scalar, testing.Source1Scalar);
 			Assert.AreEqual(source2Scalar, testing.Source2Scalar);
 			Assert.AreEqual(initialCapacity, testing.InitialCapacity);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -39533,7 +39637,6 @@ namespace ObservableComputations.Test
 
 			Assert.AreEqual(source1Scalar, testing.Source1Scalar);
 			Assert.AreEqual(source2Scalar, testing.Source2Scalar);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -39655,7 +39758,6 @@ namespace ObservableComputations.Test
 			Assert.AreEqual(source2Scalar, testing.Source2Scalar);
 			Assert.AreEqual(equalityComparerScalar, testing.EqualityComparerScalar);
 			Assert.AreEqual(initialCapacity, testing.InitialCapacity);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -39777,7 +39879,6 @@ namespace ObservableComputations.Test
 			Assert.AreEqual(source1Scalar, testing.Source1Scalar);
 			Assert.AreEqual(source2Scalar, testing.Source2Scalar);
 			Assert.AreEqual(equalityComparerScalar, testing.EqualityComparerScalar);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -39899,7 +40000,6 @@ namespace ObservableComputations.Test
 			Assert.AreEqual(source1Scalar, testing.Source1Scalar);
 			Assert.AreEqual(source2Scalar, testing.Source2Scalar);
 			Assert.AreEqual(initialCapacity, testing.InitialCapacity);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -40015,7 +40115,6 @@ namespace ObservableComputations.Test
 
 			Assert.AreEqual(source1Scalar, testing.Source1Scalar);
 			Assert.AreEqual(source2Scalar, testing.Source2Scalar);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -40137,7 +40236,6 @@ namespace ObservableComputations.Test
 			Assert.AreEqual(source2, testing.Source2);
 			Assert.AreEqual(equalityComparerScalar, testing.EqualityComparerScalar);
 			Assert.AreEqual(initialCapacity, testing.InitialCapacity);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -40254,7 +40352,6 @@ namespace ObservableComputations.Test
 			Assert.AreEqual(source1Scalar, testing.Source1Scalar);
 			Assert.AreEqual(source2, testing.Source2);
 			Assert.AreEqual(equalityComparerScalar, testing.EqualityComparerScalar);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -40371,7 +40468,6 @@ namespace ObservableComputations.Test
 			Assert.AreEqual(source1Scalar, testing.Source1Scalar);
 			Assert.AreEqual(source2, testing.Source2);
 			Assert.AreEqual(initialCapacity, testing.InitialCapacity);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -40482,7 +40578,6 @@ namespace ObservableComputations.Test
 
 			Assert.AreEqual(source1Scalar, testing.Source1Scalar);
 			Assert.AreEqual(source2, testing.Source2);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -40599,7 +40694,6 @@ namespace ObservableComputations.Test
 			Assert.AreEqual(source2, testing.Source2);
 			Assert.AreEqual(equalityComparerScalar, testing.EqualityComparerScalar);
 			Assert.AreEqual(initialCapacity, testing.InitialCapacity);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -40716,7 +40810,6 @@ namespace ObservableComputations.Test
 			Assert.AreEqual(source1Scalar, testing.Source1Scalar);
 			Assert.AreEqual(source2, testing.Source2);
 			Assert.AreEqual(equalityComparerScalar, testing.EqualityComparerScalar);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -40833,7 +40926,6 @@ namespace ObservableComputations.Test
 			Assert.AreEqual(source1Scalar, testing.Source1Scalar);
 			Assert.AreEqual(source2, testing.Source2);
 			Assert.AreEqual(initialCapacity, testing.InitialCapacity);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -40944,7 +41036,6 @@ namespace ObservableComputations.Test
 
 			Assert.AreEqual(source1Scalar, testing.Source1Scalar);
 			Assert.AreEqual(source2, testing.Source2);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -41061,7 +41152,6 @@ namespace ObservableComputations.Test
 			Assert.AreEqual(source2, testing.Source2);
 			Assert.AreEqual(equalityComparerScalar, testing.EqualityComparerScalar);
 			Assert.AreEqual(initialCapacity, testing.InitialCapacity);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -41178,7 +41268,6 @@ namespace ObservableComputations.Test
 			Assert.AreEqual(source1Scalar, testing.Source1Scalar);
 			Assert.AreEqual(source2, testing.Source2);
 			Assert.AreEqual(equalityComparerScalar, testing.EqualityComparerScalar);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -41295,7 +41384,6 @@ namespace ObservableComputations.Test
 			Assert.AreEqual(source1Scalar, testing.Source1Scalar);
 			Assert.AreEqual(source2, testing.Source2);
 			Assert.AreEqual(initialCapacity, testing.InitialCapacity);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -41406,7 +41494,6 @@ namespace ObservableComputations.Test
 
 			Assert.AreEqual(source1Scalar, testing.Source1Scalar);
 			Assert.AreEqual(source2, testing.Source2);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -41523,7 +41610,6 @@ namespace ObservableComputations.Test
 			Assert.AreEqual(source2, testing.Source2);
 			Assert.AreEqual(equalityComparerScalar, testing.EqualityComparerScalar);
 			Assert.AreEqual(initialCapacity, testing.InitialCapacity);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -41640,7 +41726,6 @@ namespace ObservableComputations.Test
 			Assert.AreEqual(source1Scalar, testing.Source1Scalar);
 			Assert.AreEqual(source2, testing.Source2);
 			Assert.AreEqual(equalityComparerScalar, testing.EqualityComparerScalar);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -41757,7 +41842,6 @@ namespace ObservableComputations.Test
 			Assert.AreEqual(source1Scalar, testing.Source1Scalar);
 			Assert.AreEqual(source2, testing.Source2);
 			Assert.AreEqual(initialCapacity, testing.InitialCapacity);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -41868,7 +41952,6 @@ namespace ObservableComputations.Test
 
 			Assert.AreEqual(source1Scalar, testing.Source1Scalar);
 			Assert.AreEqual(source2, testing.Source2);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -41985,7 +42068,6 @@ namespace ObservableComputations.Test
 			Assert.AreEqual(source2, testing.Source2);
 			Assert.AreEqual(equalityComparer, testing.EqualityComparer);
 			Assert.AreEqual(initialCapacity, testing.InitialCapacity);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -42099,7 +42181,6 @@ namespace ObservableComputations.Test
 			Assert.AreEqual(source1Scalar, testing.Source1Scalar);
 			Assert.AreEqual(source2, testing.Source2);
 			Assert.AreEqual(equalityComparer, testing.EqualityComparer);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -42216,7 +42297,6 @@ namespace ObservableComputations.Test
 			Assert.AreEqual(source2, testing.Source2);
 			Assert.AreEqual(equalityComparer, testing.EqualityComparer);
 			Assert.AreEqual(initialCapacity, testing.InitialCapacity);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -42330,7 +42410,6 @@ namespace ObservableComputations.Test
 			Assert.AreEqual(source1Scalar, testing.Source1Scalar);
 			Assert.AreEqual(source2, testing.Source2);
 			Assert.AreEqual(equalityComparer, testing.EqualityComparer);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -42447,7 +42526,6 @@ namespace ObservableComputations.Test
 			Assert.AreEqual(source2, testing.Source2);
 			Assert.AreEqual(equalityComparer, testing.EqualityComparer);
 			Assert.AreEqual(initialCapacity, testing.InitialCapacity);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -42561,7 +42639,6 @@ namespace ObservableComputations.Test
 			Assert.AreEqual(source1Scalar, testing.Source1Scalar);
 			Assert.AreEqual(source2, testing.Source2);
 			Assert.AreEqual(equalityComparer, testing.EqualityComparer);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -42678,7 +42755,6 @@ namespace ObservableComputations.Test
 			Assert.AreEqual(source2, testing.Source2);
 			Assert.AreEqual(equalityComparer, testing.EqualityComparer);
 			Assert.AreEqual(initialCapacity, testing.InitialCapacity);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -42792,7 +42868,6 @@ namespace ObservableComputations.Test
 			Assert.AreEqual(source1Scalar, testing.Source1Scalar);
 			Assert.AreEqual(source2, testing.Source2);
 			Assert.AreEqual(equalityComparer, testing.EqualityComparer);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -42909,7 +42984,6 @@ namespace ObservableComputations.Test
 			Assert.AreEqual(source2Scalar, testing.Source2Scalar);
 			Assert.AreEqual(equalityComparer, testing.EqualityComparer);
 			Assert.AreEqual(initialCapacity, testing.InitialCapacity);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -43028,7 +43102,6 @@ namespace ObservableComputations.Test
 			Assert.AreEqual(source1Scalar, testing.Source1Scalar);
 			Assert.AreEqual(source2Scalar, testing.Source2Scalar);
 			Assert.AreEqual(equalityComparer, testing.EqualityComparer);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -43150,7 +43223,6 @@ namespace ObservableComputations.Test
 			Assert.AreEqual(source2Scalar, testing.Source2Scalar);
 			Assert.AreEqual(equalityComparer, testing.EqualityComparer);
 			Assert.AreEqual(initialCapacity, testing.InitialCapacity);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -43269,7 +43341,6 @@ namespace ObservableComputations.Test
 			Assert.AreEqual(source1Scalar, testing.Source1Scalar);
 			Assert.AreEqual(source2Scalar, testing.Source2Scalar);
 			Assert.AreEqual(equalityComparer, testing.EqualityComparer);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -43391,7 +43462,6 @@ namespace ObservableComputations.Test
 			Assert.AreEqual(source2Scalar, testing.Source2Scalar);
 			Assert.AreEqual(equalityComparer, testing.EqualityComparer);
 			Assert.AreEqual(initialCapacity, testing.InitialCapacity);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -43510,7 +43580,6 @@ namespace ObservableComputations.Test
 			Assert.AreEqual(source1Scalar, testing.Source1Scalar);
 			Assert.AreEqual(source2Scalar, testing.Source2Scalar);
 			Assert.AreEqual(equalityComparer, testing.EqualityComparer);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -43632,7 +43701,6 @@ namespace ObservableComputations.Test
 			Assert.AreEqual(source2Scalar, testing.Source2Scalar);
 			Assert.AreEqual(equalityComparer, testing.EqualityComparer);
 			Assert.AreEqual(initialCapacity, testing.InitialCapacity);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -43751,7 +43819,6 @@ namespace ObservableComputations.Test
 			Assert.AreEqual(source1Scalar, testing.Source1Scalar);
 			Assert.AreEqual(source2Scalar, testing.Source2Scalar);
 			Assert.AreEqual(equalityComparer, testing.EqualityComparer);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -43873,7 +43940,6 @@ namespace ObservableComputations.Test
 			Assert.AreEqual(source2Scalar, testing.Source2Scalar);
 			Assert.AreEqual(equalityComparerScalar, testing.EqualityComparerScalar);
 			Assert.AreEqual(initialCapacity, testing.InitialCapacity);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -43990,7 +44056,6 @@ namespace ObservableComputations.Test
 			Assert.AreEqual(source1, testing.Source1);
 			Assert.AreEqual(source2Scalar, testing.Source2Scalar);
 			Assert.AreEqual(equalityComparerScalar, testing.EqualityComparerScalar);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -44107,7 +44172,6 @@ namespace ObservableComputations.Test
 			Assert.AreEqual(source1, testing.Source1);
 			Assert.AreEqual(source2Scalar, testing.Source2Scalar);
 			Assert.AreEqual(initialCapacity, testing.InitialCapacity);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -44218,7 +44282,6 @@ namespace ObservableComputations.Test
 
 			Assert.AreEqual(source1, testing.Source1);
 			Assert.AreEqual(source2Scalar, testing.Source2Scalar);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -44335,7 +44398,6 @@ namespace ObservableComputations.Test
 			Assert.AreEqual(source2Scalar, testing.Source2Scalar);
 			Assert.AreEqual(equalityComparerScalar, testing.EqualityComparerScalar);
 			Assert.AreEqual(initialCapacity, testing.InitialCapacity);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -44452,7 +44514,6 @@ namespace ObservableComputations.Test
 			Assert.AreEqual(source1, testing.Source1);
 			Assert.AreEqual(source2Scalar, testing.Source2Scalar);
 			Assert.AreEqual(equalityComparerScalar, testing.EqualityComparerScalar);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -44569,7 +44630,6 @@ namespace ObservableComputations.Test
 			Assert.AreEqual(source1, testing.Source1);
 			Assert.AreEqual(source2Scalar, testing.Source2Scalar);
 			Assert.AreEqual(initialCapacity, testing.InitialCapacity);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -44680,7 +44740,6 @@ namespace ObservableComputations.Test
 
 			Assert.AreEqual(source1, testing.Source1);
 			Assert.AreEqual(source2Scalar, testing.Source2Scalar);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -44797,7 +44856,6 @@ namespace ObservableComputations.Test
 			Assert.AreEqual(source2Scalar, testing.Source2Scalar);
 			Assert.AreEqual(equalityComparerScalar, testing.EqualityComparerScalar);
 			Assert.AreEqual(initialCapacity, testing.InitialCapacity);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -44914,7 +44972,6 @@ namespace ObservableComputations.Test
 			Assert.AreEqual(source1, testing.Source1);
 			Assert.AreEqual(source2Scalar, testing.Source2Scalar);
 			Assert.AreEqual(equalityComparerScalar, testing.EqualityComparerScalar);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -45031,7 +45088,6 @@ namespace ObservableComputations.Test
 			Assert.AreEqual(source1, testing.Source1);
 			Assert.AreEqual(source2Scalar, testing.Source2Scalar);
 			Assert.AreEqual(initialCapacity, testing.InitialCapacity);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -45142,7 +45198,6 @@ namespace ObservableComputations.Test
 
 			Assert.AreEqual(source1, testing.Source1);
 			Assert.AreEqual(source2Scalar, testing.Source2Scalar);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -45259,7 +45314,6 @@ namespace ObservableComputations.Test
 			Assert.AreEqual(source2Scalar, testing.Source2Scalar);
 			Assert.AreEqual(equalityComparerScalar, testing.EqualityComparerScalar);
 			Assert.AreEqual(initialCapacity, testing.InitialCapacity);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -45376,7 +45430,6 @@ namespace ObservableComputations.Test
 			Assert.AreEqual(source1, testing.Source1);
 			Assert.AreEqual(source2Scalar, testing.Source2Scalar);
 			Assert.AreEqual(equalityComparerScalar, testing.EqualityComparerScalar);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -45493,7 +45546,6 @@ namespace ObservableComputations.Test
 			Assert.AreEqual(source1, testing.Source1);
 			Assert.AreEqual(source2Scalar, testing.Source2Scalar);
 			Assert.AreEqual(initialCapacity, testing.InitialCapacity);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -45604,7 +45656,6 @@ namespace ObservableComputations.Test
 
 			Assert.AreEqual(source1, testing.Source1);
 			Assert.AreEqual(source2Scalar, testing.Source2Scalar);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -45721,7 +45772,6 @@ namespace ObservableComputations.Test
 			Assert.AreEqual(source2, testing.Source2);
 			Assert.AreEqual(equalityComparerScalar, testing.EqualityComparerScalar);
 			Assert.AreEqual(initialCapacity, testing.InitialCapacity);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -45833,7 +45883,6 @@ namespace ObservableComputations.Test
 			Assert.AreEqual(source1, testing.Source1);
 			Assert.AreEqual(source2, testing.Source2);
 			Assert.AreEqual(equalityComparerScalar, testing.EqualityComparerScalar);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -45945,7 +45994,6 @@ namespace ObservableComputations.Test
 			Assert.AreEqual(source1, testing.Source1);
 			Assert.AreEqual(source2, testing.Source2);
 			Assert.AreEqual(initialCapacity, testing.InitialCapacity);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -46051,7 +46099,6 @@ namespace ObservableComputations.Test
 
 			Assert.AreEqual(source1, testing.Source1);
 			Assert.AreEqual(source2, testing.Source2);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -46163,7 +46210,6 @@ namespace ObservableComputations.Test
 			Assert.AreEqual(source2, testing.Source2);
 			Assert.AreEqual(equalityComparerScalar, testing.EqualityComparerScalar);
 			Assert.AreEqual(initialCapacity, testing.InitialCapacity);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -46275,7 +46321,6 @@ namespace ObservableComputations.Test
 			Assert.AreEqual(source1, testing.Source1);
 			Assert.AreEqual(source2, testing.Source2);
 			Assert.AreEqual(equalityComparerScalar, testing.EqualityComparerScalar);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -46387,7 +46432,6 @@ namespace ObservableComputations.Test
 			Assert.AreEqual(source1, testing.Source1);
 			Assert.AreEqual(source2, testing.Source2);
 			Assert.AreEqual(initialCapacity, testing.InitialCapacity);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -46493,7 +46537,6 @@ namespace ObservableComputations.Test
 
 			Assert.AreEqual(source1, testing.Source1);
 			Assert.AreEqual(source2, testing.Source2);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -46605,7 +46648,6 @@ namespace ObservableComputations.Test
 			Assert.AreEqual(source2, testing.Source2);
 			Assert.AreEqual(equalityComparerScalar, testing.EqualityComparerScalar);
 			Assert.AreEqual(initialCapacity, testing.InitialCapacity);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -46717,7 +46759,6 @@ namespace ObservableComputations.Test
 			Assert.AreEqual(source1, testing.Source1);
 			Assert.AreEqual(source2, testing.Source2);
 			Assert.AreEqual(equalityComparerScalar, testing.EqualityComparerScalar);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -46829,7 +46870,6 @@ namespace ObservableComputations.Test
 			Assert.AreEqual(source1, testing.Source1);
 			Assert.AreEqual(source2, testing.Source2);
 			Assert.AreEqual(initialCapacity, testing.InitialCapacity);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -46935,7 +46975,6 @@ namespace ObservableComputations.Test
 
 			Assert.AreEqual(source1, testing.Source1);
 			Assert.AreEqual(source2, testing.Source2);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -47047,7 +47086,6 @@ namespace ObservableComputations.Test
 			Assert.AreEqual(source2, testing.Source2);
 			Assert.AreEqual(equalityComparerScalar, testing.EqualityComparerScalar);
 			Assert.AreEqual(initialCapacity, testing.InitialCapacity);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -47159,7 +47197,6 @@ namespace ObservableComputations.Test
 			Assert.AreEqual(source1, testing.Source1);
 			Assert.AreEqual(source2, testing.Source2);
 			Assert.AreEqual(equalityComparerScalar, testing.EqualityComparerScalar);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -47271,7 +47308,6 @@ namespace ObservableComputations.Test
 			Assert.AreEqual(source1, testing.Source1);
 			Assert.AreEqual(source2, testing.Source2);
 			Assert.AreEqual(initialCapacity, testing.InitialCapacity);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -47377,7 +47413,6 @@ namespace ObservableComputations.Test
 
 			Assert.AreEqual(source1, testing.Source1);
 			Assert.AreEqual(source2, testing.Source2);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -47489,7 +47524,6 @@ namespace ObservableComputations.Test
 			Assert.AreEqual(source2, testing.Source2);
 			Assert.AreEqual(equalityComparer, testing.EqualityComparer);
 			Assert.AreEqual(initialCapacity, testing.InitialCapacity);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -47598,7 +47632,6 @@ namespace ObservableComputations.Test
 			Assert.AreEqual(source1, testing.Source1);
 			Assert.AreEqual(source2, testing.Source2);
 			Assert.AreEqual(equalityComparer, testing.EqualityComparer);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -47710,7 +47743,6 @@ namespace ObservableComputations.Test
 			Assert.AreEqual(source2, testing.Source2);
 			Assert.AreEqual(equalityComparer, testing.EqualityComparer);
 			Assert.AreEqual(initialCapacity, testing.InitialCapacity);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -47819,7 +47851,6 @@ namespace ObservableComputations.Test
 			Assert.AreEqual(source1, testing.Source1);
 			Assert.AreEqual(source2, testing.Source2);
 			Assert.AreEqual(equalityComparer, testing.EqualityComparer);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -47931,7 +47962,6 @@ namespace ObservableComputations.Test
 			Assert.AreEqual(source2, testing.Source2);
 			Assert.AreEqual(equalityComparer, testing.EqualityComparer);
 			Assert.AreEqual(initialCapacity, testing.InitialCapacity);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -48040,7 +48070,6 @@ namespace ObservableComputations.Test
 			Assert.AreEqual(source1, testing.Source1);
 			Assert.AreEqual(source2, testing.Source2);
 			Assert.AreEqual(equalityComparer, testing.EqualityComparer);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -48152,7 +48181,6 @@ namespace ObservableComputations.Test
 			Assert.AreEqual(source2, testing.Source2);
 			Assert.AreEqual(equalityComparer, testing.EqualityComparer);
 			Assert.AreEqual(initialCapacity, testing.InitialCapacity);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -48261,7 +48289,6 @@ namespace ObservableComputations.Test
 			Assert.AreEqual(source1, testing.Source1);
 			Assert.AreEqual(source2, testing.Source2);
 			Assert.AreEqual(equalityComparer, testing.EqualityComparer);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -48373,7 +48400,6 @@ namespace ObservableComputations.Test
 			Assert.AreEqual(source2Scalar, testing.Source2Scalar);
 			Assert.AreEqual(equalityComparer, testing.EqualityComparer);
 			Assert.AreEqual(initialCapacity, testing.InitialCapacity);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -48487,7 +48513,6 @@ namespace ObservableComputations.Test
 			Assert.AreEqual(source1, testing.Source1);
 			Assert.AreEqual(source2Scalar, testing.Source2Scalar);
 			Assert.AreEqual(equalityComparer, testing.EqualityComparer);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -48604,7 +48629,6 @@ namespace ObservableComputations.Test
 			Assert.AreEqual(source2Scalar, testing.Source2Scalar);
 			Assert.AreEqual(equalityComparer, testing.EqualityComparer);
 			Assert.AreEqual(initialCapacity, testing.InitialCapacity);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -48718,7 +48742,6 @@ namespace ObservableComputations.Test
 			Assert.AreEqual(source1, testing.Source1);
 			Assert.AreEqual(source2Scalar, testing.Source2Scalar);
 			Assert.AreEqual(equalityComparer, testing.EqualityComparer);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -48835,7 +48858,6 @@ namespace ObservableComputations.Test
 			Assert.AreEqual(source2Scalar, testing.Source2Scalar);
 			Assert.AreEqual(equalityComparer, testing.EqualityComparer);
 			Assert.AreEqual(initialCapacity, testing.InitialCapacity);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -48949,7 +48971,6 @@ namespace ObservableComputations.Test
 			Assert.AreEqual(source1, testing.Source1);
 			Assert.AreEqual(source2Scalar, testing.Source2Scalar);
 			Assert.AreEqual(equalityComparer, testing.EqualityComparer);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -49066,7 +49087,6 @@ namespace ObservableComputations.Test
 			Assert.AreEqual(source2Scalar, testing.Source2Scalar);
 			Assert.AreEqual(equalityComparer, testing.EqualityComparer);
 			Assert.AreEqual(initialCapacity, testing.InitialCapacity);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -49180,7 +49200,6 @@ namespace ObservableComputations.Test
 			Assert.AreEqual(source1, testing.Source1);
 			Assert.AreEqual(source2Scalar, testing.Source2Scalar);
 			Assert.AreEqual(equalityComparer, testing.EqualityComparer);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -49297,7 +49316,6 @@ namespace ObservableComputations.Test
 			Assert.AreEqual(sourceScalar, testing.SourceScalar);
 			Assert.AreEqual(index, testing.Index);
 			Assert.AreEqual(defaultValue, testing.DefaultValue);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -49367,7 +49385,6 @@ namespace ObservableComputations.Test
 
 			Assert.AreEqual(sourceScalar, testing.SourceScalar);
 			Assert.AreEqual(index, testing.Index);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -49440,7 +49457,6 @@ namespace ObservableComputations.Test
 			Assert.AreEqual(sourceScalar, testing.SourceScalar);
 			Assert.AreEqual(index, testing.Index);
 			Assert.AreEqual(defaultValue, testing.DefaultValue);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -49510,7 +49526,6 @@ namespace ObservableComputations.Test
 
 			Assert.AreEqual(sourceScalar, testing.SourceScalar);
 			Assert.AreEqual(index, testing.Index);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -49583,7 +49598,6 @@ namespace ObservableComputations.Test
 			Assert.AreEqual(sourceScalar, testing.SourceScalar);
 			Assert.AreEqual(indexScalar, testing.IndexScalar);
 			Assert.AreEqual(defaultValue, testing.DefaultValue);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -49662,7 +49676,6 @@ namespace ObservableComputations.Test
 
 			Assert.AreEqual(sourceScalar, testing.SourceScalar);
 			Assert.AreEqual(indexScalar, testing.IndexScalar);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -49744,7 +49757,6 @@ namespace ObservableComputations.Test
 			Assert.AreEqual(sourceScalar, testing.SourceScalar);
 			Assert.AreEqual(indexScalar, testing.IndexScalar);
 			Assert.AreEqual(defaultValue, testing.DefaultValue);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -49823,7 +49835,6 @@ namespace ObservableComputations.Test
 
 			Assert.AreEqual(sourceScalar, testing.SourceScalar);
 			Assert.AreEqual(indexScalar, testing.IndexScalar);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -49905,7 +49916,6 @@ namespace ObservableComputations.Test
 			Assert.AreEqual(source, testing.Source);
 			Assert.AreEqual(index, testing.Index);
 			Assert.AreEqual(defaultValue, testing.DefaultValue);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -49970,7 +49980,6 @@ namespace ObservableComputations.Test
 
 			Assert.AreEqual(source, testing.Source);
 			Assert.AreEqual(index, testing.Index);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -50038,7 +50047,6 @@ namespace ObservableComputations.Test
 			Assert.AreEqual(source, testing.Source);
 			Assert.AreEqual(index, testing.Index);
 			Assert.AreEqual(defaultValue, testing.DefaultValue);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -50103,7 +50111,6 @@ namespace ObservableComputations.Test
 
 			Assert.AreEqual(source, testing.Source);
 			Assert.AreEqual(index, testing.Index);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -50171,7 +50178,6 @@ namespace ObservableComputations.Test
 			Assert.AreEqual(source, testing.Source);
 			Assert.AreEqual(indexScalar, testing.IndexScalar);
 			Assert.AreEqual(defaultValue, testing.DefaultValue);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -50245,7 +50251,6 @@ namespace ObservableComputations.Test
 
 			Assert.AreEqual(source, testing.Source);
 			Assert.AreEqual(indexScalar, testing.IndexScalar);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -50322,7 +50327,6 @@ namespace ObservableComputations.Test
 			Assert.AreEqual(source, testing.Source);
 			Assert.AreEqual(indexScalar, testing.IndexScalar);
 			Assert.AreEqual(defaultValue, testing.DefaultValue);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -50396,7 +50400,6 @@ namespace ObservableComputations.Test
 
 			Assert.AreEqual(source, testing.Source);
 			Assert.AreEqual(indexScalar, testing.IndexScalar);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -50479,7 +50482,6 @@ namespace ObservableComputations.Test
 			Assert.AreEqual(rightSourceScalar, testing.RightSourceScalar);
 			Assert.AreEqual(predicateExpression, testing.PredicateExpression);
 			Assert.AreEqual(initialCapacity, testing.InitialCapacity);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -50598,7 +50600,6 @@ namespace ObservableComputations.Test
 			Assert.AreEqual(leftSourceScalar, testing.LeftSourceScalar);
 			Assert.AreEqual(rightSourceScalar, testing.RightSourceScalar);
 			Assert.AreEqual(predicateExpression, testing.PredicateExpression);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -50720,7 +50721,6 @@ namespace ObservableComputations.Test
 			Assert.AreEqual(rightSourceScalar, testing.RightSourceScalar);
 			Assert.AreEqual(predicateExpression, testing.PredicateExpression);
 			Assert.AreEqual(initialCapacity, testing.InitialCapacity);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -50839,7 +50839,6 @@ namespace ObservableComputations.Test
 			Assert.AreEqual(leftSourceScalar, testing.LeftSourceScalar);
 			Assert.AreEqual(rightSourceScalar, testing.RightSourceScalar);
 			Assert.AreEqual(predicateExpression, testing.PredicateExpression);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -50961,7 +50960,6 @@ namespace ObservableComputations.Test
 			Assert.AreEqual(rightSourceScalar, testing.RightSourceScalar);
 			Assert.AreEqual(predicateExpression, testing.PredicateExpression);
 			Assert.AreEqual(initialCapacity, testing.InitialCapacity);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -51080,7 +51078,6 @@ namespace ObservableComputations.Test
 			Assert.AreEqual(leftSourceScalar, testing.LeftSourceScalar);
 			Assert.AreEqual(rightSourceScalar, testing.RightSourceScalar);
 			Assert.AreEqual(predicateExpression, testing.PredicateExpression);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -51202,7 +51199,6 @@ namespace ObservableComputations.Test
 			Assert.AreEqual(rightSourceScalar, testing.RightSourceScalar);
 			Assert.AreEqual(predicateExpression, testing.PredicateExpression);
 			Assert.AreEqual(initialCapacity, testing.InitialCapacity);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -51321,7 +51317,6 @@ namespace ObservableComputations.Test
 			Assert.AreEqual(leftSourceScalar, testing.LeftSourceScalar);
 			Assert.AreEqual(rightSourceScalar, testing.RightSourceScalar);
 			Assert.AreEqual(predicateExpression, testing.PredicateExpression);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -51443,7 +51438,6 @@ namespace ObservableComputations.Test
 			Assert.AreEqual(rightSourceScalar, testing.RightSourceScalar);
 			Assert.AreEqual(predicateExpression, testing.PredicateExpression);
 			Assert.AreEqual(initialCapacity, testing.InitialCapacity);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -51557,7 +51551,6 @@ namespace ObservableComputations.Test
 			Assert.AreEqual(leftSource, testing.LeftSource);
 			Assert.AreEqual(rightSourceScalar, testing.RightSourceScalar);
 			Assert.AreEqual(predicateExpression, testing.PredicateExpression);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -51674,7 +51667,6 @@ namespace ObservableComputations.Test
 			Assert.AreEqual(rightSourceScalar, testing.RightSourceScalar);
 			Assert.AreEqual(predicateExpression, testing.PredicateExpression);
 			Assert.AreEqual(initialCapacity, testing.InitialCapacity);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -51788,7 +51780,6 @@ namespace ObservableComputations.Test
 			Assert.AreEqual(leftSource, testing.LeftSource);
 			Assert.AreEqual(rightSourceScalar, testing.RightSourceScalar);
 			Assert.AreEqual(predicateExpression, testing.PredicateExpression);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -51905,7 +51896,6 @@ namespace ObservableComputations.Test
 			Assert.AreEqual(rightSourceScalar, testing.RightSourceScalar);
 			Assert.AreEqual(predicateExpression, testing.PredicateExpression);
 			Assert.AreEqual(initialCapacity, testing.InitialCapacity);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -52019,7 +52009,6 @@ namespace ObservableComputations.Test
 			Assert.AreEqual(leftSource, testing.LeftSource);
 			Assert.AreEqual(rightSourceScalar, testing.RightSourceScalar);
 			Assert.AreEqual(predicateExpression, testing.PredicateExpression);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -52136,7 +52125,6 @@ namespace ObservableComputations.Test
 			Assert.AreEqual(rightSourceScalar, testing.RightSourceScalar);
 			Assert.AreEqual(predicateExpression, testing.PredicateExpression);
 			Assert.AreEqual(initialCapacity, testing.InitialCapacity);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -52250,7 +52238,6 @@ namespace ObservableComputations.Test
 			Assert.AreEqual(leftSource, testing.LeftSource);
 			Assert.AreEqual(rightSourceScalar, testing.RightSourceScalar);
 			Assert.AreEqual(predicateExpression, testing.PredicateExpression);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -52367,7 +52354,6 @@ namespace ObservableComputations.Test
 			Assert.AreEqual(rightSource, testing.RightSource);
 			Assert.AreEqual(predicateExpression, testing.PredicateExpression);
 			Assert.AreEqual(initialCapacity, testing.InitialCapacity);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -52481,7 +52467,6 @@ namespace ObservableComputations.Test
 			Assert.AreEqual(leftSourceScalar, testing.LeftSourceScalar);
 			Assert.AreEqual(rightSource, testing.RightSource);
 			Assert.AreEqual(predicateExpression, testing.PredicateExpression);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -52598,7 +52583,6 @@ namespace ObservableComputations.Test
 			Assert.AreEqual(rightSource, testing.RightSource);
 			Assert.AreEqual(predicateExpression, testing.PredicateExpression);
 			Assert.AreEqual(initialCapacity, testing.InitialCapacity);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -52712,7 +52696,6 @@ namespace ObservableComputations.Test
 			Assert.AreEqual(leftSourceScalar, testing.LeftSourceScalar);
 			Assert.AreEqual(rightSource, testing.RightSource);
 			Assert.AreEqual(predicateExpression, testing.PredicateExpression);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -52829,7 +52812,6 @@ namespace ObservableComputations.Test
 			Assert.AreEqual(rightSource, testing.RightSource);
 			Assert.AreEqual(predicateExpression, testing.PredicateExpression);
 			Assert.AreEqual(initialCapacity, testing.InitialCapacity);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -52943,7 +52925,6 @@ namespace ObservableComputations.Test
 			Assert.AreEqual(leftSourceScalar, testing.LeftSourceScalar);
 			Assert.AreEqual(rightSource, testing.RightSource);
 			Assert.AreEqual(predicateExpression, testing.PredicateExpression);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -53060,7 +53041,6 @@ namespace ObservableComputations.Test
 			Assert.AreEqual(rightSource, testing.RightSource);
 			Assert.AreEqual(predicateExpression, testing.PredicateExpression);
 			Assert.AreEqual(initialCapacity, testing.InitialCapacity);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -53174,7 +53154,6 @@ namespace ObservableComputations.Test
 			Assert.AreEqual(leftSourceScalar, testing.LeftSourceScalar);
 			Assert.AreEqual(rightSource, testing.RightSource);
 			Assert.AreEqual(predicateExpression, testing.PredicateExpression);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -53291,7 +53270,6 @@ namespace ObservableComputations.Test
 			Assert.AreEqual(rightSource, testing.RightSource);
 			Assert.AreEqual(predicateExpression, testing.PredicateExpression);
 			Assert.AreEqual(initialCapacity, testing.InitialCapacity);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -53400,7 +53378,6 @@ namespace ObservableComputations.Test
 			Assert.AreEqual(leftSource, testing.LeftSource);
 			Assert.AreEqual(rightSource, testing.RightSource);
 			Assert.AreEqual(predicateExpression, testing.PredicateExpression);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -53512,7 +53489,6 @@ namespace ObservableComputations.Test
 			Assert.AreEqual(rightSource, testing.RightSource);
 			Assert.AreEqual(predicateExpression, testing.PredicateExpression);
 			Assert.AreEqual(initialCapacity, testing.InitialCapacity);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -53621,7 +53597,6 @@ namespace ObservableComputations.Test
 			Assert.AreEqual(leftSource, testing.LeftSource);
 			Assert.AreEqual(rightSource, testing.RightSource);
 			Assert.AreEqual(predicateExpression, testing.PredicateExpression);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -53733,7 +53708,6 @@ namespace ObservableComputations.Test
 			Assert.AreEqual(rightSource, testing.RightSource);
 			Assert.AreEqual(predicateExpression, testing.PredicateExpression);
 			Assert.AreEqual(initialCapacity, testing.InitialCapacity);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -53842,7 +53816,6 @@ namespace ObservableComputations.Test
 			Assert.AreEqual(leftSource, testing.LeftSource);
 			Assert.AreEqual(rightSource, testing.RightSource);
 			Assert.AreEqual(predicateExpression, testing.PredicateExpression);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -53954,7 +53927,6 @@ namespace ObservableComputations.Test
 			Assert.AreEqual(rightSource, testing.RightSource);
 			Assert.AreEqual(predicateExpression, testing.PredicateExpression);
 			Assert.AreEqual(initialCapacity, testing.InitialCapacity);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -54063,7 +54035,6 @@ namespace ObservableComputations.Test
 			Assert.AreEqual(leftSource, testing.LeftSource);
 			Assert.AreEqual(rightSource, testing.RightSource);
 			Assert.AreEqual(predicateExpression, testing.PredicateExpression);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -54172,7 +54143,6 @@ namespace ObservableComputations.Test
 
 			Assert.AreEqual(sourceScalar, testing.SourceScalar);
 			Assert.AreEqual(defaultValue, testing.DefaultValue);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -54239,7 +54209,6 @@ namespace ObservableComputations.Test
 			var testing = sourceScalar.LastComputing<Item>().For(consumer);
 
 			Assert.AreEqual(sourceScalar, testing.SourceScalar);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -54309,7 +54278,6 @@ namespace ObservableComputations.Test
 
 			Assert.AreEqual(sourceScalar, testing.SourceScalar);
 			Assert.AreEqual(defaultValue, testing.DefaultValue);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -54376,7 +54344,6 @@ namespace ObservableComputations.Test
 			var testing = sourceScalar.LastComputing<Item>().For(consumer);
 
 			Assert.AreEqual(sourceScalar, testing.SourceScalar);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -54446,7 +54413,6 @@ namespace ObservableComputations.Test
 
 			Assert.AreEqual(source, testing.Source);
 			Assert.AreEqual(defaultValue, testing.DefaultValue);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -54508,7 +54474,6 @@ namespace ObservableComputations.Test
 			var testing = source.LastComputing<Item>().For(consumer);
 
 			Assert.AreEqual(source, testing.Source);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -54573,7 +54538,6 @@ namespace ObservableComputations.Test
 
 			Assert.AreEqual(source, testing.Source);
 			Assert.AreEqual(defaultValue, testing.DefaultValue);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -54635,7 +54599,6 @@ namespace ObservableComputations.Test
 			var testing = source.LastComputing<Item>().For(consumer);
 
 			Assert.AreEqual(source, testing.Source);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -54706,7 +54669,6 @@ namespace ObservableComputations.Test
 			Assert.AreEqual(sourceScalar, testing.SourceScalar);
 			Assert.AreEqual(comparer, testing.Comparer);
 			Assert.AreEqual(defaultValue, testing.DefaultValue);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -54776,7 +54738,6 @@ namespace ObservableComputations.Test
 
 			Assert.AreEqual(sourceScalar, testing.SourceScalar);
 			Assert.AreEqual(comparer, testing.Comparer);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -54846,7 +54807,6 @@ namespace ObservableComputations.Test
 
 			Assert.AreEqual(sourceScalar, testing.SourceScalar);
 			Assert.AreEqual(defaultValue, testing.DefaultValue);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -54913,7 +54873,6 @@ namespace ObservableComputations.Test
 			var testing = sourceScalar.Maximazing<int>().For(consumer);
 
 			Assert.AreEqual(sourceScalar, testing.SourceScalar);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -54986,7 +54945,6 @@ namespace ObservableComputations.Test
 			Assert.AreEqual(sourceScalar, testing.SourceScalar);
 			Assert.AreEqual(comparer, testing.Comparer);
 			Assert.AreEqual(defaultValue, testing.DefaultValue);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -55056,7 +55014,6 @@ namespace ObservableComputations.Test
 
 			Assert.AreEqual(sourceScalar, testing.SourceScalar);
 			Assert.AreEqual(comparer, testing.Comparer);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -55126,7 +55083,6 @@ namespace ObservableComputations.Test
 
 			Assert.AreEqual(sourceScalar, testing.SourceScalar);
 			Assert.AreEqual(defaultValue, testing.DefaultValue);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -55193,7 +55149,6 @@ namespace ObservableComputations.Test
 			var testing = sourceScalar.Maximazing<int>().For(consumer);
 
 			Assert.AreEqual(sourceScalar, testing.SourceScalar);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -55266,7 +55221,6 @@ namespace ObservableComputations.Test
 			Assert.AreEqual(sourceScalar, testing.SourceScalar);
 			Assert.AreEqual(comparerScalar, testing.ComparerScalar);
 			Assert.AreEqual(defaultValue, testing.DefaultValue);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -55341,7 +55295,6 @@ namespace ObservableComputations.Test
 
 			Assert.AreEqual(sourceScalar, testing.SourceScalar);
 			Assert.AreEqual(comparerScalar, testing.ComparerScalar);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -55419,7 +55372,6 @@ namespace ObservableComputations.Test
 			Assert.AreEqual(sourceScalar, testing.SourceScalar);
 			Assert.AreEqual(comparerScalar, testing.ComparerScalar);
 			Assert.AreEqual(defaultValue, testing.DefaultValue);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -55494,7 +55446,6 @@ namespace ObservableComputations.Test
 
 			Assert.AreEqual(sourceScalar, testing.SourceScalar);
 			Assert.AreEqual(comparerScalar, testing.ComparerScalar);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -55572,7 +55523,6 @@ namespace ObservableComputations.Test
 			Assert.AreEqual(source, testing.Source);
 			Assert.AreEqual(comparer, testing.Comparer);
 			Assert.AreEqual(defaultValue, testing.DefaultValue);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -55637,7 +55587,6 @@ namespace ObservableComputations.Test
 
 			Assert.AreEqual(source, testing.Source);
 			Assert.AreEqual(comparer, testing.Comparer);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -55702,7 +55651,6 @@ namespace ObservableComputations.Test
 
 			Assert.AreEqual(source, testing.Source);
 			Assert.AreEqual(defaultValue, testing.DefaultValue);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -55764,7 +55712,6 @@ namespace ObservableComputations.Test
 			var testing = source.Maximazing<int>().For(consumer);
 
 			Assert.AreEqual(source, testing.Source);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -55832,7 +55779,6 @@ namespace ObservableComputations.Test
 			Assert.AreEqual(source, testing.Source);
 			Assert.AreEqual(comparer, testing.Comparer);
 			Assert.AreEqual(defaultValue, testing.DefaultValue);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -55897,7 +55843,6 @@ namespace ObservableComputations.Test
 
 			Assert.AreEqual(source, testing.Source);
 			Assert.AreEqual(comparer, testing.Comparer);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -55962,7 +55907,6 @@ namespace ObservableComputations.Test
 
 			Assert.AreEqual(source, testing.Source);
 			Assert.AreEqual(defaultValue, testing.DefaultValue);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -56024,7 +55968,6 @@ namespace ObservableComputations.Test
 			var testing = source.Maximazing<int>().For(consumer);
 
 			Assert.AreEqual(source, testing.Source);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -56092,7 +56035,6 @@ namespace ObservableComputations.Test
 			Assert.AreEqual(source, testing.Source);
 			Assert.AreEqual(comparerScalar, testing.ComparerScalar);
 			Assert.AreEqual(defaultValue, testing.DefaultValue);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -56162,7 +56104,6 @@ namespace ObservableComputations.Test
 
 			Assert.AreEqual(source, testing.Source);
 			Assert.AreEqual(comparerScalar, testing.ComparerScalar);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -56235,7 +56176,6 @@ namespace ObservableComputations.Test
 			Assert.AreEqual(source, testing.Source);
 			Assert.AreEqual(comparerScalar, testing.ComparerScalar);
 			Assert.AreEqual(defaultValue, testing.DefaultValue);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -56305,7 +56245,6 @@ namespace ObservableComputations.Test
 
 			Assert.AreEqual(source, testing.Source);
 			Assert.AreEqual(comparerScalar, testing.ComparerScalar);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -56381,7 +56320,6 @@ namespace ObservableComputations.Test
 			Assert.AreEqual(sourceScalar, testing.SourceScalar);
 			Assert.AreEqual(comparer, testing.Comparer);
 			Assert.AreEqual(defaultValue, testing.DefaultValue);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -56451,7 +56389,6 @@ namespace ObservableComputations.Test
 
 			Assert.AreEqual(sourceScalar, testing.SourceScalar);
 			Assert.AreEqual(comparer, testing.Comparer);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -56521,7 +56458,6 @@ namespace ObservableComputations.Test
 
 			Assert.AreEqual(sourceScalar, testing.SourceScalar);
 			Assert.AreEqual(defaultValue, testing.DefaultValue);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -56588,7 +56524,6 @@ namespace ObservableComputations.Test
 			var testing = sourceScalar.Minimazing<int>().For(consumer);
 
 			Assert.AreEqual(sourceScalar, testing.SourceScalar);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -56661,7 +56596,6 @@ namespace ObservableComputations.Test
 			Assert.AreEqual(sourceScalar, testing.SourceScalar);
 			Assert.AreEqual(comparer, testing.Comparer);
 			Assert.AreEqual(defaultValue, testing.DefaultValue);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -56731,7 +56665,6 @@ namespace ObservableComputations.Test
 
 			Assert.AreEqual(sourceScalar, testing.SourceScalar);
 			Assert.AreEqual(comparer, testing.Comparer);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -56801,7 +56734,6 @@ namespace ObservableComputations.Test
 
 			Assert.AreEqual(sourceScalar, testing.SourceScalar);
 			Assert.AreEqual(defaultValue, testing.DefaultValue);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -56868,7 +56800,6 @@ namespace ObservableComputations.Test
 			var testing = sourceScalar.Minimazing<int>().For(consumer);
 
 			Assert.AreEqual(sourceScalar, testing.SourceScalar);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -56941,7 +56872,6 @@ namespace ObservableComputations.Test
 			Assert.AreEqual(sourceScalar, testing.SourceScalar);
 			Assert.AreEqual(comparerScalar, testing.ComparerScalar);
 			Assert.AreEqual(defaultValue, testing.DefaultValue);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -57016,7 +56946,6 @@ namespace ObservableComputations.Test
 
 			Assert.AreEqual(sourceScalar, testing.SourceScalar);
 			Assert.AreEqual(comparerScalar, testing.ComparerScalar);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -57094,7 +57023,6 @@ namespace ObservableComputations.Test
 			Assert.AreEqual(sourceScalar, testing.SourceScalar);
 			Assert.AreEqual(comparerScalar, testing.ComparerScalar);
 			Assert.AreEqual(defaultValue, testing.DefaultValue);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -57169,7 +57097,6 @@ namespace ObservableComputations.Test
 
 			Assert.AreEqual(sourceScalar, testing.SourceScalar);
 			Assert.AreEqual(comparerScalar, testing.ComparerScalar);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -57247,7 +57174,6 @@ namespace ObservableComputations.Test
 			Assert.AreEqual(source, testing.Source);
 			Assert.AreEqual(comparer, testing.Comparer);
 			Assert.AreEqual(defaultValue, testing.DefaultValue);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -57312,7 +57238,6 @@ namespace ObservableComputations.Test
 
 			Assert.AreEqual(source, testing.Source);
 			Assert.AreEqual(comparer, testing.Comparer);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -57377,7 +57302,6 @@ namespace ObservableComputations.Test
 
 			Assert.AreEqual(source, testing.Source);
 			Assert.AreEqual(defaultValue, testing.DefaultValue);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -57439,7 +57363,6 @@ namespace ObservableComputations.Test
 			var testing = source.Minimazing<int>().For(consumer);
 
 			Assert.AreEqual(source, testing.Source);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -57507,7 +57430,6 @@ namespace ObservableComputations.Test
 			Assert.AreEqual(source, testing.Source);
 			Assert.AreEqual(comparer, testing.Comparer);
 			Assert.AreEqual(defaultValue, testing.DefaultValue);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -57572,7 +57494,6 @@ namespace ObservableComputations.Test
 
 			Assert.AreEqual(source, testing.Source);
 			Assert.AreEqual(comparer, testing.Comparer);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -57637,7 +57558,6 @@ namespace ObservableComputations.Test
 
 			Assert.AreEqual(source, testing.Source);
 			Assert.AreEqual(defaultValue, testing.DefaultValue);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -57699,7 +57619,6 @@ namespace ObservableComputations.Test
 			var testing = source.Minimazing<int>().For(consumer);
 
 			Assert.AreEqual(source, testing.Source);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -57767,7 +57686,6 @@ namespace ObservableComputations.Test
 			Assert.AreEqual(source, testing.Source);
 			Assert.AreEqual(comparerScalar, testing.ComparerScalar);
 			Assert.AreEqual(defaultValue, testing.DefaultValue);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -57837,7 +57755,6 @@ namespace ObservableComputations.Test
 
 			Assert.AreEqual(source, testing.Source);
 			Assert.AreEqual(comparerScalar, testing.ComparerScalar);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -57910,7 +57827,6 @@ namespace ObservableComputations.Test
 			Assert.AreEqual(source, testing.Source);
 			Assert.AreEqual(comparerScalar, testing.ComparerScalar);
 			Assert.AreEqual(defaultValue, testing.DefaultValue);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -57980,7 +57896,6 @@ namespace ObservableComputations.Test
 
 			Assert.AreEqual(source, testing.Source);
 			Assert.AreEqual(comparerScalar, testing.ComparerScalar);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -58050,7 +57965,6 @@ namespace ObservableComputations.Test
 			var testing = sourceScalar.OfTypeComputing<object>().For(consumer);
 
 			Assert.AreEqual(sourceScalar, testing.SourceScalar);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -58117,7 +58031,6 @@ namespace ObservableComputations.Test
 			var testing = source.OfTypeComputing<object>().For(consumer);
 
 			Assert.AreEqual(source, testing.Source);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -58191,7 +58104,6 @@ namespace ObservableComputations.Test
 			Assert.AreEqual(orderingValueSelectorExpression, testing.OrderingValueSelectorExpression);
 			Assert.AreEqual(sortDirectionScalar, testing.SortDirectionScalar);
 			Assert.AreEqual(comparerScalar, testing.ComparerScalar);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -58269,7 +58181,6 @@ namespace ObservableComputations.Test
 			Assert.AreEqual(source, testing.Source);
 			Assert.AreEqual(orderingValueSelectorExpression, testing.OrderingValueSelectorExpression);
 			Assert.AreEqual(sortDirectionScalar, testing.SortDirectionScalar);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -58342,7 +58253,6 @@ namespace ObservableComputations.Test
 			Assert.AreEqual(source, testing.Source);
 			Assert.AreEqual(orderingValueSelectorExpression, testing.OrderingValueSelectorExpression);
 			Assert.AreEqual(comparerScalar, testing.ComparerScalar);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -58412,7 +58322,6 @@ namespace ObservableComputations.Test
 
 			Assert.AreEqual(source, testing.Source);
 			Assert.AreEqual(orderingValueSelectorExpression, testing.OrderingValueSelectorExpression);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -58483,7 +58392,6 @@ namespace ObservableComputations.Test
 			Assert.AreEqual(orderingValueSelectorExpression, testing.OrderingValueSelectorExpression);
 			Assert.AreEqual(sortDirectionScalar, testing.SortDirectionScalar);
 			Assert.AreEqual(comparerScalar, testing.ComparerScalar);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -58561,7 +58469,6 @@ namespace ObservableComputations.Test
 			Assert.AreEqual(source, testing.Source);
 			Assert.AreEqual(orderingValueSelectorExpression, testing.OrderingValueSelectorExpression);
 			Assert.AreEqual(sortDirectionScalar, testing.SortDirectionScalar);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -58634,7 +58541,6 @@ namespace ObservableComputations.Test
 			Assert.AreEqual(source, testing.Source);
 			Assert.AreEqual(orderingValueSelectorExpression, testing.OrderingValueSelectorExpression);
 			Assert.AreEqual(comparerScalar, testing.ComparerScalar);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -58704,7 +58610,6 @@ namespace ObservableComputations.Test
 
 			Assert.AreEqual(source, testing.Source);
 			Assert.AreEqual(orderingValueSelectorExpression, testing.OrderingValueSelectorExpression);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -58775,7 +58680,6 @@ namespace ObservableComputations.Test
 			Assert.AreEqual(orderingValueSelectorExpression, testing.OrderingValueSelectorExpression);
 			Assert.AreEqual(sortDirection, testing.SortDirection);
 			Assert.AreEqual(comparerScalar, testing.ComparerScalar);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -58848,7 +58752,6 @@ namespace ObservableComputations.Test
 			Assert.AreEqual(source, testing.Source);
 			Assert.AreEqual(orderingValueSelectorExpression, testing.OrderingValueSelectorExpression);
 			Assert.AreEqual(sortDirection, testing.SortDirection);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -58919,7 +58822,6 @@ namespace ObservableComputations.Test
 			Assert.AreEqual(orderingValueSelectorExpression, testing.OrderingValueSelectorExpression);
 			Assert.AreEqual(sortDirection, testing.SortDirection);
 			Assert.AreEqual(comparerScalar, testing.ComparerScalar);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -58992,7 +58894,6 @@ namespace ObservableComputations.Test
 			Assert.AreEqual(source, testing.Source);
 			Assert.AreEqual(orderingValueSelectorExpression, testing.OrderingValueSelectorExpression);
 			Assert.AreEqual(sortDirection, testing.SortDirection);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -59063,7 +58964,6 @@ namespace ObservableComputations.Test
 			Assert.AreEqual(orderingValueSelectorExpression, testing.OrderingValueSelectorExpression);
 			Assert.AreEqual(sortDirectionScalar, testing.SortDirectionScalar);
 			Assert.AreEqual(comparer, testing.Comparer);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -59136,7 +59036,6 @@ namespace ObservableComputations.Test
 			Assert.AreEqual(source, testing.Source);
 			Assert.AreEqual(orderingValueSelectorExpression, testing.OrderingValueSelectorExpression);
 			Assert.AreEqual(comparer, testing.Comparer);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -59207,7 +59106,6 @@ namespace ObservableComputations.Test
 			Assert.AreEqual(orderingValueSelectorExpression, testing.OrderingValueSelectorExpression);
 			Assert.AreEqual(sortDirectionScalar, testing.SortDirectionScalar);
 			Assert.AreEqual(comparer, testing.Comparer);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -59280,7 +59178,6 @@ namespace ObservableComputations.Test
 			Assert.AreEqual(source, testing.Source);
 			Assert.AreEqual(orderingValueSelectorExpression, testing.OrderingValueSelectorExpression);
 			Assert.AreEqual(comparer, testing.Comparer);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -59351,7 +59248,6 @@ namespace ObservableComputations.Test
 			Assert.AreEqual(orderingValueSelectorExpression, testing.OrderingValueSelectorExpression);
 			Assert.AreEqual(sortDirection, testing.SortDirection);
 			Assert.AreEqual(comparer, testing.Comparer);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -59422,7 +59318,6 @@ namespace ObservableComputations.Test
 			Assert.AreEqual(orderingValueSelectorExpression, testing.OrderingValueSelectorExpression);
 			Assert.AreEqual(sortDirection, testing.SortDirection);
 			Assert.AreEqual(comparer, testing.Comparer);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -59493,7 +59388,6 @@ namespace ObservableComputations.Test
 			Assert.AreEqual(orderingValueSelectorExpression, testing.OrderingValueSelectorExpression);
 			Assert.AreEqual(sortDirectionScalar, testing.SortDirectionScalar);
 			Assert.AreEqual(comparerScalar, testing.ComparerScalar);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -59576,7 +59470,6 @@ namespace ObservableComputations.Test
 			Assert.AreEqual(sourceScalar, testing.SourceScalar);
 			Assert.AreEqual(orderingValueSelectorExpression, testing.OrderingValueSelectorExpression);
 			Assert.AreEqual(sortDirectionScalar, testing.SortDirectionScalar);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -59654,7 +59547,6 @@ namespace ObservableComputations.Test
 			Assert.AreEqual(sourceScalar, testing.SourceScalar);
 			Assert.AreEqual(orderingValueSelectorExpression, testing.OrderingValueSelectorExpression);
 			Assert.AreEqual(comparerScalar, testing.ComparerScalar);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -59729,7 +59621,6 @@ namespace ObservableComputations.Test
 
 			Assert.AreEqual(sourceScalar, testing.SourceScalar);
 			Assert.AreEqual(orderingValueSelectorExpression, testing.OrderingValueSelectorExpression);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -59805,7 +59696,6 @@ namespace ObservableComputations.Test
 			Assert.AreEqual(orderingValueSelectorExpression, testing.OrderingValueSelectorExpression);
 			Assert.AreEqual(sortDirectionScalar, testing.SortDirectionScalar);
 			Assert.AreEqual(comparerScalar, testing.ComparerScalar);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -59888,7 +59778,6 @@ namespace ObservableComputations.Test
 			Assert.AreEqual(sourceScalar, testing.SourceScalar);
 			Assert.AreEqual(orderingValueSelectorExpression, testing.OrderingValueSelectorExpression);
 			Assert.AreEqual(sortDirectionScalar, testing.SortDirectionScalar);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -59966,7 +59855,6 @@ namespace ObservableComputations.Test
 			Assert.AreEqual(sourceScalar, testing.SourceScalar);
 			Assert.AreEqual(orderingValueSelectorExpression, testing.OrderingValueSelectorExpression);
 			Assert.AreEqual(comparerScalar, testing.ComparerScalar);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -60041,7 +59929,6 @@ namespace ObservableComputations.Test
 
 			Assert.AreEqual(sourceScalar, testing.SourceScalar);
 			Assert.AreEqual(orderingValueSelectorExpression, testing.OrderingValueSelectorExpression);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -60117,7 +60004,6 @@ namespace ObservableComputations.Test
 			Assert.AreEqual(orderingValueSelectorExpression, testing.OrderingValueSelectorExpression);
 			Assert.AreEqual(sortDirection, testing.SortDirection);
 			Assert.AreEqual(comparerScalar, testing.ComparerScalar);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -60195,7 +60081,6 @@ namespace ObservableComputations.Test
 			Assert.AreEqual(sourceScalar, testing.SourceScalar);
 			Assert.AreEqual(orderingValueSelectorExpression, testing.OrderingValueSelectorExpression);
 			Assert.AreEqual(sortDirection, testing.SortDirection);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -60271,7 +60156,6 @@ namespace ObservableComputations.Test
 			Assert.AreEqual(orderingValueSelectorExpression, testing.OrderingValueSelectorExpression);
 			Assert.AreEqual(sortDirection, testing.SortDirection);
 			Assert.AreEqual(comparerScalar, testing.ComparerScalar);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -60349,7 +60233,6 @@ namespace ObservableComputations.Test
 			Assert.AreEqual(sourceScalar, testing.SourceScalar);
 			Assert.AreEqual(orderingValueSelectorExpression, testing.OrderingValueSelectorExpression);
 			Assert.AreEqual(sortDirection, testing.SortDirection);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -60425,7 +60308,6 @@ namespace ObservableComputations.Test
 			Assert.AreEqual(orderingValueSelectorExpression, testing.OrderingValueSelectorExpression);
 			Assert.AreEqual(sortDirectionScalar, testing.SortDirectionScalar);
 			Assert.AreEqual(comparer, testing.Comparer);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -60503,7 +60385,6 @@ namespace ObservableComputations.Test
 			Assert.AreEqual(sourceScalar, testing.SourceScalar);
 			Assert.AreEqual(orderingValueSelectorExpression, testing.OrderingValueSelectorExpression);
 			Assert.AreEqual(comparer, testing.Comparer);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -60579,7 +60460,6 @@ namespace ObservableComputations.Test
 			Assert.AreEqual(orderingValueSelectorExpression, testing.OrderingValueSelectorExpression);
 			Assert.AreEqual(sortDirectionScalar, testing.SortDirectionScalar);
 			Assert.AreEqual(comparer, testing.Comparer);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -60657,7 +60537,6 @@ namespace ObservableComputations.Test
 			Assert.AreEqual(sourceScalar, testing.SourceScalar);
 			Assert.AreEqual(orderingValueSelectorExpression, testing.OrderingValueSelectorExpression);
 			Assert.AreEqual(comparer, testing.Comparer);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -60733,7 +60612,6 @@ namespace ObservableComputations.Test
 			Assert.AreEqual(orderingValueSelectorExpression, testing.OrderingValueSelectorExpression);
 			Assert.AreEqual(sortDirection, testing.SortDirection);
 			Assert.AreEqual(comparer, testing.Comparer);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -60809,7 +60687,6 @@ namespace ObservableComputations.Test
 			Assert.AreEqual(orderingValueSelectorExpression, testing.OrderingValueSelectorExpression);
 			Assert.AreEqual(sortDirection, testing.SortDirection);
 			Assert.AreEqual(comparer, testing.Comparer);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -60884,7 +60761,6 @@ namespace ObservableComputations.Test
 
 			Assert.AreEqual(source, testing.Source);
 			Assert.AreEqual(pageSize, testing.PageSize);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -60949,7 +60825,6 @@ namespace ObservableComputations.Test
 
 			Assert.AreEqual(source, testing.Source);
 			Assert.AreEqual(pageSize, testing.PageSize);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -61016,7 +60891,6 @@ namespace ObservableComputations.Test
 
 			Assert.AreEqual(source, testing.Source);
 			Assert.AreEqual(pageSize, testing.PageSize);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -61081,7 +60955,6 @@ namespace ObservableComputations.Test
 
 			Assert.AreEqual(source, testing.Source);
 			Assert.AreEqual(pageSize, testing.PageSize);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -61148,7 +61021,6 @@ namespace ObservableComputations.Test
 
 			Assert.AreEqual(sourceScalar, testing.SourceScalar);
 			Assert.AreEqual(pageSize, testing.PageSize);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -61218,7 +61090,6 @@ namespace ObservableComputations.Test
 
 			Assert.AreEqual(sourceScalar, testing.SourceScalar);
 			Assert.AreEqual(pageSize, testing.PageSize);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -61290,7 +61161,6 @@ namespace ObservableComputations.Test
 
 			Assert.AreEqual(sourceScalar, testing.SourceScalar);
 			Assert.AreEqual(pageSize, testing.PageSize);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -61360,7 +61230,6 @@ namespace ObservableComputations.Test
 
 			Assert.AreEqual(sourceScalar, testing.SourceScalar);
 			Assert.AreEqual(pageSize, testing.PageSize);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -61432,7 +61301,6 @@ namespace ObservableComputations.Test
 
 			Assert.AreEqual(source, testing.Source);
 			Assert.AreEqual(pageSizeScalar, testing.PageSizeScalar);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -61519,7 +61387,6 @@ namespace ObservableComputations.Test
 
 			Assert.AreEqual(source, testing.Source);
 			Assert.AreEqual(pageSizeScalar, testing.PageSizeScalar);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -61608,7 +61475,6 @@ namespace ObservableComputations.Test
 
 			Assert.AreEqual(source, testing.Source);
 			Assert.AreEqual(pageSizeScalar, testing.PageSizeScalar);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -61695,7 +61561,6 @@ namespace ObservableComputations.Test
 
 			Assert.AreEqual(source, testing.Source);
 			Assert.AreEqual(pageSizeScalar, testing.PageSizeScalar);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -61784,7 +61649,6 @@ namespace ObservableComputations.Test
 
 			Assert.AreEqual(sourceScalar, testing.SourceScalar);
 			Assert.AreEqual(pageSizeScalar, testing.PageSizeScalar);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -61876,7 +61740,6 @@ namespace ObservableComputations.Test
 
 			Assert.AreEqual(sourceScalar, testing.SourceScalar);
 			Assert.AreEqual(pageSizeScalar, testing.PageSizeScalar);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -61970,7 +61833,6 @@ namespace ObservableComputations.Test
 
 			Assert.AreEqual(sourceScalar, testing.SourceScalar);
 			Assert.AreEqual(pageSizeScalar, testing.PageSizeScalar);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -62062,7 +61924,6 @@ namespace ObservableComputations.Test
 
 			Assert.AreEqual(sourceScalar, testing.SourceScalar);
 			Assert.AreEqual(pageSizeScalar, testing.PageSizeScalar);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -62157,7 +62018,6 @@ namespace ObservableComputations.Test
 			Assert.AreEqual(source, testing.Source);
 			Assert.AreEqual(pageSizeScalar, testing.PageSizeScalar);
 			Assert.AreEqual(currentPageScalar, testing.CurrentPageScalar);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -62269,7 +62129,6 @@ namespace ObservableComputations.Test
 			Assert.AreEqual(source, testing.Source);
 			Assert.AreEqual(pageSizeScalar, testing.PageSizeScalar);
 			Assert.AreEqual(currentPageScalar, testing.CurrentPageScalar);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -62381,7 +62240,6 @@ namespace ObservableComputations.Test
 			Assert.AreEqual(sourceScalar, testing.SourceScalar);
 			Assert.AreEqual(pageSizeScalar, testing.PageSizeScalar);
 			Assert.AreEqual(currentPageScalar, testing.CurrentPageScalar);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -62498,7 +62356,6 @@ namespace ObservableComputations.Test
 			Assert.AreEqual(sourceScalar, testing.SourceScalar);
 			Assert.AreEqual(pageSizeScalar, testing.PageSizeScalar);
 			Assert.AreEqual(currentPageScalar, testing.CurrentPageScalar);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -62615,7 +62472,6 @@ namespace ObservableComputations.Test
 			Assert.AreEqual(source, testing.Source);
 			Assert.AreEqual(pageSize, testing.PageSize);
 			Assert.AreEqual(currentPageScalar, testing.CurrentPageScalar);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -62705,7 +62561,6 @@ namespace ObservableComputations.Test
 			Assert.AreEqual(source, testing.Source);
 			Assert.AreEqual(pageSize, testing.PageSize);
 			Assert.AreEqual(currentPageScalar, testing.CurrentPageScalar);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -62795,7 +62650,6 @@ namespace ObservableComputations.Test
 			Assert.AreEqual(sourceScalar, testing.SourceScalar);
 			Assert.AreEqual(pageSize, testing.PageSize);
 			Assert.AreEqual(currentPageScalar, testing.CurrentPageScalar);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -62890,7 +62744,6 @@ namespace ObservableComputations.Test
 			Assert.AreEqual(sourceScalar, testing.SourceScalar);
 			Assert.AreEqual(pageSize, testing.PageSize);
 			Assert.AreEqual(currentPageScalar, testing.CurrentPageScalar);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -62988,7 +62841,6 @@ namespace ObservableComputations.Test
 			Assert.AreEqual(outerSourceScalar, testing.OuterSourceScalar);
 			Assert.AreEqual(innerSourceScalar, testing.InnerSourceScalar);
 			Assert.AreEqual(joinPredicateExpression, testing.JoinPredicateExpression);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -63107,7 +62959,6 @@ namespace ObservableComputations.Test
 			Assert.AreEqual(outerSourceScalar, testing.OuterSourceScalar);
 			Assert.AreEqual(innerSourceScalar, testing.InnerSourceScalar);
 			Assert.AreEqual(joinPredicateExpression, testing.JoinPredicateExpression);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -63226,7 +63077,6 @@ namespace ObservableComputations.Test
 			Assert.AreEqual(outerSourceScalar, testing.OuterSourceScalar);
 			Assert.AreEqual(innerSourceScalar, testing.InnerSourceScalar);
 			Assert.AreEqual(joinPredicateExpression, testing.JoinPredicateExpression);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -63345,7 +63195,6 @@ namespace ObservableComputations.Test
 			Assert.AreEqual(outerSourceScalar, testing.OuterSourceScalar);
 			Assert.AreEqual(innerSourceScalar, testing.InnerSourceScalar);
 			Assert.AreEqual(joinPredicateExpression, testing.JoinPredicateExpression);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -63464,7 +63313,6 @@ namespace ObservableComputations.Test
 			Assert.AreEqual(outerSourceScalar, testing.OuterSourceScalar);
 			Assert.AreEqual(innerSource, testing.InnerSource);
 			Assert.AreEqual(joinPredicateExpression, testing.JoinPredicateExpression);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -63578,7 +63426,6 @@ namespace ObservableComputations.Test
 			Assert.AreEqual(outerSourceScalar, testing.OuterSourceScalar);
 			Assert.AreEqual(innerSource, testing.InnerSource);
 			Assert.AreEqual(joinPredicateExpression, testing.JoinPredicateExpression);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -63692,7 +63539,6 @@ namespace ObservableComputations.Test
 			Assert.AreEqual(outerSourceScalar, testing.OuterSourceScalar);
 			Assert.AreEqual(innerSource, testing.InnerSource);
 			Assert.AreEqual(joinPredicateExpression, testing.JoinPredicateExpression);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -63806,7 +63652,6 @@ namespace ObservableComputations.Test
 			Assert.AreEqual(outerSourceScalar, testing.OuterSourceScalar);
 			Assert.AreEqual(innerSource, testing.InnerSource);
 			Assert.AreEqual(joinPredicateExpression, testing.JoinPredicateExpression);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -63920,7 +63765,6 @@ namespace ObservableComputations.Test
 			Assert.AreEqual(outerSource, testing.OuterSource);
 			Assert.AreEqual(innerSourceScalar, testing.InnerSourceScalar);
 			Assert.AreEqual(joinPredicateExpression, testing.JoinPredicateExpression);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -64034,7 +63878,6 @@ namespace ObservableComputations.Test
 			Assert.AreEqual(outerSource, testing.OuterSource);
 			Assert.AreEqual(innerSourceScalar, testing.InnerSourceScalar);
 			Assert.AreEqual(joinPredicateExpression, testing.JoinPredicateExpression);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -64148,7 +63991,6 @@ namespace ObservableComputations.Test
 			Assert.AreEqual(outerSource, testing.OuterSource);
 			Assert.AreEqual(innerSourceScalar, testing.InnerSourceScalar);
 			Assert.AreEqual(joinPredicateExpression, testing.JoinPredicateExpression);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -64262,7 +64104,6 @@ namespace ObservableComputations.Test
 			Assert.AreEqual(outerSource, testing.OuterSource);
 			Assert.AreEqual(innerSourceScalar, testing.InnerSourceScalar);
 			Assert.AreEqual(joinPredicateExpression, testing.JoinPredicateExpression);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -64376,7 +64217,6 @@ namespace ObservableComputations.Test
 			Assert.AreEqual(outerSource, testing.OuterSource);
 			Assert.AreEqual(innerSource, testing.InnerSource);
 			Assert.AreEqual(joinPredicateExpression, testing.JoinPredicateExpression);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -64485,7 +64325,6 @@ namespace ObservableComputations.Test
 			Assert.AreEqual(outerSource, testing.OuterSource);
 			Assert.AreEqual(innerSource, testing.InnerSource);
 			Assert.AreEqual(joinPredicateExpression, testing.JoinPredicateExpression);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -64594,7 +64433,6 @@ namespace ObservableComputations.Test
 			Assert.AreEqual(outerSource, testing.OuterSource);
 			Assert.AreEqual(innerSource, testing.InnerSource);
 			Assert.AreEqual(joinPredicateExpression, testing.JoinPredicateExpression);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -64703,7 +64541,6 @@ namespace ObservableComputations.Test
 			Assert.AreEqual(outerSource, testing.OuterSource);
 			Assert.AreEqual(innerSource, testing.InnerSource);
 			Assert.AreEqual(joinPredicateExpression, testing.JoinPredicateExpression);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -64812,7 +64649,6 @@ namespace ObservableComputations.Test
 
 			Assert.AreEqual(sourceScalar, testing.SourceScalar);
 			Assert.AreEqual(itemScalar, testing.ItemScalar);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -64887,7 +64723,6 @@ namespace ObservableComputations.Test
 
 			Assert.AreEqual(sourceScalar, testing.SourceScalar);
 			Assert.AreEqual(itemScalar, testing.ItemScalar);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -64962,7 +64797,6 @@ namespace ObservableComputations.Test
 
 			Assert.AreEqual(source, testing.Source);
 			Assert.AreEqual(itemScalar, testing.ItemScalar);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -65032,7 +64866,6 @@ namespace ObservableComputations.Test
 
 			Assert.AreEqual(source, testing.Source);
 			Assert.AreEqual(itemScalar, testing.ItemScalar);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -65102,7 +64935,6 @@ namespace ObservableComputations.Test
 
 			Assert.AreEqual(source, testing.Source);
 			Assert.AreEqual(item, testing.Item);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -65167,7 +64999,6 @@ namespace ObservableComputations.Test
 
 			Assert.AreEqual(source, testing.Source);
 			Assert.AreEqual(item, testing.Item);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -65232,7 +65063,6 @@ namespace ObservableComputations.Test
 
 			Assert.AreEqual(sourceScalar, testing.SourceScalar);
 			Assert.AreEqual(item, testing.Item);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -65302,7 +65132,6 @@ namespace ObservableComputations.Test
 
 			Assert.AreEqual(sourceScalar, testing.SourceScalar);
 			Assert.AreEqual(item, testing.Item);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -65372,7 +65201,6 @@ namespace ObservableComputations.Test
 			var testing = source.PreviousTracking<int>().For(consumer);
 
 			Assert.AreEqual(source, testing.Source);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -65405,7 +65233,6 @@ namespace ObservableComputations.Test
 			Assert.AreEqual(sourceScalar, testing.SourceScalar);
 			Assert.AreEqual(propertyName, testing.PropertyName);
 			Assert.AreEqual(defaultValue, testing.DefaultValue);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -65435,7 +65262,6 @@ namespace ObservableComputations.Test
 
 			Assert.AreEqual(sourceScalar, testing.SourceScalar);
 			Assert.AreEqual(propertyName, testing.PropertyName);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -65471,7 +65297,6 @@ namespace ObservableComputations.Test
 			Assert.AreEqual(propertyName, testing.PropertyName);
 			Assert.AreEqual(bindingAttr, testing.BindingAttr);
 			Assert.AreEqual(defaultValue, testing.DefaultValue);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -65504,7 +65329,6 @@ namespace ObservableComputations.Test
 			Assert.AreEqual(sourceScalar, testing.SourceScalar);
 			Assert.AreEqual(propertyName, testing.PropertyName);
 			Assert.AreEqual(bindingAttr, testing.BindingAttr);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -65540,7 +65364,6 @@ namespace ObservableComputations.Test
 			Assert.AreEqual(propertyName, testing.PropertyName);
 			Assert.AreEqual(returnType, testing.ReturnType);
 			Assert.AreEqual(defaultValue, testing.DefaultValue);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -65573,7 +65396,6 @@ namespace ObservableComputations.Test
 			Assert.AreEqual(sourceScalar, testing.SourceScalar);
 			Assert.AreEqual(propertyName, testing.PropertyName);
 			Assert.AreEqual(returnType, testing.ReturnType);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -65612,7 +65434,6 @@ namespace ObservableComputations.Test
 			Assert.AreEqual(returnType, testing.ReturnType);
 			Assert.AreEqual(types, testing.Types);
 			Assert.AreEqual(defaultValue, testing.DefaultValue);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -65648,7 +65469,6 @@ namespace ObservableComputations.Test
 			Assert.AreEqual(propertyName, testing.PropertyName);
 			Assert.AreEqual(returnType, testing.ReturnType);
 			Assert.AreEqual(types, testing.Types);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -65690,7 +65510,6 @@ namespace ObservableComputations.Test
 			Assert.AreEqual(types, testing.Types);
 			Assert.AreEqual(modifiers, testing.Modifiers);
 			Assert.AreEqual(defaultValue, testing.DefaultValue);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -65729,7 +65548,6 @@ namespace ObservableComputations.Test
 			Assert.AreEqual(returnType, testing.ReturnType);
 			Assert.AreEqual(types, testing.Types);
 			Assert.AreEqual(modifiers, testing.Modifiers);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -65777,7 +65595,6 @@ namespace ObservableComputations.Test
 			Assert.AreEqual(types, testing.Types);
 			Assert.AreEqual(modifiers, testing.Modifiers);
 			Assert.AreEqual(defaultValue, testing.DefaultValue);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -65822,7 +65639,6 @@ namespace ObservableComputations.Test
 			Assert.AreEqual(returnType, testing.ReturnType);
 			Assert.AreEqual(types, testing.Types);
 			Assert.AreEqual(modifiers, testing.Modifiers);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -65855,7 +65671,6 @@ namespace ObservableComputations.Test
 			Assert.AreEqual(sourceScalar, testing.SourceScalar);
 			Assert.AreEqual(propertyInfoPredicate, testing.PropertyInfoPredicate);
 			Assert.AreEqual(defaultValue, testing.DefaultValue);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -65885,7 +65700,6 @@ namespace ObservableComputations.Test
 
 			Assert.AreEqual(sourceScalar, testing.SourceScalar);
 			Assert.AreEqual(propertyInfoPredicate, testing.PropertyInfoPredicate);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -65921,7 +65735,6 @@ namespace ObservableComputations.Test
 			Assert.AreEqual(propertyInfoPredicate, testing.PropertyInfoPredicate);
 			Assert.AreEqual(bindingAttr, testing.BindingAttr);
 			Assert.AreEqual(defaultValue, testing.DefaultValue);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -65954,7 +65767,6 @@ namespace ObservableComputations.Test
 			Assert.AreEqual(sourceScalar, testing.SourceScalar);
 			Assert.AreEqual(propertyInfoPredicate, testing.PropertyInfoPredicate);
 			Assert.AreEqual(bindingAttr, testing.BindingAttr);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -65987,7 +65799,6 @@ namespace ObservableComputations.Test
 			Assert.AreEqual(source, testing.Source);
 			Assert.AreEqual(propertyName, testing.PropertyName);
 			Assert.AreEqual(defaultValue, testing.DefaultValue);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -66011,7 +65822,6 @@ namespace ObservableComputations.Test
 
 			Assert.AreEqual(source, testing.Source);
 			Assert.AreEqual(propertyName, testing.PropertyName);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -66041,7 +65851,6 @@ namespace ObservableComputations.Test
 			Assert.AreEqual(propertyName, testing.PropertyName);
 			Assert.AreEqual(bindingAttr, testing.BindingAttr);
 			Assert.AreEqual(defaultValue, testing.DefaultValue);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -66068,7 +65877,6 @@ namespace ObservableComputations.Test
 			Assert.AreEqual(source, testing.Source);
 			Assert.AreEqual(propertyName, testing.PropertyName);
 			Assert.AreEqual(bindingAttr, testing.BindingAttr);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -66098,7 +65906,6 @@ namespace ObservableComputations.Test
 			Assert.AreEqual(propertyName, testing.PropertyName);
 			Assert.AreEqual(returnType, testing.ReturnType);
 			Assert.AreEqual(defaultValue, testing.DefaultValue);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -66125,7 +65932,6 @@ namespace ObservableComputations.Test
 			Assert.AreEqual(source, testing.Source);
 			Assert.AreEqual(propertyName, testing.PropertyName);
 			Assert.AreEqual(returnType, testing.ReturnType);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -66158,7 +65964,6 @@ namespace ObservableComputations.Test
 			Assert.AreEqual(returnType, testing.ReturnType);
 			Assert.AreEqual(types, testing.Types);
 			Assert.AreEqual(defaultValue, testing.DefaultValue);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -66188,7 +65993,6 @@ namespace ObservableComputations.Test
 			Assert.AreEqual(propertyName, testing.PropertyName);
 			Assert.AreEqual(returnType, testing.ReturnType);
 			Assert.AreEqual(types, testing.Types);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -66224,7 +66028,6 @@ namespace ObservableComputations.Test
 			Assert.AreEqual(types, testing.Types);
 			Assert.AreEqual(modifiers, testing.Modifiers);
 			Assert.AreEqual(defaultValue, testing.DefaultValue);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -66257,7 +66060,6 @@ namespace ObservableComputations.Test
 			Assert.AreEqual(returnType, testing.ReturnType);
 			Assert.AreEqual(types, testing.Types);
 			Assert.AreEqual(modifiers, testing.Modifiers);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -66299,7 +66101,6 @@ namespace ObservableComputations.Test
 			Assert.AreEqual(types, testing.Types);
 			Assert.AreEqual(modifiers, testing.Modifiers);
 			Assert.AreEqual(defaultValue, testing.DefaultValue);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -66338,7 +66139,6 @@ namespace ObservableComputations.Test
 			Assert.AreEqual(returnType, testing.ReturnType);
 			Assert.AreEqual(types, testing.Types);
 			Assert.AreEqual(modifiers, testing.Modifiers);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -66365,7 +66165,6 @@ namespace ObservableComputations.Test
 			Assert.AreEqual(source, testing.Source);
 			Assert.AreEqual(propertyInfoPredicate, testing.PropertyInfoPredicate);
 			Assert.AreEqual(defaultValue, testing.DefaultValue);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -66389,7 +66188,6 @@ namespace ObservableComputations.Test
 
 			Assert.AreEqual(source, testing.Source);
 			Assert.AreEqual(propertyInfoPredicate, testing.PropertyInfoPredicate);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -66419,7 +66217,6 @@ namespace ObservableComputations.Test
 			Assert.AreEqual(propertyInfoPredicate, testing.PropertyInfoPredicate);
 			Assert.AreEqual(bindingAttr, testing.BindingAttr);
 			Assert.AreEqual(defaultValue, testing.DefaultValue);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -66446,7 +66243,6 @@ namespace ObservableComputations.Test
 			Assert.AreEqual(source, testing.Source);
 			Assert.AreEqual(propertyInfoPredicate, testing.PropertyInfoPredicate);
 			Assert.AreEqual(bindingAttr, testing.BindingAttr);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -66470,7 +66266,6 @@ namespace ObservableComputations.Test
 			var testing = sourceScalar.Reversing<Item>().For(consumer);
 
 			Assert.AreEqual(sourceScalar, testing.SourceScalar);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -66537,7 +66332,6 @@ namespace ObservableComputations.Test
 			var testing = sourceScalar.Reversing<Item>().For(consumer);
 
 			Assert.AreEqual(sourceScalar, testing.SourceScalar);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -66604,7 +66398,6 @@ namespace ObservableComputations.Test
 			var testing = source.Reversing<Item>().For(consumer);
 
 			Assert.AreEqual(source, testing.Source);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -66666,7 +66459,6 @@ namespace ObservableComputations.Test
 			var testing = source.Reversing<Item>().For(consumer);
 
 			Assert.AreEqual(source, testing.Source);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -66724,13 +66516,13 @@ namespace ObservableComputations.Test
 
 		
 		[Test, Combinatorial]
-		public void TestScalarDispatching01(
-			[Values()] int destinationOcDispatcherPriority,
-			[Values()] int sourceOcDispatcherPriority)
+		public void TestScalarDispatching01()
 		{
 			Scalar<int> source = getScalar<int>(0);
 			ObservableComputations.IOcDispatcher destinationOcDispatcher = new OcDispatcher();
 			ObservableComputations.IOcDispatcher sourceOcDispatcher = new OcDispatcher();
+			int destinationOcDispatcherPriority = 0;
+			int sourceOcDispatcherPriority = 0;
 			object destinationOcDispatcherParameter = new object();
 			object sourceOcDispatcherParameter = new object();
 			OcConsumer consumer = new OcConsumer();
@@ -66750,31 +66542,38 @@ namespace ObservableComputations.Test
 			Assert.AreEqual(destinationOcDispatcherParameter, testing.DestinationOcDispatcherParameter);
 			Assert.AreEqual(sourceOcDispatcherParameter, testing.SourceOcDispatcherParameter);
 
+			void sync()
+			{
+				((OcDispatcher)sourceOcDispatcher).Invoke(() => {});
+				((OcDispatcher)destinationOcDispatcher).Invoke(() => {});
+			}
+
 			void test()
 			{
 				testing.ValidateConsistency();
 
 				IList listSource;
-				((Scalar<int>)source).Change(1);
-				((Scalar<int>)source).Change(2);
-				((Scalar<int>)source).Change(3);
+				sync(); ((Scalar<int>)source).Change(1);
+				sync(); ((Scalar<int>)source).Change(2);
+				sync(); ((Scalar<int>)source).Change(3);
 				testing.ValidateConsistency();
 			}
 
 			test();
-			consumer.Dispose();
-			((OcDispatcher)destinationOcDispatcher).Dispose();
+			sync(); consumer.Dispose();
 			((OcDispatcher)sourceOcDispatcher).Dispose();
+			
+			((OcDispatcher)destinationOcDispatcher).Dispose();
 		}
 		
 		[Test, Combinatorial]
-		public void TestScalarDispatching02(
-			[Values()] int destinationOcDispatcherPriority,
-			[Values()] int sourceOcDispatcherPriority)
+		public void TestScalarDispatching02()
 		{
 			Scalar<int> source = getScalar<int>(0);
 			ObservableComputations.IOcDispatcher destinationOcDispatcher = new OcDispatcher();
 			ObservableComputations.IOcDispatcher sourceOcDispatcher = new OcDispatcher();
+			int destinationOcDispatcherPriority = 0;
+			int sourceOcDispatcherPriority = 0;
 			object destinationOcDispatcherParameter = new object();
 			OcConsumer consumer = new OcConsumer();
 			var testing = source.ScalarDispatching<int>(
@@ -66791,31 +66590,38 @@ namespace ObservableComputations.Test
 			Assert.AreEqual(sourceOcDispatcherPriority, testing.SourceOcDispatcherPriority);
 			Assert.AreEqual(destinationOcDispatcherParameter, testing.DestinationOcDispatcherParameter);
 
+			void sync()
+			{
+				((OcDispatcher)sourceOcDispatcher).Invoke(() => {});
+				((OcDispatcher)destinationOcDispatcher).Invoke(() => {});
+			}
+
 			void test()
 			{
 				testing.ValidateConsistency();
 
 				IList listSource;
-				((Scalar<int>)source).Change(1);
-				((Scalar<int>)source).Change(2);
-				((Scalar<int>)source).Change(3);
+				sync(); ((Scalar<int>)source).Change(1);
+				sync(); ((Scalar<int>)source).Change(2);
+				sync(); ((Scalar<int>)source).Change(3);
 				testing.ValidateConsistency();
 			}
 
 			test();
-			consumer.Dispose();
-			((OcDispatcher)destinationOcDispatcher).Dispose();
+			sync(); consumer.Dispose();
 			((OcDispatcher)sourceOcDispatcher).Dispose();
+			
+			((OcDispatcher)destinationOcDispatcher).Dispose();
 		}
 		
 		[Test, Combinatorial]
-		public void TestScalarDispatching03(
-			[Values()] int destinationOcDispatcherPriority,
-			[Values()] int sourceOcDispatcherPriority)
+		public void TestScalarDispatching03()
 		{
 			Scalar<int> source = getScalar<int>(0);
 			ObservableComputations.IOcDispatcher destinationOcDispatcher = new OcDispatcher();
 			ObservableComputations.IOcDispatcher sourceOcDispatcher = new OcDispatcher();
+			int destinationOcDispatcherPriority = 0;
+			int sourceOcDispatcherPriority = 0;
 			OcConsumer consumer = new OcConsumer();
 			var testing = source.ScalarDispatching<int>(
 				destinationOcDispatcher,
@@ -66829,30 +66635,37 @@ namespace ObservableComputations.Test
 			Assert.AreEqual(destinationOcDispatcherPriority, testing.DestinationOcDispatcherPriority);
 			Assert.AreEqual(sourceOcDispatcherPriority, testing.SourceOcDispatcherPriority);
 
+			void sync()
+			{
+				((OcDispatcher)sourceOcDispatcher).Invoke(() => {});
+				((OcDispatcher)destinationOcDispatcher).Invoke(() => {});
+			}
+
 			void test()
 			{
 				testing.ValidateConsistency();
 
 				IList listSource;
-				((Scalar<int>)source).Change(1);
-				((Scalar<int>)source).Change(2);
-				((Scalar<int>)source).Change(3);
+				sync(); ((Scalar<int>)source).Change(1);
+				sync(); ((Scalar<int>)source).Change(2);
+				sync(); ((Scalar<int>)source).Change(3);
 				testing.ValidateConsistency();
 			}
 
 			test();
-			consumer.Dispose();
-			((OcDispatcher)destinationOcDispatcher).Dispose();
+			sync(); consumer.Dispose();
 			((OcDispatcher)sourceOcDispatcher).Dispose();
+			
+			((OcDispatcher)destinationOcDispatcher).Dispose();
 		}
 		
 		[Test, Combinatorial]
-		public void TestScalarDispatching04(
-			[Values()] int destinationOcDispatcherPriority)
+		public void TestScalarDispatching04()
 		{
 			Scalar<int> source = getScalar<int>(0);
 			ObservableComputations.IOcDispatcher destinationOcDispatcher = new OcDispatcher();
 			ObservableComputations.IOcDispatcher sourceOcDispatcher = new OcDispatcher();
+			int destinationOcDispatcherPriority = 0;
 			object destinationOcDispatcherParameter = new object();
 			object sourceOcDispatcherParameter = new object();
 			OcConsumer consumer = new OcConsumer();
@@ -66870,30 +66683,37 @@ namespace ObservableComputations.Test
 			Assert.AreEqual(destinationOcDispatcherParameter, testing.DestinationOcDispatcherParameter);
 			Assert.AreEqual(sourceOcDispatcherParameter, testing.SourceOcDispatcherParameter);
 
+			void sync()
+			{
+				((OcDispatcher)sourceOcDispatcher).Invoke(() => {});
+				((OcDispatcher)destinationOcDispatcher).Invoke(() => {});
+			}
+
 			void test()
 			{
 				testing.ValidateConsistency();
 
 				IList listSource;
-				((Scalar<int>)source).Change(1);
-				((Scalar<int>)source).Change(2);
-				((Scalar<int>)source).Change(3);
+				sync(); ((Scalar<int>)source).Change(1);
+				sync(); ((Scalar<int>)source).Change(2);
+				sync(); ((Scalar<int>)source).Change(3);
 				testing.ValidateConsistency();
 			}
 
 			test();
-			consumer.Dispose();
-			((OcDispatcher)destinationOcDispatcher).Dispose();
+			sync(); consumer.Dispose();
 			((OcDispatcher)sourceOcDispatcher).Dispose();
+			
+			((OcDispatcher)destinationOcDispatcher).Dispose();
 		}
 		
 		[Test, Combinatorial]
-		public void TestScalarDispatching05(
-			[Values()] int destinationOcDispatcherPriority)
+		public void TestScalarDispatching05()
 		{
 			Scalar<int> source = getScalar<int>(0);
 			ObservableComputations.IOcDispatcher destinationOcDispatcher = new OcDispatcher();
 			ObservableComputations.IOcDispatcher sourceOcDispatcher = new OcDispatcher();
+			int destinationOcDispatcherPriority = 0;
 			object destinationOcDispatcherParameter = new object();
 			OcConsumer consumer = new OcConsumer();
 			var testing = source.ScalarDispatching<int>(
@@ -66908,30 +66728,37 @@ namespace ObservableComputations.Test
 			Assert.AreEqual(destinationOcDispatcherPriority, testing.DestinationOcDispatcherPriority);
 			Assert.AreEqual(destinationOcDispatcherParameter, testing.DestinationOcDispatcherParameter);
 
+			void sync()
+			{
+				((OcDispatcher)sourceOcDispatcher).Invoke(() => {});
+				((OcDispatcher)destinationOcDispatcher).Invoke(() => {});
+			}
+
 			void test()
 			{
 				testing.ValidateConsistency();
 
 				IList listSource;
-				((Scalar<int>)source).Change(1);
-				((Scalar<int>)source).Change(2);
-				((Scalar<int>)source).Change(3);
+				sync(); ((Scalar<int>)source).Change(1);
+				sync(); ((Scalar<int>)source).Change(2);
+				sync(); ((Scalar<int>)source).Change(3);
 				testing.ValidateConsistency();
 			}
 
 			test();
-			consumer.Dispose();
-			((OcDispatcher)destinationOcDispatcher).Dispose();
+			sync(); consumer.Dispose();
 			((OcDispatcher)sourceOcDispatcher).Dispose();
+			
+			((OcDispatcher)destinationOcDispatcher).Dispose();
 		}
 		
 		[Test, Combinatorial]
-		public void TestScalarDispatching06(
-			[Values()] int destinationOcDispatcherPriority)
+		public void TestScalarDispatching06()
 		{
 			Scalar<int> source = getScalar<int>(0);
 			ObservableComputations.IOcDispatcher destinationOcDispatcher = new OcDispatcher();
 			ObservableComputations.IOcDispatcher sourceOcDispatcher = new OcDispatcher();
+			int destinationOcDispatcherPriority = 0;
 			OcConsumer consumer = new OcConsumer();
 			var testing = source.ScalarDispatching<int>(
 				destinationOcDispatcher,
@@ -66943,21 +66770,28 @@ namespace ObservableComputations.Test
 			Assert.AreEqual(sourceOcDispatcher, testing.SourceOcDispatcher);
 			Assert.AreEqual(destinationOcDispatcherPriority, testing.DestinationOcDispatcherPriority);
 
+			void sync()
+			{
+				((OcDispatcher)sourceOcDispatcher).Invoke(() => {});
+				((OcDispatcher)destinationOcDispatcher).Invoke(() => {});
+			}
+
 			void test()
 			{
 				testing.ValidateConsistency();
 
 				IList listSource;
-				((Scalar<int>)source).Change(1);
-				((Scalar<int>)source).Change(2);
-				((Scalar<int>)source).Change(3);
+				sync(); ((Scalar<int>)source).Change(1);
+				sync(); ((Scalar<int>)source).Change(2);
+				sync(); ((Scalar<int>)source).Change(3);
 				testing.ValidateConsistency();
 			}
 
 			test();
-			consumer.Dispose();
-			((OcDispatcher)destinationOcDispatcher).Dispose();
+			sync(); consumer.Dispose();
 			((OcDispatcher)sourceOcDispatcher).Dispose();
+			
+			((OcDispatcher)destinationOcDispatcher).Dispose();
 		}
 		
 		[Test, Combinatorial]
@@ -66981,21 +66815,28 @@ namespace ObservableComputations.Test
 			Assert.AreEqual(destinationOcDispatcherParameter, testing.DestinationOcDispatcherParameter);
 			Assert.AreEqual(sourceOcDispatcherParameter, testing.SourceOcDispatcherParameter);
 
+			void sync()
+			{
+				((OcDispatcher)sourceOcDispatcher).Invoke(() => {});
+				((OcDispatcher)destinationOcDispatcher).Invoke(() => {});
+			}
+
 			void test()
 			{
 				testing.ValidateConsistency();
 
 				IList listSource;
-				((Scalar<int>)source).Change(1);
-				((Scalar<int>)source).Change(2);
-				((Scalar<int>)source).Change(3);
+				sync(); ((Scalar<int>)source).Change(1);
+				sync(); ((Scalar<int>)source).Change(2);
+				sync(); ((Scalar<int>)source).Change(3);
 				testing.ValidateConsistency();
 			}
 
 			test();
-			consumer.Dispose();
-			((OcDispatcher)destinationOcDispatcher).Dispose();
+			sync(); consumer.Dispose();
 			((OcDispatcher)sourceOcDispatcher).Dispose();
+			
+			((OcDispatcher)destinationOcDispatcher).Dispose();
 		}
 		
 		[Test, Combinatorial]
@@ -67016,21 +66857,28 @@ namespace ObservableComputations.Test
 			Assert.AreEqual(sourceOcDispatcher, testing.SourceOcDispatcher);
 			Assert.AreEqual(destinationOcDispatcherParameter, testing.DestinationOcDispatcherParameter);
 
+			void sync()
+			{
+				((OcDispatcher)sourceOcDispatcher).Invoke(() => {});
+				((OcDispatcher)destinationOcDispatcher).Invoke(() => {});
+			}
+
 			void test()
 			{
 				testing.ValidateConsistency();
 
 				IList listSource;
-				((Scalar<int>)source).Change(1);
-				((Scalar<int>)source).Change(2);
-				((Scalar<int>)source).Change(3);
+				sync(); ((Scalar<int>)source).Change(1);
+				sync(); ((Scalar<int>)source).Change(2);
+				sync(); ((Scalar<int>)source).Change(3);
 				testing.ValidateConsistency();
 			}
 
 			test();
-			consumer.Dispose();
-			((OcDispatcher)destinationOcDispatcher).Dispose();
+			sync(); consumer.Dispose();
 			((OcDispatcher)sourceOcDispatcher).Dispose();
+			
+			((OcDispatcher)destinationOcDispatcher).Dispose();
 		}
 		
 		[Test, Combinatorial]
@@ -67048,30 +66896,37 @@ namespace ObservableComputations.Test
 			Assert.AreEqual(destinationOcDispatcher, testing.DestinationOcDispatcher);
 			Assert.AreEqual(sourceOcDispatcher, testing.SourceOcDispatcher);
 
+			void sync()
+			{
+				((OcDispatcher)sourceOcDispatcher).Invoke(() => {});
+				((OcDispatcher)destinationOcDispatcher).Invoke(() => {});
+			}
+
 			void test()
 			{
 				testing.ValidateConsistency();
 
 				IList listSource;
-				((Scalar<int>)source).Change(1);
-				((Scalar<int>)source).Change(2);
-				((Scalar<int>)source).Change(3);
+				sync(); ((Scalar<int>)source).Change(1);
+				sync(); ((Scalar<int>)source).Change(2);
+				sync(); ((Scalar<int>)source).Change(3);
 				testing.ValidateConsistency();
 			}
 
 			test();
-			consumer.Dispose();
-			((OcDispatcher)destinationOcDispatcher).Dispose();
+			sync(); consumer.Dispose();
 			((OcDispatcher)sourceOcDispatcher).Dispose();
+			
+			((OcDispatcher)destinationOcDispatcher).Dispose();
 		}
 		
 		[Test, Combinatorial]
-		public void TestScalarDispatching10(
-			[Values()] int destinationOcDispatcherPriority,
-			[Values()] int sourceOcDispatcherPriority)
+		public void TestScalarDispatching10()
 		{
 			Scalar<int> source = getScalar<int>(0);
 			ObservableComputations.IOcDispatcher destinationOcDispatcher = new OcDispatcher();
+			int destinationOcDispatcherPriority = 0;
+			int sourceOcDispatcherPriority = 0;
 			object destinationOcDispatcherParameter = new object();
 			object sourceOcDispatcherParameter = new object();
 			OcConsumer consumer = new OcConsumer();
@@ -67089,29 +66944,35 @@ namespace ObservableComputations.Test
 			Assert.AreEqual(destinationOcDispatcherParameter, testing.DestinationOcDispatcherParameter);
 			Assert.AreEqual(sourceOcDispatcherParameter, testing.SourceOcDispatcherParameter);
 
+			void sync()
+			{
+				((OcDispatcher)destinationOcDispatcher).Invoke(() => {});
+			}
+
 			void test()
 			{
 				testing.ValidateConsistency();
 
 				IList listSource;
-				((Scalar<int>)source).Change(1);
-				((Scalar<int>)source).Change(2);
-				((Scalar<int>)source).Change(3);
+				sync(); ((Scalar<int>)source).Change(1);
+				sync(); ((Scalar<int>)source).Change(2);
+				sync(); ((Scalar<int>)source).Change(3);
 				testing.ValidateConsistency();
 			}
 
 			test();
-			consumer.Dispose();
+			sync(); consumer.Dispose();
+			
 			((OcDispatcher)destinationOcDispatcher).Dispose();
 		}
 		
 		[Test, Combinatorial]
-		public void TestScalarDispatching11(
-			[Values()] int destinationOcDispatcherPriority,
-			[Values()] int sourceOcDispatcherPriority)
+		public void TestScalarDispatching11()
 		{
 			Scalar<int> source = getScalar<int>(0);
 			ObservableComputations.IOcDispatcher destinationOcDispatcher = new OcDispatcher();
+			int destinationOcDispatcherPriority = 0;
+			int sourceOcDispatcherPriority = 0;
 			object destinationOcDispatcherParameter = new object();
 			OcConsumer consumer = new OcConsumer();
 			var testing = source.ScalarDispatching<int>(
@@ -67126,29 +66987,35 @@ namespace ObservableComputations.Test
 			Assert.AreEqual(sourceOcDispatcherPriority, testing.SourceOcDispatcherPriority);
 			Assert.AreEqual(destinationOcDispatcherParameter, testing.DestinationOcDispatcherParameter);
 
+			void sync()
+			{
+				((OcDispatcher)destinationOcDispatcher).Invoke(() => {});
+			}
+
 			void test()
 			{
 				testing.ValidateConsistency();
 
 				IList listSource;
-				((Scalar<int>)source).Change(1);
-				((Scalar<int>)source).Change(2);
-				((Scalar<int>)source).Change(3);
+				sync(); ((Scalar<int>)source).Change(1);
+				sync(); ((Scalar<int>)source).Change(2);
+				sync(); ((Scalar<int>)source).Change(3);
 				testing.ValidateConsistency();
 			}
 
 			test();
-			consumer.Dispose();
+			sync(); consumer.Dispose();
+			
 			((OcDispatcher)destinationOcDispatcher).Dispose();
 		}
 		
 		[Test, Combinatorial]
-		public void TestScalarDispatching12(
-			[Values()] int destinationOcDispatcherPriority,
-			[Values()] int sourceOcDispatcherPriority)
+		public void TestScalarDispatching12()
 		{
 			Scalar<int> source = getScalar<int>(0);
 			ObservableComputations.IOcDispatcher destinationOcDispatcher = new OcDispatcher();
+			int destinationOcDispatcherPriority = 0;
+			int sourceOcDispatcherPriority = 0;
 			OcConsumer consumer = new OcConsumer();
 			var testing = source.ScalarDispatching<int>(
 				destinationOcDispatcher,
@@ -67160,28 +67027,34 @@ namespace ObservableComputations.Test
 			Assert.AreEqual(destinationOcDispatcherPriority, testing.DestinationOcDispatcherPriority);
 			Assert.AreEqual(sourceOcDispatcherPriority, testing.SourceOcDispatcherPriority);
 
+			void sync()
+			{
+				((OcDispatcher)destinationOcDispatcher).Invoke(() => {});
+			}
+
 			void test()
 			{
 				testing.ValidateConsistency();
 
 				IList listSource;
-				((Scalar<int>)source).Change(1);
-				((Scalar<int>)source).Change(2);
-				((Scalar<int>)source).Change(3);
+				sync(); ((Scalar<int>)source).Change(1);
+				sync(); ((Scalar<int>)source).Change(2);
+				sync(); ((Scalar<int>)source).Change(3);
 				testing.ValidateConsistency();
 			}
 
 			test();
-			consumer.Dispose();
+			sync(); consumer.Dispose();
+			
 			((OcDispatcher)destinationOcDispatcher).Dispose();
 		}
 		
 		[Test, Combinatorial]
-		public void TestScalarDispatching13(
-			[Values()] int destinationOcDispatcherPriority)
+		public void TestScalarDispatching13()
 		{
 			Scalar<int> source = getScalar<int>(0);
 			ObservableComputations.IOcDispatcher destinationOcDispatcher = new OcDispatcher();
+			int destinationOcDispatcherPriority = 0;
 			object destinationOcDispatcherParameter = new object();
 			object sourceOcDispatcherParameter = new object();
 			OcConsumer consumer = new OcConsumer();
@@ -67197,28 +67070,34 @@ namespace ObservableComputations.Test
 			Assert.AreEqual(destinationOcDispatcherParameter, testing.DestinationOcDispatcherParameter);
 			Assert.AreEqual(sourceOcDispatcherParameter, testing.SourceOcDispatcherParameter);
 
+			void sync()
+			{
+				((OcDispatcher)destinationOcDispatcher).Invoke(() => {});
+			}
+
 			void test()
 			{
 				testing.ValidateConsistency();
 
 				IList listSource;
-				((Scalar<int>)source).Change(1);
-				((Scalar<int>)source).Change(2);
-				((Scalar<int>)source).Change(3);
+				sync(); ((Scalar<int>)source).Change(1);
+				sync(); ((Scalar<int>)source).Change(2);
+				sync(); ((Scalar<int>)source).Change(3);
 				testing.ValidateConsistency();
 			}
 
 			test();
-			consumer.Dispose();
+			sync(); consumer.Dispose();
+			
 			((OcDispatcher)destinationOcDispatcher).Dispose();
 		}
 		
 		[Test, Combinatorial]
-		public void TestScalarDispatching14(
-			[Values()] int destinationOcDispatcherPriority)
+		public void TestScalarDispatching14()
 		{
 			Scalar<int> source = getScalar<int>(0);
 			ObservableComputations.IOcDispatcher destinationOcDispatcher = new OcDispatcher();
+			int destinationOcDispatcherPriority = 0;
 			object destinationOcDispatcherParameter = new object();
 			OcConsumer consumer = new OcConsumer();
 			var testing = source.ScalarDispatching<int>(
@@ -67231,28 +67110,34 @@ namespace ObservableComputations.Test
 			Assert.AreEqual(destinationOcDispatcherPriority, testing.DestinationOcDispatcherPriority);
 			Assert.AreEqual(destinationOcDispatcherParameter, testing.DestinationOcDispatcherParameter);
 
+			void sync()
+			{
+				((OcDispatcher)destinationOcDispatcher).Invoke(() => {});
+			}
+
 			void test()
 			{
 				testing.ValidateConsistency();
 
 				IList listSource;
-				((Scalar<int>)source).Change(1);
-				((Scalar<int>)source).Change(2);
-				((Scalar<int>)source).Change(3);
+				sync(); ((Scalar<int>)source).Change(1);
+				sync(); ((Scalar<int>)source).Change(2);
+				sync(); ((Scalar<int>)source).Change(3);
 				testing.ValidateConsistency();
 			}
 
 			test();
-			consumer.Dispose();
+			sync(); consumer.Dispose();
+			
 			((OcDispatcher)destinationOcDispatcher).Dispose();
 		}
 		
 		[Test, Combinatorial]
-		public void TestScalarDispatching15(
-			[Values()] int destinationOcDispatcherPriority)
+		public void TestScalarDispatching15()
 		{
 			Scalar<int> source = getScalar<int>(0);
 			ObservableComputations.IOcDispatcher destinationOcDispatcher = new OcDispatcher();
+			int destinationOcDispatcherPriority = 0;
 			OcConsumer consumer = new OcConsumer();
 			var testing = source.ScalarDispatching<int>(
 				destinationOcDispatcher,
@@ -67262,19 +67147,25 @@ namespace ObservableComputations.Test
 			Assert.AreEqual(destinationOcDispatcher, testing.DestinationOcDispatcher);
 			Assert.AreEqual(destinationOcDispatcherPriority, testing.DestinationOcDispatcherPriority);
 
+			void sync()
+			{
+				((OcDispatcher)destinationOcDispatcher).Invoke(() => {});
+			}
+
 			void test()
 			{
 				testing.ValidateConsistency();
 
 				IList listSource;
-				((Scalar<int>)source).Change(1);
-				((Scalar<int>)source).Change(2);
-				((Scalar<int>)source).Change(3);
+				sync(); ((Scalar<int>)source).Change(1);
+				sync(); ((Scalar<int>)source).Change(2);
+				sync(); ((Scalar<int>)source).Change(3);
 				testing.ValidateConsistency();
 			}
 
 			test();
-			consumer.Dispose();
+			sync(); consumer.Dispose();
+			
 			((OcDispatcher)destinationOcDispatcher).Dispose();
 		}
 		
@@ -67296,19 +67187,25 @@ namespace ObservableComputations.Test
 			Assert.AreEqual(destinationOcDispatcherParameter, testing.DestinationOcDispatcherParameter);
 			Assert.AreEqual(sourceOcDispatcherParameter, testing.SourceOcDispatcherParameter);
 
+			void sync()
+			{
+				((OcDispatcher)destinationOcDispatcher).Invoke(() => {});
+			}
+
 			void test()
 			{
 				testing.ValidateConsistency();
 
 				IList listSource;
-				((Scalar<int>)source).Change(1);
-				((Scalar<int>)source).Change(2);
-				((Scalar<int>)source).Change(3);
+				sync(); ((Scalar<int>)source).Change(1);
+				sync(); ((Scalar<int>)source).Change(2);
+				sync(); ((Scalar<int>)source).Change(3);
 				testing.ValidateConsistency();
 			}
 
 			test();
-			consumer.Dispose();
+			sync(); consumer.Dispose();
+			
 			((OcDispatcher)destinationOcDispatcher).Dispose();
 		}
 		
@@ -67327,19 +67224,25 @@ namespace ObservableComputations.Test
 			Assert.AreEqual(destinationOcDispatcher, testing.DestinationOcDispatcher);
 			Assert.AreEqual(destinationOcDispatcherParameter, testing.DestinationOcDispatcherParameter);
 
+			void sync()
+			{
+				((OcDispatcher)destinationOcDispatcher).Invoke(() => {});
+			}
+
 			void test()
 			{
 				testing.ValidateConsistency();
 
 				IList listSource;
-				((Scalar<int>)source).Change(1);
-				((Scalar<int>)source).Change(2);
-				((Scalar<int>)source).Change(3);
+				sync(); ((Scalar<int>)source).Change(1);
+				sync(); ((Scalar<int>)source).Change(2);
+				sync(); ((Scalar<int>)source).Change(3);
 				testing.ValidateConsistency();
 			}
 
 			test();
-			consumer.Dispose();
+			sync(); consumer.Dispose();
+			
 			((OcDispatcher)destinationOcDispatcher).Dispose();
 		}
 		
@@ -67355,19 +67258,25 @@ namespace ObservableComputations.Test
 			Assert.AreEqual(source, testing.Source);
 			Assert.AreEqual(destinationOcDispatcher, testing.DestinationOcDispatcher);
 
+			void sync()
+			{
+				((OcDispatcher)destinationOcDispatcher).Invoke(() => {});
+			}
+
 			void test()
 			{
 				testing.ValidateConsistency();
 
 				IList listSource;
-				((Scalar<int>)source).Change(1);
-				((Scalar<int>)source).Change(2);
-				((Scalar<int>)source).Change(3);
+				sync(); ((Scalar<int>)source).Change(1);
+				sync(); ((Scalar<int>)source).Change(2);
+				sync(); ((Scalar<int>)source).Change(3);
 				testing.ValidateConsistency();
 			}
 
 			test();
-			consumer.Dispose();
+			sync(); consumer.Dispose();
+			
 			((OcDispatcher)destinationOcDispatcher).Dispose();
 		}
 		#endregion
@@ -67387,7 +67296,6 @@ namespace ObservableComputations.Test
 
 			Assert.AreEqual(source, testing.Source);
 			Assert.AreEqual(lastChangesToApplyOnResumeCount, testing.LastChangesToApplyOnResumeCount);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -67454,7 +67362,6 @@ namespace ObservableComputations.Test
 				initialIsPaused).For(consumer);
 
 			Assert.AreEqual(source, testing.Source);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -67506,7 +67413,6 @@ namespace ObservableComputations.Test
 
 			Assert.AreEqual(source, testing.Source);
 			Assert.AreEqual(lastChangesToApplyOnResumeCount, testing.LastChangesToApplyOnResumeCount);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -67571,7 +67477,6 @@ namespace ObservableComputations.Test
 			var testing = source.ScalarPausing<int>().For(consumer);
 
 			Assert.AreEqual(source, testing.Source);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -67626,7 +67531,6 @@ namespace ObservableComputations.Test
 			Assert.AreEqual(source, testing.Source);
 			Assert.AreEqual(isPausedScalar, testing.IsPausedScalar);
 			Assert.AreEqual(lastChangesToApplyOnResumeCount, testing.LastChangesToApplyOnResumeCount);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -67701,7 +67605,6 @@ namespace ObservableComputations.Test
 
 			Assert.AreEqual(source, testing.Source);
 			Assert.AreEqual(isPausedScalar, testing.IsPausedScalar);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -67763,7 +67666,6 @@ namespace ObservableComputations.Test
 			Assert.AreEqual(source, testing.Source);
 			Assert.AreEqual(isPausedScalar, testing.IsPausedScalar);
 			Assert.AreEqual(lastChangesToApplyOnResumeCountScalar, testing.LastChangesToApplyOnResumeCountScalar);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -67844,7 +67746,6 @@ namespace ObservableComputations.Test
 
 			Assert.AreEqual(source, testing.Source);
 			Assert.AreEqual(lastChangesToApplyOnResumeCountScalar, testing.LastChangesToApplyOnResumeCountScalar);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -67919,7 +67820,6 @@ namespace ObservableComputations.Test
 
 			Assert.AreEqual(sourceScalar, testing.SourceScalar);
 			Assert.AreEqual(selectorExpression, testing.SelectorExpression);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -67989,7 +67889,6 @@ namespace ObservableComputations.Test
 
 			Assert.AreEqual(sourceScalar, testing.SourceScalar);
 			Assert.AreEqual(selectorExpression, testing.SelectorExpression);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -68059,7 +67958,6 @@ namespace ObservableComputations.Test
 
 			Assert.AreEqual(source, testing.Source);
 			Assert.AreEqual(selectorExpression, testing.SelectorExpression);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -68124,7 +68022,6 @@ namespace ObservableComputations.Test
 
 			Assert.AreEqual(source, testing.Source);
 			Assert.AreEqual(selectorExpression, testing.SelectorExpression);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -68192,7 +68089,6 @@ namespace ObservableComputations.Test
 
 			Assert.AreEqual(sourceScalar, testing.SourceScalar);
 			Assert.AreEqual(selectorExpression, testing.SelectorExpression);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -68262,7 +68158,6 @@ namespace ObservableComputations.Test
 
 			Assert.AreEqual(sourceScalar, testing.SourceScalar);
 			Assert.AreEqual(selectorExpression, testing.SelectorExpression);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -68332,7 +68227,6 @@ namespace ObservableComputations.Test
 
 			Assert.AreEqual(source, testing.Source);
 			Assert.AreEqual(selectorExpression, testing.SelectorExpression);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -68397,7 +68291,6 @@ namespace ObservableComputations.Test
 
 			Assert.AreEqual(source, testing.Source);
 			Assert.AreEqual(selectorExpression, testing.SelectorExpression);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -68462,7 +68355,6 @@ namespace ObservableComputations.Test
 
 			Assert.AreEqual(sourceScalar, testing.SourceScalar);
 			Assert.AreEqual(selectorWithIndexExpression, testing.SelectorWithIndexExpression);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -68532,7 +68424,6 @@ namespace ObservableComputations.Test
 
 			Assert.AreEqual(sourceScalar, testing.SourceScalar);
 			Assert.AreEqual(selectorWithIndexExpression, testing.SelectorWithIndexExpression);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -68602,7 +68493,6 @@ namespace ObservableComputations.Test
 
 			Assert.AreEqual(source, testing.Source);
 			Assert.AreEqual(selectorWithIndexExpression, testing.SelectorWithIndexExpression);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -68667,7 +68557,6 @@ namespace ObservableComputations.Test
 
 			Assert.AreEqual(source, testing.Source);
 			Assert.AreEqual(selectorWithIndexExpression, testing.SelectorWithIndexExpression);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -68732,7 +68621,6 @@ namespace ObservableComputations.Test
 			var testing = countScalar.SequenceComputing().For(consumer);
 
 			Assert.AreEqual(countScalar, testing.CountScalar);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -68771,7 +68659,6 @@ namespace ObservableComputations.Test
 			Assert.AreEqual(sourceScalar, testing.SourceScalar);
 			Assert.AreEqual(skippingCountScalar, testing.SkippingCountScalar);
 			Assert.AreEqual(initialCapacity, testing.InitialCapacity);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -68850,7 +68737,6 @@ namespace ObservableComputations.Test
 
 			Assert.AreEqual(sourceScalar, testing.SourceScalar);
 			Assert.AreEqual(skippingCountScalar, testing.SkippingCountScalar);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -68932,7 +68818,6 @@ namespace ObservableComputations.Test
 			Assert.AreEqual(sourceScalar, testing.SourceScalar);
 			Assert.AreEqual(skippingCountScalar, testing.SkippingCountScalar);
 			Assert.AreEqual(initialCapacity, testing.InitialCapacity);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -69011,7 +68896,6 @@ namespace ObservableComputations.Test
 
 			Assert.AreEqual(sourceScalar, testing.SourceScalar);
 			Assert.AreEqual(skippingCountScalar, testing.SkippingCountScalar);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -69093,7 +68977,6 @@ namespace ObservableComputations.Test
 			Assert.AreEqual(source, testing.Source);
 			Assert.AreEqual(skippingCountScalar, testing.SkippingCountScalar);
 			Assert.AreEqual(initialCapacity, testing.InitialCapacity);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -69167,7 +69050,6 @@ namespace ObservableComputations.Test
 
 			Assert.AreEqual(source, testing.Source);
 			Assert.AreEqual(skippingCountScalar, testing.SkippingCountScalar);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -69244,7 +69126,6 @@ namespace ObservableComputations.Test
 			Assert.AreEqual(source, testing.Source);
 			Assert.AreEqual(skippingCountScalar, testing.SkippingCountScalar);
 			Assert.AreEqual(initialCapacity, testing.InitialCapacity);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -69318,7 +69199,6 @@ namespace ObservableComputations.Test
 
 			Assert.AreEqual(source, testing.Source);
 			Assert.AreEqual(skippingCountScalar, testing.SkippingCountScalar);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -69395,7 +69275,6 @@ namespace ObservableComputations.Test
 			Assert.AreEqual(sourceScalar, testing.SourceScalar);
 			Assert.AreEqual(skippingCount, testing.SkippingCount);
 			Assert.AreEqual(initialCapacity, testing.InitialCapacity);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -69465,7 +69344,6 @@ namespace ObservableComputations.Test
 
 			Assert.AreEqual(sourceScalar, testing.SourceScalar);
 			Assert.AreEqual(skippingCount, testing.SkippingCount);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -69538,7 +69416,6 @@ namespace ObservableComputations.Test
 			Assert.AreEqual(sourceScalar, testing.SourceScalar);
 			Assert.AreEqual(skippingCount, testing.SkippingCount);
 			Assert.AreEqual(initialCapacity, testing.InitialCapacity);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -69608,7 +69485,6 @@ namespace ObservableComputations.Test
 
 			Assert.AreEqual(sourceScalar, testing.SourceScalar);
 			Assert.AreEqual(skippingCount, testing.SkippingCount);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -69681,7 +69557,6 @@ namespace ObservableComputations.Test
 			Assert.AreEqual(source, testing.Source);
 			Assert.AreEqual(skippingCount, testing.SkippingCount);
 			Assert.AreEqual(initialCapacity, testing.InitialCapacity);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -69746,7 +69621,6 @@ namespace ObservableComputations.Test
 
 			Assert.AreEqual(source, testing.Source);
 			Assert.AreEqual(skippingCount, testing.SkippingCount);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -69814,7 +69688,6 @@ namespace ObservableComputations.Test
 			Assert.AreEqual(source, testing.Source);
 			Assert.AreEqual(skippingCount, testing.SkippingCount);
 			Assert.AreEqual(initialCapacity, testing.InitialCapacity);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -69879,7 +69752,6 @@ namespace ObservableComputations.Test
 
 			Assert.AreEqual(source, testing.Source);
 			Assert.AreEqual(skippingCount, testing.SkippingCount);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -69950,7 +69822,6 @@ namespace ObservableComputations.Test
 			Assert.AreEqual(sourceScalar, testing.SourceScalar);
 			Assert.AreEqual(indexedPredicateExpression, testing.IndexedPredicateExpression);
 			Assert.AreEqual(initialCapacity, testing.InitialCapacity);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -70020,7 +69891,6 @@ namespace ObservableComputations.Test
 
 			Assert.AreEqual(sourceScalar, testing.SourceScalar);
 			Assert.AreEqual(indexedPredicateExpression, testing.IndexedPredicateExpression);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -70093,7 +69963,6 @@ namespace ObservableComputations.Test
 			Assert.AreEqual(sourceScalar, testing.SourceScalar);
 			Assert.AreEqual(indexedPredicateExpression, testing.IndexedPredicateExpression);
 			Assert.AreEqual(initialCapacity, testing.InitialCapacity);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -70163,7 +70032,6 @@ namespace ObservableComputations.Test
 
 			Assert.AreEqual(sourceScalar, testing.SourceScalar);
 			Assert.AreEqual(indexedPredicateExpression, testing.IndexedPredicateExpression);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -70236,7 +70104,6 @@ namespace ObservableComputations.Test
 			Assert.AreEqual(source, testing.Source);
 			Assert.AreEqual(indexedPredicateExpression, testing.IndexedPredicateExpression);
 			Assert.AreEqual(initialCapacity, testing.InitialCapacity);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -70301,7 +70168,6 @@ namespace ObservableComputations.Test
 
 			Assert.AreEqual(source, testing.Source);
 			Assert.AreEqual(indexedPredicateExpression, testing.IndexedPredicateExpression);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -70369,7 +70235,6 @@ namespace ObservableComputations.Test
 			Assert.AreEqual(source, testing.Source);
 			Assert.AreEqual(indexedPredicateExpression, testing.IndexedPredicateExpression);
 			Assert.AreEqual(initialCapacity, testing.InitialCapacity);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -70434,7 +70299,6 @@ namespace ObservableComputations.Test
 
 			Assert.AreEqual(source, testing.Source);
 			Assert.AreEqual(indexedPredicateExpression, testing.IndexedPredicateExpression);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -70502,7 +70366,6 @@ namespace ObservableComputations.Test
 			Assert.AreEqual(sourceScalar, testing.SourceScalar);
 			Assert.AreEqual(predicateExpression, testing.PredicateExpression);
 			Assert.AreEqual(initialCapacity, testing.InitialCapacity);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -70572,7 +70435,6 @@ namespace ObservableComputations.Test
 
 			Assert.AreEqual(sourceScalar, testing.SourceScalar);
 			Assert.AreEqual(predicateExpression, testing.PredicateExpression);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -70645,7 +70507,6 @@ namespace ObservableComputations.Test
 			Assert.AreEqual(sourceScalar, testing.SourceScalar);
 			Assert.AreEqual(predicateExpression, testing.PredicateExpression);
 			Assert.AreEqual(initialCapacity, testing.InitialCapacity);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -70715,7 +70576,6 @@ namespace ObservableComputations.Test
 
 			Assert.AreEqual(sourceScalar, testing.SourceScalar);
 			Assert.AreEqual(predicateExpression, testing.PredicateExpression);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -70788,7 +70648,6 @@ namespace ObservableComputations.Test
 			Assert.AreEqual(source, testing.Source);
 			Assert.AreEqual(predicateExpression, testing.PredicateExpression);
 			Assert.AreEqual(initialCapacity, testing.InitialCapacity);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -70853,7 +70712,6 @@ namespace ObservableComputations.Test
 
 			Assert.AreEqual(source, testing.Source);
 			Assert.AreEqual(predicateExpression, testing.PredicateExpression);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -70921,7 +70779,6 @@ namespace ObservableComputations.Test
 			Assert.AreEqual(source, testing.Source);
 			Assert.AreEqual(predicateExpression, testing.PredicateExpression);
 			Assert.AreEqual(initialCapacity, testing.InitialCapacity);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -70986,7 +70843,6 @@ namespace ObservableComputations.Test
 
 			Assert.AreEqual(source, testing.Source);
 			Assert.AreEqual(predicateExpression, testing.PredicateExpression);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -71054,7 +70910,6 @@ namespace ObservableComputations.Test
 
 			Assert.AreEqual(sourceScalar, testing.SourceScalar);
 			Assert.AreEqual(separatorScalar, testing.SeparatorScalar);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -71128,7 +70983,6 @@ namespace ObservableComputations.Test
 			var testing = sourceScalar.StringsConcatenating().For(consumer);
 
 			Assert.AreEqual(sourceScalar, testing.SourceScalar);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -71198,7 +71052,6 @@ namespace ObservableComputations.Test
 
 			Assert.AreEqual(source, testing.Source);
 			Assert.AreEqual(separatorScalar, testing.SeparatorScalar);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -71267,7 +71120,6 @@ namespace ObservableComputations.Test
 			var testing = source.StringsConcatenating().For(consumer);
 
 			Assert.AreEqual(source, testing.Source);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -71332,7 +71184,6 @@ namespace ObservableComputations.Test
 
 			Assert.AreEqual(source, testing.Source);
 			Assert.AreEqual(separator, testing.Separator);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -71397,7 +71248,6 @@ namespace ObservableComputations.Test
 
 			Assert.AreEqual(sourceScalar, testing.SourceScalar);
 			Assert.AreEqual(separator, testing.Separator);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -71467,7 +71317,6 @@ namespace ObservableComputations.Test
 			var testing = sourceScalar.Summarizing<int>().For(consumer);
 
 			Assert.AreEqual(sourceScalar, testing.SourceScalar);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -71534,7 +71383,6 @@ namespace ObservableComputations.Test
 			var testing = sourceScalar.Summarizing<int>().For(consumer);
 
 			Assert.AreEqual(sourceScalar, testing.SourceScalar);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -71601,7 +71449,6 @@ namespace ObservableComputations.Test
 			var testing = source.Summarizing<int>().For(consumer);
 
 			Assert.AreEqual(source, testing.Source);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -71663,7 +71510,6 @@ namespace ObservableComputations.Test
 			var testing = source.Summarizing<int>().For(consumer);
 
 			Assert.AreEqual(source, testing.Source);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -71737,7 +71583,6 @@ namespace ObservableComputations.Test
 			Assert.AreEqual(startIndexScalar, testing.StartIndexScalar);
 			Assert.AreEqual(countTakingScalar, testing.CountTakingScalar);
 			Assert.AreEqual(initialCapacity, testing.InitialCapacity);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -71828,7 +71673,6 @@ namespace ObservableComputations.Test
 			Assert.AreEqual(sourceScalar, testing.SourceScalar);
 			Assert.AreEqual(startIndexScalar, testing.StartIndexScalar);
 			Assert.AreEqual(countTakingScalar, testing.CountTakingScalar);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -71922,7 +71766,6 @@ namespace ObservableComputations.Test
 			Assert.AreEqual(startIndexScalar, testing.StartIndexScalar);
 			Assert.AreEqual(countTakingScalar, testing.CountTakingScalar);
 			Assert.AreEqual(initialCapacity, testing.InitialCapacity);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -72013,7 +71856,6 @@ namespace ObservableComputations.Test
 			Assert.AreEqual(sourceScalar, testing.SourceScalar);
 			Assert.AreEqual(startIndexScalar, testing.StartIndexScalar);
 			Assert.AreEqual(countTakingScalar, testing.CountTakingScalar);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -72104,7 +71946,6 @@ namespace ObservableComputations.Test
 			Assert.AreEqual(sourceScalar, testing.SourceScalar);
 			Assert.AreEqual(startIndexScalar, testing.StartIndexScalar);
 			Assert.AreEqual(countTaking, testing.CountTaking);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -72186,7 +72027,6 @@ namespace ObservableComputations.Test
 			Assert.AreEqual(sourceScalar, testing.SourceScalar);
 			Assert.AreEqual(startIndexScalar, testing.StartIndexScalar);
 			Assert.AreEqual(countTaking, testing.CountTaking);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -72271,7 +72111,6 @@ namespace ObservableComputations.Test
 			Assert.AreEqual(startIndex, testing.StartIndex);
 			Assert.AreEqual(countTakingScalar, testing.CountTakingScalar);
 			Assert.AreEqual(initialCapacity, testing.InitialCapacity);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -72353,7 +72192,6 @@ namespace ObservableComputations.Test
 			Assert.AreEqual(sourceScalar, testing.SourceScalar);
 			Assert.AreEqual(startIndex, testing.StartIndex);
 			Assert.AreEqual(countTakingScalar, testing.CountTakingScalar);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -72438,7 +72276,6 @@ namespace ObservableComputations.Test
 			Assert.AreEqual(startIndex, testing.StartIndex);
 			Assert.AreEqual(countTakingScalar, testing.CountTakingScalar);
 			Assert.AreEqual(initialCapacity, testing.InitialCapacity);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -72520,7 +72357,6 @@ namespace ObservableComputations.Test
 			Assert.AreEqual(sourceScalar, testing.SourceScalar);
 			Assert.AreEqual(startIndex, testing.StartIndex);
 			Assert.AreEqual(countTakingScalar, testing.CountTakingScalar);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -72602,7 +72438,6 @@ namespace ObservableComputations.Test
 			Assert.AreEqual(sourceScalar, testing.SourceScalar);
 			Assert.AreEqual(startIndex, testing.StartIndex);
 			Assert.AreEqual(countTaking, testing.CountTaking);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -72675,7 +72510,6 @@ namespace ObservableComputations.Test
 			Assert.AreEqual(sourceScalar, testing.SourceScalar);
 			Assert.AreEqual(startIndex, testing.StartIndex);
 			Assert.AreEqual(countTaking, testing.CountTaking);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -72751,7 +72585,6 @@ namespace ObservableComputations.Test
 			Assert.AreEqual(startIndexScalar, testing.StartIndexScalar);
 			Assert.AreEqual(countTakingScalar, testing.CountTakingScalar);
 			Assert.AreEqual(initialCapacity, testing.InitialCapacity);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -72837,7 +72670,6 @@ namespace ObservableComputations.Test
 			Assert.AreEqual(source, testing.Source);
 			Assert.AreEqual(startIndexScalar, testing.StartIndexScalar);
 			Assert.AreEqual(countTakingScalar, testing.CountTakingScalar);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -72926,7 +72758,6 @@ namespace ObservableComputations.Test
 			Assert.AreEqual(startIndexScalar, testing.StartIndexScalar);
 			Assert.AreEqual(countTakingScalar, testing.CountTakingScalar);
 			Assert.AreEqual(initialCapacity, testing.InitialCapacity);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -73012,7 +72843,6 @@ namespace ObservableComputations.Test
 			Assert.AreEqual(source, testing.Source);
 			Assert.AreEqual(startIndexScalar, testing.StartIndexScalar);
 			Assert.AreEqual(countTakingScalar, testing.CountTakingScalar);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -73098,7 +72928,6 @@ namespace ObservableComputations.Test
 			Assert.AreEqual(source, testing.Source);
 			Assert.AreEqual(startIndexScalar, testing.StartIndexScalar);
 			Assert.AreEqual(countTaking, testing.CountTaking);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -73175,7 +73004,6 @@ namespace ObservableComputations.Test
 			Assert.AreEqual(source, testing.Source);
 			Assert.AreEqual(startIndexScalar, testing.StartIndexScalar);
 			Assert.AreEqual(countTaking, testing.CountTaking);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -73255,7 +73083,6 @@ namespace ObservableComputations.Test
 			Assert.AreEqual(startIndex, testing.StartIndex);
 			Assert.AreEqual(countTakingScalar, testing.CountTakingScalar);
 			Assert.AreEqual(initialCapacity, testing.InitialCapacity);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -73332,7 +73159,6 @@ namespace ObservableComputations.Test
 			Assert.AreEqual(source, testing.Source);
 			Assert.AreEqual(startIndex, testing.StartIndex);
 			Assert.AreEqual(countTakingScalar, testing.CountTakingScalar);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -73412,7 +73238,6 @@ namespace ObservableComputations.Test
 			Assert.AreEqual(startIndex, testing.StartIndex);
 			Assert.AreEqual(countTakingScalar, testing.CountTakingScalar);
 			Assert.AreEqual(initialCapacity, testing.InitialCapacity);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -73489,7 +73314,6 @@ namespace ObservableComputations.Test
 			Assert.AreEqual(source, testing.Source);
 			Assert.AreEqual(startIndex, testing.StartIndex);
 			Assert.AreEqual(countTakingScalar, testing.CountTakingScalar);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -73566,7 +73390,6 @@ namespace ObservableComputations.Test
 			Assert.AreEqual(source, testing.Source);
 			Assert.AreEqual(startIndex, testing.StartIndex);
 			Assert.AreEqual(countTaking, testing.CountTaking);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -73634,7 +73457,6 @@ namespace ObservableComputations.Test
 			Assert.AreEqual(source, testing.Source);
 			Assert.AreEqual(startIndex, testing.StartIndex);
 			Assert.AreEqual(countTaking, testing.CountTaking);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -73705,7 +73527,6 @@ namespace ObservableComputations.Test
 			Assert.AreEqual(sourceScalar, testing.SourceScalar);
 			Assert.AreEqual(indexedPredicateExpression, testing.IndexedPredicateExpression);
 			Assert.AreEqual(initialCapacity, testing.InitialCapacity);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -73775,7 +73596,6 @@ namespace ObservableComputations.Test
 
 			Assert.AreEqual(sourceScalar, testing.SourceScalar);
 			Assert.AreEqual(indexedPredicateExpression, testing.IndexedPredicateExpression);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -73848,7 +73668,6 @@ namespace ObservableComputations.Test
 			Assert.AreEqual(sourceScalar, testing.SourceScalar);
 			Assert.AreEqual(indexedPredicateExpression, testing.IndexedPredicateExpression);
 			Assert.AreEqual(initialCapacity, testing.InitialCapacity);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -73918,7 +73737,6 @@ namespace ObservableComputations.Test
 
 			Assert.AreEqual(sourceScalar, testing.SourceScalar);
 			Assert.AreEqual(indexedPredicateExpression, testing.IndexedPredicateExpression);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -73991,7 +73809,6 @@ namespace ObservableComputations.Test
 			Assert.AreEqual(source, testing.Source);
 			Assert.AreEqual(indexedPredicateExpression, testing.IndexedPredicateExpression);
 			Assert.AreEqual(initialCapacity, testing.InitialCapacity);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -74056,7 +73873,6 @@ namespace ObservableComputations.Test
 
 			Assert.AreEqual(source, testing.Source);
 			Assert.AreEqual(indexedPredicateExpression, testing.IndexedPredicateExpression);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -74124,7 +73940,6 @@ namespace ObservableComputations.Test
 			Assert.AreEqual(source, testing.Source);
 			Assert.AreEqual(indexedPredicateExpression, testing.IndexedPredicateExpression);
 			Assert.AreEqual(initialCapacity, testing.InitialCapacity);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -74189,7 +74004,6 @@ namespace ObservableComputations.Test
 
 			Assert.AreEqual(source, testing.Source);
 			Assert.AreEqual(indexedPredicateExpression, testing.IndexedPredicateExpression);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -74257,7 +74071,6 @@ namespace ObservableComputations.Test
 			Assert.AreEqual(sourceScalar, testing.SourceScalar);
 			Assert.AreEqual(predicateExpression, testing.PredicateExpression);
 			Assert.AreEqual(initialCapacity, testing.InitialCapacity);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -74327,7 +74140,6 @@ namespace ObservableComputations.Test
 
 			Assert.AreEqual(sourceScalar, testing.SourceScalar);
 			Assert.AreEqual(predicateExpression, testing.PredicateExpression);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -74400,7 +74212,6 @@ namespace ObservableComputations.Test
 			Assert.AreEqual(sourceScalar, testing.SourceScalar);
 			Assert.AreEqual(predicateExpression, testing.PredicateExpression);
 			Assert.AreEqual(initialCapacity, testing.InitialCapacity);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -74470,7 +74281,6 @@ namespace ObservableComputations.Test
 
 			Assert.AreEqual(sourceScalar, testing.SourceScalar);
 			Assert.AreEqual(predicateExpression, testing.PredicateExpression);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -74543,7 +74353,6 @@ namespace ObservableComputations.Test
 			Assert.AreEqual(source, testing.Source);
 			Assert.AreEqual(predicateExpression, testing.PredicateExpression);
 			Assert.AreEqual(initialCapacity, testing.InitialCapacity);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -74608,7 +74417,6 @@ namespace ObservableComputations.Test
 
 			Assert.AreEqual(source, testing.Source);
 			Assert.AreEqual(predicateExpression, testing.PredicateExpression);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -74676,7 +74484,6 @@ namespace ObservableComputations.Test
 			Assert.AreEqual(source, testing.Source);
 			Assert.AreEqual(predicateExpression, testing.PredicateExpression);
 			Assert.AreEqual(initialCapacity, testing.InitialCapacity);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -74741,7 +74548,6 @@ namespace ObservableComputations.Test
 
 			Assert.AreEqual(source, testing.Source);
 			Assert.AreEqual(predicateExpression, testing.PredicateExpression);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -74815,7 +74621,6 @@ namespace ObservableComputations.Test
 			Assert.AreEqual(orderingValueSelectorExpression, testing.OrderingValueSelectorExpression);
 			Assert.AreEqual(sortDirectionScalar, testing.SortDirectionScalar);
 			Assert.AreEqual(comparerScalar, testing.ComparerScalar);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -74893,7 +74698,6 @@ namespace ObservableComputations.Test
 			Assert.AreEqual(source, testing.Source);
 			Assert.AreEqual(orderingValueSelectorExpression, testing.OrderingValueSelectorExpression);
 			Assert.AreEqual(sortDirectionScalar, testing.SortDirectionScalar);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -74966,7 +74770,6 @@ namespace ObservableComputations.Test
 			Assert.AreEqual(source, testing.Source);
 			Assert.AreEqual(orderingValueSelectorExpression, testing.OrderingValueSelectorExpression);
 			Assert.AreEqual(comparerScalar, testing.ComparerScalar);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -75036,7 +74839,6 @@ namespace ObservableComputations.Test
 
 			Assert.AreEqual(source, testing.Source);
 			Assert.AreEqual(orderingValueSelectorExpression, testing.OrderingValueSelectorExpression);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -75107,7 +74909,6 @@ namespace ObservableComputations.Test
 			Assert.AreEqual(orderingValueSelectorExpression, testing.OrderingValueSelectorExpression);
 			Assert.AreEqual(sortDirection, testing.SortDirection);
 			Assert.AreEqual(comparerScalar, testing.ComparerScalar);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -75180,7 +74981,6 @@ namespace ObservableComputations.Test
 			Assert.AreEqual(source, testing.Source);
 			Assert.AreEqual(orderingValueSelectorExpression, testing.OrderingValueSelectorExpression);
 			Assert.AreEqual(sortDirection, testing.SortDirection);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -75251,7 +75051,6 @@ namespace ObservableComputations.Test
 			Assert.AreEqual(orderingValueSelectorExpression, testing.OrderingValueSelectorExpression);
 			Assert.AreEqual(sortDirectionScalar, testing.SortDirectionScalar);
 			Assert.AreEqual(comparer, testing.Comparer);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -75324,7 +75123,6 @@ namespace ObservableComputations.Test
 			Assert.AreEqual(source, testing.Source);
 			Assert.AreEqual(orderingValueSelectorExpression, testing.OrderingValueSelectorExpression);
 			Assert.AreEqual(comparer, testing.Comparer);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -75395,7 +75193,6 @@ namespace ObservableComputations.Test
 			Assert.AreEqual(orderingValueSelectorExpression, testing.OrderingValueSelectorExpression);
 			Assert.AreEqual(sortDirection, testing.SortDirection);
 			Assert.AreEqual(comparer, testing.Comparer);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -75466,7 +75263,6 @@ namespace ObservableComputations.Test
 			Assert.AreEqual(orderingValueSelectorExpression, testing.OrderingValueSelectorExpression);
 			Assert.AreEqual(sortDirectionScalar, testing.SortDirectionScalar);
 			Assert.AreEqual(comparerScalar, testing.ComparerScalar);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -75549,7 +75345,6 @@ namespace ObservableComputations.Test
 			Assert.AreEqual(sourceScalar, testing.SourceScalar);
 			Assert.AreEqual(orderingValueSelectorExpression, testing.OrderingValueSelectorExpression);
 			Assert.AreEqual(sortDirectionScalar, testing.SortDirectionScalar);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -75627,7 +75422,6 @@ namespace ObservableComputations.Test
 			Assert.AreEqual(sourceScalar, testing.SourceScalar);
 			Assert.AreEqual(orderingValueSelectorExpression, testing.OrderingValueSelectorExpression);
 			Assert.AreEqual(comparerScalar, testing.ComparerScalar);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -75702,7 +75496,6 @@ namespace ObservableComputations.Test
 
 			Assert.AreEqual(sourceScalar, testing.SourceScalar);
 			Assert.AreEqual(orderingValueSelectorExpression, testing.OrderingValueSelectorExpression);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -75778,7 +75571,6 @@ namespace ObservableComputations.Test
 			Assert.AreEqual(orderingValueSelectorExpression, testing.OrderingValueSelectorExpression);
 			Assert.AreEqual(sortDirection, testing.SortDirection);
 			Assert.AreEqual(comparerScalar, testing.ComparerScalar);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -75856,7 +75648,6 @@ namespace ObservableComputations.Test
 			Assert.AreEqual(sourceScalar, testing.SourceScalar);
 			Assert.AreEqual(orderingValueSelectorExpression, testing.OrderingValueSelectorExpression);
 			Assert.AreEqual(sortDirection, testing.SortDirection);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -75932,7 +75723,6 @@ namespace ObservableComputations.Test
 			Assert.AreEqual(orderingValueSelectorExpression, testing.OrderingValueSelectorExpression);
 			Assert.AreEqual(sortDirectionScalar, testing.SortDirectionScalar);
 			Assert.AreEqual(comparer, testing.Comparer);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -76010,7 +75800,6 @@ namespace ObservableComputations.Test
 			Assert.AreEqual(sourceScalar, testing.SourceScalar);
 			Assert.AreEqual(orderingValueSelectorExpression, testing.OrderingValueSelectorExpression);
 			Assert.AreEqual(comparer, testing.Comparer);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -76086,7 +75875,6 @@ namespace ObservableComputations.Test
 			Assert.AreEqual(orderingValueSelectorExpression, testing.OrderingValueSelectorExpression);
 			Assert.AreEqual(sortDirection, testing.SortDirection);
 			Assert.AreEqual(comparer, testing.Comparer);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -76162,7 +75950,6 @@ namespace ObservableComputations.Test
 			Assert.AreEqual(sourceScalar, testing.SourceScalar);
 			Assert.AreEqual(equalityComparerScalar, testing.EqualityComparerScalar);
 			Assert.AreEqual(initialCapacity, testing.InitialCapacity);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -76214,7 +76001,6 @@ namespace ObservableComputations.Test
 
 			Assert.AreEqual(sourceScalar, testing.SourceScalar);
 			Assert.AreEqual(equalityComparerScalar, testing.EqualityComparerScalar);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -76266,7 +76052,6 @@ namespace ObservableComputations.Test
 
 			Assert.AreEqual(sourceScalar, testing.SourceScalar);
 			Assert.AreEqual(initialCapacity, testing.InitialCapacity);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -76310,7 +76095,6 @@ namespace ObservableComputations.Test
 			var testing = sourceScalar.Uniting<Item>().For(consumer);
 
 			Assert.AreEqual(sourceScalar, testing.SourceScalar);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -76360,7 +76144,6 @@ namespace ObservableComputations.Test
 			Assert.AreEqual(sourceScalar, testing.SourceScalar);
 			Assert.AreEqual(equalityComparerScalar, testing.EqualityComparerScalar);
 			Assert.AreEqual(initialCapacity, testing.InitialCapacity);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -76412,7 +76195,6 @@ namespace ObservableComputations.Test
 
 			Assert.AreEqual(sourceScalar, testing.SourceScalar);
 			Assert.AreEqual(equalityComparerScalar, testing.EqualityComparerScalar);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -76464,7 +76246,6 @@ namespace ObservableComputations.Test
 
 			Assert.AreEqual(sourceScalar, testing.SourceScalar);
 			Assert.AreEqual(initialCapacity, testing.InitialCapacity);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -76508,7 +76289,6 @@ namespace ObservableComputations.Test
 			var testing = sourceScalar.Uniting<Item>().For(consumer);
 
 			Assert.AreEqual(sourceScalar, testing.SourceScalar);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -76558,7 +76338,6 @@ namespace ObservableComputations.Test
 			Assert.AreEqual(source, testing.Source);
 			Assert.AreEqual(equalityComparerScalar, testing.EqualityComparerScalar);
 			Assert.AreEqual(initialCapacity, testing.InitialCapacity);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -76605,7 +76384,6 @@ namespace ObservableComputations.Test
 
 			Assert.AreEqual(source, testing.Source);
 			Assert.AreEqual(equalityComparerScalar, testing.EqualityComparerScalar);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -76652,7 +76430,6 @@ namespace ObservableComputations.Test
 
 			Assert.AreEqual(source, testing.Source);
 			Assert.AreEqual(initialCapacity, testing.InitialCapacity);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -76691,7 +76468,6 @@ namespace ObservableComputations.Test
 			var testing = source.Uniting<Item>().For(consumer);
 
 			Assert.AreEqual(source, testing.Source);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -76736,7 +76512,6 @@ namespace ObservableComputations.Test
 			Assert.AreEqual(source, testing.Source);
 			Assert.AreEqual(equalityComparerScalar, testing.EqualityComparerScalar);
 			Assert.AreEqual(initialCapacity, testing.InitialCapacity);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -76783,7 +76558,6 @@ namespace ObservableComputations.Test
 
 			Assert.AreEqual(source, testing.Source);
 			Assert.AreEqual(equalityComparerScalar, testing.EqualityComparerScalar);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -76830,7 +76604,6 @@ namespace ObservableComputations.Test
 
 			Assert.AreEqual(source, testing.Source);
 			Assert.AreEqual(initialCapacity, testing.InitialCapacity);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -76869,7 +76642,6 @@ namespace ObservableComputations.Test
 			var testing = source.Uniting<Item>().For(consumer);
 
 			Assert.AreEqual(source, testing.Source);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -76914,7 +76686,6 @@ namespace ObservableComputations.Test
 			Assert.AreEqual(source, testing.Source);
 			Assert.AreEqual(equalityComparer, testing.EqualityComparer);
 			Assert.AreEqual(initialCapacity, testing.InitialCapacity);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -76956,7 +76727,6 @@ namespace ObservableComputations.Test
 
 			Assert.AreEqual(source, testing.Source);
 			Assert.AreEqual(equalityComparer, testing.EqualityComparer);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -77001,7 +76771,6 @@ namespace ObservableComputations.Test
 			Assert.AreEqual(source, testing.Source);
 			Assert.AreEqual(equalityComparer, testing.EqualityComparer);
 			Assert.AreEqual(initialCapacity, testing.InitialCapacity);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -77043,7 +76812,6 @@ namespace ObservableComputations.Test
 
 			Assert.AreEqual(source, testing.Source);
 			Assert.AreEqual(equalityComparer, testing.EqualityComparer);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -77088,7 +76856,6 @@ namespace ObservableComputations.Test
 			Assert.AreEqual(sourceScalar, testing.SourceScalar);
 			Assert.AreEqual(equalityComparer, testing.EqualityComparer);
 			Assert.AreEqual(initialCapacity, testing.InitialCapacity);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -77135,7 +76902,6 @@ namespace ObservableComputations.Test
 
 			Assert.AreEqual(sourceScalar, testing.SourceScalar);
 			Assert.AreEqual(equalityComparer, testing.EqualityComparer);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -77185,7 +76951,6 @@ namespace ObservableComputations.Test
 			Assert.AreEqual(sourceScalar, testing.SourceScalar);
 			Assert.AreEqual(equalityComparer, testing.EqualityComparer);
 			Assert.AreEqual(initialCapacity, testing.InitialCapacity);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -77232,7 +76997,6 @@ namespace ObservableComputations.Test
 
 			Assert.AreEqual(sourceScalar, testing.SourceScalar);
 			Assert.AreEqual(equalityComparer, testing.EqualityComparer);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -77283,7 +77047,6 @@ namespace ObservableComputations.Test
 
 			Assert.AreEqual(equalityComparer, testing.EqualityComparer);
 			Assert.AreEqual(initialCapacity, testing.InitialCapacity);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -77390,7 +77153,6 @@ namespace ObservableComputations.Test
 				equalityComparer).For(consumer);
 
 			Assert.AreEqual(equalityComparer, testing.EqualityComparer);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -77497,7 +77259,6 @@ namespace ObservableComputations.Test
 				initialCapacity).For(consumer);
 
 			Assert.AreEqual(initialCapacity, testing.InitialCapacity);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -77600,7 +77361,6 @@ namespace ObservableComputations.Test
 			OcConsumer consumer = new OcConsumer();
 			var testing = source1.Uniting<Item>(
 				source2).For(consumer);
-
 
 			void test()
 			{
@@ -77711,7 +77471,6 @@ namespace ObservableComputations.Test
 
 			Assert.AreEqual(equalityComparer, testing.EqualityComparer);
 			Assert.AreEqual(initialCapacity, testing.InitialCapacity);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -77818,7 +77577,6 @@ namespace ObservableComputations.Test
 				equalityComparer).For(consumer);
 
 			Assert.AreEqual(equalityComparer, testing.EqualityComparer);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -77925,7 +77683,6 @@ namespace ObservableComputations.Test
 				initialCapacity).For(consumer);
 
 			Assert.AreEqual(initialCapacity, testing.InitialCapacity);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -78028,7 +77785,6 @@ namespace ObservableComputations.Test
 			OcConsumer consumer = new OcConsumer();
 			var testing = source1.Uniting<Item>(
 				source2).For(consumer);
-
 
 			void test()
 			{
@@ -78139,7 +77895,6 @@ namespace ObservableComputations.Test
 
 			Assert.AreEqual(equalityComparer, testing.EqualityComparer);
 			Assert.AreEqual(initialCapacity, testing.InitialCapacity);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -78246,7 +78001,6 @@ namespace ObservableComputations.Test
 				equalityComparer).For(consumer);
 
 			Assert.AreEqual(equalityComparer, testing.EqualityComparer);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -78353,7 +78107,6 @@ namespace ObservableComputations.Test
 				initialCapacity).For(consumer);
 
 			Assert.AreEqual(initialCapacity, testing.InitialCapacity);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -78456,7 +78209,6 @@ namespace ObservableComputations.Test
 			OcConsumer consumer = new OcConsumer();
 			var testing = source1.Uniting<Item>(
 				source2).For(consumer);
-
 
 			void test()
 			{
@@ -78567,7 +78319,6 @@ namespace ObservableComputations.Test
 
 			Assert.AreEqual(equalityComparer, testing.EqualityComparer);
 			Assert.AreEqual(initialCapacity, testing.InitialCapacity);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -78674,7 +78425,6 @@ namespace ObservableComputations.Test
 				equalityComparer).For(consumer);
 
 			Assert.AreEqual(equalityComparer, testing.EqualityComparer);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -78781,7 +78531,6 @@ namespace ObservableComputations.Test
 				initialCapacity).For(consumer);
 
 			Assert.AreEqual(initialCapacity, testing.InitialCapacity);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -78884,7 +78633,6 @@ namespace ObservableComputations.Test
 			OcConsumer consumer = new OcConsumer();
 			var testing = source1.Uniting<Item>(
 				source2).For(consumer);
-
 
 			void test()
 			{
@@ -78995,7 +78743,6 @@ namespace ObservableComputations.Test
 
 			Assert.AreEqual(equalityComparer, testing.EqualityComparer);
 			Assert.AreEqual(initialCapacity, testing.InitialCapacity);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -79107,7 +78854,6 @@ namespace ObservableComputations.Test
 				equalityComparer).For(consumer);
 
 			Assert.AreEqual(equalityComparer, testing.EqualityComparer);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -79219,7 +78965,6 @@ namespace ObservableComputations.Test
 				initialCapacity).For(consumer);
 
 			Assert.AreEqual(initialCapacity, testing.InitialCapacity);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -79327,7 +79072,6 @@ namespace ObservableComputations.Test
 			OcConsumer consumer = new OcConsumer();
 			var testing = source1Scalar.Uniting<Item>(
 				source2).For(consumer);
-
 
 			void test()
 			{
@@ -79443,7 +79187,6 @@ namespace ObservableComputations.Test
 
 			Assert.AreEqual(equalityComparer, testing.EqualityComparer);
 			Assert.AreEqual(initialCapacity, testing.InitialCapacity);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -79555,7 +79298,6 @@ namespace ObservableComputations.Test
 				equalityComparer).For(consumer);
 
 			Assert.AreEqual(equalityComparer, testing.EqualityComparer);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -79667,7 +79409,6 @@ namespace ObservableComputations.Test
 				initialCapacity).For(consumer);
 
 			Assert.AreEqual(initialCapacity, testing.InitialCapacity);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -79775,7 +79516,6 @@ namespace ObservableComputations.Test
 			OcConsumer consumer = new OcConsumer();
 			var testing = source1Scalar.Uniting<Item>(
 				source2).For(consumer);
-
 
 			void test()
 			{
@@ -79891,7 +79631,6 @@ namespace ObservableComputations.Test
 
 			Assert.AreEqual(equalityComparer, testing.EqualityComparer);
 			Assert.AreEqual(initialCapacity, testing.InitialCapacity);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -80003,7 +79742,6 @@ namespace ObservableComputations.Test
 				equalityComparer).For(consumer);
 
 			Assert.AreEqual(equalityComparer, testing.EqualityComparer);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -80115,7 +79853,6 @@ namespace ObservableComputations.Test
 				initialCapacity).For(consumer);
 
 			Assert.AreEqual(initialCapacity, testing.InitialCapacity);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -80223,7 +79960,6 @@ namespace ObservableComputations.Test
 			OcConsumer consumer = new OcConsumer();
 			var testing = source1Scalar.Uniting<Item>(
 				source2).For(consumer);
-
 
 			void test()
 			{
@@ -80339,7 +80075,6 @@ namespace ObservableComputations.Test
 
 			Assert.AreEqual(equalityComparer, testing.EqualityComparer);
 			Assert.AreEqual(initialCapacity, testing.InitialCapacity);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -80451,7 +80186,6 @@ namespace ObservableComputations.Test
 				equalityComparer).For(consumer);
 
 			Assert.AreEqual(equalityComparer, testing.EqualityComparer);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -80563,7 +80297,6 @@ namespace ObservableComputations.Test
 				initialCapacity).For(consumer);
 
 			Assert.AreEqual(initialCapacity, testing.InitialCapacity);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -80671,7 +80404,6 @@ namespace ObservableComputations.Test
 			OcConsumer consumer = new OcConsumer();
 			var testing = source1Scalar.Uniting<Item>(
 				source2).For(consumer);
-
 
 			void test()
 			{
@@ -80787,7 +80519,6 @@ namespace ObservableComputations.Test
 
 			Assert.AreEqual(equalityComparer, testing.EqualityComparer);
 			Assert.AreEqual(initialCapacity, testing.InitialCapacity);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -80904,7 +80635,6 @@ namespace ObservableComputations.Test
 				equalityComparer).For(consumer);
 
 			Assert.AreEqual(equalityComparer, testing.EqualityComparer);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -81021,7 +80751,6 @@ namespace ObservableComputations.Test
 				initialCapacity).For(consumer);
 
 			Assert.AreEqual(initialCapacity, testing.InitialCapacity);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -81134,7 +80863,6 @@ namespace ObservableComputations.Test
 			OcConsumer consumer = new OcConsumer();
 			var testing = source1Scalar.Uniting<Item>(
 				source2Scalar).For(consumer);
-
 
 			void test()
 			{
@@ -81255,7 +80983,6 @@ namespace ObservableComputations.Test
 
 			Assert.AreEqual(equalityComparer, testing.EqualityComparer);
 			Assert.AreEqual(initialCapacity, testing.InitialCapacity);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -81372,7 +81099,6 @@ namespace ObservableComputations.Test
 				equalityComparer).For(consumer);
 
 			Assert.AreEqual(equalityComparer, testing.EqualityComparer);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -81489,7 +81215,6 @@ namespace ObservableComputations.Test
 				initialCapacity).For(consumer);
 
 			Assert.AreEqual(initialCapacity, testing.InitialCapacity);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -81602,7 +81327,6 @@ namespace ObservableComputations.Test
 			OcConsumer consumer = new OcConsumer();
 			var testing = source1Scalar.Uniting<Item>(
 				source2Scalar).For(consumer);
-
 
 			void test()
 			{
@@ -81723,7 +81447,6 @@ namespace ObservableComputations.Test
 
 			Assert.AreEqual(equalityComparer, testing.EqualityComparer);
 			Assert.AreEqual(initialCapacity, testing.InitialCapacity);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -81840,7 +81563,6 @@ namespace ObservableComputations.Test
 				equalityComparer).For(consumer);
 
 			Assert.AreEqual(equalityComparer, testing.EqualityComparer);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -81957,7 +81679,6 @@ namespace ObservableComputations.Test
 				initialCapacity).For(consumer);
 
 			Assert.AreEqual(initialCapacity, testing.InitialCapacity);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -82070,7 +81791,6 @@ namespace ObservableComputations.Test
 			OcConsumer consumer = new OcConsumer();
 			var testing = source1Scalar.Uniting<Item>(
 				source2Scalar).For(consumer);
-
 
 			void test()
 			{
@@ -82191,7 +81911,6 @@ namespace ObservableComputations.Test
 
 			Assert.AreEqual(equalityComparer, testing.EqualityComparer);
 			Assert.AreEqual(initialCapacity, testing.InitialCapacity);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -82308,7 +82027,6 @@ namespace ObservableComputations.Test
 				equalityComparer).For(consumer);
 
 			Assert.AreEqual(equalityComparer, testing.EqualityComparer);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -82425,7 +82143,6 @@ namespace ObservableComputations.Test
 				initialCapacity).For(consumer);
 
 			Assert.AreEqual(initialCapacity, testing.InitialCapacity);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -82538,7 +82255,6 @@ namespace ObservableComputations.Test
 			OcConsumer consumer = new OcConsumer();
 			var testing = source1Scalar.Uniting<Item>(
 				source2Scalar).For(consumer);
-
 
 			void test()
 			{
@@ -82659,7 +82375,6 @@ namespace ObservableComputations.Test
 
 			Assert.AreEqual(equalityComparer, testing.EqualityComparer);
 			Assert.AreEqual(initialCapacity, testing.InitialCapacity);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -82771,7 +82486,6 @@ namespace ObservableComputations.Test
 				equalityComparer).For(consumer);
 
 			Assert.AreEqual(equalityComparer, testing.EqualityComparer);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -82883,7 +82597,6 @@ namespace ObservableComputations.Test
 				initialCapacity).For(consumer);
 
 			Assert.AreEqual(initialCapacity, testing.InitialCapacity);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -82991,7 +82704,6 @@ namespace ObservableComputations.Test
 			OcConsumer consumer = new OcConsumer();
 			var testing = source1.Uniting<Item>(
 				source2Scalar).For(consumer);
-
 
 			void test()
 			{
@@ -83107,7 +82819,6 @@ namespace ObservableComputations.Test
 
 			Assert.AreEqual(equalityComparer, testing.EqualityComparer);
 			Assert.AreEqual(initialCapacity, testing.InitialCapacity);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -83219,7 +82930,6 @@ namespace ObservableComputations.Test
 				equalityComparer).For(consumer);
 
 			Assert.AreEqual(equalityComparer, testing.EqualityComparer);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -83331,7 +83041,6 @@ namespace ObservableComputations.Test
 				initialCapacity).For(consumer);
 
 			Assert.AreEqual(initialCapacity, testing.InitialCapacity);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -83439,7 +83148,6 @@ namespace ObservableComputations.Test
 			OcConsumer consumer = new OcConsumer();
 			var testing = source1.Uniting<Item>(
 				source2Scalar).For(consumer);
-
 
 			void test()
 			{
@@ -83555,7 +83263,6 @@ namespace ObservableComputations.Test
 
 			Assert.AreEqual(equalityComparer, testing.EqualityComparer);
 			Assert.AreEqual(initialCapacity, testing.InitialCapacity);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -83667,7 +83374,6 @@ namespace ObservableComputations.Test
 				equalityComparer).For(consumer);
 
 			Assert.AreEqual(equalityComparer, testing.EqualityComparer);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -83779,7 +83485,6 @@ namespace ObservableComputations.Test
 				initialCapacity).For(consumer);
 
 			Assert.AreEqual(initialCapacity, testing.InitialCapacity);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -83887,7 +83592,6 @@ namespace ObservableComputations.Test
 			OcConsumer consumer = new OcConsumer();
 			var testing = source1.Uniting<Item>(
 				source2Scalar).For(consumer);
-
 
 			void test()
 			{
@@ -84003,7 +83707,6 @@ namespace ObservableComputations.Test
 
 			Assert.AreEqual(equalityComparer, testing.EqualityComparer);
 			Assert.AreEqual(initialCapacity, testing.InitialCapacity);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -84115,7 +83818,6 @@ namespace ObservableComputations.Test
 				equalityComparer).For(consumer);
 
 			Assert.AreEqual(equalityComparer, testing.EqualityComparer);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -84227,7 +83929,6 @@ namespace ObservableComputations.Test
 				initialCapacity).For(consumer);
 
 			Assert.AreEqual(initialCapacity, testing.InitialCapacity);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -84335,7 +84036,6 @@ namespace ObservableComputations.Test
 			OcConsumer consumer = new OcConsumer();
 			var testing = source1.Uniting<Item>(
 				source2Scalar).For(consumer);
-
 
 			void test()
 			{
@@ -84451,7 +84151,6 @@ namespace ObservableComputations.Test
 
 			Assert.AreEqual(equalityComparerScalar, testing.EqualityComparerScalar);
 			Assert.AreEqual(initialCapacity, testing.InitialCapacity);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -84563,7 +84262,6 @@ namespace ObservableComputations.Test
 				equalityComparerScalar).For(consumer);
 
 			Assert.AreEqual(equalityComparerScalar, testing.EqualityComparerScalar);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -84678,7 +84376,6 @@ namespace ObservableComputations.Test
 
 			Assert.AreEqual(equalityComparerScalar, testing.EqualityComparerScalar);
 			Assert.AreEqual(initialCapacity, testing.InitialCapacity);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -84790,7 +84487,6 @@ namespace ObservableComputations.Test
 				equalityComparerScalar).For(consumer);
 
 			Assert.AreEqual(equalityComparerScalar, testing.EqualityComparerScalar);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -84905,7 +84601,6 @@ namespace ObservableComputations.Test
 
 			Assert.AreEqual(equalityComparerScalar, testing.EqualityComparerScalar);
 			Assert.AreEqual(initialCapacity, testing.InitialCapacity);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -85017,7 +84712,6 @@ namespace ObservableComputations.Test
 				equalityComparerScalar).For(consumer);
 
 			Assert.AreEqual(equalityComparerScalar, testing.EqualityComparerScalar);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -85132,7 +84826,6 @@ namespace ObservableComputations.Test
 
 			Assert.AreEqual(equalityComparerScalar, testing.EqualityComparerScalar);
 			Assert.AreEqual(initialCapacity, testing.InitialCapacity);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -85244,7 +84937,6 @@ namespace ObservableComputations.Test
 				equalityComparerScalar).For(consumer);
 
 			Assert.AreEqual(equalityComparerScalar, testing.EqualityComparerScalar);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -85359,7 +85051,6 @@ namespace ObservableComputations.Test
 
 			Assert.AreEqual(equalityComparerScalar, testing.EqualityComparerScalar);
 			Assert.AreEqual(initialCapacity, testing.InitialCapacity);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -85476,7 +85167,6 @@ namespace ObservableComputations.Test
 				equalityComparerScalar).For(consumer);
 
 			Assert.AreEqual(equalityComparerScalar, testing.EqualityComparerScalar);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -85596,7 +85286,6 @@ namespace ObservableComputations.Test
 
 			Assert.AreEqual(equalityComparerScalar, testing.EqualityComparerScalar);
 			Assert.AreEqual(initialCapacity, testing.InitialCapacity);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -85713,7 +85402,6 @@ namespace ObservableComputations.Test
 				equalityComparerScalar).For(consumer);
 
 			Assert.AreEqual(equalityComparerScalar, testing.EqualityComparerScalar);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -85833,7 +85521,6 @@ namespace ObservableComputations.Test
 
 			Assert.AreEqual(equalityComparerScalar, testing.EqualityComparerScalar);
 			Assert.AreEqual(initialCapacity, testing.InitialCapacity);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -85950,7 +85637,6 @@ namespace ObservableComputations.Test
 				equalityComparerScalar).For(consumer);
 
 			Assert.AreEqual(equalityComparerScalar, testing.EqualityComparerScalar);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -86070,7 +85756,6 @@ namespace ObservableComputations.Test
 
 			Assert.AreEqual(equalityComparerScalar, testing.EqualityComparerScalar);
 			Assert.AreEqual(initialCapacity, testing.InitialCapacity);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -86187,7 +85872,6 @@ namespace ObservableComputations.Test
 				equalityComparerScalar).For(consumer);
 
 			Assert.AreEqual(equalityComparerScalar, testing.EqualityComparerScalar);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -86307,7 +85991,6 @@ namespace ObservableComputations.Test
 
 			Assert.AreEqual(equalityComparerScalar, testing.EqualityComparerScalar);
 			Assert.AreEqual(initialCapacity, testing.InitialCapacity);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -86429,7 +86112,6 @@ namespace ObservableComputations.Test
 				equalityComparerScalar).For(consumer);
 
 			Assert.AreEqual(equalityComparerScalar, testing.EqualityComparerScalar);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -86554,7 +86236,6 @@ namespace ObservableComputations.Test
 
 			Assert.AreEqual(equalityComparerScalar, testing.EqualityComparerScalar);
 			Assert.AreEqual(initialCapacity, testing.InitialCapacity);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -86676,7 +86357,6 @@ namespace ObservableComputations.Test
 				equalityComparerScalar).For(consumer);
 
 			Assert.AreEqual(equalityComparerScalar, testing.EqualityComparerScalar);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -86801,7 +86481,6 @@ namespace ObservableComputations.Test
 
 			Assert.AreEqual(equalityComparerScalar, testing.EqualityComparerScalar);
 			Assert.AreEqual(initialCapacity, testing.InitialCapacity);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -86923,7 +86602,6 @@ namespace ObservableComputations.Test
 				equalityComparerScalar).For(consumer);
 
 			Assert.AreEqual(equalityComparerScalar, testing.EqualityComparerScalar);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -87048,7 +86726,6 @@ namespace ObservableComputations.Test
 
 			Assert.AreEqual(equalityComparerScalar, testing.EqualityComparerScalar);
 			Assert.AreEqual(initialCapacity, testing.InitialCapacity);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -87170,7 +86847,6 @@ namespace ObservableComputations.Test
 				equalityComparerScalar).For(consumer);
 
 			Assert.AreEqual(equalityComparerScalar, testing.EqualityComparerScalar);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -87295,7 +86971,6 @@ namespace ObservableComputations.Test
 
 			Assert.AreEqual(equalityComparerScalar, testing.EqualityComparerScalar);
 			Assert.AreEqual(initialCapacity, testing.InitialCapacity);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -87412,7 +87087,6 @@ namespace ObservableComputations.Test
 				equalityComparerScalar).For(consumer);
 
 			Assert.AreEqual(equalityComparerScalar, testing.EqualityComparerScalar);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -87532,7 +87206,6 @@ namespace ObservableComputations.Test
 
 			Assert.AreEqual(equalityComparerScalar, testing.EqualityComparerScalar);
 			Assert.AreEqual(initialCapacity, testing.InitialCapacity);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -87649,7 +87322,6 @@ namespace ObservableComputations.Test
 				equalityComparerScalar).For(consumer);
 
 			Assert.AreEqual(equalityComparerScalar, testing.EqualityComparerScalar);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -87769,7 +87441,6 @@ namespace ObservableComputations.Test
 
 			Assert.AreEqual(equalityComparerScalar, testing.EqualityComparerScalar);
 			Assert.AreEqual(initialCapacity, testing.InitialCapacity);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -87886,7 +87557,6 @@ namespace ObservableComputations.Test
 				equalityComparerScalar).For(consumer);
 
 			Assert.AreEqual(equalityComparerScalar, testing.EqualityComparerScalar);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -88006,7 +87676,6 @@ namespace ObservableComputations.Test
 
 			Assert.AreEqual(equalityComparerScalar, testing.EqualityComparerScalar);
 			Assert.AreEqual(initialCapacity, testing.InitialCapacity);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -88123,7 +87792,6 @@ namespace ObservableComputations.Test
 				equalityComparerScalar).For(consumer);
 
 			Assert.AreEqual(equalityComparerScalar, testing.EqualityComparerScalar);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -88239,7 +87907,6 @@ namespace ObservableComputations.Test
 			var testing = source.WeakPreviousTracking<Item>().For(consumer);
 
 			Assert.AreEqual(source, testing.Source);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -88267,7 +87934,6 @@ namespace ObservableComputations.Test
 
 			Assert.AreEqual(leftSourceScalar, testing.LeftSourceScalar);
 			Assert.AreEqual(rightSource, testing.RightSource);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -88378,7 +88044,6 @@ namespace ObservableComputations.Test
 
 			Assert.AreEqual(leftSourceScalar, testing.LeftSourceScalar);
 			Assert.AreEqual(rightSource, testing.RightSource);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -88489,7 +88154,6 @@ namespace ObservableComputations.Test
 
 			Assert.AreEqual(leftSourceScalar, testing.LeftSourceScalar);
 			Assert.AreEqual(rightSource, testing.RightSource);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -88600,7 +88264,6 @@ namespace ObservableComputations.Test
 
 			Assert.AreEqual(leftSourceScalar, testing.LeftSourceScalar);
 			Assert.AreEqual(rightSource, testing.RightSource);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -88711,7 +88374,6 @@ namespace ObservableComputations.Test
 
 			Assert.AreEqual(leftSourceScalar, testing.LeftSourceScalar);
 			Assert.AreEqual(rightSourceScalar, testing.RightSourceScalar);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -88827,7 +88489,6 @@ namespace ObservableComputations.Test
 
 			Assert.AreEqual(leftSourceScalar, testing.LeftSourceScalar);
 			Assert.AreEqual(rightSourceScalar, testing.RightSourceScalar);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -88943,7 +88604,6 @@ namespace ObservableComputations.Test
 
 			Assert.AreEqual(leftSourceScalar, testing.LeftSourceScalar);
 			Assert.AreEqual(rightSourceScalar, testing.RightSourceScalar);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -89059,7 +88719,6 @@ namespace ObservableComputations.Test
 
 			Assert.AreEqual(leftSourceScalar, testing.LeftSourceScalar);
 			Assert.AreEqual(rightSourceScalar, testing.RightSourceScalar);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -89175,7 +88834,6 @@ namespace ObservableComputations.Test
 
 			Assert.AreEqual(leftSource, testing.LeftSource);
 			Assert.AreEqual(rightSource, testing.RightSource);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -89281,7 +88939,6 @@ namespace ObservableComputations.Test
 
 			Assert.AreEqual(leftSource, testing.LeftSource);
 			Assert.AreEqual(rightSource, testing.RightSource);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -89387,7 +89044,6 @@ namespace ObservableComputations.Test
 
 			Assert.AreEqual(leftSource, testing.LeftSource);
 			Assert.AreEqual(rightSource, testing.RightSource);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -89493,7 +89149,6 @@ namespace ObservableComputations.Test
 
 			Assert.AreEqual(leftSource, testing.LeftSource);
 			Assert.AreEqual(rightSource, testing.RightSource);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -89599,7 +89254,6 @@ namespace ObservableComputations.Test
 
 			Assert.AreEqual(leftSource, testing.LeftSource);
 			Assert.AreEqual(rightSourceScalar, testing.RightSourceScalar);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -89710,7 +89364,6 @@ namespace ObservableComputations.Test
 
 			Assert.AreEqual(leftSource, testing.LeftSource);
 			Assert.AreEqual(rightSourceScalar, testing.RightSourceScalar);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -89821,7 +89474,6 @@ namespace ObservableComputations.Test
 
 			Assert.AreEqual(leftSource, testing.LeftSource);
 			Assert.AreEqual(rightSourceScalar, testing.RightSourceScalar);
-
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -89932,7 +89584,6 @@ namespace ObservableComputations.Test
 
 			Assert.AreEqual(leftSource, testing.LeftSource);
 			Assert.AreEqual(rightSourceScalar, testing.RightSourceScalar);
-
 			void test()
 			{
 				testing.ValidateConsistency();

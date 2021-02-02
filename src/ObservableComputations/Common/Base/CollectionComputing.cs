@@ -446,14 +446,19 @@ namespace ObservableComputations
 		public ReadOnlyCollection<object> ConsumerTags =>
 			new ReadOnlyCollection<object>(_consumers.Union(_downstreamConsumedComputings.SelectMany(c => c.Consumers.Select(cons => cons.Tag))).ToList());
 
-		private bool _initializedFromSource;
+		protected bool _initializedFromSource;
+
+		protected virtual void setInitializedFromSource(bool value)
+		{
+			_initializedFromSource = value;
+		}
 
 		#region Implementation of IComputingInternal
 
 		bool IComputingInternal.InitializedFromSource
 		{
 			get => _initializedFromSource;
-			set => _initializedFromSource = value;
+			set => setInitializedFromSource(value);
 		}
 
 		IEnumerable<OcConsumer> IComputingInternal.Consumers => _consumers;

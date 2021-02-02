@@ -46,9 +46,6 @@ namespace ObservableComputations.Test
 		{
 			testNum++;
 
-			if (extensionMethod.Name == "SequenceComputing")
-			{
-			}
 
 			var arguments = new List<(int argumentIndex, string variableType, string argumentType, string name, string result, string sourceAccessor, string scalarType, bool isCombinatorical, string additionalTest)>();
 			var signatureArguments = extensionMethod.ArgumentsWithoutDefaultValue;
@@ -61,6 +58,24 @@ namespace ObservableComputations.Test
 			}
 
 			var combinatoricalArguments = arguments.Where(a => a.isCombinatorical).ToArray();
+
+			string sync = "";
+
+			if (extensionMethod.Name == "CollectionDispatching" || extensionMethod.Name == "ScalarDispatching")
+			{
+				if (arguments.Any(a => a.name == "sourceOcDispatcher"))
+					sync = sync + "((OcDispatcher)sourceOcDispatcher).Invoke(() => {}); ";
+				sync = "((OcDispatcher)destinationOcDispatcher).Invoke(() => {}); ";
+
+				/*sync = sync + "((OcDispatcher)destinationOcDispatcher).Invoke(() => {}); ";
+				if (arguments.Any(a => a.name == "sourceOcDispatcher"))
+					sync = sync + "((OcDispatcher)sourceOcDispatcher).Invoke(() => {}); ";
+				sync = sync + "((OcDispatcher)destinationOcDispatcher).Invoke(() => {}); ";
+				if (arguments.Any(a => a.name == "sourceOcDispatcher"))
+					sync = sync + "((OcDispatcher)sourceOcDispatcher).Invoke(() => {}); ";
+				sync = sync + "((OcDispatcher)destinationOcDispatcher).Invoke(() => {}); ";*/
+				//sync = sync + "System.Threading.Thread.Sleep(1000); ";
+			}
 #>
 		
 		[Test, Combinatorial]
@@ -114,8 +129,28 @@ namespace ObservableComputations.Test
 			Assert.AreEqual(<#=argument.name#>, testing.<#=FirstCharToUpper(argument.name)#>);
 <#
 			}
+
+			if (extensionMethod.Name == "CollectionDispatching" || extensionMethod.Name == "ScalarDispatching")
+			{
+				sync = "sync(); ";
 #>
 
+			void sync()
+			{
+<#
+				if (arguments.Any(a => a.name == "sourceOcDispatcher"))
+				{
+#>
+				((OcDispatcher)sourceOcDispatcher).Invoke(() => {});
+<#
+				}
+#>
+				((OcDispatcher)destinationOcDispatcher).Invoke(() => {});
+			}
+
+<#
+			}
+#>
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -124,29 +159,29 @@ namespace ObservableComputations.Test
 			{
 				string scalarValueAccessor = argument.variableType.Contains("Scalar") ? ".Value" : "";
 #>
-				var <#=argument.name#>Value = ((ObservableCollection<Item>)((<#=argument.scalarType#>)<#=argument.name#><#=scalarValueAccessor#>)<#=argument.sourceAccessor#>);
+				<#=sync#>var <#=argument.name#>Value = ((ObservableCollection<Item>)((<#=argument.scalarType#>)<#=argument.name#><#=scalarValueAccessor#>)<#=argument.sourceAccessor#>);
 
 				if (<#=argument.name#>Value != null)
 				{		
-					<#=argument.name#>Value.Insert(2, new QuickTests.Item(1, true));
+					<#=sync#><#=argument.name#>Value.Insert(2, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
-					<#=argument.name#>Value[3] = new QuickTests.Item(7, true);
+					<#=sync#><#=argument.name#>Value[3] = new QuickTests.Item(7, true);
 					testing.ValidateConsistency();
-					<#=argument.name#>Value.RemoveAt(3);
+					<#=sync#><#=argument.name#>Value.RemoveAt(3);
 					testing.ValidateConsistency();
-					<#=argument.name#>Value.Move(1, 3);
+					<#=sync#><#=argument.name#>Value.Move(1, 3);
 					testing.ValidateConsistency();
-					<#=argument.name#>Value[2].Active = !<#=argument.name#>Value[2].Active;
+					<#=sync#><#=argument.name#>Value[2].Active = !<#=argument.name#>Value[2].Active;
 					testing.ValidateConsistency();
-					<#=argument.name#>Value[2].Num = <#=argument.name#>Value[2].Num + 1;
+					<#=sync#><#=argument.name#>Value[2].Num = <#=argument.name#>Value[2].Num + 1;
 					testing.ValidateConsistency();
-					<#=argument.name#>Value.RemoveAt(0);
+					<#=sync#><#=argument.name#>Value.RemoveAt(0);
 					testing.ValidateConsistency();
-					<#=argument.name#>Value.RemoveAt(1);
+					<#=sync#><#=argument.name#>Value.RemoveAt(1);
 					testing.ValidateConsistency();
-					<#=argument.name#>Value.Insert(0, new QuickTests.Item(1, true));
+					<#=sync#><#=argument.name#>Value.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
-					<#=argument.name#>Value.Insert(0, new QuickTests.Item(2, true));
+					<#=sync#><#=argument.name#>Value.Insert(0, new QuickTests.Item(2, true));
 					testing.ValidateConsistency();
 				}
 <#
@@ -157,15 +192,15 @@ namespace ObservableComputations.Test
 			{
 				string scalarValueAccessor = sourcesArgument.First().variableType.Contains("Scalar") ? ".Value" : "";
 #>
-				var <#=sourcesArgument.First().name#>Value = ((ObservableCollection<ObservableCollection<Item>>)((<#=sourcesArgument.First().scalarType#>)<#=sourcesArgument.First().name#><#=scalarValueAccessor#>)<#=sourcesArgument.First().sourceAccessor#>);
+				<#=sync#>var <#=sourcesArgument.First().name#>Value = ((ObservableCollection<ObservableCollection<Item>>)((<#=sourcesArgument.First().scalarType#>)<#=sourcesArgument.First().name#><#=scalarValueAccessor#>)<#=sourcesArgument.First().sourceAccessor#>);
 				
 				if (<#=sourcesArgument.First().name#>Value != null)
 				{
-					<#=sourcesArgument.First().name#>Value.Insert(0, new ObservableCollection<Item>(new []{new Item(1, true)}));
+					<#=sync#><#=sourcesArgument.First().name#>Value.Insert(0, new ObservableCollection<Item>(new []{new Item(1, true)}));
 					testing.ValidateConsistency();
-					<#=sourcesArgument.First().name#>Value.RemoveAt(1);
+					<#=sync#><#=sourcesArgument.First().name#>Value.RemoveAt(1);
 					testing.ValidateConsistency();
-					<#=sourcesArgument.First().name#>Value.Move(0, 1);
+					<#=sync#><#=sourcesArgument.First().name#>Value.Move(0, 1);
 					testing.ValidateConsistency();
 				}
 
@@ -183,7 +218,7 @@ namespace ObservableComputations.Test
 				listSource = ((IList)((<#=argument.scalarType#>)<#=argument.name#><#=scalarValueAccessor#>)<#=argument.sourceAccessor#>);
 				if (listSource != null)
 				{
-					listSource.Clear();
+					<#=sync#>listSource.Clear();
 					testing.ValidateConsistency();
 				}
 
@@ -196,11 +231,11 @@ namespace ObservableComputations.Test
 #>
 				if (<#=argument.name#>Value != null)
 				{
-					<#=argument.name#>Value.Insert(0, new QuickTests.Item(1, true));
-					<#=argument.name#>Value.Insert(1, new QuickTests.Item(2, true));
-					<#=argument.name#>Value.Insert(2, new QuickTests.Item(3, true));
-					<#=argument.name#>Value.Insert(3, new QuickTests.Item(3, true));
-					<#=argument.name#>Value.Insert(4, new QuickTests.Item(3, true));
+					<#=sync#><#=argument.name#>Value.Insert(0, new QuickTests.Item(1, true));
+					<#=sync#><#=argument.name#>Value.Insert(1, new QuickTests.Item(2, true));
+					<#=sync#><#=argument.name#>Value.Insert(2, new QuickTests.Item(3, true));
+					<#=sync#><#=argument.name#>Value.Insert(3, new QuickTests.Item(3, true));
+					<#=sync#><#=argument.name#>Value.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
 <#
@@ -212,8 +247,8 @@ namespace ObservableComputations.Test
 #>
 				if (<#=sourcesArgument.First().name#>Value != null)
 				{
-					<#=sourcesArgument.First().name#>Value.Insert(0, new ObservableCollection<Item>(new []{new Item(1, true), new Item(2, true), new Item(3, true), new Item(4, true), new Item(5, true)}));
-					<#=sourcesArgument.First().name#>Value.Insert(0, new ObservableCollection<Item>(new []{new Item(6, true), new Item(7, true), new Item(8, true), new Item(8, true), new Item(10, true)}));
+					<#=sync#><#=sourcesArgument.First().name#>Value.Insert(0, new ObservableCollection<Item>(new []{new Item(1, true), new Item(2, true), new Item(3, true), new Item(4, true), new Item(5, true)}));
+					<#=sync#><#=sourcesArgument.First().name#>Value.Insert(0, new ObservableCollection<Item>(new []{new Item(6, true), new Item(7, true), new Item(8, true), new Item(8, true), new Item(10, true)}));
 					testing.ValidateConsistency();
 				}				
 <#
@@ -234,7 +269,7 @@ namespace ObservableComputations.Test
 				foreach (var scalarAlternativeValue in scalarAlternativeValues)
 				{
 #>
-				((Scalar<<#=argument.scalarType#>>)<#=argument.name#>).Change(<#=scalarAlternativeValue#>);
+				<#=sync#>((Scalar<<#=argument.scalarType#>>)<#=argument.name#>).Change(<#=scalarAlternativeValue#>);
 <#
 				}
 			}
@@ -260,7 +295,7 @@ namespace ObservableComputations.Test
 			{
 #>
 
-			((Scalar<<#=argument.scalarType#>>)<#=argument.name#>).Touch();
+			<#=sync#>((Scalar<<#=argument.scalarType#>>)<#=argument.name#>).Touch();
 			test();
 <#				
 				IEnumerable<string> scalarAlternativeValues = getAlternativeValues(argument.scalarType, argument.name, extensionMethod.Name);
@@ -268,7 +303,7 @@ namespace ObservableComputations.Test
 				foreach (var scalarAlternativeValue in scalarAlternativeValues)
 				{
 #>
-			((Scalar<<#=argument.scalarType#>>)<#=argument.name#>).Change(<#=scalarAlternativeValue#>);
+			<#=sync#>((Scalar<<#=argument.scalarType#>>)<#=argument.name#>).Change(<#=scalarAlternativeValue#>);
 			test();
 <#	
 				}
@@ -281,19 +316,20 @@ namespace ObservableComputations.Test
 <#
 			}
 #>
-			consumer.Dispose();
+			<#=sync#>consumer.Dispose();
 <#
-			if (arguments.Any(a => a.name == "destinationOcDispatcher"))
+			if (arguments.Any(a => a.name == "sourceOcDispatcher"))
 			{
+
 #>
-			((OcDispatcher)destinationOcDispatcher).Dispose();
+			((OcDispatcher)sourceOcDispatcher).Dispose();
 <#
 			}
 
-			if (arguments.Any(a => a.name == "sourceOcDispatcher"))
+			if (arguments.Any(a => a.name == "destinationOcDispatcher"))
 			{
-#>
-			((OcDispatcher)sourceOcDispatcher).Dispose();
+#>			
+			((OcDispatcher)destinationOcDispatcher).Dispose();
 <#
 			}
 #>
@@ -846,6 +882,10 @@ namespace ObservableComputations.Test
 
 	private bool isCombinatoricalArgument(string type, string argumentName, string extensionMethodName)
 	{
-		return type == "bool" || type == "int" || type == "int?" || type == "ObservableComputations.CollectionPausingResumeType";
+		return 
+			type == "bool" 
+			|| (type == "int" && extensionMethodName != "CollectionDispatching" &&  extensionMethodName != "ScalarDispatching")
+			|| type == "int?" 
+			|| type == "ObservableComputations.CollectionPausingResumeType";
 	}
 #>

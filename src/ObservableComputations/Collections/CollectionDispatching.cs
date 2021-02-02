@@ -100,53 +100,43 @@ namespace ObservableComputations
 		private void handleSourceScalarValueChanged(object sender, PropertyChangedEventArgs e)
 		{
 			if (e.PropertyName != nameof(IReadScalar<object>.Value)) return;
+			if (!_initializedFromSource) return;
 
 			invokeProcessSource(sender, e);
 		}
-
 
 		private void invokeProcessSource(object sender, EventArgs e)
 		{
 			if (_source != null)
 				_source.CollectionChanged -= handleSourceCollectionChanged;
 
-			_destinationOcDispatcher.Invoke(
-				() => doProcessSource(sender, e), 
-				_destinationOcDispatcherPriority,
-				_destinationOcDispatcherParameter,
-				this);
+			if (_sourceOcDispatcher != null)
+				_sourceOcDispatcher.Invoke(
+					() => doProcessSource(sender, e), 
+					_sourceOcDispatcherPriority,
+					_sourceOcDispatcherParameter,
+					this);
+			else
+				doProcessSource(sender, e);
 		}
 
 		private void doProcessSource(object sender, EventArgs e)
 		{
-			int originalCount = _items.Count;
+			if (!_initializedFromSource) return;
 
 			if (_sourceReadAndSubscribed)
-			{			
-				uninitializeSource();
-
+			{
 				_sourceReadAndSubscribed = false;
 
-				void uninitializeSource()
-				{
-					_source.CollectionChanged -= handleSourceCollectionChanged;
+				_source.CollectionChanged -= handleSourceCollectionChanged;
 
-					if (_sourceAsINotifyPropertyChanged != null)
-					{
-						_sourceAsINotifyPropertyChanged.PropertyChanged -=
-							((ISourceIndexerPropertyTracker) this).HandleSourcePropertyChanged;
-						_sourceAsINotifyPropertyChanged = null;
-					}
+				if (_sourceAsINotifyPropertyChanged != null)
+				{
+					_sourceAsINotifyPropertyChanged.PropertyChanged -=
+						((ISourceIndexerPropertyTracker) this).HandleSourcePropertyChanged;
+					_sourceAsINotifyPropertyChanged = null;
 				}
 
-				if (_sourceOcDispatcher != null)
-					_sourceOcDispatcher.Invoke(
-						uninitializeSource, 
-						_sourceOcDispatcherPriority,
-						_sourceOcDispatcherParameter,
-						this);
-				else
-					uninitializeSource();
 			}
 
 			Utils.changeSource(ref _source, _sourceScalar, _downstreamConsumedComputings, _consumers, this,
@@ -154,63 +144,53 @@ namespace ObservableComputations
 
 			if (_sourceAsList != null && _isActive)
 			{
-				void readAndSubscribe()
+				Utils.initializeFromHasChangeMarker(
+					out _sourceAsIHasChangeMarker,
+					_sourceAsList,
+					ref _lastProcessedSourceChangeMarker,
+					ref _sourceAsINotifyPropertyChanged,
+					(ISourceIndexerPropertyTracker) this);
+
+				int count = _sourceAsList.Count;
+				TSourceItem[] sourceCopy = new TSourceItem[count];
+				_sourceAsList.CopyTo(sourceCopy, 0);
+
+				_source.CollectionChanged += handleSourceCollectionChanged;
+
+				void resetAction()
 				{
-					Utils.initializeFromHasChangeMarker(
-						out _sourceAsIHasChangeMarker, 
-						_sourceAsList, 
-						ref _lastProcessedSourceChangeMarker, 
-						ref _sourceAsINotifyPropertyChanged,
-						(ISourceIndexerPropertyTracker)this);
+					int originalCount = _items.Count;
 
-					int count = _sourceAsList.Count;
-					TSourceItem[] sourceCopy = new TSourceItem[count];
-					_sourceAsList.CopyTo(sourceCopy, 0);
+					_handledEventSender = sender;
+					_handledEventArgs = e;
 
-					_source.CollectionChanged += handleSourceCollectionChanged;
-
-					void resetAction()
+					int sourceIndex = 0;
+					for (int index = 0; index < count; index++)
 					{
-						_handledEventSender = sender;
-						_handledEventArgs = e;
+						if (originalCount > sourceIndex)
+							_items[sourceIndex] = sourceCopy[index];
+						else
+							_items.Insert(sourceIndex, sourceCopy[index]);
 
-						int sourceIndex = 0;
-						for (int index = 0; index < count; index++)
-						{
-							if (originalCount > sourceIndex)
-								_items[sourceIndex] = sourceCopy[index];
-							else
-								_items.Insert(sourceIndex, sourceCopy[index]);
-
-							sourceIndex++;
-						}
-
-						for (int index = originalCount - 1; index >= sourceIndex; index--)
-						{
-							_items.RemoveAt(index);
-						}
-
-						reset();
-
-						_handledEventSender = null;
-						_handledEventArgs = null;
+						sourceIndex++;
 					}
 
-					_destinationOcDispatcher.Invoke(
-						resetAction, 
-						_destinationOcDispatcherPriority,
-						_destinationOcDispatcherParameter,
-						this);
+					for (int index = originalCount - 1; index >= sourceIndex; index--)
+					{
+						_items.RemoveAt(index);
+					}
+
+					reset();
+
+					_handledEventSender = null;
+					_handledEventArgs = null;
 				}
 
-				if (_sourceOcDispatcher != null)
-					_sourceOcDispatcher.Invoke(
-						readAndSubscribe, 
-						_sourceOcDispatcherPriority,
-						_sourceOcDispatcherParameter,
-						this);
-				else
-					readAndSubscribe();
+				_destinationOcDispatcher.Invoke(
+					resetAction,
+					_destinationOcDispatcherPriority,
+					_destinationOcDispatcherParameter,
+					this);
 	 
 				_sourceReadAndSubscribed = true;
 			}
@@ -226,7 +206,7 @@ namespace ObservableComputations
 				}
 
 				_destinationOcDispatcher.Invoke(
-					clearItemsAction, 
+					clearItemsAction,
 					_destinationOcDispatcherPriority,
 					_destinationOcDispatcherParameter,
 					this);
@@ -394,6 +374,23 @@ namespace ObservableComputations
 				this);
 		}
 
+		protected override void setInitializedFromSource(bool value)
+		{
+			void perform()
+			{
+				_initializedFromSource = value;
+			}
+
+			if (_sourceOcDispatcher != null)
+				_sourceOcDispatcher.Invoke(
+					perform, 
+					_sourceOcDispatcherPriority,
+					_sourceOcDispatcherParameter,
+					this);
+			else
+				perform();
+		}
+
 		[ExcludeFromCodeCoverage]
 		internal void ValidateConsistency()
 		{
@@ -401,6 +398,7 @@ namespace ObservableComputations
 			
 			bool conststent = true;
 
+			_destinationOcDispatcher.Invoke(() => {});
 			_destinationOcDispatcher.Invoke(() =>
 			{
 				conststent = this.SequenceEqual(source);

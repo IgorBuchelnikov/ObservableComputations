@@ -114,9 +114,7 @@ namespace ObservableComputations
 				_sourceReadAndSubscribed = true;
 			}
 			else
-			{
 				setDefaultValue();
-			}
 		}
 
 		protected override void initialize()
@@ -132,11 +130,13 @@ namespace ObservableComputations
 		internal override void addToUpstreamComputings(IComputingInternal computing)
 		{
 			(_source as IComputingInternal)?.AddDownstreamConsumedComputing(computing);
+			(_equalityComparerScalar as IComputingInternal)?.AddDownstreamConsumedComputing(computing);
 		}
 
 		internal override void removeFromUpstreamComputings(IComputingInternal computing)
 		{
 			(_source as IComputingInternal)?.RemoveDownstreamConsumedComputing(computing);
+			(_equalityComparerScalar as IComputingInternal)?.RemoveDownstreamConsumedComputing(computing);
 		}
 
 		#endregion

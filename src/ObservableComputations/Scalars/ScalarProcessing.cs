@@ -119,6 +119,8 @@ namespace ObservableComputations
 				_source.PropertyChanged += handleSourceScalarPropertyChanged;
 				_sourceReadAndSubscribed = true;
 			}
+			else
+				setDefaultValue();
 		}
 
 		protected override void initialize()

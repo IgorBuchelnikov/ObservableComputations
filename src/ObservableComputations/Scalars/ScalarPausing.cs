@@ -190,9 +190,7 @@ namespace ObservableComputations
 				_sourceReadAndSubscribed = true;
 			}
 			else
-			{
 				setDefaultValue();
-			}
 		}
 
 		protected override void initialize()

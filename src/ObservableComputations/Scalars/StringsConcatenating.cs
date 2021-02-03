@@ -145,10 +145,7 @@ namespace ObservableComputations
 				recalculateValue();
 			}
 			else
-			{
-				_valueStringBuilder.Clear();
-				setValue(String.Empty);
-			}
+				setDefaultValue(String.Empty);
 		}
 
 		private void initializeSeparator()

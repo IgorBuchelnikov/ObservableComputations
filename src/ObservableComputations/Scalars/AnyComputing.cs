@@ -277,12 +277,7 @@ namespace ObservableComputations
 				_sourceReadAndSubscribed = true;
 			}
 			else
-			{
-				if (_value)
-				{
-					setValue(false);
-				}
-			}
+				setDefaultValue(false);
 		}
 
 		// ReSharper disable once MemberCanBePrivate.Global

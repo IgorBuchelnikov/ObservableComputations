@@ -12,60 +12,6 @@ namespace ObservableComputations
 {
 	public static partial class ExtensionMethods
 	{
-		#region Binding
-
-		[ObservableComputationsCall]
-		public static Binding<TValue> Binding<TValue>(this
-			IReadScalar<TValue> source,
-			Action<TValue, Binding<TValue>> modifyTargetAction,
-			bool applyNow)
-			
-		{
-			return new Binding<TValue>(
-				source: source,
-				modifyTargetAction: modifyTargetAction,
-				applyOnActivation : applyNow);
-		}
-
-		[ObservableComputationsCall]
-		public static Binding<TValue> Binding<TValue>(this
-			IReadScalar<TValue> source,
-			Action<TValue, Binding<TValue>> modifyTargetAction)
-			
-		{
-			return new Binding<TValue>(
-				source: source,
-				modifyTargetAction: modifyTargetAction,
-				applyOnActivation : true);
-		}
-
-		[ObservableComputationsCall]
-		public static Binding<TValue> Binding<TValue>(this
-			Expression<Func<TValue>> getSourceExpression,
-			Action<TValue, Binding<TValue>> modifyTargetAction,
-			bool applyNow)
-			
-		{
-			return new Binding<TValue>(
-				source: new Computing<TValue>(getSourceExpression),
-				modifyTargetAction: modifyTargetAction,
-				applyOnActivation : applyNow);
-		}
-
-		[ObservableComputationsCall]
-		public static Binding<TValue> Binding<TValue>(this
-			Expression<Func<TValue>> getSourceExpression,
-			Action<TValue, Binding<TValue>> modifyTargetAction)
-			
-		{
-			return new Binding<TValue>(
-				source: new Computing<TValue>(getSourceExpression),
-				modifyTargetAction: modifyTargetAction,
-				applyOnActivation : true);
-		}
-
-		#endregion
-
 		#region ScalarProcessing
 		[ObservableComputationsCall]
 		public static ScalarProcessing<TValue, TReturnValue> ScalarProcessing<TValue, TReturnValue>(this

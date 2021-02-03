@@ -378,7 +378,7 @@
 
 	public bool IsCollectionOfCollectionsArgument(string extensionMethodName, string argumentName)
 	{
-		return (extensionMethodName == "Concatenating" || extensionMethodName == "Uniting") && (argumentName == "source" || argumentName == "sourceScalar");
+		return (extensionMethodName == "Concatenating" || extensionMethodName == "Uniting") && (argumentName == "source" || argumentName == "sourceScalar" || argumentName == "sourceExpression");
 	}
 
 	public bool IsCollectionArgument(string extensionMethodName, string argumentName, string type)

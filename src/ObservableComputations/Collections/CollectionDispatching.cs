@@ -99,17 +99,13 @@ namespace ObservableComputations
 
 		private void handleSourceScalarValueChanged(object sender, PropertyChangedEventArgs e)
 		{
-			if (e.PropertyName != nameof(IReadScalar<object>.Value)) return;
-			if (!_initializedFromSource) return;
+			if (e.PropertyName != nameof(IReadScalar<object>.Value) || !_initializedFromSource) return;
 
-			invokeProcessSource(sender, e);
+			doProcessSource(sender, e);
 		}
 
 		private void invokeProcessSource(object sender, EventArgs e)
 		{
-			if (_source != null)
-				_source.CollectionChanged -= handleSourceCollectionChanged;
-
 			if (_sourceOcDispatcher != null)
 				_sourceOcDispatcher.Invoke(
 					() => doProcessSource(sender, e), 
@@ -122,8 +118,6 @@ namespace ObservableComputations
 
 		private void doProcessSource(object sender, EventArgs e)
 		{
-			if (!_initializedFromSource) return;
-
 			if (_sourceReadAndSubscribed)
 			{
 				_sourceReadAndSubscribed = false;

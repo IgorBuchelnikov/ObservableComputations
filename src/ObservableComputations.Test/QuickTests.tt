@@ -11,6 +11,7 @@
 <#@ include file=".\..\ObservableComputations\ExtensionMethods.ttinclude" #>
 using System;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -31,8 +32,7 @@ namespace ObservableComputations.Test
 		GetExtensionMethods().Where(em => 
 			em.Name != "Using" 
 			&& em.Name != "Computing"
-			&& em.Name != "Binding"
-			&& !em.Arguments.Any(ema => IsComputingArgument(ema)))
+			&& em.Name != "Binding")
 		.GroupBy(em => em.Name).OrderBy(emg => emg.Key))
 	{
 
@@ -46,6 +46,9 @@ namespace ObservableComputations.Test
 		{
 			testNum++;
 
+			if (extensionMethod.Name == "Aggregating" && testNum == 3)
+			{
+			}
 
 			var arguments = new List<(int argumentIndex, string variableType, string argumentType, string name, string result, string sourceAccessor, string scalarType, bool isCombinatorical, string additionalTest)>();
 			var signatureArguments = extensionMethod.ArgumentsWithoutDefaultValue;
@@ -58,24 +61,6 @@ namespace ObservableComputations.Test
 			}
 
 			var combinatoricalArguments = arguments.Where(a => a.isCombinatorical).ToArray();
-
-			string sync = "";
-
-			if (extensionMethod.Name == "CollectionDispatching" || extensionMethod.Name == "ScalarDispatching")
-			{
-				if (arguments.Any(a => a.name == "sourceOcDispatcher"))
-					sync = sync + "((OcDispatcher)sourceOcDispatcher).Invoke(() => {}); ";
-				sync = "((OcDispatcher)destinationOcDispatcher).Invoke(() => {}); ";
-
-				/*sync = sync + "((OcDispatcher)destinationOcDispatcher).Invoke(() => {}); ";
-				if (arguments.Any(a => a.name == "sourceOcDispatcher"))
-					sync = sync + "((OcDispatcher)sourceOcDispatcher).Invoke(() => {}); ";
-				sync = sync + "((OcDispatcher)destinationOcDispatcher).Invoke(() => {}); ";
-				if (arguments.Any(a => a.name == "sourceOcDispatcher"))
-					sync = sync + "((OcDispatcher)sourceOcDispatcher).Invoke(() => {}); ";
-				sync = sync + "((OcDispatcher)destinationOcDispatcher).Invoke(() => {}); ";*/
-				//sync = sync + "System.Threading.Thread.Sleep(1000); ";
-			}
 #>
 		
 		[Test, Combinatorial]
@@ -123,6 +108,7 @@ namespace ObservableComputations.Test
 						|| (extensionMethod.Name == "Paging" && argument.name == "initialPage")
 						|| (extensionMethod.Name == "CollectionPausing" && argument.name == "initialIsPaused")
 						|| (extensionMethod.Name == "ScalarPausing" && argument.name == "initialIsPaused")
+						|| (argument.argumentType.Contains("Func") && argument.argumentType.Contains("Expression") && !ExpressionArgumentNames.Any(an => argument.name.ToUpper().Contains(an)))
 					)
 					continue;
 #>
@@ -130,6 +116,7 @@ namespace ObservableComputations.Test
 <#
 			}
 
+			string sync = "";
 			if (extensionMethod.Name == "CollectionDispatching" || extensionMethod.Name == "ScalarDispatching")
 			{
 				sync = "sync(); ";
@@ -157,9 +144,9 @@ namespace ObservableComputations.Test
 <#
 			foreach (var argument in arguments.Where(a => IsCollectionArgument(extensionMethod.Name, a.name, a.argumentType)))
 			{
-				string scalarValueAccessor = argument.variableType.Contains("Scalar") ? ".Value" : "";
+				string scalarValueAccessor = (argument.variableType.Contains("Scalar") || argument.variableType.Contains("Expression")) ? ".Value" : "";
 #>
-				<#=sync#>var <#=argument.name#>Value = ((ObservableCollection<Item>)((<#=argument.scalarType#>)<#=argument.name#><#=scalarValueAccessor#>)<#=argument.sourceAccessor#>);
+				<#=sync#>var <#=argument.name#>Value = ((ObservableCollection<Item>)((<#=argument.scalarType#>)<#=argumentNameToPropertyName(argument.name, extensionMethod.Name)#><#=scalarValueAccessor#>)<#=argument.sourceAccessor#>);
 
 				if (<#=argument.name#>Value != null)
 				{		
@@ -192,7 +179,7 @@ namespace ObservableComputations.Test
 			{
 				string scalarValueAccessor = sourcesArgument.First().variableType.Contains("Scalar") ? ".Value" : "";
 #>
-				<#=sync#>var <#=sourcesArgument.First().name#>Value = ((ObservableCollection<ObservableCollection<Item>>)((<#=sourcesArgument.First().scalarType#>)<#=sourcesArgument.First().name#><#=scalarValueAccessor#>)<#=sourcesArgument.First().sourceAccessor#>);
+				<#=sync#>var <#=sourcesArgument.First().name#>Value = ((ObservableCollection<ObservableCollection<Item>>)((<#=sourcesArgument.First().scalarType#>)<#=argumentNameToPropertyName(sourcesArgument.First().name, extensionMethod.Name)#><#=scalarValueAccessor#>)<#=sourcesArgument.First().sourceAccessor#>);
 				
 				if (<#=sourcesArgument.First().name#>Value != null)
 				{
@@ -215,7 +202,7 @@ namespace ObservableComputations.Test
 			{
 				string scalarValueAccessor = argument.variableType.Contains("Scalar") ? ".Value" : "";
 #>
-				listSource = ((IList)((<#=argument.scalarType#>)<#=argument.name#><#=scalarValueAccessor#>)<#=argument.sourceAccessor#>);
+				listSource = ((IList)((<#=argument.scalarType#>)<#=argumentNameToPropertyName(argument.name, extensionMethod.Name)#><#=scalarValueAccessor#>)<#=argument.sourceAccessor#>);
 				if (listSource != null)
 				{
 					<#=sync#>listSource.Clear();
@@ -260,7 +247,8 @@ namespace ObservableComputations.Test
 				&& !IsCollectionArgument(extensionMethod.Name, a.name, a.argumentType) 
 				&& !IsCollectionOfCollectionsArgument(extensionMethod.Name, a.name)
 				&& extensionMethod.Name != "SequenceComputing"
-				&& !(extensionMethod.Name == "PropertyAccessing" && a.name == "source")).ToArray();
+				&& !(extensionMethod.Name == "PropertyAccessing" && a.name == "source")
+				&& !a.argumentType.Contains("Expression")).ToArray();
 
 			foreach (var argument in scalarSourceNotCollectionArguments)
 			{
@@ -284,12 +272,14 @@ namespace ObservableComputations.Test
 			var scalarArguments = arguments.Where(a => a.name.ToUpper().Contains("SCALAR"));
 
 			var scalarSourceArguments = scalarArguments.Where(a => 
-				a.name.ToUpper().Contains("SOURCE") 
-				|| (extensionMethod.Name == "SequenceComputing" && a.name == "countScalar"));
+				(a.name.ToUpper().Contains("SOURCE") 
+				|| (extensionMethod.Name == "SequenceComputing" && a.name == "countScalar"))
+				&& !a.argumentType.Contains("Expression"));
 
 			var scalarNotSourceArguments = scalarArguments.Where(a => 
 				a.argumentIndex > 0 
-				&& !a.name.ToUpper().Contains("SOURCE"));
+				&& !a.name.ToUpper().Contains("SOURCE")
+				&& !a.argumentType.Contains("Expression"));
 
 			foreach (var argument in scalarNotSourceArguments.Concat(scalarSourceArguments))
 			{
@@ -406,9 +396,15 @@ namespace ObservableComputations.Test
 		{
 			checkingType = matchCollection[0].Groups["scalarType"].Value;
 			scalar = true;
-			if (extensionMethodName == "Paging")
-			{
-			}
+		}
+
+		bool expression = false;
+		regex = new Regex(@"Expression<Func<(?<expressionType>.+)>>");
+		matchCollection = regex.Matches(type);
+		if (matchCollection.Count > 0)
+		{
+			checkingType = matchCollection[0].Groups["expressionType"].Value;
+			expression = true;
 		}
 
 		switch (checkingType)
@@ -610,12 +606,15 @@ namespace ObservableComputations.Test
 			if (scalar) result = $"getScalar<{variableType}>({result})";
 			scalarType = variableType;
 			variableType = scalar ? $"IReadScalar<{getTestType(checkingType, extensionMethodName)}>" : variableType;
+			variableType = expression ? $"Expression<Func<{getTestType(checkingType, extensionMethodName)}>>" : variableType;
 		}
 
-		return (result, sourceAccessor, variableType, scalarType, isCombinatoricalArgument(type, argumentName, extensionMethodName), getAdditionalTest(argumentName, extensionMethodName));
+		if (expression) result = $"() => {result}";
+
+		return (result, sourceAccessor, variableType, scalarType, isCombinatoricalArgument(type, argumentName, extensionMethodName), getAdditionalTest(argumentName, extensionMethodName, type));
 	}
 
-	private string getAdditionalTest(string argumentName, string extensionMethodName)
+	private string getAdditionalTest(string argumentName, string extensionMethodName, string argumentType)
 	{
 		if (extensionMethodName == "Paging")
 		{
@@ -766,7 +765,7 @@ namespace ObservableComputations.Test
 
 			Assert.IsTrue(setLastChangesToApplyOnResumeCountPausedException != null);";
 
-			if (argumentName == "source")
+			if (argumentName == "source" && !argumentType.Contains("Expression"))
 				return @"
 			if (testing.IsPausedScalar == null)
 			{
@@ -887,5 +886,15 @@ namespace ObservableComputations.Test
 			|| (type == "int" && extensionMethodName != "CollectionDispatching" &&  extensionMethodName != "ScalarDispatching")
 			|| type == "int?" 
 			|| type == "ObservableComputations.CollectionPausingResumeType";
+	}
+
+	private string argumentNameToPropertyName(string argumentName, string extentionMethodName)
+	{
+		if ((extentionMethodName == "Concatenating" || extentionMethodName == "Uniting") && (argumentName.Contains("1") || argumentName.Contains("2")))
+		{
+			return $"((IReadScalar<INotifyCollectionChanged>)((IList)testing.Source)[{(argumentName.Contains("1") ? "1" : "2")}])";
+		}
+
+		return $"testing.{FirstCharToUpper(argumentName)}";
 	}
 #>

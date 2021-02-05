@@ -144,7 +144,7 @@ namespace ObservableComputations.Test
 <#
 			foreach (var argument in arguments.Where(a => IsCollectionArgument(extensionMethod.Name, a.name, a.argumentType)))
 			{
-				string scalarValueAccessor = (argument.variableType.Contains("Scalar") || argument.variableType.Contains("Expression")) ? ".Value" : "";
+				string scalarValueAccessor = getScalarAccessor(argument.variableType);
 #>
 				<#=sync#>var <#=argument.name#>Value = ((ObservableCollection<Item>)((<#=argument.scalarType#>)<#=argumentNameToPropertyName(argument.name, extensionMethod.Name)#><#=scalarValueAccessor#>)<#=argument.sourceAccessor#>);
 
@@ -177,7 +177,7 @@ namespace ObservableComputations.Test
 			var sourcesArgument = arguments.Where(a => IsCollectionOfCollectionsArgument(extensionMethod.Name, a.name));
 			if (sourcesArgument.Count() != 0)
 			{
-				string scalarValueAccessor = sourcesArgument.First().variableType.Contains("Scalar") ? ".Value" : "";
+				string scalarValueAccessor = getScalarAccessor(sourcesArgument.First().variableType);
 #>
 				<#=sync#>var <#=sourcesArgument.First().name#>Value = ((ObservableCollection<ObservableCollection<Item>>)((<#=sourcesArgument.First().scalarType#>)<#=argumentNameToPropertyName(sourcesArgument.First().name, extensionMethod.Name)#><#=scalarValueAccessor#>)<#=sourcesArgument.First().sourceAccessor#>);
 				
@@ -200,7 +200,7 @@ namespace ObservableComputations.Test
 <#
 			foreach (var argument in arguments.Where(a => IsCollectionArgument(extensionMethod.Name, a.name, a.argumentType)))
 			{
-				string scalarValueAccessor = argument.variableType.Contains("Scalar") ? ".Value" : "";
+				string scalarValueAccessor = getScalarAccessor(argument.variableType);
 #>
 				listSource = ((IList)((<#=argument.scalarType#>)<#=argumentNameToPropertyName(argument.name, extensionMethod.Name)#><#=scalarValueAccessor#>)<#=argument.sourceAccessor#>);
 				if (listSource != null)
@@ -214,7 +214,7 @@ namespace ObservableComputations.Test
 
 			foreach (var argument in arguments.Where(a => IsCollectionArgument(extensionMethod.Name, a.name, a.argumentType)))
 			{
-				string scalarValueAccessor = argument.variableType.Contains("Scalar") ? ".Value" : "";
+				string scalarValueAccessor = getScalarAccessor(argument.variableType);
 #>
 				if (<#=argument.name#>Value != null)
 				{
@@ -230,7 +230,7 @@ namespace ObservableComputations.Test
 
 			if (sourcesArgument.Count() != 0)
 			{
-				string scalarValueAccessor = sourcesArgument.First().variableType.Contains("Scalar") ? ".Value" : "";
+				string scalarValueAccessor = getScalarAccessor(sourcesArgument.First().variableType);
 #>
 				if (<#=sourcesArgument.First().name#>Value != null)
 				{
@@ -892,9 +892,17 @@ namespace ObservableComputations.Test
 	{
 		if ((extentionMethodName == "Concatenating" || extentionMethodName == "Uniting") && (argumentName.Contains("1") || argumentName.Contains("2")))
 		{
-			return $"((IReadScalar<INotifyCollectionChanged>)((IList)testing.Source)[{(argumentName.Contains("1") ? "1" : "2")}])";
+			if (argumentName.Contains("Scalar"))
+				return $"((IReadScalar<INotifyCollectionChanged>)((IList)testing.Source)[{(argumentName.Contains("1") ? "1" : "2")}])";
+			else
+				return $"((INotifyCollectionChanged)((IList)testing.Source)[{(argumentName.Contains("1") ? "1" : "2")}])";
 		}
 
 		return $"testing.{FirstCharToUpper(argumentName)}";
+	}
+
+	private string getScalarAccessor(string variableType)
+	{
+		return (variableType.Contains("Scalar") || variableType.Contains("Expression")) ? ".Value" : "";
 	}
 #>

@@ -230,7 +230,8 @@ namespace ObservableComputations
 			if (_equalityComparerScalar != null)
 			{
 				_equalityComparerScalarPropertyChangedEventHandler = getScalarValueChangedHandler(
-					() => _equalityComparer = _equalityComparerScalar.Value ?? EqualityComparer<TKey>.Default);
+					() => _equalityComparer = _equalityComparerScalar.Value ?? EqualityComparer<TKey>.Default,
+					() => processSource(false));
 				_equalityComparerScalar.PropertyChanged += _equalityComparerScalarPropertyChangedEventHandler;
 				_equalityComparer = _equalityComparerScalar.Value;
 			}
@@ -397,7 +398,7 @@ namespace ObservableComputations
 
 					break;
 				case NotifyCollectionChangedAction.Reset:
-					processSource();
+					processSource(false);
 					break;
 			}
 		}
@@ -449,6 +450,11 @@ namespace ObservableComputations
 		}
 
 		protected override void processSource()
+		{
+			processSource(true);
+		}
+
+		private void processSource(bool changeSource)
 		{			
 			if (_sourceReadAndSubscribed)
 			{
@@ -461,7 +467,8 @@ namespace ObservableComputations
 					out _itemInfos,
 					out _sourcePositions, 
 					_sourceAsList, 
-					handleSourceCollectionChanged);
+					handleSourceCollectionChanged,
+					changeSource);
 
 				_resultPositions = new Positions<Position>(new List<Position>(_initialResultCapacity));
 				_nullGroup = null;			
@@ -471,21 +478,24 @@ namespace ObservableComputations
 				_sourceReadAndSubscribed = false;
 			}
 
-			Utils.changeSource(ref _source, _sourceScalar, _downstreamConsumedComputings, _consumers, this, out _sourceAsList, false);
+			if (changeSource)
+				Utils.changeSource(ref _source, _sourceScalar, _downstreamConsumedComputings, _consumers, this, out _sourceAsList, false);
 
 			if (_source != null && _isActive)
 			{
-				Utils.initializeFromObservableCollectionWithChangeMarker(
-					_source, 
-					ref _sourceAsList, 
-					ref _rootSourceWrapper, 
-					ref _lastProcessedSourceChangeMarker);
+				if (changeSource)
+					Utils.initializeFromObservableCollectionWithChangeMarker(
+						_source, 
+						ref _sourceAsList, 
+						ref _rootSourceWrapper, 
+						ref _lastProcessedSourceChangeMarker);
 
 				int count = _sourceAsList.Count;
 				TSourceItem[] sourceCopy = new TSourceItem[count];
 				_sourceAsList.CopyTo(sourceCopy, 0);
 
-				_sourceAsList.CollectionChanged += handleSourceCollectionChanged;
+				if (changeSource)
+					_sourceAsList.CollectionChanged += handleSourceCollectionChanged;
 
 				for (int index = 0; index < count; index++)
 					registerSourceItem(sourceCopy[index], true, _sourcePositions.Insert(index), true);

@@ -130,6 +130,11 @@ namespace ObservableComputations
 
 		protected override void processSource()
 		{
+			processSource(true);
+		}
+
+		private void processSource(bool changeSource)
+		{
 			int originalCount = _items.Count;
 
 			if (_sourceReadAndSubscribed)
@@ -158,30 +163,34 @@ namespace ObservableComputations
 					out _itemInfos,
 					out _sourceRangePositions);
 
-				_source.CollectionChanged -= HandleSourceCollectionChanged;
-
-				if (_sourcesAsINotifyPropertyChanged != null)
+				if (changeSource)
 				{
-					_sourcesAsINotifyPropertyChanged.PropertyChanged -=
-						((ISourceIndexerPropertyTracker) this).HandleSourcePropertyChanged;
-					_sourcesAsINotifyPropertyChanged = null;
+					_source.CollectionChanged -= handleSourceCollectionChanged;
+
+					if (_sourcesAsINotifyPropertyChanged != null)
+					{
+						_sourcesAsINotifyPropertyChanged.PropertyChanged -=
+							((ISourceIndexerPropertyTracker) this).HandleSourcePropertyChanged;
+						_sourcesAsINotifyPropertyChanged = null;
+					}
 				}
 
 				_sourceReadAndSubscribed = false;
 			}
 
-			Utils.changeSource(ref _source, _sourceScalar, _downstreamConsumedComputings, _consumers, this,
-				out _sourcesAsList, true);
+			if (changeSource)
+				Utils.changeSource(ref _source, _sourceScalar, _downstreamConsumedComputings, _consumers, this,
+					out _sourcesAsList, true);
 
 			if (_source != null && _isActive)
 			{
-				Utils.initializeFromHasChangeMarker(
-					out _sourcesAsIHasChangeMarker, 
-					_sourcesAsList, 
-					ref _lastProcessedSourcesChangeMarker, 
-					ref _sourcesAsINotifyPropertyChanged,
-					(ISourceIndexerPropertyTracker)this);
-
+				if (changeSource)
+					Utils.initializeFromHasChangeMarker(
+						out _sourcesAsIHasChangeMarker, 
+						_sourcesAsList, 
+						ref _lastProcessedSourcesChangeMarker, 
+						ref _sourcesAsINotifyPropertyChanged,
+						(ISourceIndexerPropertyTracker)this);
 
 				int plainIndex = 0;
 				int count = _sourcesAsList.Count;
@@ -198,6 +207,9 @@ namespace ObservableComputations
 					registerSourceItem(sourceItemObject, itemInfo);
 					IList<TSourceItem> sourceCopy = itemInfo.SourceCopy;
 
+					if (changeSource)
+						_source.CollectionChanged += handleSourceCollectionChanged;
+
 					for (int sourceSourceIndex = 0; sourceSourceIndex < sourceItemCount; sourceSourceIndex++)
 					{
 						if (originalCount > plainIndex)
@@ -213,7 +225,7 @@ namespace ObservableComputations
 					_items.RemoveAt(index);
 
 
-				_source.CollectionChanged += HandleSourceCollectionChanged;
+
 				_sourceReadAndSubscribed = true;
 			}
 			else
@@ -422,7 +434,7 @@ namespace ObservableComputations
 			replaceItem(itemInfo.SourceCopy, itemInfo);
 		}
 
-		private void HandleSourceCollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
+		private void handleSourceCollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
 		{
 			if (!Utils.preHandleSourceCollectionChanged(
 				sender, 
@@ -523,7 +535,7 @@ namespace ObservableComputations
 
 					break;
 				case NotifyCollectionChangedAction.Reset:
-					processSource();
+					processSource(false);
 					break;
 			}
 		}
@@ -570,9 +582,7 @@ namespace ObservableComputations
 				int count = sourceAsList.Count;
 				for (int sourceIndex = 0; sourceIndex < count; sourceIndex++)
 				{
-					IComputingInternal computingInternal = sourceAsList[sourceIndex] is IReadScalar<IComputingInternal> sourceScalar 
-						? sourceScalar.Value 
-						: (sourceAsList[sourceIndex] as IComputingInternal);
+					IComputingInternal computingInternal = sourceAsList[sourceIndex] as IComputingInternal;
 
 					if (addOrRemove)
 						computingInternal?.AddDownstreamConsumedComputing(computing);

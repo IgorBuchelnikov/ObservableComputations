@@ -101,12 +101,19 @@ namespace ObservableComputations
 		{
 			if (_separatorScalar != null)
 			{
-				_handleSeparatorScalarValueChanged = getScalarValueChangedHandler(initializeSeparator);
+				_handleSeparatorScalarValueChanged = getScalarValueChangedHandler(
+					initializeSeparator, 
+					() => processSource(false));
 				_separatorScalar.PropertyChanged += _handleSeparatorScalarValueChanged;
 			}
 		}
 
 		protected override void processSource()
+		{
+			processSource(true);
+		}
+
+		private void processSource(bool changeSource)
 		{
 			if (_sourceReadAndSubscribed)
 			{
@@ -115,32 +122,40 @@ namespace ObservableComputations
 				int capacity = _sourceScalar != null ? Utils.getCapacity(_sourceScalar) : Utils.getCapacity(_source);
 				_resultRangePositions = new RangePositions<RangePosition>(new List<RangePosition>(capacity * 2));
 
-				_source.CollectionChanged -= handleSourceCollectionChanged;
-
-				if (_sourceAsINotifyPropertyChanged != null)
+				if (changeSource)
 				{
-					_sourceAsINotifyPropertyChanged.PropertyChanged -=
-						((ISourceIndexerPropertyTracker) this).HandleSourcePropertyChanged;
-					_sourceAsINotifyPropertyChanged = null;
+					_source.CollectionChanged -= handleSourceCollectionChanged;
+
+					if (_sourceAsINotifyPropertyChanged != null)
+					{
+						_sourceAsINotifyPropertyChanged.PropertyChanged -=
+							((ISourceIndexerPropertyTracker) this).HandleSourcePropertyChanged;
+						_sourceAsINotifyPropertyChanged = null;
+					}
 				}
 
 				_sourceReadAndSubscribed = false;
 			}
 
 
-			Utils.changeSource(ref _source, _sourceScalar, _downstreamConsumedComputings, _consumers, this,
-				out _sourceAsList, true);
+
+			if (changeSource)
+				Utils.changeSource(ref _source, _sourceScalar, _downstreamConsumedComputings, _consumers, this,
+					out _sourceAsList, true);
 
 			if (_source != null && _isActive)
 			{
-				Utils.initializeFromHasChangeMarker(
-					out _sourceAsIHasChangeMarker, 
-					_sourceAsList, 
-					ref _lastProcessedSourceChangeMarker, 
-					ref _sourceAsINotifyPropertyChanged,
-					(ISourceIndexerPropertyTracker)this);
+				if (changeSource)
+					Utils.initializeFromHasChangeMarker(
+						out _sourceAsIHasChangeMarker, 
+						_sourceAsList, 
+						ref _lastProcessedSourceChangeMarker, 
+						ref _sourceAsINotifyPropertyChanged,
+						(ISourceIndexerPropertyTracker)this);
 
-				_source.CollectionChanged += handleSourceCollectionChanged;
+				if (changeSource)
+					_source.CollectionChanged += handleSourceCollectionChanged;
+
 				_sourceReadAndSubscribed = true;
 				recalculateValue();
 			}
@@ -293,7 +308,7 @@ namespace ObservableComputations
 
 					break;
 				case NotifyCollectionChangedAction.Reset:
-					processSource();
+					processSource(false);
 					break;
 			}
 		}
@@ -301,11 +316,13 @@ namespace ObservableComputations
 		internal override void addToUpstreamComputings(IComputingInternal computing)
 		{
 			Utils.AddDownstreamConsumedComputing(computing, _sourceScalar, _source);
+			(_separatorScalar as IComputingInternal)?.AddDownstreamConsumedComputing(computing);
 		}
 
 		internal override void removeFromUpstreamComputings(IComputingInternal computing)		
 		{
 			Utils.RemoveDownstreamConsumedComputing(computing, _sourceScalar, _source);
+			(_separatorScalar as IComputingInternal)?.RemoveDownstreamConsumedComputing(computing);
 		}
 
 		protected override void initialize()

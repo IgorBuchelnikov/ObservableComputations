@@ -299,6 +299,11 @@ namespace ObservableComputations
 
 		protected override void processSource()
 		{
+			processSource(true);
+		}
+
+		private void processSource(bool changeSource)
+		{
 			int originalCount = _items.Count;
 
 			if (_sourceReadAndSubscribed)
@@ -312,29 +317,33 @@ namespace ObservableComputations
 					out _itemInfos,
 					out _outerSourceItemPositions, 
 					_outerSourceAsList, 
-					handleOuterSourceCollectionChanged);
+					handleOuterSourceCollectionChanged,
+					changeSource);
 
 				_nullKeyPositions.Clear();
 				_keyPositions = new Dictionary<TKey, List<OuterItemInfo>>(_grouping._equalityComparer);
 				_sourceReadAndSubscribed = false;
 			}
 
-			Utils.changeSource(ref _outerSource, _outerSourceScalar, _downstreamConsumedComputings, _consumers, this, out _outerSourceAsList, false);
+			if (changeSource)
+				Utils.changeSource(ref _outerSource, _outerSourceScalar, _downstreamConsumedComputings, _consumers, this, out _outerSourceAsList, false);
 
 			if (_outerSource != null && _isActive)
 			{
-				Utils.initializeFromObservableCollectionWithChangeMarker(
-					_outerSource, 
-					ref _outerSourceAsList, 
-					ref _outerRootSourceWrapper, 
-					ref _lastProcessedSourceChangeMarker);
+				if (changeSource)
+					Utils.initializeFromObservableCollectionWithChangeMarker(
+						_outerSource, 
+						ref _outerSourceAsList, 
+						ref _outerRootSourceWrapper, 
+						ref _lastProcessedSourceChangeMarker);
 
 				int count = _outerSourceAsList.Count;
 
 				TOuterSourceItem[] outerSourceCopy = new TOuterSourceItem[count];
 				_outerSourceAsList.CopyTo(outerSourceCopy, 0);
 
-				_outerSourceAsList.CollectionChanged += handleOuterSourceCollectionChanged;
+				if (changeSource)
+					_outerSourceAsList.CollectionChanged += handleOuterSourceCollectionChanged;
 
 				int sourceIndex;
 				for (sourceIndex = 0; sourceIndex < count; sourceIndex++)
@@ -500,7 +509,7 @@ namespace ObservableComputations
 
 						break;
 					case NotifyCollectionChangedAction.Reset:
-						processSource();
+						processSource(false);
 						break;
 				}
 			else //if (ReferenceEquals(sender, _grouping)
@@ -531,7 +540,7 @@ namespace ObservableComputations
 						}
 						break;
 					case NotifyCollectionChangedAction.Reset:
-						processSource();
+						processSource(false);
 						break;
 				}
 		}

@@ -157,30 +157,43 @@ namespace ObservableComputations
 
 		protected override void processSource()
 		{
+			processSource(true, true);
+		}
+
+		private void processSource(bool changeLeftSource, bool changeRightSource)
+		{
 			int originalCount = _items.Count;
 
 			if (_sourceReadAndSubscribed)
 			{
 				if (_leftSource != null)
 				{
-					_leftSource.CollectionChanged -= handleLeftSourceCollectionChanged;
-					if (_leftSourceAsINotifyPropertyChanged != null)
+					if (changeLeftSource)
 					{
-						_leftSourceAsINotifyPropertyChanged.PropertyChanged -=
-							((ILeftSourceIndexerPropertyTracker) this).HandleSourcePropertyChanged;
-						_leftSourceAsINotifyPropertyChanged = null;
+						_leftSource.CollectionChanged -= handleLeftSourceCollectionChanged;
+
+						if (_leftSourceAsINotifyPropertyChanged != null)
+						{
+							_leftSourceAsINotifyPropertyChanged.PropertyChanged -=
+								((ILeftSourceIndexerPropertyTracker) this).HandleSourcePropertyChanged;
+							_leftSourceAsINotifyPropertyChanged = null;
+						}
 					}
 				}
 
 
 				if (_rightSource != null)
 				{
-					_rightSource.CollectionChanged -= handleLeftSourceCollectionChanged;
-					if (_rightSourceAsINotifyPropertyChanged != null)
+					if (changeRightSource)
 					{
-						_rightSourceAsINotifyPropertyChanged.PropertyChanged -=
-							((IRightSourceIndexerPropertyTracker) this).HandleSourcePropertyChanged;
-						_rightSourceAsINotifyPropertyChanged = null;
+						_rightSource.CollectionChanged -= handleLeftSourceCollectionChanged;
+
+						if (_rightSourceAsINotifyPropertyChanged != null)
+						{
+							_rightSourceAsINotifyPropertyChanged.PropertyChanged -=
+								((IRightSourceIndexerPropertyTracker) this).HandleSourcePropertyChanged;
+							_rightSourceAsINotifyPropertyChanged = null;
+						}
 					}
 				}
 
@@ -190,28 +203,32 @@ namespace ObservableComputations
 				_sourceReadAndSubscribed = false;
 			}
 
-			Utils.changeSource(ref _leftSource, _leftSourceScalar, _downstreamConsumedComputings, _consumers, this,
-				out _leftSourceAsList, true);
+			if (changeLeftSource)
+				Utils.changeSource(ref _leftSource, _leftSourceScalar, _downstreamConsumedComputings, _consumers, this,
+					out _leftSourceAsList, true);
 
-			Utils.changeSource(ref _rightSource, _rightSourceScalar, _downstreamConsumedComputings, _consumers, this,
-				out _rightSourceAsList, true);
+			if (changeRightSource)
+				Utils.changeSource(ref _rightSource, _rightSourceScalar, _downstreamConsumedComputings, _consumers, this,
+					out _rightSourceAsList, true);
 
 
 			if (_leftSourceAsList != null && _rightSourceAsList != null && _isActive)
 			{
-				Utils.initializeFromHasChangeMarker(
-					out _leftSourceAsIHasChangeMarker, 
-					_leftSourceAsList, 
-					ref _lastProcessedLeftSourceChangeMarker, 
-					ref _leftSourceAsINotifyPropertyChanged,
-					(ILeftSourceIndexerPropertyTracker)this);
+				if (changeLeftSource)
+					Utils.initializeFromHasChangeMarker(
+						out _leftSourceAsIHasChangeMarker, 
+						_leftSourceAsList, 
+						ref _lastProcessedLeftSourceChangeMarker, 
+						ref _leftSourceAsINotifyPropertyChanged,
+						(ILeftSourceIndexerPropertyTracker)this);
 
-				Utils.initializeFromHasChangeMarker(
-					out _rightSourceAsHasChangeMarker, 
-					_rightSourceAsList, 
-					ref _lastProcessedRightSourceChangeMarker, 
-					ref _rightSourceAsINotifyPropertyChanged,
-					(IRightSourceIndexerPropertyTracker)this);
+				if (changeRightSource)
+					Utils.initializeFromHasChangeMarker(
+						out _rightSourceAsHasChangeMarker, 
+						_rightSourceAsList, 
+						ref _lastProcessedRightSourceChangeMarker, 
+						ref _rightSourceAsINotifyPropertyChanged,
+						(IRightSourceIndexerPropertyTracker)this);
 
 
 				int countLeft = _leftSourceAsList.Count;
@@ -245,8 +262,11 @@ namespace ObservableComputations
 				for (int index = originalCount - 1; index >= sourceIndex; index--)
 					_items.RemoveAt(index);
 
-				_leftSource.CollectionChanged += handleLeftSourceCollectionChanged;				
-				_rightSource.CollectionChanged += handleRightSourceCollectionChanged;
+				if (changeLeftSource)
+					_leftSource.CollectionChanged += handleLeftSourceCollectionChanged;	
+				
+				if (changeRightSource)
+					_rightSource.CollectionChanged += handleRightSourceCollectionChanged;
 
 				_sourceReadAndSubscribed = true;
 
@@ -401,7 +421,7 @@ namespace ObservableComputations
 
 						break;
 					case NotifyCollectionChangedAction.Reset:
-						processSource();
+						processSource(false, false);
 						break;
 				}
 			}
@@ -498,7 +518,7 @@ namespace ObservableComputations
 
 					break;
 				case NotifyCollectionChangedAction.Reset:
-					processSource();
+					processSource(false, false);
 					break;
 			}
 		}

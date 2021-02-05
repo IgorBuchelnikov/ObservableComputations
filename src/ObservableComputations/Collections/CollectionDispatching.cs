@@ -63,10 +63,16 @@ namespace ObservableComputations
 		}
 
 
-
 		protected override void processSource()
 		{
-			invokeProcessSource(null, null);
+			if (_sourceOcDispatcher != null)
+				_sourceOcDispatcher.Invoke(
+					() => doProcessSource(null, null, true), 
+					_sourceOcDispatcherPriority,
+					_sourceOcDispatcherParameter,
+					this);
+			else
+				doProcessSource(null, null, true);
 		}
 
 		[ObservableComputationsCall]
@@ -99,57 +105,51 @@ namespace ObservableComputations
 
 		private void handleSourceScalarValueChanged(object sender, PropertyChangedEventArgs e)
 		{
-			if (e.PropertyName != nameof(IReadScalar<object>.Value) || !_initializedFromSource) return;
+			if (e.PropertyName != nameof(IReadScalar<object>.Value)) return;
 
-			doProcessSource(sender, e);
+			doProcessSource(sender, e, true);
 		}
 
-		private void invokeProcessSource(object sender, EventArgs e)
-		{
-			if (_sourceOcDispatcher != null)
-				_sourceOcDispatcher.Invoke(
-					() => doProcessSource(sender, e), 
-					_sourceOcDispatcherPriority,
-					_sourceOcDispatcherParameter,
-					this);
-			else
-				doProcessSource(sender, e);
-		}
-
-		private void doProcessSource(object sender, EventArgs e)
+		private void doProcessSource(object sender, EventArgs e, bool changeSource)
 		{
 			if (_sourceReadAndSubscribed)
 			{
 				_sourceReadAndSubscribed = false;
 
-				_source.CollectionChanged -= handleSourceCollectionChanged;
-
-				if (_sourceAsINotifyPropertyChanged != null)
+				if (changeSource)
 				{
-					_sourceAsINotifyPropertyChanged.PropertyChanged -=
-						((ISourceIndexerPropertyTracker) this).HandleSourcePropertyChanged;
-					_sourceAsINotifyPropertyChanged = null;
+					_source.CollectionChanged -= handleSourceCollectionChanged;
+
+					if (_sourceAsINotifyPropertyChanged != null)
+					{
+						_sourceAsINotifyPropertyChanged.PropertyChanged -=
+							((ISourceIndexerPropertyTracker) this).HandleSourcePropertyChanged;
+						_sourceAsINotifyPropertyChanged = null;
+					}
 				}
 
 			}
 
-			Utils.changeSource(ref _source, _sourceScalar, _downstreamConsumedComputings, _consumers, this,
-				out _sourceAsList, true);
+			if (changeSource)
+				Utils.changeSource(ref _source, _sourceScalar, _downstreamConsumedComputings, _consumers, this,
+					out _sourceAsList, true);
 
 			if (_sourceAsList != null && _isActive)
 			{
-				Utils.initializeFromHasChangeMarker(
-					out _sourceAsIHasChangeMarker,
-					_sourceAsList,
-					ref _lastProcessedSourceChangeMarker,
-					ref _sourceAsINotifyPropertyChanged,
-					(ISourceIndexerPropertyTracker) this);
+				if (changeSource)
+					Utils.initializeFromHasChangeMarker(
+						out _sourceAsIHasChangeMarker,
+						_sourceAsList,
+						ref _lastProcessedSourceChangeMarker,
+						ref _sourceAsINotifyPropertyChanged,
+						(ISourceIndexerPropertyTracker) this);
 
 				int count = _sourceAsList.Count;
 				TSourceItem[] sourceCopy = new TSourceItem[count];
 				_sourceAsList.CopyTo(sourceCopy, 0);
 
-				_source.CollectionChanged += handleSourceCollectionChanged;
+				if (changeSource)
+					_source.CollectionChanged += handleSourceCollectionChanged;
 
 				void resetAction()
 				{
@@ -279,7 +279,7 @@ namespace ObservableComputations
 
 					break;
 				case NotifyCollectionChangedAction.Reset:
-					invokeProcessSource(sender, e);
+					doProcessSource(sender, e, false);
 					break;
 			}
 
@@ -366,23 +366,6 @@ namespace ObservableComputations
 				_destinationOcDispatcherPriority,
 				_destinationOcDispatcherParameter,
 				this);
-		}
-
-		protected override void setInitializedFromSource(bool value)
-		{
-			void perform()
-			{
-				_initializedFromSource = value;
-			}
-
-			if (_sourceOcDispatcher != null)
-				_sourceOcDispatcher.Invoke(
-					perform, 
-					_sourceOcDispatcherPriority,
-					_sourceOcDispatcherParameter,
-					this);
-			else
-				perform();
 		}
 
 		[ExcludeFromCodeCoverage]

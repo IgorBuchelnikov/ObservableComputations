@@ -78,9 +78,24 @@ namespace ObservableComputations
 
 		protected override void processSource()
 		{
+			processSource(true);
+		}
+
+		private void processSource(bool changeSource)
+		{
 			if (_sourceReadAndSubscribed)
 			{
-				_source.CollectionChanged -= handleSourceCollectionChanged;
+				if (changeSource)
+				{
+					_source.CollectionChanged -= handleSourceCollectionChanged;
+
+					if (_sourceAsINotifyPropertyChanged != null)
+					{
+						_sourceAsINotifyPropertyChanged.PropertyChanged -=
+							((ISourceIndexerPropertyTracker) this).HandleSourcePropertyChanged;
+						_sourceAsINotifyPropertyChanged = null;
+					}
+				}
 
 				int count = Count;
 				for (int i = 0; i < count; i++)
@@ -93,24 +108,27 @@ namespace ObservableComputations
 				_sourceReadAndSubscribed = false;
 			}
 
-			Utils.changeSource(ref _source, _sourceScalar, _downstreamConsumedComputings, _consumers, this,
-				out _sourceAsList, true);
+			if (changeSource)
+				Utils.changeSource(ref _source, _sourceScalar, _downstreamConsumedComputings, _consumers, this,
+					out _sourceAsList, true);
 
 			if (_sourceAsList != null && _isActive)
 			{
-				Utils.initializeFromHasChangeMarker(
-					out _sourceAsIHasChangeMarker, 
-					_sourceAsList, 
-					ref _lastProcessedSourceChangeMarker, 
-					ref _sourceAsINotifyPropertyChanged,
-					(ISourceIndexerPropertyTracker)this);
+				if (changeSource)
+					Utils.initializeFromHasChangeMarker(
+						out _sourceAsIHasChangeMarker, 
+						_sourceAsList, 
+						ref _lastProcessedSourceChangeMarker, 
+						ref _sourceAsINotifyPropertyChanged,
+						(ISourceIndexerPropertyTracker)this);
 
 				int count = _sourceAsList.Count;
 
 				TSourceItem[] sourceCopy = new TSourceItem[count];
 				_sourceAsList.CopyTo(sourceCopy, 0);
 
-				_source.CollectionChanged += handleSourceCollectionChanged;
+				if (changeSource)
+					_source.CollectionChanged += handleSourceCollectionChanged;
 
 				for (int index = 0; index < count; index++)
 					baseInsertItem(index, sourceCopy[index]);
@@ -183,7 +201,7 @@ namespace ObservableComputations
 
 					break;
 				case NotifyCollectionChangedAction.Reset:
-					processSource();
+					processSource(false);
 					break;
 			}
 		}

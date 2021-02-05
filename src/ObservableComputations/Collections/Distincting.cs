@@ -19,7 +19,7 @@ namespace ObservableComputations
 		// ReSharper disable once MemberCanBePrivate.Global
 		public override INotifyCollectionChanged Source => _source;
 
-		public virtual IEqualityComparer<TSourceItem> EqualityComparer => _equalityComparer;
+		public IEqualityComparer<TSourceItem> EqualityComparer => _equalityComparer;
 
 		public override ReadOnlyCollection<INotifyCollectionChanged> Sources => new ReadOnlyCollection<INotifyCollectionChanged>(new []{Source});
 		public override ReadOnlyCollection<IReadScalar<INotifyCollectionChanged>> SourceScalars => new ReadOnlyCollection<IReadScalar<INotifyCollectionChanged>>(new []{SourceScalar});

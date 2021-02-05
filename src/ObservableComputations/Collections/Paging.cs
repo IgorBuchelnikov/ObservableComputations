@@ -360,43 +360,54 @@ namespace ObservableComputations
 
 		protected override void processSource()
 		{
+			processSource(true);
+		}
+
+		private void processSource(bool changeSource)
+		{
 			int originalCount = _items.Count;
 
 			if (_sourceReadAndSubscribed)
 			{
-				_source.CollectionChanged -= handleSourceCollectionChanged;
-
-				if (_sourceAsINotifyPropertyChanged != null)
+				if (changeSource)
 				{
-					_sourceAsINotifyPropertyChanged.PropertyChanged -=
-						((ISourceIndexerPropertyTracker) this).HandleSourcePropertyChanged;
-					_sourceAsINotifyPropertyChanged = null;
+					_source.CollectionChanged -= handleSourceCollectionChanged;
+
+					if (_sourceAsINotifyPropertyChanged != null)
+					{
+						_sourceAsINotifyPropertyChanged.PropertyChanged -=
+							((ISourceIndexerPropertyTracker) this).HandleSourcePropertyChanged;
+						_sourceAsINotifyPropertyChanged = null;
+					}
 				}
 
 				_sourceCopy = null;
 				_sourceReadAndSubscribed = false;
 			}
 
-			Utils.changeSource(ref _source, _sourceScalar, _downstreamConsumedComputings, _consumers, this,
-				out _sourceAsList, true);
+			if (changeSource)
+				Utils.changeSource(ref _source, _sourceScalar, _downstreamConsumedComputings, _consumers, this,
+					out _sourceAsList, true);
 
 			int originalPageCount = _pageCount;
 			int originalCurrentPage = _currentPage;
 
 			if (_sourceAsList != null && _isActive)
 			{
-				Utils.initializeFromHasChangeMarker(
-					out _sourceAsIHasChangeMarker, 
-					_sourceAsList, 
-					ref _lastProcessedSourceChangeMarker, 
-					ref _sourceAsINotifyPropertyChanged,
-					(ISourceIndexerPropertyTracker)this);
+				if (changeSource)
+					Utils.initializeFromHasChangeMarker(
+						out _sourceAsIHasChangeMarker, 
+						_sourceAsList, 
+						ref _lastProcessedSourceChangeMarker, 
+						ref _sourceAsINotifyPropertyChanged,
+						(ISourceIndexerPropertyTracker)this);
 
 				int newIndex = 0;
 				int count = _sourceAsList.Count;
 				_sourceCopy = new List<TSourceItem>(_sourceAsList);
 
-				_source.CollectionChanged += handleSourceCollectionChanged;
+				if (changeSource)
+					_source.CollectionChanged += handleSourceCollectionChanged;
 
 				_pageCount = (int) Math.Ceiling(count  / (double) _pageSize);
 				if (_currentPage > _pageCount)
@@ -630,7 +641,7 @@ namespace ObservableComputations
 
 					break;
 				case NotifyCollectionChangedAction.Reset:
-					processSource();
+					processSource(false);
 					break;
 			}
 		}

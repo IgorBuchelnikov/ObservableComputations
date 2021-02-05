@@ -53,7 +53,7 @@ namespace ObservableComputations
 		{
 			if (_indexScalar != null)
 			{
-				_indexScalar.PropertyChanged += HandleIndexScalarChanged;
+				_indexScalar.PropertyChanged += handleIndexScalarChanged;
 				_index = _indexScalar.Value;
 			}
 
@@ -128,7 +128,7 @@ namespace ObservableComputations
 		}
 
 
-		private void HandleIndexScalarChanged(object sender, PropertyChangedEventArgs e)
+		private void handleIndexScalarChanged(object sender, PropertyChangedEventArgs e)
 		{
 			Utils.processChange(
 				sender, 
@@ -143,15 +143,23 @@ namespace ObservableComputations
 
 		protected override void processSource()
 		{
+			processSource(true);
+		}
+
+		private void processSource(bool changeSource)
+		{
 			if (_sourceReadAndSubscribed)
 			{
-				_source.CollectionChanged -= handleSourceCollectionChanged;
-
-				if (_sourceAsINotifyPropertyChanged != null)
+				if (changeSource)
 				{
-					_sourceAsINotifyPropertyChanged.PropertyChanged -=
-						((ISourceIndexerPropertyTracker) this).HandleSourcePropertyChanged;
-					_sourceAsINotifyPropertyChanged = null;
+					_source.CollectionChanged -= handleSourceCollectionChanged;
+
+					if (_sourceAsINotifyPropertyChanged != null)
+					{
+						_sourceAsINotifyPropertyChanged.PropertyChanged -=
+							((ISourceIndexerPropertyTracker) this).HandleSourcePropertyChanged;
+						_sourceAsINotifyPropertyChanged = null;
+					}
 				}
 
 				_sourceCopy = null;
@@ -159,20 +167,24 @@ namespace ObservableComputations
 				_sourceReadAndSubscribed = false;
 			}
 
-			Utils.changeSource(ref _source, _sourceScalar, _downstreamConsumedComputings, _consumers, this,
-				out _sourceAsList, true);
+			if (changeSource)
+				Utils.changeSource(ref _source, _sourceScalar, _downstreamConsumedComputings, _consumers, this,
+					out _sourceAsList, true);
 
 
 			if (_source != null && _isActive)
 			{
-				Utils.initializeFromHasChangeMarker(
-					out _sourceAsIHasChangeMarker, 
-					_sourceAsList, 
-					ref _lastProcessedSourceChangeMarker, 
-					ref _sourceAsINotifyPropertyChanged,
-					(ISourceIndexerPropertyTracker)this);
+				if (changeSource)
+					Utils.initializeFromHasChangeMarker(
+						out _sourceAsIHasChangeMarker, 
+						_sourceAsList, 
+						ref _lastProcessedSourceChangeMarker, 
+						ref _sourceAsINotifyPropertyChanged,
+						(ISourceIndexerPropertyTracker)this);
 
-				_source.CollectionChanged += handleSourceCollectionChanged;
+				if (changeSource)
+					_source.CollectionChanged += handleSourceCollectionChanged;
+
 				_sourceCopy = new List<TSourceItem>(_sourceAsList);
 				recalculateValue();
 
@@ -273,7 +285,7 @@ namespace ObservableComputations
 
 					break;
 				case NotifyCollectionChangedAction.Reset:
-					processSource();
+					processSource(false);
 					break;
 			}
 		}
@@ -300,7 +312,7 @@ namespace ObservableComputations
 		{
 			Utils.uninitializeSourceScalar(_sourceScalar, scalarValueChangedHandler, ref _source);
 			if (_indexScalar != null) 
-				_indexScalar.PropertyChanged -= HandleIndexScalarChanged;
+				_indexScalar.PropertyChanged -= handleIndexScalarChanged;
 		}
 
 		#region Implementation of ISourceIndexerPropertyTracker

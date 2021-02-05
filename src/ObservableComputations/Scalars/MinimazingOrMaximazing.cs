@@ -69,7 +69,8 @@ namespace ObservableComputations
 			if (_comparerScalar != null)
 			{
 				_comparerScalarValueChangedHandler = getScalarValueChangedHandler(
-					() => { _comparer = _comparerScalar.Value ?? Comparer<TSourceItem>.Default; });
+					() => _comparer = _comparerScalar.Value ?? Comparer<TSourceItem>.Default,
+					() => processSource(false));
 
 				_comparerScalar.PropertyChanged += _comparerScalarValueChangedHandler;
 				_comparer = _comparerScalar.Value;
@@ -154,34 +155,46 @@ namespace ObservableComputations
 
 		protected override void processSource()
 		{
+			processSource(true);
+		}
+
+		private void processSource(bool changeSource)
+		{
 			if (_sourceReadAndSubscribed)
 			{
-				_source.CollectionChanged -= handleSourceCollectionChanged;
-
-				if (_sourceAsINotifyPropertyChanged != null)
+				if (changeSource)
 				{
-					_sourceAsINotifyPropertyChanged.PropertyChanged -=
-						((ISourceIndexerPropertyTracker) this).HandleSourcePropertyChanged;
-					_sourceAsINotifyPropertyChanged = null;
+					_source.CollectionChanged -= handleSourceCollectionChanged;
+
+					if (_sourceAsINotifyPropertyChanged != null)
+					{
+						_sourceAsINotifyPropertyChanged.PropertyChanged -=
+							((ISourceIndexerPropertyTracker) this).HandleSourcePropertyChanged;
+						_sourceAsINotifyPropertyChanged = null;
+					}
 				}
 
 				_sourceCopy = new List<TSourceItem>(Utils.getCapacity(_sourceScalar, _source));
 				_sourceReadAndSubscribed = false;
 			}
 
-			Utils.changeSource(ref _source, _sourceScalar, _downstreamConsumedComputings, _consumers, this,
-				out _sourceAsList, true);
+			if (changeSource)
+				Utils.changeSource(ref _source, _sourceScalar, _downstreamConsumedComputings, _consumers, this,
+					out _sourceAsList, true);
 
 			if (_source != null && _isActive)
 			{
-				Utils.initializeFromHasChangeMarker(
-					out _sourceAsIHasChangeMarker, 
-					_sourceAsList, 
-					ref _lastProcessedSourceChangeMarker, 
-					ref _sourceAsINotifyPropertyChanged,
-					(ISourceIndexerPropertyTracker)this);
+				if (changeSource)
+					Utils.initializeFromHasChangeMarker(
+						out _sourceAsIHasChangeMarker, 
+						_sourceAsList, 
+						ref _lastProcessedSourceChangeMarker, 
+						ref _sourceAsINotifyPropertyChanged,
+						(ISourceIndexerPropertyTracker)this);
 
-				_source.CollectionChanged += handleSourceCollectionChanged;
+				if (changeSource)
+					_source.CollectionChanged += handleSourceCollectionChanged;
+
 				_sourceReadAndSubscribed = true;
 			}
 
@@ -352,7 +365,7 @@ namespace ObservableComputations
 					_sourceCopy.Insert(newStartingIndex1, movingSourceItem);
 					break;
 				case NotifyCollectionChangedAction.Reset:
-					processSource();
+					processSource(false);
 					break;
 			}
 		}

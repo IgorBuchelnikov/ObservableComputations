@@ -252,6 +252,11 @@ namespace ObservableComputations
 
 		protected override void processSource()
 		{
+			processSource(true, true);
+		}
+
+		private void processSource(bool changeLeftSource, bool changeRightSource)
+		{
 			int originalCount = _items.Count;
 
 			if (_sourceReadAndSubscribed)
@@ -268,38 +273,44 @@ namespace ObservableComputations
 				_filteredPositions = new Positions<Position>(new List<Position>(_initialCapacity));
 				//if (_isLeft) _leftItemInfos = new List<LeftItemInfo>(leftCapacity);
 
-				Utils.unsubscribeSource(
-					_leftSourceAsList,
-					handleLeftSourceCollectionChanged);
+				if (changeLeftSource)
+					Utils.unsubscribeSource(
+						_leftSourceAsList,
+						handleLeftSourceCollectionChanged);
 
-				Utils.unsubscribeSource(
-					_rightSourceAsList,
-					handleRightSourceCollectionChanged);
+				if (changeRightSource)
+					Utils.unsubscribeSource(
+						_rightSourceAsList,
+						handleRightSourceCollectionChanged);
 
 				_leftSourceCopy = null;
 				_rightSourceCopy = null;
 				_sourceReadAndSubscribed = false;
 			}
 
-			Utils.changeSource(ref _leftSource, _leftSourceScalar, _downstreamConsumedComputings, _consumers, this,
-				out _leftSourceAsList, false);
+			if (changeLeftSource)
+				Utils.changeSource(ref _leftSource, _leftSourceScalar, _downstreamConsumedComputings, _consumers, this,
+					out _leftSourceAsList, false);
 
-			Utils.changeSource(ref _rightSource, _rightSourceScalar, _downstreamConsumedComputings, _consumers, this,
-				out _rightSourceAsList, false);
+			if (changeRightSource)
+				Utils.changeSource(ref _rightSource, _rightSourceScalar, _downstreamConsumedComputings, _consumers, this,
+					out _rightSourceAsList, false);
 
 			if (_leftSource != null && _rightSource != null && _isActive)
 			{
-				Utils.initializeFromObservableCollectionWithChangeMarker(
-					_leftSource,
-					ref _leftSourceAsList,
-					ref _rootLeftSourceWrapper,
-					ref _lastProcessedLeftSourceChangeMarker);
+				if (changeLeftSource)
+					Utils.initializeFromObservableCollectionWithChangeMarker(
+						_leftSource,
+						ref _leftSourceAsList,
+						ref _rootLeftSourceWrapper,
+						ref _lastProcessedLeftSourceChangeMarker);
 
-				Utils.initializeFromObservableCollectionWithChangeMarker(
-					_rightSource,
-					ref _rightSourceAsList,
-					ref _rootRightSourceWrapper,
-					ref _lastProcessedRightSourceChangeMarker);
+				if (changeRightSource)
+					Utils.initializeFromObservableCollectionWithChangeMarker(
+						_rightSource,
+						ref _rightSourceAsList,
+						ref _rootRightSourceWrapper,
+						ref _lastProcessedRightSourceChangeMarker);
 
 				Position nextItemPosition = _filteredPositions.Add();
 				int leftCount = _leftSourceAsList.Count;
@@ -308,8 +319,10 @@ namespace ObservableComputations
 				_leftSourceCopy = new List<TLeftSourceItem>(_leftSourceAsList);
 				_rightSourceCopy = new List<TRightSourceItem>(_rightSourceAsList);
 
-				_leftSourceAsList.CollectionChanged += handleLeftSourceCollectionChanged;
-			   _rightSourceAsList.CollectionChanged += handleRightSourceCollectionChanged;
+				if (changeLeftSource)
+					_leftSourceAsList.CollectionChanged += handleLeftSourceCollectionChanged;
+			   if (changeRightSource)
+				   _rightSourceAsList.CollectionChanged += handleRightSourceCollectionChanged;
 
 				int insertingIndex = 0;
 				int leftSourceIndex;
@@ -488,7 +501,7 @@ namespace ObservableComputations
 
 						break;
 					case NotifyCollectionChangedAction.Reset:
-						processSource();
+						processSource(false, false);
 						break;
 					case NotifyCollectionChangedAction.Replace:
 						int newIndex3 = e.NewStartingIndex;
@@ -607,7 +620,7 @@ namespace ObservableComputations
 						}
 						break;
 					case NotifyCollectionChangedAction.Reset:
-						processSource();
+						processSource(false, false);
 						break;
 				}
 		}

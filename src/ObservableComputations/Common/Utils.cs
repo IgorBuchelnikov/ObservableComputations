@@ -142,7 +142,8 @@ namespace ObservableComputations
 		internal static int disposeSource<TItemInfo>(IReadScalar<INotifyCollectionChanged> sourceScalar,
 			INotifyCollectionChanged source, out List<TItemInfo> itemInfos, out Positions<TItemInfo> sourcePositions,
 			INotifyCollectionChanged sourceAsList,
-			NotifyCollectionChangedEventHandler sourceNotifyCollectionChangedEventHandler)
+			NotifyCollectionChangedEventHandler sourceNotifyCollectionChangedEventHandler,
+			bool unsubscribe)
 			where TItemInfo : Position, new()
 		{
 			int capacity = getCapacity(sourceScalar, source);
@@ -152,7 +153,8 @@ namespace ObservableComputations
 				out itemInfos,
 				out sourcePositions,
 				sourceAsList,
-				sourceNotifyCollectionChangedEventHandler);
+				sourceNotifyCollectionChangedEventHandler,
+				unsubscribe);
 
 			return capacity;
 		}
@@ -164,15 +166,18 @@ namespace ObservableComputations
 
 		private static void disposeSource<TItemInfo>(int capacity, out List<TItemInfo> itemInfos,
 			out Positions<TItemInfo> sourcePositions, INotifyCollectionChanged sourceAsList,
-			NotifyCollectionChangedEventHandler sourceNotifyCollectionChangedEventHandler)
+			NotifyCollectionChangedEventHandler sourceNotifyCollectionChangedEventHandler,
+			bool unsubscribe)
 			where TItemInfo : Position, new()
 		{
 			initializeItemInfos(capacity, out itemInfos, out sourcePositions);
 
-			unsubscribeSource(sourceAsList, sourceNotifyCollectionChangedEventHandler);
+			if (unsubscribe)
+				unsubscribeSource(sourceAsList, sourceNotifyCollectionChangedEventHandler);
 		}
 
-		internal static void unsubscribeSource(INotifyCollectionChanged sourceAsList,
+		internal static void unsubscribeSource(
+			INotifyCollectionChanged sourceAsList,
 			NotifyCollectionChangedEventHandler sourceNotifyCollectionChangedEventHandler)
 		{
 			if (sourceAsList != null)
@@ -701,9 +706,8 @@ namespace ObservableComputations
 						current.SetActivationInProgress(true);
 						current.OnPropertyChanged(ActivationInProgressPropertyChangedEventArgs);
 						current.SetIsActive(true);
-						current.Initialize();
 						current.AddToUpstreamComputings(current);
-						current.InitializedFromSource = true;
+						current.Initialize();
 						current.ProcessSource();
 						current.OnPropertyChanged(IsActivePropertyChangedEventArgs);
 						current.SetActivationInProgress(false);
@@ -744,9 +748,8 @@ namespace ObservableComputations
 						current.OnPropertyChanged(InactivationInProgressPropertyChangedEventArgs);
 						current.SetIsActive(false);
 						current.ProcessSource();
-						current.InitializedFromSource = false;
-						current.RemoveFromUpstreamComputings(current);
 						current.Uninitialize();
+						current.RemoveFromUpstreamComputings(current);
 						current.OnPropertyChanged(IsActivePropertyChangedEventArgs); 
 						current.SetInactivationInProgress(false);
 						current.OnPropertyChanged(InactivationInProgressPropertyChangedEventArgs);
@@ -782,10 +785,9 @@ namespace ObservableComputations
 						current.SetActivationInProgress(true);
 						current.OnPropertyChanged(ActivationInProgressPropertyChangedEventArgs);
 						current.SetIsActive(true);
-						current.Initialize();
 						current.AddToUpstreamComputings(computing);
+						current.Initialize();
 						current.ProcessSource();
-						current.InitializedFromSource = true;
 						current.OnPropertyChanged(IsActivePropertyChangedEventArgs);
 						current.SetActivationInProgress(false);
 						current.OnPropertyChanged(ActivationInProgressPropertyChangedEventArgs);
@@ -822,9 +824,8 @@ namespace ObservableComputations
 						current.OnPropertyChanged(InactivationInProgressPropertyChangedEventArgs);
 						current.SetIsActive(false);
 						current.ProcessSource();
-						current.InitializedFromSource = false;
-						current.RemoveFromUpstreamComputings(computing);
 						current.Uninitialize();
+						current.RemoveFromUpstreamComputings(computing);
 						current.OnPropertyChanged(IsActivePropertyChangedEventArgs);
 						current.SetInactivationInProgress(false);
 						current.OnPropertyChanged(InactivationInProgressPropertyChangedEventArgs);
@@ -1021,13 +1022,19 @@ namespace ObservableComputations
 			ref EventArgs handledEventArgs, 
 			Action scalarValueChangedHandlerAction, 
 			int deferredQueuesCount,			
-			ref Queue<IProcessable>[] deferredProcessings, IComputingInternal computing)
+			ref Queue<IProcessable>[] deferredProcessings, 
+			IComputingInternal computing,
+			Action scalarValueChangedHandlerResetAction)
 		{
 			processChange(sender, args, 
 				() =>
 				{
 					scalarValueChangedHandlerAction?.Invoke();
-					computing.ProcessSource();
+
+					if (scalarValueChangedHandlerResetAction != null)
+						scalarValueChangedHandlerResetAction();
+					else
+						computing.ProcessSource();
 				}, 
 				() => new CollectionReset(sender, args, computing, scalarValueChangedHandlerAction),
 				ref isConsistent, ref handledEventSender, ref handledEventArgs,

@@ -89,7 +89,8 @@ namespace ObservableComputations
 			if (_comparerScalar != null)
 			{
 				_comparerScalarPropertyChangedEventHandler = getScalarValueChangedHandler(() =>
-					_comparer = _comparerScalar.Value ?? Comparer<TOrderingValue>.Default);
+					_comparer = _comparerScalar.Value ?? Comparer<TOrderingValue>.Default,
+					() => processSource(false));
 				_comparerScalar.PropertyChanged += _comparerScalarPropertyChangedEventHandler;
 				_comparer = _comparerScalar.Value;
 			}
@@ -103,7 +104,8 @@ namespace ObservableComputations
 			if (_sortDirectionScalar != null)
 			{
 				_sortDirectionScalarPropertyChangedEventHandler = getScalarValueChangedHandler(
-					() => _sortDirection = _sortDirectionScalar.Value);
+					() => _sortDirection = _sortDirectionScalar.Value,
+					() => processSource(false));
 				_sortDirectionScalar.PropertyChanged += _sortDirectionScalarPropertyChangedEventHandler;
 				_sortDirection = _sortDirectionScalar.Value;
 			}
@@ -273,6 +275,11 @@ namespace ObservableComputations
 
 		protected override void processSource()
 		{
+			processSource(true);
+		}
+
+		private void processSource(bool changeSource)
+		{
 			if (_sourceReadAndSubscribed)
 			{
 				Utils.disposeExpressionItemInfos(_itemInfos, _orderingValueSelectorExpressionCallCount, this);
@@ -284,7 +291,8 @@ namespace ObservableComputations
 					out _itemInfos,
 					out _sourcePositions, 
 					_sourceAsList, 
-					handleSourceCollectionChanged);
+					handleSourceCollectionChanged,
+					changeSource);
 
 				Utils.construct(capacity, out _orderedItemInfos, out _orderedPositions, out _orderingValues);
 
@@ -295,24 +303,26 @@ namespace ObservableComputations
 				_sourceReadAndSubscribed = false;
 			}
 
-			Utils.changeSource(ref _source, _sourceScalar, _downstreamConsumedComputings, _consumers, this, out _sourceAsList, false);
+			if (changeSource)
+				Utils.changeSource(ref _source, _sourceScalar, _downstreamConsumedComputings, _consumers, this, out _sourceAsList, false);
 
 			if (_source != null && _isActive)
 			{
 				_source.AddThenOrdering(this);
 
-				Utils.initializeFromObservableCollectionWithChangeMarker(
-					_source, 
-					ref _sourceAsList, 
-					ref _rootSourceWrapper, 
-					ref _lastProcessedSourceChangeMarker);
-
+				if (changeSource)
+					Utils.initializeFromObservableCollectionWithChangeMarker(
+						_source, 
+						ref _sourceAsList, 
+						ref _rootSourceWrapper, 
+						ref _lastProcessedSourceChangeMarker);
 
 				int count = _sourceAsList.Count;
 				TSourceItem[] sourceCopy = new TSourceItem[count];
 				_sourceAsList.CopyTo(sourceCopy, 0);
 
-				_sourceAsList.CollectionChanged += handleSourceCollectionChanged;
+				if (changeSource)
+					_sourceAsList.CollectionChanged += handleSourceCollectionChanged;
 
 				if (count > 0)
 				{
@@ -617,7 +627,7 @@ namespace ObservableComputations
 
 					break;
 				case NotifyCollectionChangedAction.Reset:
-					processSource();
+					processSource(false);
 
 					break;
 			}

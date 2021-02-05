@@ -211,6 +211,11 @@ namespace ObservableComputations
 
 		protected override void processSource()
 		{
+			processSource(true);
+		}
+
+		private void processSource(bool changeSource)
+		{
 			int originalCount = _items.Count;
 
 			if (_sourceReadAndSubscribed)
@@ -226,27 +231,31 @@ namespace ObservableComputations
 					out _itemInfos,
 					out _sourcePositions, 
 					_sourceAsList, 
-					handleSourceCollectionChanged);
+					handleSourceCollectionChanged,
+					changeSource);
 
 				_sourceReadAndSubscribed = false;
 			}
 
-			Utils.changeSource(ref _source, _sourceScalar, _downstreamConsumedComputings, _consumers, this, out _sourceAsList, false);
+			if (changeSource)
+				Utils.changeSource(ref _source, _sourceScalar, _downstreamConsumedComputings, _consumers, this, out _sourceAsList, false);
 
 			if (_source != null && _isActive)
 			{
-				Utils.initializeFromObservableCollectionWithChangeMarker(
-					_source, 
-					ref _sourceAsList, 
-					ref _rootSourceWrapper, 
-					ref _lastProcessedSourceChangeMarker);
+				if (changeSource)
+					Utils.initializeFromObservableCollectionWithChangeMarker(
+						_source, 
+						ref _sourceAsList, 
+						ref _rootSourceWrapper, 
+						ref _lastProcessedSourceChangeMarker);
 
 				Position nextItemPosition = _filteredPositions.Add();
 				int count = _sourceAsList.Count;
 				TSourceItem[] sourceCopy = new TSourceItem[count];
 				_sourceAsList.CopyTo(sourceCopy, 0);
 
-				_sourceAsList.CollectionChanged += handleSourceCollectionChanged;
+				if (changeSource)
+					_sourceAsList.CollectionChanged += handleSourceCollectionChanged;
 
 				int insertingIndex = 0;
 				int sourceIndex;
@@ -366,7 +375,7 @@ namespace ObservableComputations
 						_filteredPositions, _sourcePositions, this);
 					break;
 				case NotifyCollectionChangedAction.Reset:
-					processSource();
+					processSource(false);
 					break;
 				case NotifyCollectionChangedAction.Replace:
 					int sourceIndex = e.NewStartingIndex;

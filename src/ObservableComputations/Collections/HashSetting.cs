@@ -219,8 +219,6 @@ namespace ObservableComputations
 
 		private void handleEqualityComparerScalarValueChanged(object sender, PropertyChangedEventArgs e)
 		{
-			if (!_initializedFromSource) return;
-
 			Utils.processResetChange(
 				sender, 
 				e, 
@@ -229,10 +227,10 @@ namespace ObservableComputations
 				ref _handledEventArgs,
 				() => { _equalityComparer = _equalityComparerScalar.Value ?? EqualityComparer<TKey>.Default;}, 
 				3,
-				ref _deferredProcessings, this);
+				ref _deferredProcessings, this, () => processSource(false));
 		}
 
-		private void processSource()
+		private void processSource(bool changeSource)
 		{
 			if (_sourceReadAndSubscribed)
 			{
@@ -248,27 +246,31 @@ namespace ObservableComputations
 					out _itemInfos,
 					out _sourcePositions, 
 					_sourceAsList, 
-					handleSourceCollectionChanged);
+					handleSourceCollectionChanged,
+					changeSource);
 
 				baseClearItems();
 				_sourceReadAndSubscribed = false;
 			}
 
-			Utils.changeSource(ref _source, _sourceScalar, _downstreamConsumedComputings, _consumers, this, out _sourceAsList, false);
+			if (changeSource)
+				Utils.changeSource(ref _source, _sourceScalar, _downstreamConsumedComputings, _consumers, this, out _sourceAsList, false);
 
 			if (_source != null && _isActive)
 			{
-				Utils.initializeFromObservableCollectionWithChangeMarker(
-					_source, 
-					ref _sourceAsList, 
-					ref _rootSourceWrapper, 
-					ref _lastProcessedSourceChangeMarker);
+				if (changeSource)
+					Utils.initializeFromObservableCollectionWithChangeMarker(
+						_source, 
+						ref _sourceAsList, 
+						ref _rootSourceWrapper, 
+						ref _lastProcessedSourceChangeMarker);
 
 				int count = _sourceAsList.Count;
 				TSourceItem[] sourceCopy = new TSourceItem[count];
 				_sourceAsList.CopyTo(sourceCopy, 0);
 
-				_sourceAsList.CollectionChanged += handleSourceCollectionChanged;
+				if (changeSource)
+					_sourceAsList.CollectionChanged += handleSourceCollectionChanged;
 
 				for (int index = 0; index < count; index++)
 				{
@@ -385,7 +387,7 @@ namespace ObservableComputations
 
 					break;
 				case NotifyCollectionChangedAction.Reset:
-					processSource();
+					processSource(false);
 					break;
 			}
 		}
@@ -542,8 +544,6 @@ namespace ObservableComputations
 
 		private void handleSourceScalarValueChanged(object sender,  PropertyChangedEventArgs e)
 		{
-			if (!_initializedFromSource) return;
-
 			Utils.processResetChange(
 				sender, 
 				e, 
@@ -552,7 +552,7 @@ namespace ObservableComputations
 				ref _handledEventArgs, 
 				null, 
 				3,
-				ref _deferredProcessings, this);
+				ref _deferredProcessings, this, null);
 		}
 
 		#region Implementation of IComputingInternal
@@ -592,7 +592,7 @@ namespace ObservableComputations
 
 		void ICanInitializeFromSource.ProcessSource()
 		{
-			processSource();
+			processSource(true);
 		}
 
 		void IComputingInternal.OnPropertyChanged(PropertyChangedEventArgs propertyChangedEventArgs)
@@ -603,14 +603,6 @@ namespace ObservableComputations
 		public void SetIsActive(bool value)
 		{
 			_isActive = true;
-		}
-
-		private bool _initializedFromSource;
-
-		bool IComputingInternal.InitializedFromSource
-		{
-			get => _initializedFromSource;
-			set => _initializedFromSource = value;
 		}
 
 		void IComputingInternal.AddConsumer(OcConsumer addingOcConsumer)

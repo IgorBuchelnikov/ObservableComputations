@@ -143,21 +143,22 @@ namespace ObservableComputations
 		}
 
 		private Action _scalarValueChangedHandlerAction;
+		private Action _scalarValueChangedHandlerResetAction;
 
-		protected PropertyChangedEventHandler getScalarValueChangedHandler(Action action = null)
+		protected PropertyChangedEventHandler getScalarValueChangedHandler(Action action = null, Action resetAction = null )
 		{
 			return (sender, args) =>
 			{
 				_scalarValueChangedHandlerAction = action;
+				_scalarValueChangedHandlerResetAction = resetAction;
 				scalarValueChangedHandler(sender, args);
 				_scalarValueChangedHandlerAction = null;
+				_scalarValueChangedHandlerResetAction = null;
 			};
 		}
 
 		protected void scalarValueChangedHandler(object sender, PropertyChangedEventArgs args)
 		{
-			if (!_initializedFromSource) return;
-
 			Utils.processResetChange(
 				sender, 
 				args, 
@@ -166,7 +167,9 @@ namespace ObservableComputations
 				ref _handledEventArgs, 
 				_scalarValueChangedHandlerAction, 
 				_deferredQueuesCount,
-				ref _deferredProcessings, this);
+				ref _deferredProcessings, 
+				this,
+				_scalarValueChangedHandlerResetAction);
 		}
 
 		protected bool _isConsistent = true;
@@ -203,16 +206,7 @@ namespace ObservableComputations
 		protected readonly List<OcConsumer> _consumers = new List<OcConsumer>();
 		internal readonly List<IComputingInternal> _downstreamConsumedComputings = new List<IComputingInternal>();
 
-		private bool _initializedFromSource;
-
 		#region Implementation of IComputingInternal
-
-		bool IComputingInternal.InitializedFromSource
-		{
-			get => _initializedFromSource;
-			set => _initializedFromSource = value;
-		}
-
 		IEnumerable<OcConsumer> IComputingInternal.Consumers => _consumers;
 
 		void IComputingInternal.AddToUpstreamComputings(IComputingInternal computing)

@@ -162,7 +162,7 @@ namespace ObservableComputations
 
 					break;
 				case NotifyCollectionChangedAction.Reset:
-					processSource();
+					processSource(false);
 					break;
 				case NotifyCollectionChangedAction.Replace:
 					int newStartingIndex = e.NewStartingIndex;
@@ -230,6 +230,11 @@ namespace ObservableComputations
 
 		protected override void processSource()
 		{
+			processSource(true);
+		}
+
+		private void processSource(bool changeSource)
+		{
 			if (_sourceReadAndSubscribed)
 			{
 				Utils.disposeExpressionItemInfos(_itemInfos, _predicateExpressionCallCount, this);
@@ -241,21 +246,25 @@ namespace ObservableComputations
 					out _itemInfos,
 					out _sourcePositions, 
 					_sourceAsList, 
-					handleSourceCollectionChanged);
+					handleSourceCollectionChanged,
+					changeSource);
 
 				_sourceReadAndSubscribed = false;
 			}
 
 			_predicatePassedCount = 0;
-			Utils.changeSource(ref _source, _sourceScalar, _downstreamConsumedComputings, _consumers, this, out _sourceAsList, false);
+
+			if (changeSource)
+				Utils.changeSource(ref _source, _sourceScalar, _downstreamConsumedComputings, _consumers, this, out _sourceAsList, false);
 
 			if (_source != null && _isActive)
 			{
-				Utils.initializeFromObservableCollectionWithChangeMarker(
-					_source, 
-					ref _sourceAsList, 
-					ref _rootSourceWrapper, 
-					ref _lastProcessedSourceChangeMarker);
+				if (changeSource)
+					Utils.initializeFromObservableCollectionWithChangeMarker(
+						_source, 
+						ref _sourceAsList, 
+						ref _rootSourceWrapper, 
+						ref _lastProcessedSourceChangeMarker);
 
 				int count = _sourceAsList.Count;
 				for (int sourceIndex = 0; sourceIndex < count; sourceIndex++)
@@ -270,7 +279,8 @@ namespace ObservableComputations
 					}
 				}
 
-				_sourceAsList.CollectionChanged += handleSourceCollectionChanged;
+				if (changeSource)
+					_sourceAsList.CollectionChanged += handleSourceCollectionChanged;
 
 				calculateValue();
 

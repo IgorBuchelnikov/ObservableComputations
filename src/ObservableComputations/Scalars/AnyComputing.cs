@@ -233,7 +233,7 @@ namespace ObservableComputations
 			processSource(true);
 		}
 
-		private void processSource(bool changeSource)
+		private void processSource(bool replaceSource)
 		{
 			if (_sourceReadAndSubscribed)
 			{
@@ -247,24 +247,25 @@ namespace ObservableComputations
 					out _sourcePositions, 
 					_sourceAsList, 
 					handleSourceCollectionChanged,
-					changeSource);
+					replaceSource);
 
 				_sourceReadAndSubscribed = false;
 			}
 
 			_predicatePassedCount = 0;
 
-			if (changeSource)
-				Utils.changeSource(ref _source, _sourceScalar, _downstreamConsumedComputings, _consumers, this, out _sourceAsList, false);
+			if (replaceSource)
+				Utils.replaceSource(ref _source, _sourceScalar, _downstreamConsumedComputings, _consumers, this, out _sourceAsList, false);
 
 			if (_source != null && _isActive)
 			{
-				if (changeSource)
-					Utils.initializeFromObservableCollectionWithChangeMarker(
+				if (replaceSource)
+					Utils.subscribeSource(
 						_source, 
 						ref _sourceAsList, 
 						ref _rootSourceWrapper, 
-						ref _lastProcessedSourceChangeMarker);
+						ref _lastProcessedSourceChangeMarker,
+						handleSourceCollectionChanged);
 
 				int count = _sourceAsList.Count;
 				for (int sourceIndex = 0; sourceIndex < count; sourceIndex++)
@@ -278,9 +279,6 @@ namespace ObservableComputations
 						itemInfo.PredicateResult = true;
 					}
 				}
-
-				if (changeSource)
-					_sourceAsList.CollectionChanged += handleSourceCollectionChanged;
 
 				calculateValue();
 

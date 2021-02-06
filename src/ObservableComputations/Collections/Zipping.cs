@@ -85,10 +85,13 @@ namespace ObservableComputations
 
 		private readonly ISourceCollectionChangeProcessor _thisAsSourceCollectionChangeProcessor;
 
+		private readonly PropertyChangedEventHandler _leftSourceScalarOnPropertyChanged;
+		private readonly PropertyChangedEventHandler _rightSourceScalarOnPropertyChanged;
+
 		[ObservableComputationsCall]
 		public Zipping(
 			IReadScalar<INotifyCollectionChanged> leftSourceScalar,
-			INotifyCollectionChanged rightSource) : base(calculateCapacity(leftSourceScalar, rightSource))
+			INotifyCollectionChanged rightSource) : this(calculateCapacity(leftSourceScalar, rightSource))
 		{
 			_leftSourceScalar = leftSourceScalar;
 			_rightSource = rightSource;	
@@ -98,7 +101,7 @@ namespace ObservableComputations
 		[ObservableComputationsCall]
 		public Zipping(
 			IReadScalar<INotifyCollectionChanged> leftSourceScalar,
-			IReadScalar<INotifyCollectionChanged> rightSourceScalar) : base(calculateCapacity(leftSourceScalar, rightSourceScalar))
+			IReadScalar<INotifyCollectionChanged> rightSourceScalar) : this(calculateCapacity(leftSourceScalar, rightSourceScalar))
 		{
 			_leftSourceScalar = leftSourceScalar;
 			_rightSourceScalar = rightSourceScalar;
@@ -108,7 +111,7 @@ namespace ObservableComputations
 		[ObservableComputationsCall]
 		public Zipping(
 			INotifyCollectionChanged leftSource,
-			INotifyCollectionChanged rightSource) : base(calculateCapacity(leftSource, rightSource))
+			INotifyCollectionChanged rightSource) : this(calculateCapacity(leftSource, rightSource))
 		{
 			_leftSource = leftSource;			
 			_rightSource = rightSource;		
@@ -118,11 +121,21 @@ namespace ObservableComputations
 		[ObservableComputationsCall]
 		public Zipping(
 			INotifyCollectionChanged leftSource,
-			IReadScalar<INotifyCollectionChanged> rightSourceScalar) : base(calculateCapacity(leftSource, rightSourceScalar))
+			IReadScalar<INotifyCollectionChanged> rightSourceScalar) : this(calculateCapacity(leftSource, rightSourceScalar))
 		{
 			_leftSource = leftSource;			
 			_rightSourceScalar = rightSourceScalar;
 			_thisAsSourceCollectionChangeProcessor = this;
+
+		}
+
+		private Zipping(int capacity) : base(capacity)
+		{
+			if (_leftSourceScalar != null)
+				_leftSourceScalarOnPropertyChanged = getScalarValueChangedHandler(null, () => processSource(true, false));
+
+			if (_rightSourceScalar != null)
+				_rightSourceScalarOnPropertyChanged = getScalarValueChangedHandler(null, () => processSource(false, true));
 
 		}
 
@@ -160,7 +173,7 @@ namespace ObservableComputations
 			processSource(true, true);
 		}
 
-		private void processSource(bool changeLeftSource, bool changeRightSource)
+		private void processSource(bool replaceLeftSource, bool replaceRightSource)
 		{
 			int originalCount = _items.Count;
 
@@ -168,7 +181,7 @@ namespace ObservableComputations
 			{
 				if (_leftSource != null)
 				{
-					if (changeLeftSource)
+					if (replaceLeftSource)
 					{
 						_leftSource.CollectionChanged -= handleLeftSourceCollectionChanged;
 
@@ -184,7 +197,7 @@ namespace ObservableComputations
 
 				if (_rightSource != null)
 				{
-					if (changeRightSource)
+					if (replaceRightSource)
 					{
 						_rightSource.CollectionChanged -= handleLeftSourceCollectionChanged;
 
@@ -203,32 +216,36 @@ namespace ObservableComputations
 				_sourceReadAndSubscribed = false;
 			}
 
-			if (changeLeftSource)
-				Utils.changeSource(ref _leftSource, _leftSourceScalar, _downstreamConsumedComputings, _consumers, this,
+			if (replaceLeftSource)
+				Utils.replaceSource(ref _leftSource, _leftSourceScalar, _downstreamConsumedComputings, _consumers, this,
 					out _leftSourceAsList, true);
 
-			if (changeRightSource)
-				Utils.changeSource(ref _rightSource, _rightSourceScalar, _downstreamConsumedComputings, _consumers, this,
+			if (replaceRightSource)
+				Utils.replaceSource(ref _rightSource, _rightSourceScalar, _downstreamConsumedComputings, _consumers, this,
 					out _rightSourceAsList, true);
 
 
 			if (_leftSourceAsList != null && _rightSourceAsList != null && _isActive)
 			{
-				if (changeLeftSource)
-					Utils.initializeFromHasChangeMarker(
+				if (replaceLeftSource)
+					Utils.subscribeSource(
 						out _leftSourceAsIHasChangeMarker, 
 						_leftSourceAsList, 
 						ref _lastProcessedLeftSourceChangeMarker, 
 						ref _leftSourceAsINotifyPropertyChanged,
-						(ILeftSourceIndexerPropertyTracker)this);
+						(ILeftSourceIndexerPropertyTracker)this,
+						_leftSource,
+						handleLeftSourceCollectionChanged);
 
-				if (changeRightSource)
-					Utils.initializeFromHasChangeMarker(
+				if (replaceRightSource)
+					Utils.subscribeSource(
 						out _rightSourceAsHasChangeMarker, 
 						_rightSourceAsList, 
 						ref _lastProcessedRightSourceChangeMarker, 
 						ref _rightSourceAsINotifyPropertyChanged,
-						(IRightSourceIndexerPropertyTracker)this);
+						(IRightSourceIndexerPropertyTracker)this,
+						_rightSource,
+						handleRightSourceCollectionChanged);
 
 
 				int countLeft = _leftSourceAsList.Count;
@@ -261,12 +278,6 @@ namespace ObservableComputations
 
 				for (int index = originalCount - 1; index >= sourceIndex; index--)
 					_items.RemoveAt(index);
-
-				if (changeLeftSource)
-					_leftSource.CollectionChanged += handleLeftSourceCollectionChanged;	
-				
-				if (changeRightSource)
-					_rightSource.CollectionChanged += handleRightSourceCollectionChanged;
 
 				_sourceReadAndSubscribed = true;
 
@@ -561,14 +572,14 @@ namespace ObservableComputations
 
 		protected override void initialize()
 		{
-			Utils.initializeSourceScalar(_leftSourceScalar, ref _leftSource, scalarValueChangedHandler);
-			Utils.initializeSourceScalar(_rightSourceScalar, ref _rightSource, scalarValueChangedHandler);
+			Utils.initializeSourceScalar(_leftSourceScalar, ref _leftSource, _leftSourceScalarOnPropertyChanged);
+			Utils.initializeSourceScalar(_rightSourceScalar, ref _rightSource, _rightSourceScalarOnPropertyChanged);
 		}
 
 		protected override void uninitialize()
 		{
-			Utils.uninitializeSourceScalar(_leftSourceScalar, scalarValueChangedHandler, ref _leftSource);
-			Utils.uninitializeSourceScalar(_rightSourceScalar, scalarValueChangedHandler, ref _rightSource);
+			Utils.uninitializeSourceScalar(_leftSourceScalar, _leftSourceScalarOnPropertyChanged, ref _leftSource);
+			Utils.uninitializeSourceScalar(_rightSourceScalar, _rightSourceScalarOnPropertyChanged, ref _rightSource);
 
 		}
 

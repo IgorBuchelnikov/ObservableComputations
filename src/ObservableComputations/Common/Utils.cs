@@ -187,6 +187,20 @@ namespace ObservableComputations
 				rootSourceWrapper.Uninitialize();
 		}
 
+		internal static void unsubscribeSource(
+			INotifyCollectionChanged source, 
+			ref INotifyPropertyChanged sourceAsINotifyPropertyChanged, 
+			ISourceIndexerPropertyTracker current, NotifyCollectionChangedEventHandler sourceOnCollectionChanged)
+		{
+			source.CollectionChanged -= sourceOnCollectionChanged;
+
+			if (sourceAsINotifyPropertyChanged != null)
+			{
+				sourceAsINotifyPropertyChanged.PropertyChanged -= current.HandleSourcePropertyChanged;
+				sourceAsINotifyPropertyChanged = null;
+			}
+		}
+
 		internal static void initializeItemInfos<TItemInfo>(int capacity, out List<TItemInfo> itemInfos, out Positions<TItemInfo> sourcePositions)
 			where TItemInfo : Position, new()
 		{
@@ -201,7 +215,7 @@ namespace ObservableComputations
 			sourcePositions = new RangePositions<TItemInfo>(itemInfos);
 		}
 
-		internal static void changeSource<TSource, TSourceAsList>(ref TSource source,
+		internal static void replaceSource<TSource, TSourceAsList>(ref TSource source,
 			IReadScalar<INotifyCollectionChanged> sourceScalar,
 			List<IComputingInternal> downstreamConsumedComputings,
 			List<OcConsumer> consumers,
@@ -234,7 +248,9 @@ namespace ObservableComputations
 				sourceAsList = null;
 		}
 
-		internal static void initializeFromObservableCollectionWithChangeMarker<TSourceItem>(INotifyCollectionChanged source, ref ObservableCollectionWithChangeMarker<TSourceItem> sourceAsList, ref bool rootSourceWrapper, ref bool lastProcessedSourceChangeMarker)
+		internal static void subscribeSource<TSourceItem>(INotifyCollectionChanged source,
+			ref ObservableCollectionWithChangeMarker<TSourceItem> sourceAsList, ref bool rootSourceWrapper,
+			ref bool lastProcessedSourceChangeMarker, NotifyCollectionChangedEventHandler handleLeftSourceCollectionChanged)
 		{
 			if (source == null) return;
 
@@ -250,6 +266,7 @@ namespace ObservableComputations
 			}
 
 			lastProcessedSourceChangeMarker = sourceAsList.ChangeMarkerField;
+			sourceAsList.CollectionChanged += handleLeftSourceCollectionChanged;
 		}
 
 		internal static void initializeSourceScalar<TSource>(IReadScalar<INotifyCollectionChanged> sourceScalar, ref TSource source, PropertyChangedEventHandler newSourceScalarOnPropertyChanged)
@@ -859,13 +876,17 @@ namespace ObservableComputations
 				sourceAsINotifyPropertyChanged.PropertyChanged += ((IRightSourceIndexerPropertyTracker) current).HandleSourcePropertyChanged;
 		}
 
-		internal static void initializeFromHasChangeMarker<TSourceList, TSourceIndexerPropertyTracker>(
+		internal static void subscribeSource<TSourceList, TSourceIndexerPropertyTracker>(
 			out IHasChangeMarker sourceAsIHasChangeMarker,
 			TSourceList sourceAsList,
 			ref bool lastProcessedSourceChangeMarker,
 			ref INotifyPropertyChanged sourceAsINotifyPropertyChanged,
-			TSourceIndexerPropertyTracker current) where TSourceIndexerPropertyTracker : ISourceIndexerPropertyTracker
+			TSourceIndexerPropertyTracker current,
+			INotifyCollectionChanged source,
+			NotifyCollectionChangedEventHandler handler) where TSourceIndexerPropertyTracker : ISourceIndexerPropertyTracker
 		{
+			source.CollectionChanged += handler;
+
 			sourceAsIHasChangeMarker = sourceAsList as IHasChangeMarker;
 
 			if (sourceAsIHasChangeMarker != null)

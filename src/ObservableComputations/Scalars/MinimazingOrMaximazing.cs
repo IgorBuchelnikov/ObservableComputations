@@ -158,42 +158,36 @@ namespace ObservableComputations
 			processSource(true);
 		}
 
-		private void processSource(bool changeSource)
+		private void processSource(bool replaceSource)
 		{
 			if (_sourceReadAndSubscribed)
 			{
-				if (changeSource)
-				{
-					_source.CollectionChanged -= handleSourceCollectionChanged;
-
-					if (_sourceAsINotifyPropertyChanged != null)
-					{
-						_sourceAsINotifyPropertyChanged.PropertyChanged -=
-							((ISourceIndexerPropertyTracker) this).HandleSourcePropertyChanged;
-						_sourceAsINotifyPropertyChanged = null;
-					}
-				}
+				if (replaceSource)
+					Utils.unsubscribeSource(
+						_source, 
+						ref _sourceAsINotifyPropertyChanged, 
+						this, 
+						handleSourceCollectionChanged);
 
 				_sourceCopy = new List<TSourceItem>(Utils.getCapacity(_sourceScalar, _source));
 				_sourceReadAndSubscribed = false;
 			}
 
-			if (changeSource)
-				Utils.changeSource(ref _source, _sourceScalar, _downstreamConsumedComputings, _consumers, this,
+			if (replaceSource)
+				Utils.replaceSource(ref _source, _sourceScalar, _downstreamConsumedComputings, _consumers, this,
 					out _sourceAsList, true);
 
 			if (_source != null && _isActive)
 			{
-				if (changeSource)
-					Utils.initializeFromHasChangeMarker(
+				if (replaceSource)
+					Utils.subscribeSource(
 						out _sourceAsIHasChangeMarker, 
 						_sourceAsList, 
 						ref _lastProcessedSourceChangeMarker, 
 						ref _sourceAsINotifyPropertyChanged,
-						(ISourceIndexerPropertyTracker)this);
-
-				if (changeSource)
-					_source.CollectionChanged += handleSourceCollectionChanged;
+						(ISourceIndexerPropertyTracker)this,
+						_source,
+						handleSourceCollectionChanged);
 
 				_sourceReadAndSubscribed = true;
 			}

@@ -278,7 +278,7 @@ namespace ObservableComputations
 			processSource(true);
 		}
 
-		private void processSource(bool changeSource)
+		private void processSource(bool replaceSource)
 		{
 			if (_sourceReadAndSubscribed)
 			{
@@ -292,7 +292,7 @@ namespace ObservableComputations
 					out _sourcePositions, 
 					_sourceAsList, 
 					handleSourceCollectionChanged,
-					changeSource);
+					replaceSource);
 
 				Utils.construct(capacity, out _orderedItemInfos, out _orderedPositions, out _orderingValues);
 
@@ -303,26 +303,24 @@ namespace ObservableComputations
 				_sourceReadAndSubscribed = false;
 			}
 
-			if (changeSource)
-				Utils.changeSource(ref _source, _sourceScalar, _downstreamConsumedComputings, _consumers, this, out _sourceAsList, false);
+			if (replaceSource)
+				Utils.replaceSource(ref _source, _sourceScalar, _downstreamConsumedComputings, _consumers, this, out _sourceAsList, false);
 
 			if (_source != null && _isActive)
 			{
 				_source.AddThenOrdering(this);
 
-				if (changeSource)
-					Utils.initializeFromObservableCollectionWithChangeMarker(
+				if (replaceSource)
+					Utils.subscribeSource(
 						_source, 
 						ref _sourceAsList, 
 						ref _rootSourceWrapper, 
-						ref _lastProcessedSourceChangeMarker);
+						ref _lastProcessedSourceChangeMarker,
+						handleSourceCollectionChanged);
 
 				int count = _sourceAsList.Count;
 				TSourceItem[] sourceCopy = new TSourceItem[count];
 				_sourceAsList.CopyTo(sourceCopy, 0);
-
-				if (changeSource)
-					_sourceAsList.CollectionChanged += handleSourceCollectionChanged;
 
 				if (count > 0)
 				{

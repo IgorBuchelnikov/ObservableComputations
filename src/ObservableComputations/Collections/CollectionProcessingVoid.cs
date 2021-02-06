@@ -81,21 +81,16 @@ namespace ObservableComputations
 			processSource(true);
 		}
 
-		private void processSource(bool changeSource)
+		private void processSource(bool replaceSource)
 		{
 			if (_sourceReadAndSubscribed)
 			{
-				if (changeSource)
-				{
-					_source.CollectionChanged -= handleSourceCollectionChanged;
-
-					if (_sourceAsINotifyPropertyChanged != null)
-					{
-						_sourceAsINotifyPropertyChanged.PropertyChanged -=
-							((ISourceIndexerPropertyTracker) this).HandleSourcePropertyChanged;
-						_sourceAsINotifyPropertyChanged = null;
-					}
-				}
+				if (replaceSource)
+					Utils.unsubscribeSource(
+						_source, 
+						ref _sourceAsINotifyPropertyChanged, 
+						this, 
+						handleSourceCollectionChanged);
 
 				int count = Count;
 				for (int i = 0; i < count; i++)
@@ -108,27 +103,26 @@ namespace ObservableComputations
 				_sourceReadAndSubscribed = false;
 			}
 
-			if (changeSource)
-				Utils.changeSource(ref _source, _sourceScalar, _downstreamConsumedComputings, _consumers, this,
+			if (replaceSource)
+				Utils.replaceSource(ref _source, _sourceScalar, _downstreamConsumedComputings, _consumers, this,
 					out _sourceAsList, true);
 
 			if (_sourceAsList != null && _isActive)
 			{
-				if (changeSource)
-					Utils.initializeFromHasChangeMarker(
+				if (replaceSource)
+					Utils.subscribeSource(
 						out _sourceAsIHasChangeMarker, 
 						_sourceAsList, 
 						ref _lastProcessedSourceChangeMarker, 
 						ref _sourceAsINotifyPropertyChanged,
-						(ISourceIndexerPropertyTracker)this);
+						(ISourceIndexerPropertyTracker)this,
+						_source,
+						handleSourceCollectionChanged);
 
 				int count = _sourceAsList.Count;
 
 				TSourceItem[] sourceCopy = new TSourceItem[count];
 				_sourceAsList.CopyTo(sourceCopy, 0);
-
-				if (changeSource)
-					_source.CollectionChanged += handleSourceCollectionChanged;
 
 				for (int index = 0; index < count; index++)
 					baseInsertItem(index, sourceCopy[index]);

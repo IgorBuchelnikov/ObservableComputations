@@ -363,30 +363,25 @@ namespace ObservableComputations
 			processSource(true);
 		}
 
-		private void processSource(bool changeSource)
+		private void processSource(bool replaceSource)
 		{
 			int originalCount = _items.Count;
 
 			if (_sourceReadAndSubscribed)
 			{
-				if (changeSource)
-				{
-					_source.CollectionChanged -= handleSourceCollectionChanged;
-
-					if (_sourceAsINotifyPropertyChanged != null)
-					{
-						_sourceAsINotifyPropertyChanged.PropertyChanged -=
-							((ISourceIndexerPropertyTracker) this).HandleSourcePropertyChanged;
-						_sourceAsINotifyPropertyChanged = null;
-					}
-				}
+				if (replaceSource)
+					Utils.unsubscribeSource(
+						_source, 
+						ref _sourceAsINotifyPropertyChanged, 
+						this, 
+						handleSourceCollectionChanged);
 
 				_sourceCopy = null;
 				_sourceReadAndSubscribed = false;
 			}
 
-			if (changeSource)
-				Utils.changeSource(ref _source, _sourceScalar, _downstreamConsumedComputings, _consumers, this,
+			if (replaceSource)
+				Utils.replaceSource(ref _source, _sourceScalar, _downstreamConsumedComputings, _consumers, this,
 					out _sourceAsList, true);
 
 			int originalPageCount = _pageCount;
@@ -394,20 +389,19 @@ namespace ObservableComputations
 
 			if (_sourceAsList != null && _isActive)
 			{
-				if (changeSource)
-					Utils.initializeFromHasChangeMarker(
+				if (replaceSource)
+					Utils.subscribeSource(
 						out _sourceAsIHasChangeMarker, 
 						_sourceAsList, 
 						ref _lastProcessedSourceChangeMarker, 
 						ref _sourceAsINotifyPropertyChanged,
-						(ISourceIndexerPropertyTracker)this);
+						(ISourceIndexerPropertyTracker)this,
+						_source,
+						handleSourceCollectionChanged);
 
 				int newIndex = 0;
 				int count = _sourceAsList.Count;
 				_sourceCopy = new List<TSourceItem>(_sourceAsList);
-
-				if (changeSource)
-					_source.CollectionChanged += handleSourceCollectionChanged;
 
 				_pageCount = (int) Math.Ceiling(count  / (double) _pageSize);
 				if (_currentPage > _pageCount)

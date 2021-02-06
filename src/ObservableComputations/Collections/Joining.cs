@@ -80,6 +80,9 @@ namespace ObservableComputations
 		internal Action<JoinPair<TLeftSourceItem, TRightSourceItem>, TRightSourceItem> _setRightItemRequestHandler;
 
 		private readonly ISourceItemChangeProcessor _thisAsSourceItemChangeProcessor;
+
+		private readonly PropertyChangedEventHandler _leftSourceScalarOnPropertyChanged;
+		private readonly PropertyChangedEventHandler _rightSourceScalarOnPropertyChanged;
 		//private bool _isLeft;
 		//private TRightSourceItem _defaultRightSourceItemForLeftJoin;
 
@@ -248,6 +251,12 @@ namespace ObservableComputations
 			_filteredPositions = new Positions<Position>(new List<Position>(_initialCapacity));
 
 			_deferredQueuesCount = 3;
+
+			if (_leftSourceScalar != null)
+				_leftSourceScalarOnPropertyChanged = getScalarValueChangedHandler(null, () => processSource(true, false));
+
+			if (_rightSourceScalar != null)
+				_rightSourceScalarOnPropertyChanged = getScalarValueChangedHandler(null, () => processSource(false, true));
 		}
 
 		protected override void processSource()
@@ -255,7 +264,7 @@ namespace ObservableComputations
 			processSource(true, true);
 		}
 
-		private void processSource(bool changeLeftSource, bool changeRightSource)
+		private void processSource(bool replaceLeftSource, bool replaceRightSource)
 		{
 			int originalCount = _items.Count;
 
@@ -273,12 +282,12 @@ namespace ObservableComputations
 				_filteredPositions = new Positions<Position>(new List<Position>(_initialCapacity));
 				//if (_isLeft) _leftItemInfos = new List<LeftItemInfo>(leftCapacity);
 
-				if (changeLeftSource)
+				if (replaceLeftSource)
 					Utils.unsubscribeSource(
 						_leftSourceAsList,
 						handleLeftSourceCollectionChanged);
 
-				if (changeRightSource)
+				if (replaceRightSource)
 					Utils.unsubscribeSource(
 						_rightSourceAsList,
 						handleRightSourceCollectionChanged);
@@ -288,29 +297,31 @@ namespace ObservableComputations
 				_sourceReadAndSubscribed = false;
 			}
 
-			if (changeLeftSource)
-				Utils.changeSource(ref _leftSource, _leftSourceScalar, _downstreamConsumedComputings, _consumers, this,
+			if (replaceLeftSource)
+				Utils.replaceSource(ref _leftSource, _leftSourceScalar, _downstreamConsumedComputings, _consumers, this,
 					out _leftSourceAsList, false);
 
-			if (changeRightSource)
-				Utils.changeSource(ref _rightSource, _rightSourceScalar, _downstreamConsumedComputings, _consumers, this,
+			if (replaceRightSource)
+				Utils.replaceSource(ref _rightSource, _rightSourceScalar, _downstreamConsumedComputings, _consumers, this,
 					out _rightSourceAsList, false);
 
 			if (_leftSource != null && _rightSource != null && _isActive)
 			{
-				if (changeLeftSource)
-					Utils.initializeFromObservableCollectionWithChangeMarker(
+				if (replaceLeftSource)
+					Utils.subscribeSource(
 						_leftSource,
 						ref _leftSourceAsList,
 						ref _rootLeftSourceWrapper,
-						ref _lastProcessedLeftSourceChangeMarker);
+						ref _lastProcessedLeftSourceChangeMarker,
+						handleLeftSourceCollectionChanged);
 
-				if (changeRightSource)
-					Utils.initializeFromObservableCollectionWithChangeMarker(
+				if (replaceRightSource)
+					Utils.subscribeSource(
 						_rightSource,
 						ref _rightSourceAsList,
 						ref _rootRightSourceWrapper,
-						ref _lastProcessedRightSourceChangeMarker);
+						ref _lastProcessedRightSourceChangeMarker,
+						handleRightSourceCollectionChanged);
 
 				Position nextItemPosition = _filteredPositions.Add();
 				int leftCount = _leftSourceAsList.Count;
@@ -318,11 +329,6 @@ namespace ObservableComputations
 
 				_leftSourceCopy = new List<TLeftSourceItem>(_leftSourceAsList);
 				_rightSourceCopy = new List<TRightSourceItem>(_rightSourceAsList);
-
-				if (changeLeftSource)
-					_leftSourceAsList.CollectionChanged += handleLeftSourceCollectionChanged;
-			   if (changeRightSource)
-				   _rightSourceAsList.CollectionChanged += handleRightSourceCollectionChanged;
 
 				int insertingIndex = 0;
 				int leftSourceIndex;
@@ -397,19 +403,21 @@ namespace ObservableComputations
 			reset();
 		}
 
+
+
 		protected override void initialize()
 		{
 			Utils.initializeSourceScalar(_leftSourceScalar, ref _leftSource,
-				scalarValueChangedHandler);
+				_leftSourceScalarOnPropertyChanged);
 			Utils.initializeSourceScalar(_rightSourceScalar, ref _rightSource,
-				scalarValueChangedHandler);
+				_rightSourceScalarOnPropertyChanged);
 			Utils.initializeNestedComputings(_nestedComputings, this);
 		}
 
 		protected override void uninitialize()
 		{
-			Utils.uninitializeSourceScalar(_leftSourceScalar, scalarValueChangedHandler, ref _leftSource);
-			Utils.uninitializeSourceScalar(_rightSourceScalar, scalarValueChangedHandler, ref _rightSource);
+			Utils.uninitializeSourceScalar(_leftSourceScalar, _leftSourceScalarOnPropertyChanged, ref _leftSource);
+			Utils.uninitializeSourceScalar(_rightSourceScalar, _rightSourceScalarOnPropertyChanged, ref _rightSource);
 			Utils.uninitializeNestedComputings(_nestedComputings, this);
 		}
 

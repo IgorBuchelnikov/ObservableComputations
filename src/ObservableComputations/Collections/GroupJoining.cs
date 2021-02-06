@@ -302,7 +302,7 @@ namespace ObservableComputations
 			processSource(true);
 		}
 
-		private void processSource(bool changeSource)
+		private void processSource(bool replaceSource)
 		{
 			int originalCount = _items.Count;
 
@@ -318,32 +318,30 @@ namespace ObservableComputations
 					out _outerSourceItemPositions, 
 					_outerSourceAsList, 
 					handleOuterSourceCollectionChanged,
-					changeSource);
+					replaceSource);
 
 				_nullKeyPositions.Clear();
 				_keyPositions = new Dictionary<TKey, List<OuterItemInfo>>(_grouping._equalityComparer);
 				_sourceReadAndSubscribed = false;
 			}
 
-			if (changeSource)
-				Utils.changeSource(ref _outerSource, _outerSourceScalar, _downstreamConsumedComputings, _consumers, this, out _outerSourceAsList, false);
+			if (replaceSource)
+				Utils.replaceSource(ref _outerSource, _outerSourceScalar, _downstreamConsumedComputings, _consumers, this, out _outerSourceAsList, false);
 
 			if (_outerSource != null && _isActive)
 			{
-				if (changeSource)
-					Utils.initializeFromObservableCollectionWithChangeMarker(
+				if (replaceSource)
+					Utils.subscribeSource(
 						_outerSource, 
 						ref _outerSourceAsList, 
 						ref _outerRootSourceWrapper, 
-						ref _lastProcessedSourceChangeMarker);
+						ref _lastProcessedSourceChangeMarker,
+						handleOuterSourceCollectionChanged);
 
 				int count = _outerSourceAsList.Count;
 
 				TOuterSourceItem[] outerSourceCopy = new TOuterSourceItem[count];
 				_outerSourceAsList.CopyTo(outerSourceCopy, 0);
-
-				if (changeSource)
-					_outerSourceAsList.CollectionChanged += handleOuterSourceCollectionChanged;
 
 				int sourceIndex;
 				for (sourceIndex = 0; sourceIndex < count; sourceIndex++)

@@ -30,9 +30,9 @@ namespace ObservableComputations
 		private INotifyCollectionChanged _source;
 
 		private bool _indexerPropertyChangedEventRaised;
-		private INotifyPropertyChanged _sourcesAsINotifyPropertyChanged;
+		private INotifyPropertyChanged _sourceAsINotifyPropertyChanged;
 
-		private IHasChangeMarker _sourcesAsIHasChangeMarker;
+		private IHasChangeMarker _sourceAsIHasChangeMarker;
 		private bool _lastProcessedSourcesChangeMarker;
 
 		private readonly ISourceCollectionChangeProcessor _thisAsSourceCollectionChangeProcessor;
@@ -133,7 +133,7 @@ namespace ObservableComputations
 			processSource(true);
 		}
 
-		private void processSource(bool changeSource)
+		private void processSource(bool replaceSource)
 		{
 			int originalCount = _items.Count;
 
@@ -163,34 +163,31 @@ namespace ObservableComputations
 					out _itemInfos,
 					out _sourceRangePositions);
 
-				if (changeSource)
-				{
-					_source.CollectionChanged -= handleSourceCollectionChanged;
-
-					if (_sourcesAsINotifyPropertyChanged != null)
-					{
-						_sourcesAsINotifyPropertyChanged.PropertyChanged -=
-							((ISourceIndexerPropertyTracker) this).HandleSourcePropertyChanged;
-						_sourcesAsINotifyPropertyChanged = null;
-					}
-				}
+				if (replaceSource)
+					Utils.unsubscribeSource(
+						_source, 
+						ref _sourceAsINotifyPropertyChanged, 
+						this, 
+						handleSourceCollectionChanged);
 
 				_sourceReadAndSubscribed = false;
 			}
 
-			if (changeSource)
-				Utils.changeSource(ref _source, _sourceScalar, _downstreamConsumedComputings, _consumers, this,
+			if (replaceSource)
+				Utils.replaceSource(ref _source, _sourceScalar, _downstreamConsumedComputings, _consumers, this,
 					out _sourcesAsList, true);
 
 			if (_source != null && _isActive)
 			{
-				if (changeSource)
-					Utils.initializeFromHasChangeMarker(
-						out _sourcesAsIHasChangeMarker, 
+				if (replaceSource)
+					Utils.subscribeSource(
+						out _sourceAsIHasChangeMarker, 
 						_sourcesAsList, 
 						ref _lastProcessedSourcesChangeMarker, 
-						ref _sourcesAsINotifyPropertyChanged,
-						(ISourceIndexerPropertyTracker)this);
+						ref _sourceAsINotifyPropertyChanged,
+						(ISourceIndexerPropertyTracker)this,
+						_source,
+						handleSourceCollectionChanged);
 
 				int plainIndex = 0;
 				int count = _sourcesAsList.Count;
@@ -207,9 +204,6 @@ namespace ObservableComputations
 					registerSourceItem(sourceItemObject, itemInfo);
 					IList<TSourceItem> sourceCopy = itemInfo.SourceCopy;
 
-					if (changeSource)
-						_source.CollectionChanged += handleSourceCollectionChanged;
-
 					for (int sourceSourceIndex = 0; sourceSourceIndex < sourceItemCount; sourceSourceIndex++)
 					{
 						if (originalCount > plainIndex)
@@ -223,8 +217,6 @@ namespace ObservableComputations
 
 				for (int index = originalCount - 1; index >= plainIndex; index--)
 					_items.RemoveAt(index);
-
-
 
 				_sourceReadAndSubscribed = true;
 			}
@@ -442,7 +434,7 @@ namespace ObservableComputations
 				ref _isConsistent, 
 				ref _indexerPropertyChangedEventRaised, 
 				ref _lastProcessedSourcesChangeMarker, 
-				_sourcesAsIHasChangeMarker, 
+				_sourceAsIHasChangeMarker, 
 				ref _handledEventSender, 
 				ref _handledEventArgs,
 				ref _deferredProcessings,

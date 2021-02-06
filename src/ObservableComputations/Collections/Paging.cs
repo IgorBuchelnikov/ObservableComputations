@@ -663,11 +663,14 @@ namespace ObservableComputations
 
 		protected override void uninitialize()
 		{
-			Utils.uninitializeSourceScalar(_sourceScalar, scalarValueChangedHandler, ref _source);
+			Utils.unsubscribeSourceScalar(_sourceScalar, scalarValueChangedHandler);
 			if (_pageSizeScalar != null) _pageSizeScalar.PropertyChanged -= handlePageSizeScalarValueChanged;
 			if (_currentPageScalar != null) _currentPageScalar.PropertyChanged -= handleCurrentPageScalarValueChanged;
-			if (_sourceAsINotifyPropertyChanged != null)
-				_sourceAsINotifyPropertyChanged.PropertyChanged -= ((ISourceIndexerPropertyTracker) this).HandleSourcePropertyChanged;
+		}
+
+		protected override void clearCachedScalarArgumentValues()
+		{
+			Utils.clearCachcedSourceScalarValue(_sourceScalar, ref _source);
 		}
 
 		#region Implementation of ISourceIndexerPropertyTracker

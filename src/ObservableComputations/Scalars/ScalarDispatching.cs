@@ -131,6 +131,11 @@ namespace ObservableComputations
 
 		}
 
+		protected override void clearCachedScalarArgumentValues()
+		{
+
+		}
+
 		internal override void addToUpstreamComputings(IComputingInternal computing)
 		{
 			(_source as IComputingInternal)?.AddDownstreamConsumedComputing(computing);

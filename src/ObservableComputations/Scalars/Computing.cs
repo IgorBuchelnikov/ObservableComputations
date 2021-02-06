@@ -75,24 +75,36 @@ namespace ObservableComputations
 
 		protected override void processSource()
 		{
+			if (_isActive)
+			{
+				Utils.initializeNestedComputings(_nestedComputings, this);
+				_getValueExpressionWatcher = new ExpressionWatcher(_expressionInfo);
+				Utils.initializeExpressionWatcherCurrentComputings(_getValueExpressionWatcher, _expressionInfo._callCount, this);
+				_getValueExpressionWatcher.ValueChanged = getValueExpressionWatcherOnValueChanged;
+				setValue(getResult());
+			}
+			else
+			{
+				_getValueExpressionWatcher.Dispose();
+				EventUnsubscriber.QueueSubscriptions(_getValueExpressionWatcher._propertyChangedEventSubscriptions, _getValueExpressionWatcher._methodChangedEventSubscriptions);
+				Utils.removeDownstreamConsumedComputing(_getValueExpressionWatcher, this);			
+				Utils.uninitializeNestedComputings(_nestedComputings, this);
+				setDefaultValue();				
+			}
 		}
 
 		protected override void initialize()
 		{
-			Utils.initializeNestedComputings(_nestedComputings, this);
-			_getValueExpressionWatcher = new ExpressionWatcher(_expressionInfo);
-			Utils.initializeExpressionWatcherCurrentComputings(_getValueExpressionWatcher, _expressionInfo._callCount, this);
-			_getValueExpressionWatcher.ValueChanged = getValueExpressionWatcherOnValueChanged;
-			setValue(getResult());
 		}
 
 		protected override void uninitialize()
 		{
-			_getValueExpressionWatcher.Dispose();
-			EventUnsubscriber.QueueSubscriptions(_getValueExpressionWatcher._propertyChangedEventSubscriptions, _getValueExpressionWatcher._methodChangedEventSubscriptions);
-			Utils.removeDownstreamConsumedComputing(_getValueExpressionWatcher, this);			
-			Utils.uninitializeNestedComputings(_nestedComputings, this);
-			setDefaultValue();
+
+		}
+
+		protected override void clearCachedScalarArgumentValues()
+		{
+
 		}
 
 		internal override void addToUpstreamComputings(IComputingInternal computing)

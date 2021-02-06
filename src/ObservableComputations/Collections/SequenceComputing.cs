@@ -72,22 +72,35 @@ namespace ObservableComputations
 
 		protected override void processSource()
 		{
+			if (_isActive)
+			{
+				_count = _countScalar.Value;
+
+				for (int item = 0; item < _count; item++)
+					baseInsertItem(item, item);
+
+				_countScalar.PropertyChanged += handleCountChanged;
+			}
+			else
+			{
+				_countScalar.PropertyChanged -= handleCountChanged;
+				baseClearItems();				
+			}
 		}
 
 		protected override void initialize()
 		{
-			_count = _countScalar.Value;
 
-			for (int item = 0; item < _count; item++)
-				baseInsertItem(item, item);
-
-			_countScalar.PropertyChanged += handleCountChanged;
 		}
 
 		protected override void uninitialize()
 		{
-			_countScalar.PropertyChanged -= handleCountChanged;
-			baseClearItems();
+
+		}
+
+		protected override void clearCachedScalarArgumentValues()
+		{
+
 		}
 
 		internal override void addToUpstreamComputings(IComputingInternal computing)

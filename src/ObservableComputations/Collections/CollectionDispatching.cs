@@ -65,14 +65,8 @@ namespace ObservableComputations
 
 		protected override void processSource()
 		{
-			if (_sourceOcDispatcher != null)
-				_sourceOcDispatcher.Invoke(
-					() => doProcessSource(null, null, true), 
-					_sourceOcDispatcherPriority,
-					_sourceOcDispatcherParameter,
-					this);
-			else
-				doProcessSource(null, null, true);
+			invokeSourceDispatcher(() => 
+				doProcessSource(null, null, true));
 		}
 
 		[ObservableComputationsCall]
@@ -293,64 +287,46 @@ namespace ObservableComputations
 
 		internal override void addToUpstreamComputings(IComputingInternal computing)
 		{
-			void perform() => Utils.AddDownstreamConsumedComputing(computing, _sourceScalar, _source);
-
-			if (_sourceOcDispatcher != null)
-				_sourceOcDispatcher.Invoke(
-					perform, 
-					_sourceOcDispatcherPriority,
-					_sourceOcDispatcherParameter,
-					this);
-			else
-				perform();
+			invokeSourceDispatcher(() => 
+				Utils.AddDownstreamConsumedComputing(computing, _sourceScalar, _source));
 		}
 
 		internal override void removeFromUpstreamComputings(IComputingInternal computing)
 		{
-			void perform() => Utils.RemoveDownstreamConsumedComputing(computing, _sourceScalar, _source);
-
-			if (_sourceOcDispatcher != null)
-				_sourceOcDispatcher.Invoke(
-					perform, 
-					_sourceOcDispatcherPriority,
-					_sourceOcDispatcherParameter,
-					this);
-			else
-				perform();
+			invokeSourceDispatcher(() => 
+				Utils.unsubscribeSourceScalar(_sourceScalar, handleSourceScalarValueChanged));
 		}
 
 		protected override void initialize()
 		{
-			void perform()
-			{
-				Utils.initializeSourceScalar(_sourceScalar, ref _source, handleSourceScalarValueChanged);
-			}
-
-			if (_sourceOcDispatcher != null)
-				_sourceOcDispatcher.Invoke(
-					perform, 
-					_sourceOcDispatcherPriority,
-					_sourceOcDispatcherParameter,
-					this);
-			else
-				perform();
+			invokeSourceDispatcher(() => 
+				Utils.initializeSourceScalar(_sourceScalar, ref _source, handleSourceScalarValueChanged));
 		}
 
 		protected override void uninitialize()
 		{
-			void perform()
-			{
-				Utils.uninitializeSourceScalar(_sourceScalar, handleSourceScalarValueChanged, ref _source);
-			}
+			invokeSourceDispatcher(() => 
+				Utils.unsubscribeSourceScalar(_sourceScalar, handleSourceScalarValueChanged));
+		}
 
+		protected override void clearCachedScalarArgumentValues()
+		{
+			invokeSourceDispatcher(() => 
+				Utils.clearCachcedSourceScalarValue(_sourceScalar, ref _source));
+		}
+
+		private void invokeSourceDispatcher(Action action)
+		{
 			if (_sourceOcDispatcher != null)
+			{
 				_sourceOcDispatcher.Invoke(
-					perform, 
+					action,
 					_sourceOcDispatcherPriority,
 					_sourceOcDispatcherParameter,
 					this);
+			}
 			else
-				perform();
+				action();
 		}
 
 		protected override void raisePropertyChanged(PropertyChangedEventArgs e)

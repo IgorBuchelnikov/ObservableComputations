@@ -396,6 +396,7 @@ namespace ObservableComputations
 		protected abstract void processSource();
 		protected abstract void initialize();
 		protected abstract void uninitialize();
+		protected abstract void clearCachedScalarArgumentValues();
 
 
 		public Type ItemType => typeof(TItem);
@@ -471,6 +472,11 @@ namespace ObservableComputations
 		void IComputingInternal.Uninitialize()
 		{
 			uninitialize();
+		}
+
+		void IComputingInternal.ClearCachedScalarArgumentValues()
+		{
+			clearCachedScalarArgumentValues();
 		}
 
 		void ICanInitializeFromSource.ProcessSource()

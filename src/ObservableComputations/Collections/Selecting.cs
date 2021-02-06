@@ -168,8 +168,13 @@ namespace ObservableComputations
 
 		protected override void uninitialize()
 		{
-			Utils.uninitializeSourceScalar(_sourceScalar, scalarValueChangedHandler, ref _source);
+			Utils.unsubscribeSourceScalar(_sourceScalar, scalarValueChangedHandler);
 			Utils.uninitializeNestedComputings(_nestedComputings, this);
+		}
+
+		protected override void clearCachedScalarArgumentValues()
+		{
+			Utils.clearCachcedSourceScalarValue(_sourceScalar, ref _source);
 		}
 
 		private void handleSourceCollectionChanged(object sender, NotifyCollectionChangedEventArgs e)

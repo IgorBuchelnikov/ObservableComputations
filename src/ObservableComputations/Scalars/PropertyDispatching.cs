@@ -189,6 +189,11 @@ namespace ObservableComputations
 			_propertyHolder.PropertyChanged -= handlePropertyHolderPropertyChanged;
 		}
 
+		protected override void clearCachedScalarArgumentValues()
+		{
+
+		}
+
 		internal override void addToUpstreamComputings(IComputingInternal computing)
 		{
 		}

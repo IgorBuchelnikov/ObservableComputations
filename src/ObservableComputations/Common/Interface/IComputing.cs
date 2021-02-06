@@ -35,6 +35,7 @@ namespace ObservableComputations
 		void RemoveFromUpstreamComputings(IComputingInternal computing);
 		void Initialize();
 		void Uninitialize();
+		void ClearCachedScalarArgumentValues();
 		void OnPropertyChanged(PropertyChangedEventArgs propertyChangedEventArgs);
 		void SetIsActive(bool value);
 		void SetInactivationInProgress(bool value);

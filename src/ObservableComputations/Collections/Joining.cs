@@ -416,9 +416,15 @@ namespace ObservableComputations
 
 		protected override void uninitialize()
 		{
-			Utils.uninitializeSourceScalar(_leftSourceScalar, _leftSourceScalarOnPropertyChanged, ref _leftSource);
-			Utils.uninitializeSourceScalar(_rightSourceScalar, _rightSourceScalarOnPropertyChanged, ref _rightSource);
+			Utils.unsubscribeSourceScalar(_leftSourceScalar, _leftSourceScalarOnPropertyChanged);
+			Utils.unsubscribeSourceScalar(_rightSourceScalar, _rightSourceScalarOnPropertyChanged);
 			Utils.uninitializeNestedComputings(_nestedComputings, this);
+		}
+
+		protected override void clearCachedScalarArgumentValues()
+		{
+			Utils.clearCachcedSourceScalarValue(_leftSourceScalar, ref _leftSource);
+			Utils.clearCachcedSourceScalarValue(_rightSourceScalar, ref _rightSource);
 		}
 
 		private void handleLeftSourceCollectionChanged(object sender, NotifyCollectionChangedEventArgs e)

@@ -76,10 +76,7 @@ namespace ObservableComputations
 				_comparer = _comparerScalar.Value;
 			}
 
-			if (_comparer == null)
-			{
-				_comparer = Comparer<TSourceItem>.Default;
-			}
+			if (_comparer == null) _comparer = Comparer<TSourceItem>.Default;
 		}
 
 
@@ -384,10 +381,16 @@ namespace ObservableComputations
 
 		protected override void uninitialize()
 		{
-			Utils.uninitializeSourceScalar(_sourceScalar, scalarValueChangedHandler, ref _source);
+			Utils.unsubscribeSourceScalar(_sourceScalar, scalarValueChangedHandler);
 			if (_comparerScalar != null)
 				_comparerScalar.PropertyChanged -= _comparerScalarValueChangedHandler;
 			
+		}
+
+		protected override void clearCachedScalarArgumentValues()
+		{
+			Utils.clearCachcedSourceScalarValue(_sourceScalar, ref _source);
+			if (_comparerScalar != null) _comparer = null;
 		}
 
 		#region Implementation of ISourceIndexerPropertyTracker

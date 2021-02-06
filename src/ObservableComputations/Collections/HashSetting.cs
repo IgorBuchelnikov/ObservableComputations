@@ -579,13 +579,16 @@ namespace ObservableComputations
 		void IComputingInternal.Uninitialize()
 		{
 			if (_equalityComparerScalar != null)
-			{
 				_equalityComparerScalar.PropertyChanged -= handleEqualityComparerScalarValueChanged;
-				_equalityComparer = null;
-			}
 
-			Utils.uninitializeSourceScalar(_sourceScalar, handleSourceScalarValueChanged, ref _source);
+			Utils.unsubscribeSourceScalar(_sourceScalar, handleSourceScalarValueChanged);
 			Utils.uninitializeNestedComputings(_keyNestedComputings, this);
+		}
+
+		void IComputingInternal.ClearCachedScalarArgumentValues()
+		{
+			Utils.clearCachcedSourceScalarValue(_sourceScalar, ref _source);
+			if (_equalityComparerScalar != null) _equalityComparer = null;
 		}
 
 		void ICanInitializeFromSource.ProcessSource()

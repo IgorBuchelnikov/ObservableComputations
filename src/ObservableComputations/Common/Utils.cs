@@ -298,14 +298,15 @@ namespace ObservableComputations
 			}
 		}
 
-		internal static void uninitializeSourceScalar<TSource>(IReadScalar<INotifyCollectionChanged> sourceScalar, PropertyChangedEventHandler sourceScalarOnPropertyChanged, ref TSource source) 
+		internal static void unsubscribeSourceScalar(IReadScalar<INotifyCollectionChanged> sourceScalar, PropertyChangedEventHandler sourceScalarOnPropertyChanged)
+		{
+			if (sourceScalar != null) sourceScalar.PropertyChanged -= sourceScalarOnPropertyChanged;
+		}
+
+		internal static void clearCachcedSourceScalarValue<TSource>(IReadScalar<INotifyCollectionChanged> sourceScalar, ref TSource source)
 			where TSource : class
 		{
-			if (sourceScalar != null)
-			{
-				sourceScalar.PropertyChanged -= sourceScalarOnPropertyChanged;
-				source = null;
-			}
+			if (sourceScalar != null) source = null;
 		}
 
 		internal static  void checkConsistent(object sender, EventArgs eventArgs, bool isConsistent, IComputing computing)
@@ -731,9 +732,7 @@ namespace ObservableComputations
 						current.OnPropertyChanged(ActivationInProgressPropertyChangedEventArgs);
 					}
 					else
-					{
 						current.AddToUpstreamComputings(current);
-					}
 				}
 			},
 			ref isConsistent,
@@ -767,6 +766,7 @@ namespace ObservableComputations
 						current.ProcessSource();
 						current.Uninitialize();
 						current.RemoveFromUpstreamComputings(current);
+						current.ClearCachedScalarArgumentValues();
 						current.OnPropertyChanged(IsActivePropertyChangedEventArgs); 
 						current.SetInactivationInProgress(false);
 						current.OnPropertyChanged(InactivationInProgressPropertyChangedEventArgs);
@@ -843,6 +843,7 @@ namespace ObservableComputations
 						current.ProcessSource();
 						current.Uninitialize();
 						current.RemoveFromUpstreamComputings(computing);
+						current.ClearCachedScalarArgumentValues();
 						current.OnPropertyChanged(IsActivePropertyChangedEventArgs);
 						current.SetInactivationInProgress(false);
 						current.OnPropertyChanged(InactivationInProgressPropertyChangedEventArgs);

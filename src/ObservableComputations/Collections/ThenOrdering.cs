@@ -244,19 +244,21 @@ namespace ObservableComputations
 
 		protected override void uninitialize()
 		{
-			if (_comparerScalar != null)
-			{
-				_comparerScalar.PropertyChanged -= _comparerScalarPropertyChangedEventHandler;
-				_comparer = null;
-			}		
+			if (_comparerScalar != null) _comparerScalar.PropertyChanged -= _comparerScalarPropertyChangedEventHandler;
 
 			if (_sortDirectionScalar != null)
 				_sortDirectionScalar.PropertyChanged -= _sortDirectionScalarPropertyChangedEventHandler;			
 
-			Utils.uninitializeSourceScalar(_sourceScalar, scalarValueChangedHandler, ref _source);
+			Utils.unsubscribeSourceScalar(_sourceScalar, scalarValueChangedHandler);
 			Utils.uninitializeNestedComputings(_nestedComputings, this);
 
 			_source?.RemoveThenOrdering(this);
+		}
+
+		protected override void clearCachedScalarArgumentValues()
+		{
+			Utils.clearCachcedSourceScalarValue(_sourceScalar, ref _source);
+			if (_comparerScalar != null) _comparer = null;
 		}
 
 		internal override void addToUpstreamComputings(IComputingInternal computing)

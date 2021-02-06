@@ -328,9 +328,14 @@ namespace ObservableComputations
 
 		protected override void uninitialize()
 		{
-			Utils.uninitializeSourceScalar(_sourceScalar, scalarValueChangedHandler, ref _source);
+			Utils.unsubscribeSourceScalar(_sourceScalar, scalarValueChangedHandler);
 			if (_separatorScalar != null)
 				_separatorScalar.PropertyChanged -= _handleSeparatorScalarValueChanged;
+		}
+
+		protected override void clearCachedScalarArgumentValues()
+		{
+			Utils.clearCachcedSourceScalarValue(_sourceScalar, ref _source);
 		}
 
 		#region Implementation of ISourceIndexerPropertyTracker

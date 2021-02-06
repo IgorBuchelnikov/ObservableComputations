@@ -198,10 +198,10 @@ namespace ObservableComputations
 		protected abstract void processSource();
 		protected abstract void initialize();
 		protected abstract void uninitialize();
+		protected abstract void clearCachedScalarArgumentValues();
 
 		internal abstract void addToUpstreamComputings(IComputingInternal computing);
 		internal abstract void removeFromUpstreamComputings(IComputingInternal computing);
-
 
 		protected readonly List<OcConsumer> _consumers = new List<OcConsumer>();
 		internal readonly List<IComputingInternal> _downstreamConsumedComputings = new List<IComputingInternal>();
@@ -227,6 +227,11 @@ namespace ObservableComputations
 		void IComputingInternal.Uninitialize()
 		{
 			uninitialize();
+		}
+
+		void IComputingInternal.ClearCachedScalarArgumentValues()
+		{
+			clearCachedScalarArgumentValues();
 		}
 
 		void ICanInitializeFromSource.ProcessSource()

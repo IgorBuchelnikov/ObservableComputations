@@ -445,8 +445,16 @@ namespace ObservableComputations
 			if (_equalityComparerScalar != null)
 				_equalityComparerScalar.PropertyChanged -= _equalityComparerScalarPropertyChangedEventHandler;
 
-			Utils.uninitializeSourceScalar(_sourceScalar, scalarValueChangedHandler, ref _source);
+			Utils.unsubscribeSourceScalar(_sourceScalar, scalarValueChangedHandler);
 			Utils.uninitializeNestedComputings(_nestedComputings, this);
+		}
+
+		protected override void clearCachedScalarArgumentValues()
+		{
+			Utils.clearCachcedSourceScalarValue(_sourceScalar, ref _source);
+
+			if (_equalityComparerScalar != null)
+				_equalityComparer = null;
 		}
 
 		protected override void processSource()

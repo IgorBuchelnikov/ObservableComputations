@@ -293,8 +293,13 @@ namespace ObservableComputations
 				_grouping.CollectionChanged -= _groupingNotifyCollectionChangedEventHandler;	
 			((IComputingInternal) _grouping).RemoveDownstreamConsumedComputing(this);
 
-			Utils.uninitializeSourceScalar(_outerSourceScalar, scalarValueChangedHandler, ref _outerSource);
+			Utils.unsubscribeSourceScalar(_outerSourceScalar, scalarValueChangedHandler);
 			Utils.uninitializeNestedComputings(_nestedComputings, this);
+		}
+
+		protected override void clearCachedScalarArgumentValues()
+		{
+			Utils.clearCachcedSourceScalarValue(_outerSourceScalar, ref _outerSource);
 		}
 
 		protected override void processSource()

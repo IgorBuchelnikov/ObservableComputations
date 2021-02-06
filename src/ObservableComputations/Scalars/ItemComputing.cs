@@ -66,11 +66,8 @@ namespace ObservableComputations
 			TSourceItem defaultValue = default(TSourceItem)) : this()
 		{
 			_sourceScalar = sourceScalar;
-			//initializeSourceScalar();
-
 			_index = index;
 			_defaultValue = defaultValue;
-			//initializeFromSource();
 		}
 
 		[ObservableComputationsCall]
@@ -80,14 +77,8 @@ namespace ObservableComputations
 			TSourceItem defaultValue = default) : this()
 		{
 			_sourceScalar = sourceScalar;
-			//initializeSourceScalar();
-
 			_defaultValue = defaultValue;
-
 			_indexScalar = indexScalar;
-			//initializeIndexScalar();
-
-			//initializeFromSource();
 		}
 
 		[ObservableComputationsCall]
@@ -304,9 +295,14 @@ namespace ObservableComputations
 
 		protected override void uninitialize()
 		{
-			Utils.uninitializeSourceScalar(_sourceScalar, scalarValueChangedHandler, ref _source);
+			Utils.unsubscribeSourceScalar(_sourceScalar, scalarValueChangedHandler);
 			if (_indexScalar != null) 
 				_indexScalar.PropertyChanged -= handleIndexScalarChanged;
+		}
+
+		protected override void clearCachedScalarArgumentValues()
+		{
+			Utils.clearCachcedSourceScalarValue(_sourceScalar, ref _source);
 		}
 
 		#region Implementation of ISourceIndexerPropertyTracker

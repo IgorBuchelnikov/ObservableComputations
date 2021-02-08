@@ -36,6 +36,8 @@ namespace ObservableComputations
 		private bool _lastProcessedSourcesChangeMarker;
 
 		private readonly ISourceCollectionChangeProcessor _thisAsSourceCollectionChangeProcessor;
+		private bool _initialized;
+		private IComputingInternal _addToUpstreamComputing;
 
 		private sealed class ItemInfo : RangePosition, ISourceCollectionChangeProcessor
 		{
@@ -164,11 +166,13 @@ namespace ObservableComputations
 					out _sourceRangePositions);
 
 				if (replaceSource)
+				{
 					Utils.unsubscribeSource(
-						_source, 
-						ref _sourceAsINotifyPropertyChanged, 
-						this, 
+						_source,
+						ref _sourceAsINotifyPropertyChanged,
+						this,
 						handleSourceCollectionChanged);
+				}
 
 				_sourceReadAndSubscribed = false;
 			}
@@ -558,7 +562,10 @@ namespace ObservableComputations
 		internal override void addToUpstreamComputings(IComputingInternal computing)
 		{
 			Utils.AddDownstreamConsumedComputing(computing, _sourceScalar, _source);
-			processSourceUpstreamComputings(computing, true);
+			if (_initialized)
+				processSourceUpstreamComputings(computing, true);
+			else
+				_addToUpstreamComputing = computing;
 		}
 
 		internal override void removeFromUpstreamComputings(IComputingInternal computing)		
@@ -587,11 +594,15 @@ namespace ObservableComputations
 		protected override void initialize()
 		{
 			Utils.initializeSourceScalar(_sourceScalar, ref _source, scalarValueChangedHandler);
+			_initialized = true;
+			processSourceUpstreamComputings(_addToUpstreamComputing, true);
+			_addToUpstreamComputing = null;
 		}
 
 		protected override void uninitialize()
 		{
 			Utils.unsubscribeSourceScalar(_sourceScalar, scalarValueChangedHandler);
+			_initialized = false;
 		}
 
 		protected override void clearCachedScalarArgumentValues()

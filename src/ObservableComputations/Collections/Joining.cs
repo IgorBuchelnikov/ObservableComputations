@@ -83,6 +83,9 @@ namespace ObservableComputations
 
 		private readonly PropertyChangedEventHandler _leftSourceScalarOnPropertyChanged;
 		private readonly PropertyChangedEventHandler _rightSourceScalarOnPropertyChanged;
+
+		private bool _leftSourceSubscribed;
+		private bool _rightSourceSubscribed;
 		//private bool _isLeft;
 		//private TRightSourceItem _defaultRightSourceItemForLeftJoin;
 
@@ -128,10 +131,13 @@ namespace ObservableComputations
 			IReadScalar<INotifyCollectionChanged> leftSourceScalar,
 			IReadScalar<INotifyCollectionChanged> rightSourceScalar,
 			Expression<Func<TLeftSourceItem, TRightSourceItem, bool>> predicateExpression,
-			int initialCapacity = 0) : this(predicateExpression, Utils.getCapacity(leftSourceScalar) * Utils.getCapacity(rightSourceScalar), initialCapacity)
+			int initialCapacity = 0) : this(
+				predicateExpression, 
+				Utils.getCapacity(leftSourceScalar) * Utils.getCapacity(rightSourceScalar), 
+				initialCapacity,
+				leftSourceScalar, rightSourceScalar)
 		{
-			_leftSourceScalar = leftSourceScalar;
-			_rightSourceScalar = rightSourceScalar;
+
 		}
 
 		[ObservableComputationsCall]
@@ -139,10 +145,13 @@ namespace ObservableComputations
 			INotifyCollectionChanged leftSource,
 			IReadScalar<INotifyCollectionChanged> rightSourceScalar,
 			Expression<Func<TLeftSourceItem, TRightSourceItem, bool>> predicateExpression,
-			int initialCapacity = 0) : this(predicateExpression, Utils.getCapacity(leftSource) * Utils.getCapacity(rightSourceScalar), initialCapacity)
+			int initialCapacity = 0) : this(
+				predicateExpression, 
+				Utils.getCapacity(leftSource) * Utils.getCapacity(rightSourceScalar), 
+				initialCapacity,
+				null, rightSourceScalar)
 		{
 			_leftSource = leftSource;
-			_rightSourceScalar = rightSourceScalar;
 		}
 
 		[ObservableComputationsCall]
@@ -150,9 +159,12 @@ namespace ObservableComputations
 			IReadScalar<INotifyCollectionChanged> leftSourceScalar,
 			INotifyCollectionChanged rightSource,
 			Expression<Func<TLeftSourceItem, TRightSourceItem, bool>> predicateExpression,
-			int initialCapacity = 0) : this(predicateExpression, Utils.getCapacity(leftSourceScalar) * Utils.getCapacity(rightSource), initialCapacity)
+			int initialCapacity = 0) : this(
+				predicateExpression, 
+				Utils.getCapacity(leftSourceScalar) * Utils.getCapacity(rightSource), 
+				initialCapacity,
+				leftSourceScalar, null)
 		{
-			_leftSourceScalar = leftSourceScalar;
 			_rightSource = rightSource;
 		}
 
@@ -161,7 +173,11 @@ namespace ObservableComputations
 			INotifyCollectionChanged leftSource,
 			INotifyCollectionChanged rightSource,
 			Expression<Func<TLeftSourceItem, TRightSourceItem, bool>> predicateExpression,
-			int initialCapacity = 0) : this(predicateExpression, Utils.getCapacity(leftSource) * Utils.getCapacity(rightSource), initialCapacity)
+			int initialCapacity = 0) : this(
+				predicateExpression, 
+				Utils.getCapacity(leftSource) * Utils.getCapacity(rightSource), 
+				initialCapacity,
+				null, null)
 		{
 			_leftSource = leftSource;
 			_rightSource = rightSource;
@@ -228,7 +244,9 @@ namespace ObservableComputations
 		//}
 
 		private Joining(Expression<Func<TLeftSourceItem, TRightSourceItem, bool>> predicateExpression,
-			int sourceCapacity, int initialCapacity) : base(initialCapacity)
+			int sourceCapacity, int initialCapacity,
+			IReadScalar<INotifyCollectionChanged> leftSourceScalar,
+			IReadScalar<INotifyCollectionChanged> rightSourceScalar) : base(initialCapacity)
 		{
 			Utils.construct(
 				predicateExpression,
@@ -252,21 +270,50 @@ namespace ObservableComputations
 
 			_deferredQueuesCount = 3;
 
+			_leftSourceScalar = leftSourceScalar;
+			_rightSourceScalar = rightSourceScalar;
+
 			if (_leftSourceScalar != null)
-				_leftSourceScalarOnPropertyChanged = getScalarValueChangedHandler(null, () => processSource(true, false));
+				_leftSourceScalarOnPropertyChanged = 
+					getScalarValueChangedHandler(null, () => processSource(true, false, true, false));
 
 			if (_rightSourceScalar != null)
-				_rightSourceScalarOnPropertyChanged = getScalarValueChangedHandler(null, () => processSource(false, true));
+				_rightSourceScalarOnPropertyChanged = 
+					getScalarValueChangedHandler(null, () => processSource(false, true, false, true));
 		}
 
 		protected override void processSource()
 		{
-			processSource(true, true);
+			processSource(true, true, true, true);
 		}
 
-		private void processSource(bool replaceLeftSource, bool replaceRightSource)
+		private void processSource(
+			bool replaceLeftSource, 
+			bool replaceRightSource,
+			bool resetLeftSource,
+			bool resetRightSource)
 		{
 			int originalCount = _items.Count;
+
+			void unsubscribeLeftSource()
+			{
+				Utils.unsubscribeSource(
+					_leftSourceAsList,
+					handleLeftSourceCollectionChanged);
+
+				_leftSourceCopy = null;
+				_leftSourceSubscribed = false;
+			}
+
+			void unsubscribeRightSource()
+			{
+				Utils.unsubscribeSource(
+					_rightSourceAsList,
+					handleRightSourceCollectionChanged);
+
+				_rightSourceCopy = null;
+				_rightSourceSubscribed = false;
+			}
 
 			if (_sourceReadAndSubscribed)
 			{
@@ -283,31 +330,31 @@ namespace ObservableComputations
 				//if (_isLeft) _leftItemInfos = new List<LeftItemInfo>(leftCapacity);
 
 				if (replaceLeftSource)
-					Utils.unsubscribeSource(
-						_leftSourceAsList,
-						handleLeftSourceCollectionChanged);
+					unsubscribeLeftSource();
 
 				if (replaceRightSource)
-					Utils.unsubscribeSource(
-						_rightSourceAsList,
-						handleRightSourceCollectionChanged);
+					unsubscribeRightSource();
 
-				_leftSourceCopy = null;
-				_rightSourceCopy = null;
 				_sourceReadAndSubscribed = false;
 			}
 
 			if (replaceLeftSource)
+			{
 				Utils.replaceSource(ref _leftSource, _leftSourceScalar, _downstreamConsumedComputings, _consumers, this,
 					out _leftSourceAsList, false);
+			}
 
 			if (replaceRightSource)
-				Utils.replaceSource(ref _rightSource, _rightSourceScalar, _downstreamConsumedComputings, _consumers, this,
+			{
+				Utils.replaceSource(ref _rightSource, _rightSourceScalar, _downstreamConsumedComputings, _consumers,
+					this,
 					out _rightSourceAsList, false);
+			}
 
 			if (_leftSource != null && _rightSource != null && _isActive)
 			{
-				if (replaceLeftSource)
+				if (replaceLeftSource || !_leftSourceSubscribed)
+				{
 					Utils.subscribeSource(
 						_leftSource,
 						ref _leftSourceAsList,
@@ -315,7 +362,11 @@ namespace ObservableComputations
 						ref _lastProcessedLeftSourceChangeMarker,
 						handleLeftSourceCollectionChanged);
 
-				if (replaceRightSource)
+					_leftSourceSubscribed  = true;
+				}
+
+				if (replaceRightSource || !_rightSourceSubscribed)
+				{
 					Utils.subscribeSource(
 						_rightSource,
 						ref _rightSourceAsList,
@@ -323,12 +374,18 @@ namespace ObservableComputations
 						ref _lastProcessedRightSourceChangeMarker,
 						handleRightSourceCollectionChanged);
 
+					_rightSourceSubscribed  = true;
+				}
+
+				if (resetLeftSource || _leftSourceCopy == null)
+					_leftSourceCopy = new List<TLeftSourceItem>(_leftSourceAsList);
+
+				if (resetRightSource || _rightSourceCopy == null)
+					_rightSourceCopy = new List<TRightSourceItem>(_rightSourceAsList);
+
 				Position nextItemPosition = _filteredPositions.Add();
 				int leftCount = _leftSourceAsList.Count;
 				int rightCount = _rightSourceAsList.Count;
-
-				_leftSourceCopy = new List<TLeftSourceItem>(_leftSourceAsList);
-				_rightSourceCopy = new List<TRightSourceItem>(_rightSourceAsList);
 
 				int insertingIndex = 0;
 				int leftSourceIndex;
@@ -397,13 +454,17 @@ namespace ObservableComputations
 			}
 			else
 			{
+				if (_leftSourceSubscribed) unsubscribeLeftSource();
+				if (_rightSourceSubscribed) unsubscribeRightSource();
+
+				_leftSourceCopy = null;
+				_rightSourceCopy = null;
+
 				_items.Clear();
 			}
 
 			reset();
 		}
-
-
 
 		protected override void initialize()
 		{
@@ -515,7 +576,7 @@ namespace ObservableComputations
 
 						break;
 					case NotifyCollectionChangedAction.Reset:
-						processSource(false, false);
+						processSource(false, false, true, false);
 						break;
 					case NotifyCollectionChangedAction.Replace:
 						int newIndex3 = e.NewStartingIndex;
@@ -634,7 +695,7 @@ namespace ObservableComputations
 						}
 						break;
 					case NotifyCollectionChangedAction.Reset:
-						processSource(false, false);
+						processSource(false, false, false, true);
 						break;
 				}
 		}

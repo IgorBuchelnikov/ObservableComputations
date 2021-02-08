@@ -2,6 +2,7 @@
 // Buchelnikov Igor Vladimirovich licenses this file to you under the MIT license.
 // The LICENSE file is located at https://github.com/IgorBuchelnikov/ObservableComputations/blob/master/LICENSE
 
+using System;
 using System.ComponentModel;
 
 namespace ObservableComputations.Test
@@ -26,5 +27,7 @@ namespace ObservableComputations.Test
 				Value = newValue;
 				PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Value)));
 			}
+
+			public Delegate[] PropertyChangedInvocationList => PropertyChanged.GetInvocationList();
 		}
 }

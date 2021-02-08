@@ -8,6 +8,7 @@ using System.Collections.ObjectModel;
 using System.Collections.Specialized;
 using System.ComponentModel;
 using System.Diagnostics.CodeAnalysis;
+using System.Linq;
 using INotifyPropertyChanged = System.ComponentModel.INotifyPropertyChanged;
 
 namespace ObservableComputations
@@ -88,55 +89,66 @@ namespace ObservableComputations
 		private readonly PropertyChangedEventHandler _leftSourceScalarOnPropertyChanged;
 		private readonly PropertyChangedEventHandler _rightSourceScalarOnPropertyChanged;
 
+		private bool _leftSourceSubscribed;
+		private bool _rightSourceSubscribed;
+
 		[ObservableComputationsCall]
 		public Zipping(
 			IReadScalar<INotifyCollectionChanged> leftSourceScalar,
-			INotifyCollectionChanged rightSource) : this(calculateCapacity(leftSourceScalar, rightSource))
+			INotifyCollectionChanged rightSource) : this(
+				calculateCapacity(leftSourceScalar, rightSource),
+				leftSourceScalar, null)
 		{
-			_leftSourceScalar = leftSourceScalar;
-			_rightSource = rightSource;	
-			_thisAsSourceCollectionChangeProcessor = this;
+			_rightSource = rightSource;
 		}
 
 		[ObservableComputationsCall]
 		public Zipping(
 			IReadScalar<INotifyCollectionChanged> leftSourceScalar,
-			IReadScalar<INotifyCollectionChanged> rightSourceScalar) : this(calculateCapacity(leftSourceScalar, rightSourceScalar))
+			IReadScalar<INotifyCollectionChanged> rightSourceScalar) : this(
+				calculateCapacity(leftSourceScalar, rightSourceScalar),
+				leftSourceScalar, rightSourceScalar)
 		{
-			_leftSourceScalar = leftSourceScalar;
-			_rightSourceScalar = rightSourceScalar;
-			_thisAsSourceCollectionChangeProcessor = this;
+
 		}
 
 		[ObservableComputationsCall]
 		public Zipping(
 			INotifyCollectionChanged leftSource,
-			INotifyCollectionChanged rightSource) : this(calculateCapacity(leftSource, rightSource))
+			INotifyCollectionChanged rightSource) : this(
+				calculateCapacity(leftSource, rightSource),
+				null, null)
 		{
 			_leftSource = leftSource;			
-			_rightSource = rightSource;		
-			_thisAsSourceCollectionChangeProcessor = this;
+			_rightSource = rightSource;
 		}
 
 		[ObservableComputationsCall]
 		public Zipping(
 			INotifyCollectionChanged leftSource,
-			IReadScalar<INotifyCollectionChanged> rightSourceScalar) : this(calculateCapacity(leftSource, rightSourceScalar))
+			IReadScalar<INotifyCollectionChanged> rightSourceScalar) : this(
+				calculateCapacity(leftSource, rightSourceScalar),
+				null, rightSourceScalar)
 		{
-			_leftSource = leftSource;			
-			_rightSourceScalar = rightSourceScalar;
-			_thisAsSourceCollectionChangeProcessor = this;
-
+			_leftSource = leftSource;
 		}
 
-		private Zipping(int capacity) : base(capacity)
+		private Zipping(int capacity,
+			IReadScalar<INotifyCollectionChanged> leftSourceScalar,
+			IReadScalar<INotifyCollectionChanged> rightSourceScalar) : base(capacity)
 		{
+			_thisAsSourceCollectionChangeProcessor = this;
+
+			_leftSourceScalar = leftSourceScalar;
+			_rightSourceScalar = rightSourceScalar;
+
 			if (_leftSourceScalar != null)
-				_leftSourceScalarOnPropertyChanged = getScalarValueChangedHandler(null, () => processSource(true, false));
+				_leftSourceScalarOnPropertyChanged = 
+					getScalarValueChangedHandler(null, () => processSource(true, false, true, false));
 
 			if (_rightSourceScalar != null)
-				_rightSourceScalarOnPropertyChanged = getScalarValueChangedHandler(null, () => processSource(false, true));
-
+				_rightSourceScalarOnPropertyChanged = 
+					getScalarValueChangedHandler(null, () => processSource(false, true, false, true));
 		}
 
 		private static int calculateCapacity(INotifyCollectionChanged sourceLeft, INotifyCollectionChanged sourceRight)
@@ -170,48 +182,52 @@ namespace ObservableComputations
 
 		protected override void processSource()
 		{
-			processSource(true, true);
+			processSource(true, true, true, true);
 		}
 
-		private void processSource(bool replaceLeftSource, bool replaceRightSource)
+		private void processSource(
+			bool replaceLeftSource, 
+			bool replaceRightSource,
+			bool resetLeftSource,
+			bool resetRightSource)
 		{
 			int originalCount = _items.Count;
 
-			if (_sourceReadAndSubscribed)
+			void unsubscribeLeftSource()
 			{
-				if (_leftSource != null)
-				{
-					if (replaceLeftSource)
-					{
-						_leftSource.CollectionChanged -= handleLeftSourceCollectionChanged;
+				if (_leftSource == null) return;
 
-						if (_leftSourceAsINotifyPropertyChanged != null)
-						{
-							_leftSourceAsINotifyPropertyChanged.PropertyChanged -=
-								((ILeftSourceIndexerPropertyTracker) this).HandleSourcePropertyChanged;
-							_leftSourceAsINotifyPropertyChanged = null;
-						}
-					}
-				}
-
-
-				if (_rightSource != null)
-				{
-					if (replaceRightSource)
-					{
-						_rightSource.CollectionChanged -= handleLeftSourceCollectionChanged;
-
-						if (_rightSourceAsINotifyPropertyChanged != null)
-						{
-							_rightSourceAsINotifyPropertyChanged.PropertyChanged -=
-								((IRightSourceIndexerPropertyTracker) this).HandleSourcePropertyChanged;
-							_rightSourceAsINotifyPropertyChanged = null;
-						}
-					}
-				}
+				Utils.unsubscribeSource(
+					_leftSource, 
+					ref _leftSourceAsINotifyPropertyChanged, 
+					this, 
+					handleLeftSourceCollectionChanged);
 
 				_leftSourceCopy = null;
+				_leftSourceSubscribed = false;
+			}
+
+			void unsubscribeRightSource()
+			{
+				if (_rightSource == null) return;
+
+				Utils.unsubscribeSource(
+					_rightSource, 
+					ref _rightSourceAsINotifyPropertyChanged, 
+					this, 
+					handleRightSourceCollectionChanged);
+
 				_rightSourceCopy = null;
+				_rightSourceSubscribed = false;
+			}
+
+			if (_sourceReadAndSubscribed)
+			{
+				if (replaceLeftSource)
+					unsubscribeLeftSource();
+
+				if (replaceRightSource)
+					unsubscribeRightSource();
 
 				_sourceReadAndSubscribed = false;
 			}
@@ -227,32 +243,43 @@ namespace ObservableComputations
 
 			if (_leftSourceAsList != null && _rightSourceAsList != null && _isActive)
 			{
-				if (replaceLeftSource)
+				if (replaceLeftSource || !_leftSourceSubscribed)
+				{
 					Utils.subscribeSource(
-						out _leftSourceAsIHasChangeMarker, 
-						_leftSourceAsList, 
-						ref _lastProcessedLeftSourceChangeMarker, 
+						out _leftSourceAsIHasChangeMarker,
+						_leftSourceAsList,
+						ref _lastProcessedLeftSourceChangeMarker,
 						ref _leftSourceAsINotifyPropertyChanged,
-						(ILeftSourceIndexerPropertyTracker)this,
+						(ILeftSourceIndexerPropertyTracker) this,
 						_leftSource,
 						handleLeftSourceCollectionChanged);
 
-				if (replaceRightSource)
+					_leftSourceSubscribed  = true;
+				}
+
+				if (replaceRightSource || !_rightSourceSubscribed)
+				{
 					Utils.subscribeSource(
-						out _rightSourceAsHasChangeMarker, 
-						_rightSourceAsList, 
-						ref _lastProcessedRightSourceChangeMarker, 
+						out _rightSourceAsHasChangeMarker,
+						_rightSourceAsList,
+						ref _lastProcessedRightSourceChangeMarker,
 						ref _rightSourceAsINotifyPropertyChanged,
-						(IRightSourceIndexerPropertyTracker)this,
+						(IRightSourceIndexerPropertyTracker) this,
 						_rightSource,
 						handleRightSourceCollectionChanged);
+
+					_rightSourceSubscribed  = true;
+				}
 
 
 				int countLeft = _leftSourceAsList.Count;
 				int countRight = _rightSourceAsList.Count;
 
-				_leftSourceCopy = new List<TLeftSourceItem>(_leftSourceAsList);
-				_rightSourceCopy = new List<TRightSourceItem>(_rightSourceAsList);
+				if (resetLeftSource || _leftSourceCopy == null)
+					_leftSourceCopy = new List<TLeftSourceItem>(_leftSourceAsList);
+
+				if (resetRightSource || _rightSourceCopy == null)
+					_rightSourceCopy = new List<TRightSourceItem>(_rightSourceAsList);
 
 				int sourceIndex;
 				for (sourceIndex = 0; sourceIndex < countLeft; sourceIndex++)
@@ -284,6 +311,12 @@ namespace ObservableComputations
 			}
 			else
 			{
+				if (_leftSourceSubscribed) unsubscribeLeftSource();
+				if (_rightSourceSubscribed) unsubscribeRightSource();
+
+				_leftSourceCopy = null;
+				_rightSourceCopy = null;
+
 				_items.Clear();
 			}
 
@@ -432,7 +465,7 @@ namespace ObservableComputations
 
 						break;
 					case NotifyCollectionChangedAction.Reset:
-						processSource(false, false);
+						processSource(false, false, true, false);
 						break;
 				}
 			}
@@ -529,7 +562,7 @@ namespace ObservableComputations
 
 					break;
 				case NotifyCollectionChangedAction.Reset:
-					processSource(false, false);
+					processSource(false, false, false, true);
 					break;
 			}
 		}
@@ -593,6 +626,9 @@ namespace ObservableComputations
 		{
 			IList<TLeftSourceItem> sourceLeft = _leftSourceScalar.getValue(_leftSource, new ObservableCollection<TLeftSourceItem>()) as IList<TLeftSourceItem>;
 			IList<TRightSourceItem> sourceRight = _rightSourceScalar.getValue(_rightSource, new ObservableCollection<TRightSourceItem>()) as IList<TRightSourceItem>;
+
+			if (this.Count != new []{sourceLeft.Count, sourceRight.Count}.Min())
+				throw new ObservableComputationsException(this, "Consistency violation: Zipping.1");
 
 			// ReSharper disable once PossibleNullReferenceException
 			for (int index = 0; index < sourceLeft.Count; index++)

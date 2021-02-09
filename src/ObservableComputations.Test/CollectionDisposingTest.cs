@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.ObjectModel;
+using System.Collections.Specialized;
 using System.Linq;
 using NUnit.Framework;
 
@@ -77,6 +78,57 @@ namespace ObservableComputations.Test
 			OcConsumer consumer = new OcConsumer();
 			
 			test(Expr.Is(() => source).CollectionDisposing().For(consumer), source);
+
+			consumer.Dispose();
+		}
+
+		[Test]
+		public void Test4()
+		{
+			ObservableCollection<Item> source = new ObservableCollection<Item>(
+				new[]
+				{
+					new Item()
+				}
+			);
+
+			OcConsumer consumer = new OcConsumer();
+			
+			test(((INotifyCollectionChanged)source).CollectionDisposing<Item>().For(consumer), source);
+
+			consumer.Dispose();
+		}
+
+		[Test]
+		public void Test5()
+		{
+			ObservableCollection<Item> source = new ObservableCollection<Item>(
+				new[]
+				{
+					new Item()
+				}
+			);
+
+			OcConsumer consumer = new OcConsumer();
+			
+			test(new Scalar<INotifyCollectionChanged>(source).CollectionDisposing<Item>().For(consumer), source);
+
+			consumer.Dispose();
+		}
+
+		[Test]
+		public void Test6()
+		{
+			ObservableCollection<Item> source = new ObservableCollection<Item>(
+				new[]
+				{
+					new Item()
+				}
+			);
+
+			OcConsumer consumer = new OcConsumer();
+			
+			test(Expr.Is(() => (INotifyCollectionChanged)source).CollectionDisposing<Item>().For(consumer), source);
 
 			consumer.Dispose();
 		}

@@ -354,7 +354,7 @@ namespace ObservableComputations
 		private static string ToStringAlt(this PropertyChangedEventArgs propertyChangedEventArgs)
 		{
 			if (propertyChangedEventArgs == null) return "null";
-			return $"({propertyChangedEventArgs} (PropertyName = ({propertyChangedEventArgs.PropertyName})))";
+			return $"({propertyChangedEventArgs} (PropertyName = '{propertyChangedEventArgs.PropertyName}'))";
 		}
 
 		public static string ToStringAlt(this NotifyCollectionChangedEventArgs notifyCollectionChangedEventArgs)
@@ -364,15 +364,15 @@ namespace ObservableComputations
 			switch (notifyCollectionChangedEventArgs.Action)
 			{
 				case NotifyCollectionChangedAction.Add:
-					return $"({notifyCollectionChangedEventArgs} (Action = ({notifyCollectionChangedEventArgs.Action.ToString()}') notifyCollectionChangedEventArgs.NewItems[0] = {notifyCollectionChangedEventArgs.NewItems[0].ToStringSafe(e => "e.ToString() in notifyCollectionChangedEventArgs.NewItems[0].ToString()")}, notifyCollectionChangedEventArgs.NewStartingIndex = ({notifyCollectionChangedEventArgs.NewStartingIndex.ToString()}))))";
+					return $"({notifyCollectionChangedEventArgs} (Action = '{notifyCollectionChangedEventArgs.Action.ToString()}' notifyCollectionChangedEventArgs.NewItems[0] = '{notifyCollectionChangedEventArgs.NewItems[0].ToStringSafe(e => "e.ToString() in notifyCollectionChangedEventArgs.NewItems[0].ToString()")}', notifyCollectionChangedEventArgs.NewStartingIndex = {notifyCollectionChangedEventArgs.NewStartingIndex.ToString()}))";
 				case NotifyCollectionChangedAction.Remove:
-					return $"({notifyCollectionChangedEventArgs} (Action = ({notifyCollectionChangedEventArgs.Action.ToString()}') notifyCollectionChangedEventArgs.OldItems[0] = {notifyCollectionChangedEventArgs.OldItems[0].ToStringSafe(e => "e.ToString() in notifyCollectionChangedEventArgs.OldItems[0].ToString()")}, notifyCollectionChangedEventArgs.OldStartingIndex = ({notifyCollectionChangedEventArgs.OldStartingIndex.ToString()}))))";
+					return $"({notifyCollectionChangedEventArgs} (Action = '{notifyCollectionChangedEventArgs.Action.ToString()}' notifyCollectionChangedEventArgs.OldItems[0] = '{notifyCollectionChangedEventArgs.OldItems[0].ToStringSafe(e => "e.ToString() in notifyCollectionChangedEventArgs.OldItems[0].ToString()")}', notifyCollectionChangedEventArgs.OldStartingIndex = {notifyCollectionChangedEventArgs.OldStartingIndex.ToString()}))";
 				case NotifyCollectionChangedAction.Replace:
-					return $"({notifyCollectionChangedEventArgs} (Action = ({notifyCollectionChangedEventArgs.Action.ToString()}') notifyCollectionChangedEventArgs.NewItems[0] = {notifyCollectionChangedEventArgs.NewItems[0].ToStringSafe(e => "e.ToString() in notifyCollectionChangedEventArgs.NewItems[0].ToString()")}, notifyCollectionChangedEventArgs.NewStartingIndex = ({notifyCollectionChangedEventArgs.NewStartingIndex.ToString()}), notifyCollectionChangedEventArgs.OldItems[0] = {notifyCollectionChangedEventArgs.OldItems[0].ToStringSafe(e => "e.ToString() in notifyCollectionChangedEventArgs.OldItems[0].ToString()")}, notifyCollectionChangedEventArgs.OldStartingIndex = ({notifyCollectionChangedEventArgs.OldStartingIndex.ToString()}))))";					
+					return $"({notifyCollectionChangedEventArgs} (Action = '{notifyCollectionChangedEventArgs.Action.ToString()}' notifyCollectionChangedEventArgs.NewItems[0] = '{notifyCollectionChangedEventArgs.NewItems[0].ToStringSafe(e => "e.ToString() in notifyCollectionChangedEventArgs.NewItems[0].ToString()")}', notifyCollectionChangedEventArgs.NewStartingIndex = {notifyCollectionChangedEventArgs.NewStartingIndex.ToString()}, notifyCollectionChangedEventArgs.OldItems[0] = '{notifyCollectionChangedEventArgs.OldItems[0].ToStringSafe(e => "e.ToString() in notifyCollectionChangedEventArgs.OldItems[0].ToString()")}', notifyCollectionChangedEventArgs.OldStartingIndex = {notifyCollectionChangedEventArgs.OldStartingIndex.ToString()}))";					
 				case NotifyCollectionChangedAction.Move:
-					return $"({notifyCollectionChangedEventArgs} (Action = ({notifyCollectionChangedEventArgs.Action.ToString()}') notifyCollectionChangedEventArgs.OldStartingIndex = {notifyCollectionChangedEventArgs.OldStartingIndex.ToString()}, notifyCollectionChangedEventArgs.NewStartingIndex = ({notifyCollectionChangedEventArgs.NewStartingIndex.ToString()})))";					
+					return $"({notifyCollectionChangedEventArgs} (Action = '{notifyCollectionChangedEventArgs.Action.ToString()}' notifyCollectionChangedEventArgs.OldStartingIndex = {notifyCollectionChangedEventArgs.OldStartingIndex.ToString()}, notifyCollectionChangedEventArgs.NewStartingIndex = {notifyCollectionChangedEventArgs.NewStartingIndex.ToString()}))";					
 				case NotifyCollectionChangedAction.Reset:
-					return $"({notifyCollectionChangedEventArgs} (Action = ({notifyCollectionChangedEventArgs.Action.ToString()})))";					
+					return $"({notifyCollectionChangedEventArgs} (Action = '{notifyCollectionChangedEventArgs.Action.ToString()}'))";					
 				default:
 					throw new ArgumentOutOfRangeException();
 			}
@@ -381,7 +381,7 @@ namespace ObservableComputations
 		public static string ToStringAlt(this MethodChangedEventArgs methodChangedEventArgs)
 		{
 			if (methodChangedEventArgs == null) return "null";
-			return $"({methodChangedEventArgs} (MethodName = ({methodChangedEventArgs.MethodName}), ArgumentsPredicate.GetHashCode() = ({methodChangedEventArgs.ArgumentsPredicate.GetHashCode()})))";
+			return $"({methodChangedEventArgs} (MethodName = '{methodChangedEventArgs.MethodName}', ArgumentsPredicate.GetHashCode() = {methodChangedEventArgs.ArgumentsPredicate.GetHashCode()}))";
 		}
 
 		public static string ToStringAlt(this EventArgs eventArgs)

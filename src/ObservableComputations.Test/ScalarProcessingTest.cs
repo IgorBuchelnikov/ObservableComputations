@@ -2,10 +2,12 @@
 // Buchelnikov Igor Vladimirovich licenses this file to you under the MIT license.
 // The LICENSE file is located at https://github.com/IgorBuchelnikov/ObservableComputations/blob/master/LICENSE
 
+using System;
 using NUnit.Framework;
 
 namespace ObservableComputations.Test
 {
+	[TestFixture(true)]
 	[TestFixture(false)]
 	public partial class ScalarProcessingTest : TestBase
 	{
@@ -13,46 +15,76 @@ namespace ObservableComputations.Test
 
 		public class Item
 		{
-			public bool ProcessedAsNew;
-			public bool ProcessedAsOld;
+			public int ProcessedAsNew;
+			public int ProcessedAsOld;
 			public object Token = new object();
 		}
 
+		object _token;
+
+		Func<Item, IScalarComputing, object> _newValueProcessor;
+		Action<Item, IScalarComputing, object> _oldValueProcessor;
+
+		public ScalarProcessingTest(bool debug) : base(debug)
+		{
+			_newValueProcessor = (newItem, current) =>
+			{
+				newItem.ProcessedAsNew++;
+				return newItem.Token;
+			};
+
+			_oldValueProcessor = (oldItem, current, retVal) =>
+			{
+				Assert.AreEqual(retVal, _token);
+				oldItem.ProcessedAsOld++;
+			};
+		}
 
 		[Test]
 		public void ScalarProcessing_Test()
 		{
 			Item item = new Item();
 			Scalar<Item> itemScalar = new Scalar<Item>(item);
-			object token = null;
 			itemScalar.ScalarProcessing<Item, object>(
-				(newItem, current) =>
-				{
-					newItem.ProcessedAsNew = true;
-					return newItem.Token;
-				},
-				(oldItem, current, retVal) =>
-				{
-					Assert.AreEqual(retVal, token);
-					oldItem.ProcessedAsOld = true;
-				}).For(consumer);
-			Assert.IsTrue(item.ProcessedAsNew);
-			token = item.Token;
-			Item newItem1 = new Item();
-			itemScalar.Change(newItem1);
-			Assert.IsTrue(item.ProcessedAsNew);
-			Assert.IsTrue(item.ProcessedAsOld);
-			Assert.IsTrue(newItem1.ProcessedAsNew);
-			token = newItem1.Token;
+				_newValueProcessor,
+				_oldValueProcessor).For(consumer);
+
+			test(item, itemScalar);
+
 			consumer.Dispose();
-			Assert.IsTrue(item.ProcessedAsNew);
-			Assert.IsTrue(item.ProcessedAsOld);
-			Assert.IsTrue(newItem1.ProcessedAsNew);
-			Assert.IsTrue(newItem1.ProcessedAsOld);
 		}
 
-		public ScalarProcessingTest(bool debug) : base(debug)
+		[Test]
+		public void ScalarProcessing_Test2()
 		{
+			Item item = new Item();
+			Scalar<Item> itemScalar = new Scalar<Item>(item);
+
+			Expr.Is(() => itemScalar.Value).ScalarProcessing<Item, object>(
+				_newValueProcessor,
+				_oldValueProcessor).For(consumer);
+
+			test(item, itemScalar);
+
+			consumer.Dispose();
 		}
+
+		private void test(Item item, Scalar<Item> itemScalar)
+		{
+			Assert.IsTrue(item.ProcessedAsNew == 1);
+			_token = item.Token;
+			Item newItem1 = new Item();
+			itemScalar.Change(newItem1);
+			Assert.IsTrue(item.ProcessedAsNew == 1);
+			Assert.IsTrue(item.ProcessedAsOld == 1);
+			Assert.IsTrue(newItem1.ProcessedAsNew == 1);
+			_token = newItem1.Token;
+			consumer.Dispose();
+			Assert.IsTrue(item.ProcessedAsNew == 1);
+			Assert.IsTrue(item.ProcessedAsOld == 1);
+			Assert.IsTrue(newItem1.ProcessedAsNew == 1);
+			Assert.IsTrue(newItem1.ProcessedAsOld == 1);
+		}
+
 	}
 }

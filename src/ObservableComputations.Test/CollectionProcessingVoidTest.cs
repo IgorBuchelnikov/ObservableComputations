@@ -2,39 +2,71 @@
 // Buchelnikov Igor Vladimirovich licenses this file to you under the MIT license.
 // The LICENSE file is located at https://github.com/IgorBuchelnikov/ObservableComputations/blob/master/LICENSE
 
+using System;
 using System.Collections.ObjectModel;
+using System.Collections.Specialized;
 using NUnit.Framework;
 
 namespace ObservableComputations.Test
 {
-	[TestFixture(false)]
+	[TestFixture(false, SourceCollectionType.INotifyPropertyChanged)]
+	[TestFixture(true, SourceCollectionType.INotifyPropertyChanged)]
+	[TestFixture(false, SourceCollectionType.ObservableCollection)]
+	[TestFixture(true, SourceCollectionType.ObservableCollection)]
+	[TestFixture(false, SourceCollectionType.Scalar)]
+	[TestFixture(true, SourceCollectionType.INotifyPropertyChanged)]
 	public partial class CollectionProcessingVoidTest : TestBase
 	{
 		OcConsumer consumer = new OcConsumer();
+		SourceCollectionType _sourceCollectionType;
 
 		public class Item
 		{
-			public bool ProcessedAsNew;
-			public bool ProcessedAsOld;
+			public int ProcessedAsNew;
+			public int ProcessedAsOld;
 		}
 
-		private static CollectionProcessingVoid<Item> getCollectionProcessing(ObservableCollection<Item> items, OcConsumer consumer)
+		private CollectionProcessingVoid<Item> getCollectionProcessing(ObservableCollection<Item> items, OcConsumer consumer)
 		{
-			return items.CollectionProcessing(
-				(newItems, current) =>
+			Action<Item[], CollectionProcessingVoid<Item>> newItemProcessor = (newItems, current) =>
+			{
+				foreach (Item newItem in newItems)
 				{
-					foreach (Item newItem in newItems)
-					{
-						newItem.ProcessedAsNew = true;
-					}
-				},
-				(oldItems, current) =>
+					newItem.ProcessedAsNew++;
+				}
+			};
+			Action<Item[], CollectionProcessingVoid<Item>> oldItemProcessor = (oldItems, current) =>
+			{
+				foreach (Item oldItem in oldItems)
 				{
-					foreach (Item oldItem in oldItems)
-					{
-						oldItem.ProcessedAsOld = true;
-					}
-				}).For(consumer);
+					oldItem.ProcessedAsOld++;
+				}
+			};
+			Action<Item, CollectionProcessingVoid<Item>> moveItemProcessor = (item, current) =>
+			{
+
+			};
+
+			switch (_sourceCollectionType)
+			{
+				case SourceCollectionType.INotifyPropertyChanged:
+					return ((INotifyCollectionChanged) items).CollectionProcessing(
+						newItemProcessor,
+						oldItemProcessor,
+						moveItemProcessor).For(consumer);
+				case SourceCollectionType.ObservableCollection:
+					return items.CollectionProcessing(
+						newItemProcessor,
+						oldItemProcessor,
+						moveItemProcessor).For(consumer);
+				case SourceCollectionType.Scalar:
+					return Expr.Is(() => items).CollectionProcessing(
+						newItemProcessor,
+						oldItemProcessor,
+						moveItemProcessor).For(consumer);
+			}
+
+			return null;
 		}
 
 
@@ -65,8 +97,8 @@ namespace ObservableComputations.Test
 
 			CollectionProcessingVoid<Item> collectionProcessing = getCollectionProcessing(items, consumer);
 			items.RemoveAt(index);
-			Assert.IsTrue(sourceCollection[index].ProcessedAsNew);
-			Assert.IsTrue(sourceCollection[index].ProcessedAsOld);
+			Assert.IsTrue(sourceCollection[index].ProcessedAsNew == 1);
+			Assert.IsTrue(sourceCollection[index].ProcessedAsOld == 1);
 			consumer.Dispose();
 		}
 
@@ -83,8 +115,8 @@ namespace ObservableComputations.Test
 
 			CollectionProcessingVoid<Item> collectionProcessing = getCollectionProcessing(items, consumer);
 			items.RemoveAt(0);
-			Assert.IsTrue(item.ProcessedAsNew);
-			Assert.IsTrue(item.ProcessedAsOld);
+			Assert.IsTrue(item.ProcessedAsNew == 1);
+			Assert.IsTrue(item.ProcessedAsOld == 1);
 			consumer.Dispose();
 		}
 
@@ -107,8 +139,8 @@ namespace ObservableComputations.Test
 			CollectionProcessingVoid<Item> collectionProcessing = getCollectionProcessing(items, consumer);
 			Item item = new Item();
 			items.Insert(index, item);
-			Assert.IsTrue(item.ProcessedAsNew);
-			Assert.IsFalse(item.ProcessedAsOld);
+			Assert.IsTrue(item.ProcessedAsNew == 1);
+			Assert.IsTrue(item.ProcessedAsOld == 0);
 			consumer.Dispose();
 		}
 
@@ -121,8 +153,8 @@ namespace ObservableComputations.Test
 			CollectionProcessingVoid<Item> collectionProcessing = getCollectionProcessing(items, consumer);
 			Item item = new Item();
 			items.Insert(0, item);
-			Assert.IsTrue(item.ProcessedAsNew);
-			Assert.IsFalse(item.ProcessedAsOld);
+			Assert.IsTrue(item.ProcessedAsNew == 1);
+			Assert.IsTrue(item.ProcessedAsOld == 0);
 			consumer.Dispose();
 		}
 
@@ -145,8 +177,8 @@ namespace ObservableComputations.Test
 
 			CollectionProcessingVoid<Item> collectionProcessing = getCollectionProcessing(items, consumer);
 			items.Move(oldIndex, newIndex);
-			Assert.IsTrue(sourceCollection[oldIndex].ProcessedAsNew);
-			Assert.IsFalse(sourceCollection[oldIndex].ProcessedAsOld);
+			Assert.IsTrue(sourceCollection[oldIndex].ProcessedAsNew == 1);
+			Assert.IsTrue(sourceCollection[oldIndex].ProcessedAsOld == 0);
 			consumer.Dispose();
 		}
 
@@ -168,10 +200,10 @@ namespace ObservableComputations.Test
 
 			CollectionProcessingVoid<Item> collectionProcessing = getCollectionProcessing(items, consumer);
 			items[index] = new Item();
-			Assert.IsTrue(sourceCollection[index].ProcessedAsNew);
-			Assert.IsTrue(sourceCollection[index].ProcessedAsOld);
-			Assert.IsTrue(items[index].ProcessedAsNew);
-			Assert.IsFalse(items[index].ProcessedAsOld);
+			Assert.IsTrue(sourceCollection[index].ProcessedAsNew == 1);
+			Assert.IsTrue(sourceCollection[index].ProcessedAsOld == 1);
+			Assert.IsTrue(items[index].ProcessedAsNew == 1);
+			Assert.IsTrue(items[index].ProcessedAsOld == 0);
 			consumer.Dispose();
 		}	
 
@@ -193,20 +225,21 @@ namespace ObservableComputations.Test
 			CollectionProcessingVoid<Item> collectionProcessing = getCollectionProcessing(items, consumer);
 			foreach (Item item in sourceCollection)
 			{
-				Assert.IsTrue(item.ProcessedAsNew);
-				Assert.IsFalse(item.ProcessedAsOld);
+				Assert.IsTrue(item.ProcessedAsNew == 1);
+				Assert.IsTrue(item.ProcessedAsOld == 0);
 			}			
 			
 			consumer.Dispose();
 			foreach (Item item in sourceCollection)
 			{
-				Assert.IsTrue(item.ProcessedAsNew);
-				Assert.IsTrue(item.ProcessedAsOld);				
+				Assert.IsTrue(item.ProcessedAsNew == 1);
+				Assert.IsTrue(item.ProcessedAsOld == 1);				
 			}
 		}
 
-		public CollectionProcessingVoidTest(bool debug) : base(debug)
+		public CollectionProcessingVoidTest(bool debug, SourceCollectionType sourceCollectionType) : base(debug)
 		{
+			_sourceCollectionType = sourceCollectionType;
 		}
 	}
 }

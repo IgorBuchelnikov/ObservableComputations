@@ -4,6 +4,7 @@
 
 using System;
 using System.Collections.ObjectModel;
+using System.Collections.Specialized;
 using System.Linq;
 using NUnit.Framework;
 
@@ -17,8 +18,8 @@ namespace ObservableComputations.Test
 
 		public class Item
 		{
-			public bool ProcessedAsNew;
-			public bool ProcessedAsOld;
+			public int ProcessedAsNew;
+			public int ProcessedAsOld;
 			public object Token = new object();
 		}
 
@@ -43,7 +44,7 @@ namespace ObservableComputations.Test
 				for (int index = 0; index < newItems.Length; index++)
 				{
 					Item newItem = newItems[index];
-					newItem.ProcessedAsNew = true;
+					newItem.ProcessedAsNew++;
 					tokens[index] = newItem.Token;
 				}
 
@@ -55,7 +56,7 @@ namespace ObservableComputations.Test
 				for (int index = 0; index < oldItems.Length; index++)
 				{
 					Item oldItem = oldItems[index];
-					oldItem.ProcessedAsOld = true;
+					oldItem.ProcessedAsOld++;
 					Assert.AreEqual(oldItem.Token, returnValues[index]);
 				}
 			};
@@ -65,7 +66,9 @@ namespace ObservableComputations.Test
 
 			};
 
-			var collectionProcessing = items.CollectionProcessing(
+			CollectionProcessing<Item, object> collectionProcessing;
+
+			collectionProcessing = items.CollectionProcessing(
 				newItemProcessor,
 				oldItemProcessor,
 				moveItemProcessor).For(consumer);
@@ -75,24 +78,24 @@ namespace ObservableComputations.Test
 			Assert.AreEqual(collectionProcessing.OldItemsProcessor, oldItemProcessor);
 			Assert.AreEqual(collectionProcessing.MoveItemProcessor, moveItemProcessor);
 
-			Assert.IsTrue(items.All(item => item.ProcessedAsNew));
+			Assert.IsTrue(items.All(item => item.ProcessedAsNew == 1));
 
 			items.RemoveAt(0);
-			Assert.IsTrue(sourceCollection[0].ProcessedAsNew);
-			Assert.IsTrue(sourceCollection[0].ProcessedAsOld);
+			Assert.IsTrue(sourceCollection[0].ProcessedAsNew == 1);
+			Assert.IsTrue(sourceCollection[0].ProcessedAsOld == 1);
 
 			Item item1 = new Item();
 			items.Insert(0, item1);
-			Assert.IsTrue(item1.ProcessedAsNew);
-			Assert.IsFalse(item1.ProcessedAsOld);
+			Assert.IsTrue(item1.ProcessedAsNew == 1);
+			Assert.IsTrue(item1.ProcessedAsOld == 0);
 
 			items.Move(1, 2);
 
 			consumer.Dispose();
 			foreach (Item item in items)
 			{
-				Assert.IsTrue(item.ProcessedAsNew);
-				Assert.IsTrue(item.ProcessedAsOld);				
+				Assert.IsTrue(item.ProcessedAsNew == 1);
+				Assert.IsTrue(item.ProcessedAsOld == 1);				
 			}
 		}
 
@@ -124,7 +127,7 @@ namespace ObservableComputations.Test
 				for (int index = 0; index < newItems.Length; index++)
 				{
 					Item newItem = newItems[index];
-					newItem.ProcessedAsNew = true;
+					newItem.ProcessedAsNew++;
 					tokens[index] = newItem.Token;
 				}
 
@@ -136,7 +139,7 @@ namespace ObservableComputations.Test
 				for (int index = 0; index < oldItems.Length; index++)
 				{
 					Item oldItem = oldItems[index];
-					oldItem.ProcessedAsOld = true;
+					oldItem.ProcessedAsOld++;
 					Assert.AreEqual(oldItem.Token, returnValues[index]);
 				}
 			};
@@ -156,24 +159,24 @@ namespace ObservableComputations.Test
 			Assert.AreEqual(collectionProcessing.OldItemsProcessor, oldItemProcessor);
 			Assert.AreEqual(collectionProcessing.MoveItemProcessor, moveItemProcessor);
 
-			Assert.IsTrue(items.All(item => item.ProcessedAsNew));
+			Assert.IsTrue(items.All(item => item.ProcessedAsNew == 1));
 
 			items.RemoveAt(0);
-			Assert.IsTrue(sourceCollection[0].ProcessedAsNew);
-			Assert.IsTrue(sourceCollection[0].ProcessedAsOld);
+			Assert.IsTrue(sourceCollection[0].ProcessedAsNew == 1);
+			Assert.IsTrue(sourceCollection[0].ProcessedAsOld == 1);
 
 			Item item1 = new Item();
 			items.Insert(0, item1);
-			Assert.IsTrue(item1.ProcessedAsNew);
-			Assert.IsFalse(item1.ProcessedAsOld);
+			Assert.IsTrue(item1.ProcessedAsNew == 1);
+			Assert.IsTrue(item1.ProcessedAsOld == 0);
 
 			items.Move(1, 2);
 
 			consumer.Dispose();
 			foreach (Item item in items)
 			{
-				Assert.IsTrue(item.ProcessedAsNew);
-				Assert.IsTrue(item.ProcessedAsOld);				
+				Assert.IsTrue(item.ProcessedAsNew == 1);
+				Assert.IsTrue(item.ProcessedAsOld == 1);				
 			}
 
 			itemsScalar.Touch();
@@ -201,7 +204,7 @@ namespace ObservableComputations.Test
 				for (int index = 0; index < newItems.Length; index++)
 				{
 					Item newItem = newItems[index];
-					newItem.ProcessedAsNew = true;
+					newItem.ProcessedAsNew++;
 					tokens[index] = newItem.Token;
 				}
 
@@ -213,7 +216,7 @@ namespace ObservableComputations.Test
 				for (int index = 0; index < oldItems.Length; index++)
 				{
 					Item oldItem = oldItems[index];
-					oldItem.ProcessedAsOld = true;
+					oldItem.ProcessedAsOld++;
 					Assert.AreEqual(oldItem.Token, returnValues[index]);
 				}
 			};
@@ -232,24 +235,24 @@ namespace ObservableComputations.Test
 			Assert.AreEqual(collectionProcessing.OldItemsProcessor, oldItemProcessor);
 			Assert.AreEqual(collectionProcessing.MoveItemProcessor, moveItemProcessor);
 
-			Assert.IsTrue(items.All(item => item.ProcessedAsNew));
+			Assert.IsTrue(items.All(item => item.ProcessedAsNew == 1));
 
 			items.RemoveAt(0);
-			Assert.IsTrue(sourceCollection[0].ProcessedAsNew);
-			Assert.IsTrue(sourceCollection[0].ProcessedAsOld);
+			Assert.IsTrue(sourceCollection[0].ProcessedAsNew == 1);
+			Assert.IsTrue(sourceCollection[0].ProcessedAsOld == 1);
 
 			Item item1 = new Item();
 			items.Insert(0, item1);
-			Assert.IsTrue(item1.ProcessedAsNew);
-			Assert.IsFalse(item1.ProcessedAsOld);
+			Assert.IsTrue(item1.ProcessedAsNew == 1);
+			Assert.IsTrue(item1.ProcessedAsOld == 0);
 
 			items.Move(1, 2);
 
 			consumer.Dispose();
 			foreach (Item item in items)
 			{
-				Assert.IsTrue(item.ProcessedAsNew);
-				Assert.IsTrue(item.ProcessedAsOld);				
+				Assert.IsTrue(item.ProcessedAsNew == 1);
+				Assert.IsTrue(item.ProcessedAsOld == 1);				
 			}
 		}
 
@@ -273,7 +276,7 @@ namespace ObservableComputations.Test
 				for (int index = 0; index < newItems.Length; index++)
 				{
 					Item newItem = newItems[index];
-					newItem.ProcessedAsNew = true;
+					newItem.ProcessedAsNew++;
 				} ; 
 			};
 
@@ -282,7 +285,7 @@ namespace ObservableComputations.Test
 				for (int index = 0; index < oldItems.Length; index++)
 				{
 					Item oldItem = oldItems[index];
-					oldItem.ProcessedAsOld = true;
+					oldItem.ProcessedAsOld++;
 				}
 			};
 
@@ -301,24 +304,24 @@ namespace ObservableComputations.Test
 			Assert.AreEqual(collectionProcessing.OldItemsProcessor, oldItemProcessor);
 			Assert.AreEqual(collectionProcessing.MoveItemProcessor, moveItemProcessor);
 
-			Assert.IsTrue(items.All(item => item.ProcessedAsNew));
+			Assert.IsTrue(items.All(item => item.ProcessedAsNew == 1));
 
 			items.RemoveAt(0);
-			Assert.IsTrue(sourceCollection[0].ProcessedAsNew);
-			Assert.IsTrue(sourceCollection[0].ProcessedAsOld);
+			Assert.IsTrue(sourceCollection[0].ProcessedAsNew == 1);
+			Assert.IsTrue(sourceCollection[0].ProcessedAsOld == 1);
 
 			Item item1 = new Item();
 			items.Insert(0, item1);
-			Assert.IsTrue(item1.ProcessedAsNew);
-			Assert.IsFalse(item1.ProcessedAsOld);
+			Assert.IsTrue(item1.ProcessedAsNew == 1);
+			Assert.IsTrue(item1.ProcessedAsOld == 0);
 
 			items.Move(1, 2);
 
 			consumer.Dispose();
 			foreach (Item item in items)
 			{
-				Assert.IsTrue(item.ProcessedAsNew);
-				Assert.IsTrue(item.ProcessedAsOld);				
+				Assert.IsTrue(item.ProcessedAsNew == 1);
+				Assert.IsTrue(item.ProcessedAsOld == 1);				
 			}
 		}
 
@@ -349,7 +352,7 @@ namespace ObservableComputations.Test
 				for (int index = 0; index < newItems.Length; index++)
 				{
 					Item newItem = newItems[index];
-					newItem.ProcessedAsNew = true;
+					newItem.ProcessedAsNew++;
 				} ; 
 			};
 
@@ -358,7 +361,7 @@ namespace ObservableComputations.Test
 				for (int index = 0; index < oldItems.Length; index++)
 				{
 					Item oldItem = oldItems[index];
-					oldItem.ProcessedAsOld = true;
+					oldItem.ProcessedAsOld++;
 				}
 			};
 
@@ -377,24 +380,24 @@ namespace ObservableComputations.Test
 			Assert.AreEqual(collectionProcessing.OldItemsProcessor, oldItemProcessor);
 			Assert.AreEqual(collectionProcessing.MoveItemProcessor, moveItemProcessor);
 
-			Assert.IsTrue(items.All(item => item.ProcessedAsNew));
+			Assert.IsTrue(items.All(item => item.ProcessedAsNew == 1));
 
 			items.RemoveAt(0);
-			Assert.IsTrue(sourceCollection[0].ProcessedAsNew);
-			Assert.IsTrue(sourceCollection[0].ProcessedAsOld);
+			Assert.IsTrue(sourceCollection[0].ProcessedAsNew == 1);
+			Assert.IsTrue(sourceCollection[0].ProcessedAsOld == 1);
 
 			Item item1 = new Item();
 			items.Insert(0, item1);
-			Assert.IsTrue(item1.ProcessedAsNew);
-			Assert.IsFalse(item1.ProcessedAsOld);
+			Assert.IsTrue(item1.ProcessedAsNew == 1);
+			Assert.IsTrue(item1.ProcessedAsOld == 0);
 
 			items.Move(1, 2);
 
 			consumer.Dispose();
 			foreach (Item item in items)
 			{
-				Assert.IsTrue(item.ProcessedAsNew);
-				Assert.IsTrue(item.ProcessedAsOld);				
+				Assert.IsTrue(item.ProcessedAsNew == 1);
+				Assert.IsTrue(item.ProcessedAsOld == 1);				
 			}
 
 			itemsScalar.Touch();
@@ -421,7 +424,7 @@ namespace ObservableComputations.Test
 				for (int index = 0; index < newItems.Length; index++)
 				{
 					Item newItem = newItems[index];
-					newItem.ProcessedAsNew = true;
+					newItem.ProcessedAsNew++;
 				} ; 
 			};
 
@@ -430,7 +433,7 @@ namespace ObservableComputations.Test
 				for (int index = 0; index < oldItems.Length; index++)
 				{
 					Item oldItem = oldItems[index];
-					oldItem.ProcessedAsOld = true;
+					oldItem.ProcessedAsOld++;
 				}
 			};
 
@@ -448,24 +451,24 @@ namespace ObservableComputations.Test
 			Assert.AreEqual(collectionProcessing.OldItemsProcessor, oldItemProcessor);
 			Assert.AreEqual(collectionProcessing.MoveItemProcessor, moveItemProcessor);
 
-			Assert.IsTrue(items.All(item => item.ProcessedAsNew));
+			Assert.IsTrue(items.All(item => item.ProcessedAsNew == 1));
 
 			items.RemoveAt(0);
-			Assert.IsTrue(sourceCollection[0].ProcessedAsNew);
-			Assert.IsTrue(sourceCollection[0].ProcessedAsOld);
+			Assert.IsTrue(sourceCollection[0].ProcessedAsNew == 1);
+			Assert.IsTrue(sourceCollection[0].ProcessedAsOld == 1);
 
 			Item item1 = new Item();
 			items.Insert(0, item1);
-			Assert.IsTrue(item1.ProcessedAsNew);
-			Assert.IsFalse(item1.ProcessedAsOld);
+			Assert.IsTrue(item1.ProcessedAsNew == 1);
+			Assert.IsTrue(item1.ProcessedAsOld == 0);
 
 			items.Move(1, 2);
 
 			consumer.Dispose();
 			foreach (Item item in items)
 			{
-				Assert.IsTrue(item.ProcessedAsNew);
-				Assert.IsTrue(item.ProcessedAsOld);				
+				Assert.IsTrue(item.ProcessedAsNew == 1);
+				Assert.IsTrue(item.ProcessedAsOld == 1);				
 			}
 		}
 
@@ -473,6 +476,7 @@ namespace ObservableComputations.Test
 
 		public CollectionProcessingTest(bool debug) : base(debug)
 		{
+
 		}
 	}
 }

@@ -13,8 +13,10 @@ namespace ObservableComputations.Test
 	[TestFixture(true, SourceCollectionType.INotifyPropertyChanged)]
 	[TestFixture(false, SourceCollectionType.ObservableCollection)]
 	[TestFixture(true, SourceCollectionType.ObservableCollection)]
-	[TestFixture(false, SourceCollectionType.Scalar)]
-	[TestFixture(true, SourceCollectionType.INotifyPropertyChanged)]
+	[TestFixture(false, SourceCollectionType.ScalarINotifyPropertyChanged)]
+	[TestFixture(false, SourceCollectionType.ScalarObservableCollection)]
+	[TestFixture(false, SourceCollectionType.ExpressionINotifyPropertyChanged)]
+	[TestFixture(false, SourceCollectionType.ExpressionObservableCollection)]
 	public partial class CollectionProcessingVoidTest : TestBase
 	{
 		OcConsumer consumer = new OcConsumer();
@@ -59,8 +61,23 @@ namespace ObservableComputations.Test
 						newItemProcessor,
 						oldItemProcessor,
 						moveItemProcessor).For(consumer);
-				case SourceCollectionType.Scalar:
+				case SourceCollectionType.ScalarINotifyPropertyChanged:
+					return new Scalar<INotifyCollectionChanged>(items).CollectionProcessing(
+						newItemProcessor,
+						oldItemProcessor,
+						moveItemProcessor).For(consumer);
+				case SourceCollectionType.ScalarObservableCollection:
+					return new Scalar<ObservableCollection<Item>>(items).CollectionProcessing(
+						newItemProcessor,
+						oldItemProcessor,
+						moveItemProcessor).For(consumer);
+				case SourceCollectionType.ExpressionINotifyPropertyChanged:
 					return Expr.Is(() => items).CollectionProcessing(
+						newItemProcessor,
+						oldItemProcessor,
+						moveItemProcessor).For(consumer);
+				case SourceCollectionType.ExpressionObservableCollection:
+					return Expr.Is(() => (INotifyCollectionChanged)items).CollectionProcessing(
 						newItemProcessor,
 						oldItemProcessor,
 						moveItemProcessor).For(consumer);

@@ -10,6 +10,9 @@ namespace ObservableComputations.Test
 	{
 		INotifyPropertyChanged,
 		ObservableCollection,
-		Scalar
+		ScalarINotifyPropertyChanged,
+		ScalarObservableCollection,
+		ExpressionINotifyPropertyChanged,
+		ExpressionObservableCollection
 	}
 }

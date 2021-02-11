@@ -43,7 +43,7 @@ namespace ObservableComputations
 				_callStackTrace = Environment.StackTrace;
 		}
 
-		internal Invocation(Action<object> actionWithState, object state, OcDispatcher ocDispatcher, InvocationStatus invocationStatus, IComputing context = null, ManualResetEventSlim doneManualResetEvent = null) : this()
+		internal Invocation(Action<object> actionWithState, object state, OcDispatcher ocDispatcher, InvocationStatus invocationStatus, object context = null, ManualResetEventSlim doneManualResetEvent = null) : this()
 		{
 			_actionWithState = actionWithState;
 			_state = state;
@@ -146,16 +146,18 @@ namespace ObservableComputations
 			}
 		}
 
-		private void queueInvocation(Action action, int priority, InvocationStatus invocationStatus = null, object context = null, ManualResetEventSlim doneManualResetEvent = null)
+		private void queueInvocation(Action action, int priority, object context = null,
+			InvocationStatus invocationStatus = null, ManualResetEventSlim doneManualResetEvent = null)
 		{
 			Invocation invocation = new Invocation(action, this, invocationStatus, context, doneManualResetEvent);
 			_invocationQueues[priority].Enqueue(invocation);
 			_newInvocationManualResetEvent.Set();
 		}
 
-		private void queueInvocation(Action<object> action, int priority, object state, InvocationStatus invocationStatus = null, IComputing computing = null, ManualResetEventSlim doneManualResetEvent = null)
+		private void queueInvocation(Action<object> action, int priority, object state, object context = null,
+			InvocationStatus invocationStatus = null, ManualResetEventSlim doneManualResetEvent = null)
 		{
-			Invocation invocation = new Invocation(action, state, this, invocationStatus, computing, doneManualResetEvent);
+			Invocation invocation = new Invocation(action, state, this, invocationStatus, context, doneManualResetEvent);
 			_invocationQueues[priority].Enqueue(invocation);
 			_newInvocationManualResetEvent.Set();
 		}
@@ -339,108 +341,101 @@ namespace ObservableComputations
 			_newInvocationManualResetEvent.Set();
 		}
 
+		public void Pass(int priority = 0)
+		{
+			Invoke(() => {}, priority);
+		}
+
 		void IOcDispatcher.Invoke(Action action, int priority, object parameter, object context)
 		{
 			if (checkNewInvocationBehaviour()) return;
 
-			queueInvocation(action, priority, null, context);
+			queueInvocation(action, priority, context, null);
 		}
 
-		public void BeginInvoke(Action action, int priority = 0)
+		public void BeginInvoke(Action action, int priority = 0, object context = null)
 		{
 			if (checkNewInvocationBehaviour()) return;
 
-			if (_thread == Thread.CurrentThread)
-			{
-				action();
-				return;
-			}
-
-			queueInvocation(action, priority);
+			queueInvocation(action, priority, context);
 		}
 
-		public void BeginInvoke(Action<object> action, object state, int priority = 0)
+		public void BeginInvoke(Action<object> action, object state, int priority = 0, object context = null)
 		{
 			if (checkNewInvocationBehaviour()) return;
 
-			if (_thread == Thread.CurrentThread)
-			{
-				action(state);
-				return;
-			}
-
-			queueInvocation(action, priority, state);						
+			queueInvocation(action, priority, state, context);						
 		}
 
-		public void Invoke(Action action, int priority = 0)
+		public void Invoke(Action action, int priority = 0, object context = null)
 		{
 			if (checkNewInvocationBehaviour()) return;
 
 			if (_thread == Thread.CurrentThread)
 			{
 				InvocationStatus invocationStatus = new InvocationStatus();
-				queueInvocation(action, priority, invocationStatus);
+				queueInvocation(action, priority, context, invocationStatus);
 				processQueues(_invocationQueues.Length - 1, count => invocationStatus.Done);
 				return;
 			}
 
 			ManualResetEventSlim manualResetEvent = new ManualResetEventSlim(false);
 
-			queueInvocation(action, priority, doneManualResetEvent: manualResetEvent);
+			queueInvocation(action, priority, context, doneManualResetEvent: manualResetEvent);
 			manualResetEvent.Wait();
 			manualResetEvent.Dispose();
 		}
 
-		public void Invoke(Action<object> action, object state, int priority = 0)
+		public void Invoke(Action<object> action, object state, int priority = 0, object context = null)
 		{
 			if (checkNewInvocationBehaviour()) return;
 
 			if (_thread == Thread.CurrentThread)
 			{
 				InvocationStatus invocationStatus = new InvocationStatus();
-				queueInvocation(action, priority, state, invocationStatus);
+				queueInvocation(action, priority, state, context, invocationStatus);
 				processQueues(_invocationQueues.Length - 1, count => invocationStatus.Done);
 				return;
 			}
 
 			ManualResetEventSlim manualResetEvent = new ManualResetEventSlim(false);
 
-			queueInvocation(action, priority, state, doneManualResetEvent: manualResetEvent);
+			queueInvocation(action, priority, state, context, doneManualResetEvent: manualResetEvent);
 			manualResetEvent.Wait();
 			manualResetEvent.Dispose();
 		}
 
-		public TResult Invoke<TResult>(Func<TResult> func, int priority = 0)
+		public TResult Invoke<TResult>(Func<TResult> func, int priority = 0, object context = null)
 		{
 			TResult result = default;
-			Invoke(() => { result = func(); }, priority);
+			Invoke(() => { result = func(); }, priority, context);
 			return result;
 		}
 
-		public TResult Invoke<TResult>(Func<object, TResult> func, object state, int priority = 0)
+		public TResult Invoke<TResult>(Func<object, TResult> func, object state, int priority = 0, object context = null)
 		{
 			TResult result = default;
-			Invoke(s => { result = func(s); }, state, priority);
+			Invoke(s => { result = func(s); }, state, priority, context);
 
 			return result;
 		}
 
-		public InvocationResult<TResult> BeginInvoke<TResult>(Func<TResult> func, int priority = 0)
+		public InvocationResult<TResult> BeginInvoke<TResult>(Func<TResult> func, int priority = 0, object context = null)
 		{
 			if (checkNewInvocationBehaviour()) return default;
 
 			InvocationResult<TResult> invocationResult = new InvocationResult<TResult>();
-			BeginInvoke(() => { invocationResult.Result = func(); }, priority);
+			BeginInvoke(() => { invocationResult.Result = func(); }, priority, context);
 
 			return invocationResult;
 		}
 
-		public InvocationResult<TResult> BeginInvoke<TResult>(Func<object, TResult> func, object state, int priority = 0)
+		public InvocationResult<TResult> BeginInvoke<TResult>(Func<object, TResult> func, object state, int priority = 0, object context = null)
 		{
 			if (checkNewInvocationBehaviour()) return default;
 
 			InvocationResult<TResult> invocationResult = new InvocationResult<TResult>();
-		   BeginInvoke(s => { invocationResult.Result = func(s); }, state, priority);
+		   BeginInvoke(s => { invocationResult.Result = func(s); }, state, priority, context);
 
 			return invocationResult;
 		}
@@ -449,7 +444,7 @@ namespace ObservableComputations
 
 		public override string ToString()
 		{
-			return $"ObservableComputations.OcDispatcher Thread.Name = {_thread.Name}";
+			return $"(ObservableComputations.OcDispatcher (Thread.Name = '{_thread.Name}'))";
 		}
 
 		#endregion

@@ -406,11 +406,6 @@ namespace ObservableComputations
 			return computing;
 		}
 
-		public static void Invoke(this IOcDispatcher ocDispatcher, Action action, int priority = 0, object parameter = null, object context = null)
-		{
-			ocDispatcher.Invoke(action, priority, parameter, context);
-		}
-
 		[ObservableComputationsCall]
 		public static TComputing SetDebugTag<TComputing>(this TComputing computing, string debugTag)
 			where TComputing : IHasTags

@@ -128,11 +128,11 @@ namespace ObservableComputations.Test
 				if (arguments.Any(a => a.name == "sourceOcDispatcher"))
 				{
 #>
-				((OcDispatcher)sourceOcDispatcher).Invoke(() => {});
+				((OcDispatcher)sourceOcDispatcher).Pass();
 <#
 				}
 #>
-				((OcDispatcher)destinationOcDispatcher).Invoke(() => {});
+				((OcDispatcher)destinationOcDispatcher).Pass();
 			}
 
 <#

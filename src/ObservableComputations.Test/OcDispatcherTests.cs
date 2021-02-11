@@ -58,6 +58,8 @@ namespace ObservableComputations.Test
 			dispatcher.Invoke(action, 1, context);
 
 			dispatcher.Pass();
+			dispatcher.Pass();
+			dispatcher.Dispose();
 		}
 
 		[Test]
@@ -111,6 +113,8 @@ namespace ObservableComputations.Test
 			dispatcher.Invoke(action, state, 1, context);
 
 			dispatcher.Pass();
+			dispatcher.Pass();
+			dispatcher.Dispose();
 		}
 	}
 }

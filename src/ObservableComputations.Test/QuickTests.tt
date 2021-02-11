@@ -265,7 +265,7 @@ namespace ObservableComputations.Test
 				testing.ValidateConsistency();
 			}
 
-			test();
+			<#=sync#>test();
 <#
 
 
@@ -893,9 +893,9 @@ namespace ObservableComputations.Test
 		if ((extentionMethodName == "Concatenating" || extentionMethodName == "Uniting") && (argumentName.Contains("1") || argumentName.Contains("2")))
 		{
 			if (argumentName.Contains("Scalar"))
-				return $"((IReadScalar<INotifyCollectionChanged>)((IList)testing.Source)[{(argumentName.Contains("1") ? "1" : "2")}])";
+				return $"((IReadScalar<INotifyCollectionChanged>)((IList)testing.Source)[{(argumentName.Contains("1") ? "0" : "1")}])";
 			else
-				return $"((INotifyCollectionChanged)((IList)testing.Source)[{(argumentName.Contains("1") ? "1" : "2")}])";
+				return $"((INotifyCollectionChanged)((IList)testing.Source)[{(argumentName.Contains("1") ? "0" : "1")}])";
 		}
 
 		return $"testing.{FirstCharToUpper(argumentName)}";

@@ -23,6 +23,11 @@
 — CollectionPausing
 — ScalarPausing
 — CollectionDispatching
+— OcDispatcher
+
+* Renamed
+InvocationResult.Result -&gt; InvocationResult.Value
+DebugInfo.ExecutingOcDispatcherInvocations -&gt; DebugInfo.ExecutingOcDispatcherInvocationStacks 
 
 * API changed
 —  Binding

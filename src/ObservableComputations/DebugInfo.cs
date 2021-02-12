@@ -16,7 +16,7 @@ namespace ObservableComputations
 			new ReadOnlyDictionary<int, IComputing>(_computingsExecutingUserCode);
 
 		internal static readonly ConcurrentDictionary<int, Stack<Invocation>> _executingOcDispatcherInvocations = new ConcurrentDictionary<int, Stack<Invocation>>();
-		public static IReadOnlyDictionary<int, ReadOnlyCollection<Invocation>> ExecutingOcDispatcherInvocations => 
+		public static IReadOnlyDictionary<int, ReadOnlyCollection<Invocation>> ExecutingOcDispatcherInvocationStacks => 
 			_executingOcDispatcherInvocations.ToDictionary(
 				kvp => kvp.Key, 
 				kvp => new ReadOnlyCollection<Invocation>(kvp.Value.ToArray()));

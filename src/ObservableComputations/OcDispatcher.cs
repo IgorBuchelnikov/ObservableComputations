@@ -31,19 +31,17 @@ namespace ObservableComputations
 		internal readonly InvocationStatus InvocationStatus;
 		internal readonly ManualResetEventSlim _doneManualResetEvent;
 
-		internal Invocation(Action action, OcDispatcher ocDispatcher, InvocationStatus invocationStatus, object context = null, ManualResetEventSlim doneManualResetEvent = null) : this()
+		internal Invocation(Action action, OcDispatcher ocDispatcher, string callStackTrace, InvocationStatus invocationStatus, object context = null, ManualResetEventSlim doneManualResetEvent = null) : this()
 		{
 			_action = action;
 			_ocDispatcher = ocDispatcher;
 			_context = context;
 			InvocationStatus = invocationStatus;
 			_doneManualResetEvent = doneManualResetEvent;
-
-			if (Configuration.SaveOcDispatcherInvocationStackTrace)
-				_callStackTrace = Environment.StackTrace;
+			_callStackTrace = callStackTrace;
 		}
 
-		internal Invocation(Action<object> actionWithState, object state, OcDispatcher ocDispatcher, InvocationStatus invocationStatus, object context = null, ManualResetEventSlim doneManualResetEvent = null) : this()
+		internal Invocation(Action<object> actionWithState, object state, OcDispatcher ocDispatcher, string callStackTrace, InvocationStatus invocationStatus, object context = null, ManualResetEventSlim doneManualResetEvent = null) : this()
 		{
 			_actionWithState = actionWithState;
 			_state = state;
@@ -51,10 +49,7 @@ namespace ObservableComputations
 			_context = context;
 			InvocationStatus = invocationStatus;
 			_doneManualResetEvent = doneManualResetEvent;
-
-
-			if (Configuration.SaveOcDispatcherInvocationStackTrace)
-				_callStackTrace = Environment.StackTrace;
+			_callStackTrace = callStackTrace;
 		}
 
 		internal void Do()
@@ -65,7 +60,7 @@ namespace ObservableComputations
 				if (!DebugInfo._executingOcDispatcherInvocations.TryGetValue(_ocDispatcher._managedThreadId, out Stack<Invocation> invocations))
 				{
 					nestedInvocation = false;
-					invocations = _ocDispatcher._invocations;
+					invocations = new Stack<Invocation>();
 					DebugInfo._executingOcDispatcherInvocations[_ocDispatcher._managedThreadId] = invocations;
 				}
 
@@ -100,21 +95,30 @@ namespace ObservableComputations
 		internal bool Done;
 	}
 
-	public class InvocationResult<TResult> : INotifyPropertyChanged
+	public class InvocationResult<TResult> : IReadScalar<TResult>
 	{
-		public TResult Result
+		public TResult Value
 		{
-			get => _result;
+			get => _value;
 			internal set
 			{
-				_result = value;
+				_value = value;
 				PropertyChanged?.Invoke(this, Utils.ResultPropertyChangedEventArgs);
 			}
 		}
 
-		private TResult _result;
+		private TResult _value;
 
 		public event PropertyChangedEventHandler PropertyChanged;
+
+		#region Overrides of Object
+
+		public override string ToString()
+		{
+			return $"(ObservableComputations.InvocationResult<{typeof(TResult).Name}> (Value = '{_value.ToStringSafe(e => e.Message)}'))";
+		}
+
+		#endregion
 	}
 
 	public class OcDispatcher : IDisposable, IOcDispatcher
@@ -125,7 +129,6 @@ namespace ObservableComputations
 		private bool _isDisposed ;
 		internal readonly Thread _thread;
 		internal readonly int _managedThreadId;
-		internal readonly Stack<Invocation> _invocations = new Stack<Invocation>();
 		private NewInvocationBehaviour _newInvocationBehaviour;
 		public event EventHandler DisposeFinished;
 
@@ -149,15 +152,23 @@ namespace ObservableComputations
 		private void queueInvocation(Action action, int priority, object context = null,
 			InvocationStatus invocationStatus = null, ManualResetEventSlim doneManualResetEvent = null)
 		{
-			Invocation invocation = new Invocation(action, this, invocationStatus, context, doneManualResetEvent);
+			Invocation invocation = new Invocation(action, this, getCallStackTrace(), invocationStatus, context, doneManualResetEvent);
 			_invocationQueues[priority].Enqueue(invocation);
 			_newInvocationManualResetEvent.Set();
+		}
+
+		private static string getCallStackTrace()
+		{
+			string callStackTrace = null;
+			if (Configuration.SaveOcDispatcherInvocationStackTrace)
+				callStackTrace = Environment.StackTrace;
+			return callStackTrace;
 		}
 
 		private void queueInvocation(Action<object> action, int priority, object state, object context = null,
 			InvocationStatus invocationStatus = null, ManualResetEventSlim doneManualResetEvent = null)
 		{
-			Invocation invocation = new Invocation(action, state, this, invocationStatus, context, doneManualResetEvent);
+			Invocation invocation = new Invocation(action, state, this, getCallStackTrace(), invocationStatus, context, doneManualResetEvent);
 			_invocationQueues[priority].Enqueue(invocation);
 			_newInvocationManualResetEvent.Set();
 		}
@@ -425,7 +436,7 @@ namespace ObservableComputations
 			if (checkNewInvocationBehaviour()) return default;
 
 			InvocationResult<TResult> invocationResult = new InvocationResult<TResult>();
-			BeginInvoke(() => { invocationResult.Result = func(); }, priority, context);
+			BeginInvoke(() => { invocationResult.Value = func(); }, priority, context);
 
 			return invocationResult;
 		}
@@ -435,7 +446,7 @@ namespace ObservableComputations
 			if (checkNewInvocationBehaviour()) return default;
 
 			InvocationResult<TResult> invocationResult = new InvocationResult<TResult>();
-		   BeginInvoke(s => { invocationResult.Result = func(s); }, state, priority, context);
+			BeginInvoke(s => { invocationResult.Value = func(s); }, state, priority, context);
 
 			return invocationResult;
 		}

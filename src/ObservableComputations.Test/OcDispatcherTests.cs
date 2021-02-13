@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Globalization;
 using System.Linq;
+using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
@@ -249,7 +250,8 @@ namespace ObservableComputations.Test
 		public void TestSetThreadProperites()
 		{
 			OcDispatcher dispatcher = new OcDispatcher(2);
-			Assert.AreEqual(dispatcher.GetThreadApartmentState(), ApartmentState.MTA);
+			ApartmentState apartmentState = RuntimeInformation.IsOSPlatform(OSPlatform.Linux) ?  ApartmentState.Unknown : ApartmentState.MTA;
+			Assert.AreEqual(dispatcher.GetThreadApartmentState(), apartmentState);
 			Assert.AreEqual(dispatcher.PrioritiesNumber, 2);
 			CultureInfo culture = CultureInfo.GetCultureInfo("ru-RU");
 			dispatcher.ThreadCurrentCulture = culture;
@@ -261,6 +263,16 @@ namespace ObservableComputations.Test
 			int executionContextHashCode = dispatcher.ThreadExecutionContext.GetHashCode();
 			int managedThreadId = dispatcher.ManagedThreadId;
 
+			Assert.AreEqual(dispatcher.ThreadCurrentCulture, culture);
+			Assert.AreEqual(dispatcher.ThreadCurrentUICulture, culture);
+			Assert.AreEqual(dispatcher.ThreadIsBackground, true);
+			Assert.AreEqual(dispatcher.ThreadName, "ThreadName");
+			Assert.AreEqual(dispatcher.ThreadPriority, ThreadPriority.Highest);
+			Assert.AreEqual(dispatcher.ThreadIsAlive, true);
+			Assert.AreEqual(dispatcher.ThreadExecutionContext.GetHashCode(), executionContextHashCode);
+			Assert.AreEqual(dispatcher.ManagedThreadId, managedThreadId);
+			Assert.AreEqual(dispatcher.GetThreadApartmentState(), apartmentState);
+
 			dispatcher.Invoke(() =>
 			{
 				Assert.AreEqual(Thread.CurrentThread.CurrentCulture, culture);
@@ -271,7 +283,7 @@ namespace ObservableComputations.Test
 				Assert.AreEqual(Thread.CurrentThread.IsAlive, true);
 				Assert.AreEqual(Thread.CurrentThread.ExecutionContext.GetHashCode(), executionContextHashCode);
 				Assert.AreEqual(Thread.CurrentThread.ManagedThreadId, managedThreadId);
-				Assert.AreEqual(Thread.CurrentThread.GetApartmentState(), ApartmentState.MTA);
+				Assert.AreEqual(Thread.CurrentThread.GetApartmentState(), apartmentState);
 			});
 
 			dispatcher.Dispose();

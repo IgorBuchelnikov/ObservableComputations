@@ -249,6 +249,7 @@ namespace ObservableComputations.Test
 		public void TestSetThreadProperites()
 		{
 			OcDispatcher dispatcher = new OcDispatcher(2);
+			Assert.AreEqual(dispatcher.GetThreadApartmentState(), ApartmentState.MTA);
 			Assert.AreEqual(dispatcher.PrioritiesNumber, 2);
 			CultureInfo culture = CultureInfo.GetCultureInfo("ru-RU");
 			dispatcher.ThreadCurrentCulture = culture;

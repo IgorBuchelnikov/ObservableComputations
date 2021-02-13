@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Threading;
@@ -173,6 +174,39 @@ namespace ObservableComputations.Test
 			dispatcher.Dispose();
 		}
 
+		[Test]
+		public void TestFuncSyncState()
+		{
+			OcDispatcher dispatcher = new OcDispatcher(2);
+			object returnObject = new object();
+			Assert.AreEqual(dispatcher.Invoke(s => returnObject, new object()), returnObject);
+			dispatcher.Dispose();
+		}
+
+		public class TestValue
+		{
+			#region Overrides of Object
+
+			public override string ToString()
+			{
+				throw new Exception("Mesasage");
+			}
+
+			#endregion
+		}
+
+		[Test]
+		public void TestFuncAsyncState()
+		{
+			OcDispatcher dispatcher = new OcDispatcher(2);
+			TestValue returnObject = new TestValue();
+			InvocationResult<TestValue> invocationResult = dispatcher.BeginInvoke(s => returnObject, new object());
+			dispatcher.Pass();
+			Assert.AreEqual(invocationResult.Value, returnObject);
+			Assert.AreEqual(invocationResult.ToString(), "(ObservableComputations.InvocationResult<TestValue> (Value = 'Mesasage'))");
+			dispatcher.Dispose();
+		}
+
 		[Test, Combinatorial]
 		public void TestDoOthers([Values(1, 2, 3)] int mode)
 		{
@@ -211,6 +245,98 @@ namespace ObservableComputations.Test
 			dispatcher.Dispose();
 		}
 
+		[Test]
+		public void TestSetThreadProperites()
+		{
+			OcDispatcher dispatcher = new OcDispatcher(1, ApartmentState.MTA);
 
+			CultureInfo culture = CultureInfo.GetCultureInfo("ru-RU");
+			dispatcher.ThreadCurrentCulture = culture;
+			dispatcher.ThreadCurrentUICulture = culture;
+			dispatcher.ThreadIsBackground = true;
+			dispatcher.ThreadName = "ThreadName";
+			Assert.AreEqual(dispatcher.ToString(), "(ObservableComputations.OcDispatcher (Thread.Name = 'ThreadName'))");
+			dispatcher.ThreadPriority = ThreadPriority.Highest;
+			int executionContextHashCode = dispatcher.ThreadExecutionContext.GetHashCode();
+			int managedThreadId = dispatcher.ManagedThreadId;
+
+			dispatcher.Invoke(() =>
+			{
+				Assert.AreEqual(Thread.CurrentThread.CurrentCulture, culture);
+				Assert.AreEqual(Thread.CurrentThread.CurrentUICulture, culture);
+				Assert.AreEqual(Thread.CurrentThread.IsBackground, true);
+				Assert.AreEqual(Thread.CurrentThread.Name, "ThreadName");
+				Assert.AreEqual(Thread.CurrentThread.Priority, ThreadPriority.Highest);
+				Assert.AreEqual(Thread.CurrentThread.IsAlive, true);
+				Assert.AreEqual(Thread.CurrentThread.ExecutionContext.GetHashCode(), executionContextHashCode);
+				Assert.AreEqual(Thread.CurrentThread.ManagedThreadId, managedThreadId);
+				Assert.AreEqual(Thread.CurrentThread.GetApartmentState(),ApartmentState.MTA);
+			});
+
+			dispatcher.Dispose();
+		}
+
+		[Test]
+		public void TestInvocationBehaviourIgnore()
+		{
+			OcDispatcher dispatcher = new OcDispatcher();
+			dispatcher.NewInvocationBehaviour = NewInvocationBehaviour.Ignore;
+			bool called = false;
+			dispatcher.Invoke(() => {called = true;});
+			dispatcher.Invoke(s => {called = true;}, new object());
+			dispatcher.BeginInvoke(() => {called = true;});
+			dispatcher.BeginInvoke(s => {called = true;}, new object());
+
+			dispatcher.Invoke(() => {called = true; return 0;});
+			dispatcher.Invoke(s => {called = true; return 0;}, new object());
+			dispatcher.BeginInvoke(() => {called = true; return 0;});
+			dispatcher.BeginInvoke(s => {called = true; return 0;}, new object());
+
+			dispatcher.NewInvocationBehaviour = NewInvocationBehaviour.Accept;
+			dispatcher.Pass();
+
+			Assert.IsFalse(called);
+			dispatcher.Dispose();
+		}
+
+		[Test]
+		public void TestInvocationBehaviourThrowException()
+		{
+			OcDispatcher dispatcher = new OcDispatcher();
+			dispatcher.NewInvocationBehaviour = NewInvocationBehaviour.ThrowException;
+			bool called = false;
+			Exception exception;
+
+			void invoke(Action action)
+			{
+				exception = null;
+				try
+				{
+					action();
+				}
+				catch (Exception e)
+				{
+					exception = e;
+				}
+
+				Assert.IsTrue(exception != null);
+			}
+
+			invoke(() => dispatcher.Invoke(() => {called = true;}));
+			invoke(() => dispatcher.Invoke(s => {called = true;}, new object()));
+			invoke(() => dispatcher.BeginInvoke(() => {called = true;}));
+			invoke(() => dispatcher.BeginInvoke(s => {called = true;}, new object()));
+
+			invoke(() => dispatcher.Invoke(() => {called = true; return 0;}));
+			invoke(() => dispatcher.Invoke(s => {called = true; return 0;}, new object()));
+			invoke(() => dispatcher.BeginInvoke(() => {called = true; return 0;}));
+			invoke(() => dispatcher.BeginInvoke(s => {called = true; return 0;}, new object()));
+
+			dispatcher.NewInvocationBehaviour = NewInvocationBehaviour.Accept;
+			dispatcher.Pass();
+
+			Assert.IsFalse(called);
+			dispatcher.Dispose();
+		}
 	}
 }

@@ -282,16 +282,6 @@ namespace ObservableComputations
 			return _thread.GetApartmentState();
 		}
 
-		public void SetThreadApartmentState(ApartmentState state)
-		{
-			_thread.SetApartmentState(state);
-		}
-
-		public bool TrySetThreadApartmentState(ApartmentState state)
-		{
-			return _thread.TrySetApartmentState(state);
-		}
-
 		public void ClearQueues()
 		{
 			for (int index = 0; index < _invocationQueues.Length; index++)

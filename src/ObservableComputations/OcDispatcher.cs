@@ -134,9 +134,11 @@ namespace ObservableComputations
 
 		public bool IsAlive => _isAlive;
 		public bool IsDisposed => _isDisposed;
+		public int PrioritiesNumber => _highestPriority + 1;
 
 		private readonly string _instantiatingStackTrace;
 		public string InstantiatingStackTrace => _instantiatingStackTrace;
+		private int _highestPriority;
 
 		public NewInvocationBehaviour NewInvocationBehaviour
 		{
@@ -180,6 +182,8 @@ namespace ObservableComputations
 			if (Configuration.SaveInstantiatingStackTrace)
 				_instantiatingStackTrace = Environment.StackTrace;
 
+			_highestPriority = prioritiesNumber - 1;
+
 			_invocationQueues = new ConcurrentQueue<Invocation>[prioritiesNumber];
 
 			for (int priority = 0; priority < prioritiesNumber; priority++)
@@ -187,13 +191,12 @@ namespace ObservableComputations
 
 			_thread = new Thread(() =>
 			{
-				int highestPriority = prioritiesNumber - 1;
 				while (_isAlive)
 				{
 					_newInvocationManualResetEvent.Wait();
 					_newInvocationManualResetEvent.Reset();
 
-					processQueues(highestPriority, null);
+					processQueues(null);
 				}
 
 				_isDisposed = true;
@@ -206,7 +209,7 @@ namespace ObservableComputations
 			_thread.Start();
 		}
 
-		private void processQueues(int highestPriority, Func<int, bool> stop)
+		private void processQueues(Func<int, bool> stop)
 		{
 			bool processed = true;
 			int count = 0;
@@ -214,7 +217,7 @@ namespace ObservableComputations
 			{
 				processed = false;
 				int priority;
-				for (priority = highestPriority; priority >= 0; priority--)
+				for (priority = _highestPriority; priority >= 0; priority--)
 					if (_invocationQueues[priority].TryDequeue(out Invocation invocation))
 					{
 						invocation.Do();
@@ -304,7 +307,7 @@ namespace ObservableComputations
 					"OcDispatcher.DoOthers method can only be called from the same thread that is associated with this OcDispatcher.");
 
 			Stopwatch stopwatch = Stopwatch.StartNew();
-			processQueues(_invocationQueues.Length - 1, count => stopwatch.ElapsedTicks > timeSpan.Ticks);
+			processQueues(count => stopwatch.ElapsedTicks > timeSpan.Ticks);
 			stopwatch.Stop();
 			return timeSpan - TimeSpan.FromTicks(stopwatch.ElapsedTicks);
 		}
@@ -316,7 +319,7 @@ namespace ObservableComputations
 					"OcDispatcher.DoOthers method can only be called from the same thread that is associated with this OcDispatcher.");
 
 			int factCount = 0;
-			processQueues(_invocationQueues.Length - 1, 
+			processQueues(
 				count =>
 				{
 					factCount = count;
@@ -331,7 +334,7 @@ namespace ObservableComputations
 				throw new ObservableComputationsException(
 					"OcDispatcher.DoOthers method can only be called from the same thread that is associated with this OcDispatcher.");
 
-			processQueues(_invocationQueues.Length - 1, null);
+			processQueues(null);
 		}
 
 		public void Dispose()
@@ -376,7 +379,7 @@ namespace ObservableComputations
 			{
 				InvocationStatus invocationStatus = new InvocationStatus();
 				queueInvocation(action, priority, context, invocationStatus);
-				processQueues(_invocationQueues.Length - 1, count => invocationStatus.Done);
+				processQueues(count => invocationStatus.Done);
 				return;
 			}
 
@@ -395,7 +398,7 @@ namespace ObservableComputations
 			{
 				InvocationStatus invocationStatus = new InvocationStatus();
 				queueInvocation(action, priority, state, context, invocationStatus);
-				processQueues(_invocationQueues.Length - 1, count => invocationStatus.Done);
+				processQueues(count => invocationStatus.Done);
 				return;
 			}
 

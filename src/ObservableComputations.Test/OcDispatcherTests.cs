@@ -248,8 +248,8 @@ namespace ObservableComputations.Test
 		[Test]
 		public void TestSetThreadProperites()
 		{
-			OcDispatcher dispatcher = new OcDispatcher(1, ApartmentState.MTA);
-
+			OcDispatcher dispatcher = new OcDispatcher(2);
+			Assert.AreEqual(dispatcher.PrioritiesNumber, 2);
 			CultureInfo culture = CultureInfo.GetCultureInfo("ru-RU");
 			dispatcher.ThreadCurrentCulture = culture;
 			dispatcher.ThreadCurrentUICulture = culture;
@@ -270,7 +270,7 @@ namespace ObservableComputations.Test
 				Assert.AreEqual(Thread.CurrentThread.IsAlive, true);
 				Assert.AreEqual(Thread.CurrentThread.ExecutionContext.GetHashCode(), executionContextHashCode);
 				Assert.AreEqual(Thread.CurrentThread.ManagedThreadId, managedThreadId);
-				Assert.AreEqual(Thread.CurrentThread.GetApartmentState(),ApartmentState.MTA);
+				Assert.AreEqual(Thread.CurrentThread.GetApartmentState(), ApartmentState.MTA);
 			});
 
 			dispatcher.Dispose();

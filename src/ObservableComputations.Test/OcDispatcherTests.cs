@@ -254,8 +254,6 @@ namespace ObservableComputations.Test
 			Assert.AreEqual(dispatcher.GetThreadApartmentState(), apartmentState);
 			Assert.AreEqual(dispatcher.PrioritiesNumber, 2);
 			CultureInfo culture = CultureInfo.GetCultureInfo("ru-RU");
-			dispatcher.ThreadCurrentCulture = culture;
-			dispatcher.ThreadCurrentUICulture = culture;
 			dispatcher.ThreadIsBackground = true;
 			dispatcher.ThreadName = "ThreadName";
 			Assert.AreEqual(dispatcher.ToString(), "(ObservableComputations.OcDispatcher (Thread.Name = 'ThreadName'))");
@@ -263,8 +261,6 @@ namespace ObservableComputations.Test
 			int executionContextHashCode = dispatcher.ThreadExecutionContext.GetHashCode();
 			int managedThreadId = dispatcher.ManagedThreadId;
 
-			Assert.AreEqual(dispatcher.ThreadCurrentCulture, culture);
-			Assert.AreEqual(dispatcher.ThreadCurrentUICulture, culture);
 			Assert.AreEqual(dispatcher.ThreadIsBackground, true);
 			Assert.AreEqual(dispatcher.ThreadName, "ThreadName");
 			Assert.AreEqual(dispatcher.ThreadPriority, ThreadPriority.Highest);
@@ -275,8 +271,12 @@ namespace ObservableComputations.Test
 
 			dispatcher.Invoke(() =>
 			{
+				dispatcher.ThreadCurrentCulture = culture;
+				dispatcher.ThreadCurrentUICulture = culture;
 				Assert.AreEqual(Thread.CurrentThread.CurrentCulture, culture);
 				Assert.AreEqual(Thread.CurrentThread.CurrentUICulture, culture);
+				Assert.AreEqual(dispatcher.ThreadCurrentCulture, culture);
+				Assert.AreEqual(dispatcher.ThreadCurrentUICulture, culture);
 				Assert.AreEqual(Thread.CurrentThread.IsBackground, true);
 				Assert.AreEqual(Thread.CurrentThread.Name, "ThreadName");
 				Assert.AreEqual(Thread.CurrentThread.Priority, ThreadPriority.Highest);

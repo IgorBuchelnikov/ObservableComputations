@@ -258,14 +258,12 @@ namespace ObservableComputations.Test
 			dispatcher.ThreadName = "ThreadName";
 			Assert.AreEqual(dispatcher.ToString(), "(ObservableComputations.OcDispatcher (Thread.Name = 'ThreadName'))");
 			dispatcher.ThreadPriority = ThreadPriority.Highest;
-			int executionContextHashCode = dispatcher.ThreadExecutionContext.GetHashCode();
 			int managedThreadId = dispatcher.ManagedThreadId;
 
 			Assert.AreEqual(dispatcher.ThreadIsBackground, true);
 			Assert.AreEqual(dispatcher.ThreadName, "ThreadName");
 			Assert.AreEqual(dispatcher.ThreadPriority, ThreadPriority.Highest);
 			Assert.AreEqual(dispatcher.ThreadIsAlive, true);
-			Assert.AreEqual(dispatcher.ThreadExecutionContext.GetHashCode(), executionContextHashCode);
 			Assert.AreEqual(dispatcher.ManagedThreadId, managedThreadId);
 			Assert.AreEqual(dispatcher.GetThreadApartmentState(), apartmentState);
 
@@ -281,8 +279,7 @@ namespace ObservableComputations.Test
 				Assert.AreEqual(Thread.CurrentThread.Name, "ThreadName");
 				Assert.AreEqual(Thread.CurrentThread.Priority, ThreadPriority.Highest);
 				Assert.AreEqual(Thread.CurrentThread.IsAlive, true);
-				Assert.AreEqual(Thread.CurrentThread.ExecutionContext.GetHashCode(), executionContextHashCode);
-				Assert.AreEqual(Thread.CurrentThread.ManagedThreadId, managedThreadId);
+				Assert.AreEqual(dispatcher.ThreadExecutionContext, Thread.CurrentThread.ExecutionContext);				Assert.AreEqual(Thread.CurrentThread.ManagedThreadId, managedThreadId);
 				Assert.AreEqual(Thread.CurrentThread.GetApartmentState(), apartmentState);
 			});
 

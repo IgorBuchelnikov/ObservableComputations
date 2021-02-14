@@ -145,11 +145,13 @@ namespace ObservableComputations
 			get => _newInvocationBehaviour;
 			set
 			{
-				if (!_isAlive && value != NewInvocationBehaviour.Ignore)
+				if (!_isAlive && (value != NewInvocationBehaviour.Ignore || value != NewInvocationBehaviour.ThrowException))
 					throw new ObservableComputationsException("Disposing is in progress");
 				_newInvocationBehaviour = value;
 			}
 		}
+
+		public int GetQueueCount(int priority = 0) => _invocationQueues[priority].Count;
 
 		private void queueInvocation(Action action, int priority, object context = null,
 			InvocationStatus invocationStatus = null, ManualResetEventSlim doneManualResetEvent = null)
@@ -202,6 +204,7 @@ namespace ObservableComputations
 				_isDisposed = true;
 				_newInvocationManualResetEvent.Dispose();
 				DisposeFinished?.Invoke(this, new EventArgs());
+				NewInvocationBehaviour = NewInvocationBehaviour.ThrowException;
 			});
 
 			_managedThreadId = _thread.ManagedThreadId;

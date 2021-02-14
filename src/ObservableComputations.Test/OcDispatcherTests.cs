@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Globalization;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading;
@@ -243,14 +244,45 @@ namespace ObservableComputations.Test
 			mres.Set();
 
 			dispatcher.Pass();
+
+
+			Exception exception = null;
+
+			try
+			{
+				switch (mode)
+				{
+					case 1:
+						dispatcher.DoOthers();
+						break;
+					case 2:
+						dispatcher.DoOthers(1);
+						break;
+					case 3:
+						dispatcher.DoOthers(TimeSpan.FromSeconds(1));
+						break;
+				}
+			}
+			catch (Exception e)
+			{
+				exception = e;
+			}
+
+			Assert.IsNotNull(exception);
+
 			dispatcher.Dispose();
 		}
 
 		[Test]
 		public void TestSetThreadProperites()
 		{
+			Configuration.SaveInstantiatingStackTrace = true;
 			OcDispatcher dispatcher = new OcDispatcher(2);
+			Assert.AreEqual(dispatcher.GetQueueCount(0), 0);
+			Assert.IsTrue(dispatcher.InstantiatingStackTrace != null);
 			ApartmentState apartmentState = RuntimeInformation.IsOSPlatform(OSPlatform.Linux) ?  ApartmentState.Unknown : ApartmentState.MTA;
+			Assert.AreEqual(dispatcher.NewInvocationBehaviour, NewInvocationBehaviour.Accept);
+			Assert.AreEqual(dispatcher.IsAlive, true);
 			Assert.AreEqual(dispatcher.GetThreadApartmentState(), apartmentState);
 			Assert.AreEqual(dispatcher.PrioritiesNumber, 2);
 			CultureInfo culture = CultureInfo.GetCultureInfo("ru-RU");
@@ -259,6 +291,7 @@ namespace ObservableComputations.Test
 			Assert.AreEqual(dispatcher.ToString(), "(ObservableComputations.OcDispatcher (Thread.Name = 'ThreadName'))");
 			dispatcher.ThreadPriority = ThreadPriority.Highest;
 			int managedThreadId = dispatcher.ManagedThreadId;
+			Assert.IsTrue(dispatcher.ThreadState == (ThreadState.WaitSleepJoin | ThreadState.Background) || dispatcher.ThreadState == (ThreadState.Running | ThreadState.Background));
 
 			Assert.AreEqual(dispatcher.ThreadIsBackground, true);
 			Assert.AreEqual(dispatcher.ThreadName, "ThreadName");
@@ -266,6 +299,7 @@ namespace ObservableComputations.Test
 			Assert.AreEqual(dispatcher.ThreadIsAlive, true);
 			Assert.AreEqual(dispatcher.ManagedThreadId, managedThreadId);
 			Assert.AreEqual(dispatcher.GetThreadApartmentState(), apartmentState);
+
 
 			dispatcher.Invoke(() =>
 			{
@@ -279,11 +313,26 @@ namespace ObservableComputations.Test
 				Assert.AreEqual(Thread.CurrentThread.Name, "ThreadName");
 				Assert.AreEqual(Thread.CurrentThread.Priority, ThreadPriority.Highest);
 				Assert.AreEqual(Thread.CurrentThread.IsAlive, true);
-				Assert.AreEqual(dispatcher.ThreadExecutionContext, Thread.CurrentThread.ExecutionContext);				Assert.AreEqual(Thread.CurrentThread.ManagedThreadId, managedThreadId);
+				Assert.AreEqual(dispatcher.ThreadExecutionContext, Thread.CurrentThread.ExecutionContext);
+				Assert.AreEqual(Thread.CurrentThread.ManagedThreadId, managedThreadId);
 				Assert.AreEqual(Thread.CurrentThread.GetApartmentState(), apartmentState);
 			});
 
 			dispatcher.Dispose();
+			Assert.AreEqual(dispatcher.NewInvocationBehaviour, NewInvocationBehaviour.Ignore);
+			Assert.AreEqual(dispatcher.IsAlive, false);
+
+			Exception exception = null;
+			try
+			{
+				dispatcher.NewInvocationBehaviour = NewInvocationBehaviour.Accept;
+			}
+			catch (Exception e)
+			{
+				exception = e;
+			}
+
+			Assert.IsNotNull(exception);
 		}
 
 		[Test]

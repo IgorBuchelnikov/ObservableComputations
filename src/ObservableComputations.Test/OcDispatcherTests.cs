@@ -421,31 +421,32 @@ namespace ObservableComputations.Test
 		{
 			OcDispatcher dispatcher = new OcDispatcher();
 			ManualResetEventSlim mre = new ManualResetEventSlim(false);
-			bool invoked = false;
 			bool invoked1 = false;
 			bool invoked2 = false;
-			dispatcher.BeginInvoke(() => mre.Wait());
+
 			dispatcher.BeginInvoke(() =>
 			{
-				invoked = true;
+				dispatcher.BeginInvoke(() => mre.Wait());
 				dispatcher.Invoke(() => invoked1 = true);
 			});
 
-			Thread thread = new Thread(() =>
-			{
-				dispatcher.Invoke(() => invoked2 = true);
-			});
+			Thread thread = new Thread(
+				() => dispatcher.Invoke(() => invoked2 = true));
 			thread.Start();
 
 			ManualResetEventSlim mreDisposed = new ManualResetEventSlim(false);
 			dispatcher.DisposeFinished += (sender, args) => mreDisposed.Set();
+
+			while (dispatcher.GetQueueCount() != 2)
+			{
+				
+			}
 
 			dispatcher.Dispose();
 			mre.Set();
 			thread.Join();
 			mreDisposed.Wait();
 
-			Assert.IsFalse(invoked);
 			Assert.IsFalse(invoked1);
 			Assert.IsFalse(invoked2);
 		}

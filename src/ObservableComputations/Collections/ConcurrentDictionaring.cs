@@ -23,14 +23,9 @@ namespace ObservableComputations
 		// ReSharper disable once MemberCanBePrivate.Global
 		public Expression<Func<TSourceItem, TKey>> KeySelectorExpression => _keySelectorExpressionOriginal;
 
-		// ReSharper disable once MemberCanBePrivate.Global
-		public Func<TSourceItem, TKey> KeySelectorFunc => _keySelectorFunc;
 
 		// ReSharper disable once MemberCanBePrivate.Global
 		public Expression<Func<TSourceItem, TValue>> ValueSelectorExpression => _valueSelectorExpressionOriginal;
-
-		// ReSharper disable once MemberCanBePrivate.Global
-		public Func<TSourceItem, TValue> ValueSelectorFunc => _valueSelectorFunc;
 
 		public IReadScalar<IEqualityComparer<TKey>> EqualityComparerScalar => _equalityComparerScalar;
 

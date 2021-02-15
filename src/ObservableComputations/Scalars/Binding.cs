@@ -18,8 +18,6 @@ namespace ObservableComputations
 		Action<TValue, Binding<TValue>> _modifyTargetAction;
 
 		// ReSharper disable once ConvertToAutoProperty
-		public Expression<Func<TValue>> GetSourceExpression => _getSourceExpression;
-		// ReSharper disable once ConvertToAutoProperty
 		public Action<TValue, Binding<TValue>> ModifyTargetAction => _modifyTargetAction;
 
 		public IReadScalar<TValue> Source => _source;

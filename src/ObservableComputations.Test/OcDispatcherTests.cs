@@ -203,8 +203,11 @@ namespace ObservableComputations.Test
 			OcDispatcher dispatcher = new OcDispatcher(2);
 			TestValue returnObject = new TestValue();
 			InvocationResult<TestValue> invocationResult = dispatcher.BeginInvoke(s => returnObject, new object());
+			bool propertyChanged = false;
+			invocationResult.PropertyChanged += (sender, args) => propertyChanged = true;
 			dispatcher.Pass();
 			Assert.AreEqual(invocationResult.Value, returnObject);
+			Assert.IsTrue(propertyChanged);
 			Assert.AreEqual(invocationResult.ToString(), "(ObservableComputations.InvocationResult<TestValue> (Value = 'Mesasage'))");
 			dispatcher.Dispose();
 		}
@@ -402,6 +405,14 @@ namespace ObservableComputations.Test
 			dispatcher.Pass();
 
 			Assert.IsFalse(called);
+			dispatcher.Dispose();
+		}
+
+		[Test]
+		public void DisableThreadComObjectEagerCleanupTest()
+		{
+			OcDispatcher dispatcher = new OcDispatcher();
+			dispatcher.DisableThreadComObjectEagerCleanup();
 			dispatcher.Dispose();
 		}
 	}

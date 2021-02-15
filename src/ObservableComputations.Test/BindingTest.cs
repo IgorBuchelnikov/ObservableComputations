@@ -2,6 +2,7 @@
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
+using System.Linq.Expressions;
 using NUnit.Framework;
 
 namespace ObservableComputations.Test
@@ -41,9 +42,13 @@ namespace ObservableComputations.Test
 			}
 		}
 
-		private void test(Binding<string> binding, bool applyNow, Order order, Car car)
+		private void test(Binding<string> binding, bool applyOnActivation, Order order, Car car)
 		{
-			if (applyNow)
+			OcConsumer consumer = new OcConsumer();
+			binding.For(consumer);
+			Assert.AreEqual(binding.ApplyOnActivation, applyOnActivation);
+
+			if (applyOnActivation)
 				Assert.AreEqual(order.DeliveryAddress, car.DestinationAddress);
 			else
 				Assert.AreNotEqual(order.DeliveryAddress, car.DestinationAddress);
@@ -57,18 +62,27 @@ namespace ObservableComputations.Test
 
 			binding.Apply();
 			Assert.AreEqual(order.DeliveryAddress, car.DestinationAddress);
+
+			binding.ApplyOnSourceChanged = !applyOnActivation;
+			Assert.AreEqual(binding.ApplyOnSourceChanged, !applyOnActivation);
+
+			consumer.Dispose();
 		}
+
+
 
 		[Test]
 		public void Test1()
 		{
 			Order order = new Order(){DeliveryAddress = "0"};
 			Car assignedDeliveryCar = new Car(){DestinationAddress = ""};
-			OcConsumer consumer = new OcConsumer();
 
-			test(
-				Expr.Is(() => order.DeliveryAddress).Binding((da, _) => assignedDeliveryCar.DestinationAddress = da).For(consumer),
-					true, order, assignedDeliveryCar);
+			Action<string, Binding<string>> modifyTargetAction = (da, _) => assignedDeliveryCar.DestinationAddress = da;
+
+			Expression<Func<string>> expression = () => order.DeliveryAddress;
+			Binding<string> binding = expression.Binding(modifyTargetAction);
+			test(binding, true, order, assignedDeliveryCar);
+			Assert.AreEqual(modifyTargetAction, binding.ModifyTargetAction);
 		}
 
 		[Test]
@@ -76,11 +90,13 @@ namespace ObservableComputations.Test
 		{
 			Order order = new Order(){DeliveryAddress = "0"};
 			Car assignedDeliveryCar = new Car(){DestinationAddress = ""};
-			OcConsumer consumer = new OcConsumer();
 
-			test(
-				Expr.Is(() => order.DeliveryAddress).Binding((da, _) => assignedDeliveryCar.DestinationAddress = da, false).For(consumer),
-					false, order, assignedDeliveryCar);
+			Action<string, Binding<string>> modifyTargetAction = (da, _) => assignedDeliveryCar.DestinationAddress = da;
+
+			Expression<Func<string>> expression = () => order.DeliveryAddress;
+			Binding<string> binding = expression.Binding(modifyTargetAction, false);
+			test(binding, false, order, assignedDeliveryCar);
+			Assert.AreEqual(modifyTargetAction, binding.ModifyTargetAction);
 		}
 
 
@@ -89,13 +105,15 @@ namespace ObservableComputations.Test
 		{
 			Order order = new Order(){DeliveryAddress = "0"};
 			Car assignedDeliveryCar = new Car(){DestinationAddress = ""};
-			OcConsumer consumer = new OcConsumer();
 
-			test(
-				new Computing<string>(() => order.DeliveryAddress)
-					.Binding((da, _) => assignedDeliveryCar.DestinationAddress = da, false)
-					.For(consumer),
-					false, order, assignedDeliveryCar);
+			Action<string, Binding<string>> modifyTargetAction = (da, _) => assignedDeliveryCar.DestinationAddress = da;
+			Computing<string> computing = new Computing<string>(() => order.DeliveryAddress);
+			Binding<string> binding = computing
+				.Binding(modifyTargetAction, false);
+
+			test(binding, false, order, assignedDeliveryCar);
+			Assert.AreEqual(modifyTargetAction, binding.ModifyTargetAction);
+			Assert.AreEqual(computing, binding.Source);
 		}
 
 		[Test]
@@ -103,13 +121,17 @@ namespace ObservableComputations.Test
 		{
 			Order order = new Order(){DeliveryAddress = "0"};
 			Car assignedDeliveryCar = new Car(){DestinationAddress = ""};
-			OcConsumer consumer = new OcConsumer();
 
-			test(
-				new Computing<string>(() => order.DeliveryAddress)
-					.Binding((da, _) => assignedDeliveryCar.DestinationAddress = da)
-					.For(consumer),
-					true, order, assignedDeliveryCar);
+			Action<string, Binding<string>> modifyTargetAction = (da, _) => assignedDeliveryCar.DestinationAddress = da;
+
+			Computing<string> computing = new Computing<string>(() => order.DeliveryAddress);
+			Binding<string> binding = computing
+				.Binding(modifyTargetAction);
+
+			test(binding, true, order, assignedDeliveryCar);
+
+			Assert.AreEqual(modifyTargetAction, binding.ModifyTargetAction);
+			Assert.AreEqual(computing, binding.Source);
 		}
 
 		public BindingTest(bool debug) : base(debug)

@@ -282,7 +282,7 @@ namespace ObservableComputations.Test
 			Assert.IsTrue(dispatcher.InstantiatingStackTrace != null);
 			ApartmentState apartmentState = RuntimeInformation.IsOSPlatform(OSPlatform.Linux) ?  ApartmentState.Unknown : ApartmentState.MTA;
 			Assert.AreEqual(dispatcher.NewInvocationBehaviour, NewInvocationBehaviour.Accept);
-			Assert.AreEqual(dispatcher.IsAlive, true);
+			Assert.AreEqual(dispatcher.IsRunning, true);
 			Assert.AreEqual(dispatcher.GetThreadApartmentState(), apartmentState);
 			Assert.AreEqual(dispatcher.PrioritiesNumber, 2);
 			CultureInfo culture = CultureInfo.GetCultureInfo("ru-RU");
@@ -318,9 +318,13 @@ namespace ObservableComputations.Test
 				Assert.AreEqual(Thread.CurrentThread.GetApartmentState(), apartmentState);
 			});
 
+			ManualResetEventSlim mreDisposed = new ManualResetEventSlim(false);
+
+			dispatcher.DisposeFinished += (sender, args) => mreDisposed.Set();
+
 			dispatcher.Dispose();
 			Assert.AreEqual(dispatcher.NewInvocationBehaviour, NewInvocationBehaviour.Ignore);
-			Assert.AreEqual(dispatcher.IsAlive, false);
+			Assert.AreEqual(dispatcher.IsRunning, false);
 
 			Exception exception = null;
 			try
@@ -333,6 +337,9 @@ namespace ObservableComputations.Test
 			}
 
 			Assert.IsNotNull(exception);
+
+			mreDisposed.Wait();
+			Assert.AreEqual(dispatcher.IsDisposed, true);
 		}
 
 		[Test]

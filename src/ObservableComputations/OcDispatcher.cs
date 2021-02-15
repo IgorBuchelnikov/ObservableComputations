@@ -125,14 +125,14 @@ namespace ObservableComputations
 	{
 		readonly ConcurrentQueue<Invocation>[] _invocationQueues;
 		private readonly ManualResetEventSlim _newInvocationManualResetEvent = new ManualResetEventSlim(false);
-		private bool _isAlive = true;
+		private bool _isRunning = true;
 		private bool _isDisposed ;
 		internal readonly Thread _thread;
 		internal readonly int _managedThreadId;
 		private NewInvocationBehaviour _newInvocationBehaviour;
 		public event EventHandler DisposeFinished;
 
-		public bool IsAlive => _isAlive;
+		public bool IsRunning => _isRunning;
 		public bool IsDisposed => _isDisposed;
 		public int PrioritiesNumber => _highestPriority + 1;
 
@@ -145,8 +145,8 @@ namespace ObservableComputations
 			get => _newInvocationBehaviour;
 			set
 			{
-				if (!_isAlive && (value != NewInvocationBehaviour.Ignore || value != NewInvocationBehaviour.ThrowException))
-					throw new ObservableComputationsException("Disposing is in progress");
+				if (!_isRunning && value == NewInvocationBehaviour.Accept)
+					throw new ObservableComputationsException("Disposing is not running");
 				_newInvocationBehaviour = value;
 			}
 		}
@@ -193,7 +193,7 @@ namespace ObservableComputations
 
 			_thread = new Thread(() =>
 			{
-				while (_isAlive)
+				while (_isRunning)
 				{
 					_newInvocationManualResetEvent.Wait();
 					_newInvocationManualResetEvent.Reset();
@@ -204,7 +204,6 @@ namespace ObservableComputations
 				_isDisposed = true;
 				_newInvocationManualResetEvent.Dispose();
 				DisposeFinished?.Invoke(this, new EventArgs());
-				NewInvocationBehaviour = NewInvocationBehaviour.ThrowException;
 			});
 
 			_managedThreadId = _thread.ManagedThreadId;
@@ -340,12 +339,17 @@ namespace ObservableComputations
 			processQueues(null);
 		}
 
-		public void Dispose()
+		public void Dispose(NewInvocationBehaviour newInvocationBehaviour)
 		{
-			_isAlive = false;
-			_newInvocationBehaviour = NewInvocationBehaviour.Ignore;
+			_isRunning = false;
+			_newInvocationBehaviour = newInvocationBehaviour;
 			ClearQueues();
 			_newInvocationManualResetEvent.Set();
+		}
+
+		public void Dispose()
+		{
+			Dispose(NewInvocationBehaviour.Ignore);
 		}
 
 		public void Pass(int priority = 0)

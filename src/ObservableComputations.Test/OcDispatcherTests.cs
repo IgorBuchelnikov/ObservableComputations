@@ -488,6 +488,7 @@ namespace ObservableComputations.Test
 		public void TestFailture()
 		{
 			OcDispatcher dispatcher = new OcDispatcher();
+			dispatcher.ThreadIsBackground = true;
 
 			dispatcher.InvokeAsync(() =>
 			{

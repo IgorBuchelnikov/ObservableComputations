@@ -484,7 +484,7 @@ namespace ObservableComputations.Test
 			Assert.IsFalse(invoked2);
 		}
 
-		[Test]
+		[Test()]
 		public void TestFailture()
 		{
 			OcDispatcher dispatcher = new OcDispatcher();
@@ -492,7 +492,8 @@ namespace ObservableComputations.Test
 
 			dispatcher.InvokeAsync(() =>
 			{
-				throw new Exception();
+				Assert.That(() => throw new Exception(), Throws.TypeOf<Exception>());
+				//throw new Exception();
 			});
 
 			Thread.Sleep(1000);

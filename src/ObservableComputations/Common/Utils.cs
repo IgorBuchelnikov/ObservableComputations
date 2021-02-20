@@ -1185,12 +1185,11 @@ namespace ObservableComputations
 		internal static readonly PropertyChangedEventArgs MoveItemRequestHandlerPropertyChangedEventArgs = new PropertyChangedEventArgs("MoveItemRequestHandler");
 		internal static readonly PropertyChangedEventArgs ClearItemsRequestHandlerPropertyChangedEventArgs = new PropertyChangedEventArgs("ClearItemsRequestHandler");
 		internal static readonly PropertyChangedEventArgs ValuePropertyChangedEventArgs = new PropertyChangedEventArgs("Value");
-		internal static readonly PropertyChangedEventArgs ResultPropertyChangedEventArgs = new PropertyChangedEventArgs("Result");
+		internal static readonly PropertyChangedEventArgs RipePropertyChangedEventArgs = new PropertyChangedEventArgs("Ripe");
 		internal static readonly PropertyChangedEventArgs CountPropertyChangedEventArgs = new PropertyChangedEventArgs("Count");
 		internal static readonly PropertyChangedEventArgs IndexerPropertyChangedEventArgs = new PropertyChangedEventArgs("Item[]");
 		internal static readonly PropertyChangedEventArgs ValueObjectPropertyChangedEventArgs = new PropertyChangedEventArgs("ValueObject");
 		internal static readonly PropertyChangedEventArgs SetValueRequestHandlerPropertyChangedEventArgs = new PropertyChangedEventArgs("SetValueRequestHandler");
-		internal static readonly PropertyChangedEventArgs IsDisabledPropertyChangedEventArgs = new PropertyChangedEventArgs("IsDisabled");
 		internal static readonly PropertyChangedEventArgs PreviousValuePropertyChangedEventArgs = new PropertyChangedEventArgs("PreviousValue");
 		internal static readonly PropertyChangedEventArgs IsEverChangedPropertyChangedEventArgs = new PropertyChangedEventArgs("IsEverChanged");
 		internal static readonly PropertyChangedEventArgs CurrentPagePropertyChangedEventArgs = new PropertyChangedEventArgs("CurrentPage");
@@ -1201,7 +1200,6 @@ namespace ObservableComputations
 		private static readonly PropertyChangedEventArgs IsActivePropertyChangedEventArgs = new PropertyChangedEventArgs("IsActive");
 		internal static readonly PropertyChangedEventArgs ResumeTypePropertyChangedEventArgs = new PropertyChangedEventArgs("ResumeType");
 		internal static readonly PropertyChangedEventArgs IsDefaultedPropertyChangedEventArgs = new PropertyChangedEventArgs("IsDefaulted");
-		internal static readonly PropertyChangedEventArgs IsDisposedPropertyChangedEventArgs = new PropertyChangedEventArgs("IsDisposed");
 		private static readonly PropertyChangedEventArgs ActivationInProgressPropertyChangedEventArgs = new PropertyChangedEventArgs("ActivationInProgress");
 		private static readonly PropertyChangedEventArgs InactivationInProgressPropertyChangedEventArgs = new PropertyChangedEventArgs("InactivationInProgress");
 		public static PropertyChangedEventArgs ApplyOnSourceChangedPropertyChangedEventArgs = new PropertyChangedEventArgs("ApplyOnSourceChanged");

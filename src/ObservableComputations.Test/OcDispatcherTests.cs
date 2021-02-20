@@ -31,11 +31,11 @@ namespace ObservableComputations.Test
 			{
 				if (!debug)
 				{
-					Assert.IsFalse(DebugInfo.ExecutingOcDispatcherInvocationStacks.ContainsKey(dispatcher.ManagedThreadId));
+					Assert.IsTrue(dispatcher.InvocationStack.Count == 0);
 				}
 				else
 				{
-					ReadOnlyCollection<Invocation> invocations = DebugInfo.ExecutingOcDispatcherInvocationStacks[dispatcher.ManagedThreadId];
+					ReadOnlyCollection<Invocation> invocations = dispatcher.InvocationStack;
 					Assert.AreEqual(invocations.Count, 1);
 					Invocation invocation = invocations[0];
 					Assert.AreEqual(invocation.Action, action);
@@ -54,11 +54,11 @@ namespace ObservableComputations.Test
 				{
 					if (!debug)
 					{
-						Assert.IsFalse(DebugInfo.ExecutingOcDispatcherInvocationStacks.ContainsKey(dispatcher.ManagedThreadId));
+						Assert.IsTrue(dispatcher.InvocationStack.Count == 0);
 					}
 					else
 					{
-						ReadOnlyCollection<Invocation> invocations1 = DebugInfo.ExecutingOcDispatcherInvocationStacks[dispatcher.ManagedThreadId];
+						ReadOnlyCollection<Invocation> invocations1 = dispatcher.InvocationStack;
 						Assert.AreEqual(invocations1.Count, secondAsync ? 1 : 2);
 						Invocation invocation1 = invocations1[0];
 						Assert.AreEqual(invocation1.Action, action1);
@@ -70,7 +70,7 @@ namespace ObservableComputations.Test
 					}
 				};
 
-				if (secondAsync) dispatcher.BeginInvoke(action1, 1, context1);
+				if (secondAsync) dispatcher.InvokeAsync(action1, 1, context1);
 				else dispatcher.Invoke(action1, 1, context1);
 			};
 
@@ -78,7 +78,7 @@ namespace ObservableComputations.Test
 
 			dispatcher.Pass();
 			dispatcher.Pass();
-			Assert.IsFalse(DebugInfo.ExecutingOcDispatcherInvocationStacks.ContainsKey(dispatcher.ManagedThreadId));
+			Assert.IsTrue(dispatcher.InvocationStack.Count == 0);
 			dispatcher.Dispose();
 		}
 
@@ -101,11 +101,11 @@ namespace ObservableComputations.Test
 
 				if (!debug)
 				{
-					Assert.IsFalse(DebugInfo.ExecutingOcDispatcherInvocationStacks.ContainsKey(dispatcher.ManagedThreadId));
+					Assert.IsTrue(dispatcher.InvocationStack.Count == 0);
 				}
 				else
 				{
-					ReadOnlyCollection<Invocation> invocations = DebugInfo.ExecutingOcDispatcherInvocationStacks[dispatcher.ManagedThreadId];
+					ReadOnlyCollection<Invocation> invocations = dispatcher.InvocationStack;
 
 					Assert.AreEqual(invocations.Count, 1);
 					Invocation invocation = invocations[0];
@@ -126,11 +126,11 @@ namespace ObservableComputations.Test
 				{
 					if (!debug)
 					{
-						Assert.IsFalse(DebugInfo.ExecutingOcDispatcherInvocationStacks.ContainsKey(dispatcher.ManagedThreadId));
+						Assert.IsTrue(dispatcher.InvocationStack.Count == 0);
 					}
 					else
 					{
-						ReadOnlyCollection<Invocation> invocations1 = DebugInfo.ExecutingOcDispatcherInvocationStacks[dispatcher.ManagedThreadId];
+						ReadOnlyCollection<Invocation> invocations1 = dispatcher.InvocationStack;
 						Assert.AreEqual(s1, state1);
 						Assert.AreEqual(invocations1.Count, secondAsync ? 1 : 2);
 						Invocation invocation1 = invocations1[0];
@@ -143,7 +143,7 @@ namespace ObservableComputations.Test
 					}
 				};
 
-				if (secondAsync) dispatcher.BeginInvoke(action1, state1, 1, context1);
+				if (secondAsync) dispatcher.InvokeAsync(action1, state1, 1, context1);
 				else dispatcher.Invoke(action1, state1, 1, context1);
 			};
 
@@ -151,7 +151,7 @@ namespace ObservableComputations.Test
 
 			dispatcher.Pass();
 			dispatcher.Pass();
-			Assert.IsFalse(DebugInfo.ExecutingOcDispatcherInvocationStacks.ContainsKey(dispatcher.ManagedThreadId));
+			Assert.IsTrue(dispatcher.InvocationStack.Count == 0);
 			dispatcher.Dispose();
 		}
 
@@ -169,7 +169,7 @@ namespace ObservableComputations.Test
 		{
 			OcDispatcher dispatcher = new OcDispatcher(2);
 			object returnObject = new object();
-			InvocationResult<object> invocationResult = dispatcher.BeginInvoke(() => returnObject);
+			InvocationResult<object> invocationResult = dispatcher.InvokeAsync(() => returnObject);
 			dispatcher.Pass();
 			Assert.AreEqual(invocationResult.Value, invocationResult.Value);
 			Assert.AreEqual(invocationResult.ToString(), "(ObservableComputations.InvocationResult<Object> (Value = '(System.Object)'))");
@@ -202,23 +202,26 @@ namespace ObservableComputations.Test
 		{
 			OcDispatcher dispatcher = new OcDispatcher(2);
 			TestValue returnObject = new TestValue();
-			InvocationResult<TestValue> invocationResult = dispatcher.BeginInvoke(s => returnObject, new object());
+			InvocationResult<TestValue> invocationResult = dispatcher.InvokeAsync(s => returnObject, new object());
 			bool propertyChanged = false;
 			invocationResult.PropertyChanged += (sender, args) => propertyChanged = true;
 			dispatcher.Pass();
 			Assert.AreEqual(invocationResult.Value, returnObject);
 			Assert.IsTrue(propertyChanged);
 			Assert.AreEqual(invocationResult.ToString(), "(ObservableComputations.InvocationResult<TestValue> (Value = 'Mesasage'))");
+			Assert.AreEqual(invocationResult.Ripe, true);
 			dispatcher.Dispose();
 		}
 
 		[Test, Combinatorial]
-		public void TestDoOthers([Values(1, 2, 3)] int mode)
+		public void TestDoOthers([Values(1, 2, 3, 4)] int mode)
 		{
 			OcDispatcher dispatcher = new OcDispatcher(2);
 			ManualResetEventSlim mres = new ManualResetEventSlim();
 			bool done = false;
-			dispatcher.BeginInvoke(() =>
+			object context = new object();
+
+			dispatcher.InvokeAsync(() =>
 			{
 				mres.Wait();
 				Assert.AreEqual(done, false);
@@ -234,20 +237,23 @@ namespace ObservableComputations.Test
 					case 3:
 						dispatcher.DoOthers(TimeSpan.FromSeconds(1));
 						break;
+					case 4:
+						dispatcher.DoOthers((count, invocation) => invocation.Context == context);
+						break;
 				}
 
 				Assert.AreEqual(done, true);
 			});
 
-			dispatcher.BeginInvoke(() =>
+
+			dispatcher.InvokeAsync(() =>
 			{
 				done = true;
-			});
+			}, 0, context);
 
 			mres.Set();
 
 			dispatcher.Pass();
-
 
 			Exception exception = null;
 
@@ -263,6 +269,9 @@ namespace ObservableComputations.Test
 						break;
 					case 3:
 						dispatcher.DoOthers(TimeSpan.FromSeconds(1));
+						break;
+					case 4:
+						dispatcher.DoOthers((count, invocation) => invocation.Context == context);
 						break;
 				}
 			}
@@ -285,7 +294,7 @@ namespace ObservableComputations.Test
 			Assert.IsTrue(dispatcher.InstantiatingStackTrace != null);
 			ApartmentState apartmentState = RuntimeInformation.IsOSPlatform(OSPlatform.Linux) ?  ApartmentState.Unknown : ApartmentState.MTA;
 			Assert.AreEqual(dispatcher.NewInvocationBehaviour, NewInvocationBehaviour.Accept);
-			Assert.AreEqual(dispatcher.IsRunning, true);
+			Assert.AreEqual(dispatcher.State, OcDispatcherState.RunOrWait);
 			Assert.AreEqual(dispatcher.GetThreadApartmentState(), apartmentState);
 			Assert.AreEqual(dispatcher.PrioritiesNumber, 2);
 			CultureInfo culture = CultureInfo.GetCultureInfo("ru-RU");
@@ -323,11 +332,15 @@ namespace ObservableComputations.Test
 
 			ManualResetEventSlim mreDisposed = new ManualResetEventSlim(false);
 
-			dispatcher.DisposeFinished += (sender, args) => mreDisposed.Set();
+			dispatcher.PropertyChanged += (sender, args) =>
+			{
+				if (args.PropertyName == nameof(OcDispatcher.State) 
+					&& dispatcher.State == OcDispatcherState.Disposed)
+					mreDisposed.Set();
+			};
 
 			dispatcher.Dispose();
 			Assert.AreEqual(dispatcher.NewInvocationBehaviour, NewInvocationBehaviour.Ignore);
-			Assert.AreEqual(dispatcher.IsRunning, false);
 
 			Exception exception = null;
 			try
@@ -342,7 +355,7 @@ namespace ObservableComputations.Test
 			Assert.IsNotNull(exception);
 
 			mreDisposed.Wait();
-			Assert.AreEqual(dispatcher.IsDisposed, true);
+			Assert.AreEqual(dispatcher.State, OcDispatcherState.Disposed);
 		}
 
 		[Test]
@@ -353,13 +366,13 @@ namespace ObservableComputations.Test
 			bool called = false;
 			dispatcher.Invoke(() => {called = true;});
 			dispatcher.Invoke(s => {called = true;}, new object());
-			dispatcher.BeginInvoke(() => {called = true;});
-			dispatcher.BeginInvoke(s => {called = true;}, new object());
+			dispatcher.InvokeAsync(() => {called = true;});
+			dispatcher.InvokeAsync(s => {called = true;}, new object());
 
 			dispatcher.Invoke(() => {called = true; return 0;});
 			dispatcher.Invoke(s => {called = true; return 0;}, new object());
-			dispatcher.BeginInvoke(() => {called = true; return 0;});
-			dispatcher.BeginInvoke(s => {called = true; return 0;}, new object());
+			dispatcher.InvokeAsync(() => {called = true; return 0;});
+			dispatcher.InvokeAsync(s => {called = true; return 0;}, new object());
 
 			dispatcher.NewInvocationBehaviour = NewInvocationBehaviour.Accept;
 			dispatcher.Pass();
@@ -393,13 +406,13 @@ namespace ObservableComputations.Test
 
 			invoke(() => dispatcher.Invoke(() => {called = true;}));
 			invoke(() => dispatcher.Invoke(s => {called = true;}, new object()));
-			invoke(() => dispatcher.BeginInvoke(() => {called = true;}));
-			invoke(() => dispatcher.BeginInvoke(s => {called = true;}, new object()));
+			invoke(() => dispatcher.InvokeAsync(() => {called = true;}));
+			invoke(() => dispatcher.InvokeAsync(s => {called = true;}, new object()));
 
 			invoke(() => dispatcher.Invoke(() => {called = true; return 0;}));
 			invoke(() => dispatcher.Invoke(s => {called = true; return 0;}, new object()));
-			invoke(() => dispatcher.BeginInvoke(() => {called = true; return 0;}));
-			invoke(() => dispatcher.BeginInvoke(s => {called = true; return 0;}, new object()));
+			invoke(() => dispatcher.InvokeAsync(() => {called = true; return 0;}));
+			invoke(() => dispatcher.InvokeAsync(s => {called = true; return 0;}, new object()));
 
 			dispatcher.NewInvocationBehaviour = NewInvocationBehaviour.Accept;
 			dispatcher.Pass();
@@ -423,19 +436,39 @@ namespace ObservableComputations.Test
 			ManualResetEventSlim mre = new ManualResetEventSlim(false);
 			bool invoked1 = false;
 			bool invoked2 = false;
+			bool freezed = false;
 
-			dispatcher.BeginInvoke(() =>
+			dispatcher.InvokeAsync(() =>
 			{
-				dispatcher.BeginInvoke(() => mre.Wait());
+				dispatcher.InvokeAsync(() =>
+				{
+					freezed = true;
+					mre.Wait();
+				});
+
 				dispatcher.Invoke(() => invoked1 = true);
+
 			});
 
 			Thread thread = new Thread(
-				() => dispatcher.Invoke(() => invoked2 = true));
+				() => 
+				{
+					while (!freezed)
+					{
+						
+					}
+
+					dispatcher.Invoke(() => invoked2 = true);
+				});
 			thread.Start();
 
 			ManualResetEventSlim mreDisposed = new ManualResetEventSlim(false);
-			dispatcher.DisposeFinished += (sender, args) => mreDisposed.Set();
+			dispatcher.PropertyChanged += (sender, args) =>
+			{
+				if (args.PropertyName == nameof(OcDispatcher.State) 
+					&& dispatcher.State == OcDispatcherState.Disposed)
+					mreDisposed.Set();
+			};
 
 			while (dispatcher.GetQueueCount() != 2)
 			{
@@ -449,6 +482,52 @@ namespace ObservableComputations.Test
 
 			Assert.IsFalse(invoked1);
 			Assert.IsFalse(invoked2);
+		}
+
+		[Test]
+		public void TestFailture()
+		{
+			OcDispatcher dispatcher = new OcDispatcher();
+
+			dispatcher.InvokeAsync(() =>
+			{
+				throw new Exception();
+			});
+
+			Thread.Sleep(1000);
+
+			Assert.AreEqual(dispatcher.State, OcDispatcherState.Failture);
+			dispatcher.Dispose();
+		}
+
+		[Test]
+		public void TestInvokeAsyncAwait()
+		{
+			OcDispatcher dispatcher = new OcDispatcher();
+			int count = 0;
+			int id = Thread.CurrentThread.ManagedThreadId;
+			ManualResetEventSlim mres = new ManualResetEventSlim(false);
+
+			dispatcher.Invoke(async () =>
+			{
+				count++;
+
+				await Task.Run(() => dispatcher.Invoke(() =>
+				{
+					Assert.AreEqual(count, 1);
+					count++;
+				}));
+
+				Assert.AreEqual(count, 2);
+				count++;
+				Assert.AreEqual(Thread.CurrentThread.ManagedThreadId, dispatcher.ManagedThreadId);
+				mres.Set();
+			});
+
+			mres.Wait();
+			mres.Dispose();
+			Assert.AreEqual(count, 3);
+			dispatcher.Dispose();
 		}
 	}
 }

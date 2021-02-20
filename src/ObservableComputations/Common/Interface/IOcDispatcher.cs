@@ -3,8 +3,6 @@
 // The LICENSE file is located at https://github.com/IgorBuchelnikov/ObservableComputations/blob/master/LICENSE
 
 using System;
-using System.Collections.Specialized;
-using System.ComponentModel;
 
 namespace ObservableComputations
 {

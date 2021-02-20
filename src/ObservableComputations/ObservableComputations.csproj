@@ -19,7 +19,12 @@
     <NeutralLanguage>en</NeutralLanguage>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
-    <PackageReleaseNotes>* Fixed:
+    <PackageReleaseNotes>* New feaures
+OcDispatcher async delegates with await
+OcDispatcher InvokationResult IReadScalar IsRipe
+OcDispatcher State Property
+
+* Fixed:
 — CollectionPausing
 — ScalarPausing
 — CollectionDispatching
@@ -28,6 +33,7 @@
 * Renamed
 InvocationResult.Result -&gt; InvocationResult.Value
 DebugInfo.ExecutingOcDispatcherInvocations -&gt; DebugInfo.ExecutingOcDispatcherInvocationStacks 
+OcDispatcher.BeginInvoke -&gt; OcDispatcher.InvokeAsync
 
 * API changed
 —  Binding

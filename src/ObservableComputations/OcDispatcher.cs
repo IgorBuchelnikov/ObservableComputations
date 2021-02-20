@@ -3,12 +3,17 @@
 // The LICENSE file is located at https://github.com/IgorBuchelnikov/ObservableComputations/blob/master/LICENSE
 
 using System;
+using System.CodeDom;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Diagnostics;
 using System.Globalization;
+using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Threading;
+using System.Threading.Tasks;
 using ThreadState = System.Threading.ThreadState;
 
 namespace ObservableComputations
@@ -56,24 +61,14 @@ namespace ObservableComputations
 		{
 			if (Configuration.TrackOcDispatcherInvocations)
 			{
-				bool nestedInvocation = true;
-				if (!DebugInfo._executingOcDispatcherInvocations.TryGetValue(_ocDispatcher._managedThreadId, out Stack<Invocation> invocations))
-				{
-					nestedInvocation = false;
-					invocations = new Stack<Invocation>();
-					DebugInfo._executingOcDispatcherInvocations[_ocDispatcher._managedThreadId] = invocations;
-				}
-
-				// ReSharper disable once PossibleNullReferenceException
-				invocations.Push(this);
+				_ocDispatcher._invocationStack.Push(this);
 
 				if (_action != null)
 					_action();
 				else
 					_actionWithState(_state);
 
-				if (nestedInvocation) invocations.Pop();
-				else DebugInfo._executingOcDispatcherInvocations.TryRemove(_ocDispatcher._managedThreadId, out _);
+				_ocDispatcher._invocationStack.TryPop(out _);
 			}
 			else
 			{
@@ -103,11 +98,16 @@ namespace ObservableComputations
 			internal set
 			{
 				_value = value;
-				PropertyChanged?.Invoke(this, Utils.ResultPropertyChangedEventArgs);
+				_ripe = true;
+				PropertyChanged?.Invoke(this, Utils.ValuePropertyChangedEventArgs);
+				PropertyChanged?.Invoke(this, Utils.RipePropertyChangedEventArgs);
 			}
 		}
 
+		public bool Ripe => _ripe;
+
 		private TResult _value;
+		private bool _ripe;
 
 		public event PropertyChangedEventHandler PropertyChanged;
 
@@ -121,20 +121,30 @@ namespace ObservableComputations
 		#endregion
 	}
 
-	public class OcDispatcher : IDisposable, IOcDispatcher
+	public class OcDispatcher : IDisposable, IOcDispatcher, INotifyPropertyChanged
 	{
-		readonly ConcurrentQueue<Invocation>[] _invocationQueues;
+		internal readonly ConcurrentQueue<Invocation>[] _invocationQueues;
 		private readonly ManualResetEventSlim _newInvocationManualResetEvent = new ManualResetEventSlim(false);
 		private bool _isRunning = true;
-		private bool _isDisposed ;
+		private bool _isDisposed;
 		internal readonly Thread _thread;
 		internal readonly int _managedThreadId;
 		private NewInvocationBehaviour _newInvocationBehaviour;
-		public event EventHandler DisposeFinished;
+		private OcDispatcherState _state;
+		internal ConcurrentStack<Invocation> _invocationStack = new ConcurrentStack<Invocation>();
+		private OcDispatcherSynchronizationContext _synchronizationContext;
 
-		public bool IsRunning => _isRunning;
-		public bool IsDisposed => _isDisposed;
+		public ReadOnlyCollection<Invocation> InvocationStack => 
+			new ReadOnlyCollection<Invocation>(_invocationStack.ToArray());
+
 		public int PrioritiesNumber => _highestPriority + 1;
+
+		public OcDispatcherState State =>
+			_state == OcDispatcherState.RunOrWait
+			&& _thread.ThreadState != ThreadState.Running
+			&& _thread.ThreadState != ThreadState.WaitSleepJoin
+				? OcDispatcherState.Failture
+				: _state;
 
 		private readonly string _instantiatingStackTrace;
 		public string InstantiatingStackTrace => _instantiatingStackTrace;
@@ -184,6 +194,8 @@ namespace ObservableComputations
 			if (Configuration.SaveInstantiatingStackTrace)
 				_instantiatingStackTrace = Environment.StackTrace;
 
+			_synchronizationContext = new OcDispatcherSynchronizationContext(this);
+
 			_highestPriority = prioritiesNumber - 1;
 
 			_invocationQueues = new ConcurrentQueue<Invocation>[prioritiesNumber];
@@ -193,6 +205,8 @@ namespace ObservableComputations
 
 			_thread = new Thread(() =>
 			{
+				SynchronizationContext.SetSynchronizationContext(_synchronizationContext);
+
 				while (_isRunning)
 				{
 					_newInvocationManualResetEvent.Wait();
@@ -201,9 +215,9 @@ namespace ObservableComputations
 					processQueues(null);
 				}
 
-				_isDisposed = true;
+				_state = OcDispatcherState.Disposed;
 				_newInvocationManualResetEvent.Dispose();
-				DisposeFinished?.Invoke(this, new EventArgs());
+				PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(State)));
 			});
 
 			_managedThreadId = _thread.ManagedThreadId;
@@ -211,7 +225,7 @@ namespace ObservableComputations
 			_thread.Start();
 		}
 
-		private void processQueues(Func<int, bool> stop)
+		private void processQueues(Func<int, Invocation, bool> stop)
 		{
 			bool processed = true;
 			int count = 0;
@@ -222,15 +236,18 @@ namespace ObservableComputations
 				for (priority = _highestPriority; priority >= 0; priority--)
 					if (_invocationQueues[priority].TryDequeue(out Invocation invocation))
 					{
+						int originalPrioity = _synchronizationContext._priority;
+						_synchronizationContext._priority = priority;
 						invocation.Do();
+						_synchronizationContext._priority = originalPrioity;
 						count++;
-						processed = stop == null || !stop(count);
+						processed = stop == null || !stop(count, invocation);
 						break;
 					}
 			}
 		}
 
-		private bool checkNewInvocationBehaviour()
+		private bool cannotAcceptNewInvocation()
 		{
 			if (_newInvocationBehaviour == NewInvocationBehaviour.ThrowException)
 				throw new ObservableComputationsException("New invocations is not allowed");
@@ -304,44 +321,53 @@ namespace ObservableComputations
 
 		public TimeSpan DoOthers(TimeSpan timeSpan)
 		{
-			if (_thread != Thread.CurrentThread)
-				throw new ObservableComputationsException(
-					"OcDispatcher.DoOthers method can only be called from the same thread that is associated with this OcDispatcher.");
+			verifyCurrentThread();
 
 			Stopwatch stopwatch = Stopwatch.StartNew();
-			processQueues(count => stopwatch.ElapsedTicks > timeSpan.Ticks);
+			processQueues((count, invocation) => stopwatch.ElapsedTicks > timeSpan.Ticks);
 			stopwatch.Stop();
 			return timeSpan - TimeSpan.FromTicks(stopwatch.ElapsedTicks);
 		}
 
 		public int DoOthers(int targetCount)
 		{
-			if (_thread != Thread.CurrentThread)
-				throw new ObservableComputationsException(
-					"OcDispatcher.DoOthers method can only be called from the same thread that is associated with this OcDispatcher.");
+			verifyCurrentThread();
 
 			int factCount = 0;
 			processQueues(
-				count =>
+				(count, invocation) =>
 				{
 					factCount = count;
 					return targetCount == count;
 				});
+
 			return targetCount - factCount;
+		}
+
+		public void DoOthers(Func<int, Invocation, bool> stop)
+		{
+			verifyCurrentThread();
+			processQueues(stop);
 		}
 
 		public void DoOthers()
 		{
+			verifyCurrentThread();
+			processQueues(null);
+		}
+
+		private void verifyCurrentThread()
+		{
 			if (_thread != Thread.CurrentThread)
 				throw new ObservableComputationsException(
 					"OcDispatcher.DoOthers method can only be called from the same thread that is associated with this OcDispatcher.");
-
-			processQueues(null);
 		}
 
 		public void Dispose(NewInvocationBehaviour newInvocationBehaviour)
 		{
 			_isRunning = false;
+			_state = OcDispatcherState.Disposing;
+			PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(State)));
 			_newInvocationBehaviour = newInvocationBehaviour;
 			ClearQueues();
 			_newInvocationManualResetEvent.Set();
@@ -359,34 +385,34 @@ namespace ObservableComputations
 
 		void IOcDispatcher.Invoke(Action action, int priority, object parameter, object context)
 		{
-			if (checkNewInvocationBehaviour()) return;
+			if (cannotAcceptNewInvocation()) return;
 
 			queueInvocation(action, priority, context, null);
 		}
 
-		public void BeginInvoke(Action action, int priority = 0, object context = null)
+		public void InvokeAsync(Action action, int priority = 0, object context = null)
 		{
-			if (checkNewInvocationBehaviour()) return;
+			if (cannotAcceptNewInvocation()) return;
 
 			queueInvocation(action, priority, context);
 		}
 
-		public void BeginInvoke(Action<object> action, object state, int priority = 0, object context = null)
+		public void InvokeAsync(Action<object> action, object state, int priority = 0, object context = null)
 		{
-			if (checkNewInvocationBehaviour()) return;
+			if (cannotAcceptNewInvocation()) return;
 
 			queueInvocation(action, priority, state, context);						
 		}
 
 		public void Invoke(Action action, int priority = 0, object context = null)
 		{
-			if (checkNewInvocationBehaviour()) return;
+			if (cannotAcceptNewInvocation()) return;
 
 			if (_thread == Thread.CurrentThread)
 			{
 				InvocationStatus invocationStatus = new InvocationStatus();
 				queueInvocation(action, priority, context, invocationStatus);
-				processQueues(count => invocationStatus.Done);
+				processQueues((count, invocation) => invocationStatus.Done);
 				return;
 			}
 
@@ -399,13 +425,13 @@ namespace ObservableComputations
 
 		public void Invoke(Action<object> action, object state, int priority = 0, object context = null)
 		{
-			if (checkNewInvocationBehaviour()) return;
+			if (cannotAcceptNewInvocation()) return;
 
 			if (_thread == Thread.CurrentThread)
 			{
 				InvocationStatus invocationStatus = new InvocationStatus();
 				queueInvocation(action, priority, state, context, invocationStatus);
-				processQueues(count => invocationStatus.Done);
+				processQueues((count, invocation) => invocationStatus.Done);
 				return;
 			}
 
@@ -431,22 +457,22 @@ namespace ObservableComputations
 			return result;
 		}
 
-		public InvocationResult<TResult> BeginInvoke<TResult>(Func<TResult> func, int priority = 0, object context = null)
+		public InvocationResult<TResult> InvokeAsync<TResult>(Func<TResult> func, int priority = 0, object context = null)
 		{
-			if (checkNewInvocationBehaviour()) return default;
+			if (cannotAcceptNewInvocation()) return default;
 
 			InvocationResult<TResult> invocationResult = new InvocationResult<TResult>();
-			BeginInvoke(() => { invocationResult.Value = func(); }, priority, context);
+			InvokeAsync(() => { invocationResult.Value = func(); }, priority, context);
 
 			return invocationResult;
 		}
 
-		public InvocationResult<TResult> BeginInvoke<TResult>(Func<object, TResult> func, object state, int priority = 0, object context = null)
+		public InvocationResult<TResult> InvokeAsync<TResult>(Func<object, TResult> func, object state, int priority = 0, object context = null)
 		{
-			if (checkNewInvocationBehaviour()) return default;
+			if (cannotAcceptNewInvocation()) return default;
 
 			InvocationResult<TResult> invocationResult = new InvocationResult<TResult>();
-			BeginInvoke(s => { invocationResult.Value = func(s); }, state, priority, context);
+			InvokeAsync(s => { invocationResult.Value = func(s); }, state, priority, context);
 
 			return invocationResult;
 		}
@@ -459,6 +485,12 @@ namespace ObservableComputations
 		}
 
 		#endregion
+
+		#region Implementation of INotifyPropertyChanged
+
+		public event PropertyChangedEventHandler PropertyChanged;
+
+		#endregion
 	}
 
 	public enum NewInvocationBehaviour
@@ -466,6 +498,37 @@ namespace ObservableComputations
 		Accept,
 		Ignore,
 		ThrowException
+	}
+
+	public enum OcDispatcherState
+	{
+		RunOrWait,
+		Failture,
+		Disposing,
+		Disposed
+	}
+
+	internal class OcDispatcherSynchronizationContext : SynchronizationContext
+	{
+		OcDispatcher _ocDispatcher;
+		internal int _priority;
+
+	    public OcDispatcherSynchronizationContext(OcDispatcher ocDispatcher)
+        {
+			_ocDispatcher = ocDispatcher;
+        }
+
+	    #region Overrides of SynchronizationContext
+	    public override void Post(SendOrPostCallback postCallback, object state)
+	    {
+	        _ocDispatcher.Invoke(
+	            () =>
+	            {
+		            postCallback(state);
+	            }, 
+	            _priority, state);		    
+	    }
+	    #endregion
 	}
 }
 

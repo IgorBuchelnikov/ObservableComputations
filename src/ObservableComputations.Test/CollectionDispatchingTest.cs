@@ -392,8 +392,20 @@ namespace ObservableComputations.Test
 			ManualResetEventSlim backgroundOcDispatcherDisposedMru = new ManualResetEventSlim(false);
 			ManualResetEventSlim mainOcDispatcherDisposedMru = new ManualResetEventSlim(false);
 
-			backgroundOcDispatcher.DisposeFinished += (sender, args) => backgroundOcDispatcherDisposedMru.Set();
-			mainOcDispatcher.DisposeFinished += (sender, args) => mainOcDispatcherDisposedMru.Set();
+			backgroundOcDispatcher.PropertyChanged += (sender, args) =>
+			{
+				if (args.PropertyName == nameof(OcDispatcher.State) 
+					&& backgroundOcDispatcher.State == OcDispatcherState.Disposed)
+					backgroundOcDispatcherDisposedMru.Set();
+			};
+
+			mainOcDispatcher.PropertyChanged += (sender, args) =>
+			{
+				if (args.PropertyName == nameof(OcDispatcher.State) 
+					&& mainOcDispatcher.State == OcDispatcherState.Disposed)
+					mainOcDispatcherDisposedMru.Set();
+			};
+
 
 			backgroundOcDispatcher.Dispose();
 			mainOcDispatcher.Dispose();
@@ -401,7 +413,8 @@ namespace ObservableComputations.Test
 			backgroundOcDispatcherDisposedMru.Wait(30000);
 			mainOcDispatcherDisposedMru.Wait(30000);
 
-			if (!backgroundOcDispatcher.IsDisposed || !mainOcDispatcher.IsDisposed)
+			if (backgroundOcDispatcher.State != OcDispatcherState.Disposed 
+			    || mainOcDispatcher.State != OcDispatcherState.Disposed)
 			{
 				backgroundOcDispatcherDisposedMru.Dispose();
 				mainOcDispatcherDisposedMru.Dispose();

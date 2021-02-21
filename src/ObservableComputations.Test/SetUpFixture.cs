@@ -10,9 +10,9 @@ namespace ObservableComputations.Test
 	[SetUpFixture]
 	public class SetUpFixture
 	{
-	    [OneTimeSetUp]
-	    public void RunBeforeAnyTests()
-	    {
+		[OneTimeSetUp]
+		public void RunBeforeAnyTests()
+		{
 #if GeneratingMinimalTestsToCover
 			File.Delete(TestBase.MinimalTestsToCoverFileName);
 			File.WriteAllText(TestBase.MinimalTestsToCoverFileName,
@@ -32,11 +32,11 @@ namespace ObservableComputations.Test
 
 
 #endif	
-	    }
+		}
 
-	    [OneTimeTearDown]
-	    public void RunAfterAnyTests()
-	    {
+		[OneTimeTearDown]
+		public void RunAfterAnyTests()
+		{
 #if GeneratingMinimalTestsToCover
 			File.AppendAllText(TestBase.MinimalTestsToCoverFileName,
 @"
@@ -44,7 +44,7 @@ namespace ObservableComputations.Test
 	}
 }"			);
 #endif
-	    }
+		}
 	}
 
 }

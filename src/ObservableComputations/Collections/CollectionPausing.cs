@@ -64,7 +64,7 @@ namespace ObservableComputations
 						throw new ObservableComputationsException(this, "It is impossible to change ResumeType from Reset to ReplayChanges while IsPaused is true");
 
 					if (_resumeType == CollectionPausingResumeType.ReplayChanges
-					    && value == CollectionPausingResumeType.Reset)
+						&& value == CollectionPausingResumeType.Reset)
 						_deferredCollectionActions.Clear();
 
 				}

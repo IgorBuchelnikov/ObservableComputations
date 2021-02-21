@@ -414,7 +414,7 @@ namespace ObservableComputations.Test
 			mainOcDispatcherDisposedMru.Wait(30000);
 
 			if (backgroundOcDispatcher.State != OcDispatcherState.Disposed 
-			    || mainOcDispatcher.State != OcDispatcherState.Disposed)
+				|| mainOcDispatcher.State != OcDispatcherState.Disposed)
 			{
 				backgroundOcDispatcherDisposedMru.Dispose();
 				mainOcDispatcherDisposedMru.Dispose();

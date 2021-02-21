@@ -368,6 +368,8 @@ namespace ObservableComputations
 			processQueues(null);
 		}
 
+		public bool CheckAccess() => Thread.CurrentThread == _thread;
+
 		private void verifyCurrentThread()
 		{
 			if (_thread != Thread.CurrentThread)
@@ -644,28 +646,25 @@ namespace ObservableComputations
 		OcDispatcher _ocDispatcher;
 		internal int _priority;
 
-	    public OcDispatcherSynchronizationContext(OcDispatcher ocDispatcher)
-        {
+		public OcDispatcherSynchronizationContext(OcDispatcher ocDispatcher)
+		{
 			_ocDispatcher = ocDispatcher;
-        }
+		}
 
-	    #region Overrides of SynchronizationContext
-	    public override void Post(SendOrPostCallback postCallback, object state)
-	    {
-
+		#region Overrides of SynchronizationContext
+		public override void Post(SendOrPostCallback postCallback, object state)
+		{
 			ContinuationParameters continuationParameters = 
 				(ContinuationParameters) Thread.GetData(
 					Thread.GetNamedDataSlot(
 						OcDispatcher.ContinuationParametersThreadDataSlot));
 
-			//Thread.FreeNamedDataSlot(OcDispatcher.ContinuationParametersThreadDataSlot);
-
-	        _ocDispatcher.Invoke(
-	            () => postCallback(state), 
-	            continuationParameters.Priority, 
-	            continuationParameters.Context);		    
-	    }
-	    #endregion
+			_ocDispatcher.Invoke(
+				() => postCallback(state), 
+				continuationParameters.Priority, 
+				continuationParameters.Context);
+		}
+		#endregion
 	}
 }
 

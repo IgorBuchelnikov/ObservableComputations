@@ -288,7 +288,7 @@ namespace ObservableComputations
 			if (_isPaused)
 			{
 				if ((newValue == null && _lastChangesToApplyOnResumeCount != null) 
-				    || (newValue != null && _lastChangesToApplyOnResumeCount != null && newValue > _lastChangesToApplyOnResumeCount))
+					|| (newValue != null && _lastChangesToApplyOnResumeCount != null && newValue > _lastChangesToApplyOnResumeCount))
 					throw new ObservableComputationsException(this, "It is impossible to increase LastChangesToApplyOnResumeCount while IsPaused = true");
 
 

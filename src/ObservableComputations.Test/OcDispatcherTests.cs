@@ -498,33 +498,147 @@ namespace ObservableComputations.Test
 
 			Thread.Sleep(1000);
 
-			Assert.AreEqual(dispatcher.State, OcDispatcherState.Failture);
+			Assert.AreEqual(dispatcher.State, OcDispatcherState.Failure);
 			dispatcher.Dispose();
 		}
 
 		[Test]
-		public void TestInvokeAsyncAwait()
+		public void TestInvokeAsyncAwaitableDispatcherThread()
 		{
-			OcDispatcher dispatcher = new OcDispatcher();
+			Configuration.TrackOcDispatcherInvocations = true;
+			OcDispatcher dispatcher = new OcDispatcher(2);
 			int count = 0;
-			int id = Thread.CurrentThread.ManagedThreadId;
 			ManualResetEventSlim mres = new ManualResetEventSlim(false);
+			object context = new object();
 
 			dispatcher.Invoke(async () =>
 			{
 				count++;
 
-				await Task.Run(() => dispatcher.Invoke(() =>
+				await dispatcher.InvokeAsyncAwaitable(() =>
 				{
 					Assert.AreEqual(count, 1);
 					count++;
-				}));
+					Assert.AreEqual(dispatcher.ExecutingInvocation.Value.Priority, 1);
+					Assert.AreEqual(dispatcher.ExecutingInvocation.Value.Context, context);
+				}, 1, context);
 
 				Assert.AreEqual(count, 2);
 				count++;
 				Assert.AreEqual(Thread.CurrentThread.ManagedThreadId, dispatcher.ManagedThreadId);
+				Assert.AreEqual(dispatcher.ExecutingInvocation.Value.Priority, 1);
+				Assert.AreEqual(dispatcher.ExecutingInvocation.Value.Context, context);
 				mres.Set();
-			});
+			}, 1);
+
+			mres.Wait();
+			mres.Dispose();
+			Assert.AreEqual(count, 3);
+			dispatcher.Dispose();
+		}
+
+		[Test]
+		public void TestInvokeAsyncAwaitableStateDispatcherThread()
+		{
+			Configuration.TrackOcDispatcherInvocations = true;
+			OcDispatcher dispatcher = new OcDispatcher(2);
+			int count = 0;
+			ManualResetEventSlim mres = new ManualResetEventSlim(false);
+			object context = new object();
+
+			dispatcher.Invoke(async () =>
+			{
+				count++;
+
+				await dispatcher.InvokeAsyncAwaitable(state =>
+				{
+					Assert.AreEqual(count, 1);
+					count++;
+					Assert.AreEqual(dispatcher.ExecutingInvocation.Value.Priority, 1);
+					Assert.AreEqual(dispatcher.ExecutingInvocation.Value.Context, context);
+				}, new object(), 1, context);
+
+				Assert.AreEqual(count, 2);
+				count++;
+				Assert.AreEqual(Thread.CurrentThread.ManagedThreadId, dispatcher.ManagedThreadId);
+				Assert.AreEqual(dispatcher.ExecutingInvocation.Value.Priority, 1);
+				Assert.AreEqual(dispatcher.ExecutingInvocation.Value.Context, context);
+				mres.Set();
+			}, 1);
+
+			mres.Wait();
+			mres.Dispose();
+			Assert.AreEqual(count, 3);
+			dispatcher.Dispose();
+		}
+
+		[Test]
+		public void TestInvokeAsyncAwaitableFuncDispatcherThread()
+		{
+			Configuration.TrackOcDispatcherInvocations = true;
+			OcDispatcher dispatcher = new OcDispatcher(2);
+			int count = 0;
+			ManualResetEventSlim mres = new ManualResetEventSlim(false);
+			object context = new object();
+
+			dispatcher.Invoke(async () =>
+			{
+				count++;
+
+				int returnCount = await dispatcher.InvokeAsyncAwaitable(() =>
+				{
+					Assert.AreEqual(count, 1);
+					count++;
+					Assert.AreEqual(dispatcher.ExecutingInvocation.Value.Priority, 1);
+					Assert.AreEqual(dispatcher.ExecutingInvocation.Value.Context, context);
+					return count;
+				}, 1, context);
+
+				Assert.AreEqual(returnCount, 2);
+				Assert.AreEqual(count, 2);
+				count++;
+				Assert.AreEqual(Thread.CurrentThread.ManagedThreadId, dispatcher.ManagedThreadId);
+				Assert.AreEqual(dispatcher.ExecutingInvocation.Value.Priority, 1);
+				Assert.AreEqual(dispatcher.ExecutingInvocation.Value.Context, context);
+				mres.Set();
+			}, 1);
+
+			mres.Wait();
+			mres.Dispose();
+			Assert.AreEqual(count, 3);
+			dispatcher.Dispose();
+		}
+
+		[Test]
+		public void TestInvokeAsyncAwaitableFuncStateDispatcherThread()
+		{
+			Configuration.TrackOcDispatcherInvocations = true;
+			OcDispatcher dispatcher = new OcDispatcher(2);
+			int count = 0;
+			ManualResetEventSlim mres = new ManualResetEventSlim(false);
+			object context = new object();
+
+			dispatcher.Invoke(async () =>
+			{
+				count++;
+
+				int returnCount = await dispatcher.InvokeAsyncAwaitable(state =>
+				{
+					Assert.AreEqual(count, 1);
+					count++;
+					Assert.AreEqual(dispatcher.ExecutingInvocation.Value.Priority, 1);
+					Assert.AreEqual(dispatcher.ExecutingInvocation.Value.Context, context);
+					return count;
+				}, new object(), 1, context);
+
+				Assert.AreEqual(returnCount, 2);
+				Assert.AreEqual(count, 2);
+				count++;
+				Assert.AreEqual(Thread.CurrentThread.ManagedThreadId, dispatcher.ManagedThreadId);
+				Assert.AreEqual(dispatcher.ExecutingInvocation.Value.Priority, 1);
+				Assert.AreEqual(dispatcher.ExecutingInvocation.Value.Context, context);
+				mres.Set();
+			}, 1);
 
 			mres.Wait();
 			mres.Dispose();

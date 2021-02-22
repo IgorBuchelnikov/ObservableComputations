@@ -398,8 +398,8 @@ namespace ObservableComputations
 		internal static void endComputingExecutingUserCode(IComputing computing, int currentThreadId,
 			out IComputing userCodeIsCalledFrom)
 		{
-			if (computing == null) DebugInfo._computingsExecutingUserCode.TryRemove(currentThreadId, out IComputing _);
-			else DebugInfo._computingsExecutingUserCode[currentThreadId] = computing;
+			if (computing == null) StaticInfo._computingsExecutingUserCode.TryRemove(currentThreadId, out IComputing _);
+			else StaticInfo._computingsExecutingUserCode[currentThreadId] = computing;
 			userCodeIsCalledFrom = null;
 		}
 
@@ -407,8 +407,8 @@ namespace ObservableComputations
 			out IComputing userCodeIsCalledFrom, IComputing current)
 		{
 			int currentThreadId = Thread.CurrentThread.ManagedThreadId;
-			DebugInfo._computingsExecutingUserCode.TryGetValue(currentThreadId, out computing);
-			DebugInfo._computingsExecutingUserCode[currentThreadId] = current;
+			StaticInfo._computingsExecutingUserCode.TryGetValue(currentThreadId, out computing);
+			StaticInfo._computingsExecutingUserCode[currentThreadId] = current;
 			userCodeIsCalledFrom = computing;
 			return currentThreadId;
 		}

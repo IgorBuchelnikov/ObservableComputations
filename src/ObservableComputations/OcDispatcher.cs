@@ -218,6 +218,7 @@ namespace ObservableComputations
 			_thread = new Thread(() =>
 			{
 				SynchronizationContext.SetSynchronizationContext(_synchronizationContext);
+				StaticInfo._ocDispatchers[Thread.CurrentThread] = this;
 
 				while (_isRunning)
 				{

@@ -747,6 +747,8 @@ namespace ObservableComputations
 					InnerItems = innerSource.Where(ii => equalityComparer.Equals(outerKeySelector(oi), innerKeySelector(ii)))
 				}).ToList();
 
+			var groups = innerSource.GroupBy(innerKeySelector, equalityComparer).ToArray();
+
 			if (Count !=  result.Count)
 				throw new ObservableComputationsException(this, "Consistency violation: GroupJoining.1");
 
@@ -784,6 +786,18 @@ namespace ObservableComputations
 				}
 
 				indices.Add(index);
+
+				int? groupIndex = null;
+				for (int i = 0; i < groups.Length; i++)
+				{
+					if (equalityComparer.Equals(groups[i].Key, key))
+					{
+						groupIndex = i;
+					}
+				}
+
+				if (groupIndex != thisItem.InnserSourceGroupIndex)
+					throw new ObservableComputationsException(this, "Consistency violation: GroupJoining.10");
 			}
 
 			if (keyIndices.Count != _keyPositions.Count)
@@ -938,5 +952,10 @@ namespace ObservableComputations
 		#endregion
 
 		public override ICollectionComputing Parent => _groupJoining;
+
+		public ReadOnlyCollection<int> InnerSourceItemIndices => 
+			_group != null ? _group.SourceItemIndices : new ReadOnlyCollection<int>(new List<int>());
+
+		public int? InnserSourceGroupIndex => _group?.Index;
 	}
 }

@@ -6,14 +6,20 @@ using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
+using System.Threading;
 
 namespace ObservableComputations
 {
-	public static class DebugInfo
+	public static class StaticInfo
 	{
 		internal static readonly ConcurrentDictionary<int, IComputing> _computingsExecutingUserCode = new ConcurrentDictionary<int, IComputing>();
 
 		public static ReadOnlyDictionary<int, IComputing> ComputingsExecutingUserCode => 
 			new ReadOnlyDictionary<int, IComputing>(_computingsExecutingUserCode);
+
+		internal static readonly ConcurrentDictionary<Thread, OcDispatcher> _ocDispatchers = new ConcurrentDictionary<Thread, OcDispatcher>();
+
+		public static ReadOnlyDictionary<Thread, OcDispatcher> OcDispatchers => 
+			new ReadOnlyDictionary<Thread, OcDispatcher>(_ocDispatchers);
 	}
 }

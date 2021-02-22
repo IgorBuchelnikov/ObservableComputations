@@ -1018,6 +1018,7 @@ namespace ObservableComputations
 				}
 
 				if (group._position.Index != thisIndex) throw new ObservableComputationsException(this, "Consistency violation: Grouping.8");
+				if (group.Index != thisIndex) throw new ObservableComputationsException(this, "Consistency violation: Grouping.8");
 
 				if (resultItem.Item1 != null)
 				{
@@ -1123,6 +1124,11 @@ namespace ObservableComputations
 				}
 			}
 		}
+
+		public ReadOnlyCollection<int> SourceItemIndices => 
+			new ReadOnlyCollection<int>(_sourcePositions.Select(p => p.Index).ToList());
+
+		public int Index => _position.Index;
 
 		public override ICollectionComputing Parent => _grouping;
 

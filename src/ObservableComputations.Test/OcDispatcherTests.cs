@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Configuration;
 using System.Globalization;
 using System.Linq;
 using System.Linq.Expressions;
@@ -25,6 +26,8 @@ namespace ObservableComputations.Test
 
 			object context = new object();
 			OcDispatcher dispatcher = new OcDispatcher(2);
+			Assert.AreEqual(dispatcher, StaticInfo.OcDispatchers[dispatcher._thread]);
+
 			Action action = null;
 
 			action = () =>
@@ -92,7 +95,7 @@ namespace ObservableComputations.Test
 		[Test, Combinatorial]
 		public void TestDebugInfoState(
 			[Values(true, false)] bool debug, 
-			[Values(true, false)]bool secondAsync)
+			[Values(true, false)] bool secondAsync)
 		{
 			Configuration.SaveOcDispatcherInvocationStackTrace = debug;
 			Configuration.TrackOcDispatcherInvocations = debug;
@@ -100,6 +103,7 @@ namespace ObservableComputations.Test
 			object context = new object();
 			object state = new object();
 			OcDispatcher dispatcher = new OcDispatcher(2);
+			Assert.AreEqual(dispatcher, StaticInfo.OcDispatchers[dispatcher._thread]);
 			Action<object> action = null;
 
 			action = s =>

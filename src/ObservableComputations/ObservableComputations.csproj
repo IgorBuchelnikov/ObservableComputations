@@ -23,6 +23,8 @@
 OcDispatcher async delegates with await
 OcDispatcher InvokationResult IReadScalar IsRipe
 OcDispatcher State Property
+OcDispatcher Inherit priority and context from parent invocation 
+OcDispatcher Default priority
 
 * Fixed:
 — CollectionPausing

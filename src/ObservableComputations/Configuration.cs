@@ -10,7 +10,6 @@ namespace ObservableComputations
 		public static bool SaveOcDispatcherInvocationStackTrace = false;
 
 		public static bool TrackComputingsExecutingUserCode = false;
-		public static bool TrackOcDispatcherInvocations = false;
 		public static int EventUnsubscriberThreadsCount = 1;
 	}
 }

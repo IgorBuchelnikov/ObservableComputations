@@ -27,7 +27,6 @@ namespace ObservableComputations.Test
 				Configuration.SaveInstantiatingStackTrace = true;
 				Configuration.TrackComputingsExecutingUserCode = true;
 				Configuration.SaveOcDispatcherInvocationStackTrace = true;
-				Configuration.TrackOcDispatcherInvocations = true;
 			}
 			else
 			{

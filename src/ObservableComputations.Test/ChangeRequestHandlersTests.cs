@@ -81,10 +81,21 @@ namespace ObservableComputations.Test
 			Dictionaring<Item, int, string> dictionaring = 
 				items.Dictionaring(i => i.Id, i => i.Value).For(consumer);
 
-			dictionaring.AddItemRequestHandler = (id, value) => items.Add(new Item(id, value));
-			dictionaring.SetItemRequestHandler = (id, value) => items.SingleOrDefault(i => i.Id == id).Value = value;
-			dictionaring.RemoveItemRequestHandler = id => items.Remove(items.SingleOrDefault(i => i.Id == id));
-			dictionaring.ClearItemsRequestHandler = () => items.Clear();
+			Action<int, string> dictionaringAddItemRequestHandler = (id, value) => items.Add(new Item(id, value));
+			dictionaring.AddItemRequestHandler = dictionaringAddItemRequestHandler;
+			Assert.IsTrue(dictionaring.AddItemRequestHandler == dictionaringAddItemRequestHandler);
+
+			Action<int, string> dictionaringSetItemRequestHandler = (id, value) => items.SingleOrDefault(i => i.Id == id).Value = value;
+			dictionaring.SetItemRequestHandler = dictionaringSetItemRequestHandler;
+			Assert.IsTrue(dictionaring.SetItemRequestHandler == dictionaringSetItemRequestHandler);
+
+			Func<int, bool> dictionaringRemoveItemRequestHandler = id => items.Remove(items.SingleOrDefault(i => i.Id == id));
+			dictionaring.RemoveItemRequestHandler = dictionaringRemoveItemRequestHandler;
+			Assert.IsTrue(dictionaring.RemoveItemRequestHandler == dictionaringRemoveItemRequestHandler);
+
+			Action dictionaringClearItemsRequestHandler = () => items.Clear();
+			dictionaring.ClearItemsRequestHandler = dictionaringClearItemsRequestHandler;
+			Assert.IsTrue(dictionaring.ClearItemsRequestHandler == dictionaringClearItemsRequestHandler);
 
 			dictionaring.Add(5, "2");
 			dictionaring.ValidateConsistency();
@@ -113,10 +124,21 @@ namespace ObservableComputations.Test
 			ConcurrentDictionaring<Item, int, string> dictionaring = 
 				items.ConcurrentDictionaring(i => i.Id, i => i.Value).For(consumer);
 
-			dictionaring.AddItemRequestHandler = (id, value) => items.Add(new Item(id, value));
-			dictionaring.SetItemRequestHandler = (id, value) => items.SingleOrDefault(i => i.Id == id).Value = value;
-			dictionaring.RemoveItemRequestHandler = id => items.Remove(items.SingleOrDefault(i => i.Id == id));
-			dictionaring.ClearItemsRequestHandler = () => items.Clear();
+			Action<int, string> dictionaringAddItemRequestHandler = (id, value) => items.Add(new Item(id, value));
+			dictionaring.AddItemRequestHandler = dictionaringAddItemRequestHandler;
+			Assert.IsTrue(dictionaring.AddItemRequestHandler == dictionaringAddItemRequestHandler);
+
+			Action<int, string> dictionaringSetItemRequestHandler = (id, value) => items.SingleOrDefault(i => i.Id == id).Value = value;
+			dictionaring.SetItemRequestHandler = dictionaringSetItemRequestHandler;
+			Assert.IsTrue(dictionaring.SetItemRequestHandler == dictionaringSetItemRequestHandler);
+
+			Func<int, bool> dictionaringRemoveItemRequestHandler = id => items.Remove(items.SingleOrDefault(i => i.Id == id));
+			dictionaring.RemoveItemRequestHandler = dictionaringRemoveItemRequestHandler;
+			Assert.IsTrue(dictionaring.RemoveItemRequestHandler == dictionaringRemoveItemRequestHandler);
+
+			Action dictionaringClearItemsRequestHandler = () => items.Clear();
+			dictionaring.ClearItemsRequestHandler = dictionaringClearItemsRequestHandler;
+			Assert.IsTrue(dictionaring.ClearItemsRequestHandler == dictionaringClearItemsRequestHandler);
 
 			dictionaring.Add(5, "2");
 			dictionaring.ValidateConsistency();
@@ -145,9 +167,17 @@ namespace ObservableComputations.Test
 			HashSetting<Item, int> dictionaring = 
 				items.HashSetting(i => i.Id).For(consumer);
 
-			dictionaring.AddItemRequestHandler = (id) => items.Add(new Item(id, "value"));
-			dictionaring.RemoveItemRequestHandler = id => items.Remove(items.SingleOrDefault(i => i.Id == id));
-			dictionaring.ClearItemsRequestHandler = () => items.Clear();
+			Action<int> dictionaringAddItemRequestHandler = (id) => items.Add(new Item(id, "value"));
+			dictionaring.AddItemRequestHandler = dictionaringAddItemRequestHandler;
+			Assert.IsTrue(dictionaring.AddItemRequestHandler == dictionaringAddItemRequestHandler);
+
+			Func<int, bool> dictionaringRemoveItemRequestHandler = id => items.Remove(items.SingleOrDefault(i => i.Id == id));
+			dictionaring.RemoveItemRequestHandler = dictionaringRemoveItemRequestHandler;
+			Assert.IsTrue(dictionaring.RemoveItemRequestHandler == dictionaringRemoveItemRequestHandler);
+
+			Action dictionaringClearItemsRequestHandler = () => items.Clear();
+			dictionaring.ClearItemsRequestHandler = dictionaringClearItemsRequestHandler;
+			Assert.IsTrue(dictionaring.ClearItemsRequestHandler == dictionaringClearItemsRequestHandler);
 
 			dictionaring.Add(5);
 			dictionaring.ValidateConsistency();
@@ -177,30 +207,40 @@ namespace ObservableComputations.Test
 			Grouping<Item, string> grouping = 
 				items.Grouping(i => i.Value).For(consumer);
 
-			grouping.InsertItemIntoGroupRequestHandler = (group, index, item) => 
-				items.Insert(index < group.Count ? group.SourceItemIndices[index] : group.SourceItemIndices[group.Count - 1] + 1, item);
+			Action<Group<Item, string>, int, Item> groupingInsertItemIntoGroupRequestHandler = (group, index, item) => 
+				items.Insert(index < @group.Count ? @group.SourceItemIndices[index] : @group.SourceItemIndices[@group.Count - 1] + 1, item);
+			grouping.InsertItemIntoGroupRequestHandler = groupingInsertItemIntoGroupRequestHandler;
+			Assert.IsTrue(grouping.InsertItemIntoGroupRequestHandler == groupingInsertItemIntoGroupRequestHandler);
 
-			grouping.RemoveItemFromGroupRequestHandler = (group, index) => 
-				items.RemoveAt(group.SourceItemIndices[index]);
+			Action<Group<Item, string>, int> groupingRemoveItemFromGroupRequestHandler = (group, index) => 
+				items.RemoveAt(@group.SourceItemIndices[index]);
+			grouping.RemoveItemFromGroupRequestHandler = groupingRemoveItemFromGroupRequestHandler;
+			Assert.IsTrue(grouping.RemoveItemFromGroupRequestHandler == groupingRemoveItemFromGroupRequestHandler);
 
-			grouping.MoveItemInGroupRequestHandler = (group, oldIndex, newIndex) =>
+			Action<Group<Item, string>, int, int> groupingMoveItemInGroupRequestHandler = (group, oldIndex, newIndex) =>
 			{
-				Item item = group[oldIndex];
-				items.RemoveAt(group.SourceItemIndices[oldIndex]);
-				items.Insert(group.SourceItemIndices[newIndex], item);
+				Item item = @group[oldIndex];
+				items.RemoveAt(@group.SourceItemIndices[oldIndex]);
+				items.Insert(@group.SourceItemIndices[newIndex], item);
 			};
+			grouping.MoveItemInGroupRequestHandler = groupingMoveItemInGroupRequestHandler;
+			Assert.IsTrue(grouping.MoveItemInGroupRequestHandler == groupingMoveItemInGroupRequestHandler);
 
-			grouping.SetGroupItemRequestHandler = (group, index, item) => 
-				items[group.SourceItemIndices[index]] = item;
+			Action<Group<Item, string>, int, Item> groupingSetGroupItemRequestHandler = (group, index, item) => 
+				items[@group.SourceItemIndices[index]] = item;
+			grouping.SetGroupItemRequestHandler = groupingSetGroupItemRequestHandler;
+			Assert.IsTrue(grouping.SetGroupItemRequestHandler == groupingSetGroupItemRequestHandler);
 
-			grouping.ClearGroupItemsRequestHandler = group =>
+			Action<Group<Item, string>> groupingClearGroupItemsRequestHandler = group =>
 			{
-				ReadOnlyCollection<int> groupSourceItemIndecies = group.SourceItemIndices;
-				for (int i = group.Count - 1; i >= 0; i--)
+				ReadOnlyCollection<int> groupSourceItemIndecies = @group.SourceItemIndices;
+				for (int i = @group.Count - 1; i >= 0; i--)
 				{
 					items.RemoveAt(groupSourceItemIndecies[i]);
 				}
 			};
+			grouping.ClearGroupItemsRequestHandler = groupingClearGroupItemsRequestHandler;
+			Assert.IsTrue(grouping.ClearGroupItemsRequestHandler == groupingClearGroupItemsRequestHandler);
 
 			grouping[2].Add(new Item(6, "3"));
 			grouping.ValidateConsistency();
@@ -240,28 +280,38 @@ namespace ObservableComputations.Test
 			GroupJoining<Item, Item, int> groupJoining = 
 				outerItems.GroupJoining(innerItems, i => i.Id, i => i.Id).For(consumer);
 
-			groupJoining.InsertItemIntoGroupRequestHandler = (group, index, item) =>
-				innerItems.Insert(index < group.Count ? group.InnerSourceItemIndices[index] : group.InnerSourceItemIndices[group.Count - 1] + 1, item);
+			Action<JoinGroup<Item, Item, int>, int, Item> groupJoiningInsertItemIntoGroupRequestHandler = (group, index, item) =>
+				innerItems.Insert(index < @group.Count ? @group.InnerSourceItemIndices[index] : @group.InnerSourceItemIndices[@group.Count - 1] + 1, item);
+			groupJoining.InsertItemIntoGroupRequestHandler = groupJoiningInsertItemIntoGroupRequestHandler;
+			Assert.IsTrue(groupJoining.InsertItemIntoGroupRequestHandler == groupJoiningInsertItemIntoGroupRequestHandler);
 
-			groupJoining.RemoveItemFromGroupRequestHandler = (group, index) =>
-				innerItems.RemoveAt(group.InnerSourceItemIndices[index]);
+			Action<JoinGroup<Item, Item, int>, int> groupJoiningRemoveItemFromGroupRequestHandler = (group, index) =>
+				innerItems.RemoveAt(@group.InnerSourceItemIndices[index]);
+			groupJoining.RemoveItemFromGroupRequestHandler = groupJoiningRemoveItemFromGroupRequestHandler;
+			Assert.IsTrue(groupJoining.RemoveItemFromGroupRequestHandler == groupJoiningRemoveItemFromGroupRequestHandler);
 
-			groupJoining.MoveItemInGroupRequestHandler = (group, oldIndex, newIndex) => {
-				Item item = group[oldIndex];
-				innerItems.RemoveAt(group.InnerSourceItemIndices[oldIndex]);
-				innerItems.Insert(group.InnerSourceItemIndices[newIndex], item);
+			Action<JoinGroup<Item, Item, int>, int, int> groupJoiningMoveItemInGroupRequestHandler = (group, oldIndex, newIndex) => {
+				Item item = @group[oldIndex];
+				innerItems.RemoveAt(@group.InnerSourceItemIndices[oldIndex]);
+				innerItems.Insert(@group.InnerSourceItemIndices[newIndex], item);
 			};
+			groupJoining.MoveItemInGroupRequestHandler = groupJoiningMoveItemInGroupRequestHandler;
+			Assert.IsTrue(groupJoining.MoveItemInGroupRequestHandler == groupJoiningMoveItemInGroupRequestHandler);
 
-			groupJoining.SetGroupItemRequestHandler = (group, index, item) =>
-				innerItems[group.InnerSourceItemIndices[index]] = item;
+			Action<JoinGroup<Item, Item, int>, int, Item> groupJoiningSetGroupItemRequestHandler = (group, index, item) =>
+				innerItems[@group.InnerSourceItemIndices[index]] = item;
+			groupJoining.SetGroupItemRequestHandler = groupJoiningSetGroupItemRequestHandler;
+			Assert.IsTrue(groupJoining.SetGroupItemRequestHandler == groupJoiningSetGroupItemRequestHandler);
 
-			groupJoining.ClearGroupItemsRequestHandler = group => {
-				ReadOnlyCollection<int> groupSourceItemIndecies = group.InnerSourceItemIndices;
-				for (int i = group.Count - 1; i >= 0; i--)
+			Action<JoinGroup<Item, Item, int>> groupJoiningClearGroupItemsRequestHandler = group => {
+				ReadOnlyCollection<int> groupSourceItemIndecies = @group.InnerSourceItemIndices;
+				for (int i = @group.Count - 1; i >= 0; i--)
 				{
 					innerItems.RemoveAt(groupSourceItemIndecies[i]);
 				}
 			};
+			groupJoining.ClearGroupItemsRequestHandler = groupJoiningClearGroupItemsRequestHandler;
+			Assert.IsTrue(groupJoining.ClearGroupItemsRequestHandler == groupJoiningClearGroupItemsRequestHandler);
 
 			groupJoining[2].Add(new Item(6, "3"));
 			groupJoining.ValidateConsistency();

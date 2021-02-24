@@ -107,30 +107,39 @@ namespace ObservableComputations.Test
 			ObservableCollection<int> sourceCollection = (new ObservableCollection<int>(new []{1, 2, 3}));
 			Extending<int> collection = sourceCollection.Extending().For(consumer);
 
-			collection.InsertItemRequestHandler = (index, newItem) =>
+			Action<int, int> collectionInsertItemRequestHandler = (index, newItem) =>
 			{
 				sourceCollection.Insert(index, newItem);
 			};
+			collection.InsertItemRequestHandler = collectionInsertItemRequestHandler;
+			Assert.IsTrue(collection.InsertItemRequestHandler == collectionInsertItemRequestHandler);
 
-			collection.RemoveItemRequestHandler = (index) =>
+			Action<int> collectionRemoveItemRequestHandler = (index) =>
 			{
 				sourceCollection.Remove(index);
 			};
+			collection.RemoveItemRequestHandler = collectionRemoveItemRequestHandler;
+			Assert.IsTrue(collection.RemoveItemRequestHandler == collectionRemoveItemRequestHandler);
 
-			collection.SetItemRequestHandler = (index, newItem) =>
+			Action<int, int> collectionSetItemRequestHandler = (index, newItem) =>
 			{
 				sourceCollection[index] = newItem;
 			};
+			collection.SetItemRequestHandler = collectionSetItemRequestHandler;
+			Assert.IsTrue(collection.SetItemRequestHandler == collectionSetItemRequestHandler);
 
-			collection.MoveItemRequestHandler = (oldIndex, newIndex) =>
+			Action<int, int> collectionMoveItemRequestHandler = (oldIndex, newIndex) =>
 			{
 				sourceCollection.Move(oldIndex, newIndex);
 			};
+			collection.MoveItemRequestHandler = collectionMoveItemRequestHandler;
+			Assert.IsTrue(collection.MoveItemRequestHandler == collectionMoveItemRequestHandler);
 
-			collection.ClearItemsRequestHandler = () =>
+			Action collectionClearItemsRequestHandler = () =>
 			{
 				sourceCollection.Clear();
 			};
+			collection.ClearItemsRequestHandler = collectionClearItemsRequestHandler;
 
 			test(collection);
 

@@ -18,7 +18,7 @@ using ThreadState = System.Threading.ThreadState;
 
 namespace ObservableComputations
 {
-	public struct Invocation
+	public class Invocation
 	{
 		public Action Action => _action;
 		public int Priority => _priority;
@@ -27,6 +27,8 @@ namespace ObservableComputations
 		public string CallStackTrace => _callStackTrace;
 		public object Context => _context;
 		public OcDispatcher OcDispatcher => _ocDispatcher;
+		public bool Done => _done;
+		public Invocation Parent => _parent;
 
 		private readonly Action _action;
 		private readonly Action<object> _actionWithState;
@@ -35,60 +37,56 @@ namespace ObservableComputations
 		internal readonly object _context;
 		private readonly OcDispatcher _ocDispatcher;
 		internal int _priority;
-		internal readonly InvocationStatus InvocationStatus;
+		internal bool _done;
 		internal readonly ManualResetEventSlim _doneManualResetEvent;
+		private Invocation _parent;
 
-
-		internal Invocation(Action action, int priority, OcDispatcher ocDispatcher, string callStackTrace, InvocationStatus invocationStatus, object context = null, ManualResetEventSlim doneManualResetEvent = null) : this()
+		internal Invocation(Action action, int priority, OcDispatcher ocDispatcher, Invocation parent, string callStackTrace, object context = null, ManualResetEventSlim doneManualResetEvent = null)
 		{
 			_action = action;
 			_priority = priority;
 			_ocDispatcher = ocDispatcher;
 			_context = context;
-			InvocationStatus = invocationStatus;
 			_doneManualResetEvent = doneManualResetEvent;
 			_callStackTrace = callStackTrace;
+			_parent = parent;
 		}
 
-		internal Invocation(Action<object> actionWithState, int priority, object state, OcDispatcher ocDispatcher, string callStackTrace, InvocationStatus invocationStatus, object context = null, ManualResetEventSlim doneManualResetEvent = null) : this()
+		internal Invocation(Action<object> actionWithState, int priority, object state, OcDispatcher ocDispatcher,
+			Invocation parent, string callStackTrace, object context = null,
+			ManualResetEventSlim doneManualResetEvent = null)
 		{
 			_actionWithState = actionWithState;
 			_priority = priority;
 			_state = state;
 			_ocDispatcher = ocDispatcher;
 			_context = context;
-			InvocationStatus = invocationStatus;
 			_doneManualResetEvent = doneManualResetEvent;
 			_callStackTrace = callStackTrace;
+			_parent = parent;
 		}
 
 		internal void Do()
 		{
-			_ocDispatcher._invocationStack.Push(this);
+			Invocation originalExecutingInvocation = _ocDispatcher._executingInvocation;
+			_ocDispatcher._executingInvocation = this;
 
 			if (_action != null)
 				_action();
 			else
 				_actionWithState(_state);
 
-			_ocDispatcher._invocationStack.TryPop(out _);
+			_ocDispatcher._executingInvocation = originalExecutingInvocation;
 
-
-			if (InvocationStatus != null) 
-				InvocationStatus.Done = true; 
+			_done = true; 
 			
 			_doneManualResetEvent?.Set();
 		}
 	}
 
-	internal class InvocationStatus
+	public class InvocationResult<TValue> : IReadScalar<TValue>
 	{
-		internal bool Done;
-	}
-
-	public class InvocationResult<TResult> : IReadScalar<TResult>
-	{
-		public TResult Value
+		public TValue Value
 		{
 			get => _value;
 			internal set
@@ -102,8 +100,26 @@ namespace ObservableComputations
 
 		public bool Ripe => _ripe;
 
-		private TResult _value;
+		private TValue _value;
 		private bool _ripe;
+		internal Invocation _invocation;
+
+		public InvocationResult()
+		{
+
+		}
+
+		public InvocationResult(Invocation invocation)
+		{
+			_invocation = invocation;
+		}
+
+		public InvocationResult(Invocation invocation, TValue value)
+		{
+			_invocation = invocation;
+			_value = value;
+			_ripe = true;
+		}
 
 		public event PropertyChangedEventHandler PropertyChanged;
 
@@ -111,7 +127,7 @@ namespace ObservableComputations
 
 		public override string ToString()
 		{
-			return $"(ObservableComputations.InvocationResult<{typeof(TResult).Name}> (Value = '{_value.ToStringSafe(e => e.Message)}'))";
+			return $"(ObservableComputations.InvocationResult<{typeof(TValue).Name}> (Value = '{_value.ToStringSafe(e => e.Message)}'))";
 		}
 
 		#endregion
@@ -127,21 +143,25 @@ namespace ObservableComputations
 		internal readonly int _managedThreadId;
 		private NewInvocationBehaviour _newInvocationBehaviour;
 		private OcDispatcherState _state;
-		internal ConcurrentStack<Invocation> _invocationStack = new ConcurrentStack<Invocation>();
 		private OcDispatcherSynchronizationContext _synchronizationContext;
-		internal const string ContinuationParametersThreadDataSlot = "ContinuationParametersThreadDataSlot";
-		private int _defaultPriority;
+		internal Invocation _executingInvocation;
 
-		public ReadOnlyCollection<Invocation> InvocationStack => 
-			new ReadOnlyCollection<Invocation>(_invocationStack.ToArray());
+		[ThreadStatic]
+		internal static int _ContinuationPriority;
 
-		public Invocation? ExecutingInvocation => 
-			_invocationStack.TryPeek(out Invocation invocation) 
-				? invocation 
-				: (Invocation?)null;
+		[ThreadStatic]
+		internal static object _ContinuationContext;
+
+		[ThreadStatic]
+		internal static Invocation _ContinuationExecutingInvocation;
+
+		public Invocation ExecutingInvocation => _executingInvocation;
+
+		public static OcDispatcher Current => 
+			StaticInfo._ocDispatchers.TryGetValue(Thread.CurrentThread, out OcDispatcher ocDispatcher) 
+				? ocDispatcher : null;
 
 		public int PrioritiesNumber => _highestPriority + 1;
-		public int DefaultPriority => _defaultPriority; 
 
 		public OcDispatcherState State =>
 			_state == OcDispatcherState.RunOrWait
@@ -167,12 +187,13 @@ namespace ObservableComputations
 
 		public int GetQueueCount(int priority = 0) => _invocationQueues[priority].Count;
 
-		private void queueInvocation(Action action, int priority, object context = null,
-			InvocationStatus invocationStatus = null, ManualResetEventSlim doneManualResetEvent = null)
+		private Invocation queueInvocation(Action action, int priority, object context,
+			Invocation parent, ManualResetEventSlim doneManualResetEvent = null)
 		{
-			Invocation invocation = new Invocation(action, priority, this, getCallStackTrace(), invocationStatus, context, doneManualResetEvent);
+			Invocation invocation = new Invocation(action, priority, this, parent, getCallStackTrace(), context, doneManualResetEvent);
 			_invocationQueues[priority].Enqueue(invocation);
 			_newInvocationManualResetEvent.Set();
+			return invocation;
 		}
 
 		private static string getCallStackTrace()
@@ -183,17 +204,17 @@ namespace ObservableComputations
 			return callStackTrace;
 		}
 
-		private void queueInvocation(Action<object> action, int priority, object state, object context = null,
-			InvocationStatus invocationStatus = null, ManualResetEventSlim doneManualResetEvent = null)
+		private Invocation queueInvocation(Action<object> action, int priority, object state, object context,
+			Invocation parent, ManualResetEventSlim doneManualResetEvent = null)
 		{
-			Invocation invocation = new Invocation(action, priority, state, this, getCallStackTrace(), invocationStatus, context, doneManualResetEvent);
+			Invocation invocation = new Invocation(action, priority, state, this, parent, getCallStackTrace(), context, doneManualResetEvent);
 			_invocationQueues[priority].Enqueue(invocation);
 			_newInvocationManualResetEvent.Set();
+			return invocation;
 		}
 
 		public OcDispatcher(
 			int prioritiesNumber = 1,
-			int defaultPriority = 0,
 			ApartmentState threadApartmentState = ApartmentState.Unknown)
 		{
 			if (Configuration.SaveInstantiatingStackTrace)
@@ -203,7 +224,6 @@ namespace ObservableComputations
 
 			_highestPriority = prioritiesNumber - 1;
 
-			_defaultPriority = defaultPriority;
 
 			_invocationQueues = new ConcurrentQueue<Invocation>[prioritiesNumber];
 
@@ -320,9 +340,7 @@ namespace ObservableComputations
 				ConcurrentQueue<Invocation> invocationQueue = _invocationQueues[index];
 				while (invocationQueue.TryDequeue(out Invocation invocation))
 				{
-					if (invocation.InvocationStatus != null) 
-						invocation.InvocationStatus.Done = true;
-
+					invocation._done = true;
 					invocation._doneManualResetEvent?.Set();
 				}
 			}
@@ -392,17 +410,9 @@ namespace ObservableComputations
 		private static object _passContext = new object();
 		public static object PassContext => _passContext;
 
-		public void Pass(int? priority = null)
+		public void Pass(int priority = 0)
 		{
-			Invoke(() => {}, priority ?? _defaultPriority, _passContext);
-		}
-
-		private static void setThreadContinuationParameters(int priority, object context, int? continuationPriority,
-			object continuationContext)
-		{
-			Thread.SetData(
-				Thread.GetNamedDataSlot(ContinuationParametersThreadDataSlot),
-				new ContinuationParameters(continuationPriority ?? priority, continuationContext ?? context));
+			Invoke(() => {}, priority, _passContext);
 		}
 
 		private static void verifyContinuationParameters(int? continuationPriority, object continuationContext)
@@ -419,151 +429,139 @@ namespace ObservableComputations
 			queueInvocation(action, priority, context, null);
 		}
 
-		public void Invoke(Action action, int? priority = null, object context = null)
+		public Invocation Invoke(Action action, int priority = 0, object context = null)
 		{
-			if (cannotAcceptNewInvocation()) return;
+			if (cannotAcceptNewInvocation()) return null;
+			Invocation executingInvocation = getExecutingInvocation();
+			return invoke(action, priority, context, executingInvocation);
+		}
 
-			if (_thread == Thread.CurrentThread)
+		internal Invocation invoke(Action action, int priority, object context, Invocation executingInvocation)
+		{
+			Invocation resultInvocation;
+
+			if (executingInvocation != null && executingInvocation == _executingInvocation)
 			{
-				InvocationStatus invocationStatus = new InvocationStatus();
-				Invocation executingInvocation = ExecutingInvocation.Value;
-				queueInvocation(action, priority ?? executingInvocation._priority, context ?? executingInvocation._context, invocationStatus);
-				processQueues((count, invocation) => invocationStatus.Done);
-				return;
+				resultInvocation = queueInvocation(action, priority, context, executingInvocation);
+				processQueues((count, invocation) => invocation._done);
+				return resultInvocation;
 			}
 
 			ManualResetEventSlim manualResetEvent = new ManualResetEventSlim(false);
 
-			queueInvocation(action, priority ?? _defaultPriority, context, doneManualResetEvent: manualResetEvent);
+			resultInvocation = queueInvocation(action, priority, context, executingInvocation, manualResetEvent);
 			manualResetEvent.Wait();
 			manualResetEvent.Dispose();
+			return resultInvocation;
 		}
 
-		public void Invoke(Action<object> action, object state, int? priority = null, object context = null)
-		{
-			if (cannotAcceptNewInvocation()) return;
+		private Invocation getExecutingInvocation() =>
+			Thread.CurrentThread == _thread 
+				? _executingInvocation 
+				: Current?._executingInvocation;
 
-			if (_thread == Thread.CurrentThread)
+		public Invocation Invoke(Action<object> action, object state, int priority = 0, object context = null)
+		{
+			if (cannotAcceptNewInvocation()) return null;
+			Invocation executingInvocation = getExecutingInvocation();
+			return invoke(action, state, priority, context, executingInvocation);
+		}
+
+		private Invocation invoke(Action<object> action, object state, int priority, object context, Invocation executingInvocation)
+		{
+			Invocation resultInvocation;
+
+			if (executingInvocation != null && executingInvocation == _executingInvocation)
 			{
-				InvocationStatus invocationStatus = new InvocationStatus();
-				Invocation executingInvocation = ExecutingInvocation.Value;
-				queueInvocation(action, priority ?? executingInvocation._priority, state, context ?? executingInvocation._context, invocationStatus);
-				processQueues((count, invocation) => invocationStatus.Done);
-				return;
+				resultInvocation = queueInvocation(action, priority, state, context, executingInvocation);
+				processQueues((count, invocation) => invocation._done);
+				return resultInvocation;
 			}
 
 			ManualResetEventSlim manualResetEvent = new ManualResetEventSlim(false);
 
-			queueInvocation(action, priority ?? _defaultPriority, state, context, doneManualResetEvent: manualResetEvent);
+			resultInvocation = queueInvocation(action, priority, state, context, executingInvocation,
+				doneManualResetEvent: manualResetEvent);
 			manualResetEvent.Wait();
 			manualResetEvent.Dispose();
+
+			return resultInvocation;
 		}
 
-		public TResult Invoke<TResult>(Func<TResult> func, int? priority = null, object context = null)
+		public InvocationResult<TResult> Invoke<TResult>(Func<TResult> func, int priority = 0, object context = null)
 		{
 			TResult result = default;
-			Invoke(() => { result = func(); }, priority, context);
-			return result;
+			Invocation invocation = Invoke(() => { result = func(); }, priority, context);
+			return invocation != null ? new InvocationResult<TResult>(invocation, result) : null;
 		}
 
-		public TResult Invoke<TResult>(Func<object, TResult> func, object state, int? priority = null, object context = null)
+		public InvocationResult<TResult> Invoke<TResult>(Func<object, TResult> func, object state, int priority = 0, object context = null)
 		{
 			TResult result = default;
-			Invoke(s => { result = func(s); }, state, priority, context);
-
-			return result;
+			Invocation invocation = Invoke(s => { result = func(s); }, state, priority, context);
+			return invocation != null ? new InvocationResult<TResult>(invocation, result) : null;
 		}
 
-		public void InvokeAsync(Action action, int? priority = null, object context = null)
+		public Invocation InvokeAsync(Action action, int priority = 0, object context = null)
 		{
-			if (cannotAcceptNewInvocation()) return;
+			if (cannotAcceptNewInvocation()) return null;
 
-			getApplyingPriorityAndContext(priority, context, out var applyingPriority, ref context);
-
-			queueInvocation(
+			return queueInvocation(
 				action, 
-				applyingPriority, 
-				context);
+				priority, 
+				context,
+				getExecutingInvocation());
 		}
 
-		public void InvokeAsync(Action<object> action, object state, int? priority = null, object context = null)
+		public Invocation InvokeAsync(Action<object> action, object state, int priority = 0, object context = null)
 		{
-			if (cannotAcceptNewInvocation()) return;
+			if (cannotAcceptNewInvocation()) return null;
 
-			getApplyingPriorityAndContext(priority, context, out var applyingPriority, ref context);
-
-			queueInvocation(
+			return queueInvocation(
 				action, 
-				applyingPriority,  
+				priority,  
 				state, 
-				context);						
+				context,
+				getExecutingInvocation());						
 		}
 
-		private void getApplyingPriorityAndContext(
-			int? priority, 
-			object context, 
-			out int applyingPriority,
-			ref object applyingContext)
-		{
-			if (Thread.CurrentThread == _thread)
-			{
-				Invocation executingInvocation = ExecutingInvocation.Value;
-				applyingPriority = priority ?? executingInvocation._priority;
-				applyingContext = context ?? executingInvocation._context;
-			}
-			else
-			{
-				applyingPriority = priority ?? _defaultPriority;
-			}
-		}
-
-		public Task InvokeAsyncAwaitable(Action action, int? priority = null, object context = null, int? continuationPriority = null, object continuationContext = null, CancellationToken cancellationToken = new CancellationToken())
+		public Task InvokeAsyncAwaitable(Action action, int priority = 0, object context = null, int? continuationPriority = null, object continuationContext = null, CancellationToken cancellationToken = new CancellationToken())
 		{
 			if (cannotAcceptNewInvocation()) return Task.CompletedTask;
 
-			Thread currentThread = Thread.CurrentThread;
-			if (currentThread == _thread)
-			{
-				Invocation executingInvocation = ExecutingInvocation.Value;
-				int applyingPriority = priority ?? executingInvocation._priority;
-				object applyingContext = context ?? executingInvocation._context;
+			Invocation executingInvocation = getExecutingInvocation();
 
+			if (executingInvocation != null && executingInvocation == _executingInvocation)
+			{
 				return Task.Run(() =>
 				{
-					setThreadContinuationParameters(
-						applyingPriority, 
-						applyingContext, 
-						continuationPriority, 
-						continuationContext);
+					_ContinuationPriority = continuationPriority ?? executingInvocation._priority;
+					_ContinuationContext = continuationContext ?? executingInvocation._context;
+					_ContinuationExecutingInvocation = executingInvocation.Parent;
 
-					Invoke(action, applyingPriority, applyingContext);
+					invoke(action, priority, context, executingInvocation);
 				}, cancellationToken);
 			}
 
 			verifyContinuationParameters(continuationPriority, continuationContext);
-			return Task.Run(() => Invoke(action, priority, context), cancellationToken);
+			return Task.Run(() => invoke(action, priority, context, executingInvocation), cancellationToken);
 		}
 
-		public Task InvokeAsyncAwaitable(Action<object> action, object state, int? priority = null, object context = null, int? continuationPriority = null, object continuationContext = null, CancellationToken cancellationToken = new CancellationToken())
+		public Task InvokeAsyncAwaitable(Action<object> action, object state, int priority = 0, object context = null, int? continuationPriority = null, object continuationContext = null, CancellationToken cancellationToken = new CancellationToken())
 		{
 			if (cannotAcceptNewInvocation()) return Task.CompletedTask;
 
-			Thread currentThread = Thread.CurrentThread;
-			if (currentThread == _thread)
-			{
-				Invocation executingInvocation = ExecutingInvocation.Value;
-				int applyingPriority = priority ?? executingInvocation._priority;
-				object applyingContext = context ?? executingInvocation._context;
+			Invocation executingInvocation = getExecutingInvocation();
 
+			if (executingInvocation != null && executingInvocation == _executingInvocation)
+			{
 				return Task.Run(() =>
 				{
-					setThreadContinuationParameters(
-						applyingPriority, 
-						applyingContext, 
-						continuationPriority, 
-						continuationContext);
+					_ContinuationPriority = continuationPriority ?? executingInvocation._priority;
+					_ContinuationContext = continuationContext ?? executingInvocation._context;
+					_ContinuationExecutingInvocation = executingInvocation.Parent;
 
-					Invoke(action, state, applyingPriority, applyingContext);
+					Invoke(action, state, priority, context);
 				}, cancellationToken);
 			}
 
@@ -571,78 +569,80 @@ namespace ObservableComputations
 			return Task.Run(() => Invoke(action, state, priority, context), cancellationToken);
 		}
 
-		public InvocationResult<TResult> InvokeAsync<TResult>(Func<TResult> func, int? priority = null, object context = null)
+		public InvocationResult<TResult> InvokeAsync<TResult>(Func<TResult> func, int priority = 0, object context = null)
 		{
-			if (cannotAcceptNewInvocation()) return default;
+			if (cannotAcceptNewInvocation()) return null;
 
 			InvocationResult<TResult> invocationResult = new InvocationResult<TResult>();
-			InvokeAsync(() => { invocationResult.Value = func(); }, priority, context);
-
+			invocationResult._invocation = InvokeAsync(() => { invocationResult.Value = func(); }, priority, context);
 			return invocationResult;
 		}
 
-		public InvocationResult<TResult> InvokeAsync<TResult>(Func<object, TResult> func, object state, int? priority = null, object context = null)
+		public InvocationResult<TResult> InvokeAsync<TResult>(Func<object, TResult> func, object state, int priority = 0, object context = null)
 		{
-			if (cannotAcceptNewInvocation()) return default;
+			if (cannotAcceptNewInvocation()) return null;
 
 			InvocationResult<TResult> invocationResult = new InvocationResult<TResult>();
-			InvokeAsync(s => { invocationResult.Value = func(s); }, state, priority, context);
-
+			invocationResult._invocation = InvokeAsync(s => { invocationResult.Value = func(s); }, state, priority, context);
 			return invocationResult;
 		}
 
-		public Task<TResult> InvokeAsyncAwaitable<TResult>(Func<TResult> func, int? priority = null, object context = null, int? continuationPriority = null, object continuationContext = null, CancellationToken cancellationToken = new CancellationToken())
+		public Task<TResult> InvokeAsyncAwaitable<TResult>(Func<TResult> func, int priority = 0, object context = null, int? continuationPriority = null, object continuationContext = null, CancellationToken cancellationToken = new CancellationToken())
 		{
 			if (cannotAcceptNewInvocation()) return Task.FromResult(default(TResult));
 
-			Thread currentThread = Thread.CurrentThread;
-			if (currentThread == _thread)
-			{
-				Invocation executingInvocation = ExecutingInvocation.Value;
-				int applyingPriority = priority ?? executingInvocation._priority;
-				object applyingContext = context ?? executingInvocation._context;
+			Invocation executingInvocation = getExecutingInvocation();
 
+			if (executingInvocation != null && executingInvocation == _executingInvocation)
+			{
 				return Task.Run(() =>
 				{
-					setThreadContinuationParameters(
-						applyingPriority, 
-						applyingContext, 
-						continuationPriority, 
-						continuationContext);
+					_ContinuationPriority = continuationPriority ?? executingInvocation._priority;
+					_ContinuationContext = continuationContext ?? executingInvocation._context;
+					_ContinuationExecutingInvocation = executingInvocation.Parent;
 
-					return Invoke(func, applyingPriority, applyingContext);
+					TResult result = default;
+					invoke(() => result = func(), priority, context, executingInvocation);
+					return result;
 				}, cancellationToken);
 			}
 
 			verifyContinuationParameters(continuationPriority, continuationContext);
-			return Task.Run(() => Invoke(func, priority, context), cancellationToken);
+			return Task.Run(() =>
+			{
+				TResult result = default;
+				invoke(() => result = func(), priority, context, executingInvocation);
+				return result;
+			}, cancellationToken);
 		}
 
-		public Task<TResult> InvokeAsyncAwaitable<TResult>(Func<object, TResult> func, object state, int? priority = null, object context = null, int? continuationPriority = null, object continuationContext = null, CancellationToken cancellationToken = new CancellationToken())
+		public Task<TResult> InvokeAsyncAwaitable<TResult>(Func<object, TResult> func, object state, int priority = 0, object context = null, int? continuationPriority = null, object continuationContext = null, CancellationToken cancellationToken = new CancellationToken())
 		{
 			if (cannotAcceptNewInvocation()) return Task.FromResult(default(TResult));
 
-			Thread currentThread = Thread.CurrentThread;
-			if (currentThread == _thread)
-			{
-				Invocation executingInvocation = ExecutingInvocation.Value;
-				int applyingPriority = priority ?? executingInvocation._priority;
-				object applyingContext = context ?? executingInvocation._context;
+			Invocation executingInvocation = getExecutingInvocation();
 
+			if (executingInvocation != null && executingInvocation == _executingInvocation)
+			{
 				return Task.Run(() =>
 				{
-					setThreadContinuationParameters(
-						applyingPriority, 
-						applyingContext, 
-						continuationPriority, 
-						continuationContext);
+					_ContinuationPriority = continuationPriority ?? executingInvocation._priority;
+					_ContinuationContext = continuationContext ?? executingInvocation._context;
+					_ContinuationExecutingInvocation = executingInvocation.Parent;
 
-					return Invoke(func, state, applyingPriority, applyingContext);
+					TResult result = default;
+					invoke(s => result = func(s), state, priority, context, executingInvocation);
+					return result;
 				}, cancellationToken);
 			}
 
 			verifyContinuationParameters(continuationPriority, continuationContext);
-			return Task.Run(() => Invoke(func, state, priority, context), cancellationToken);
+			return Task.Run(() =>
+			{
+				TResult result = default;
+				invoke(s => result = func(s), state, priority, context, executingInvocation);
+				return result;
+			}, cancellationToken);
 		}
 
 		#region Overrides of Object
@@ -676,18 +676,6 @@ namespace ObservableComputations
 		Disposed
 	}
 
-	internal struct ContinuationParameters
-	{
-		internal int Priority;
-		internal object Context;
-
-		public ContinuationParameters(int priority, object context)
-		{
-			Priority = priority;
-			Context = context;
-		}
-	}
-
 	internal class OcDispatcherSynchronizationContext : SynchronizationContext
 	{
 		OcDispatcher _ocDispatcher;
@@ -701,15 +689,11 @@ namespace ObservableComputations
 		#region Overrides of SynchronizationContext
 		public override void Post(SendOrPostCallback postCallback, object state)
 		{
-			ContinuationParameters continuationParameters = 
-				(ContinuationParameters) Thread.GetData(
-					Thread.GetNamedDataSlot(
-						OcDispatcher.ContinuationParametersThreadDataSlot));
-
-			_ocDispatcher.Invoke(
+			_ocDispatcher.invoke(
 				() => postCallback(state), 
-				continuationParameters.Priority, 
-				continuationParameters.Context);
+				OcDispatcher._ContinuationPriority, 
+				OcDispatcher._ContinuationContext,
+				OcDispatcher._ContinuationExecutingInvocation);
 		}
 		#endregion
 	}

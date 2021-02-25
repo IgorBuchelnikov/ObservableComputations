@@ -262,7 +262,7 @@ namespace ObservableComputations
 
 		private void processQueues(Func<int, Invocation, bool> stop)
 		{
-			Console.WriteLine($"processQueues!!! {Thread.CurrentThread.ManagedThreadId}");
+			Console.WriteLine($"processQueues!! {Thread.CurrentThread.ManagedThreadId}");
 			bool processed = true;
 			int count = 0;
 			while (processed)

@@ -548,7 +548,6 @@ namespace ObservableComputations.Test
 						{
 							exception = e;
 							stackTrace = e.StackTrace;
-							mres.Set();
 						}
 					}, 1, 2);
 
@@ -568,11 +567,11 @@ namespace ObservableComputations.Test
 					//	stackTrace = e.StackTrace;
 					//	mres.Set();
 					//}
-					//mres.Set();
+					mres.Set();
 				}, 1, 1);
 			//});
 
-			Console.WriteLine("Step 5 !!!!!!!");
+			Console.WriteLine("Step 4 !!!!!!!");
 			mres.Wait();
 			Console.WriteLine("Step 5 !!!!!!!");
 			mres.Dispose();

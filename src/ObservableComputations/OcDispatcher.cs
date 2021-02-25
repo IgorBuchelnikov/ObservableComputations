@@ -70,7 +70,7 @@ namespace ObservableComputations
 		{
 			Invocation originalExecutingInvocation = _ocDispatcher._executingInvocation;
 			_ocDispatcher._executingInvocation = this;
-			Console.WriteLine($" --> executingInvocation = {this.GetHashCode()}");
+			Console.WriteLine($" --> executingInvocation = this");
 
 			if (_action != null)
 				_action();

@@ -517,23 +517,50 @@ namespace ObservableComputations.Test
 
 				dispatcher.InvokeAsync(async () =>
 				{
-					count++;
-					Assert.AreEqual(dispatcher.ExecutingInvocation.Parent, invocation);
+					try
+					{
+						count++;
+						Assert.AreEqual(dispatcher.ExecutingInvocation.Parent, invocation);
+					}
+					catch (Exception e)
+					{
+						Console.WriteLine(e);
+						Console.WriteLine(e.StackTrace);
+						throw;
+					}
 
 					await dispatcher.InvokeAsyncAwaitable(() =>
 					{
-						Assert.AreEqual(count, 1);
-						count++;
-						Assert.AreEqual(dispatcher.ExecutingInvocation.Priority, 0);
-						Assert.AreEqual(dispatcher.ExecutingInvocation.Context, null);
+						try
+						{
+							Assert.AreEqual(count, 1);
+							count++;
+							Assert.AreEqual(dispatcher.ExecutingInvocation.Priority, 0);
+							Assert.AreEqual(dispatcher.ExecutingInvocation.Context, null);
+						}
+						catch (Exception e)
+						{
+							Console.WriteLine(e);
+							Console.WriteLine(e.StackTrace);
+							throw;
+						}
 					});
 
-					Assert.AreEqual(dispatcher.ExecutingInvocation.Parent, invocation);
-					Assert.AreEqual(count, 2);
-					count++;
-					Assert.AreEqual(Thread.CurrentThread.ManagedThreadId, dispatcher.ManagedThreadId);
-					Assert.AreEqual(dispatcher.ExecutingInvocation.Priority, 1);
-					Assert.AreEqual(dispatcher.ExecutingInvocation.Context, context);
+					try
+					{
+						Assert.AreEqual(dispatcher.ExecutingInvocation.Parent, invocation);
+						Assert.AreEqual(count, 2);
+						count++;
+						Assert.AreEqual(Thread.CurrentThread.ManagedThreadId, dispatcher.ManagedThreadId);
+						Assert.AreEqual(dispatcher.ExecutingInvocation.Priority, 1);
+						Assert.AreEqual(dispatcher.ExecutingInvocation.Context, context);
+					}
+					catch (Exception e)
+					{
+						Console.WriteLine(e);
+						Console.WriteLine(e.StackTrace);
+						throw;
+					}
 					mres.Set();
 				}, 1, context);
 			});

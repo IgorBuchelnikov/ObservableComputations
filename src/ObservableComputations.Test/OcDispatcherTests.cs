@@ -512,14 +512,14 @@ namespace ObservableComputations.Test
 			object context = new object();
 			Exception exception = null;
 			string stackTrace = null;
-
+			Console.WriteLine($"Step 0 !!!!!!! {Thread.CurrentThread.ManagedThreadId}");
 			//dispatcher.Invoke(() =>
 			//{
 			//	Invocation invocation = dispatcher.ExecutingInvocation;
 
 				dispatcher.Invoke(async () =>
 				{
-					Console.WriteLine("Step 1 !!!!!!!");
+					Console.WriteLine($"Step 1 !!!!!!! {Thread.CurrentThread.ManagedThreadId}");
 					try
 					{
 						count++;
@@ -533,7 +533,7 @@ namespace ObservableComputations.Test
 
 					await dispatcher.InvokeAsyncAwaitable(() =>
 					{
-						Console.WriteLine("Step 2 !!!!!!!");
+						Console.WriteLine($"Step 2 !!!!!!! {Thread.CurrentThread.ManagedThreadId}");
 						try
 						{
 							Assert.AreEqual(count, 1);
@@ -549,7 +549,7 @@ namespace ObservableComputations.Test
 						}
 					}, 1, 2);
 
-					Console.WriteLine("Step 3 !!!!!!!");
+					Console.WriteLine($"Step 3 !!!!!!! {Thread.CurrentThread.ManagedThreadId}");
 					//try
 					//{
 					//	//Assert.AreEqual(dispatcher.ExecutingInvocation.Parent, invocation);
@@ -569,9 +569,9 @@ namespace ObservableComputations.Test
 				}, 1, 1);
 			//});
 
-			Console.WriteLine("Step 4 !!!!!!!");
+			Console.WriteLine($"Step 4 !!!!!!! {Thread.CurrentThread.ManagedThreadId}");
 			mres.Wait();
-			Console.WriteLine("Step 5 !!!!!!!");
+			Console.WriteLine($"Step 5 !!!!!!! {Thread.CurrentThread.ManagedThreadId}");
 			mres.Dispose();
 			dispatcher.Dispose();
 			if (stackTrace != null) Console.WriteLine(stackTrace);

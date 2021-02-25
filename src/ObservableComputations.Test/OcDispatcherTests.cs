@@ -537,7 +537,7 @@ namespace ObservableComputations.Test
 						{
 							Assert.AreEqual(count, 1);
 							count++;
-							Console.WriteLine($"dispatcher.ExecutingInvocation is {(dispatcher.ExecutingInvocation == null ? "null" : "not null")}!!!!!!!!!!!!!!!!");
+							//Console.WriteLine($"dispatcher.ExecutingInvocation is {(dispatcher.ExecutingInvocation == null ? "null" : "not null")}!!!!!!!!!!!!!!!!");
 							Assert.AreEqual(dispatcher.ExecutingInvocation.Priority, 0);
 							Assert.AreEqual(dispatcher.ExecutingInvocation.Context, null);
 						}

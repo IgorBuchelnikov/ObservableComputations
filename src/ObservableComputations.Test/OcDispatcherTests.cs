@@ -534,6 +534,7 @@ namespace ObservableComputations.Test
 					await dispatcher.InvokeAsyncAwaitable(() =>
 					{
 						Console.WriteLine($"Step 2 !!!!!!! {Thread.CurrentThread.ManagedThreadId}");
+						Console.WriteLine(Environment.StackTrace);
 						try
 						{
 							Assert.AreEqual(count, 1);

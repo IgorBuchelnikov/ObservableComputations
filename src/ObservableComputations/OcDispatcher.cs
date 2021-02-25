@@ -239,6 +239,7 @@ namespace ObservableComputations
 			{
 				SynchronizationContext.SetSynchronizationContext(_synchronizationContext);
 				StaticInfo._ocDispatchers[Thread.CurrentThread] = this;
+				Console.WriteLine($"Thread started!!!! {Thread.CurrentThread.ManagedThreadId}");
 
 				while (_isRunning)
 				{

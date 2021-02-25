@@ -449,6 +449,7 @@ namespace ObservableComputations
 			if (executingInvocation != null && executingInvocation == _executingInvocation)
 			{
 				resultInvocation = queueInvocation(action, priority, context, executingInvocation);
+				Console.WriteLine($"processQueues!!! {Thread.CurrentThread.ManagedThreadId}");
 				processQueues((count, invocation) => invocation._done);
 				return resultInvocation;
 			}

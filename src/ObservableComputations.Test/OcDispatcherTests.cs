@@ -529,7 +529,6 @@ namespace ObservableComputations.Test
 					{
 						exception = e;
 						stackTrace = e.StackTrace;
-						mres.Set();
 					}
 
 					await dispatcher.InvokeAsyncAwaitable(() =>
@@ -542,7 +541,6 @@ namespace ObservableComputations.Test
 							Console.WriteLine($"dispatcher.ExecutingInvocation is {(dispatcher.ExecutingInvocation == null ? "null" : "not null")}!!!!!!!!!!!!!!!!");
 							Assert.AreEqual(dispatcher.ExecutingInvocation.Priority, 1);
 							//Assert.AreEqual(dispatcher.ExecutingInvocation.Context, null);
-							mres.Set();
 						}
 						catch (Exception e)
 						{

@@ -505,81 +505,42 @@ namespace ObservableComputations.Test
 		[Test]
 		public void TestInvokeAsyncAwaitableDispatcherThread()
 		{
-			Console.WriteLine("eeeeeeeeeeeeeeeeeeeeeee!!!!!!!!!!!!!!!!!!!!!!!");
 			OcDispatcher dispatcher = new OcDispatcher(2);
 			int count = 0;
 			ManualResetEventSlim mres = new ManualResetEventSlim(false);
 			object context = new object();
-			Exception exception = null;
-			string stackTrace = null;
-			Console.WriteLine($"Step 0 !!!!!!! {Thread.CurrentThread.ManagedThreadId}");
-			//dispatcher.Invoke(() =>
-			//{
-			//	Invocation invocation = dispatcher.ExecutingInvocation;
 
-				dispatcher.Invoke(async () =>
+			dispatcher.Invoke(() =>
+			{
+				Invocation invocation = dispatcher.ExecutingInvocation;
+
+				dispatcher.InvokeAsync(async () =>
 				{
-					Console.WriteLine($"Step 1 !!!!!!! {Thread.CurrentThread.ManagedThreadId}");
-					try
-					{
-						count++;
-						//Assert.AreEqual(dispatcher.ExecutingInvocation.Parent, invocation);
-					}
-					catch (Exception e)
-					{
-						exception = e;
-						stackTrace = e.StackTrace;
-					}
+					count++;
+					Assert.AreEqual(dispatcher.ExecutingInvocation.Parent, invocation);
 
 					await dispatcher.InvokeAsyncAwaitable(() =>
 					{
-						Console.WriteLine($"Step 2 !!!!!!! {Thread.CurrentThread.ManagedThreadId}");
-						Console.WriteLine(Environment.StackTrace);
-						try
-						{
-							Assert.AreEqual(count, 1);
-							count++;
-							Console.WriteLine($"dispatcher.ExecutingInvocation is {(dispatcher.ExecutingInvocation == null ? "null" : "not null")}!!!!!!!!!!!!!!!!");
-							Assert.AreEqual(dispatcher.ExecutingInvocation.Priority, 1);
-							//Assert.AreEqual(dispatcher.ExecutingInvocation.Context, null);
-						}
-						catch (Exception e)
-						{
-							exception = e;
-							stackTrace = e.StackTrace;
-						}
-					}, 1, 2);
+						Assert.AreEqual(count, 1);
+						count++;
+						Assert.AreEqual(dispatcher.ExecutingInvocation.Priority, 0);
+						Assert.AreEqual(dispatcher.ExecutingInvocation.Context, null);
+					});
 
-					Console.WriteLine($"Step 3 !!!!!!! {Thread.CurrentThread.ManagedThreadId}");
-					//try
-					//{
-					//	//Assert.AreEqual(dispatcher.ExecutingInvocation.Parent, invocation);
-					//	Assert.AreEqual(count, 2);
-					//	count++;
-					//	Assert.AreEqual(Thread.CurrentThread.ManagedThreadId, dispatcher.ManagedThreadId);
-					//	Assert.AreEqual(dispatcher.ExecutingInvocation.Priority, 1);
-					//	Assert.AreEqual(dispatcher.ExecutingInvocation.Context, context);
-					//}
-					//catch (Exception e)
-					//{
-					//	exception = e;
-					//	stackTrace = e.StackTrace;
-					//	mres.Set();
-					//}
+					Assert.AreEqual(dispatcher.ExecutingInvocation.Parent, invocation);
+					Assert.AreEqual(count, 2);
+					count++;
+					Assert.AreEqual(Thread.CurrentThread.ManagedThreadId, dispatcher.ManagedThreadId);
+					Assert.AreEqual(dispatcher.ExecutingInvocation.Priority, 1);
+					Assert.AreEqual(dispatcher.ExecutingInvocation.Context, context);
 					mres.Set();
-				}, 1, 1);
-			//});
+				}, 1, context);
+			});
 
-			Console.WriteLine($"Step 4 !!!!!!! {Thread.CurrentThread.ManagedThreadId}");
 			mres.Wait();
-			Console.WriteLine($"Step 5 !!!!!!! {Thread.CurrentThread.ManagedThreadId}");
 			mres.Dispose();
+			Assert.AreEqual(count, 3);
 			dispatcher.Dispose();
-			if (stackTrace != null) Console.WriteLine(stackTrace);
-			if (exception != null) throw exception;
-
-			Assert.AreEqual(count, 2);
-
 		}
 
 		[Test]

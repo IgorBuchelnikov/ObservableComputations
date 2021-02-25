@@ -66,14 +66,10 @@ namespace ObservableComputations
 			_parent = parent;
 		}
 
-		public static int n;
-
 		internal void Do()
 		{
-			Console.WriteLine($"Invoke {n++} - {Thread.CurrentThread.ManagedThreadId}");
 			Invocation originalExecutingInvocation = _ocDispatcher._executingInvocation;
 			_ocDispatcher._executingInvocation = this;
-			Console.WriteLine($" --> executingInvocation = {this.GetHashCode()}");
 
 			if (_action != null)
 				_action();
@@ -81,7 +77,6 @@ namespace ObservableComputations
 				_actionWithState(_state);
 
 			_ocDispatcher._executingInvocation = originalExecutingInvocation;
-			Console.WriteLine($"<-- _executingInvocation = {(originalExecutingInvocation == null ? "null" : originalExecutingInvocation.GetHashCode().ToString())}");
 
 			_done = true; 
 			
@@ -239,7 +234,6 @@ namespace ObservableComputations
 			{
 				SynchronizationContext.SetSynchronizationContext(_synchronizationContext);
 				StaticInfo._ocDispatchers[Thread.CurrentThread] = this;
-				Console.WriteLine($"Thread started!!!! {Thread.CurrentThread.ManagedThreadId}");
 
 				while (_isRunning)
 				{
@@ -262,7 +256,6 @@ namespace ObservableComputations
 
 		private void processQueues(Func<int, Invocation, bool> stop)
 		{
-			Console.WriteLine($"processQueues!! {Thread.CurrentThread.ManagedThreadId}");
 			bool processed = true;
 			int count = 0;
 			while (processed)
@@ -454,6 +447,12 @@ namespace ObservableComputations
 				return resultInvocation;
 			}
 
+			return invokeFromOutsideThread(action, priority, context, executingInvocation);
+		}
+
+		private Invocation invokeFromOutsideThread(Action action, int priority, object context, Invocation executingInvocation)
+		{
+			Invocation resultInvocation;
 			ManualResetEventSlim manualResetEvent = new ManualResetEventSlim(false);
 
 			resultInvocation = queueInvocation(action, priority, context, executingInvocation, manualResetEvent);
@@ -485,6 +484,13 @@ namespace ObservableComputations
 				return resultInvocation;
 			}
 
+			return invokeFromOutsideThread(action, state, priority, context, executingInvocation);
+		}
+
+		private Invocation invokeFromOutsideThread(Action<object> action, object state, int priority, object context,
+			Invocation executingInvocation)
+		{
+			Invocation resultInvocation;
 			ManualResetEventSlim manualResetEvent = new ManualResetEventSlim(false);
 
 			resultInvocation = queueInvocation(action, priority, state, context, executingInvocation,
@@ -546,12 +552,12 @@ namespace ObservableComputations
 					_ContinuationContext = continuationContext ?? executingInvocation._context;
 					_ContinuationExecutingInvocation = executingInvocation.Parent;
 
-					invoke(action, priority, context, executingInvocation);
+					invokeFromOutsideThread(action, priority, context, executingInvocation);
 				}, cancellationToken);
 			}
 
 			verifyContinuationParameters(continuationPriority, continuationContext);
-			return Task.Run(() => invoke(action, priority, context, executingInvocation), cancellationToken);
+			return Task.Run(() => invokeFromOutsideThread(action, priority, context, executingInvocation), cancellationToken);
 		}
 
 		public Task InvokeAsyncAwaitable(Action<object> action, object state, int priority = 0, object context = null, int? continuationPriority = null, object continuationContext = null, CancellationToken cancellationToken = new CancellationToken())
@@ -568,12 +574,12 @@ namespace ObservableComputations
 					_ContinuationContext = continuationContext ?? executingInvocation._context;
 					_ContinuationExecutingInvocation = executingInvocation.Parent;
 
-					Invoke(action, state, priority, context);
+					invokeFromOutsideThread(action, state, priority, context, executingInvocation);
 				}, cancellationToken);
 			}
 
 			verifyContinuationParameters(continuationPriority, continuationContext);
-			return Task.Run(() => Invoke(action, state, priority, context), cancellationToken);
+			return Task.Run(() => invokeFromOutsideThread(action, state, priority, context, executingInvocation), cancellationToken);
 		}
 
 		public InvocationResult<TResult> InvokeAsync<TResult>(Func<TResult> func, int priority = 0, object context = null)
@@ -609,7 +615,7 @@ namespace ObservableComputations
 					_ContinuationExecutingInvocation = executingInvocation.Parent;
 
 					TResult result = default;
-					invoke(() => result = func(), priority, context, executingInvocation);
+					invokeFromOutsideThread(() => result = func(), priority, context, executingInvocation);
 					return result;
 				}, cancellationToken);
 			}
@@ -618,7 +624,7 @@ namespace ObservableComputations
 			return Task.Run(() =>
 			{
 				TResult result = default;
-				invoke(() => result = func(), priority, context, executingInvocation);
+				invokeFromOutsideThread(() => result = func(), priority, context, executingInvocation);
 				return result;
 			}, cancellationToken);
 		}

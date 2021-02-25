@@ -70,6 +70,7 @@ namespace ObservableComputations
 		{
 			Invocation originalExecutingInvocation = _ocDispatcher._executingInvocation;
 			_ocDispatcher._executingInvocation = this;
+			Console.WriteLine($" --> executingInvocation = {this.GetHashCode()}");
 
 			if (_action != null)
 				_action();
@@ -77,6 +78,7 @@ namespace ObservableComputations
 				_actionWithState(_state);
 
 			_ocDispatcher._executingInvocation = originalExecutingInvocation;
+			Console.WriteLine($"<-- _executingInvocation = {(originalExecutingInvocation == null ? "null" : originalExecutingInvocation.GetHashCode().ToString())}");
 
 			_done = true; 
 			

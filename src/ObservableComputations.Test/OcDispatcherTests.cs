@@ -531,7 +531,7 @@ namespace ObservableComputations.Test
 						mres.Set();
 					}
 
-					dispatcher.InvokeAsync(() =>
+					await dispatcher.InvokeAsyncAwaitable(() =>
 					{
 						try
 						{

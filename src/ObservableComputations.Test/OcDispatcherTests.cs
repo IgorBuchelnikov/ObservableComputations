@@ -568,9 +568,8 @@ namespace ObservableComputations.Test
 			});
 
 			mres.Wait();
-			Console.WriteLine(stackTrace);
-
-			throw exception;
+			if (stackTrace != null) Console.WriteLine(stackTrace);
+			if (exception != null) throw exception;
 			mres.Dispose();
 			Assert.AreEqual(count, 3);
 			dispatcher.Dispose();

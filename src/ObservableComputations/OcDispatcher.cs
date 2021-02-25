@@ -66,8 +66,11 @@ namespace ObservableComputations
 			_parent = parent;
 		}
 
+		public int n;
+
 		internal void Do()
 		{
+			Console.WriteLine($"Invoke {n++} - {Thread.CurrentThread.ManagedThreadId}");
 			Invocation originalExecutingInvocation = _ocDispatcher._executingInvocation;
 			_ocDispatcher._executingInvocation = this;
 			Console.WriteLine($" --> executingInvocation = {this.GetHashCode()}");

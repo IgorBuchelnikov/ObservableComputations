@@ -510,7 +510,7 @@ namespace ObservableComputations.Test
 			int count = 0;
 			ManualResetEventSlim mres = new ManualResetEventSlim(false);
 			object context = new object();
-
+			Exception exception = null;
 
 			dispatcher.Invoke(() =>
 			{
@@ -525,9 +525,8 @@ namespace ObservableComputations.Test
 					}
 					catch (Exception e)
 					{
-						Console.WriteLine(e);
-						Console.WriteLine(e.StackTrace);
-						throw;
+						exception = e;
+						mres.Set();
 					}
 
 					await dispatcher.InvokeAsyncAwaitable(() =>
@@ -541,9 +540,8 @@ namespace ObservableComputations.Test
 						}
 						catch (Exception e)
 						{
-							Console.WriteLine(e);
-							Console.WriteLine(e.StackTrace);
-							throw;
+							exception = e;
+							mres.Set();
 						}
 					});
 
@@ -558,15 +556,16 @@ namespace ObservableComputations.Test
 					}
 					catch (Exception e)
 					{
-						Console.WriteLine(e);
-						Console.WriteLine(e.StackTrace);
-						throw;
+						exception = e;
+						mres.Set();
 					}
 					mres.Set();
 				}, 1, context);
 			});
 
 			mres.Wait();
+
+			throw exception;
 			mres.Dispose();
 			Assert.AreEqual(count, 3);
 			dispatcher.Dispose();

@@ -546,7 +546,7 @@ namespace ObservableComputations.Test
 						{
 							exception = e;
 							stackTrace = e.StackTrace;
-							
+							mres.Set();
 						}
 					});
 

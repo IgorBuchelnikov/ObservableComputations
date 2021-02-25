@@ -531,7 +531,7 @@ namespace ObservableComputations.Test
 						mres.Set();
 					}
 
-					await dispatcher.InvokeAsyncAwaitable(() =>
+					dispatcher.InvokeAsync(() =>
 					{
 						try
 						{
@@ -540,31 +540,32 @@ namespace ObservableComputations.Test
 							Console.WriteLine($"dispatcher.ExecutingInvocation is {(dispatcher.ExecutingInvocation == null ? "null" : "not null")}!!!!!!!!!!!!!!!!");
 							Assert.AreEqual(dispatcher.ExecutingInvocation.Priority, 0);
 							Assert.AreEqual(dispatcher.ExecutingInvocation.Context, null);
+							mres.Set();
 						}
 						catch (Exception e)
 						{
 							exception = e;
 							stackTrace = e.StackTrace;
-							mres.Set();
+							
 						}
 					});
 
-					try
-					{
-						//Assert.AreEqual(dispatcher.ExecutingInvocation.Parent, invocation);
-						Assert.AreEqual(count, 2);
-						count++;
-						Assert.AreEqual(Thread.CurrentThread.ManagedThreadId, dispatcher.ManagedThreadId);
-						Assert.AreEqual(dispatcher.ExecutingInvocation.Priority, 1);
-						Assert.AreEqual(dispatcher.ExecutingInvocation.Context, context);
-					}
-					catch (Exception e)
-					{
-						exception = e;
-						stackTrace = e.StackTrace;
-						mres.Set();
-					}
-					mres.Set();
+					//try
+					//{
+					//	//Assert.AreEqual(dispatcher.ExecutingInvocation.Parent, invocation);
+					//	Assert.AreEqual(count, 2);
+					//	count++;
+					//	Assert.AreEqual(Thread.CurrentThread.ManagedThreadId, dispatcher.ManagedThreadId);
+					//	Assert.AreEqual(dispatcher.ExecutingInvocation.Priority, 1);
+					//	Assert.AreEqual(dispatcher.ExecutingInvocation.Context, context);
+					//}
+					//catch (Exception e)
+					//{
+					//	exception = e;
+					//	stackTrace = e.StackTrace;
+					//	mres.Set();
+					//}
+					//mres.Set();
 				}, 1, context);
 			//});
 
@@ -572,7 +573,7 @@ namespace ObservableComputations.Test
 			if (stackTrace != null) Console.WriteLine(stackTrace);
 			if (exception != null) throw exception;
 			mres.Dispose();
-			Assert.AreEqual(count, 3);
+			Assert.AreEqual(count, 2);
 			dispatcher.Dispose();
 		}
 

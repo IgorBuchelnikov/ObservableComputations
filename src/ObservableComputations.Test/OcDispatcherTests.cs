@@ -538,8 +538,8 @@ namespace ObservableComputations.Test
 							Assert.AreEqual(count, 1);
 							count++;
 							Console.WriteLine($"dispatcher.ExecutingInvocation is {(dispatcher.ExecutingInvocation == null ? "null" : "not null")}!!!!!!!!!!!!!!!!");
-							Assert.AreEqual(dispatcher.ExecutingInvocation.Priority, 0);
-							Assert.AreEqual(dispatcher.ExecutingInvocation.Context, null);
+							Assert.AreEqual(dispatcher.ExecutingInvocation.Priority, 1);
+							//Assert.AreEqual(dispatcher.ExecutingInvocation.Context, null);
 							mres.Set();
 						}
 						catch (Exception e)
@@ -548,7 +548,7 @@ namespace ObservableComputations.Test
 							stackTrace = e.StackTrace;
 							mres.Set();
 						}
-					});
+					}, 1, 2);
 
 					//try
 					//{
@@ -566,7 +566,7 @@ namespace ObservableComputations.Test
 					//	mres.Set();
 					//}
 					//mres.Set();
-				}, 1, context);
+				}, 1, 1);
 			//});
 
 			mres.Wait();

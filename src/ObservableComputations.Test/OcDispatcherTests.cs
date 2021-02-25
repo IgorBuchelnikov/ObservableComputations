@@ -511,6 +511,7 @@ namespace ObservableComputations.Test
 			ManualResetEventSlim mres = new ManualResetEventSlim(false);
 			object context = new object();
 			Exception exception = null;
+			string stackTrace = null;
 
 			dispatcher.Invoke(() =>
 			{
@@ -526,6 +527,7 @@ namespace ObservableComputations.Test
 					catch (Exception e)
 					{
 						exception = e;
+						stackTrace = e.StackTrace;
 						mres.Set();
 					}
 
@@ -541,6 +543,7 @@ namespace ObservableComputations.Test
 						catch (Exception e)
 						{
 							exception = e;
+							stackTrace = e.StackTrace;
 							mres.Set();
 						}
 					});
@@ -557,6 +560,7 @@ namespace ObservableComputations.Test
 					catch (Exception e)
 					{
 						exception = e;
+						stackTrace = e.StackTrace;
 						mres.Set();
 					}
 					mres.Set();
@@ -564,6 +568,7 @@ namespace ObservableComputations.Test
 			});
 
 			mres.Wait();
+			Console.WriteLine(stackTrace);
 
 			throw exception;
 			mres.Dispose();

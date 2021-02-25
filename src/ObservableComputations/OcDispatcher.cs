@@ -66,7 +66,7 @@ namespace ObservableComputations
 			_parent = parent;
 		}
 
-		public int n;
+		public static int n;
 
 		internal void Do()
 		{

@@ -29,11 +29,11 @@ jobs:
         dotnet restore
         dotnet test --framework netcoreapp2.1 /p:CoverletOutput=TestResults/ /p:CollectCoverage=true /p:CoverletOutputFormat=lcov /p:DefineConstants=GitHubActionBuild%3BRunOnlyMinimalTestsToCover 
     #   dotnet test --framework netcoreapp2.1 -l "console;verbosity=normal" --filter Name~TestInvokeAsyncAwaitableDispatcherThread /p:CoverletOutput=TestResults/ /p:CollectCoverage=true /p:CoverletOutputFormat=lcov /p:DefineConstants=GitHubActionBuild%3BRunOnlyMinimalTestsToCover 
-    #- name: Publish coverage report to coveralls.io
-    #  uses: coverallsapp/github-action@master
-    #  with:
-    #    github-token: ${{ secrets.GITHUB_TOKEN }}
-    #    path-to-lcov: ./src/ObservableComputations.Test/TestResults/coverage.netcoreapp2.1.info
+    - name: Publish coverage report to coveralls.io
+      uses: coverallsapp/github-action@master
+      with:
+        github-token: ${{ secrets.GITHUB_TOKEN }}
+        path-to-lcov: ./src/ObservableComputations.Test/TestResults/coverage.netcoreapp2.1.info
     # - name: Upload coverage to Codecov
     #  uses: codecov/codecov-action@v1
     #  with:

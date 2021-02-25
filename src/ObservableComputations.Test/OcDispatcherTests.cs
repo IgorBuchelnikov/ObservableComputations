@@ -519,6 +519,7 @@ namespace ObservableComputations.Test
 
 				dispatcher.Invoke(async () =>
 				{
+					Console.WriteLine("Step 1 !!!!!!!");
 					try
 					{
 						count++;
@@ -533,6 +534,7 @@ namespace ObservableComputations.Test
 
 					await dispatcher.InvokeAsyncAwaitable(() =>
 					{
+						Console.WriteLine("Step 2 !!!!!!!");
 						try
 						{
 							Assert.AreEqual(count, 1);
@@ -550,6 +552,7 @@ namespace ObservableComputations.Test
 						}
 					}, 1, 2);
 
+					Console.WriteLine("Step 3 !!!!!!!");
 					//try
 					//{
 					//	//Assert.AreEqual(dispatcher.ExecutingInvocation.Parent, invocation);
@@ -569,7 +572,9 @@ namespace ObservableComputations.Test
 				}, 1, 1);
 			//});
 
+			Console.WriteLine("Step 5 !!!!!!!");
 			mres.Wait();
+			Console.WriteLine("Step 5 !!!!!!!");
 			mres.Dispose();
 			dispatcher.Dispose();
 			if (stackTrace != null) Console.WriteLine(stackTrace);

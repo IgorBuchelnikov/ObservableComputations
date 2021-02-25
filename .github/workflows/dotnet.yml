@@ -28,22 +28,22 @@ jobs:
         cd ./src/ObservableComputations.Test/
         dotnet restore
         dotnet test --framework netcoreapp2.1 /p:CoverletOutput=TestResults/ /p:CollectCoverage=true /p:CoverletOutputFormat=lcov /p:DefineConstants=GitHubActionBuild%3BRunOnlyMinimalTestsToCover 
-    - name: Publish coverage report to coveralls.io
-      uses: coverallsapp/github-action@master
-      with:
-        github-token: ${{ secrets.GITHUB_TOKEN }}
-        path-to-lcov: ./src/ObservableComputations.Test/TestResults/coverage.netcoreapp2.1.info
-    - name: Upload coverage to Codecov
-      uses: codecov/codecov-action@v1
-      with:
-        token: ${{ secrets.CODECOV_TOKEN }}
-        files: ./src/ObservableComputations.Test/TestResults/coverage.netcoreapp2.1.info
-        flags: unittests
-        name: codecov-umbrella
-        verbose: true
-    - name: ReportGenerator
-      uses: danielpalme/ReportGenerator-GitHub-Action@4.8.4
-      with:
-        reports: './src/ObservableComputations.Test/TestResults/coverage.netcoreapp2.1.info' # REQUIRED # The coverage reports that should be parsed (separated by semicolon). Globbing is supported.
-        targetdir: 'src/ObservableComputations.Test/TestReport' # REQUIRED # The directory where the generated report should be saved.
-        reporttypes: 'HtmlInline;lcov' # The output formats and scope (separated by semicolon) Values: Badges, Clover, Cobertura, CsvSummary, Html, HtmlChart, HtmlInline, HtmlInline_AzurePipelines, HtmlInline_AzurePipelines_Dark, HtmlSummary, JsonSummary, Latex, LatexSummary, lcov, MHtml, PngChart, SonarQube, TeamCitySummary, TextSummary, Xml, XmlSummar
+    #- name: Publish coverage report to coveralls.io
+    #  uses: coverallsapp/github-action@master
+    #  with:
+    #    github-token: ${{ secrets.GITHUB_TOKEN }}
+    #    path-to-lcov: ./src/ObservableComputations.Test/TestResults/coverage.netcoreapp2.1.info
+    # - name: Upload coverage to Codecov
+    #  uses: codecov/codecov-action@v1
+    #  with:
+    #    token: ${{ secrets.CODECOV_TOKEN }}
+    #    files: ./src/ObservableComputations.Test/TestResults/coverage.netcoreapp2.1.info
+    #    flags: unittests
+    #    name: codecov-umbrella
+    #    verbose: true
+    #- name: ReportGenerator
+    #  uses: danielpalme/ReportGenerator-GitHub-Action@4.8.4
+    #  with:
+    #    reports: './src/ObservableComputations.Test/TestResults/coverage.netcoreapp2.1.info' # REQUIRED # The coverage reports that should be parsed (separated by semicolon). Globbing is supported.
+    #    targetdir: 'src/ObservableComputations.Test/TestReport' # REQUIRED # The directory where the generated report should be saved.
+    #    reporttypes: 'HtmlInline;lcov' # The output formats and scope (separated by semicolon) Values: Badges, Clover, Cobertura, CsvSummary, Html, HtmlChart, HtmlInline, HtmlInline_AzurePipelines, HtmlInline_AzurePipelines_Dark, HtmlSummary, JsonSummary, Latex, LatexSummary, lcov, MHtml, PngChart, SonarQube, TeamCitySummary, TextSummary, Xml, XmlSummar

@@ -447,10 +447,10 @@ namespace ObservableComputations
 				return resultInvocation;
 			}
 
-			return invokeFromOutsideThread(action, priority, context, executingInvocation);
+			return invokeInOutsideThread(action, priority, context, executingInvocation);
 		}
 
-		private Invocation invokeFromOutsideThread(Action action, int priority, object context, Invocation executingInvocation)
+		internal Invocation invokeInOutsideThread(Action action, int priority, object context, Invocation executingInvocation)
 		{
 			Invocation resultInvocation;
 			ManualResetEventSlim manualResetEvent = new ManualResetEventSlim(false);
@@ -470,11 +470,6 @@ namespace ObservableComputations
 		{
 			if (cannotAcceptNewInvocation()) return null;
 			Invocation executingInvocation = getExecutingInvocation();
-			return invoke(action, state, priority, context, executingInvocation);
-		}
-
-		private Invocation invoke(Action<object> action, object state, int priority, object context, Invocation executingInvocation)
-		{
 			Invocation resultInvocation;
 
 			if (executingInvocation != null && executingInvocation == _executingInvocation)
@@ -484,10 +479,10 @@ namespace ObservableComputations
 				return resultInvocation;
 			}
 
-			return invokeFromOutsideThread(action, state, priority, context, executingInvocation);
+			return invokeInOutsideThread(action, state, priority, context, executingInvocation);
 		}
 
-		private Invocation invokeFromOutsideThread(Action<object> action, object state, int priority, object context,
+		private Invocation invokeInOutsideThread(Action<object> action, object state, int priority, object context,
 			Invocation executingInvocation)
 		{
 			Invocation resultInvocation;
@@ -552,12 +547,12 @@ namespace ObservableComputations
 					_ContinuationContext = continuationContext ?? executingInvocation._context;
 					_ContinuationExecutingInvocation = executingInvocation.Parent;
 
-					invokeFromOutsideThread(action, priority, context, executingInvocation);
+					invokeInOutsideThread(action, priority, context, executingInvocation);
 				}, cancellationToken);
 			}
 
 			verifyContinuationParameters(continuationPriority, continuationContext);
-			return Task.Run(() => invokeFromOutsideThread(action, priority, context, executingInvocation), cancellationToken);
+			return Task.Run(() => invokeInOutsideThread(action, priority, context, executingInvocation), cancellationToken);
 		}
 
 		public Task InvokeAsyncAwaitable(Action<object> action, object state, int priority = 0, object context = null, int? continuationPriority = null, object continuationContext = null, CancellationToken cancellationToken = new CancellationToken())
@@ -574,12 +569,12 @@ namespace ObservableComputations
 					_ContinuationContext = continuationContext ?? executingInvocation._context;
 					_ContinuationExecutingInvocation = executingInvocation.Parent;
 
-					invokeFromOutsideThread(action, state, priority, context, executingInvocation);
+					invokeInOutsideThread(action, state, priority, context, executingInvocation);
 				}, cancellationToken);
 			}
 
 			verifyContinuationParameters(continuationPriority, continuationContext);
-			return Task.Run(() => invokeFromOutsideThread(action, state, priority, context, executingInvocation), cancellationToken);
+			return Task.Run(() => invokeInOutsideThread(action, state, priority, context, executingInvocation), cancellationToken);
 		}
 
 		public InvocationResult<TResult> InvokeAsync<TResult>(Func<TResult> func, int priority = 0, object context = null)
@@ -615,7 +610,7 @@ namespace ObservableComputations
 					_ContinuationExecutingInvocation = executingInvocation.Parent;
 
 					TResult result = default;
-					invokeFromOutsideThread(() => result = func(), priority, context, executingInvocation);
+					invokeInOutsideThread(() => result = func(), priority, context, executingInvocation);
 					return result;
 				}, cancellationToken);
 			}
@@ -624,7 +619,7 @@ namespace ObservableComputations
 			return Task.Run(() =>
 			{
 				TResult result = default;
-				invokeFromOutsideThread(() => result = func(), priority, context, executingInvocation);
+				invokeInOutsideThread(() => result = func(), priority, context, executingInvocation);
 				return result;
 			}, cancellationToken);
 		}
@@ -644,7 +639,7 @@ namespace ObservableComputations
 					_ContinuationExecutingInvocation = executingInvocation.Parent;
 
 					TResult result = default;
-					invoke(s => result = func(s), state, priority, context, executingInvocation);
+					invokeInOutsideThread(s => result = func(s), state, priority, context, executingInvocation);
 					return result;
 				}, cancellationToken);
 			}
@@ -653,7 +648,7 @@ namespace ObservableComputations
 			return Task.Run(() =>
 			{
 				TResult result = default;
-				invoke(s => result = func(s), state, priority, context, executingInvocation);
+				invokeInOutsideThread(s => result = func(s), state, priority, context, executingInvocation);
 				return result;
 			}, cancellationToken);
 		}
@@ -702,7 +697,7 @@ namespace ObservableComputations
 		#region Overrides of SynchronizationContext
 		public override void Post(SendOrPostCallback postCallback, object state)
 		{
-			_ocDispatcher.invoke(
+			_ocDispatcher.invokeInOutsideThread(
 				() => postCallback(state), 
 				OcDispatcher._ContinuationPriority, 
 				OcDispatcher._ContinuationContext,

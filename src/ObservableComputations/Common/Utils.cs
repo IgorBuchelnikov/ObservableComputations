@@ -1185,7 +1185,6 @@ namespace ObservableComputations
 		internal static readonly PropertyChangedEventArgs MoveItemRequestHandlerPropertyChangedEventArgs = new PropertyChangedEventArgs("MoveItemRequestHandler");
 		internal static readonly PropertyChangedEventArgs ClearItemsRequestHandlerPropertyChangedEventArgs = new PropertyChangedEventArgs("ClearItemsRequestHandler");
 		internal static readonly PropertyChangedEventArgs ValuePropertyChangedEventArgs = new PropertyChangedEventArgs("Value");
-		internal static readonly PropertyChangedEventArgs RipePropertyChangedEventArgs = new PropertyChangedEventArgs("Ripe");
 		internal static readonly PropertyChangedEventArgs CountPropertyChangedEventArgs = new PropertyChangedEventArgs("Count");
 		internal static readonly PropertyChangedEventArgs IndexerPropertyChangedEventArgs = new PropertyChangedEventArgs("Item[]");
 		internal static readonly PropertyChangedEventArgs ValueObjectPropertyChangedEventArgs = new PropertyChangedEventArgs("ValueObject");

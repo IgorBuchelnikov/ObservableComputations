@@ -856,6 +856,11 @@ namespace ObservableComputations.Test
 					Assert.AreEqual(dispatcher.ExecutingInvocation.Context, context);
 					Assert.AreEqual(dispatcher.ExecutingInvocation.Parent, parent);
 
+					OcDispatcherSynchronizationContext synchronizationContext = (OcDispatcherSynchronizationContext) SynchronizationContext.Current;
+					Assert.AreEqual(synchronizationContext.Priority, 1);
+					Assert.AreEqual(synchronizationContext.Context, context);
+					Assert.AreEqual(synchronizationContext.ParentInvocation, parent);
+
 					await Task.Run(() => count++);
 
 					Assert.AreEqual(dispatcher.ExecutingInvocation.Priority, 1);
@@ -897,6 +902,11 @@ namespace ObservableComputations.Test
 					Assert.AreEqual(dispatcher.ExecutingInvocation.Context, context);
 					Assert.AreEqual(dispatcher.ExecutingInvocation.Parent, parent);
 
+					OcDispatcherSynchronizationContext synchronizationContext = (OcDispatcherSynchronizationContext) SynchronizationContext.Current;
+					Assert.AreEqual(synchronizationContext.Priority, 1);
+					Assert.AreEqual(synchronizationContext.Context, context);
+					Assert.AreEqual(synchronizationContext.ParentInvocation, parent);
+
 					await Task.Run(() => count++);
 
 					Assert.AreEqual(dispatcher.ExecutingInvocation.Priority, 1);
@@ -912,5 +922,7 @@ namespace ObservableComputations.Test
 			Assert.AreEqual(count, 4);
 			dispatcher.Dispose();
 		}
+
+
 	}
 }

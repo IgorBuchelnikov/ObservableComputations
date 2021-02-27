@@ -64,6 +64,15 @@ namespace ObservableComputations.Test
 			}
 
 			#endregion
+
+			#region Overrides of Object
+
+			public override string ToString()
+			{
+				return _id.ToString();
+			}
+
+			#endregion
 		}
 
 		[Test]
@@ -107,6 +116,7 @@ namespace ObservableComputations.Test
 			dictionaring.ValidateConsistency();
 			dictionaring.Clear();
 			dictionaring.ValidateConsistency();
+			consumer.Dispose();
 		}
 
 		[Test]
@@ -187,6 +197,7 @@ namespace ObservableComputations.Test
 			dictionaring.ValidateConsistency();
 			dictionaring.Clear();
 			dictionaring.ValidateConsistency();
+			consumer.Dispose();
 		}
 
 		[Test]
@@ -252,6 +263,7 @@ namespace ObservableComputations.Test
 			grouping.ValidateConsistency();
 			grouping[2].Clear();
 			grouping.ValidateConsistency();
+			consumer.Dispose();
 		}
 
 		[Test]
@@ -323,6 +335,55 @@ namespace ObservableComputations.Test
 			groupJoining.ValidateConsistency();
 			groupJoining[2].Clear();
 			groupJoining.ValidateConsistency();
+			consumer.Dispose();
+		}
+
+		[Test]
+		public void TestJoining()
+		{
+			ObservableCollection<Item> leftItems = new ObservableCollection<Item>(
+				new Item[]
+				{
+					new Item(10, "11"), 
+					new Item(10, "12"),
+					new Item(20, "21"),
+					new Item(30, "31"),
+					new Item(30, "32"),
+					new Item(30, "33")
+				});
+
+			ObservableCollection<Item> rightItems = new ObservableCollection<Item>(
+				new Item[]
+				{
+					new Item(10, "10"),
+					new Item(20, "20"),
+					new Item(30, "30")
+				});
+
+			OcConsumer consumer = new OcConsumer();
+			Joining<Item, Item> joining = 
+				leftItems.Joining(rightItems, (li, ri) => ri.Id == li.Id).For(consumer);
+
+			Action<JoinPair<Item, Item>, Item> setLeftItemRequestHandler = (pair, item) =>
+			{
+				leftItems[joining.IndexOf(pair)] = item;
+
+			};
+			joining.SetLeftItemRequestHandler = setLeftItemRequestHandler;
+			Assert.AreEqual(joining.SetLeftItemRequestHandler, setLeftItemRequestHandler);
+
+			Action<JoinPair<Item, Item>, Item> setRightItemRequestHandler = (pair, item) =>
+			{
+				leftItems[leftItems.IndexOf(pair.LeftItem)] = item;
+
+			};
+			joining.SetRightItemRequestHandler = setRightItemRequestHandler;
+			Assert.AreEqual(joining.SetRightItemRequestHandler, setRightItemRequestHandler);
+
+			joining[2].LeftItem = new Item(50, "50");
+			joining[3].RightItem = new Item(70, "70");
+			joining.ValidateConsistency();
+			consumer.Dispose();
 		}
 
 		public ChangeRequestHandlersTests(bool debug) : base(debug)

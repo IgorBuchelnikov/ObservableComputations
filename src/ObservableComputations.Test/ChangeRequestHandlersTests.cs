@@ -293,7 +293,7 @@ namespace ObservableComputations.Test
 			getValueOrDefaultRaised = false;
 			itemRaised = false;
 			containsKeyRaised = false;
-			Assert.IsFalse(dictionaring.Remove(7));
+			Assert.IsFalse(dictionaring.Remove(10));
 			dictionaring.ValidateConsistency();
 			Assert.IsFalse(getValueOrDefaultRaised);
 			Assert.IsFalse(itemRaised);

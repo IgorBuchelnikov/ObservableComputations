@@ -357,8 +357,8 @@ namespace ObservableComputations
 			watcher.ValueChanged = valueExpressionWatcher_OnValueChanged;
 			watcher._position = itemInfo;
 			itemInfo.ValueExpressionWatcher = watcher;
-			itemInfo.Value = applyValueSelector(itemInfo, sourceItem);
 			itemInfo._valueSelectorFunc = func;
+			itemInfo.Value = applyValueSelector(itemInfo, sourceItem);
 			itemInfo.ValueNestedComputings = nestedComputings;
 		}
 
@@ -378,8 +378,8 @@ namespace ObservableComputations
 			watcher.ValueChanged = keyExpressionWatcher_OnValueChanged;
 			watcher._position = itemInfo;
 			itemInfo.KeyExpressionWatcher = watcher;
-			itemInfo.Key = applyKeySelector(itemInfo, sourceItem);
 			itemInfo._keySelectorFunc = func;
+			itemInfo.Key = applyKeySelector(itemInfo, sourceItem);
 			itemInfo.KeyNestedComputings = nestedComputings;
 		}
 
@@ -528,10 +528,10 @@ namespace ObservableComputations
 		}
 
 
-		public TKey ApplyKeySelector(int index)
-		{
-			return applyKeySelector(_itemInfos[index], _sourceAsList[index]);
-		}
+		//public TKey ApplyKeySelector(int index)
+		//{
+		//	return applyKeySelector(_itemInfos[index], _sourceAsList[index]);
+		//}
 
 		private TKey applyKeySelector(KeyValueExpressionItemInfo<TKey, TValue> itemInfo, TSourceItem sourceItem)
 		{
@@ -548,10 +548,10 @@ namespace ObservableComputations
 			return getValue();
 		}
 
-		public TValue ApplyValueSelector(int index)
-		{
-			return applyValueSelector(_itemInfos[index], _sourceAsList[index]);
-		}
+		//public TValue ApplyValueSelector(int index)
+		//{
+		//	return applyValueSelector(_itemInfos[index], _sourceAsList[index]);
+		//}
 
 		private TValue applyValueSelector(KeyValueExpressionItemInfo<TKey, TValue> itemInfo, TSourceItem sourceItem)
 		{
@@ -611,7 +611,7 @@ namespace ObservableComputations
 
 		private void baseRemoveItem(TKey key)
 		{
-			_dictionary.Remove(key);
+			if (!_dictionary.Remove(key)) return;
 			onPropertyChanged(Utils.CountPropertyChangedEventArgs);
 			onPropertyChanged(Utils.IndexerPropertyChangedEventArgs);
 			if (MethodChanged != null)
@@ -662,11 +662,11 @@ namespace ObservableComputations
 					TSourceItem sourceItem = source[sourceIndex];
 					KeyValueExpressionItemInfo<TKey, TValue> itemInfo = _itemInfos[sourceIndex];
 
-					TKey key = keySelector(sourceItem);
+					TKey key = itemInfo._keySelectorFunc == null ? keySelector(sourceItem) : itemInfo._keySelectorFunc();
 					if (!ContainsKey(key))
 						throw new ObservableComputationsException("Consistency violation: Dictionaring.2");
 
-					TValue value = valueSelector(sourceItem);
+					TValue value = itemInfo._valueSelectorFunc == null ? valueSelector(sourceItem) : itemInfo._valueSelectorFunc();
 					if (!this[key].IsSameAs(value))
 						throw new ObservableComputationsException("Consistency violation: Dictionaring.3");
 

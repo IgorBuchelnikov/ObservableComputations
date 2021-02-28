@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Collections.Specialized;
@@ -88,7 +89,25 @@ namespace ObservableComputations.Test
 
 			OcConsumer consumer = new OcConsumer();
 			Dictionaring<Item, int, string> dictionaring = 
-				items.Dictionaring(i => i.Id, i => i.Value).For(consumer);
+				items.Dictionaring(i => new Computing<int>(() => i.Id).Value, i => i.Value).For(consumer);
+
+			Assert.NotNull(dictionaring.GetEnumerator());
+			Assert.NotNull(((IEnumerable) dictionaring).GetEnumerator());
+			dictionaring.CopyTo(new KeyValuePair<int, string>[3], 0);
+			Assert.NotNull(dictionaring.ToString());
+
+			int changedKey = 0;
+			string changedValue = null;
+			bool getValueOrDefaultRaised = false;
+			bool itemRaised = false;
+			bool containsKeyRaised = false;
+
+			dictionaring.MethodChanged += (sender, args) =>
+			{
+				if (args.MethodName == "GetValueOrDefault" && args.ArgumentsPredicate(new object[]{changedKey, changedValue})) getValueOrDefaultRaised = true;
+				if (args.MethodName == "Item[]" && args.ArgumentsPredicate(new object[]{changedKey, changedValue})) itemRaised = true;
+				if (args.MethodName == "ContainsKey" && args.ArgumentsPredicate(new object[]{changedKey, changedValue})) containsKeyRaised = true;
+			};
 
 			Action<int, string> dictionaringAddItemRequestHandler = (id, value) => items.Add(new Item(id, value));
 			dictionaring.AddItemRequestHandler = dictionaringAddItemRequestHandler;
@@ -106,16 +125,87 @@ namespace ObservableComputations.Test
 			dictionaring.ClearItemsRequestHandler = dictionaringClearItemsRequestHandler;
 			Assert.IsTrue(dictionaring.ClearItemsRequestHandler == dictionaringClearItemsRequestHandler);
 
+			dictionaring.ValidateConsistency();
+
+			changedKey = 5;
+			changedValue = "2";
 			dictionaring.Add(5, "2");
 			dictionaring.ValidateConsistency();
+			Assert.IsTrue(getValueOrDefaultRaised);
+			Assert.IsTrue(itemRaised);
+			Assert.IsTrue(containsKeyRaised);
+
+			getValueOrDefaultRaised = false;
+			itemRaised = false;
+			containsKeyRaised = false;
+			changedKey = 7;
+			changedValue = "7";
+			dictionaring.Add(new KeyValuePair<int, string>(7, "7"));
+			dictionaring.ValidateConsistency();
+			Assert.IsTrue(getValueOrDefaultRaised);
+			Assert.IsTrue(itemRaised);
+			Assert.IsTrue(containsKeyRaised);
+
+			getValueOrDefaultRaised = false;
+			itemRaised = false;
+			containsKeyRaised = false;
+			changedKey = 5;
+			changedValue = "2";
 			Assert.IsTrue(dictionaring.Remove(5));
 			dictionaring.ValidateConsistency();
-			Assert.IsFalse(dictionaring.Remove(7));
+			Assert.IsTrue(getValueOrDefaultRaised);
+			Assert.IsTrue(itemRaised);
+			Assert.IsTrue(containsKeyRaised);
+
+			getValueOrDefaultRaised = false;
+			itemRaised = false;
+			containsKeyRaised = false;
+			Assert.IsFalse(dictionaring.Remove(10));
 			dictionaring.ValidateConsistency();
+			Assert.IsFalse(getValueOrDefaultRaised);
+			Assert.IsFalse(itemRaised);
+			Assert.IsFalse(containsKeyRaised);
+
+			getValueOrDefaultRaised = false;
+			itemRaised = false;
+			containsKeyRaised = false;
+			changedKey = 7;
+			changedValue = "7";
+			Assert.IsTrue(dictionaring.Remove(new KeyValuePair<int, string>(7, "7")));
+			dictionaring.ValidateConsistency();
+			Assert.IsTrue(getValueOrDefaultRaised);
+			Assert.IsTrue(itemRaised);
+			Assert.IsTrue(containsKeyRaised);
+
+			getValueOrDefaultRaised = false;
+			itemRaised = false;
+			containsKeyRaised = false;
+			Assert.IsFalse(dictionaring.Remove(new KeyValuePair<int, string>(8, "8")));
+			dictionaring.ValidateConsistency();
+			Assert.IsFalse(getValueOrDefaultRaised);
+			Assert.IsFalse(itemRaised);
+			Assert.IsFalse(containsKeyRaised);
+
+			getValueOrDefaultRaised = false;
+			itemRaised = false;
+			containsKeyRaised = false;
+			changedKey = 0;
+			changedValue = "0";
 			dictionaring[0] = "1";
 			dictionaring.ValidateConsistency();
+			Assert.IsTrue(getValueOrDefaultRaised);
+			Assert.IsTrue(itemRaised);
+			Assert.IsTrue(containsKeyRaised);
+
+			Assert.IsTrue(getValueOrDefaultRaised);
+			Assert.IsTrue(itemRaised);
+			Assert.IsTrue(containsKeyRaised);
 			dictionaring.Clear();
 			dictionaring.ValidateConsistency();
+			Assert.IsTrue(getValueOrDefaultRaised);
+			Assert.IsTrue(itemRaised);
+			Assert.IsTrue(containsKeyRaised);
+
 			consumer.Dispose();
 		}
 
@@ -132,7 +222,25 @@ namespace ObservableComputations.Test
 
 			OcConsumer consumer = new OcConsumer();
 			ConcurrentDictionaring<Item, int, string> dictionaring = 
-				items.ConcurrentDictionaring(i => i.Id, i => i.Value).For(consumer);
+				items.ConcurrentDictionaring(i => new Computing<int>(() => i.Id).Value, i => i.Value).For(consumer);
+
+			Assert.NotNull(dictionaring.GetEnumerator());
+			Assert.NotNull(((IEnumerable) dictionaring).GetEnumerator());
+			dictionaring.CopyTo(new KeyValuePair<int, string>[3], 0);
+			Assert.NotNull(dictionaring.ToString());
+
+			int changedKey = 0;
+			string changedValue = null;
+			bool getValueOrDefaultRaised = false;
+			bool itemRaised = false;
+			bool containsKeyRaised = false;
+
+			dictionaring.MethodChanged += (sender, args) =>
+			{
+				if (args.MethodName == "GetValueOrDefault" && args.ArgumentsPredicate(new object[]{changedKey, changedValue})) getValueOrDefaultRaised = true;
+				if (args.MethodName == "Item[]" && args.ArgumentsPredicate(new object[]{changedKey, changedValue})) itemRaised = true;
+				if (args.MethodName == "ContainsKey" && args.ArgumentsPredicate(new object[]{changedKey, changedValue})) containsKeyRaised = true;
+			};
 
 			Action<int, string> dictionaringAddItemRequestHandler = (id, value) => items.Add(new Item(id, value));
 			dictionaring.AddItemRequestHandler = dictionaringAddItemRequestHandler;
@@ -150,16 +258,86 @@ namespace ObservableComputations.Test
 			dictionaring.ClearItemsRequestHandler = dictionaringClearItemsRequestHandler;
 			Assert.IsTrue(dictionaring.ClearItemsRequestHandler == dictionaringClearItemsRequestHandler);
 
+			changedKey = 5;
+			changedValue = "2";
 			dictionaring.Add(5, "2");
 			dictionaring.ValidateConsistency();
+			Assert.IsTrue(getValueOrDefaultRaised);
+			Assert.IsTrue(itemRaised);
+			Assert.IsTrue(containsKeyRaised);
+
+			Assert.IsTrue(dictionaring.Contains(new KeyValuePair<int, string>(5, "2")));
+
+			getValueOrDefaultRaised = false;
+			itemRaised = false;
+			containsKeyRaised = false;
+			changedKey = 7;
+			changedValue = "7";
+			dictionaring.Add(new KeyValuePair<int, string>(7, "7"));
+			dictionaring.ValidateConsistency();
+			Assert.IsTrue(getValueOrDefaultRaised);
+			Assert.IsTrue(itemRaised);
+			Assert.IsTrue(containsKeyRaised);
+
+			getValueOrDefaultRaised = false;
+			itemRaised = false;
+			containsKeyRaised = false;
+			changedKey = 5;
+			changedValue = "2";
 			Assert.IsTrue(dictionaring.Remove(5));
 			dictionaring.ValidateConsistency();
+			Assert.IsTrue(getValueOrDefaultRaised);
+			Assert.IsTrue(itemRaised);
+			Assert.IsTrue(containsKeyRaised);
+
+			getValueOrDefaultRaised = false;
+			itemRaised = false;
+			containsKeyRaised = false;
 			Assert.IsFalse(dictionaring.Remove(7));
 			dictionaring.ValidateConsistency();
+			Assert.IsFalse(getValueOrDefaultRaised);
+			Assert.IsFalse(itemRaised);
+			Assert.IsFalse(containsKeyRaised);
+
+			getValueOrDefaultRaised = false;
+			itemRaised = false;
+			containsKeyRaised = false;
+			changedKey = 7;
+			changedValue = "7";
+			Assert.IsTrue(dictionaring.Remove(new KeyValuePair<int, string>(7, "7")));
+			dictionaring.ValidateConsistency();
+			Assert.IsTrue(getValueOrDefaultRaised);
+			Assert.IsTrue(itemRaised);
+			Assert.IsTrue(containsKeyRaised);
+
+			getValueOrDefaultRaised = false;
+			itemRaised = false;
+			containsKeyRaised = false;
+			Assert.IsFalse(dictionaring.Remove(new KeyValuePair<int, string>(8, "8")));
+			dictionaring.ValidateConsistency();
+			Assert.IsFalse(getValueOrDefaultRaised);
+			Assert.IsFalse(itemRaised);
+			Assert.IsFalse(containsKeyRaised);
+
+			getValueOrDefaultRaised = false;
+			itemRaised = false;
+			containsKeyRaised = false;
+			changedKey = 0;
+			changedValue = "0";
 			dictionaring[0] = "1";
 			dictionaring.ValidateConsistency();
+			Assert.IsTrue(getValueOrDefaultRaised);
+			Assert.IsTrue(itemRaised);
+			Assert.IsTrue(containsKeyRaised);
+
+			Assert.IsTrue(getValueOrDefaultRaised);
+			Assert.IsTrue(itemRaised);
+			Assert.IsTrue(containsKeyRaised);
 			dictionaring.Clear();
 			dictionaring.ValidateConsistency();
+			Assert.IsTrue(getValueOrDefaultRaised);
+			Assert.IsTrue(itemRaised);
+			Assert.IsTrue(containsKeyRaised);
 		}
 
 		[Test]
@@ -175,7 +353,19 @@ namespace ObservableComputations.Test
 
 			OcConsumer consumer = new OcConsumer();
 			HashSetting<Item, int> dictionaring = 
-				items.HashSetting(i => i.Id).For(consumer);
+				items.HashSetting(i => new Computing<int>(() => i.Id).Value).For(consumer);
+
+			Assert.NotNull(dictionaring.GetEnumerator());
+			dictionaring.CopyTo(new int[3], 0);
+			Assert.NotNull(dictionaring.ToString());
+
+			int changedKey = 0;
+			bool containsRaised = false;
+
+			dictionaring.MethodChanged += (sender, args) =>
+			{
+				if (args.MethodName == "Contains" && args.ArgumentsPredicate(new object[]{changedKey})) containsRaised = true;
+			};
 
 			Action<int> dictionaringAddItemRequestHandler = (id) => items.Add(new Item(id, "value"));
 			dictionaring.AddItemRequestHandler = dictionaringAddItemRequestHandler;
@@ -189,12 +379,22 @@ namespace ObservableComputations.Test
 			dictionaring.ClearItemsRequestHandler = dictionaringClearItemsRequestHandler;
 			Assert.IsTrue(dictionaring.ClearItemsRequestHandler == dictionaringClearItemsRequestHandler);
 
+			changedKey = 5;
 			dictionaring.Add(5);
 			dictionaring.ValidateConsistency();
+			Assert.IsTrue(containsRaised);
+
+			containsRaised  = false;
 			Assert.IsTrue(dictionaring.Remove(5));
+			Assert.IsTrue(containsRaised);
 			dictionaring.ValidateConsistency();
+
+			containsRaised  = false;
+			changedKey = 1;
 			Assert.IsFalse(dictionaring.Remove(7));
+			Assert.IsFalse(containsRaised);
 			dictionaring.ValidateConsistency();
+
 			dictionaring.Clear();
 			dictionaring.ValidateConsistency();
 			consumer.Dispose();
@@ -383,6 +583,74 @@ namespace ObservableComputations.Test
 			joining[2].LeftItem = new Item(50, "50");
 			joining[3].RightItem = new Item(70, "70");
 			joining.ValidateConsistency();
+			consumer.Dispose();
+		}
+
+		[Test]
+		public void TestZipping()
+		{
+			ObservableCollection<Item> leftItems = new ObservableCollection<Item>(
+				new Item[]
+				{
+					new Item(10, "11"), 
+					new Item(10, "12"),
+					new Item(20, "21"),
+					new Item(30, "31"),
+					new Item(30, "32"),
+					new Item(30, "33")
+				});
+
+			ObservableCollection<Item> rightItems = new ObservableCollection<Item>(
+				new Item[]
+				{
+					new Item(10, "10"),
+					new Item(20, "20"),
+					new Item(30, "30")
+				});
+
+			OcConsumer consumer = new OcConsumer();
+			Zipping<Item, Item> zipping = 
+				leftItems.Zipping(rightItems).For(consumer);
+
+			Action<ZipPair<Item, Item>, Item> setLeftItemRequestHandler = (pair, item) =>
+			{
+				leftItems[zipping.IndexOf(pair)] = item;
+
+			};
+			zipping.SetLeftItemRequestHandler = setLeftItemRequestHandler;
+			Assert.AreEqual(zipping.SetLeftItemRequestHandler, setLeftItemRequestHandler);
+
+			Action<ZipPair<Item, Item>, Item> setRightItemRequestHandler = (pair, item) =>
+			{
+				rightItems[zipping.IndexOf(pair)] = item;
+
+			};
+			zipping.SetRightItemRequestHandler = setRightItemRequestHandler;
+			Assert.AreEqual(zipping.SetRightItemRequestHandler, setRightItemRequestHandler);
+
+			zipping[2].LeftItem = new Item(50, "50");
+			zipping[1].RightItem = new Item(70, "70");
+			zipping.ValidateConsistency();
+			consumer.Dispose();
+		}
+
+		[Test]
+		public void TestComputing()
+		{
+			Item item = new Item(0, "0");
+			OcConsumer consumer = new OcConsumer();
+
+			Computing<int> computing = new Computing<int>(() => item.Id).For(consumer);
+
+			Action<int> computingSetValueRequestHandler = i =>
+			{
+				item.Id = i;
+			};
+			computing.SetValueRequestHandler += computingSetValueRequestHandler;
+			Assert.AreEqual(computing.SetValueRequestHandler, computingSetValueRequestHandler);
+
+			computing.Value = 1;
+			Assert.AreEqual(computing.Value, 1);
 			consumer.Dispose();
 		}
 

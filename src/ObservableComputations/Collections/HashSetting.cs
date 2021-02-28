@@ -311,8 +311,8 @@ namespace ObservableComputations
 			watcher.ValueChanged = keyExpressionWatcher_OnValueChanged;
 			watcher._position = itemInfo;
 			itemInfo.ExpressionWatcher = watcher;
-			itemInfo.Key = applyKeySelector(itemInfo, sourceItem);
 			itemInfo._keySelectorFunc = func;
+			itemInfo.Key = applyKeySelector(itemInfo, sourceItem);
 			itemInfo.NestedComputings = nestedComputings;
 		}
 
@@ -418,10 +418,10 @@ namespace ObservableComputations
 		}
 
 
-		public TKey ApplyKeySelector(int index)
-		{
-			return applyKeySelector(_itemInfos[index], _sourceAsList[index]);
-		}
+		//public TKey ApplyKeySelector(int index)
+		//{
+		//	return applyKeySelector(_itemInfos[index], _sourceAsList[index]);
+		//}
 
 		private TKey applyKeySelector(ItemInfo itemInfo, TSourceItem sourceItem)
 		{
@@ -498,7 +498,7 @@ namespace ObservableComputations
 					TSourceItem sourceItem = source[sourceIndex];
 					ItemInfo itemInfo = _itemInfos[sourceIndex];
 
-					TKey key = keySelector(sourceItem);
+					TKey key = itemInfo._keySelectorFunc == null ? keySelector(sourceItem) : itemInfo._keySelectorFunc();
 					if (!Contains(key))
 						throw new ObservableComputationsException("Consistency violation: HashSetting.2");
 

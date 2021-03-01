@@ -118,7 +118,7 @@ namespace ObservableComputations.Test
 
 		[Test]
 		[Repeat(5)]
-		[Timeout(1000 * 60 * 60 * 20)]
+		[Timeout(1000 * 60 * 60 * 5)]
 		public void TestCollectionDispatchingTest()
 		{
 			OcDispatcher mainOcDispatcher = new OcDispatcher();
@@ -394,15 +394,15 @@ namespace ObservableComputations.Test
 
 			backgroundOcDispatcher.PropertyChanged += (sender, args) =>
 			{
-				if (args.PropertyName == nameof(OcDispatcher.State) 
-					&& backgroundOcDispatcher.State == OcDispatcherState.Disposed)
+				if (args.PropertyName == nameof(OcDispatcher.Status) 
+					&& backgroundOcDispatcher.Status == OcDispatcherStatus.Disposed)
 					backgroundOcDispatcherDisposedMru.Set();
 			};
 
 			mainOcDispatcher.PropertyChanged += (sender, args) =>
 			{
-				if (args.PropertyName == nameof(OcDispatcher.State) 
-					&& mainOcDispatcher.State == OcDispatcherState.Disposed)
+				if (args.PropertyName == nameof(OcDispatcher.Status) 
+					&& mainOcDispatcher.Status == OcDispatcherStatus.Disposed)
 					mainOcDispatcherDisposedMru.Set();
 			};
 
@@ -413,8 +413,8 @@ namespace ObservableComputations.Test
 			backgroundOcDispatcherDisposedMru.Wait(30000);
 			mainOcDispatcherDisposedMru.Wait(30000);
 
-			if (backgroundOcDispatcher.State != OcDispatcherState.Disposed 
-				|| mainOcDispatcher.State != OcDispatcherState.Disposed)
+			if (backgroundOcDispatcher.Status != OcDispatcherStatus.Disposed 
+				|| mainOcDispatcher.Status != OcDispatcherStatus.Disposed)
 			{
 				backgroundOcDispatcherDisposedMru.Dispose();
 				mainOcDispatcherDisposedMru.Dispose();

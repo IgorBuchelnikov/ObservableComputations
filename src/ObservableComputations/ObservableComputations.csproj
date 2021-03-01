@@ -21,10 +21,11 @@
     <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
     <PackageReleaseNotes>* New feaures
 OcDispatcher async delegates with await
-OcDispatcher InvokationResult IReadScalar IsRipe
-OcDispatcher State Property
-OcDispatcher Inherit priority and context from parent invocation 
-OcDispatcher Default priority
+OcDispatcher InvocationResult IReadScalar
+OcDispatcher InvocationResult Invocation
+OcDispatcher Status Property
+OcDispatcher Failure monitoring api
+
 
 * Fixed:
 — CollectionPausing

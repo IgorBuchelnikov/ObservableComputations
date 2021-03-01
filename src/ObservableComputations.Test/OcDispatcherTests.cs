@@ -13,7 +13,8 @@ using NUnit.Framework;
 
 namespace ObservableComputations.Test
 {
-	[TestFixture]
+	[TestFixture()]
+	[Timeout(1000 * 60 * 60 * 3)]
 	public class OcDispatcherTests
 	{
 		[Test, Combinatorial]
@@ -210,7 +211,7 @@ namespace ObservableComputations.Test
 			Assert.AreEqual(invocationResult.Value, returnObject);
 			Assert.IsTrue(propertyChanged);
 			Assert.AreEqual(invocationResult.ToString(), "(ObservableComputations.InvocationResult<TestValue> (Value = 'Mesasage'))");
-			Assert.AreEqual(invocationResult.Invocation.Done, true);
+			Assert.AreEqual(invocationResult.Invocation.Status, InvocationStatus.Done);
 			dispatcher.Dispose();
 		}
 
@@ -295,7 +296,7 @@ namespace ObservableComputations.Test
 			Assert.IsTrue(dispatcher.InstantiatingStackTrace != null);
 			ApartmentState apartmentState = RuntimeInformation.IsOSPlatform(OSPlatform.Linux) ?  ApartmentState.Unknown : ApartmentState.MTA;
 			Assert.AreEqual(dispatcher.NewInvocationBehaviour, NewInvocationBehaviour.Accept);
-			Assert.AreEqual(dispatcher.State, OcDispatcherState.RunOrWait);
+			Assert.AreEqual(dispatcher.Status, OcDispatcherStatus.RunOrWait);
 			Assert.AreEqual(dispatcher.GetThreadApartmentState(), apartmentState);
 			Assert.AreEqual(dispatcher.PrioritiesNumber, 2);
 			CultureInfo culture = CultureInfo.GetCultureInfo("ru-RU");
@@ -335,13 +336,13 @@ namespace ObservableComputations.Test
 
 			dispatcher.PropertyChanged += (sender, args) =>
 			{
-				if (args.PropertyName == nameof(OcDispatcher.State) 
-					&& dispatcher.State == OcDispatcherState.Disposed)
+				if (args.PropertyName == nameof(OcDispatcher.Status) 
+					&& dispatcher.Status == OcDispatcherStatus.Disposed)
 					mreDisposed.Set();
 			};
 
 			dispatcher.Dispose();
-			Assert.AreEqual(dispatcher.NewInvocationBehaviour, NewInvocationBehaviour.Ignore);
+			Assert.AreEqual(dispatcher.NewInvocationBehaviour, NewInvocationBehaviour.Cancel);
 
 			Exception exception = null;
 			try
@@ -356,14 +357,14 @@ namespace ObservableComputations.Test
 			Assert.IsNotNull(exception);
 
 			mreDisposed.Wait();
-			Assert.AreEqual(dispatcher.State, OcDispatcherState.Disposed);
+			Assert.AreEqual(dispatcher.Status, OcDispatcherStatus.Disposed);
 		}
 
 		[Test]
 		public void TestInvocationBehaviourIgnore()
 		{
 			OcDispatcher dispatcher = new OcDispatcher();
-			dispatcher.NewInvocationBehaviour = NewInvocationBehaviour.Ignore;
+			dispatcher.NewInvocationBehaviour = NewInvocationBehaviour.Cancel;
 			bool called = false;
 			dispatcher.Invoke(() => {called = true;});
 			dispatcher.Invoke(s => {called = true;}, new object());
@@ -438,6 +439,8 @@ namespace ObservableComputations.Test
 			bool invoked1 = false;
 			bool invoked2 = false;
 			bool freezed = false;
+			InvocationResult<bool> invocationResult = null;
+			InvocationResult<bool> invocationResult1 = null;
 
 			dispatcher.InvokeAsync(() =>
 			{
@@ -447,7 +450,8 @@ namespace ObservableComputations.Test
 					mre.Wait();
 				});
 
-				dispatcher.Invoke(() => invoked1 = true);
+
+				invocationResult = dispatcher.Invoke(() => invoked1 = true);
 			});
 
 			Thread thread = new Thread(
@@ -458,15 +462,15 @@ namespace ObservableComputations.Test
 						
 					}
 
-					dispatcher.Invoke(() => invoked2 = true);
+					invocationResult1 = dispatcher.Invoke(() => invoked2 = true);
 				});
 			thread.Start();
 
 			ManualResetEventSlim mreDisposed = new ManualResetEventSlim(false);
 			dispatcher.PropertyChanged += (sender, args) =>
 			{
-				if (args.PropertyName == nameof(OcDispatcher.State) 
-					&& dispatcher.State == OcDispatcherState.Disposed)
+				if (args.PropertyName == nameof(OcDispatcher.Status) 
+					&& dispatcher.Status == OcDispatcherStatus.Disposed)
 					mreDisposed.Set();
 			};
 
@@ -482,23 +486,37 @@ namespace ObservableComputations.Test
 
 			Assert.IsFalse(invoked1);
 			Assert.IsFalse(invoked2);
+			Assert.AreEqual(invocationResult.Invocation.Status, InvocationStatus.Canceled);
+			Assert.AreEqual(invocationResult1.Invocation.Status, InvocationStatus.Canceled);
 		}
 
-		[Test()]
+		[Test]
 		public void TestFailture()
 		{
 			OcDispatcher dispatcher = new OcDispatcher();
-			dispatcher.ThreadIsBackground = true;
+			bool invocationFailed = false;
+			ManualResetEventSlim mres  =new ManualResetEventSlim(false);
 
-			dispatcher.InvokeAsync(() =>
+			dispatcher.InvocationFailed += (sender, args) =>
 			{
-				Assert.That(() => throw new Exception(), Throws.TypeOf<Exception>());
-				//throw new Exception();
-			});
+				invocationFailed = true;
+				mres.Set();
+			};
 
-			Thread.Sleep(1000);
+			OcDispatcherInvocationFailedException ocDispatcherInvocationFailedException = 
+				Assert.Throws<OcDispatcherInvocationFailedException>(() =>
+				{
+					dispatcher.Invoke(() => throw new Exception("Message"));
+				});
 
-			Assert.AreEqual(dispatcher.State, OcDispatcherState.Failure);
+			mres.Wait();
+			Assert.IsNotNull(ocDispatcherInvocationFailedException.Invocation);
+			Assert.AreEqual(ocDispatcherInvocationFailedException.Dispatcher, dispatcher);
+			Assert.AreEqual(dispatcher.Status, OcDispatcherStatus.InvocationFailed);
+			Assert.AreEqual(dispatcher.ExecutingInvocation, null);
+			Assert.IsNotNull(dispatcher.FailedInvocation);
+			Assert.AreEqual(dispatcher.FailedInvocation.Status, InvocationStatus.Failed);
+			Assert.IsTrue(invocationFailed);
 			dispatcher.Dispose();
 		}
 

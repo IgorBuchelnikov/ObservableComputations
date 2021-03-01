@@ -25,6 +25,7 @@ namespace ObservableComputations.Test
 {
 	[TestFixture(false)]
 	[TestFixture(true)]
+	[Timeout(1000 * 60 * 60 * 20)]
 	public partial class QuickTests : TestBase
 	{
 <#

@@ -1,12 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Configuration;
 using System.Globalization;
-using System.Linq;
-using System.Linq.Expressions;
 using System.Runtime.InteropServices;
-using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using NUnit.Framework;
@@ -22,7 +16,7 @@ namespace ObservableComputations.Test
 			[Values(true, false)] bool debug,
 			[Values(true, false)]bool secondAsync)
 		{
-			Configuration.SaveOcDispatcherInvocationStackTrace = debug;
+			Configuration.SaveOcDispatcherInvokingStackTrace = debug;
 
 			object context = new object();
 			OcDispatcher dispatcher = new OcDispatcher(2);
@@ -35,12 +29,12 @@ namespace ObservableComputations.Test
 				Assert.IsTrue(dispatcher.CheckAccess());
 
 				Assert.AreEqual(OcDispatcher.Current, dispatcher);
-				parentInvocation = dispatcher.ExecutingInvocation;
-				Assert.AreEqual(parentInvocation.Parent, null);
+				parentInvocation = dispatcher.DoingInvocation;
+				Assert.AreEqual(parentInvocation.Invoker, null);
 				Assert.AreEqual(parentInvocation.Action, action);
 				Assert.AreEqual(parentInvocation.ActionWithState, null);
 				Assert.AreEqual(parentInvocation.State, null);
-				if (debug) Assert.IsTrue(parentInvocation.CallStackTrace != null);
+				if (debug) Assert.IsTrue(parentInvocation.InvokingStackTrace != null);
 				Assert.AreEqual(parentInvocation.Context, context);
 				Assert.AreEqual(parentInvocation.OcDispatcher, dispatcher);
 				Assert.AreEqual(parentInvocation.Priority, 1);
@@ -51,11 +45,11 @@ namespace ObservableComputations.Test
 				{
 					Assert.IsTrue(dispatcher.CheckAccess());
 					Assert.AreEqual(OcDispatcher.Current, dispatcher);
-					Invocation invocation1 = dispatcher.ExecutingInvocation;
-					Assert.AreEqual(invocation1.Parent, parentInvocation);
+					Invocation invocation1 = dispatcher.DoingInvocation;
+					Assert.AreEqual(invocation1.Invoker, parentInvocation);
 					Assert.AreEqual(invocation1.ActionWithState, null);
 					Assert.AreEqual(invocation1.State, null);
-					if (debug) Assert.IsTrue(invocation1.CallStackTrace != null);
+					if (debug) Assert.IsTrue(invocation1.InvokingStackTrace != null);
 					Assert.AreEqual(invocation1.Context, null);
 					Assert.AreEqual(invocation1.OcDispatcher, dispatcher);
 					Assert.AreEqual(invocation1.Priority, 0);
@@ -80,7 +74,7 @@ namespace ObservableComputations.Test
 			dispatcher.Pass();
 			dispatcher.Pass();
 			Assert.AreEqual(dispatcher, StaticInfo.OcDispatchers[dispatcher._thread]);
-			Assert.IsTrue(dispatcher.ExecutingInvocation == null);
+			Assert.IsTrue(dispatcher.DoingInvocation == null);
 			Assert.IsTrue(OcDispatcher.Current == null);
 			dispatcher.Dispose();
 		}
@@ -90,7 +84,7 @@ namespace ObservableComputations.Test
 			[Values(true, false)] bool debug, 
 			[Values(true, false)] bool secondAsync)
 		{
-			Configuration.SaveOcDispatcherInvocationStackTrace = debug;
+			Configuration.SaveOcDispatcherInvokingStackTrace = debug;
 
 			object context = new object();
 			object state = new object();
@@ -104,12 +98,12 @@ namespace ObservableComputations.Test
 				Assert.IsTrue(dispatcher.CheckAccess());
 
 				Assert.AreEqual(OcDispatcher.Current, dispatcher);
-				parentInvocation = dispatcher.ExecutingInvocation;
-				Assert.AreEqual(parentInvocation.Parent, null);
+				parentInvocation = dispatcher.DoingInvocation;
+				Assert.AreEqual(parentInvocation.Invoker, null);
 				Assert.AreEqual(parentInvocation.State, state);
 				Assert.AreEqual(parentInvocation.Action, null);
 				Assert.AreEqual(parentInvocation.ActionWithState, action);
-				if (debug) Assert.IsTrue(parentInvocation.CallStackTrace != null);
+				if (debug) Assert.IsTrue(parentInvocation.InvokingStackTrace != null);
 				Assert.AreEqual(parentInvocation.Context, context);
 				Assert.AreEqual(parentInvocation.OcDispatcher, dispatcher);
 				Assert.AreEqual(parentInvocation.Priority, 1);
@@ -123,11 +117,11 @@ namespace ObservableComputations.Test
 					Assert.IsTrue(dispatcher.CheckAccess());
 
 					Assert.AreEqual(OcDispatcher.Current, dispatcher);
-					Invocation invocation1 = dispatcher.ExecutingInvocation;
-					Assert.AreEqual(invocation1.Parent, parentInvocation);
+					Invocation invocation1 = dispatcher.DoingInvocation;
+					Assert.AreEqual(invocation1.Invoker, parentInvocation);
 					Assert.AreEqual(invocation1.State, state1);
 					Assert.AreEqual(invocation1.Action, null);
-					if (debug) Assert.IsTrue(invocation1.CallStackTrace != null);
+					if (debug) Assert.IsTrue(invocation1.InvokingStackTrace != null);
 					Assert.AreEqual(invocation1.Context, null);
 					Assert.AreEqual(invocation1.OcDispatcher, dispatcher);
 					Assert.AreEqual(invocation1.Priority, 0);
@@ -152,7 +146,7 @@ namespace ObservableComputations.Test
 			dispatcher.Pass();
 			dispatcher.Pass();
 			Assert.AreEqual(dispatcher, StaticInfo.OcDispatchers[dispatcher._thread]);
-			Assert.IsTrue(dispatcher.ExecutingInvocation == null);
+			Assert.IsTrue(dispatcher.DoingInvocation == null);
 			Assert.IsTrue(OcDispatcher.Current == null);
 			dispatcher.Dispose();
 		}
@@ -231,16 +225,16 @@ namespace ObservableComputations.Test
 				switch (mode)
 				{
 					case 1:
-						dispatcher.DoOthers();
+						dispatcher.DoOtherInvocations();
 						break;
 					case 2:
-						dispatcher.DoOthers(1);
+						dispatcher.DoOtherInvocations(1);
 						break;
 					case 3:
-						dispatcher.DoOthers(TimeSpan.FromSeconds(1));
+						dispatcher.DoOtherInvocations(TimeSpan.FromSeconds(1));
 						break;
 					case 4:
-						dispatcher.DoOthers((count, invocation) => invocation.Context == context);
+						dispatcher.DoOtherInvocations((count, invocation) => invocation.Context == context);
 						break;
 				}
 
@@ -264,16 +258,16 @@ namespace ObservableComputations.Test
 				switch (mode)
 				{
 					case 1:
-						dispatcher.DoOthers();
+						dispatcher.DoOtherInvocations();
 						break;
 					case 2:
-						dispatcher.DoOthers(1);
+						dispatcher.DoOtherInvocations(1);
 						break;
 					case 3:
-						dispatcher.DoOthers(TimeSpan.FromSeconds(1));
+						dispatcher.DoOtherInvocations(TimeSpan.FromSeconds(1));
 						break;
 					case 4:
-						dispatcher.DoOthers((count, invocation) => invocation.Context == context);
+						dispatcher.DoOtherInvocations((count, invocation) => invocation.Context == context);
 						break;
 				}
 			}
@@ -375,6 +369,12 @@ namespace ObservableComputations.Test
 			dispatcher.Invoke(s => {called = true; return 0;}, new object());
 			dispatcher.InvokeAsync(() => {called = true; return 0;});
 			dispatcher.InvokeAsync(s => {called = true; return 0;}, new object());
+
+			dispatcher.InvokeAsyncAwaitable(() => {called = true;});
+			dispatcher.InvokeAsyncAwaitable(s => {called = true;}, new object());
+			dispatcher.InvokeAsyncAwaitable(() => {called = true; return 0;});
+			dispatcher.InvokeAsyncAwaitable(s => {called = true; return 0;}, new object());
+
 
 			dispatcher.NewInvocationBehaviour = NewInvocationBehaviour.Accept;
 			dispatcher.Pass();
@@ -490,34 +490,59 @@ namespace ObservableComputations.Test
 			Assert.AreEqual(invocationResult1.Invocation.Status, InvocationStatus.Canceled);
 		}
 
+
 		[Test]
 		public void TestFailture()
 		{
 			OcDispatcher dispatcher = new OcDispatcher();
 			bool invocationFailed = false;
-			ManualResetEventSlim mres  =new ManualResetEventSlim(false);
 
 			dispatcher.InvocationFailed += (sender, args) =>
 			{
 				invocationFailed = true;
-				mres.Set();
 			};
 
 			OcDispatcherInvocationFailedException ocDispatcherInvocationFailedException = 
-				Assert.Throws<OcDispatcherInvocationFailedException>(() =>
-				{
-					dispatcher.Invoke(() => throw new Exception("Message"));
-				});
+				Assert.Throws<OcDispatcherInvocationFailedException>(() => 
+					dispatcher.Invoke(() => 
+						Assert.That(() => 
+							throw new Exception(), Throws.TypeOf<Exception>())));
 
-			mres.Wait();
 			Assert.IsNotNull(ocDispatcherInvocationFailedException.Invocation);
 			Assert.AreEqual(ocDispatcherInvocationFailedException.Dispatcher, dispatcher);
 			Assert.AreEqual(dispatcher.Status, OcDispatcherStatus.InvocationFailed);
-			Assert.AreEqual(dispatcher.ExecutingInvocation, null);
+			Assert.AreEqual(dispatcher.DoingInvocation, null);
 			Assert.IsNotNull(dispatcher.FailedInvocation);
 			Assert.AreEqual(dispatcher.FailedInvocation.Status, InvocationStatus.Failed);
 			Assert.IsTrue(invocationFailed);
 			dispatcher.Dispose();
+		}
+
+		[Test]
+		public void DoerTest()
+		{
+			Configuration.SaveOcDispatcherDoingStackTrace = true;
+			OcDispatcher dispatcher = new OcDispatcher();
+			ManualResetEventSlim mre = new ManualResetEventSlim(false);
+
+			dispatcher.InvokeAsync(() =>
+			{
+				mre.Wait();
+			});
+
+				
+			Invocation doer = dispatcher.InvokeAsync(() =>
+			{
+				dispatcher.Pass();
+			});
+
+			Invocation invocation = dispatcher.InvokeAsync(() => {});
+
+			mre.Set();
+			dispatcher.Pass();
+
+			Assert.AreEqual(invocation.Doer, doer);
+			Assert.IsNotNull(invocation.DoingStackTrace);
 		}
 
 		[Test]
@@ -530,27 +555,28 @@ namespace ObservableComputations.Test
 
 			dispatcher.Invoke(() =>
 			{
-				Invocation invocation = dispatcher.ExecutingInvocation;
+				Invocation invocation = dispatcher.DoingInvocation;
 
 				dispatcher.InvokeAsync(async () =>
 				{
 					count++;
-					Assert.AreEqual(dispatcher.ExecutingInvocation.Parent, invocation);
+					Assert.IsTrue(dispatcher.DoingInvocation.SetSynchronizationContext);
+					Assert.AreEqual(dispatcher.DoingInvocation.Invoker, invocation);
 
 					await dispatcher.InvokeAsyncAwaitable(() =>
 					{
 						Assert.AreEqual(count, 1);
 						count++;
-						Assert.AreEqual(dispatcher.ExecutingInvocation.Priority, 0);
-						Assert.AreEqual(dispatcher.ExecutingInvocation.Context, null);
+						Assert.AreEqual(dispatcher.DoingInvocation.Priority, 0);
+						Assert.AreEqual(dispatcher.DoingInvocation.Context, null);
 					});
 
-					Assert.AreEqual(dispatcher.ExecutingInvocation.Parent, invocation);
+					Assert.AreEqual(dispatcher.DoingInvocation.Invoker, invocation);
 					Assert.AreEqual(count, 2);
 					count++;
 					Assert.AreEqual(Thread.CurrentThread.ManagedThreadId, dispatcher.ManagedThreadId);
-					Assert.AreEqual(dispatcher.ExecutingInvocation.Priority, 1);
-					Assert.AreEqual(dispatcher.ExecutingInvocation.Context, context);
+					Assert.AreEqual(dispatcher.DoingInvocation.Priority, 1);
+					Assert.AreEqual(dispatcher.DoingInvocation.Context, context);
 					mres.Set();
 				}, 1, context, true);
 			});
@@ -571,27 +597,28 @@ namespace ObservableComputations.Test
 
 			dispatcher.Invoke(() =>
 			{
-				Invocation invocation = dispatcher.ExecutingInvocation;
+				Invocation invocation = dispatcher.DoingInvocation;
 
 				dispatcher.InvokeAsync(async () =>
 				{
 					count++;
-					Assert.AreEqual(dispatcher.ExecutingInvocation.Parent, invocation);
+					Assert.AreEqual(dispatcher.DoingInvocation.Invoker, invocation);
+					Assert.IsTrue(dispatcher.DoingInvocation.SetSynchronizationContext);
 
 					await dispatcher.InvokeAsyncAwaitable(state =>
 					{
 						Assert.AreEqual(count, 1);
 						count++;
-						Assert.AreEqual(dispatcher.ExecutingInvocation.Priority, 0);
-						Assert.AreEqual(dispatcher.ExecutingInvocation.Context, null);
+						Assert.AreEqual(dispatcher.DoingInvocation.Priority, 0);
+						Assert.AreEqual(dispatcher.DoingInvocation.Context, null);
 					}, new object());
 
-					Assert.AreEqual(dispatcher.ExecutingInvocation.Parent, invocation);
+					Assert.AreEqual(dispatcher.DoingInvocation.Invoker, invocation);
 					Assert.AreEqual(count, 2);
 					count++;
 					Assert.AreEqual(Thread.CurrentThread.ManagedThreadId, dispatcher.ManagedThreadId);
-					Assert.AreEqual(dispatcher.ExecutingInvocation.Priority, 1);
-					Assert.AreEqual(dispatcher.ExecutingInvocation.Context, context);
+					Assert.AreEqual(dispatcher.DoingInvocation.Priority, 1);
+					Assert.AreEqual(dispatcher.DoingInvocation.Context, context);
 					mres.Set();
 				}, 1, context, true);
 			});
@@ -612,29 +639,30 @@ namespace ObservableComputations.Test
 
 			dispatcher.Invoke(() =>
 			{
-				Invocation invocation = dispatcher.ExecutingInvocation;
+				Invocation invocation = dispatcher.DoingInvocation;
 
 				dispatcher.InvokeAsync(async () =>
 				{
 					count++;
-					Assert.AreEqual(dispatcher.ExecutingInvocation.Parent, invocation);
+					Assert.AreEqual(dispatcher.DoingInvocation.Invoker, invocation);
+					Assert.IsTrue(dispatcher.DoingInvocation.SetSynchronizationContext);
 
 					int returnCount = await dispatcher.InvokeAsyncAwaitable(() =>
 					{
 						Assert.AreEqual(count, 1);
 						count++;
-						Assert.AreEqual(dispatcher.ExecutingInvocation.Priority, 0);
-						Assert.AreEqual(dispatcher.ExecutingInvocation.Context, null);
+						Assert.AreEqual(dispatcher.DoingInvocation.Priority, 0);
+						Assert.AreEqual(dispatcher.DoingInvocation.Context, null);
 						return count;
 					});
 
-					Assert.AreEqual(dispatcher.ExecutingInvocation.Parent, invocation);
+					Assert.AreEqual(dispatcher.DoingInvocation.Invoker, invocation);
 					Assert.AreEqual(returnCount, 2);
 					Assert.AreEqual(count, 2);
 					count++;
 					Assert.AreEqual(Thread.CurrentThread.ManagedThreadId, dispatcher.ManagedThreadId);
-					Assert.AreEqual(dispatcher.ExecutingInvocation.Priority, 1);
-					Assert.AreEqual(dispatcher.ExecutingInvocation.Context, context);
+					Assert.AreEqual(dispatcher.DoingInvocation.Priority, 1);
+					Assert.AreEqual(dispatcher.DoingInvocation.Context, context);
 					mres.Set();
 				}, 1, context, true);
 			});
@@ -655,29 +683,30 @@ namespace ObservableComputations.Test
 
 			dispatcher.Invoke(() =>
 			{
-				Invocation invocation = dispatcher.ExecutingInvocation;
+				Invocation invocation = dispatcher.DoingInvocation;
 
 				dispatcher.InvokeAsync(async () =>
 				{
 					count++;
-					Assert.AreEqual(dispatcher.ExecutingInvocation.Parent, invocation);
+					Assert.AreEqual(dispatcher.DoingInvocation.Invoker, invocation);
+					Assert.IsTrue(dispatcher.DoingInvocation.SetSynchronizationContext);
 
 					int returnCount = await dispatcher.InvokeAsyncAwaitable(state =>
 					{
 						Assert.AreEqual(count, 1);
 						count++;
-						Assert.AreEqual(dispatcher.ExecutingInvocation.Priority, 0);
-						Assert.AreEqual(dispatcher.ExecutingInvocation.Context, null);
+						Assert.AreEqual(dispatcher.DoingInvocation.Priority, 0);
+						Assert.AreEqual(dispatcher.DoingInvocation.Context, null);
 						return count;
 					}, new object());
 
-					Assert.AreEqual(dispatcher.ExecutingInvocation.Parent, invocation);
+					Assert.AreEqual(dispatcher.DoingInvocation.Invoker, invocation);
 					Assert.AreEqual(returnCount, 2);
 					Assert.AreEqual(count, 2);
 					count++;
 					Assert.AreEqual(Thread.CurrentThread.ManagedThreadId, dispatcher.ManagedThreadId);
-					Assert.AreEqual(dispatcher.ExecutingInvocation.Priority, 1);
-					Assert.AreEqual(dispatcher.ExecutingInvocation.Context, context);
+					Assert.AreEqual(dispatcher.DoingInvocation.Priority, 1);
+					Assert.AreEqual(dispatcher.DoingInvocation.Context, context);
 					mres.Set();
 				}, 1, context, true);
 			});
@@ -716,14 +745,14 @@ namespace ObservableComputations.Test
 				{
 					Assert.AreEqual(count, 1);
 					count++;
-					Assert.AreEqual(dispatcher.ExecutingInvocation.Priority, 1);
-					Assert.AreEqual(dispatcher.ExecutingInvocation.Context, context);
+					Assert.AreEqual(dispatcher.DoingInvocation.Priority, 1);
+					Assert.AreEqual(dispatcher.DoingInvocation.Context, context);
 				}, 1, context);
 
 				Assert.AreEqual(count, 2);
 				count++;
 				Assert.AreNotEqual(Thread.CurrentThread.ManagedThreadId, dispatcher.ManagedThreadId);
-				Assert.AreEqual(dispatcher.ExecutingInvocation, null);
+				Assert.AreEqual(dispatcher.DoingInvocation, null);
 				mres.Set();
 			}
 
@@ -753,14 +782,14 @@ namespace ObservableComputations.Test
 				{
 					Assert.AreEqual(count, 1);
 					count++;
-					Assert.AreEqual(dispatcher.ExecutingInvocation.Priority, 1);
-					Assert.AreEqual(dispatcher.ExecutingInvocation.Context, context);
+					Assert.AreEqual(dispatcher.DoingInvocation.Priority, 1);
+					Assert.AreEqual(dispatcher.DoingInvocation.Context, context);
 				}, new object(), 1, context);
 
 				Assert.AreEqual(count, 2);
 				count++;
 				Assert.AreNotEqual(Thread.CurrentThread.ManagedThreadId, dispatcher.ManagedThreadId);
-				Assert.AreEqual(dispatcher.ExecutingInvocation, null);
+				Assert.AreEqual(dispatcher.DoingInvocation, null);
 				mres.Set();
 			}
 
@@ -790,8 +819,8 @@ namespace ObservableComputations.Test
 				{
 					Assert.AreEqual(count, 1);
 					count++;
-					Assert.AreEqual(dispatcher.ExecutingInvocation.Priority, 1);
-					Assert.AreEqual(dispatcher.ExecutingInvocation.Context, context);
+					Assert.AreEqual(dispatcher.DoingInvocation.Priority, 1);
+					Assert.AreEqual(dispatcher.DoingInvocation.Context, context);
 					return count;
 				}, 1, context);
 
@@ -799,7 +828,7 @@ namespace ObservableComputations.Test
 				Assert.AreEqual(count, 2);
 				count++;
 				Assert.AreNotEqual(Thread.CurrentThread.ManagedThreadId, dispatcher.ManagedThreadId);
-				Assert.AreEqual(dispatcher.ExecutingInvocation, null);
+				Assert.AreEqual(dispatcher.DoingInvocation, null);
 				mres.Set();
 			}
 
@@ -829,8 +858,8 @@ namespace ObservableComputations.Test
 				{
 					Assert.AreEqual(count, 1);
 					count++;
-					Assert.AreEqual(dispatcher.ExecutingInvocation.Priority, 1);
-					Assert.AreEqual(dispatcher.ExecutingInvocation.Context, context);
+					Assert.AreEqual(dispatcher.DoingInvocation.Priority, 1);
+					Assert.AreEqual(dispatcher.DoingInvocation.Context, context);
 					return count;
 				}, new object(), 1, context);
 
@@ -838,7 +867,7 @@ namespace ObservableComputations.Test
 				Assert.AreEqual(count, 2);
 				count++;
 				Assert.AreNotEqual(Thread.CurrentThread.ManagedThreadId, dispatcher.ManagedThreadId);
-				Assert.AreEqual(dispatcher.ExecutingInvocation, null);
+				Assert.AreEqual(dispatcher.DoingInvocation, null);
 				mres.Set();
 			}
 
@@ -864,15 +893,15 @@ namespace ObservableComputations.Test
 
 			dispatcher.InvokeAsync(() =>
 			{
-				parent = dispatcher.ExecutingInvocation;
+				parent = dispatcher.DoingInvocation;
 
 				dispatcher.Invoke( async () =>
 				{
 					Assert.AreEqual(count, 1);
 					count++;
-					Assert.AreEqual(dispatcher.ExecutingInvocation.Priority, 1);
-					Assert.AreEqual(dispatcher.ExecutingInvocation.Context, context);
-					Assert.AreEqual(dispatcher.ExecutingInvocation.Parent, parent);
+					Assert.AreEqual(dispatcher.DoingInvocation.Priority, 1);
+					Assert.AreEqual(dispatcher.DoingInvocation.Context, context);
+					Assert.AreEqual(dispatcher.DoingInvocation.Invoker, parent);
 
 					OcDispatcherSynchronizationContext synchronizationContext = (OcDispatcherSynchronizationContext) SynchronizationContext.Current;
 					Assert.AreEqual(synchronizationContext.Priority, 1);
@@ -881,9 +910,9 @@ namespace ObservableComputations.Test
 
 					await Task.Run(() => count++);
 
-					Assert.AreEqual(dispatcher.ExecutingInvocation.Priority, 1);
-					Assert.AreEqual(dispatcher.ExecutingInvocation.Context, context);
-					Assert.AreEqual(dispatcher.ExecutingInvocation.Parent, parent);
+					Assert.AreEqual(dispatcher.DoingInvocation.Priority, 1);
+					Assert.AreEqual(dispatcher.DoingInvocation.Context, context);
+					Assert.AreEqual(dispatcher.DoingInvocation.Invoker, parent);
 					count++;
 					mres.Set();
 					return 1;
@@ -910,15 +939,15 @@ namespace ObservableComputations.Test
 
 			dispatcher.InvokeAsync(() =>
 			{
-				parent = dispatcher.ExecutingInvocation;
+				parent = dispatcher.DoingInvocation;
 
 				dispatcher.Invoke(async s =>
 				{
 					Assert.AreEqual(count, 1);
 					count++;
-					Assert.AreEqual(dispatcher.ExecutingInvocation.Priority, 1);
-					Assert.AreEqual(dispatcher.ExecutingInvocation.Context, context);
-					Assert.AreEqual(dispatcher.ExecutingInvocation.Parent, parent);
+					Assert.AreEqual(dispatcher.DoingInvocation.Priority, 1);
+					Assert.AreEqual(dispatcher.DoingInvocation.Context, context);
+					Assert.AreEqual(dispatcher.DoingInvocation.Invoker, parent);
 
 					OcDispatcherSynchronizationContext synchronizationContext = (OcDispatcherSynchronizationContext) SynchronizationContext.Current;
 					Assert.AreEqual(synchronizationContext.Priority, 1);
@@ -927,9 +956,9 @@ namespace ObservableComputations.Test
 
 					await Task.Run(() => count++);
 
-					Assert.AreEqual(dispatcher.ExecutingInvocation.Priority, 1);
-					Assert.AreEqual(dispatcher.ExecutingInvocation.Context, context);
-					Assert.AreEqual(dispatcher.ExecutingInvocation.Parent, parent);
+					Assert.AreEqual(dispatcher.DoingInvocation.Priority, 1);
+					Assert.AreEqual(dispatcher.DoingInvocation.Context, context);
+					Assert.AreEqual(dispatcher.DoingInvocation.Invoker, parent);
 					count++;
 					mres.Set();
 				}, new object(), 1, context, true);

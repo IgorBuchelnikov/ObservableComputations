@@ -1,7 +1,5 @@
 ﻿using System;
-using System.Collections.ObjectModel;
 using System.ComponentModel;
-using System.Linq;
 using NUnit.Framework;
 
 namespace ObservableComputations.Test

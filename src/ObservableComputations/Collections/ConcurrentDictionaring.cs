@@ -821,30 +821,30 @@ namespace ObservableComputations
 
 		void IComputingInternal.AddDownstreamConsumedComputing(IComputingInternal computing)
 		{
-			Utils.addDownstreamConsumedComputing(
-				computing, 
-				_downstreamConsumedComputings, 
-				_consumers, 
-				this,
-				ref _isConsistent,
-				ref _handledEventSender,
-				ref _handledEventArgs,
-				ref _deferredProcessings,
-				3);
+			//Utils.addDownstreamConsumedComputing(
+			//	computing, 
+			//	_downstreamConsumedComputings, 
+			//	_consumers, 
+			//	this,
+			//	ref _isConsistent,
+			//	ref _handledEventSender,
+			//	ref _handledEventArgs,
+			//	ref _deferredProcessings,
+			//	3);
 		}
 
 		void IComputingInternal.RemoveDownstreamConsumedComputing(IComputingInternal computing)
 		{
-			Utils.removeDownstreamConsumedComputing(
-				computing, 
-				_downstreamConsumedComputings, 
-				this, 
-				ref _isConsistent,
-				_consumers,
-				ref _handledEventSender,
-				ref _handledEventArgs,
-				_deferredProcessings,
-				3);
+			//Utils.removeDownstreamConsumedComputing(
+			//	computing, 
+			//	_downstreamConsumedComputings, 
+			//	this, 
+			//	ref _isConsistent,
+			//	_consumers,
+			//	ref _handledEventSender,
+			//	ref _handledEventArgs,
+			//	_deferredProcessings,
+			//	3);
 		}
 
 		void IComputingInternal.RaiseConsistencyRestored()

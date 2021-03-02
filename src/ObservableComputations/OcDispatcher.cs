@@ -3,16 +3,10 @@
 // The LICENSE file is located at https://github.com/IgorBuchelnikov/ObservableComputations/blob/master/LICENSE
 
 using System;
-using System.CodeDom;
 using System.Collections.Concurrent;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Diagnostics;
 using System.Globalization;
-using System.Linq;
-using System.Reflection;
-using System.Runtime.CompilerServices;
 using System.Threading;
 using System.Threading.Tasks;
 using ThreadState = System.Threading.ThreadState;
@@ -25,27 +19,32 @@ namespace ObservableComputations
 		public int Priority => _priority;
 		public Action<object> ActionWithState => _actionWithState;
 		public object State => _state;
-		public string CallStackTrace => _callStackTrace;
+		public string InvokingStackTrace => _invokingStackTrace;
+		public string DoingStackTrace => _doingStackTrace;
 		public object Context => _context;
 		public OcDispatcher OcDispatcher => _ocDispatcher;
 		public InvocationStatus Status => _status;
-		public Invocation Parent => _parent;
+
+		public Invocation Invoker => _invoker;
+		public Invocation Doer => _doer;
 		public bool SetSynchronizationContext => _setSynchronizationContext;
 
 		private readonly Action _action;
 		private readonly Action<object> _actionWithState;
 		private readonly object _state;
-		private readonly string _callStackTrace;
+		private readonly string _invokingStackTrace;
+		private string _doingStackTrace;
 		internal readonly object _context;
 		private readonly OcDispatcher _ocDispatcher;
 		internal int _priority;
 		internal InvocationStatus _status;
 		internal readonly ManualResetEventSlim _doneManualResetEvent;
-		private Invocation _parent;
+		private Invocation _invoker;
+		private Invocation _doer;
 		private bool _setSynchronizationContext;
 
 		internal Invocation(Action action, int priority, OcDispatcher ocDispatcher, 
-			bool setSynchronizationContext, Invocation parent, string callStackTrace, object context = null, 
+			bool setSynchronizationContext, Invocation invoker, string invokingStackTrace, object context = null, 
 			ManualResetEventSlim doneManualResetEvent = null)
 		{
 			_action = action;
@@ -54,12 +53,12 @@ namespace ObservableComputations
 			_setSynchronizationContext = setSynchronizationContext;
 			_context = context;
 			_doneManualResetEvent = doneManualResetEvent;
-			_callStackTrace = callStackTrace;
-			_parent = parent;
+			_invokingStackTrace = invokingStackTrace;
+			_invoker = invoker;
 		}
 
 		internal Invocation(Action<object> actionWithState, int priority, object state, OcDispatcher ocDispatcher, 
-			bool setSynchronizationContext, Invocation parent, string callStackTrace, object context = null,
+			bool setSynchronizationContext, Invocation invoker, string invokingStackTrace, object context = null,
 			ManualResetEventSlim doneManualResetEvent = null)
 		{
 			_actionWithState = actionWithState;
@@ -69,13 +68,13 @@ namespace ObservableComputations
 			_setSynchronizationContext = setSynchronizationContext;
 			_context = context;
 			_doneManualResetEvent = doneManualResetEvent;
-			_callStackTrace = callStackTrace;
-			_parent = parent;
+			_invokingStackTrace = invokingStackTrace;
+			_invoker = invoker;
 		}
 
 		internal void Do()
 		{
-			Invocation originalExecutingInvocation = _ocDispatcher._executingInvocation;
+			Invocation originalExecutingInvocation = _ocDispatcher._doingInvocation;
 			SynchronizationContext originalSynchronizationContext = null;
 
 			if (_setSynchronizationContext)
@@ -86,12 +85,16 @@ namespace ObservableComputations
 						_ocDispatcher,
 						_priority,
 						_context,
-						_parent));
+						_invoker));
 			}
 
-			_ocDispatcher._executingInvocation = this;
+			if (Configuration.SaveOcDispatcherDoingStackTrace)
+				_doingStackTrace = Environment.StackTrace;
 
-			_status = InvocationStatus.Executing;
+			_doer = originalExecutingInvocation;
+			_ocDispatcher._doingInvocation = this;
+
+			_status = InvocationStatus.Doing;
 
 			if (_action != null)
 				_action();
@@ -103,7 +106,7 @@ namespace ObservableComputations
 			if (_setSynchronizationContext)
 				SynchronizationContext.SetSynchronizationContext(originalSynchronizationContext);
 
-			_ocDispatcher._executingInvocation = originalExecutingInvocation;
+			_ocDispatcher._doingInvocation = originalExecutingInvocation;
 
 			_doneManualResetEvent?.Set();
 		}
@@ -160,12 +163,12 @@ namespace ObservableComputations
 		internal readonly int _managedThreadId;
 		private NewInvocationBehaviour _newInvocationBehaviour;
 		private OcDispatcherStatus _status;
-		internal Invocation _executingInvocation;
+		internal Invocation _doingInvocation;
 		private Invocation _failedInvocation;
 
 		public event EventHandler InvocationFailed; 
 
-		public Invocation ExecutingInvocation => _executingInvocation;
+		public Invocation DoingInvocation => _doingInvocation;
 		public Invocation FailedInvocation => _failedInvocation;
 
 		public static OcDispatcher Current => 
@@ -205,7 +208,7 @@ namespace ObservableComputations
 		private static string getCallStackTrace()
 		{
 			string callStackTrace = null;
-			if (Configuration.SaveOcDispatcherInvocationStackTrace)
+			if (Configuration.SaveOcDispatcherInvokingStackTrace)
 				callStackTrace = Environment.StackTrace;
 			return callStackTrace;
 		}
@@ -261,16 +264,15 @@ namespace ObservableComputations
 				{
 					_status = OcDispatcherStatus.InvocationFailed;
 
-					if (_executingInvocation != null)
+					if (_doingInvocation != null)
 					{
-						_executingInvocation._status = InvocationStatus.Failed;
-						_failedInvocation = _executingInvocation;
-						_executingInvocation = null;
+						_doingInvocation._status = InvocationStatus.Failed;
+						_failedInvocation = _doingInvocation;
+						_doingInvocation = null;
 					}
 
-					_failedInvocation._doneManualResetEvent?.Set();
-
 					InvocationFailed?.Invoke(this, null);
+					_failedInvocation._doneManualResetEvent?.Set();
 				}
 			});
 
@@ -370,7 +372,7 @@ namespace ObservableComputations
 			}
 		}
 
-		public TimeSpan DoOthers(TimeSpan timeSpan)
+		public TimeSpan DoOtherInvocations(TimeSpan timeSpan)
 		{
 			verifyCurrentThread();
 
@@ -380,7 +382,7 @@ namespace ObservableComputations
 			return timeSpan - TimeSpan.FromTicks(stopwatch.ElapsedTicks);
 		}
 
-		public int DoOthers(int targetCount)
+		public int DoOtherInvocations(int targetCount)
 		{
 			verifyCurrentThread();
 
@@ -395,13 +397,13 @@ namespace ObservableComputations
 			return targetCount - factCount;
 		}
 
-		public void DoOthers(Func<int, Invocation, bool> stop)
+		public void DoOtherInvocations(Func<int, Invocation, bool> stop)
 		{
 			verifyCurrentThread();
 			processQueues(stop);
 		}
 
-		public void DoOthers()
+		public void DoOtherInvocations()
 		{
 			verifyCurrentThread();
 			processQueues(null);
@@ -413,7 +415,7 @@ namespace ObservableComputations
 		{
 			if (_thread != Thread.CurrentThread)
 				throw new ObservableComputationsException(
-					"OcDispatcher.DoOthers method can only be called from the same thread that is associated with this OcDispatcher.");
+					"OcDispatcher.DoOtherInvocations method can only be called from the same thread that is associated with this OcDispatcher.");
 		}
 
 		public void Dispose(NewInvocationBehaviour newInvocationBehaviour)
@@ -455,7 +457,7 @@ namespace ObservableComputations
 
 			Invocation resultInvocation;
 
-			if (executingInvocation != null && executingInvocation == _executingInvocation)
+			if (executingInvocation != null && executingInvocation == _doingInvocation)
 			{
 				resultInvocation = queueInvocation(action, priority, context, setSynchronizationContext, executingInvocation);
 				processQueues((count, invocation) => invocation._status == InvocationStatus.Done);
@@ -491,8 +493,8 @@ namespace ObservableComputations
 
 		private Invocation getExecutingInvocation() =>
 			Thread.CurrentThread == _thread 
-				? _executingInvocation 
-				: Current?._executingInvocation;
+				? _doingInvocation 
+				: Current?._doingInvocation;
 
 		public Invocation Invoke(Action<object> action, object state, int priority = 0, object context = null, bool setSynchronizationContext = false)
 		{
@@ -504,7 +506,7 @@ namespace ObservableComputations
 
 			Invocation resultInvocation;
 
-			if (executingInvocation != null && executingInvocation == _executingInvocation)
+			if (executingInvocation != null && executingInvocation == _doingInvocation)
 			{
 				resultInvocation = queueInvocation(action, priority, state, context, setSynchronizationContext, executingInvocation);
 				processQueues((count, invocation) => invocation._status == InvocationStatus.Done);
@@ -593,7 +595,7 @@ namespace ObservableComputations
 
 		public Task InvokeAsyncAwaitable(Action action, int priority = 0, object context = null, bool setSynchronizationContext = false, CancellationToken cancellationToken = new CancellationToken())
 		{
-			if (shouldCancelNewInvocation()) return Task.FromCanceled(CancellationToken.None);
+			if (shouldCancelNewInvocation()) return Task.FromCanceled(new CancellationToken(true));
 
 			Invocation executingInvocation = getExecutingInvocation();
 
@@ -602,7 +604,7 @@ namespace ObservableComputations
 
 		public Task InvokeAsyncAwaitable(Action<object> action, object state, int priority = 0, object context = null, bool setSynchronizationContext = false, CancellationToken cancellationToken = new CancellationToken())
 		{
-			if (shouldCancelNewInvocation()) return Task.FromCanceled(CancellationToken.None);
+			if (shouldCancelNewInvocation()) return Task.FromCanceled(new CancellationToken(true));
 
 			Invocation executingInvocation = getExecutingInvocation();
 
@@ -629,7 +631,7 @@ namespace ObservableComputations
 
 		public Task<TResult> InvokeAsyncAwaitable<TResult>(Func<TResult> func, int priority = 0, object context = null, bool setSynchronizationContext = false, CancellationToken cancellationToken = new CancellationToken())
 		{
-			if (shouldCancelNewInvocation()) return Task.FromCanceled<TResult>(CancellationToken.None);
+			if (shouldCancelNewInvocation()) return Task.FromCanceled<TResult>(new CancellationToken(true));
 
 			Invocation executingInvocation = getExecutingInvocation();
 
@@ -643,7 +645,7 @@ namespace ObservableComputations
 
 		public Task<TResult> InvokeAsyncAwaitable<TResult>(Func<object, TResult> func, object state, int priority = 0, object context = null, bool setSynchronizationContext = false, CancellationToken cancellationToken = new CancellationToken())
 		{
-			if (shouldCancelNewInvocation()) return Task.FromCanceled<TResult>(CancellationToken.None);
+			if (shouldCancelNewInvocation()) return Task.FromCanceled<TResult>(new CancellationToken(true));
 
 			Invocation executingInvocation = getExecutingInvocation();
 
@@ -704,8 +706,8 @@ namespace ObservableComputations
 
 	public enum InvocationStatus
 	{
-		Queued,
-		Executing,
+		Invoked,
+		Doing,
 		Done,
 		Failed,
 		Canceled

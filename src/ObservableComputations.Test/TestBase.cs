@@ -1,12 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.IO;
+﻿using System.ComponentModel;
 using System.Linq;
-using System.Security;
-using System.Text;
-using System.Threading.Tasks;
-using AltCover;
 
 namespace ObservableComputations.Test
 {
@@ -26,7 +19,7 @@ namespace ObservableComputations.Test
 			{
 				Configuration.SaveInstantiatingStackTrace = true;
 				Configuration.TrackComputingsExecutingUserCode = true;
-				Configuration.SaveOcDispatcherInvocationStackTrace = true;
+				Configuration.SaveOcDispatcherInvokingStackTrace = true;
 			}
 			else
 			{

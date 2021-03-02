@@ -7,7 +7,8 @@ namespace ObservableComputations
 	public static class Configuration
 	{
 		public static bool SaveInstantiatingStackTrace = false;
-		public static bool SaveOcDispatcherInvocationStackTrace = false;
+		public static bool SaveOcDispatcherInvokingStackTrace = false;
+		public static bool SaveOcDispatcherDoingStackTrace = false;
 
 		public static bool TrackComputingsExecutingUserCode = false;
 		public static int EventUnsubscriberThreadsCount = 1;

@@ -491,10 +491,9 @@ namespace ObservableComputations.Test
 		}
 
 		[Test]
-		[Platform("Windows")]
 		public void TestFailture()
 		{
-			//if (RuntimeInformation.IsOSPlatform(OSPlatform.Linux)) return;
+			if (RuntimeInformation.IsOSPlatform(OSPlatform.Linux)) return;
 
 			OcDispatcher dispatcher = new OcDispatcher();
 			dispatcher.ThreadIsBackground = true;

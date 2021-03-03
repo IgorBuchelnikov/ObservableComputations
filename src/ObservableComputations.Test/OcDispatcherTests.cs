@@ -490,10 +490,12 @@ namespace ObservableComputations.Test
 			Assert.AreEqual(invocationResult1.Invocation.Status, InvocationStatus.Canceled);
 		}
 
-
 		[Test]
+		[Platform("Windows")]
 		public void TestFailture()
 		{
+			//if (RuntimeInformation.IsOSPlatform(OSPlatform.Linux)) return;
+
 			OcDispatcher dispatcher = new OcDispatcher();
 			dispatcher.ThreadIsBackground = true;
 			bool invocationFailed = false;

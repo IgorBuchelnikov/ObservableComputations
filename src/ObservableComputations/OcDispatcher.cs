@@ -166,7 +166,7 @@ namespace ObservableComputations
 		internal Invocation _doingInvocation;
 		private Invocation _failedInvocation;
 
-		public event EventHandler InvocationFailed; 
+		public event EventHandler Failed; 
 
 		public Invocation DoingInvocation => _doingInvocation;
 		public Invocation FailedInvocation => _failedInvocation;
@@ -262,7 +262,7 @@ namespace ObservableComputations
 				_thread.Join();
 				if (_status == OcDispatcherStatus.RunOrWait)
 				{
-					_status = OcDispatcherStatus.InvocationFailed;
+					_status = OcDispatcherStatus.Failed;
 
 					if (_doingInvocation != null)
 					{
@@ -271,8 +271,8 @@ namespace ObservableComputations
 						_doingInvocation = null;
 					}
 
-					InvocationFailed?.Invoke(this, null);
-					_failedInvocation._doneManualResetEvent?.Set();
+					Failed?.Invoke(this, null);
+					_failedInvocation?._doneManualResetEvent?.Set();
 				}
 			});
 
@@ -699,7 +699,7 @@ namespace ObservableComputations
 	public enum OcDispatcherStatus
 	{
 		RunOrWait,
-		InvocationFailed,
+		Failed,
 		Disposing,
 		Disposed
 	}

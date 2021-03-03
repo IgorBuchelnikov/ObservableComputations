@@ -495,22 +495,31 @@ namespace ObservableComputations.Test
 		public void TestFailture()
 		{
 			OcDispatcher dispatcher = new OcDispatcher();
+			dispatcher.ThreadIsBackground = true;
 			bool invocationFailed = false;
 
-			dispatcher.InvocationFailed += (sender, args) =>
+			dispatcher.Failed += (sender, args) =>
 			{
 				invocationFailed = true;
 			};
 
-			OcDispatcherInvocationFailedException ocDispatcherInvocationFailedException = 
-				Assert.Throws<OcDispatcherInvocationFailedException>(() => 
-					dispatcher.Invoke(() => 
-						Assert.That(() => 
-							throw new Exception(), Throws.TypeOf<Exception>())));
+			OcDispatcherInvocationFailedException ocDispatcherInvocationFailedException = null;
+
+			try
+			{
+				dispatcher.Invoke(() =>
+				{
+					throw new Exception();
+				});
+			}
+			catch (OcDispatcherInvocationFailedException e)
+			{
+				ocDispatcherInvocationFailedException = e;
+			}
 
 			Assert.IsNotNull(ocDispatcherInvocationFailedException.Invocation);
 			Assert.AreEqual(ocDispatcherInvocationFailedException.Dispatcher, dispatcher);
-			Assert.AreEqual(dispatcher.Status, OcDispatcherStatus.InvocationFailed);
+			Assert.AreEqual(dispatcher.Status, OcDispatcherStatus.Failed);
 			Assert.AreEqual(dispatcher.DoingInvocation, null);
 			Assert.IsNotNull(dispatcher.FailedInvocation);
 			Assert.AreEqual(dispatcher.FailedInvocation.Status, InvocationStatus.Failed);

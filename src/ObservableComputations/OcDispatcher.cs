@@ -673,7 +673,7 @@ namespace ObservableComputations
 		#endregion
 	}
 
-	internal class OcDispatcherInvocationFailedException : ObservableComputationsException
+	public class OcDispatcherInvocationFailedException : ObservableComputationsException
 	{
 		OcDispatcher _dispatcher;
 		Invocation _invocation;

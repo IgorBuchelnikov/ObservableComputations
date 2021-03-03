@@ -553,6 +553,7 @@ namespace ObservableComputations.Test
 
 			Assert.AreEqual(invocation.Doer, doer);
 			Assert.IsNotNull(invocation.DoingStackTrace);
+			dispatcher.Dispose();
 		}
 
 		[Test]

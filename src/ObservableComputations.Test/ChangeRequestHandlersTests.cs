@@ -2,8 +2,10 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Collections.Specialized;
 using System.ComponentModel;
 using System.Linq;
+using System.Reflection;
 using System.Runtime.CompilerServices;
 using NUnit.Framework;
 
@@ -278,6 +280,9 @@ namespace ObservableComputations.Test
 			Assert.IsTrue(itemRaised);
 			Assert.IsTrue(containsKeyRaised);
 
+			Assert.AreEqual(dictionaring.GetValueOrDefault(5), "2");
+			Assert.AreEqual(dictionaring.GetValueOrDefault(-5), null);
+
 			getValueOrDefaultRaised = false;
 			itemRaised = false;
 			containsKeyRaised = false;
@@ -289,8 +294,6 @@ namespace ObservableComputations.Test
 			Assert.IsTrue(itemRaised);
 			Assert.IsTrue(containsKeyRaised);
 
-			Assert.AreEqual(dictionaring.GetValueOrDefault(5), "2");
-			Assert.AreEqual(dictionaring.GetValueOrDefault(-5), null);
 
 			getValueOrDefaultRaised = false;
 			itemRaised = false;
@@ -656,8 +659,78 @@ namespace ObservableComputations.Test
 			consumer.Dispose();
 		}
 
+		[Test]
+		public void CollectionComputingChildTest()
+		{
+			ObservableCollection<Item> items = new ObservableCollection<Item>(
+				new Item[]
+				{
+					new Item(0, "0"), 
+					new Item(1, "0"),
+					new Item(2, "2"),
+					new Item(3, "3"),
+					new Item(4, "3"),
+					new Item(5, "3")
+				});
+
+			OcConsumer consumer = new OcConsumer();
+			Grouping<Item, string> grouping = 
+				items.Grouping(i => i.Value).For(consumer);
+
+			Group<Item, string> group = grouping[2];
+			PropertyInfo newItemPropertyInfo = group.GetType().GetProperty("NewItem");
+
+			NotifyCollectionChangedAction? currentChange = null;
+			Item newItem = null;
+			int oldIndex = -1;
+			int newIndex = -1;
+
+			group.PreCollectionChanged += (sender, args) =>
+			{
+				Assert.AreEqual(group.CurrentChange, currentChange);
+				Assert.AreEqual(newItemPropertyInfo.GetValue(group), newItem);
+				Assert.AreEqual(group.NewItemObject, newItem);
+				Assert.AreEqual(group.OldIndex, oldIndex);
+				Assert.AreEqual(group.NewIndex, newIndex);
+			};
+
+			group.PostCollectionChanged += (sender, args) =>
+			{
+				Assert.AreEqual(group.CurrentChange, currentChange);
+				Assert.AreEqual(newItemPropertyInfo.GetValue(group), newItem);
+				Assert.AreEqual(group.NewItemObject, newItem);
+				Assert.AreEqual(group.OldIndex, oldIndex);
+				Assert.AreEqual(group.NewIndex, newIndex);
+			};
+
+			currentChange = NotifyCollectionChangedAction.Add;
+			newItem = new Item(6, "3");
+			oldIndex = -1;
+			newIndex = 0;
+			items.Insert(0, newItem);
+
+			currentChange = NotifyCollectionChangedAction.Remove;
+			newItem = default;
+			oldIndex = 0;
+			newIndex = -1;
+			items.RemoveAt(3);
+
+			currentChange = NotifyCollectionChangedAction.Replace;
+			newItem = new Item(7, "3");
+			oldIndex = 0;
+			newIndex = 0;
+			items[0] = newItem;
+
+			currentChange = NotifyCollectionChangedAction.Move;
+			newItem = default;
+			oldIndex = 1;
+			newIndex = 2;
+			items.Move(3, 4);
+		}
+
 		public ChangeRequestHandlersTests(bool debug) : base(debug)
 		{
+
 		}
 	}
 }

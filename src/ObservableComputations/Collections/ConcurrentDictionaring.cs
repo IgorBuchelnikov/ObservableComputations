@@ -588,7 +588,8 @@ namespace ObservableComputations
 
 		private void baseAddItem(TKey key, TValue value)
 		{
-			_dictionary.TryAdd(key, value);
+			if (!_dictionary.TryAdd(key, value))
+				throw new ObservableComputationsException(this, "An item with the same key has already been added.");
 			onPropertyChanged(Utils.CountPropertyChangedEventArgs);
 			onPropertyChanged(Utils.IndexerPropertyChangedEventArgs);
 			if (MethodChanged != null)

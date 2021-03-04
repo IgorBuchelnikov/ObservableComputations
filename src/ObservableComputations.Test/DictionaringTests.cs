@@ -169,8 +169,11 @@ namespace ObservableComputations.Test
 						trace(testNum = "6", values, index, newKey, newValue, indexOld, indexNew);
 						items = getObservableCollection(values);
 						Dictionaring<Item, int, int> dictionaring2 = items.Dictionaring(i => i.Key, i => i.Value).For(consumer);
-						items[index].Key = newValue;
-						dictionaring2.ValidateInternalConsistency();						
+						if (!dictionaring2.Keys.Contains(newValue))
+						{
+							items[index].Key = newValue;
+							dictionaring2.ValidateInternalConsistency();
+						}
 						consumer.Dispose();
 
 						trace(testNum = "7", values, index, newKey, newValue, indexOld, indexNew);
@@ -211,7 +214,7 @@ namespace ObservableComputations.Test
 		private void trace(string testNum, int[] values, int index, int newKey, int newValue, int indexOld,int indexNew)
 		{
 			string traceString = getTraceString(testNum, values, index, newKey, newValue, indexOld, indexNew);
-			if (traceString == "#3. values=-1,-1  index=2  newKey=0   newValue=3   indexNew=0  indexOld=1")
+			if (traceString == "#6. values=-1,-1  index=0  newKey=0   newValue=1   indexNew=0  indexOld=0")
 			{
 				
 			}

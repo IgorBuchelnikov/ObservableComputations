@@ -33,7 +33,6 @@ namespace ObservableComputations
 		public EventArgs HandledEventArgs => Parent.HandledEventArgs;
 		public bool IsActive => Parent.IsActive;
 
-
 		public bool ActivationInProgress => Parent.ActivationInProgress;
 		public bool InactivationInProgress => Parent.InactivationInProgress;
 

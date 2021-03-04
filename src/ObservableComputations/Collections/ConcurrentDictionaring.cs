@@ -358,8 +358,8 @@ namespace ObservableComputations
 			watcher.ValueChanged = valueExpressionWatcher_OnValueChanged;
 			watcher._position = itemInfo;
 			itemInfo.ValueExpressionWatcher = watcher;
-			itemInfo.Value = applyValueSelector(itemInfo, sourceItem);
 			itemInfo._valueSelectorFunc = func;
+			itemInfo.Value = applyValueSelector(itemInfo, sourceItem);
 			itemInfo.ValueNestedComputings = nestedComputings;
 		}
 

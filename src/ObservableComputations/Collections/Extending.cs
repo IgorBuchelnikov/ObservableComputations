@@ -203,13 +203,13 @@ namespace ObservableComputations
 		#endregion
 
 		[ExcludeFromCodeCoverage]
-		internal void ValidateConsistency()
+		internal void ValidateInternalConsistency()
 		{
 
 			IList<TSourceItem> source = _sourceScalar.getValue(_source, new ObservableCollection<TSourceItem>()) as IList<TSourceItem>;
 			// ReSharper disable once PossibleNullReferenceException
 			// ReSharper disable once AssignNullToNotNullAttribute
-			if (!this.SequenceEqual(source)) throw new ObservableComputationsException(this, "Consistency violation: Extending.1");
+			if (!this.SequenceEqual(source)) throw new ValidateInternalConsistencyException("Consistency violation: Extending.1");
 		}
 	}
 }

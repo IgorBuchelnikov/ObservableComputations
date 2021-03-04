@@ -43,13 +43,13 @@ namespace ObservableComputations
 		}
 
 		[ExcludeFromCodeCoverage]
-		internal void ValidateConsistency()
+		internal void ValidateInternalConsistency()
 		{
 			IList<TSourceItem> source = (IList<TSourceItem>) _sourceScalar.getValue(_source, new ObservableCollection<TSourceItem>());
 			TSourceItem defaultValue = _defaultValue;
 
 			if (!EqualityComparer<TSourceItem>.Default.Equals(_value, source.Count > 0 ? source.Last() : defaultValue))
-				throw new ObservableComputationsException(this, "Consistency violation: LastComputing.1");
+				throw new ValidateInternalConsistencyException("Consistency violation: LastComputing.1");
 		}
 
 	}

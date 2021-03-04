@@ -116,7 +116,7 @@ namespace ObservableComputations.Test
 				items1 = getObservableCollection(ids1);
 				items2 = getObservableCollection(ids2);
 				groupJoining = items1.GroupJoining(items2, item1 => item1.Id, item2 => item2.Id).For(consumer);
-				groupJoining.ValidateConsistency();				
+				groupJoining.ValidateInternalConsistency();				
 				consumer.Dispose();
 
 				for (index = 0; index < ids1.Length; index++)
@@ -126,7 +126,7 @@ namespace ObservableComputations.Test
 					items2 = getObservableCollection(ids2);
 					groupJoining = items1.GroupJoining(items2, item1 => item1.Id, item2 => item2.Id).For(consumer);
 					items1.RemoveAt(index);
-					groupJoining.ValidateConsistency();					
+					groupJoining.ValidateInternalConsistency();					
 					consumer.Dispose();
 				}
 
@@ -137,7 +137,7 @@ namespace ObservableComputations.Test
 					items2 = getObservableCollection(ids2);
 					groupJoining = items1.GroupJoining(items2, item1 => item1.Id, item2 => item2.Id).For(consumer);
 					items2.RemoveAt(index);
-					groupJoining.ValidateConsistency();					
+					groupJoining.ValidateInternalConsistency();					
 					consumer.Dispose();
 				}
 
@@ -150,7 +150,7 @@ namespace ObservableComputations.Test
 						items2 = getObservableCollection(ids2);
 						groupJoining = items1.GroupJoining(items2, item1 => item1.Id, item2 => item2.Id).For(consumer);
 						items1.Insert(index, new Item(newItemId));
-						groupJoining.ValidateConsistency();						
+						groupJoining.ValidateInternalConsistency();						
 						consumer.Dispose();
 					}
 
@@ -165,7 +165,7 @@ namespace ObservableComputations.Test
 						items2 = getObservableCollection(ids2);
 						groupJoining = items1.GroupJoining(items2, item1 => item1.Id, item2 => item2.Id).For(consumer);
 						items2.Insert(index, new Item(newItemId));
-						groupJoining.ValidateConsistency();						
+						groupJoining.ValidateInternalConsistency();						
 						consumer.Dispose();
 					}
 				}
@@ -179,7 +179,7 @@ namespace ObservableComputations.Test
 						items2 = getObservableCollection(ids2);
 						groupJoining = items1.GroupJoining(items2, item1 => item1.Id, item2 => item2.Id).For(consumer);
 						items1[index] = new Item(newItemId);
-						groupJoining.ValidateConsistency();						
+						groupJoining.ValidateInternalConsistency();						
 						consumer.Dispose();
 					}
 
@@ -191,7 +191,7 @@ namespace ObservableComputations.Test
 						items2 = getObservableCollection(ids2);
 						groupJoining = items1.GroupJoining(items2, item1 => item1.Id, item2 => item2.Id).For(consumer);
 						items1[index].Id = newItemId;
-						groupJoining.ValidateConsistency();						
+						groupJoining.ValidateInternalConsistency();						
 						consumer.Dispose();
 					}
 				}
@@ -205,7 +205,7 @@ namespace ObservableComputations.Test
 						items2 = getObservableCollection(ids2);
 						groupJoining = items1.GroupJoining(items2, item1 => item1.Id, item2 => item2.Id).For(consumer);
 						items2[index] = new Item(newItemId);
-						groupJoining.ValidateConsistency();						
+						groupJoining.ValidateInternalConsistency();						
 						consumer.Dispose();
 					}
 
@@ -217,7 +217,7 @@ namespace ObservableComputations.Test
 						if (items2[index] == null) continue; 
 						groupJoining = items1.GroupJoining(items2, item1 => item1.Id, item2 => item2.Id).For(consumer);
 						items2[index].Id = newItemId;
-						groupJoining.ValidateConsistency();						
+						groupJoining.ValidateInternalConsistency();						
 						consumer.Dispose();
 					}
 				}
@@ -231,7 +231,7 @@ namespace ObservableComputations.Test
 						items2 = getObservableCollection(ids2);
 						groupJoining = items1.GroupJoining(items2, item1 => item1.Id, item2 => item2.Id).For(consumer);
 						items1.Move(indexOld, indexNew);
-						groupJoining.ValidateConsistency();						
+						groupJoining.ValidateInternalConsistency();						
 						consumer.Dispose();
 					}
 				}
@@ -245,7 +245,7 @@ namespace ObservableComputations.Test
 						items2 = getObservableCollection(ids2);
 						groupJoining = items1.GroupJoining(items2, item1 => item1.Id, item2 => item2.Id).For(consumer);
 						items2.Move(indexOld, indexNew);
-						groupJoining.ValidateConsistency();						
+						groupJoining.ValidateInternalConsistency();						
 						consumer.Dispose();
 					}
 				}

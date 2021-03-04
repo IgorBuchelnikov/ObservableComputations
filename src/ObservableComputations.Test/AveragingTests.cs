@@ -76,7 +76,7 @@ namespace ObservableComputations.Test
 				items = getObservableCollection(values);
 
 				averaging = items.Averaging<int, double>().For(consumer);
-				//averaging.ValidateConsistency();
+				//averaging.ValidateInternalConsistency();
 				validate(averaging, items);
 
 				for (index = 0; index < values.Length; index++)
@@ -85,7 +85,7 @@ namespace ObservableComputations.Test
 					items = getObservableCollection(values);
 					Averaging<int, double> averageComputing1 = items.Averaging<int, double>().For(consumer);
 					items.RemoveAt(index);
-					//averageComputing1.ValidateConsistency();
+					//averageComputing1.ValidateInternalConsistency();
 					validate(averageComputing1, items);
 					consumer.Dispose();
 				}
@@ -98,7 +98,7 @@ namespace ObservableComputations.Test
 						items = getObservableCollection(values);
 						Averaging<int, double> averageComputing1 = items.Averaging<int, double>().For(consumer);
 						items.Insert(index, value);
-						//averageComputing1.ValidateConsistency();
+						//averageComputing1.ValidateInternalConsistency();
 						validate(averageComputing1, items);
 						consumer.Dispose();
 					}
@@ -113,7 +113,7 @@ namespace ObservableComputations.Test
 						items = getObservableCollection(values);
 						Averaging<int, double> averageComputing2 = items.Averaging<int, double>().For(consumer);
 						items[index] = value;
-						//averageComputing2.ValidateConsistency();
+						//averageComputing2.ValidateInternalConsistency();
 						validate(averageComputing2, items);
 						consumer.Dispose();
 
@@ -128,7 +128,7 @@ namespace ObservableComputations.Test
 						items = getObservableCollection(values);
 						Averaging<int, double> averageComputing2 = items.Averaging<int, double>().For(consumer);
 						items.Move(indexOld, indexNew);
-						//averageComputing2.ValidateConsistency();
+						//averageComputing2.ValidateInternalConsistency();
 						validate(averageComputing2, items);
 						consumer.Dispose();
 					}
@@ -207,12 +207,12 @@ namespace ObservableComputations.Test
 		//		return;
 
 		//	Aggregating<int, int> averaging = items.Averaging();
-		//	averaging.ValidateConsistency();
+		//	averaging.ValidateInternalConsistency();
 		//	Assert.Equals(averaging.Value, items.Sum());
 
 		//	items[index] = newValue;
 
-		//	averaging.ValidateConsistency();
+		//	averaging.ValidateInternalConsistency();
 		//	Assert.Equals(averaging.Value, items.Sum());
 
 		//}
@@ -236,12 +236,12 @@ namespace ObservableComputations.Test
 		//	if (index >= items.Count) return;
 
 		//	Aggregating<int, int> averaging = items.Averaging();
-		//	averaging.ValidateConsistency();
+		//	averaging.ValidateInternalConsistency();
 		//	Assert.Equals(averaging.Value, items.Sum());
 
 		//	items.RemoveAt(index);
 
-		//	averaging.ValidateConsistency();
+		//	averaging.ValidateInternalConsistency();
 		//	Assert.Equals(averaging.Value, items.Sum());
 		//}
 
@@ -266,12 +266,12 @@ namespace ObservableComputations.Test
 
 		//	Aggregating<int, int> averaging = items.Averaging();
 
-		//	averaging.ValidateConsistency();
+		//	averaging.ValidateInternalConsistency();
 		//	Assert.Equals(averaging.Value, items.Sum());
 
 		//	items.Insert(index, newValue);
 
-		//	averaging.ValidateConsistency();
+		//	averaging.ValidateInternalConsistency();
 		//	Assert.Equals(averaging.Value, items.Sum());
 		//}
 
@@ -296,12 +296,12 @@ namespace ObservableComputations.Test
 
 		//	Aggregating<int, int> averaging = items.Averaging();
 
-		//	averaging.ValidateConsistency();
+		//	averaging.ValidateInternalConsistency();
 		//	Assert.Equals(averaging.Value, items.Sum());
 
 		//	items.Move(oldIndex, newIndex);
 
-		//	averaging.ValidateConsistency();
+		//	averaging.ValidateInternalConsistency();
 		//	Assert.Equals(averaging.Value, items.Sum());
 		//}
 

@@ -264,14 +264,14 @@ namespace ObservableComputations
 		}
 
 		[ExcludeFromCodeCoverage]
-		internal void ValidateConsistency()
+		internal void ValidateInternalConsistency()
 		{
 			IList<TSourceItem> source1 = (IList<TSourceItem>) _source1Scalar.getValue(_source1, new ObservableCollection<TSourceItem>());
 			IList<TSourceItem> source2 = (IList<TSourceItem>) _source2Scalar.getValue(_source2, new ObservableCollection<TSourceItem>());
 			IEqualityComparer<TSourceItem> equalityComparer = _equalityComparerScalar.getValue(_equalityComparer);
 
 			if (!this.SequenceEqual(source1.Except(source2, equalityComparer)))
-				throw new ObservableComputationsException(this, "Consistency violation: Excepting.1");
+				throw new ValidateInternalConsistencyException("Consistency violation: Excepting.1");
 		}
 	}
 }

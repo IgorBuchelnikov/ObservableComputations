@@ -85,7 +85,7 @@ namespace ObservableComputations.Test
 
 			OcConsumer consumer = new OcConsumer();
 			Dictionaring<Item, int, string> dictionaring = 
-				items.Dictionaring(i => new Computing<int>(() => i.Id).Value, i => i.Value).For(consumer);
+				items.Dictionaring(i => new Computing<int>(() => i.Id).Value, i => new Computing<string>(() => i.Value).Value).For(consumer);
 
 			Assert.NotNull(dictionaring.GetEnumerator());
 			Assert.NotNull(((IEnumerable) dictionaring).GetEnumerator());
@@ -121,12 +121,12 @@ namespace ObservableComputations.Test
 			dictionaring.ClearItemsRequestHandler = dictionaringClearItemsRequestHandler;
 			Assert.IsTrue(dictionaring.ClearItemsRequestHandler == dictionaringClearItemsRequestHandler);
 
-			dictionaring.ValidateConsistency();
+			dictionaring.ValidateInternalConsistency();
 
 			changedKey = 5;
 			changedValue = "2";
 			dictionaring.Add(5, "2");
-			dictionaring.ValidateConsistency();
+			dictionaring.ValidateInternalConsistency();
 			Assert.IsTrue(getValueOrDefaultRaised);
 			Assert.IsTrue(itemRaised);
 			Assert.IsTrue(containsKeyRaised);
@@ -137,10 +137,13 @@ namespace ObservableComputations.Test
 			changedKey = 7;
 			changedValue = "7";
 			dictionaring.Add(new KeyValuePair<int, string>(7, "7"));
-			dictionaring.ValidateConsistency();
+			dictionaring.ValidateInternalConsistency();
 			Assert.IsTrue(getValueOrDefaultRaised);
 			Assert.IsTrue(itemRaised);
 			Assert.IsTrue(containsKeyRaised);
+
+			Assert.AreEqual(dictionaring.GetValueOrDefault(5), "2");
+			Assert.AreEqual(dictionaring.GetValueOrDefault(-5), null);
 
 			getValueOrDefaultRaised = false;
 			itemRaised = false;
@@ -148,7 +151,7 @@ namespace ObservableComputations.Test
 			changedKey = 5;
 			changedValue = "2";
 			Assert.IsTrue(dictionaring.Remove(5));
-			dictionaring.ValidateConsistency();
+			dictionaring.ValidateInternalConsistency();
 			Assert.IsTrue(getValueOrDefaultRaised);
 			Assert.IsTrue(itemRaised);
 			Assert.IsTrue(containsKeyRaised);
@@ -157,7 +160,7 @@ namespace ObservableComputations.Test
 			itemRaised = false;
 			containsKeyRaised = false;
 			Assert.IsFalse(dictionaring.Remove(10));
-			dictionaring.ValidateConsistency();
+			dictionaring.ValidateInternalConsistency();
 			Assert.IsFalse(getValueOrDefaultRaised);
 			Assert.IsFalse(itemRaised);
 			Assert.IsFalse(containsKeyRaised);
@@ -168,7 +171,7 @@ namespace ObservableComputations.Test
 			changedKey = 7;
 			changedValue = "7";
 			Assert.IsTrue(dictionaring.Remove(new KeyValuePair<int, string>(7, "7")));
-			dictionaring.ValidateConsistency();
+			dictionaring.ValidateInternalConsistency();
 			Assert.IsTrue(getValueOrDefaultRaised);
 			Assert.IsTrue(itemRaised);
 			Assert.IsTrue(containsKeyRaised);
@@ -177,7 +180,7 @@ namespace ObservableComputations.Test
 			itemRaised = false;
 			containsKeyRaised = false;
 			Assert.IsFalse(dictionaring.Remove(new KeyValuePair<int, string>(8, "8")));
-			dictionaring.ValidateConsistency();
+			dictionaring.ValidateInternalConsistency();
 			Assert.IsFalse(getValueOrDefaultRaised);
 			Assert.IsFalse(itemRaised);
 			Assert.IsFalse(containsKeyRaised);
@@ -188,7 +191,7 @@ namespace ObservableComputations.Test
 			changedKey = 0;
 			changedValue = "0";
 			dictionaring[0] = "1";
-			dictionaring.ValidateConsistency();
+			dictionaring.ValidateInternalConsistency();
 			Assert.IsTrue(getValueOrDefaultRaised);
 			Assert.IsTrue(itemRaised);
 			Assert.IsTrue(containsKeyRaised);
@@ -197,7 +200,7 @@ namespace ObservableComputations.Test
 			Assert.IsTrue(itemRaised);
 			Assert.IsTrue(containsKeyRaised);
 			dictionaring.Clear();
-			dictionaring.ValidateConsistency();
+			dictionaring.ValidateInternalConsistency();
 			Assert.IsTrue(getValueOrDefaultRaised);
 			Assert.IsTrue(itemRaised);
 			Assert.IsTrue(containsKeyRaised);
@@ -218,7 +221,7 @@ namespace ObservableComputations.Test
 
 			OcConsumer consumer = new OcConsumer();
 			ConcurrentDictionaring<Item, int, string> dictionaring = 
-				items.ConcurrentDictionaring(i => new Computing<int>(() => i.Id).Value, i => i.Value).For(consumer);
+				items.ConcurrentDictionaring(i => new Computing<int>(() => i.Id).Value, i => new Computing<string>(() => i.Value).Value).For(consumer);
 
 			Assert.NotNull(dictionaring.GetEnumerator());
 			Assert.NotNull(((IEnumerable) dictionaring).GetEnumerator());
@@ -257,7 +260,7 @@ namespace ObservableComputations.Test
 			changedKey = 5;
 			changedValue = "2";
 			dictionaring.Add(5, "2");
-			dictionaring.ValidateConsistency();
+			dictionaring.ValidateInternalConsistency();
 			Assert.IsTrue(getValueOrDefaultRaised);
 			Assert.IsTrue(itemRaised);
 			Assert.IsTrue(containsKeyRaised);
@@ -270,7 +273,7 @@ namespace ObservableComputations.Test
 			changedKey = 7;
 			changedValue = "7";
 			dictionaring.Add(new KeyValuePair<int, string>(7, "7"));
-			dictionaring.ValidateConsistency();
+			dictionaring.ValidateInternalConsistency();
 			Assert.IsTrue(getValueOrDefaultRaised);
 			Assert.IsTrue(itemRaised);
 			Assert.IsTrue(containsKeyRaised);
@@ -281,16 +284,19 @@ namespace ObservableComputations.Test
 			changedKey = 5;
 			changedValue = "2";
 			Assert.IsTrue(dictionaring.Remove(5));
-			dictionaring.ValidateConsistency();
+			dictionaring.ValidateInternalConsistency();
 			Assert.IsTrue(getValueOrDefaultRaised);
 			Assert.IsTrue(itemRaised);
 			Assert.IsTrue(containsKeyRaised);
+
+			Assert.AreEqual(dictionaring.GetValueOrDefault(5), "2");
+			Assert.AreEqual(dictionaring.GetValueOrDefault(-5), null);
 
 			getValueOrDefaultRaised = false;
 			itemRaised = false;
 			containsKeyRaised = false;
 			Assert.IsFalse(dictionaring.Remove(10));
-			dictionaring.ValidateConsistency();
+			dictionaring.ValidateInternalConsistency();
 			Assert.IsFalse(getValueOrDefaultRaised);
 			Assert.IsFalse(itemRaised);
 			Assert.IsFalse(containsKeyRaised);
@@ -301,7 +307,7 @@ namespace ObservableComputations.Test
 			changedKey = 7;
 			changedValue = "7";
 			Assert.IsTrue(dictionaring.Remove(new KeyValuePair<int, string>(7, "7")));
-			dictionaring.ValidateConsistency();
+			dictionaring.ValidateInternalConsistency();
 			Assert.IsTrue(getValueOrDefaultRaised);
 			Assert.IsTrue(itemRaised);
 			Assert.IsTrue(containsKeyRaised);
@@ -310,7 +316,7 @@ namespace ObservableComputations.Test
 			itemRaised = false;
 			containsKeyRaised = false;
 			Assert.IsFalse(dictionaring.Remove(new KeyValuePair<int, string>(8, "8")));
-			dictionaring.ValidateConsistency();
+			dictionaring.ValidateInternalConsistency();
 			Assert.IsFalse(getValueOrDefaultRaised);
 			Assert.IsFalse(itemRaised);
 			Assert.IsFalse(containsKeyRaised);
@@ -321,7 +327,7 @@ namespace ObservableComputations.Test
 			changedKey = 0;
 			changedValue = "0";
 			dictionaring[0] = "1";
-			dictionaring.ValidateConsistency();
+			dictionaring.ValidateInternalConsistency();
 			Assert.IsTrue(getValueOrDefaultRaised);
 			Assert.IsTrue(itemRaised);
 			Assert.IsTrue(containsKeyRaised);
@@ -330,7 +336,7 @@ namespace ObservableComputations.Test
 			Assert.IsTrue(itemRaised);
 			Assert.IsTrue(containsKeyRaised);
 			dictionaring.Clear();
-			dictionaring.ValidateConsistency();
+			dictionaring.ValidateInternalConsistency();
 			Assert.IsTrue(getValueOrDefaultRaised);
 			Assert.IsTrue(itemRaised);
 			Assert.IsTrue(containsKeyRaised);
@@ -377,22 +383,22 @@ namespace ObservableComputations.Test
 
 			changedKey = 5;
 			dictionaring.Add(5);
-			dictionaring.ValidateConsistency();
+			dictionaring.ValidateInternalConsistency();
 			Assert.IsTrue(containsRaised);
 
 			containsRaised  = false;
 			Assert.IsTrue(dictionaring.Remove(5));
 			Assert.IsTrue(containsRaised);
-			dictionaring.ValidateConsistency();
+			dictionaring.ValidateInternalConsistency();
 
 			containsRaised  = false;
 			changedKey = 1;
 			Assert.IsFalse(dictionaring.Remove(7));
 			Assert.IsFalse(containsRaised);
-			dictionaring.ValidateConsistency();
+			dictionaring.ValidateInternalConsistency();
 
 			dictionaring.Clear();
-			dictionaring.ValidateConsistency();
+			dictionaring.ValidateInternalConsistency();
 			consumer.Dispose();
 		}
 
@@ -450,15 +456,15 @@ namespace ObservableComputations.Test
 			Assert.IsTrue(grouping.ClearGroupItemsRequestHandler == groupingClearGroupItemsRequestHandler);
 
 			grouping[2].Add(new Item(6, "3"));
-			grouping.ValidateConsistency();
+			grouping.ValidateInternalConsistency();
 			Assert.IsTrue(grouping[2].Remove(grouping[2][1]));
-			grouping.ValidateConsistency();
+			grouping.ValidateInternalConsistency();
 			Assert.IsFalse(grouping[2].Remove(new Item(0, "0")));
-			grouping.ValidateConsistency();
+			grouping.ValidateInternalConsistency();
 			grouping[2][0] = new Item(7, "3");
-			grouping.ValidateConsistency();
+			grouping.ValidateInternalConsistency();
 			grouping[2].Clear();
-			grouping.ValidateConsistency();
+			grouping.ValidateInternalConsistency();
 			consumer.Dispose();
 		}
 
@@ -522,15 +528,15 @@ namespace ObservableComputations.Test
 			Assert.IsTrue(groupJoining.ClearGroupItemsRequestHandler == groupJoiningClearGroupItemsRequestHandler);
 
 			groupJoining[2].Add(new Item(6, "3"));
-			groupJoining.ValidateConsistency();
+			groupJoining.ValidateInternalConsistency();
 			Assert.IsTrue(groupJoining[2].Remove(groupJoining[2][1]));
-			groupJoining.ValidateConsistency();
+			groupJoining.ValidateInternalConsistency();
 			Assert.IsFalse(groupJoining[2].Remove(new Item(0, "0")));
-			groupJoining.ValidateConsistency();
+			groupJoining.ValidateInternalConsistency();
 			groupJoining[2][0] = new Item(7, "3");
-			groupJoining.ValidateConsistency();
+			groupJoining.ValidateInternalConsistency();
 			groupJoining[2].Clear();
-			groupJoining.ValidateConsistency();
+			groupJoining.ValidateInternalConsistency();
 			consumer.Dispose();
 		}
 
@@ -578,7 +584,7 @@ namespace ObservableComputations.Test
 
 			joining[2].LeftItem = new Item(50, "50");
 			joining[3].RightItem = new Item(70, "70");
-			joining.ValidateConsistency();
+			joining.ValidateInternalConsistency();
 			consumer.Dispose();
 		}
 
@@ -626,7 +632,7 @@ namespace ObservableComputations.Test
 
 			zipping[2].LeftItem = new Item(50, "50");
 			zipping[1].RightItem = new Item(70, "70");
-			zipping.ValidateConsistency();
+			zipping.ValidateInternalConsistency();
 			consumer.Dispose();
 		}
 

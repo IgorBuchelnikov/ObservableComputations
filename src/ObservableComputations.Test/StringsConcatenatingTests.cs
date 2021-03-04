@@ -173,15 +173,15 @@ namespace ObservableComputations.Test
 
 		private void test(StringsConcatenating stringsConcatenating, Scalar<string> separatorScalar)
 		{
-			stringsConcatenating.ValidateConsistency();
+			stringsConcatenating.ValidateInternalConsistency();
 			separatorScalar.Change("");
-			stringsConcatenating.ValidateConsistency();
+			stringsConcatenating.ValidateInternalConsistency();
 			separatorScalar.Change("~!");
-			stringsConcatenating.ValidateConsistency();
+			stringsConcatenating.ValidateInternalConsistency();
 			separatorScalar.Change("#$%");
-			stringsConcatenating.ValidateConsistency();
+			stringsConcatenating.ValidateInternalConsistency();
 			separatorScalar.Change("^&");
-			stringsConcatenating.ValidateConsistency();
+			stringsConcatenating.ValidateInternalConsistency();
 			consumer.Dispose();
 		}
 

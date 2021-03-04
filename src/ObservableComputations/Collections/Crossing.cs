@@ -501,7 +501,7 @@
 //					_innerSourceWeakPropertyChangedEventHandler.Handle;
 //		} 
 
-//		public void ValidateConsistency()
+//		public void ValidateInternalConsistency()
 //		{
 //			IList<TOuterSourceItem> outerSource = _outerSourceScalar.getValue(_outerSource, new ObservableCollection<TOuterSourceItem>()) as IList<TOuterSourceItem>;
 //			IList<TInnerSourceItem> innerSource = _innerSourceScalar.getValue(_innerSource, new ObservableCollection<TInnerSourceItem>()) as IList<TInnerSourceItem>;
@@ -520,10 +520,10 @@
 //					JoinPair<TOuterSourceItem, TInnerSourceItem> joinPair = this[index];
 
 //					if (!EqualityComparer<TOuterSourceItem>.Default.Equals(joinPair.OuterItem, sourceOuterItem))
-//						throw new ObservableComputationsException(this, "Consistency violation: Crossing.1");
+//						throw new ValidateInternalConsistencyException("Consistency violation: Crossing.1");
 
 //					if (!EqualityComparer<TInnerSourceItem>.Default.Equals(joinPair.InnerItem, sourceInnerItem))
-//						throw new ObservableComputationsException(this, "Consistency violation: Crossing.2");
+//						throw new ValidateInternalConsistencyException("Consistency violation: Crossing.2");
 
 //					index++;
 //				}
@@ -531,7 +531,7 @@
 
 //			// ReSharper disable once PossibleNullReferenceException
 //			if (Count != outerSource.Count * innerSource.Count)
-//				throw new ObservableComputationsException(this, "Consistency violation: Crossing.3");
+//				throw new ValidateInternalConsistencyException("Consistency violation: Crossing.3");
 //		}
 
 //	}

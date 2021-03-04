@@ -64,7 +64,7 @@ namespace ObservableComputations.Test
 			ObservableCollection<Item> items = new ObservableCollection<Item>();
 
 			Filtering<Item> filtering = items.Filtering(item => item.IsActive).For(consumer);
-			filtering.ValidateConsistency();			
+			filtering.ValidateInternalConsistency();			
 			consumer.Dispose();
 		}
 
@@ -91,9 +91,9 @@ namespace ObservableComputations.Test
 			);
 
 			Filtering<Item> filtering = items.Filtering(item => item.IsActive).For(consumer);
-			filtering.ValidateConsistency();
+			filtering.ValidateInternalConsistency();
 			items[index].IsActive = newValue;
-			filtering.ValidateConsistency();			
+			filtering.ValidateInternalConsistency();			
 			consumer.Dispose();
 		}
 
@@ -110,9 +110,9 @@ namespace ObservableComputations.Test
 			);
 
 			Filtering<Item> filtering = items.Filtering(item => item.IsActive).For(consumer);
-			filtering.ValidateConsistency();
+			filtering.ValidateInternalConsistency();
 			items[0].IsActive = !items[0].IsActive;
-			filtering.ValidateConsistency();			
+			filtering.ValidateInternalConsistency();			
 			consumer.Dispose();
 		}
 
@@ -138,9 +138,9 @@ namespace ObservableComputations.Test
 			);
 
 			Filtering<Item> filtering = items.Filtering(item => item.IsActive).For(consumer);
-			filtering.ValidateConsistency();
+			filtering.ValidateInternalConsistency();
 			items.RemoveAt(index);
-			filtering.ValidateConsistency();			
+			filtering.ValidateInternalConsistency();			
 			consumer.Dispose();
 		}
 
@@ -157,9 +157,9 @@ namespace ObservableComputations.Test
 			);
 
 			Filtering<Item> filtering = items.Filtering(item => item.IsActive).For(consumer);
-			filtering.ValidateConsistency();
+			filtering.ValidateInternalConsistency();
 			items.RemoveAt(0);
-			filtering.ValidateConsistency();			
+			filtering.ValidateInternalConsistency();			
 			consumer.Dispose();
 		}
 
@@ -186,9 +186,9 @@ namespace ObservableComputations.Test
 			);
 
 			Filtering<Item> filtering = items.Filtering(item => item.IsActive).For(consumer);
-			filtering.ValidateConsistency();
+			filtering.ValidateInternalConsistency();
 			items.Insert(index, new Item(newValue));
-			filtering.ValidateConsistency();			
+			filtering.ValidateInternalConsistency();			
 			consumer.Dispose();
 		}
 
@@ -201,9 +201,9 @@ namespace ObservableComputations.Test
 			);
 
 			Filtering<Item> filtering = items.Filtering(item => item.IsActive).For(consumer);
-			filtering.ValidateConsistency();
+			filtering.ValidateInternalConsistency();
 			items.Insert(0, new Item(newValue));
-			filtering.ValidateConsistency();			
+			filtering.ValidateInternalConsistency();			
 			consumer.Dispose();
 		}
 
@@ -230,9 +230,9 @@ namespace ObservableComputations.Test
 			);
 
 			Filtering<Item> filtering = items.Filtering(item => item.IsActive).For(consumer);
-			filtering.ValidateConsistency();
+			filtering.ValidateInternalConsistency();
 			items.Move(oldIndex, newIndex);
-			filtering.ValidateConsistency();			
+			filtering.ValidateInternalConsistency();			
 			consumer.Dispose();
 		}
 
@@ -259,9 +259,9 @@ namespace ObservableComputations.Test
 			);
 
 			Filtering<Item> filtering = items.Filtering(item => item.IsActive).For(consumer);
-			filtering.ValidateConsistency();
+			filtering.ValidateInternalConsistency();
 			items[index] = new Item(itemNew);
-			filtering.ValidateConsistency();			
+			filtering.ValidateInternalConsistency();			
 			consumer.Dispose();
 		}
 
@@ -296,13 +296,13 @@ namespace ObservableComputations.Test
 
 			Selecting<Item, bool> selecting = expression.Computing().Selecting(item => item.IsActive).For(consumer);
 
-			filtering.ValidateConsistency();
-			filtering2.ValidateConsistency();
+			filtering.ValidateInternalConsistency();
+			filtering2.ValidateInternalConsistency();
 
 			param.Value = true;
 
-			filtering.ValidateConsistency();
-			filtering2.ValidateConsistency();
+			filtering.ValidateInternalConsistency();
+			filtering2.ValidateInternalConsistency();
 			consumer.Dispose();
 		}
 

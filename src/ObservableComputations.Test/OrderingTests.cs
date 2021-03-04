@@ -130,7 +130,7 @@ namespace ObservableComputations.Test
 				trace(testNum = "1", orderNums, listSortDirection, index, orderNum, indexOld, indexNew);
 				items = getObservableCollection(orderNums);
 				ordering = items.Ordering(i => i.OrderNum, listSortDirection).For(consumer);
-				ordering.ValidateConsistency();				
+				ordering.ValidateInternalConsistency();				
 				consumer.Dispose();
 
 				for (index = 0; index < orderNums.Length; index++)
@@ -139,7 +139,7 @@ namespace ObservableComputations.Test
 					items = getObservableCollection(orderNums);
 					Ordering<Item, int?> ordering1 = items.Ordering(i => i.OrderNum, listSortDirection).For(consumer);
 					items.RemoveAt(index);
-					ordering1.ValidateConsistency();					
+					ordering1.ValidateInternalConsistency();					
 					consumer.Dispose();
 				}
 
@@ -151,7 +151,7 @@ namespace ObservableComputations.Test
 						items = getObservableCollection(orderNums);
 						Ordering<Item, int?> ordering1 = items.Ordering(i => i.OrderNum, listSortDirection).For(consumer);
 						items.Insert(index, new Item(orderNum == -1 ? (int?)null : orderNum));
-						ordering1.ValidateConsistency();						
+						ordering1.ValidateInternalConsistency();						
 						consumer.Dispose();
 					}
 				}
@@ -162,7 +162,7 @@ namespace ObservableComputations.Test
 					items = getObservableCollection(orderNums);
 					Ordering<Item, int?> ordering3 = items.Ordering(i => i.OrderNum, listSortDirection).For(consumer);
 					items[index] = new Item(null);
-					ordering3.ValidateConsistency();					
+					ordering3.ValidateInternalConsistency();					
 					consumer.Dispose();
 
 					for (orderNum = -1; orderNum <= orderNums.Length; orderNum++)
@@ -171,7 +171,7 @@ namespace ObservableComputations.Test
 						items = getObservableCollection(orderNums);
 						Ordering<Item, int?> ordering2 = items.Ordering(i => i.OrderNum, listSortDirection).For(consumer);
 						items[index] = new Item(orderNum == -1 ? (int?)null : orderNum);
-						ordering2.ValidateConsistency();						
+						ordering2.ValidateInternalConsistency();						
 						consumer.Dispose();
 
 					}
@@ -183,7 +183,7 @@ namespace ObservableComputations.Test
 					items = getObservableCollection(orderNums);
 					Ordering<Item, int?> ordering1 = items.Ordering(i => i.OrderNum, listSortDirection).For(consumer);
 					items[index].OrderNum = null;
-					ordering1.ValidateConsistency();					
+					ordering1.ValidateInternalConsistency();					
 					consumer.Dispose();
 
 					for (orderNum = -1; orderNum <= orderNums.Length; orderNum++)
@@ -192,7 +192,7 @@ namespace ObservableComputations.Test
 						items = getObservableCollection(orderNums);
 						Ordering<Item, int?> ordering2 = items.Ordering(i => i.OrderNum, listSortDirection).For(consumer);
 						items[index].OrderNum = orderNum == -1 ? (int?)null : orderNum;
-						ordering2.ValidateConsistency();						
+						ordering2.ValidateInternalConsistency();						
 						consumer.Dispose();
 					}
 				}
@@ -205,7 +205,7 @@ namespace ObservableComputations.Test
 						items = getObservableCollection(orderNums);
 						Ordering<Item, int?> ordering2 = items.Ordering(i => i.OrderNum, listSortDirection).For(consumer);
 						items.Move(indexOld, indexNew);
-						ordering2.ValidateConsistency();						
+						ordering2.ValidateInternalConsistency();						
 						consumer.Dispose();
 					}
 				}
@@ -259,7 +259,7 @@ namespace ObservableComputations.Test
 			ObservableCollection<Item> items = getObservableCollection(new []{-1,-1,-1,-1,-1,0,0});
 			Ordering<Item, int?> ordering2 = items.Ordering(i => i.OrderNum, ListSortDirection.Ascending).For(consumer);
 			items[0] = new Item(-1);
-			ordering2.ValidateConsistency();			
+			ordering2.ValidateInternalConsistency();			
 			consumer.Dispose();		
 		}
 
@@ -276,7 +276,7 @@ namespace ObservableComputations.Test
 			ObservableCollection<Item> items = getObservableCollection(new []{-1, 1});
 			Ordering<Item, int?> ordering2 = items.Ordering(i => i.OrderNum, ListSortDirection.Ascending).For(consumer);
 			items[0] = new Item(0);
-			ordering2.ValidateConsistency();			
+			ordering2.ValidateInternalConsistency();			
 			consumer.Dispose();		
 		}
 
@@ -299,7 +299,7 @@ namespace ObservableComputations.Test
 		//	);
 
 		//	Ordering<Item, int?> ordering = items.Ordering(i => i.OrderNum, listSortDirection).For(consumer);
-		//	ordering.ValidateConsistency();
+		//	ordering.ValidateInternalConsistency();
 		//}
 
 		//[Test, Combinatorial]
@@ -317,7 +317,7 @@ namespace ObservableComputations.Test
 		//	);
 
 		//	Ordering<Item, int?> ordering = items.Ordering(i => i.OrderNum);
-		//	ordering.ValidateConsistency();
+		//	ordering.ValidateInternalConsistency();
 		//}
 
 		//[Test, Combinatorial]
@@ -337,7 +337,7 @@ namespace ObservableComputations.Test
 		//	);
 
 		//	Ordering<Item, int?> ordering = items.Ordering(i => i.OrderNum);
-		//	ordering.ValidateConsistency();
+		//	ordering.ValidateInternalConsistency();
 		//}
 
 		//[Test, Combinatorial]
@@ -359,7 +359,7 @@ namespace ObservableComputations.Test
 		//	);
 
 		//	Ordering<Item, int?> ordering = items.Ordering(i => i.OrderNum);
-		//	ordering.ValidateConsistency();
+		//	ordering.ValidateInternalConsistency();
 		//}
 
 		//[Test, Combinatorial]
@@ -383,7 +383,7 @@ namespace ObservableComputations.Test
 		//	);
 
 		//	Ordering<Item, int?> ordering = items.Ordering(i => i.OrderNum);
-		//	ordering.ValidateConsistency();
+		//	ordering.ValidateInternalConsistency();
 		//}
 
 		//[Test, Combinatorial]
@@ -410,7 +410,7 @@ namespace ObservableComputations.Test
 		//	);
 
 		//	Ordering<Item, int?> ordering = items.Ordering(i => i.OrderNum);
-		//	ordering.ValidateConsistency();
+		//	ordering.ValidateInternalConsistency();
 		//}
 
 
@@ -430,7 +430,7 @@ namespace ObservableComputations.Test
 
 		//	Ordering<Item, int?> ordering = items.Ordering(i => i.OrderNum, listSortDirection).For(consumer);
 		//	ordering.RemoveAt(0);
-		//	ordering.ValidateConsistency();
+		//	ordering.ValidateInternalConsistency();
 		//}
 
 		//[Test, Combinatorial]
@@ -449,9 +449,9 @@ namespace ObservableComputations.Test
 		//	);
 
 		//	Ordering<Item, int?> ordering = items.Ordering(i => i.OrderNum);
-		//	ordering.ValidateConsistency();
+		//	ordering.ValidateInternalConsistency();
 		//	ordering.RemoveAt(index);
-		//	ordering.ValidateConsistency();
+		//	ordering.ValidateInternalConsistency();
 		//}
 
 		//[Test, Combinatorial]
@@ -472,7 +472,7 @@ namespace ObservableComputations.Test
 		//	);
 
 		//	Ordering<Item, int?> ordering = items.Ordering(i => i.OrderNum);
-		//	ordering.ValidateConsistency();
+		//	ordering.ValidateInternalConsistency();
 		//}
 
 		//[Test, Combinatorial]
@@ -494,7 +494,7 @@ namespace ObservableComputations.Test
 		//	);
 
 		//	Ordering<Item, int?> ordering = items.Ordering(i => i.OrderNum);
-		//	ordering.ValidateConsistency();
+		//	ordering.ValidateInternalConsistency();
 		//}
 
 		//[Test, Combinatorial]
@@ -519,7 +519,7 @@ namespace ObservableComputations.Test
 		//	);
 
 		//	Ordering<Item, int?> ordering = items.Ordering(i => i.OrderNum);
-		//	ordering.ValidateConsistency();
+		//	ordering.ValidateInternalConsistency();
 		//}
 
 
@@ -547,7 +547,7 @@ namespace ObservableComputations.Test
 		//	);
 
 		//	Ordering<Item, int?> ordering = items.Ordering(i => i.OrderNum);
-		//	ordering.ValidateConsistency();
+		//	ordering.ValidateInternalConsistency();
 		//}
 		public OrderingTests(bool debug) : base(debug)
 		{

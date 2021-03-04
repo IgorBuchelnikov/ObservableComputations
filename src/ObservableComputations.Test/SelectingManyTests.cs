@@ -117,7 +117,7 @@ namespace ObservableComputations.Test
 				trace(testNum = "1", itemsCounts, index, itemsCount, indexOld, indexNew);
 				items = getObservableCollections(itemsCounts);
 				selectingMany = items.SelectingMany<Item, Item>(i => i.Items).For(consumer);
-				selectingMany.ValidateConsistency();				
+				selectingMany.ValidateInternalConsistency();				
 				consumer.Dispose();
 
 				for (index = 0; index < itemsCounts.Length; index++)
@@ -126,7 +126,7 @@ namespace ObservableComputations.Test
 					items = getObservableCollections(itemsCounts);
 					SelectingMany<Item, Item> concating1 = items.SelectingMany<Item, Item>(i => i.Items).For(consumer);
 					items.RemoveAt(index);
-					concating1.ValidateConsistency();					
+					concating1.ValidateInternalConsistency();					
 					consumer.Dispose();
 				}
 
@@ -138,7 +138,7 @@ namespace ObservableComputations.Test
 						items = getObservableCollections(itemsCounts);
 						SelectingMany<Item, Item> concating2 = items.SelectingMany<Item, Item>(i => i.Items).For(consumer);
 						items.Insert(index, getObservableCollection(itemsCount));
-						concating2.ValidateConsistency();						
+						concating2.ValidateInternalConsistency();						
 						consumer.Dispose();
 					}
 				}
@@ -149,7 +149,7 @@ namespace ObservableComputations.Test
 					items = getObservableCollections(itemsCounts);
 					SelectingMany<Item, Item> concating3 = items.SelectingMany<Item, Item>(i => i.Items).For(consumer);
 					items[index] = new Item(){Items = new ObservableCollection<Item>()};
-					concating3.ValidateConsistency();					
+					concating3.ValidateInternalConsistency();					
 					consumer.Dispose();
 
 					for (itemsCount = 0; itemsCount <= itemsCounts.Length; itemsCount++)
@@ -158,7 +158,7 @@ namespace ObservableComputations.Test
 						items = getObservableCollections(itemsCounts);
 						SelectingMany<Item, Item> concating2 = items.SelectingMany<Item, Item>(i => i.Items).For(consumer);
 						items[index] = getObservableCollection(itemsCount);
-						concating2.ValidateConsistency();						
+						concating2.ValidateInternalConsistency();						
 						consumer.Dispose();
 
 					}
@@ -172,7 +172,7 @@ namespace ObservableComputations.Test
 						items = getObservableCollections(itemsCounts);
 						SelectingMany<Item, Item> concating2 = items.SelectingMany<Item, Item>(i => i.Items).For(consumer);
 						items[index] = getObservableCollection(itemsCount);
-						concating2.ValidateConsistency();						
+						concating2.ValidateInternalConsistency();						
 						consumer.Dispose();
 
 					}
@@ -186,7 +186,7 @@ namespace ObservableComputations.Test
 						items = getObservableCollections(itemsCounts);
 						SelectingMany<Item, Item> concating2 = items.SelectingMany<Item, Item>(i => i.Items).For(consumer);
 						items.Move(indexOld, indexNew);
-						concating2.ValidateConsistency();						
+						concating2.ValidateInternalConsistency();						
 						consumer.Dispose();
 					}
 				}
@@ -202,7 +202,7 @@ namespace ObservableComputations.Test
 						items = getObservableCollections(itemsCounts);
 						SelectingMany<Item, Item> concating1 = items.SelectingMany<Item, Item>(i => i.Items).For(consumer);
 						items[index1].Items.RemoveAt(index);
-						concating1.ValidateConsistency();						
+						concating1.ValidateInternalConsistency();						
 						consumer.Dispose();
 					}
 
@@ -212,7 +212,7 @@ namespace ObservableComputations.Test
 						items = getObservableCollections(itemsCounts);
 						SelectingMany<Item, Item> concating1 = items.SelectingMany<Item, Item>(i => i.Items).For(consumer);
 						items[index1].Items.Insert(index, new Item());
-						concating1.ValidateConsistency();						
+						concating1.ValidateInternalConsistency();						
 						consumer.Dispose();
 					}
 
@@ -222,14 +222,14 @@ namespace ObservableComputations.Test
 						items = getObservableCollections(itemsCounts);
 						SelectingMany<Item, Item> concating3 = items.SelectingMany<Item, Item>(i => i.Items).For(consumer);
 						items[index1].Items[index] = null;
-						concating3.ValidateConsistency();	
+						concating3.ValidateInternalConsistency();	
 						consumer.Dispose();
 
 						trace(testNum = "9", itemsCounts, index, itemsCount, indexOld, indexNew);
 						items = getObservableCollections(itemsCounts);
 						SelectingMany<Item, Item> concating2 = items.SelectingMany<Item, Item>(i => i.Items).For(consumer);
 						items[index1].Items[index] = new Item();
-						concating2.ValidateConsistency();						
+						concating2.ValidateInternalConsistency();						
 						consumer.Dispose();
 					}
 
@@ -241,7 +241,7 @@ namespace ObservableComputations.Test
 							items = getObservableCollections(itemsCounts);
 							SelectingMany<Item, Item> concating2 = items.SelectingMany<Item, Item>(i => i.Items).For(consumer);
 							items[index1].Items.Move(indexOld, indexNew);
-							concating2.ValidateConsistency();							
+							concating2.ValidateInternalConsistency();							
 							consumer.Dispose();
 						}
 					}

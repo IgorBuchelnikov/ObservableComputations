@@ -60,13 +60,13 @@ namespace ObservableComputations
 		}
 
 		[ExcludeFromCodeCoverage]
-		internal void ValidateConsistency()
+		internal void ValidateInternalConsistency()
 		{
 			IList<TSourceItem> source = _sourceScalar.getValue(_source, new ObservableCollection<TSourceItem>()) as IList<TSourceItem>;
 
 			// ReSharper disable once AssignNullToNotNullAttribute
 			if (!this.SequenceEqual(source.Reverse()))
-				throw new ObservableComputationsException(this, "Consistency violation: Reversing.1");
+				throw new ValidateInternalConsistencyException("Consistency violation: Reversing.1");
 		}
 	}
 }

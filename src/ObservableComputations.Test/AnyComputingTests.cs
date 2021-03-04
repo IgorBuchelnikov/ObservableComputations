@@ -62,7 +62,7 @@ namespace ObservableComputations.Test
 			ObservableCollection<Item> items = new ObservableCollection<Item>();
 
 			AnyComputing<Item> anyComputing = items.AnyComputing(item => item.IsActive).For(consumer);
-			anyComputing.ValidateConsistency();
+			anyComputing.ValidateInternalConsistency();
 		}
 
 		[Test, Combinatorial]
@@ -88,9 +88,9 @@ namespace ObservableComputations.Test
 			);
 
 			AnyComputing<Item> anyComputing = items.AnyComputing(item => item.IsActive).For(consumer);
-			anyComputing.ValidateConsistency();
+			anyComputing.ValidateInternalConsistency();
 			items[index].IsActive = newValue;
-			anyComputing.ValidateConsistency();
+			anyComputing.ValidateInternalConsistency();
 		}
 
 		[Test, Combinatorial]
@@ -115,9 +115,9 @@ namespace ObservableComputations.Test
 			);
 
 			AnyComputing<Item> anyComputing = items.AnyComputing(item => item.IsActive).For(consumer);
-			anyComputing.ValidateConsistency();
+			anyComputing.ValidateInternalConsistency();
 			items.RemoveAt(index);
-			anyComputing.ValidateConsistency();
+			anyComputing.ValidateInternalConsistency();
 		}
 
 		[Test, Combinatorial]
@@ -133,9 +133,9 @@ namespace ObservableComputations.Test
 			);
 
 			AnyComputing<Item> anyComputing = items.AnyComputing(item => item.IsActive).For(consumer);
-			anyComputing.ValidateConsistency();
+			anyComputing.ValidateInternalConsistency();
 			items.RemoveAt(0);
-			anyComputing.ValidateConsistency();
+			anyComputing.ValidateInternalConsistency();
 		}
 
 		[Test, Combinatorial]
@@ -161,9 +161,9 @@ namespace ObservableComputations.Test
 			);
 
 			AnyComputing<Item> anyComputing = items.AnyComputing(item => item.IsActive).For(consumer);
-			anyComputing.ValidateConsistency();
+			anyComputing.ValidateInternalConsistency();
 			items.Insert(index, new Item(newValue));
-			anyComputing.ValidateConsistency();
+			anyComputing.ValidateInternalConsistency();
 		}
 
 		[Test, Combinatorial]
@@ -174,9 +174,9 @@ namespace ObservableComputations.Test
 			);
 
 			AnyComputing<Item> anyComputing = items.AnyComputing(item => item.IsActive).For(consumer);
-			anyComputing.ValidateConsistency();
+			anyComputing.ValidateInternalConsistency();
 			items.Insert(0, new Item(newValue));
-			anyComputing.ValidateConsistency();
+			anyComputing.ValidateInternalConsistency();
 		}
 
 		[Test, Combinatorial]
@@ -202,9 +202,9 @@ namespace ObservableComputations.Test
 			);
 
 			AnyComputing<Item> anyComputing = items.AnyComputing(item => item.IsActive).For(consumer);
-			anyComputing.ValidateConsistency();
+			anyComputing.ValidateInternalConsistency();
 			items.Move(oldIndex, newIndex);
-			anyComputing.ValidateConsistency();
+			anyComputing.ValidateInternalConsistency();
 		}
 
 		[Test, Combinatorial]
@@ -230,9 +230,9 @@ namespace ObservableComputations.Test
 			);
 
 			AnyComputing<Item> anyComputing = items.AnyComputing(item => item.IsActive).For(consumer);
-			anyComputing.ValidateConsistency();
+			anyComputing.ValidateInternalConsistency();
 			items[index] = new Item(itemNew);
-			anyComputing.ValidateConsistency();
+			anyComputing.ValidateInternalConsistency();
 		}
 
 		public AnyComputingTests(bool debug) : base(debug)

@@ -147,10 +147,10 @@ namespace ObservableComputations
 		#endregion
 
 		[ExcludeFromCodeCoverage]
-		internal void ValidateConsistency()
+		internal void ValidateInternalConsistency()
 		{
 			if (!_value.Equals(_source.Value))
-				throw new ObservableComputationsException("Consistency violation: Differing.1");
+				throw new ValidateInternalConsistencyException("Consistency violation: Differing.1");
 		}
 	}
 }

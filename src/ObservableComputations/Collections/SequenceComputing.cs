@@ -57,14 +57,14 @@ namespace ObservableComputations
 
 		// ReSharper disable once InconsistentNaming
 		[ExcludeFromCodeCoverage]
-		internal void ValidateConsistency()
+		internal void ValidateInternalConsistency()
 		{
 			int count =  _countScalar.Value;
-			if (Count != count) throw new ObservableComputationsException(this, "Consistency violation: SequenceComputing.1");
+			if (Count != count) throw new ValidateInternalConsistencyException("Consistency violation: SequenceComputing.1");
 
 			for (int i = 0; i < count; i++)
 			{
-				if (this[i] != i) throw new ObservableComputationsException(this, "Consistency violation: SequenceComputing.2");
+				if (this[i] != i) throw new ValidateInternalConsistencyException("Consistency violation: SequenceComputing.2");
 			}
 		}
 

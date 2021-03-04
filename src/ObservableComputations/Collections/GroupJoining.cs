@@ -714,9 +714,9 @@ namespace ObservableComputations
 
 		// ReSharper disable once InconsistentNaming
 		[ExcludeFromCodeCoverage]
-		internal void ValidateConsistency()
+		internal void ValidateInternalConsistency()
 		{
-			_outerSourceItemPositions.ValidateConsistency();
+			_outerSourceItemPositions.ValidateInternalConsistency();
 			IList<TOuterSourceItem> outerSource = (IList<TOuterSourceItem>) _outerSourceScalar.getValue(_outerSource, new ObservableCollection<TOuterSourceItem>());
 			IList<TInnerSourceItem> innerSource = (IList<TInnerSourceItem>) _grouping._sourceScalar.getValue(_grouping._source, new ObservableCollection<TInnerSourceItem>());
 
@@ -727,7 +727,7 @@ namespace ObservableComputations
 			Func<TOuterSourceItem, TKey> outerKeySelector = _outerKeySelectorExpressionOriginal.Compile();
 
 			if (_outerSourceItemPositions.List.Count != outerSource.Count)
-				throw new ObservableComputationsException(this, "Consistency violation: GroupJoining.5");
+				throw new ValidateInternalConsistencyException("Consistency violation: GroupJoining.5");
 
 			Func<TInnerSourceItem, TKey> innerKeySelector = _grouping._keySelectorExpression.Compile();
 
@@ -750,7 +750,7 @@ namespace ObservableComputations
 			var groups = innerSource.GroupBy(innerKeySelector, equalityComparer).ToArray();
 
 			if (Count !=  result.Count)
-				throw new ObservableComputationsException(this, "Consistency violation: GroupJoining.1");
+				throw new ValidateInternalConsistencyException("Consistency violation: GroupJoining.1");
 
 			for (int index = 0; index < result.Count; index++)
 			{
@@ -759,16 +759,16 @@ namespace ObservableComputations
 				OuterItemInfo itemInfo = _itemInfos[index];
 
 				if (!ReferenceEquals(resultItem.Key, thisItem.OuterItem))
-					throw new ObservableComputationsException(this, "Consistency violation: GroupJoining.2");
+					throw new ValidateInternalConsistencyException("Consistency violation: GroupJoining.2");
 
 				if (resultItem.InnerItems.Count() !=  thisItem.Count)
-					throw new ObservableComputationsException(this, "Consistency violation: GroupJoining.3");
+					throw new ValidateInternalConsistencyException("Consistency violation: GroupJoining.3");
 
 				if (!resultItem.InnerItems.SequenceEqual(thisItem))
-					throw new ObservableComputationsException(this, "Consistency violation: GroupJoining.4");
+					throw new ValidateInternalConsistencyException("Consistency violation: GroupJoining.4");
 
 				if (itemInfo.ExpressionWatcher._position.Index != index)
-					throw new ObservableComputationsException(this, "Consistency violation: GroupJoining.9");
+					throw new ValidateInternalConsistencyException("Consistency violation: GroupJoining.9");
 
 				List<int> indices;
 				TKey key = outerKeySelector(outerSource[index]);
@@ -797,21 +797,21 @@ namespace ObservableComputations
 				}
 
 				if (groupIndex != thisItem.InnserSourceGroupIndex)
-					throw new ObservableComputationsException(this, "Consistency violation: GroupJoining.10");
+					throw new ValidateInternalConsistencyException("Consistency violation: GroupJoining.10");
 			}
 
 			if (keyIndices.Count != _keyPositions.Count)
-				throw new ObservableComputationsException(this, "Consistency violation: GroupJoining.6");
+				throw new ValidateInternalConsistencyException("Consistency violation: GroupJoining.6");
 
 			foreach (KeyValuePair<TKey, List<int>> keyValuePair in keyIndices)
 			{
 				List<OuterItemInfo> positions = _keyPositions[keyValuePair.Key];
 				if (!positions.Select(p => p.Index).OrderBy(i => i).SequenceEqual(keyValuePair.Value))
-					throw new ObservableComputationsException(this, "Consistency violation: GroupJoining.7");
+					throw new ValidateInternalConsistencyException("Consistency violation: GroupJoining.7");
 			}
 
 			if (!_nullKeyPositions.Select(p => p.Index).OrderBy(i => i).SequenceEqual(nullKeyIndices))
-				throw new ObservableComputationsException(this, "Consistency violation: GroupJoining.8");
+				throw new ValidateInternalConsistencyException("Consistency violation: GroupJoining.8");
 		}
 	}
 

@@ -127,7 +127,7 @@ namespace ObservableComputations
 		}
 
 		[ExcludeFromCodeCoverage]
-		internal void ValidateConsistency()
+		internal void ValidateInternalConsistency()
 		{
 			IList<TOuterSourceItem> outerSource = (IList<TOuterSourceItem>) _outerSourceScalar.getValue(_outerSource, new ObservableCollection<TOuterSourceItem>());
 			IList<TInnerSourceItem> innerSource = (IList<TInnerSourceItem>) _innerSourceScalar.getValue(_innerSource, new ObservableCollection<TInnerSourceItem>());
@@ -141,7 +141,7 @@ namespace ObservableComputations
 				}).ToList();
 
 			if (Count !=  result.Count)
-				throw new ObservableComputationsException(this, "Consistency violation: PredicateGroupJoining.1");
+				throw new ValidateInternalConsistencyException("Consistency violation: PredicateGroupJoining.1");
 
 			for (int index = 0; index < result.Count; index++)
 			{
@@ -150,7 +150,7 @@ namespace ObservableComputations
 
 				int length = resultItem.InnerItems.Length;
 				if (length !=  thisItem.Count)
-					throw new ObservableComputationsException($"Consistency violation: PredicateGroupJoining.3 {length}");
+					throw new ValidateInternalConsistencyException("Consistency violation: PredicateGroupJoining.3");
 
 				EqualityComparer<TInnerSourceItem> equalityComparer = EqualityComparer<TInnerSourceItem>.Default;
 
@@ -162,7 +162,7 @@ namespace ObservableComputations
 						{
 							enumerator2.MoveNext();
 							if (!equalityComparer.Equals((TInnerSourceItem)enumerator1.Current, enumerator2.Current))
-								throw new ObservableComputationsException(this, "Consistency violation: PredicateGroupJoining.4");
+								throw new ValidateInternalConsistencyException("Consistency violation: PredicateGroupJoining.4");
 						}
 					}
 				}

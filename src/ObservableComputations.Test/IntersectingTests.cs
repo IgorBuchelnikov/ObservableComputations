@@ -106,7 +106,7 @@ namespace ObservableComputations.Test
 				items1 = getObservableCollection(ids1);
 				items2 = getObservableCollection(ids2);
 				intersecting = items1.Intersecting(items2).For(consumer);
-				intersecting.ValidateConsistency();				
+				intersecting.ValidateInternalConsistency();				
 				consumer.Dispose();
 
 				for (index = 0; index < ids1.Length; index++)
@@ -116,7 +116,7 @@ namespace ObservableComputations.Test
 					items2 = getObservableCollection(ids2);
 					intersecting = items1.Intersecting(items2).For(consumer);
 					items1.RemoveAt(index);
-					intersecting.ValidateConsistency();					
+					intersecting.ValidateInternalConsistency();					
 					consumer.Dispose();
 				}
 
@@ -127,7 +127,7 @@ namespace ObservableComputations.Test
 					items2 = getObservableCollection(ids2);
 					intersecting = items1.Intersecting(items2).For(consumer);
 					items2.RemoveAt(index);
-					intersecting.ValidateConsistency();					
+					intersecting.ValidateInternalConsistency();					
 					consumer.Dispose();
 				}
 
@@ -140,7 +140,7 @@ namespace ObservableComputations.Test
 						items2 = getObservableCollection(ids2);
 						intersecting = items1.Intersecting(items2).For(consumer);
 						items1.Insert(index, new Item(newItemId));
-						intersecting.ValidateConsistency();						
+						intersecting.ValidateInternalConsistency();						
 						consumer.Dispose();
 					}
 
@@ -155,7 +155,7 @@ namespace ObservableComputations.Test
 						items2 = getObservableCollection(ids2);
 						intersecting = items1.Intersecting(items2).For(consumer);
 						items2.Insert(index, new Item(newItemId));
-						intersecting.ValidateConsistency();						
+						intersecting.ValidateInternalConsistency();						
 						consumer.Dispose();
 					}
 				}
@@ -169,7 +169,7 @@ namespace ObservableComputations.Test
 						items2 = getObservableCollection(ids2);
 						intersecting = items1.Intersecting(items2).For(consumer);
 						items1[index] = new Item(newItemId);
-						intersecting.ValidateConsistency();						
+						intersecting.ValidateInternalConsistency();						
 						consumer.Dispose();
 					}
 				}
@@ -183,7 +183,7 @@ namespace ObservableComputations.Test
 						items2 = getObservableCollection(ids2);
 						intersecting = items1.Intersecting(items2).For(consumer);
 						items2[index] = new Item(newItemId);
-						intersecting.ValidateConsistency();						
+						intersecting.ValidateInternalConsistency();						
 						consumer.Dispose();
 					}
 				}
@@ -197,7 +197,7 @@ namespace ObservableComputations.Test
 						items2 = getObservableCollection(ids2);
 						intersecting = items1.Intersecting(items2).For(consumer);
 						items1.Move(indexOld, indexNew);
-						intersecting.ValidateConsistency();						
+						intersecting.ValidateInternalConsistency();						
 						consumer.Dispose();
 					}
 				}
@@ -211,7 +211,7 @@ namespace ObservableComputations.Test
 						items2 = getObservableCollection(ids2);
 						intersecting = items1.Intersecting(items2).For(consumer);
 						items2.Move(indexOld, indexNew);
-						intersecting.ValidateConsistency();						
+						intersecting.ValidateInternalConsistency();						
 						consumer.Dispose();
 					}
 				}

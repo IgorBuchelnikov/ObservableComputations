@@ -316,7 +316,7 @@ namespace ObservableComputations
 
 
 		[ExcludeFromCodeCoverage]
-		internal void ValidateConsistency()
+		internal void ValidateInternalConsistency()
 		{
 			IList<TSourceItem> source = _sourceScalar.getValue(_source, new ObservableCollection<TSourceItem>()) as IList<TSourceItem>;
 			int index = _indexScalar.getValue(_index);
@@ -326,12 +326,12 @@ namespace ObservableComputations
 			if (source.Count > index)
 			{
 				if (!source[index].IsSameAs(_value))
-					throw new ObservableComputationsException(this, "Consistency violation: ItemComputing.1");
+					throw new ValidateInternalConsistencyException("Consistency violation: ItemComputing.1");
 			}
 			else
 			{
 				if (!defaultValue.IsSameAs(_value))
-					throw new ObservableComputationsException(this, "Consistency violation: ItemComputing.2");			
+					throw new ValidateInternalConsistencyException("Consistency violation: ItemComputing.2");			
 			}
 		}
 

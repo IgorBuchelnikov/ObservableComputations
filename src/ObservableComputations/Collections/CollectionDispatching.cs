@@ -339,7 +339,7 @@ namespace ObservableComputations
 		}
 
 		[ExcludeFromCodeCoverage]
-		internal void ValidateConsistency()
+		internal void ValidateInternalConsistency()
 		{
 			IList<TSourceItem> source = _sourceScalar.getValue(_source, new ObservableCollection<TSourceItem>()) as IList<TSourceItem>;
 			
@@ -352,7 +352,7 @@ namespace ObservableComputations
 			});
 
 			if (!conststent)
-				throw new ObservableComputationsException(this, "Consistency violation: CollectionDispatching.1");
+				throw new ValidateInternalConsistencyException("Consistency violation: CollectionDispatching.1");
 
 		}
 	}

@@ -68,7 +68,7 @@ namespace ObservableComputations.Test
 
 			OcConsumer consumer = new OcConsumer();
 			Selecting<Item, int> selecting = items.Selecting(item => item.Num).For(consumer);
-			selecting.ValidateConsistency();
+			selecting.ValidateInternalConsistency();
 			consumer.Dispose();
 		}
 
@@ -91,9 +91,9 @@ namespace ObservableComputations.Test
 
 			OcConsumer consumer = new OcConsumer();
 			Selecting<Item, int> selecting = items.Selecting(item => item.Num).For(consumer);
-			selecting.ValidateConsistency();
+			selecting.ValidateInternalConsistency();
 			items[index].Num = newValue;
-			selecting.ValidateConsistency();
+			selecting.ValidateInternalConsistency();
 			consumer.Dispose();
 		}
 
@@ -115,9 +115,9 @@ namespace ObservableComputations.Test
 
 			OcConsumer consumer = new OcConsumer();
 			Selecting<Item, int> selecting = items.Selecting(item => item.Num).For(consumer);
-			selecting.ValidateConsistency();
+			selecting.ValidateInternalConsistency();
 			items.RemoveAt(index);
-			selecting.ValidateConsistency();
+			selecting.ValidateInternalConsistency();
 			consumer.Dispose();
 		}
 
@@ -134,9 +134,9 @@ namespace ObservableComputations.Test
 
 			OcConsumer consumer = new OcConsumer();
 			Selecting<Item, int> selecting = items.Selecting(item => item.Num).For(consumer);
-			selecting.ValidateConsistency();
+			selecting.ValidateInternalConsistency();
 			items.RemoveAt(0);
-			selecting.ValidateConsistency();
+			selecting.ValidateInternalConsistency();
 			consumer.Dispose();
 		}
 
@@ -159,9 +159,9 @@ namespace ObservableComputations.Test
 
 			OcConsumer consumer = new OcConsumer();
 			Selecting<Item, int> selecting = items.Selecting(item => item.Num).For(consumer);
-			selecting.ValidateConsistency();
+			selecting.ValidateInternalConsistency();
 			items.Insert(index, new Item(newValue));
-			selecting.ValidateConsistency();
+			selecting.ValidateInternalConsistency();
 			consumer.Dispose();
 		}
 
@@ -174,9 +174,9 @@ namespace ObservableComputations.Test
 
 			OcConsumer consumer = new OcConsumer();
 			Selecting<Item, int> selecting = items.Selecting(item => item.Num).For(consumer);
-			selecting.ValidateConsistency();
+			selecting.ValidateInternalConsistency();
 			items.Insert(0, new Item(newValue));
-			selecting.ValidateConsistency();
+			selecting.ValidateInternalConsistency();
 			consumer.Dispose();
 		}
 
@@ -199,9 +199,9 @@ namespace ObservableComputations.Test
 
 			OcConsumer consumer = new OcConsumer();
 			Selecting<Item, int> selecting = items.Selecting(item => item.Num).For(consumer);
-			selecting.ValidateConsistency();
+			selecting.ValidateInternalConsistency();
 			items.Move(oldIndex, newIndex);
-			selecting.ValidateConsistency();
+			selecting.ValidateInternalConsistency();
 			consumer.Dispose();
 		}
 
@@ -224,9 +224,9 @@ namespace ObservableComputations.Test
 
 			OcConsumer consumer = new OcConsumer();
 			Selecting<Item, int> selecting = items.Selecting(item => item.Num).For(consumer);
-			selecting.ValidateConsistency();
+			selecting.ValidateInternalConsistency();
 			items[index] = new Item(newValue);
-			selecting.ValidateConsistency();
+			selecting.ValidateInternalConsistency();
 			consumer.Dispose();
 		}	
 

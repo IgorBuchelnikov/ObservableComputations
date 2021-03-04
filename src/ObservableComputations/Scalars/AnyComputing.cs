@@ -400,13 +400,13 @@ namespace ObservableComputations
 		}
 
 		[ExcludeFromCodeCoverage]
-		internal void ValidateConsistency()
+		internal void ValidateInternalConsistency()
 		{
-			_sourcePositions.ValidateConsistency();
+			_sourcePositions.ValidateInternalConsistency();
 			IList<TSourceItem> source = _sourceScalar.getValue(_source, new ObservableCollection<TSourceItem>()) as IList<TSourceItem>;
 			// ReSharper disable once PossibleNullReferenceException
 			int sourceCount = source.Count;
-			if (_itemInfos.Count != sourceCount) throw new ObservableComputationsException(this, "Consistency violation: AnyComputing.1");
+			if (_itemInfos.Count != sourceCount) throw new ValidateInternalConsistencyException("Consistency violation: AnyComputing.1");
 			Func<TSourceItem, bool> predicate = _predicateExpressionOriginal.Compile();
 			int predicatePassedCount = 0;
 
@@ -414,7 +414,7 @@ namespace ObservableComputations
 			if (source != null)
 			{
 				if (_sourcePositions.List.Count != sourceCount)
-					throw new ObservableComputationsException(this, "Consistency violation: AnyComputing.9");
+					throw new ValidateInternalConsistencyException("Consistency violation: AnyComputing.9");
 
 				// ReSharper disable once NotAccessedVariable
 				int index = 0;
@@ -426,26 +426,26 @@ namespace ObservableComputations
 					{
 						predicatePassedCount++;
 						index++;
-						if (!itemInfo.PredicateResult) throw new ObservableComputationsException(this, "Consistency violation: AnyComputing.2");
+						if (!itemInfo.PredicateResult) throw new ValidateInternalConsistencyException("Consistency violation: AnyComputing.2");
 					}
 					else
 					{
-						if (itemInfo.PredicateResult) throw new ObservableComputationsException(this, "Consistency violation: AnyComputing.3");
+						if (itemInfo.PredicateResult) throw new ValidateInternalConsistencyException("Consistency violation: AnyComputing.3");
 					}
 
-					if (_sourcePositions.List[sourceIndex].Index != sourceIndex) throw new ObservableComputationsException(this, "Consistency violation: AnyComputing.4");
-					if (itemInfo.ExpressionWatcher._position != _sourcePositions.List[sourceIndex]) throw new ObservableComputationsException(this, "Consistency violation: AnyComputing.5");
+					if (_sourcePositions.List[sourceIndex].Index != sourceIndex) throw new ValidateInternalConsistencyException("Consistency violation: AnyComputing.4");
+					if (itemInfo.ExpressionWatcher._position != _sourcePositions.List[sourceIndex]) throw new ValidateInternalConsistencyException("Consistency violation: AnyComputing.5");
 
 					if (!_sourcePositions.List.Contains((ItemInfo) itemInfo.ExpressionWatcher._position))
-						throw new ObservableComputationsException(this, "Consistency violation: AnyComputing.6");
+						throw new ValidateInternalConsistencyException("Consistency violation: AnyComputing.6");
 
 					if (itemInfo.ExpressionWatcher._position.Index != sourceIndex)
-						throw new ObservableComputationsException(this, "Consistency violation: AnyComputing.10");
+						throw new ValidateInternalConsistencyException("Consistency violation: AnyComputing.10");
 
 				}
 
-				if (predicatePassedCount != _predicatePassedCount) throw new ObservableComputationsException(this, "Consistency violation: AnyComputing.7");
-				if (_value != _predicatePassedCount > 0) throw new ObservableComputationsException(this, "Consistency violation: AnyComputing.8");
+				if (predicatePassedCount != _predicatePassedCount) throw new ValidateInternalConsistencyException("Consistency violation: AnyComputing.7");
+				if (_value != _predicatePassedCount > 0) throw new ValidateInternalConsistencyException("Consistency violation: AnyComputing.8");
 
 
 			}

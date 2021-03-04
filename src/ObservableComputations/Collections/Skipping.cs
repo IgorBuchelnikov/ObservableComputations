@@ -105,7 +105,7 @@ namespace ObservableComputations
 		}
 
 		[ExcludeFromCodeCoverage]
-		internal void ValidateConsistency()
+		internal void ValidateInternalConsistency()
 		{
 			IList<TSourceItem> source = _sourceScalarSkipping.getValue(_sourceSkipping, new ObservableCollection<TSourceItem>()) as IList<TSourceItem>;
 			int count = _skippingCountScalar.getValue(_skippingCount);
@@ -113,7 +113,7 @@ namespace ObservableComputations
 			// ReSharper disable once AssignNullToNotNullAttribute
 			if (!this.SequenceEqual(source.Skip(count)))
 			{
-				throw new ObservableComputationsException(this, "Consistency violation: Skipping.1");
+				throw new ValidateInternalConsistencyException("Consistency violation: Skipping.1");
 			}
 		}
 

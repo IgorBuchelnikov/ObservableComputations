@@ -323,9 +323,9 @@ namespace ObservableComputations
 			}
 		}
 
-		private KeyValueExpressionItemInfo<TKey, TValue> registerSourceItem(TSourceItem sourceItem, int index, KeyValueExpressionItemInfo<TKey, TValue> itemInfo = null)
+		private KeyValueExpressionItemInfo<TKey, TValue> registerSourceItem(TSourceItem sourceItem, int index)
 		{
-			itemInfo = itemInfo == null ? _sourcePositions.Insert(index) : _itemInfos[index];
+			KeyValueExpressionItemInfo<TKey, TValue> itemInfo = _sourcePositions.Insert(index);
 
 			fillItemInfoWithKey(itemInfo, sourceItem);
 			fillItemInfoWithValue(itemInfo, sourceItem);
@@ -643,13 +643,13 @@ namespace ObservableComputations
 		}
 
 		[ExcludeFromCodeCoverage]
-		internal void ValidateConsistency()
+		internal void ValidateInternalConsistency()
 		{
-			_sourcePositions.ValidateConsistency();
+			_sourcePositions.ValidateInternalConsistency();
 			IList<TSourceItem> source = _sourceScalar.getValue(_source, new ObservableCollection<TSourceItem>()) as IList<TSourceItem>;
 			// ReSharper disable once PossibleNullReferenceException
-			if (_itemInfos.Count != source.Count) throw new ObservableComputationsException("Consistency violation: ConcurrentDictionaring.1");
-			if (Count != source.Count) throw new ObservableComputationsException( "Consistency violation: ConcurrentDictionaring.16");
+			if (_itemInfos.Count != source.Count) throw new ValidateInternalConsistencyException("Consistency violation: ConcurrentDictionaring.1");
+			if (Count != source.Count) throw new ValidateInternalConsistencyException("Consistency violation: ConcurrentDictionaring.16");
 			Func<TSourceItem, TKey> keySelector = _keySelectorExpression.Compile();
 			Func<TSourceItem, TValue> valueSelector = _valueSelectorExpression.Compile();
 
@@ -657,7 +657,7 @@ namespace ObservableComputations
 			if (source != null)
 			{
 				if (_sourcePositions.List.Count != source.Count)
-					throw new ObservableComputationsException("Consistency violation: ConcurrentDictionaring.15");
+					throw new ValidateInternalConsistencyException("Consistency violation: ConcurrentDictionaring.15");
 
 				for (int sourceIndex = 0; sourceIndex < source.Count; sourceIndex++)
 				{
@@ -666,33 +666,33 @@ namespace ObservableComputations
 
 					TKey key = itemInfo._keySelectorFunc == null ? keySelector(sourceItem) : itemInfo._keySelectorFunc();
 					if (!ContainsKey(key))
-						throw new ObservableComputationsException("Consistency violation: ConcurrentDictionaring.2");
+						throw new ValidateInternalConsistencyException("Consistency violation: ConcurrentDictionaring.2");
 
 					TValue value = itemInfo._valueSelectorFunc == null ? valueSelector(sourceItem) : itemInfo._valueSelectorFunc();
 					if (!this[key].IsSameAs(value))
-						throw new ObservableComputationsException("Consistency violation: ConcurrentDictionaring.3");
+						throw new ValidateInternalConsistencyException("Consistency violation: ConcurrentDictionaring.3");
 
-					if (_sourcePositions.List[sourceIndex].Index != sourceIndex) throw new ObservableComputationsException("Consistency violation: ConcurrentDictionaring.4");
-					if (itemInfo.KeyExpressionWatcher._position != _sourcePositions.List[sourceIndex]) throw new ObservableComputationsException("Consistency violation: ConcurrentDictionaring.5");
-					if (itemInfo.ValueExpressionWatcher._position != _sourcePositions.List[sourceIndex]) throw new ObservableComputationsException("Consistency violation: ConcurrentDictionaring.6");
+					if (_sourcePositions.List[sourceIndex].Index != sourceIndex) throw new ValidateInternalConsistencyException("Consistency violation: ConcurrentDictionaring.4");
+					if (itemInfo.KeyExpressionWatcher._position != _sourcePositions.List[sourceIndex]) throw new ValidateInternalConsistencyException("Consistency violation: ConcurrentDictionaring.5");
+					if (itemInfo.ValueExpressionWatcher._position != _sourcePositions.List[sourceIndex]) throw new ValidateInternalConsistencyException("Consistency violation: ConcurrentDictionaring.6");
 
 					if (!_sourcePositions.List.Contains((KeyValueExpressionItemInfo<TKey, TValue>) itemInfo.KeyExpressionWatcher._position))
-						throw new ObservableComputationsException("Consistency violation: ConcurrentDictionaring.7");
+						throw new ValidateInternalConsistencyException("Consistency violation: ConcurrentDictionaring.7");
 
 					if (!_sourcePositions.List.Contains((KeyValueExpressionItemInfo<TKey, TValue>) itemInfo.ValueExpressionWatcher._position))
-						throw new ObservableComputationsException("Consistency violation: ConcurrentDictionaring.8");
+						throw new ValidateInternalConsistencyException("Consistency violation: ConcurrentDictionaring.8");
 
 					if (itemInfo.KeyExpressionWatcher._position.Index != sourceIndex)
-						throw new ObservableComputationsException("Consistency violation: ConcurrentDictionaring.17");
+						throw new ValidateInternalConsistencyException("Consistency violation: ConcurrentDictionaring.17");
 
 					if (itemInfo.ValueExpressionWatcher._position.Index != sourceIndex)
-						throw new ObservableComputationsException("Consistency violation: ConcurrentDictionaring.18");
+						throw new ValidateInternalConsistencyException("Consistency violation: ConcurrentDictionaring.18");
 
 					if (!itemInfo.Key.IsSameAs(key))
-						throw new ObservableComputationsException("Consistency violation: ConcurrentDictionaring.10");
+						throw new ValidateInternalConsistencyException("Consistency violation: ConcurrentDictionaring.10");
 
 					if (!itemInfo.Value.IsSameAs(value))
-						throw new ObservableComputationsException("Consistency violation: ConcurrentDictionaring.9");
+						throw new ValidateInternalConsistencyException("Consistency violation: ConcurrentDictionaring.9");
 				}
 			}			
 		}

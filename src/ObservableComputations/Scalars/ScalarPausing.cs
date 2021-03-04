@@ -306,13 +306,13 @@ namespace ObservableComputations
 			_lastChangesToApplyOnResumeCount = newValue;
 		}
 
-		internal void ValidateConsistency()
+		internal void ValidateInternalConsistency()
 		{
 			if (!_isPaused)
 			{
 				if (!_value.Equals(_source.Value))
 				{
-					throw new ObservableComputationsException(this, "Consistency violation: ScalarPausing.1");
+					throw new ValidateInternalConsistencyException("Consistency violation: ScalarPausing.1");
 				}
 			}
 		}

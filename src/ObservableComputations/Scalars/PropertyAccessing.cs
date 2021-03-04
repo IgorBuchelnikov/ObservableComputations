@@ -467,14 +467,14 @@ namespace ObservableComputations
 		#endregion
 
 		[ExcludeFromCodeCoverage]
-		internal void ValidateConsistency()
+		internal void ValidateInternalConsistency()
 		{
 			object source = _sourceScalar != null ? _sourceScalar.Value : _source;
 
 			if (_source != null)
 			{
 				if (!_source.GetType().GetProperty("Num").GetValue(_source).Equals(_value))
-					throw new ObservableComputationsException(this, "Consistency violation: PropertyAccessing.1");
+					throw new ValidateInternalConsistencyException("Consistency violation: PropertyAccessing.1");
 			}
 		}
 	}

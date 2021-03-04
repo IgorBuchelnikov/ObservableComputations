@@ -73,7 +73,7 @@ namespace ObservableComputations.Test
 			ObservableCollection<Item> items = new ObservableCollection<Item>();
 			INotifyCollectionChanged takingWhile = getTakingWhile(items);
 
-			ValidateConsistency(items, (ObservableCollection<Item>) takingWhile);	
+			ValidateInternalConsistency(items, (ObservableCollection<Item>) takingWhile);	
 			consumer.Dispose();
 		}
 
@@ -117,9 +117,9 @@ namespace ObservableComputations.Test
 			);
 
 			INotifyCollectionChanged takingWhile = getTakingWhile(items);
-			ValidateConsistency(items, (ObservableCollection<Item>) takingWhile);
+			ValidateInternalConsistency(items, (ObservableCollection<Item>) takingWhile);
 			items[index].IsActive = newValue;
-			ValidateConsistency(items, (ObservableCollection<Item>) takingWhile);			
+			ValidateInternalConsistency(items, (ObservableCollection<Item>) takingWhile);			
 			consumer.Dispose();
 		}
 
@@ -136,9 +136,9 @@ namespace ObservableComputations.Test
 			);
 
 			INotifyCollectionChanged takingWhile = getTakingWhile(items);
-			ValidateConsistency(items, (ObservableCollection<Item>) takingWhile);
+			ValidateInternalConsistency(items, (ObservableCollection<Item>) takingWhile);
 			items[0].IsActive = !items[0].IsActive;
-			ValidateConsistency(items, (ObservableCollection<Item>) takingWhile);		
+			ValidateInternalConsistency(items, (ObservableCollection<Item>) takingWhile);		
 			consumer.Dispose();
 		}
 
@@ -164,9 +164,9 @@ namespace ObservableComputations.Test
 			);
 
 			INotifyCollectionChanged takingWhile = getTakingWhile(items);
-			ValidateConsistency(items, (ObservableCollection<Item>) takingWhile);
+			ValidateInternalConsistency(items, (ObservableCollection<Item>) takingWhile);
 			items.RemoveAt(index);
-			ValidateConsistency(items, (ObservableCollection<Item>) takingWhile);			
+			ValidateInternalConsistency(items, (ObservableCollection<Item>) takingWhile);			
 			consumer.Dispose();
 		}
 
@@ -183,9 +183,9 @@ namespace ObservableComputations.Test
 			);
 
 			INotifyCollectionChanged takingWhile = getTakingWhile(items);
-			ValidateConsistency(items, (ObservableCollection<Item>) takingWhile);
+			ValidateInternalConsistency(items, (ObservableCollection<Item>) takingWhile);
 			items.RemoveAt(0);
-			ValidateConsistency(items, (ObservableCollection<Item>) takingWhile);		
+			ValidateInternalConsistency(items, (ObservableCollection<Item>) takingWhile);		
 			consumer.Dispose();
 		}
 
@@ -212,9 +212,9 @@ namespace ObservableComputations.Test
 			);
 
 			INotifyCollectionChanged takingWhile = getTakingWhile(items);
-			ValidateConsistency(items, (ObservableCollection<Item>) takingWhile);
+			ValidateInternalConsistency(items, (ObservableCollection<Item>) takingWhile);
 			items.Insert(index, new Item(newValue));
-			ValidateConsistency(items, (ObservableCollection<Item>) takingWhile);		
+			ValidateInternalConsistency(items, (ObservableCollection<Item>) takingWhile);		
 			consumer.Dispose();
 		}
 
@@ -227,9 +227,9 @@ namespace ObservableComputations.Test
 			);
 
 			INotifyCollectionChanged takingWhile = getTakingWhile(items);
-			ValidateConsistency(items, (ObservableCollection<Item>) takingWhile);
+			ValidateInternalConsistency(items, (ObservableCollection<Item>) takingWhile);
 			items.Insert(0, new Item(newValue));
-			ValidateConsistency(items, (ObservableCollection<Item>) takingWhile);		
+			ValidateInternalConsistency(items, (ObservableCollection<Item>) takingWhile);		
 			consumer.Dispose();
 		}
 
@@ -256,9 +256,9 @@ namespace ObservableComputations.Test
 			);
 
 			INotifyCollectionChanged takingWhile = getTakingWhile(items);
-			ValidateConsistency(items, (ObservableCollection<Item>) takingWhile);
+			ValidateInternalConsistency(items, (ObservableCollection<Item>) takingWhile);
 			items.Move(oldIndex, newIndex);
-			ValidateConsistency(items, (ObservableCollection<Item>) takingWhile);			
+			ValidateInternalConsistency(items, (ObservableCollection<Item>) takingWhile);			
 			consumer.Dispose();
 		}
 
@@ -285,9 +285,9 @@ namespace ObservableComputations.Test
 			);
 
 			INotifyCollectionChanged takingWhile = getTakingWhile(items);
-			ValidateConsistency(items, (ObservableCollection<Item>) takingWhile);
+			ValidateInternalConsistency(items, (ObservableCollection<Item>) takingWhile);
 			items[index] = new Item(itemNew);
-			ValidateConsistency(items, (ObservableCollection<Item>) takingWhile);			
+			ValidateInternalConsistency(items, (ObservableCollection<Item>) takingWhile);			
 			consumer.Dispose();
 		}		
 
@@ -309,7 +309,7 @@ namespace ObservableComputations.Test
 
 		}
 
-		public new void ValidateConsistency(ObservableCollection<Item> items, ObservableCollection<Item> takingWhile)
+		public new void ValidateInternalConsistency(ObservableCollection<Item> items, ObservableCollection<Item> takingWhile)
 		{
 			// ReSharper disable once AssignNullToNotNullAttribute
 			if (!takingWhile.SequenceEqual(items.TakeWhile((si, i) => si.IsActive)))

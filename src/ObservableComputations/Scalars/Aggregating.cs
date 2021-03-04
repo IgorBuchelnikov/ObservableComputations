@@ -222,7 +222,7 @@ namespace ObservableComputations
 		}
 
 		[ExcludeFromCodeCoverage]
-		internal void ValidateConsistency()
+		internal void ValidateInternalConsistency()
 		{
 			IList<TSourceItem> source = _sourceScalar.getValue(_source, new ObservableCollection<TSourceItem>()) as IList<TSourceItem>;
 
@@ -234,7 +234,7 @@ namespace ObservableComputations
 				result = _aggregateFunc(source[i], result);
 
 			// ReSharper disable once PossibleNullReferenceException
-			if (!result.Equals(_value)) throw new ObservableComputationsException(this, "Consistency violation: Aggregating.3");
+			if (!result.Equals(_value)) throw new ValidateInternalConsistencyException("Consistency violation: Aggregating.3");
 		}
 
 		#region Implementation of ISourceIndexerPropertyTracker

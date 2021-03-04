@@ -38,14 +38,14 @@ namespace ObservableComputations.Test
 			int count = initialCount;
 			countInstance.CountValue = count;
 			SequenceComputing sequenceComputing = Expr.Is(() => countInstance.CountValue).Computing().SequenceComputing().For(consumer);
-			sequenceComputing.ValidateConsistency();
+			sequenceComputing.ValidateInternalConsistency();
 					
 			void test()
 			{
 				do
 				{
 					countInstance.CountValue = count;
-					sequenceComputing.ValidateConsistency();
+					sequenceComputing.ValidateInternalConsistency();
 					count = count + increment;
 				} while (count >= 0 && count <= 4);
 			}

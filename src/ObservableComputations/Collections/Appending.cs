@@ -95,7 +95,7 @@ namespace ObservableComputations
 				new FreezedObservableCollection<object>(new object[]{sourceScalar, new Computing<FreezedObservableCollection<TSourceItem>>(() => new FreezedObservableCollection<TSourceItem>(itemScalar.Value))});
 
 		[ExcludeFromCodeCoverage]
-		internal void ValidateConsistency()
+		internal void ValidateInternalConsistency()
 		{
 			IList<TSourceItem> source = _sourceScalar.getValue(_source, new ObservableCollection<TSourceItem>()) as IList<TSourceItem>;
 
@@ -104,7 +104,7 @@ namespace ObservableComputations
 			List<TSourceItem> result = new List<TSourceItem>(source) {item};
 
 			if (!this.SequenceEqual(result))
-				throw new ObservableComputationsException(this, "Consistency violation: Appending.1");
+				throw new ValidateInternalConsistencyException("Consistency violation: Appending.1");
 		}
 	}
 }

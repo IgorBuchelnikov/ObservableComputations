@@ -21,7 +21,7 @@ namespace ObservableComputations.Test
 			ObservableCollection<DerivedItem> items = new ObservableCollection<DerivedItem>();
 
 			OfTypeComputing<BaseItem> ofTypeComputing = items.OfTypeComputing<BaseItem>();
-			ofTypeComputing.ValidateConsistency();			
+			ofTypeComputing.ValidateInternalConsistency();			
 			consumer.Dispose();
 		}
 
@@ -39,9 +39,9 @@ namespace ObservableComputations.Test
 			if (index >= items.Count) return;
 
 			OfTypeComputing<DerivedItem> ofTypeComputing = items.OfTypeComputing<DerivedItem>().For(consumer);
-			ofTypeComputing.ValidateConsistency();
+			ofTypeComputing.ValidateInternalConsistency();
 			if (index < items.Count) items[index] = newItem >= 0 ? (newItem == 1 ? new DerivedItem() : new BaseItem()) : null;
-			ofTypeComputing.ValidateConsistency();			
+			ofTypeComputing.ValidateInternalConsistency();			
 			consumer.Dispose();
 		}
 
@@ -58,9 +58,9 @@ namespace ObservableComputations.Test
 			if (index >= items.Count) return;
 
 			OfTypeComputing<DerivedItem> ofTypeComputing = items.OfTypeComputing<DerivedItem>().For(consumer);
-			ofTypeComputing.ValidateConsistency();
+			ofTypeComputing.ValidateInternalConsistency();
 			items.RemoveAt(index);
-			ofTypeComputing.ValidateConsistency();			
+			ofTypeComputing.ValidateInternalConsistency();			
 			consumer.Dispose();
 		}
 
@@ -78,9 +78,9 @@ namespace ObservableComputations.Test
 			if (index > items.Count) return;
 
 			OfTypeComputing<DerivedItem> ofTypeComputing = items.OfTypeComputing<DerivedItem>().For(consumer);
-			ofTypeComputing.ValidateConsistency();
+			ofTypeComputing.ValidateInternalConsistency();
 			items.Insert(index, newItem >= 0 ? (newItem == 1 ? new DerivedItem() : new BaseItem()) : null);
-			ofTypeComputing.ValidateConsistency();			
+			ofTypeComputing.ValidateInternalConsistency();			
 			consumer.Dispose();
 		}
 
@@ -98,9 +98,9 @@ namespace ObservableComputations.Test
 			if (oldIndex >= items.Count || newIndex >= items.Count) return;
 
 			OfTypeComputing<DerivedItem> ofTypeComputing = items.OfTypeComputing<DerivedItem>().For(consumer);
-			ofTypeComputing.ValidateConsistency();
+			ofTypeComputing.ValidateInternalConsistency();
 			items.Move(oldIndex, newIndex);
-			ofTypeComputing.ValidateConsistency();			
+			ofTypeComputing.ValidateInternalConsistency();			
 			consumer.Dispose();
 		}
 

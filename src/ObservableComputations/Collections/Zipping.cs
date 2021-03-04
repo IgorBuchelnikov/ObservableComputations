@@ -622,13 +622,13 @@ namespace ObservableComputations
 		}
 
 		[ExcludeFromCodeCoverage]
-		internal void ValidateConsistency()
+		internal void ValidateInternalConsistency()
 		{
 			IList<TLeftSourceItem> sourceLeft = _leftSourceScalar.getValue(_leftSource, new ObservableCollection<TLeftSourceItem>()) as IList<TLeftSourceItem>;
 			IList<TRightSourceItem> sourceRight = _rightSourceScalar.getValue(_rightSource, new ObservableCollection<TRightSourceItem>()) as IList<TRightSourceItem>;
 
 			if (this.Count != new []{sourceLeft.Count, sourceRight.Count}.Min())
-				throw new ObservableComputationsException(this, "Consistency violation: Zipping.1");
+				throw new ValidateInternalConsistencyException("Consistency violation: Zipping.1");
 
 			// ReSharper disable once PossibleNullReferenceException
 			for (int index = 0; index < sourceLeft.Count; index++)
@@ -637,10 +637,10 @@ namespace ObservableComputations
 				if (index < sourceRight.Count)
 				{
 					if (!EqualityComparer<TLeftSourceItem>.Default.Equals(this[index].LeftItem, sourceLeft[index]))
-						throw new ObservableComputationsException(this, "Consistency violation: Zipping.Left");
+						throw new ValidateInternalConsistencyException("Consistency violation: Zipping.Left");
 
 					if (!EqualityComparer<TRightSourceItem>.Default.Equals(this[index].RightItem, sourceRight[index]))
-						throw new ObservableComputationsException(this, "Consistency violation: Zipping.Right");
+						throw new ValidateInternalConsistencyException("Consistency violation: Zipping.Right");
 				}
 				else
 				{

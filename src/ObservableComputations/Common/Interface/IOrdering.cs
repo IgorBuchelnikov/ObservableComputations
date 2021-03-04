@@ -17,7 +17,7 @@ namespace ObservableComputations
 		RangePosition GetRangePosition(int orderedIndex);
 		void RemoveThenOrdering(IThenOrderingInternal<TSourceItem> thenOrdering);
 		void AddThenOrdering(IThenOrdering<TSourceItem> thenOrdering);
-		void ValidateConsistency();
+		void ValidateInternalConsistency();
 	}
 
 	public interface IThenOrdering<TSourceItem> : IList<TSourceItem>, INotifyCollectionChanged

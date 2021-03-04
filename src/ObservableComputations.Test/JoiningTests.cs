@@ -112,7 +112,7 @@ namespace ObservableComputations.Test
 				items1 = getObservableCollection(ids1);
 				items2 = getObservableCollection(ids2);
 				joining = items1.Joining(items2, (item1, item2) => item1 != null && item2 != null && item1.Id == item2.Id).For(consumer);
-				joining.ValidateConsistency();
+				joining.ValidateInternalConsistency();
 				consumer.Dispose();
 
 				for (index = 0; index < ids1.Length; index++)
@@ -122,7 +122,7 @@ namespace ObservableComputations.Test
 					items2 = getObservableCollection(ids2);
 					joining = items1.Joining(items2, (item1, item2) => item1 != null && item2 != null && item1.Id == item2.Id).For(consumer);
 					items1.RemoveAt(index);
-					joining.ValidateConsistency();
+					joining.ValidateInternalConsistency();
 					consumer.Dispose();
 				}
 
@@ -133,7 +133,7 @@ namespace ObservableComputations.Test
 					items2 = getObservableCollection(ids2);
 					joining = items1.Joining(items2, (item1, item2) => item1 != null && item2 != null && item1.Id == item2.Id).For(consumer);
 					items2.RemoveAt(index);
-					joining.ValidateConsistency();
+					joining.ValidateInternalConsistency();
 					consumer.Dispose();
 				}
 
@@ -146,7 +146,7 @@ namespace ObservableComputations.Test
 						items2 = getObservableCollection(ids2);
 						joining = items1.Joining(items2, (item1, item2) => item1 != null && item2 != null && item1.Id == item2.Id).For(consumer);
 						items1.Insert(index, new Item(newItemId));
-						joining.ValidateConsistency();
+						joining.ValidateInternalConsistency();
 						consumer.Dispose();
 					}
 
@@ -161,7 +161,7 @@ namespace ObservableComputations.Test
 						items2 = getObservableCollection(ids2);
 						joining = items1.Joining(items2, (item1, item2) => item1 != null && item2 != null && item1.Id == item2.Id).For(consumer);
 						items2.Insert(index, new Item(newItemId));
-						joining.ValidateConsistency();
+						joining.ValidateInternalConsistency();
 						consumer.Dispose();
 					}
 				}
@@ -175,7 +175,7 @@ namespace ObservableComputations.Test
 						items2 = getObservableCollection(ids2);
 						joining = items1.Joining(items2, (item1, item2) => item1 != null && item2 != null && item1.Id == item2.Id).For(consumer);
 						items1[index] = new Item(newItemId);
-						joining.ValidateConsistency();
+						joining.ValidateInternalConsistency();
 						consumer.Dispose();
 					}
 
@@ -187,7 +187,7 @@ namespace ObservableComputations.Test
 						items2 = getObservableCollection(ids2);
 						joining = items1.Joining(items2, (item1, item2) => item1 != null && item2 != null && item1.Id == item2.Id).For(consumer);
 						items1[index].Id = newItemId;
-						joining.ValidateConsistency();
+						joining.ValidateInternalConsistency();
 						consumer.Dispose();
 					}
 				}
@@ -201,7 +201,7 @@ namespace ObservableComputations.Test
 						items2 = getObservableCollection(ids2);
 						joining = items1.Joining(items2, (item1, item2) => item1 != null && item2 != null && item1.Id == item2.Id).For(consumer);
 						items2[index] = new Item(newItemId);
-						joining.ValidateConsistency();
+						joining.ValidateInternalConsistency();
 						consumer.Dispose();
 					}
 
@@ -213,7 +213,7 @@ namespace ObservableComputations.Test
 						if (items2[index] == null) continue; 
 						joining = items1.Joining(items2, (item1, item2) => item1 != null && item2 != null && item1.Id == item2.Id).For(consumer);
 						items2[index].Id = newItemId;
-						joining.ValidateConsistency();
+						joining.ValidateInternalConsistency();
 						consumer.Dispose();
 					}
 				}
@@ -227,7 +227,7 @@ namespace ObservableComputations.Test
 						items2 = getObservableCollection(ids2);
 						joining = items1.Joining(items2, (item1, item2) => item1 != null && item2 != null && item1.Id == item2.Id).For(consumer);
 						items1.Move(indexOld, indexNew);
-						joining.ValidateConsistency();
+						joining.ValidateInternalConsistency();
 						consumer.Dispose();
 					}
 				}
@@ -241,7 +241,7 @@ namespace ObservableComputations.Test
 						items2 = getObservableCollection(ids2);
 						joining = items1.Joining(items2, (item1, item2) => item1 != null && item2 != null && item1.Id == item2.Id).For(consumer);
 						items2.Move(indexOld, indexNew);
-						joining.ValidateConsistency();
+						joining.ValidateInternalConsistency();
 						consumer.Dispose();
 					}
 				}

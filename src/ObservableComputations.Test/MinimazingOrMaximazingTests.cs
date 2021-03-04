@@ -75,7 +75,7 @@ namespace ObservableComputations.Test
 				trace(testNum = "1", values, index, value, indexOld, indexNew);
 				items = getObservableCollection(values);
 				minimazingOrMaximazing = getMinimazingOrMaximazing(items, mode);
-				minimazingOrMaximazing.ValidateConsistency();				
+				minimazingOrMaximazing.ValidateInternalConsistency();				
 				consumer.Dispose();
 				Assert.AreEqual(minimazingOrMaximazing.Value, getResult(items, mode));
 
@@ -85,7 +85,7 @@ namespace ObservableComputations.Test
 					items = getObservableCollection(values);
 					MinimazingOrMaximazing<int> minimazingOrMaximazing1 = getMinimazingOrMaximazing(items, mode);
 					items.RemoveAt(index);
-					minimazingOrMaximazing1.ValidateConsistency();					
+					minimazingOrMaximazing1.ValidateInternalConsistency();					
 					consumer.Dispose();
 					Assert.AreEqual(minimazingOrMaximazing1.Value, getResult(items, mode));
 				}
@@ -98,7 +98,7 @@ namespace ObservableComputations.Test
 						items = getObservableCollection(values);
 						MinimazingOrMaximazing<int> minimazingOrMaximazing1 = getMinimazingOrMaximazing(items, mode);
 						items.Insert(index, value);
-						minimazingOrMaximazing1.ValidateConsistency();						
+						minimazingOrMaximazing1.ValidateInternalConsistency();						
 						consumer.Dispose();
 						Assert.AreEqual(minimazingOrMaximazing1.Value, getResult(items, mode));
 					}
@@ -113,7 +113,7 @@ namespace ObservableComputations.Test
 						items = getObservableCollection(values);
 						MinimazingOrMaximazing<int> minimazingOrMaximazing2 = getMinimazingOrMaximazing(items, mode);
 						items[index] = value;
-						minimazingOrMaximazing2.ValidateConsistency();						
+						minimazingOrMaximazing2.ValidateInternalConsistency();						
 						consumer.Dispose();
 						Assert.AreEqual(minimazingOrMaximazing2.Value, getResult(items, mode));
 
@@ -128,7 +128,7 @@ namespace ObservableComputations.Test
 						items = getObservableCollection(values);
 						MinimazingOrMaximazing<int> minimazingOrMaximazing2 = getMinimazingOrMaximazing(items, mode);
 						items.Move(indexOld, indexNew);
-						minimazingOrMaximazing2.ValidateConsistency();						
+						minimazingOrMaximazing2.ValidateInternalConsistency();						
 						consumer.Dispose();
 						Assert.AreEqual(minimazingOrMaximazing2.Value, getResult(items, mode));
 					}

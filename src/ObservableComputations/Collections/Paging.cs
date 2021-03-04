@@ -683,7 +683,7 @@ namespace ObservableComputations
 		#endregion
 
 		[ExcludeFromCodeCoverage]
-		internal void ValidateConsistency()
+		internal void ValidateInternalConsistency()
 		{
 			IList<TSourceItem> source = _sourceScalar.getValue(_source, new ObservableCollection<TSourceItem>()) as IList<TSourceItem>;
 			int pageSize = PageSize;
@@ -692,20 +692,20 @@ namespace ObservableComputations
 			if (_source != null || (_sourceScalar?.Value != null))
 			{
 				if (_lowerIndex != PageSize * (CurrentPage - 1))
-					throw new ObservableComputationsException(this, "Consistency violation: Paging.2");
+					throw new ValidateInternalConsistencyException("Consistency violation: Paging.2");
 
 				if (_upperIndex != _lowerIndex + PageSize)
-					throw new ObservableComputationsException(this, "Consistency violation: Paging.3");
+					throw new ValidateInternalConsistencyException("Consistency violation: Paging.3");
 
 				// ReSharper disable once PossibleNullReferenceException
 				if (_pageCount != (int) Math.Ceiling(source.Count  / (double) _pageSize))
-					throw new ObservableComputationsException(this, "Consistency violation: Paging.4");
+					throw new ValidateInternalConsistencyException("Consistency violation: Paging.4");
 			}
 
 			// ReSharper disable once AssignNullToNotNullAttribute
 			if (!this.SequenceEqual(source.Skip(startIndex).Take(pageSize)))
 			{
-				throw new ObservableComputationsException(this, "Consistency violation: Paging.1");
+				throw new ValidateInternalConsistencyException("Consistency violation: Paging.1");
 			}
 		}
 

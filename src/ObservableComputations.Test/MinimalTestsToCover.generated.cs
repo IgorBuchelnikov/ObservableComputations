@@ -116,6 +116,26 @@ namespace ObservableComputations.Test
 		}
 	}	
 
+	public partial class ConcurrentDictionaringTests
+	{
+		[Test]
+		public void MinimalTestToCover()
+		{
+			test(new int[]{});
+			test(new int[]{-1});
+			test(new int[]{-1, -1});
+			test(new int[]{-1, -1, -1});
+			test(new int[]{-1, -1, -1, -1});
+			test(new int[]{-1, -1, -1, -1, -1});
+			test(new int[]{-1, -1, -1, -1, 0});
+			test(new int[]{-1, -1, -1, 0});
+			test(new int[]{-1, -1, 0});
+			test(new int[]{-1, -1, 1, -1, 1});
+			test(new int[]{-1, 0});
+			test(new int[]{0});
+		}
+	}	
+
 	public partial class ContainsComputingTests
 	{
 		[Test]

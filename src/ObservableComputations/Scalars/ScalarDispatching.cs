@@ -158,7 +158,7 @@ namespace ObservableComputations
 		}
 
 		[ExcludeFromCodeCoverage]
-		internal void ValidateConsistency()
+		internal void ValidateInternalConsistency()
 		{
 			bool conststent = true;
 
@@ -168,7 +168,7 @@ namespace ObservableComputations
 			});
 
 			if (!conststent)
-				throw new ObservableComputationsException(this, "Consistency violation: ScalarDispatching.1");
+				throw new ValidateInternalConsistencyException("Consistency violation: ScalarDispatching.1");
 		}
 	}
 }

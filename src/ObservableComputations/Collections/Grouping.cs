@@ -959,10 +959,10 @@ namespace ObservableComputations
 					: null;
 
 		[ExcludeFromCodeCoverage]
-		internal void ValidateConsistency()
+		internal void ValidateInternalConsistency()
 		{
-			_resultPositions.ValidateConsistency();
-			_sourcePositions.ValidateConsistency();
+			_resultPositions.ValidateInternalConsistency();
+			_sourcePositions.ValidateInternalConsistency();
 
 			IList<TSourceItem> source = _sourceScalar.getValue(_source, new ObservableCollection<TSourceItem>()) as IList<TSourceItem>;
 			IEqualityComparer<TKey> equalityComparer = _equalityComparerScalar.getValue(_equalityComparer) ?? EqualityComparer<TKey>.Default;
@@ -971,10 +971,10 @@ namespace ObservableComputations
 
 			// ReSharper disable once PossibleNullReferenceException
 			if (_itemInfos.Count != source.Count)
-				throw new ObservableComputationsException(this, "Consistency violation: Grouping.14");
+				throw new ValidateInternalConsistencyException("Consistency violation: Grouping.14");
 
 			if (_resultPositions.List.Count != Count)
-				throw new ObservableComputationsException(this, "Consistency violation: Grouping.15");
+				throw new ValidateInternalConsistencyException("Consistency violation: Grouping.15");
 
 			for (int sourceIndex = 0; sourceIndex < source.Count; sourceIndex++)
 			{
@@ -992,51 +992,51 @@ namespace ObservableComputations
 				}
 				
 				if (!equalityComparer.Equals(_itemInfos[sourceIndex].Key, key))
-					throw new ObservableComputationsException(this, "Consistency violation: Grouping.1");
+					throw new ValidateInternalConsistencyException("Consistency violation: Grouping.1");
 
 				if (_itemInfos[sourceIndex].ExpressionWatcher._position.Index != sourceIndex)
-					throw new ObservableComputationsException(this, "Consistency violation: Grouping.2");
+					throw new ValidateInternalConsistencyException("Consistency violation: Grouping.2");
 			}
 
-			if (result.Count != Count) throw new ObservableComputationsException(this, "Consistency violation: Grouping.3");
+			if (result.Count != Count) throw new ValidateInternalConsistencyException("Consistency violation: Grouping.3");
 
 			for (int thisIndex = 0; thisIndex < Count; thisIndex++)
 			{
 				Group<TSourceItem, TKey> group = this[thisIndex];
 				Tuple<TKey, List<Tuple<TSourceItem, int>>> resultItem = result[thisIndex];
 
-				if (!equalityComparer.Equals(group.Key, resultItem.Item1)) throw new ObservableComputationsException(this, "Consistency violation: Grouping.4");
-				if (group.Count != resultItem.Item2.Count) throw new ObservableComputationsException(this, "Consistency violation: Grouping.5");
+				if (!equalityComparer.Equals(group.Key, resultItem.Item1)) throw new ValidateInternalConsistencyException("Consistency violation: Grouping.4");
+				if (group.Count != resultItem.Item2.Count) throw new ValidateInternalConsistencyException("Consistency violation: Grouping.5");
 
 				for (int groupIndex = 0; groupIndex < group.Count; groupIndex++)
 				{
 					TSourceItem sourceItem = group[groupIndex];
 					Tuple<TSourceItem, int> resultItemItem = resultItem.Item2[groupIndex];
 
-					if (!EqualityComparer<TSourceItem>.Default.Equals(sourceItem, resultItemItem.Item1)) throw new ObservableComputationsException(this, "Consistency violation: Grouping.6");
-					if (group._sourcePositions[groupIndex].Index != resultItemItem.Item2) throw new ObservableComputationsException(this, "Consistency violation: Grouping.7");
+					if (!EqualityComparer<TSourceItem>.Default.Equals(sourceItem, resultItemItem.Item1)) throw new ValidateInternalConsistencyException("Consistency violation: Grouping.6");
+					if (group._sourcePositions[groupIndex].Index != resultItemItem.Item2) throw new ValidateInternalConsistencyException("Consistency violation: Grouping.7");
 				}
 
-				if (group._position.Index != thisIndex) throw new ObservableComputationsException(this, "Consistency violation: Grouping.8");
-				if (group.Index != thisIndex) throw new ObservableComputationsException(this, "Consistency violation: Grouping.8");
+				if (group._position.Index != thisIndex) throw new ValidateInternalConsistencyException("Consistency violation: Grouping.8");
+				if (group.Index != thisIndex) throw new ValidateInternalConsistencyException("Consistency violation: Grouping.8");
 
 				if (resultItem.Item1 != null)
 				{
 					Group<TSourceItem, TKey> groupFromDictionary = _groupDictionary[resultItem.Item1];
-					if (groupFromDictionary != group) throw new ObservableComputationsException(this, "Consistency violation: Grouping.9");					
+					if (groupFromDictionary != group) throw new ValidateInternalConsistencyException("Consistency violation: Grouping.9");					
 				}
 				else
 				{
-					if (_nullGroup != group) throw new ObservableComputationsException(this, "Consistency violation: Grouping.10");	
+					if (_nullGroup != group) throw new ValidateInternalConsistencyException("Consistency violation: Grouping.10");	
 				}
 
 				if (!_resultPositions.List.Contains(group._position))
-					throw new ObservableComputationsException(this, "Consistency violation: Grouping.12");
+					throw new ValidateInternalConsistencyException("Consistency violation: Grouping.12");
 
 			}		
 			
 			if (_nullGroup != null && !_resultPositions.List.Contains(_nullGroup._position))
-				throw new ObservableComputationsException(this, "Consistency violation: Grouping.13");
+				throw new ValidateInternalConsistencyException("Consistency violation: Grouping.13");
 		}
 	}
 

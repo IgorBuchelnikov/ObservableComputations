@@ -53,7 +53,7 @@ namespace ObservableComputations.Test
 			ObservableCollection<Item> items = new ObservableCollection<Item>();
 
 			Appending<Item> appending = items.Appending(new Item()).For(consumer);
-			appending.ValidateConsistency();			
+			appending.ValidateInternalConsistency();			
 			consumer.Dispose();
 		}
 
@@ -74,9 +74,9 @@ namespace ObservableComputations.Test
 			);
 
 			Appending<Item> appending = items.Appending(new Item()).For(consumer);
-			appending.ValidateConsistency();
+			appending.ValidateInternalConsistency();
 			items.RemoveAt(index);
-			appending.ValidateConsistency();			
+			appending.ValidateInternalConsistency();			
 			consumer.Dispose();			
 		}
 
@@ -92,9 +92,9 @@ namespace ObservableComputations.Test
 			);
 
 			Appending<Item> appending = items.Appending(new Item()).For(consumer);
-			appending.ValidateConsistency();
+			appending.ValidateInternalConsistency();
 			items.RemoveAt(0);
-			appending.ValidateConsistency();			
+			appending.ValidateInternalConsistency();			
 			consumer.Dispose();
 		}
 
@@ -114,9 +114,9 @@ namespace ObservableComputations.Test
 			);
 
 			Appending<Item> appending = items.Appending(new Item()).For(consumer);
-			appending.ValidateConsistency();
+			appending.ValidateInternalConsistency();
 			items.Insert(index, new Item());
-			appending.ValidateConsistency();			
+			appending.ValidateInternalConsistency();			
 			consumer.Dispose();
 		}
 
@@ -126,9 +126,9 @@ namespace ObservableComputations.Test
 			ObservableCollection<Item> items = new ObservableCollection<Item>();
 
 			Appending<Item> appending = items.Appending(new Item()).For(consumer);
-			appending.ValidateConsistency();
+			appending.ValidateInternalConsistency();
 			items.Insert(0, new Item());
-			appending.ValidateConsistency();			
+			appending.ValidateInternalConsistency();			
 			consumer.Dispose();
 		}
 
@@ -149,9 +149,9 @@ namespace ObservableComputations.Test
 			);
 
 			Appending<Item> appending = items.Appending(new Item()).For(consumer);
-			appending.ValidateConsistency();
+			appending.ValidateInternalConsistency();
 			items.Move(oldIndex, newIndex);
-			appending.ValidateConsistency();		
+			appending.ValidateInternalConsistency();		
 			consumer.Dispose();
 		}
 
@@ -171,9 +171,9 @@ namespace ObservableComputations.Test
 			);
 
 			Appending<Item> appending = items.Appending(new Item()).For(consumer);
-			appending.ValidateConsistency();
+			appending.ValidateInternalConsistency();
 			items[index] = new Item();
-			appending.ValidateConsistency();			
+			appending.ValidateInternalConsistency();			
 			consumer.Dispose();
 		}
 

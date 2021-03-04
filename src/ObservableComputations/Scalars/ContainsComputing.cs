@@ -183,14 +183,14 @@ namespace ObservableComputations
 		}
 
 		[ExcludeFromCodeCoverage]
-		internal void ValidateConsistency()
+		internal void ValidateInternalConsistency()
 		{
 			IList<TSourceItem> source = (IList<TSourceItem>) _sourceScalarContainsComputing.getValue(_sourceContainsComputing, new ObservableCollection<TSourceItem>());
 			TSourceItem sourceItem = _itemScalar.getValue(_item);
 			IEqualityComparer<TSourceItem> equalityComparer =  _equalityComparerScalar.getValue(_equalityComparer);
 
 			if (_value != source.Contains(sourceItem, equalityComparer))
-				throw new ObservableComputationsException(this, "Consistency violation: ContainsComputing.1");
+				throw new ValidateInternalConsistencyException("Consistency violation: ContainsComputing.1");
 		}
 	}
 }

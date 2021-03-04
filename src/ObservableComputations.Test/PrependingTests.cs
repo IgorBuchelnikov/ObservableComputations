@@ -53,7 +53,7 @@ namespace ObservableComputations.Test
 			ObservableCollection<Item> items = new ObservableCollection<Item>();
 
 			Prepending<Item> prepending = items.Prepending(new Item()).For(consumer);
-			prepending.ValidateConsistency();			
+			prepending.ValidateInternalConsistency();			
 			consumer.Dispose();
 		}
 
@@ -74,9 +74,9 @@ namespace ObservableComputations.Test
 			);
 
 			Prepending<Item> prepending = items.Prepending(new Item()).For(consumer);
-			prepending.ValidateConsistency();
+			prepending.ValidateInternalConsistency();
 			items.RemoveAt(index);
-			prepending.ValidateConsistency();			
+			prepending.ValidateInternalConsistency();			
 			consumer.Dispose();
 		}
 
@@ -92,9 +92,9 @@ namespace ObservableComputations.Test
 			);
 
 			Prepending<Item> prepending = items.Prepending(new Item()).For(consumer);
-			prepending.ValidateConsistency();
+			prepending.ValidateInternalConsistency();
 			items.RemoveAt(0);
-			prepending.ValidateConsistency();			
+			prepending.ValidateInternalConsistency();			
 			consumer.Dispose();
 		}
 
@@ -114,9 +114,9 @@ namespace ObservableComputations.Test
 			);
 
 			Prepending<Item> prepending = items.Prepending(new Item()).For(consumer);
-			prepending.ValidateConsistency();
+			prepending.ValidateInternalConsistency();
 			items.Insert(index, new Item());
-			prepending.ValidateConsistency();			
+			prepending.ValidateInternalConsistency();			
 			consumer.Dispose();
 		}
 
@@ -126,9 +126,9 @@ namespace ObservableComputations.Test
 			ObservableCollection<Item> items = new ObservableCollection<Item>();
 
 			Prepending<Item> prepending = items.Prepending(new Item()).For(consumer);
-			prepending.ValidateConsistency();
+			prepending.ValidateInternalConsistency();
 			items.Insert(0, new Item());
-			prepending.ValidateConsistency();			
+			prepending.ValidateInternalConsistency();			
 			consumer.Dispose();
 		}
 
@@ -149,9 +149,9 @@ namespace ObservableComputations.Test
 			);
 
 			Prepending<Item> prepending = items.Prepending(new Item()).For(consumer);
-			prepending.ValidateConsistency();
+			prepending.ValidateInternalConsistency();
 			items.Move(oldIndex, newIndex);
-			prepending.ValidateConsistency();			
+			prepending.ValidateInternalConsistency();			
 			consumer.Dispose();
 		}
 
@@ -171,9 +171,9 @@ namespace ObservableComputations.Test
 			);
 
 			Prepending<Item> prepending = items.Prepending(new Item()).For(consumer);
-			prepending.ValidateConsistency();
+			prepending.ValidateInternalConsistency();
 			items[index] = new Item();
-			prepending.ValidateConsistency();			
+			prepending.ValidateInternalConsistency();			
 			consumer.Dispose();
 		}
 

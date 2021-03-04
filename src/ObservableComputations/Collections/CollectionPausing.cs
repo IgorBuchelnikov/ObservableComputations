@@ -425,12 +425,12 @@ namespace ObservableComputations
 
 		#endregion
 
-		internal void ValidateConsistency()
+		internal void ValidateInternalConsistency()
 		{
 			IList<TSourceItem> source = _sourceScalar.getValue(_source, new ObservableCollection<TSourceItem>()) as IList<TSourceItem>;
 			if (!IsPaused)
 				if (!source.SequenceEqual(this))
-					throw new ObservableComputationsException(this, "Consistency violation: CollectionPausing.1");
+					throw new ValidateInternalConsistencyException("Consistency violation: CollectionPausing.1");
 		}
 	}
 

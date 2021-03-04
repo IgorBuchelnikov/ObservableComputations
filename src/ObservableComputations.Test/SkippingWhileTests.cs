@@ -67,7 +67,7 @@ namespace ObservableComputations.Test
 			ObservableCollection<Item> items = new ObservableCollection<Item>();
 
 			SkippingWhile<Item> skippingWhile = items.SkippingWhile(item => item.IsActive).For(consumer);
-			skippingWhile.ValidateConsistency();			
+			skippingWhile.ValidateInternalConsistency();			
 			consumer.Dispose();
 		}
 
@@ -94,9 +94,9 @@ namespace ObservableComputations.Test
 			);
 
 			SkippingWhile<Item> skippingWhile = items.SkippingWhile(item => item.IsActive).For(consumer);
-			skippingWhile.ValidateConsistency();
+			skippingWhile.ValidateInternalConsistency();
 			items[index].IsActive = newValue;
-			skippingWhile.ValidateConsistency();			
+			skippingWhile.ValidateInternalConsistency();			
 			consumer.Dispose();
 		}
 
@@ -113,9 +113,9 @@ namespace ObservableComputations.Test
 			);
 
 			SkippingWhile<Item> skippingWhile = items.SkippingWhile(item => item.IsActive).For(consumer);
-			skippingWhile.ValidateConsistency();
+			skippingWhile.ValidateInternalConsistency();
 			items[0].IsActive = !items[0].IsActive;
-			skippingWhile.ValidateConsistency();			
+			skippingWhile.ValidateInternalConsistency();			
 			consumer.Dispose();
 		}
 
@@ -141,9 +141,9 @@ namespace ObservableComputations.Test
 			);
 
 			SkippingWhile<Item> skippingWhile = items.SkippingWhile(item => item.IsActive).For(consumer);
-			skippingWhile.ValidateConsistency();
+			skippingWhile.ValidateInternalConsistency();
 			items.RemoveAt(index);
-			skippingWhile.ValidateConsistency();			
+			skippingWhile.ValidateInternalConsistency();			
 			consumer.Dispose();
 		}
 
@@ -160,9 +160,9 @@ namespace ObservableComputations.Test
 			);
 
 			SkippingWhile<Item> skippingWhile = items.SkippingWhile(item => item.IsActive).For(consumer);
-			skippingWhile.ValidateConsistency();
+			skippingWhile.ValidateInternalConsistency();
 			items.RemoveAt(0);
-			skippingWhile.ValidateConsistency();			
+			skippingWhile.ValidateInternalConsistency();			
 			consumer.Dispose();
 		}
 
@@ -189,9 +189,9 @@ namespace ObservableComputations.Test
 			);
 
 			SkippingWhile<Item> skippingWhile = items.SkippingWhile(item => item.IsActive).For(consumer);
-			skippingWhile.ValidateConsistency();
+			skippingWhile.ValidateInternalConsistency();
 			items.Insert(index, new Item(newValue));
-			skippingWhile.ValidateConsistency();			
+			skippingWhile.ValidateInternalConsistency();			
 			consumer.Dispose();
 		}
 
@@ -204,9 +204,9 @@ namespace ObservableComputations.Test
 			);
 
 			SkippingWhile<Item> skippingWhile = items.SkippingWhile(item => item.IsActive).For(consumer);
-			skippingWhile.ValidateConsistency();
+			skippingWhile.ValidateInternalConsistency();
 			items.Insert(0, new Item(newValue));
-			skippingWhile.ValidateConsistency();			
+			skippingWhile.ValidateInternalConsistency();			
 			consumer.Dispose();
 		}
 
@@ -233,9 +233,9 @@ namespace ObservableComputations.Test
 			);
 
 			SkippingWhile<Item> skippingWhile = items.SkippingWhile(item => item.IsActive).For(consumer);
-			skippingWhile.ValidateConsistency();
+			skippingWhile.ValidateInternalConsistency();
 			items.Move(oldIndex, newIndex);
-			skippingWhile.ValidateConsistency();			
+			skippingWhile.ValidateInternalConsistency();			
 			consumer.Dispose();
 		}
 
@@ -262,9 +262,9 @@ namespace ObservableComputations.Test
 			);
 
 			SkippingWhile<Item> skippingWhile = items.SkippingWhile(item => item.IsActive).For(consumer);
-			skippingWhile.ValidateConsistency();
+			skippingWhile.ValidateInternalConsistency();
 			items[index] = new Item(itemNew);
-			skippingWhile.ValidateConsistency();			
+			skippingWhile.ValidateInternalConsistency();			
 			consumer.Dispose();
 		}		
 
@@ -293,13 +293,13 @@ namespace ObservableComputations.Test
 					? items.SkippingWhile(item1 => true) 
 					: items.SkippingWhile(item1 => item1.IsActive == item.IsActive)).Count == 3).For(consumer);
 
-			skippingWhile.ValidateConsistency();
-			skippingWhile2.ValidateConsistency();
+			skippingWhile.ValidateInternalConsistency();
+			skippingWhile2.ValidateInternalConsistency();
 
 			param.Value = true;
 
-			skippingWhile.ValidateConsistency();
-			skippingWhile2.ValidateConsistency();
+			skippingWhile.ValidateInternalConsistency();
+			skippingWhile2.ValidateInternalConsistency();
 			consumer.Dispose();
 		}
 

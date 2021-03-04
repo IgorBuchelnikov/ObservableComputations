@@ -255,7 +255,7 @@ namespace ObservableComputations
 		}
 
 		[ExcludeFromCodeCoverage]
-		internal void ValidateConsistency()
+		internal void ValidateInternalConsistency()
 		{
 			IList<TSourceItem> source = _sourceScalarTaking.getValue(_sourceTaking, new ObservableCollection<TSourceItem>()) as IList<TSourceItem>;
 			int startIndex = _startIndexScalar.getValue(_startIndex);
@@ -264,7 +264,7 @@ namespace ObservableComputations
 			// ReSharper disable once AssignNullToNotNullAttribute
 			if (!this.SequenceEqual(source.Skip(startIndex).Take(count)))
 			{
-				throw new ObservableComputationsException(this, "Consistency violation: Taking.1");
+				throw new ValidateInternalConsistencyException("Consistency violation: Taking.1");
 			}
 		}
 	}

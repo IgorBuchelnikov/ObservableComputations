@@ -50,13 +50,13 @@ namespace ObservableComputations
 
 		// ReSharper disable once InconsistentNaming
 		[ExcludeFromCodeCoverage]
-		internal void ValidateConsistency()
+		internal void ValidateInternalConsistency()
 		{
 			IList source = _sourceScalarOfTypeComputing.getValue(_sourceOfTypeComputing, new ObservableCollection<object>()) as IList;
 
 			// ReSharper disable once AssignNullToNotNullAttribute
 			if (!this.SequenceEqual(source.OfType<TResultItem>()))
-				 throw new ObservableComputationsException(this, "Consistency violation: OfTypeComputing.1");
+				 throw new ValidateInternalConsistencyException("Consistency violation: OfTypeComputing.1");
 		}
 	}
 }

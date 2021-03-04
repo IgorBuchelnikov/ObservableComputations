@@ -70,14 +70,14 @@ namespace ObservableComputations.Test
 						trace(testNum = "2", count, index, indexOld, indexNew, pageSize, currentPage);
 						items = getObservableCollection(count);
 						paging = items.Paging(pageSize).For(consumer);
-						paging.ValidateConsistency();						
+						paging.ValidateInternalConsistency();						
 						consumer.Dispose();
 
 						trace(testNum = "3", count, index, indexOld, indexNew, pageSize, currentPage);
 						items = getObservableCollection(count);
 						paging = items.Paging(pageSize).For(consumer);
 						paging.CurrentPage = currentPage;
-						paging.ValidateConsistency();						
+						paging.ValidateInternalConsistency();						
 						consumer.Dispose();
 
 						for (index = 0; index < count; index++)
@@ -86,7 +86,7 @@ namespace ObservableComputations.Test
 							items = getObservableCollection(count);
 							Paging<Item> paging1 = items.Paging(pageSize, currentPage).For(consumer);
 							items.RemoveAt(index);
-							paging1.ValidateConsistency();							
+							paging1.ValidateInternalConsistency();							
 							consumer.Dispose();
 						}
 
@@ -96,7 +96,7 @@ namespace ObservableComputations.Test
 							items = getObservableCollection(count);
 							Paging<Item> paging1 = items.Paging(pageSize, currentPage).For(consumer);
 							items.Insert(index, new Item());
-							paging1.ValidateConsistency();							
+							paging1.ValidateInternalConsistency();							
 							consumer.Dispose();
 						}
 
@@ -106,7 +106,7 @@ namespace ObservableComputations.Test
 							items = getObservableCollection(count);
 							Paging<Item> paging1 = items.Paging(pageSize, currentPage).For(consumer);
 							items[index] = new Item();
-							paging1.ValidateConsistency();							
+							paging1.ValidateInternalConsistency();							
 							consumer.Dispose();
 						}
 
@@ -118,7 +118,7 @@ namespace ObservableComputations.Test
 								items = getObservableCollection(count);
 								Paging<Item> paging1 = items.Paging(pageSize, currentPage).For(consumer);
 								items.Move(indexOld, indexNew);
-								paging1.ValidateConsistency();								
+								paging1.ValidateInternalConsistency();								
 								consumer.Dispose();
 							}
 						}
@@ -176,40 +176,40 @@ namespace ObservableComputations.Test
 			ObservableCollection<int> items = new ObservableCollection<int>(Enumerable.Range(1, 100));
 
 			Paging<int> paging = items.Paging(2).For(consumer);
-			paging.ValidateConsistency();			
+			paging.ValidateInternalConsistency();			
 
 			void test()
 			{
-				paging.ValidateConsistency();
+				paging.ValidateInternalConsistency();
 
 				if (items != null)
 				{		
 					items.Insert(2, 1);
-					paging.ValidateConsistency();
+					paging.ValidateInternalConsistency();
 					items[3] = 2;
-					paging.ValidateConsistency();
+					paging.ValidateInternalConsistency();
 					items.RemoveAt(3);
-					paging.ValidateConsistency();
+					paging.ValidateInternalConsistency();
 					items.Move(1, 3);
-					paging.ValidateConsistency();
+					paging.ValidateInternalConsistency();
 					items.RemoveAt(0);
-					paging.ValidateConsistency();
+					paging.ValidateInternalConsistency();
 					items.RemoveAt(0);
-					paging.ValidateConsistency();
+					paging.ValidateInternalConsistency();
 					items.RemoveAt(0);
-					paging.ValidateConsistency();
+					paging.ValidateInternalConsistency();
 					items.RemoveAt(0);
-					paging.ValidateConsistency();
+					paging.ValidateInternalConsistency();
 					items.Insert(0, 2);
-					paging.ValidateConsistency();
+					paging.ValidateInternalConsistency();
 					items.Insert(0, 3);
-					paging.ValidateConsistency();
+					paging.ValidateInternalConsistency();
 				}
 
 				if (items != null)
 				{
 					items.Clear();
-					paging.ValidateConsistency();
+					paging.ValidateInternalConsistency();
 				}
 
 				if (items != null)
@@ -218,7 +218,7 @@ namespace ObservableComputations.Test
 					{
 						items.Add(i);
 					}
-					paging.ValidateConsistency();
+					paging.ValidateInternalConsistency();
 				}
 			}
 
@@ -250,44 +250,44 @@ namespace ObservableComputations.Test
 		{
 			Scalar<ObservableCollection<int>> items = new Scalar<ObservableCollection<int>>(null);
 			Paging<int> paging = items.Paging(2).For(consumer);
-			paging.ValidateConsistency();	
+			paging.ValidateInternalConsistency();	
 						
 			items.Change(new ObservableCollection<int>(Enumerable.Range(1, 100)));
-			paging.ValidateConsistency();
+			paging.ValidateInternalConsistency();
 
 			void test()
 			{
-				paging.ValidateConsistency();
+				paging.ValidateInternalConsistency();
 				ObservableCollection<int> sourceScalarValue = items.Value;
 
 				if (sourceScalarValue != null)
 				{		
 					sourceScalarValue.Insert(2, 1);
-					paging.ValidateConsistency();
+					paging.ValidateInternalConsistency();
 					sourceScalarValue[3] = 2;
-					paging.ValidateConsistency();
+					paging.ValidateInternalConsistency();
 					sourceScalarValue.RemoveAt(3);
-					paging.ValidateConsistency();
+					paging.ValidateInternalConsistency();
 					sourceScalarValue.Move(1, 3);
-					paging.ValidateConsistency();
+					paging.ValidateInternalConsistency();
 					sourceScalarValue.RemoveAt(0);
-					paging.ValidateConsistency();
+					paging.ValidateInternalConsistency();
 					sourceScalarValue.RemoveAt(0);
-					paging.ValidateConsistency();
+					paging.ValidateInternalConsistency();
 					sourceScalarValue.RemoveAt(0);
-					paging.ValidateConsistency();
+					paging.ValidateInternalConsistency();
 					sourceScalarValue.RemoveAt(0);
-					paging.ValidateConsistency();
+					paging.ValidateInternalConsistency();
 					sourceScalarValue.Insert(0, 2);
-					paging.ValidateConsistency();
+					paging.ValidateInternalConsistency();
 					sourceScalarValue.Insert(0, 3);
-					paging.ValidateConsistency();
+					paging.ValidateInternalConsistency();
 				}
 
 				if (sourceScalarValue != null)
 				{
 					sourceScalarValue.Clear();
-					paging.ValidateConsistency();
+					paging.ValidateInternalConsistency();
 				}
 
 				if (sourceScalarValue != null)
@@ -296,7 +296,7 @@ namespace ObservableComputations.Test
 					{
 						sourceScalarValue.Add(i);
 					}
-					paging.ValidateConsistency();
+					paging.ValidateInternalConsistency();
 				}
 			}
 

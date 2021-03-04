@@ -138,7 +138,7 @@ namespace ObservableComputations
 		}
 
 		[ExcludeFromCodeCoverage]
-		internal void ValidateConsistency()
+		internal void ValidateInternalConsistency()
 		{
 			IList<TSourceItem> source = _sourceScalar.getValue(_source, new ObservableCollection<TSourceItem>()) as IList<TSourceItem>;
 			Func<TSourceItem, INotifyCollectionChanged> selector = _selectorExpression?.Compile();
@@ -156,7 +156,7 @@ namespace ObservableComputations
 			// ReSharper disable once AssignNullToNotNullAttribute
 			if (!this.SequenceEqual(result))
 			{
-				throw new ObservableComputationsException(this, "Consistency violation: SelectingMany.1");
+				throw new ValidateInternalConsistencyException("Consistency violation: SelectingMany.1");
 			}
 		}
 	}

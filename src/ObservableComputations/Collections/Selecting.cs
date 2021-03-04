@@ -328,20 +328,20 @@ namespace ObservableComputations
 
 		// ReSharper disable once InconsistentNaming
 		[ExcludeFromCodeCoverage]
-		internal void ValidateConsistency()
+		internal void ValidateInternalConsistency()
 		{
-			_sourcePositions.ValidateConsistency();
+			_sourcePositions.ValidateInternalConsistency();
 			IList<TSourceItem> source = _sourceScalar.getValue(_source, new ObservableCollection<TSourceItem>()) as IList<TSourceItem>;
 			// ReSharper disable once PossibleNullReferenceException
 			if (_itemInfos.Count != source.Count)
-				throw new ObservableComputationsException(this, "Consistency violation: Selecting.1");
+				throw new ValidateInternalConsistencyException("Consistency violation: Selecting.1");
 			Func<TSourceItem, TResultItem> selector = _selectorExpressionOriginal.Compile();
 
 			// ReSharper disable once ConditionIsAlwaysTrueOrFalse
 			if (source != null)
 			{
 				if (_itemInfos.Count != source.Count)
-					throw new ObservableComputationsException(this, "Consistency violation: Selecting.6");
+					throw new ValidateInternalConsistencyException("Consistency violation: Selecting.6");
 
 				for (int sourceIndex = 0; sourceIndex < source.Count; sourceIndex++)
 				{
@@ -349,18 +349,18 @@ namespace ObservableComputations
 					ItemInfo itemInfo = _itemInfos[sourceIndex];
 					
 					if (!EqualityComparer<TResultItem>.Default.Equals(this[sourceIndex], selector(sourceItem)))
-						throw new ObservableComputationsException(this, "Consistency violation: Selecting.2");
+						throw new ValidateInternalConsistencyException("Consistency violation: Selecting.2");
 
 					if (_itemInfos[sourceIndex].Index != sourceIndex)
-						throw new ObservableComputationsException(this, "Consistency violation: Selecting.3");
+						throw new ValidateInternalConsistencyException("Consistency violation: Selecting.3");
 					if (itemInfo.ExpressionWatcher._position != _itemInfos[sourceIndex])
-						throw new ObservableComputationsException(this, "Consistency violation: Selecting.4");
+						throw new ValidateInternalConsistencyException("Consistency violation: Selecting.4");
 
 					if (!_itemInfos.Contains((ItemInfo) itemInfo.ExpressionWatcher._position))
-						throw new ObservableComputationsException(this, "Consistency violation: Selecting.5");
+						throw new ValidateInternalConsistencyException("Consistency violation: Selecting.5");
 
 					if (itemInfo.ExpressionWatcher._position.Index != sourceIndex)
-						throw new ObservableComputationsException(this, "Consistency violation: Selecting.7");
+						throw new ValidateInternalConsistencyException("Consistency violation: Selecting.7");
 
 				}
 			}

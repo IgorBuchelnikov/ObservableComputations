@@ -97,7 +97,7 @@ namespace ObservableComputations
 		}
 
 		[ExcludeFromCodeCoverage]
-		internal void ValidateConsistency()
+		internal void ValidateInternalConsistency()
 		{
 			IList<TSourceItem> source = _sourceScalar.getValue(_source, new ObservableCollection<TSourceItem>()) as IList<TSourceItem>;
 			Func<TSourceItem, bool> predicate = _predicateExpression.Compile();
@@ -109,7 +109,7 @@ namespace ObservableComputations
 				if (predicate(source[i]))
 					result.Add(i);
 
-			if (!this.SequenceEqual(result)) throw new ObservableComputationsException(this, "Consistency violation: IndicesComputing.1");
+			if (!this.SequenceEqual(result)) throw new ValidateInternalConsistencyException("Consistency violation: IndicesComputing.1");
 		}
 
 		//private class FindExpressionVisitor : ExpressionVisitor

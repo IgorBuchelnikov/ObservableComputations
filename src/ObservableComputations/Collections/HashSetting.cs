@@ -478,20 +478,20 @@ namespace ObservableComputations
 		}
 
 		[ExcludeFromCodeCoverage]
-		internal void ValidateConsistency()
+		internal void ValidateInternalConsistency()
 		{
-			_sourcePositions.ValidateConsistency();
+			_sourcePositions.ValidateInternalConsistency();
 			IList<TSourceItem> source = _sourceScalar.getValue(_source, new ObservableCollection<TSourceItem>()) as IList<TSourceItem>;
 			// ReSharper disable once PossibleNullReferenceException
-			if (_itemInfos.Count != source.Count) throw new ObservableComputationsException("Consistency violation: HashSetting.1");
-			if (Count != source.Count) throw new ObservableComputationsException( "Consistency violation: HashSetting.16");
+			if (_itemInfos.Count != source.Count) throw new ValidateInternalConsistencyException("Consistency violation: HashSetting.1");
+			if (Count != source.Count) throw new ValidateInternalConsistencyException("Consistency violation: HashSetting.16");
 			Func<TSourceItem, TKey> keySelector = _keySelectorExpression.Compile();
 
 			// ReSharper disable once ConditionIsAlwaysTrueOrFalse
 			if (source != null)
 			{
 				if (_sourcePositions.List.Count != source.Count)
-					throw new ObservableComputationsException("Consistency violation: HashSetting.15");
+					throw new ValidateInternalConsistencyException("Consistency violation: HashSetting.15");
 
 				for (int sourceIndex = 0; sourceIndex < source.Count; sourceIndex++)
 				{
@@ -500,19 +500,19 @@ namespace ObservableComputations
 
 					TKey key = itemInfo._keySelectorFunc == null ? keySelector(sourceItem) : itemInfo._keySelectorFunc();
 					if (!Contains(key))
-						throw new ObservableComputationsException("Consistency violation: HashSetting.2");
+						throw new ValidateInternalConsistencyException("Consistency violation: HashSetting.2");
 
-					if (_sourcePositions.List[sourceIndex].Index != sourceIndex) throw new ObservableComputationsException("Consistency violation: HashSetting.4");
-					if (itemInfo.ExpressionWatcher._position != _sourcePositions.List[sourceIndex]) throw new ObservableComputationsException("Consistency violation: HashSetting.5");
+					if (_sourcePositions.List[sourceIndex].Index != sourceIndex) throw new ValidateInternalConsistencyException("Consistency violation: HashSetting.4");
+					if (itemInfo.ExpressionWatcher._position != _sourcePositions.List[sourceIndex]) throw new ValidateInternalConsistencyException("Consistency violation: HashSetting.5");
 
 					if (!_sourcePositions.List.Contains((ItemInfo) itemInfo.ExpressionWatcher._position))
-						throw new ObservableComputationsException("Consistency violation: HashSetting.7");
+						throw new ValidateInternalConsistencyException("Consistency violation: HashSetting.7");
 
 					if (itemInfo.ExpressionWatcher._position.Index != sourceIndex)
-						throw new ObservableComputationsException("Consistency violation: HashSetting.17");
+						throw new ValidateInternalConsistencyException("Consistency violation: HashSetting.17");
 
 					if (!itemInfo.Key.IsSameAs(key))
-						throw new ObservableComputationsException("Consistency violation: HashSetting.10");
+						throw new ValidateInternalConsistencyException("Consistency violation: HashSetting.10");
 				}
 			}			
 		}

@@ -205,12 +205,12 @@ namespace ObservableComputations.Test
 		//		return;
 
 		//	Aggregating<int, int> summarizing = items.Summarizing().For(consumer);
-		//	summarizing.ValidateConsistency();
+		//	summarizing.ValidateInternalConsistency();
 		//	Assert.Equals(summarizing.Value, items.Sum());
 
 		//	items[index] = newValue;
 
-		//	summarizing.ValidateConsistency();
+		//	summarizing.ValidateInternalConsistency();
 		//	Assert.Equals(summarizing.Value, items.Sum());
 
 		//}
@@ -234,12 +234,12 @@ namespace ObservableComputations.Test
 		//	if (index >= items.Count) return;
 
 		//	Aggregating<int, int> summarizing = items.Summarizing().For(consumer);
-		//	summarizing.ValidateConsistency();
+		//	summarizing.ValidateInternalConsistency();
 		//	Assert.Equals(summarizing.Value, items.Sum());
 
 		//	items.RemoveAt(index);
 
-		//	summarizing.ValidateConsistency();
+		//	summarizing.ValidateInternalConsistency();
 		//	Assert.Equals(summarizing.Value, items.Sum());
 		//}
 
@@ -264,12 +264,12 @@ namespace ObservableComputations.Test
 
 		//	Aggregating<int, int> summarizing = items.Summarizing().For(consumer);
 
-		//	summarizing.ValidateConsistency();
+		//	summarizing.ValidateInternalConsistency();
 		//	Assert.Equals(summarizing.Value, items.Sum());
 
 		//	items.Insert(index, newValue);
 
-		//	summarizing.ValidateConsistency();
+		//	summarizing.ValidateInternalConsistency();
 		//	Assert.Equals(summarizing.Value, items.Sum());
 		//}
 
@@ -294,12 +294,12 @@ namespace ObservableComputations.Test
 
 		//	Aggregating<int, int> summarizing = items.Summarizing().For(consumer);
 
-		//	summarizing.ValidateConsistency();
+		//	summarizing.ValidateInternalConsistency();
 		//	Assert.Equals(summarizing.Value, items.Sum());
 
 		//	items.Move(oldIndex, newIndex);
 
-		//	summarizing.ValidateConsistency();
+		//	summarizing.ValidateInternalConsistency();
 		//	Assert.Equals(summarizing.Value, items.Sum());
 		//}
 

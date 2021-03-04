@@ -102,13 +102,13 @@ namespace ObservableComputations
 		// ReSharper disable once PureAttributeOnVoidMethod
 		[Pure]
 		[ExcludeFromCodeCoverage]
-		internal void ValidateConsistency()
+		internal void ValidateInternalConsistency()
 		{
 			for (int index = 0; index < List.Count; index++)
 			{
 				TPosition position = List[index];
 				if (position.Index != index)
-					throw new ObservableComputationsException("Consistency violation: Positions.1");
+					throw new ValidateInternalConsistencyException("Consistency violation: Positions.1");
 			}
 		}
 	}
@@ -369,16 +369,16 @@ namespace ObservableComputations
 		// ReSharper disable once PureAttributeOnVoidMethod
 		[Pure]
 		[ExcludeFromCodeCoverage]
-		internal void ValidateConsistency()
+		internal void ValidateInternalConsistency()
 		{
 			int plainIndex = 0;
 			for (int index = 0; index < List.Count; index++)
 			{
 				TRangePosition rangePosition = List[index];
 				if (rangePosition.Index != index)
-					throw new ObservableComputationsException("Consistency violation: RangePosition.1");
+					throw new ValidateInternalConsistencyException("Consistency violation: RangePosition.1");
 				if (rangePosition.PlainIndex != plainIndex)
-					throw new ObservableComputationsException("Consistency violation: RangePosition.2");
+					throw new ValidateInternalConsistencyException("Consistency violation: RangePosition.2");
 				plainIndex = plainIndex + rangePosition.Length;
 			}
 		}

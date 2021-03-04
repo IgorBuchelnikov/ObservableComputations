@@ -53,7 +53,7 @@ namespace ObservableComputations.Test
 			ObservableCollection<Item> items = new ObservableCollection<Item>();
 
 			FirstComputing<Item> first = items.FirstComputing().For(consumer);
-			first.ValidateConsistency();			
+			first.ValidateInternalConsistency();			
 			consumer.Dispose();
 		}
 
@@ -74,9 +74,9 @@ namespace ObservableComputations.Test
 			);
 
 			FirstComputing<Item> first = items.FirstComputing().For(consumer);
-			first.ValidateConsistency();
+			first.ValidateInternalConsistency();
 			items.RemoveAt(index);
-			first.ValidateConsistency();			
+			first.ValidateInternalConsistency();			
 			consumer.Dispose();
 		}
 
@@ -91,9 +91,9 @@ namespace ObservableComputations.Test
 			);
 
 			FirstComputing<Item> first = items.FirstComputing().For(consumer);
-			first.ValidateConsistency();
+			first.ValidateInternalConsistency();
 			items.RemoveAt(0);
-			first.ValidateConsistency();			
+			first.ValidateInternalConsistency();			
 			consumer.Dispose();
 		}
 
@@ -113,9 +113,9 @@ namespace ObservableComputations.Test
 			);
 
 			FirstComputing<Item> first = items.FirstComputing().For(consumer);
-			first.ValidateConsistency();
+			first.ValidateInternalConsistency();
 			items.Insert(index, new Item());
-			first.ValidateConsistency();			
+			first.ValidateInternalConsistency();			
 			consumer.Dispose();
 		}
 
@@ -125,9 +125,9 @@ namespace ObservableComputations.Test
 			ObservableCollection<Item> items = new ObservableCollection<Item>();
 
 			FirstComputing<Item> first = items.FirstComputing().For(consumer);
-			first.ValidateConsistency();
+			first.ValidateInternalConsistency();
 			items.Insert(0, new Item());
-			first.ValidateConsistency();			
+			first.ValidateInternalConsistency();			
 			consumer.Dispose();
 		}
 
@@ -148,9 +148,9 @@ namespace ObservableComputations.Test
 			);
 
 			FirstComputing<Item> first = items.FirstComputing().For(consumer);
-			first.ValidateConsistency();
+			first.ValidateInternalConsistency();
 			items.Move(oldIndex, newIndex);
-			first.ValidateConsistency();			
+			first.ValidateInternalConsistency();			
 			consumer.Dispose();
 		}
 
@@ -171,9 +171,9 @@ namespace ObservableComputations.Test
 			);
 
 			FirstComputing<Item> first = items.FirstComputing().For(consumer);
-			first.ValidateConsistency();
+			first.ValidateInternalConsistency();
 			items[index] = new Item();
-			first.ValidateConsistency();			
+			first.ValidateInternalConsistency();			
 			consumer.Dispose();
 		}
 

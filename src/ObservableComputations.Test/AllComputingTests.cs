@@ -62,7 +62,7 @@ namespace ObservableComputations.Test
 			ObservableCollection<Item> items = new ObservableCollection<Item>();
 
 			AllComputing<Item> allComputing = items.AllComputing(item => item.IsActive).For(consumer);
-			allComputing.ValidateConsistency();
+			allComputing.ValidateInternalConsistency();
 		}
 
 		[Test, Combinatorial]
@@ -88,9 +88,9 @@ namespace ObservableComputations.Test
 			);
 
 			AllComputing<Item> allComputing = items.AllComputing(item => item.IsActive).For(consumer);
-			allComputing.ValidateConsistency();
+			allComputing.ValidateInternalConsistency();
 			items[index].IsActive = newValue;
-			allComputing.ValidateConsistency();
+			allComputing.ValidateInternalConsistency();
 		}
 
 		[Test, Combinatorial]
@@ -115,9 +115,9 @@ namespace ObservableComputations.Test
 			);
 
 			AllComputing<Item> allComputing = items.AllComputing(item => item.IsActive).For(consumer);
-			allComputing.ValidateConsistency();
+			allComputing.ValidateInternalConsistency();
 			items.RemoveAt(index);
-			allComputing.ValidateConsistency();
+			allComputing.ValidateInternalConsistency();
 		}
 
 		[Test, Combinatorial]
@@ -132,9 +132,9 @@ namespace ObservableComputations.Test
 			);
 
 			AllComputing<Item> allComputing = items.AllComputing(item => item.IsActive).For(consumer);
-			allComputing.ValidateConsistency();
+			allComputing.ValidateInternalConsistency();
 			items.RemoveAt(0);
-			allComputing.ValidateConsistency();
+			allComputing.ValidateInternalConsistency();
 		}
 
 		[Test, Combinatorial]
@@ -160,9 +160,9 @@ namespace ObservableComputations.Test
 			);
 
 			AllComputing<Item> allComputing = items.AllComputing(item => item.IsActive).For(consumer);
-			allComputing.ValidateConsistency();
+			allComputing.ValidateInternalConsistency();
 			items.Insert(index, new Item(newValue));
-			allComputing.ValidateConsistency();
+			allComputing.ValidateInternalConsistency();
 		}
 
 		[Test, Combinatorial]
@@ -172,9 +172,9 @@ namespace ObservableComputations.Test
 			ObservableCollection<Item> items = new ObservableCollection<Item>();
 
 			AllComputing<Item> allComputing = items.AllComputing(item => item.IsActive).For(consumer);
-			allComputing.ValidateConsistency();
+			allComputing.ValidateInternalConsistency();
 			items.Insert(0, new Item(newValue));
-			allComputing.ValidateConsistency();
+			allComputing.ValidateInternalConsistency();
 		}
 
 		[Test, Combinatorial]
@@ -200,9 +200,9 @@ namespace ObservableComputations.Test
 			);
 
 			AllComputing<Item> allComputing = items.AllComputing(item => item.IsActive).For(consumer);
-			allComputing.ValidateConsistency();
+			allComputing.ValidateInternalConsistency();
 			items.Move(oldIndex, newIndex);
-			allComputing.ValidateConsistency();
+			allComputing.ValidateInternalConsistency();
 		}
 
 		[Test, Combinatorial]
@@ -228,9 +228,9 @@ namespace ObservableComputations.Test
 			);
 
 			AllComputing<Item> allComputing = items.AllComputing(item => item.IsActive).For(consumer);
-			allComputing.ValidateConsistency();
+			allComputing.ValidateInternalConsistency();
 			items[index] = new Item(itemNew);
-			allComputing.ValidateConsistency();
+			allComputing.ValidateInternalConsistency();
 		}
 
 		public AllComputingTests(bool debug) : base(debug)

@@ -3,6 +3,7 @@
 // The LICENSE file is located at https://github.com/IgorBuchelnikov/ObservableComputations/blob/master/LICENSE
 
 using System;
+using System.Diagnostics.CodeAnalysis;
 
 namespace ObservableComputations
 {
@@ -22,6 +23,14 @@ namespace ObservableComputations
 		}
 	}
 
+	[ExcludeFromCodeCoverage]
+	public class ValidateInternalConsistencyException : Exception
+	{
+		public ValidateInternalConsistencyException(string message) : base(message)
+		{
+		}
+	}
+
 	public class ObservableComputationsInconsistencyException : ObservableComputationsException
 	{
 		private readonly object _eventSender;
@@ -29,12 +38,6 @@ namespace ObservableComputations
 
 		public object EventSender => _eventSender;
 		public EventArgs EventArgs => _eventArgs;
-
-		//public ObservableComputationsInconsistencyException(string message, object eventSender, EventArgs eventArgs) : base(message)
-		//{
-		//	_eventSender = eventSender;
-		//	_eventArgs = eventArgs;
-		//}
 
 		public ObservableComputationsInconsistencyException(IComputing computing, string message, object eventSender, EventArgs eventArgs) : base(computing, message)
 		{

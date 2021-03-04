@@ -141,7 +141,7 @@ namespace ObservableComputations.Test
 #>
 			void test()
 			{
-				testing.ValidateConsistency();
+				testing.ValidateInternalConsistency();
 <#
 			foreach (var argument in arguments.Where(a => IsCollectionArgument(extensionMethod.Name, a.name, a.argumentType)))
 			{
@@ -152,25 +152,25 @@ namespace ObservableComputations.Test
 				if (<#=argument.name#>Value != null)
 				{		
 					<#=sync#><#=argument.name#>Value.Insert(2, new QuickTests.Item(1, true));
-					testing.ValidateConsistency();
+					testing.ValidateInternalConsistency();
 					<#=sync#><#=argument.name#>Value[3] = new QuickTests.Item(7, true);
-					testing.ValidateConsistency();
+					testing.ValidateInternalConsistency();
 					<#=sync#><#=argument.name#>Value.RemoveAt(3);
-					testing.ValidateConsistency();
+					testing.ValidateInternalConsistency();
 					<#=sync#><#=argument.name#>Value.Move(1, 3);
-					testing.ValidateConsistency();
+					testing.ValidateInternalConsistency();
 					<#=sync#><#=argument.name#>Value[2].Active = !<#=argument.name#>Value[2].Active;
-					testing.ValidateConsistency();
+					testing.ValidateInternalConsistency();
 					<#=sync#><#=argument.name#>Value[2].Num = <#=argument.name#>Value[2].Num + 1;
-					testing.ValidateConsistency();
+					testing.ValidateInternalConsistency();
 					<#=sync#><#=argument.name#>Value.RemoveAt(0);
-					testing.ValidateConsistency();
+					testing.ValidateInternalConsistency();
 					<#=sync#><#=argument.name#>Value.RemoveAt(1);
-					testing.ValidateConsistency();
+					testing.ValidateInternalConsistency();
 					<#=sync#><#=argument.name#>Value.Insert(0, new QuickTests.Item(1, true));
-					testing.ValidateConsistency();
+					testing.ValidateInternalConsistency();
 					<#=sync#><#=argument.name#>Value.Insert(0, new QuickTests.Item(2, true));
-					testing.ValidateConsistency();
+					testing.ValidateInternalConsistency();
 				}
 <#
 			}
@@ -185,11 +185,11 @@ namespace ObservableComputations.Test
 				if (<#=sourcesArgument.First().name#>Value != null)
 				{
 					<#=sync#><#=sourcesArgument.First().name#>Value.Insert(0, new ObservableCollection<Item>(new []{new Item(1, true)}));
-					testing.ValidateConsistency();
+					testing.ValidateInternalConsistency();
 					<#=sync#><#=sourcesArgument.First().name#>Value.RemoveAt(1);
-					testing.ValidateConsistency();
+					testing.ValidateInternalConsistency();
 					<#=sync#><#=sourcesArgument.First().name#>Value.Move(0, 1);
-					testing.ValidateConsistency();
+					testing.ValidateInternalConsistency();
 				}
 
 <#
@@ -207,7 +207,7 @@ namespace ObservableComputations.Test
 				if (listSource != null)
 				{
 					<#=sync#>listSource.Clear();
-					testing.ValidateConsistency();
+					testing.ValidateInternalConsistency();
 				}
 
 <#
@@ -224,7 +224,7 @@ namespace ObservableComputations.Test
 					<#=sync#><#=argument.name#>Value.Insert(2, new QuickTests.Item(3, true));
 					<#=sync#><#=argument.name#>Value.Insert(3, new QuickTests.Item(3, true));
 					<#=sync#><#=argument.name#>Value.Insert(4, new QuickTests.Item(3, true));
-					testing.ValidateConsistency();
+					testing.ValidateInternalConsistency();
 				}
 <#
 			}
@@ -237,7 +237,7 @@ namespace ObservableComputations.Test
 				{
 					<#=sync#><#=sourcesArgument.First().name#>Value.Insert(0, new ObservableCollection<Item>(new []{new Item(1, true), new Item(2, true), new Item(3, true), new Item(4, true), new Item(5, true)}));
 					<#=sync#><#=sourcesArgument.First().name#>Value.Insert(0, new ObservableCollection<Item>(new []{new Item(6, true), new Item(7, true), new Item(8, true), new Item(8, true), new Item(10, true)}));
-					testing.ValidateConsistency();
+					testing.ValidateInternalConsistency();
 				}				
 <#
 			}
@@ -263,7 +263,7 @@ namespace ObservableComputations.Test
 				}
 			}
 #>
-				testing.ValidateConsistency();
+				testing.ValidateInternalConsistency();
 			}
 
 			<#=sync#>test();
@@ -655,18 +655,19 @@ namespace ObservableComputations.Test
 		{
 			if (argumentName == "isPausedScalar")
 				return @"
-			Exception setIsPausedScalarException = null;
+			ObservableComputationsException setIsPausedScalarException = null;
 
 			try
 			{
 				testing.IsPaused = true;
 			}
-			catch (Exception exception)
+			catch (ObservableComputationsException exception)
 			{
 				setIsPausedScalarException = exception;
 			}
 
-			Assert.IsTrue(setIsPausedScalarException != null);";
+			Assert.IsTrue(setIsPausedScalarException != null);
+			Assert.AreEqual(setIsPausedScalarException.Computing, testing);";
 
 			if (argumentName == "resumeType")
 				return @"
@@ -709,18 +710,20 @@ namespace ObservableComputations.Test
 			{
 				NotifyCollectionChangedEventHandler handler = (object sender, NotifyCollectionChangedEventArgs args) =>
 					{
-						Exception setIsPausedWhileChangeException = null;
+						ObservableComputationsInconsistencyException setIsPausedWhileChangeException = null;
 
 						try
 						{
 							testing.IsPaused = true;
 						}
-						catch (Exception exception)
+						catch (ObservableComputationsInconsistencyException exception)
 						{
 							setIsPausedWhileChangeException = exception;
 						}
 
 						Assert.IsTrue(setIsPausedWhileChangeException != null);
+						Assert.AreEqual(setIsPausedWhileChangeException.EventSender, null);
+						Assert.AreEqual(setIsPausedWhileChangeException.EventArgs, null);			
 					};
 
 				testing.IsPaused = false;

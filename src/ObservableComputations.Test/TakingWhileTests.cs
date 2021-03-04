@@ -67,7 +67,7 @@ namespace ObservableComputations.Test
 			ObservableCollection<Item> items = new ObservableCollection<Item>();
 
 			TakingWhile<Item> takingWhile = items.TakingWhile(item => item.IsActive).For(consumer);
-			takingWhile.ValidateConsistency();		
+			takingWhile.ValidateInternalConsistency();		
 			consumer.Dispose();
 		}
 
@@ -94,9 +94,9 @@ namespace ObservableComputations.Test
 			);
 
 			TakingWhile<Item> takingWhile = items.TakingWhile(item => item.IsActive).For(consumer);
-			takingWhile.ValidateConsistency();
+			takingWhile.ValidateInternalConsistency();
 			items[index].IsActive = newValue;
-			takingWhile.ValidateConsistency();			
+			takingWhile.ValidateInternalConsistency();			
 			consumer.Dispose();
 		}
 
@@ -113,9 +113,9 @@ namespace ObservableComputations.Test
 			);
 
 			TakingWhile<Item> takingWhile = items.TakingWhile(item => item.IsActive).For(consumer);
-			takingWhile.ValidateConsistency();
+			takingWhile.ValidateInternalConsistency();
 			items[0].IsActive = !items[0].IsActive;
-			takingWhile.ValidateConsistency();			
+			takingWhile.ValidateInternalConsistency();			
 			consumer.Dispose();
 		}
 
@@ -141,9 +141,9 @@ namespace ObservableComputations.Test
 			);
 
 			TakingWhile<Item> takingWhile = items.TakingWhile(item => item.IsActive).For(consumer);
-			takingWhile.ValidateConsistency();
+			takingWhile.ValidateInternalConsistency();
 			items.RemoveAt(index);
-			takingWhile.ValidateConsistency();			
+			takingWhile.ValidateInternalConsistency();			
 			consumer.Dispose();
 		}
 
@@ -160,9 +160,9 @@ namespace ObservableComputations.Test
 			);
 
 			TakingWhile<Item> takingWhile = items.TakingWhile(item => item.IsActive).For(consumer);
-			takingWhile.ValidateConsistency();
+			takingWhile.ValidateInternalConsistency();
 			items.RemoveAt(0);
-			takingWhile.ValidateConsistency();			
+			takingWhile.ValidateInternalConsistency();			
 			consumer.Dispose();
 		}
 
@@ -189,9 +189,9 @@ namespace ObservableComputations.Test
 			);
 
 			TakingWhile<Item> takingWhile = items.TakingWhile(item => item.IsActive).For(consumer);
-			takingWhile.ValidateConsistency();
+			takingWhile.ValidateInternalConsistency();
 			items.Insert(index, new Item(newValue));
-			takingWhile.ValidateConsistency();			
+			takingWhile.ValidateInternalConsistency();			
 			consumer.Dispose();
 		}
 
@@ -204,9 +204,9 @@ namespace ObservableComputations.Test
 			);
 
 			TakingWhile<Item> takingWhile = items.TakingWhile(item => item.IsActive).For(consumer);
-			takingWhile.ValidateConsistency();
+			takingWhile.ValidateInternalConsistency();
 			items.Insert(0, new Item(newValue));
-			takingWhile.ValidateConsistency();			
+			takingWhile.ValidateInternalConsistency();			
 			consumer.Dispose();
 		}
 
@@ -233,9 +233,9 @@ namespace ObservableComputations.Test
 			);
 
 			TakingWhile<Item> takingWhile = items.TakingWhile(item => item.IsActive).For(consumer);
-			takingWhile.ValidateConsistency();
+			takingWhile.ValidateInternalConsistency();
 			items.Move(oldIndex, newIndex);
-			takingWhile.ValidateConsistency();			
+			takingWhile.ValidateInternalConsistency();			
 			consumer.Dispose();
 		}
 
@@ -262,9 +262,9 @@ namespace ObservableComputations.Test
 			);
 
 			TakingWhile<Item> takingWhile = items.TakingWhile(item => item.IsActive).For(consumer);
-			takingWhile.ValidateConsistency();
+			takingWhile.ValidateInternalConsistency();
 			items[index] = new Item(itemNew);
-			takingWhile.ValidateConsistency();			
+			takingWhile.ValidateInternalConsistency();			
 			consumer.Dispose();
 		}		
 
@@ -293,13 +293,13 @@ namespace ObservableComputations.Test
 					? items.TakingWhile(item1 => true) 
 					: items.TakingWhile(item1 => item1.IsActive == item.IsActive)).Count == 3).For(consumer);
 
-			takingWhile.ValidateConsistency();
-			takingWhile2.ValidateConsistency();
+			takingWhile.ValidateInternalConsistency();
+			takingWhile2.ValidateInternalConsistency();
 
 			param.Value = true;
 
-			takingWhile.ValidateConsistency();
-			takingWhile2.ValidateConsistency();
+			takingWhile.ValidateInternalConsistency();
+			takingWhile2.ValidateInternalConsistency();
 			consumer.Dispose();
 		}
 

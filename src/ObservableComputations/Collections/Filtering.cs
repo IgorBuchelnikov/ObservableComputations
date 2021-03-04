@@ -501,14 +501,14 @@ namespace ObservableComputations
 		}
 
 		[ExcludeFromCodeCoverage]
-		internal void ValidateConsistency()
+		internal void ValidateInternalConsistency()
 		{
-			_filteredPositions.ValidateConsistency();
-			_sourcePositions.ValidateConsistency();
+			_filteredPositions.ValidateInternalConsistency();
+			_sourcePositions.ValidateInternalConsistency();
 
 			IList<TSourceItem> source = _sourceScalar.getValue(_source, new ObservableCollection<TSourceItem>()) as IList<TSourceItem>;
 			// ReSharper disable once PossibleNullReferenceException
-			if (_itemInfos.Count != source.Count) throw new ObservableComputationsException(this, "Consistency violation: Filtering.9");
+			if (_itemInfos.Count != source.Count) throw new ValidateInternalConsistencyException("Consistency violation: Filtering.9");
 			Func<TSourceItem, bool> predicate1 = _predicateExpression.Compile();
 			Func<TSourceItem, FilteringItemInfo, bool> predicate = (si, fii) => fii.PredicateFunc != null ? fii.PredicateFunc() : predicate1(si);
 
@@ -516,13 +516,13 @@ namespace ObservableComputations
 			if (source != null)
 			{
 				if (_itemInfos.Count != source.Count)
-					throw new ObservableComputationsException(this, "Consistency violation: Filtering.14");
+					throw new ValidateInternalConsistencyException("Consistency violation: Filtering.14");
 
 				if (_source != null && _filteredPositions.List.Count - 1 != Count)
-					throw new ObservableComputationsException(this, "Consistency violation: Filtering.15");
+					throw new ValidateInternalConsistencyException("Consistency violation: Filtering.15");
 
 				if (_source == null && _filteredPositions.List.Count != 0)
-					throw new ObservableComputationsException(this, "Consistency violation: Filtering.16");
+					throw new ValidateInternalConsistencyException("Consistency violation: Filtering.16");
 
 				int count = 0;
 				int index = 0;
@@ -532,34 +532,34 @@ namespace ObservableComputations
 					FilteringItemInfo itemInfo = _itemInfos[sourceIndex];
 					if (predicate(sourceItem, itemInfo))
 					{
-						if (itemInfo.FilteredPosition == null) throw new ObservableComputationsException(this, "Consistency violation: Filtering.2");
+						if (itemInfo.FilteredPosition == null) throw new ValidateInternalConsistencyException("Consistency violation: Filtering.2");
 
 						if (!EqualityComparer<TSourceItem>.Default.Equals(this[index], sourceItem))
 						{
-							throw new ObservableComputationsException(this, "Consistency violation: Filtering.1");
+							throw new ValidateInternalConsistencyException("Consistency violation: Filtering.1");
 						}
 
-						if (itemInfo.FilteredPosition.Index != index) throw new ObservableComputationsException(this, "Consistency violation: Filtering.5");
+						if (itemInfo.FilteredPosition.Index != index) throw new ValidateInternalConsistencyException("Consistency violation: Filtering.5");
 
 						count++;
 						index++;
 					}
 					else
 					{
-						if (itemInfo.FilteredPosition != null) throw new ObservableComputationsException(this, "Consistency violation: Filtering.3");
+						if (itemInfo.FilteredPosition != null) throw new ValidateInternalConsistencyException("Consistency violation: Filtering.3");
 					}
 
-					if (_itemInfos[sourceIndex].Index != sourceIndex) throw new ObservableComputationsException(this, "Consistency violation: Filtering.7");
-					if (itemInfo.ExpressionWatcher._position != _itemInfos[sourceIndex]) throw new ObservableComputationsException(this, "Consistency violation: Filtering.8");
+					if (_itemInfos[sourceIndex].Index != sourceIndex) throw new ValidateInternalConsistencyException("Consistency violation: Filtering.7");
+					if (itemInfo.ExpressionWatcher._position != _itemInfos[sourceIndex]) throw new ValidateInternalConsistencyException("Consistency violation: Filtering.8");
 
 					if (itemInfo.FilteredPosition != null && !_filteredPositions.List.Contains(itemInfo.FilteredPosition))
-						throw new ObservableComputationsException(this, "Consistency violation: Filtering.10");
+						throw new ValidateInternalConsistencyException("Consistency violation: Filtering.10");
 
 					if (!_filteredPositions.List.Contains(itemInfo.NextFilteredItemPosition))
-						throw new ObservableComputationsException(this, "Consistency violation: Filtering.11");
+						throw new ValidateInternalConsistencyException("Consistency violation: Filtering.11");
 
 					if (!_itemInfos.Contains(itemInfo.ExpressionWatcher._position))
-						throw new ObservableComputationsException(this, "Consistency violation: Filtering.12");
+						throw new ValidateInternalConsistencyException("Consistency violation: Filtering.12");
 				}
 
 				if (_source != null)
@@ -571,7 +571,7 @@ namespace ObservableComputations
 						FilteringItemInfo itemInfo = _itemInfos[sourceIndex];
 
 						if (itemInfo.NextFilteredItemPosition != nextFilteredItemPosition) 
-								throw new ObservableComputationsException(this, "Consistency violation: Filtering.4");
+								throw new ValidateInternalConsistencyException("Consistency violation: Filtering.4");
 
 						if (predicate(sourceItem, itemInfo))
 						{
@@ -581,7 +581,7 @@ namespace ObservableComputations
 
 					if (_filteredPositions.List.Count != count + 1)
 					{
-						throw new ObservableComputationsException(this, "Consistency violation: Filtering.6");
+						throw new ValidateInternalConsistencyException("Consistency violation: Filtering.6");
 					}
 				}
 			}

@@ -116,7 +116,7 @@ namespace ObservableComputations.Test
 
 			Filtering<Item> filtering = items.Filtering(i => i.IsActive).For(consumer);
 			items[2].SpecialChangeIsActive();
-			filtering.ValidateConsistency();
+			filtering.ValidateInternalConsistency();
 			consumer.Dispose();
 
 		}
@@ -146,7 +146,7 @@ namespace ObservableComputations.Test
 				}
 			};
 			items[0].IsActive = true;		   
-			filtering.ValidateConsistency();
+			filtering.ValidateInternalConsistency();
 			consumer.Dispose();
 
 		}

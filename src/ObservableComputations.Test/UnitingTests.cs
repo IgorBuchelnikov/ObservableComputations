@@ -109,7 +109,7 @@ namespace ObservableComputations.Test
 				trace(testNum = "1", itemsCounts, index, itemsCount, indexOld, indexNew);
 				items = getObservableCollections(itemsCounts);
 				uniting = items.Uniting().For(consumer);
-				uniting.ValidateConsistency();				
+				uniting.ValidateInternalConsistency();				
 				consumer.Dispose();
 
 				for (index = 0; index < itemsCounts.Length; index++)
@@ -118,7 +118,7 @@ namespace ObservableComputations.Test
 					items = getObservableCollections(itemsCounts);
 					Uniting<Item> uniting1 = items.Uniting().For(consumer);
 					items.RemoveAt(index);
-					uniting1.ValidateConsistency();					
+					uniting1.ValidateInternalConsistency();					
 					consumer.Dispose();
 				}
 
@@ -130,7 +130,7 @@ namespace ObservableComputations.Test
 						items = getObservableCollections(itemsCounts);
 						Uniting<Item> uniting2 = items.Uniting().For(consumer);
 						items.Insert(index, getObservableCollection(itemsCount));
-						uniting2.ValidateConsistency();						
+						uniting2.ValidateInternalConsistency();						
 						consumer.Dispose();
 					}
 				}
@@ -141,7 +141,7 @@ namespace ObservableComputations.Test
 					items = getObservableCollections(itemsCounts);
 					Uniting<Item> uniting3 = items.Uniting().For(consumer);
 					items[index] = new ObservableCollection<Item>();
-					uniting3.ValidateConsistency();					
+					uniting3.ValidateInternalConsistency();					
 					consumer.Dispose();
 
 					for (itemsCount = 0; itemsCount <= itemsCounts.Length; itemsCount++)
@@ -150,7 +150,7 @@ namespace ObservableComputations.Test
 						items = getObservableCollections(itemsCounts);
 						Uniting<Item> uniting2 = items.Uniting().For(consumer);
 						items[index] = getObservableCollection(itemsCount);
-						uniting2.ValidateConsistency();						
+						uniting2.ValidateInternalConsistency();						
 						consumer.Dispose();
 
 					}
@@ -162,7 +162,7 @@ namespace ObservableComputations.Test
 					items = getObservableCollections(itemsCounts);
 					Uniting<Item> uniting1 = items.Uniting().For(consumer);
 					items[index] = null;
-					uniting1.ValidateConsistency();					
+					uniting1.ValidateInternalConsistency();					
 					consumer.Dispose();
 
 					for (itemsCount = 0; itemsCount <= itemsCounts.Length; itemsCount++)
@@ -171,7 +171,7 @@ namespace ObservableComputations.Test
 						items = getObservableCollections(itemsCounts);
 						Uniting<Item> uniting2 = items.Uniting().For(consumer);
 						items[index] = getObservableCollection(itemsCount);
-						uniting2.ValidateConsistency();						
+						uniting2.ValidateInternalConsistency();						
 						consumer.Dispose();
 
 					}
@@ -185,7 +185,7 @@ namespace ObservableComputations.Test
 						items = getObservableCollections(itemsCounts);
 						Uniting<Item> uniting2 = items.Uniting().For(consumer);
 						items.Move(indexOld, indexNew);
-						uniting2.ValidateConsistency();						
+						uniting2.ValidateInternalConsistency();						
 						consumer.Dispose();
 					}
 				}
@@ -201,7 +201,7 @@ namespace ObservableComputations.Test
 						items = getObservableCollections(itemsCounts);
 						Uniting<Item> uniting1 = items.Uniting().For(consumer);
 						items[index1].RemoveAt(index);
-						uniting1.ValidateConsistency();						
+						uniting1.ValidateInternalConsistency();						
 						consumer.Dispose();
 					}
 
@@ -211,7 +211,7 @@ namespace ObservableComputations.Test
 						items = getObservableCollections(itemsCounts);
 						Uniting<Item> uniting1 = items.Uniting().For(consumer);
 						items[index1].Insert(index, new Item());
-						uniting1.ValidateConsistency();						
+						uniting1.ValidateInternalConsistency();						
 						consumer.Dispose();
 					}
 
@@ -221,14 +221,14 @@ namespace ObservableComputations.Test
 						items = getObservableCollections(itemsCounts);
 						Uniting<Item> uniting3 = items.Uniting().For(consumer);
 						items[index1][index] = null;
-						uniting3.ValidateConsistency();						
+						uniting3.ValidateInternalConsistency();						
 						consumer.Dispose();
 
 						trace(testNum = "9", itemsCounts, index, itemsCount, indexOld, indexNew);
 						items = getObservableCollections(itemsCounts);
 						Uniting<Item> uniting2 = items.Uniting().For(consumer);
 						items[index1][index] = new Item();
-						uniting2.ValidateConsistency();						
+						uniting2.ValidateInternalConsistency();						
 						consumer.Dispose();
 					}
 
@@ -240,7 +240,7 @@ namespace ObservableComputations.Test
 							items = getObservableCollections(itemsCounts);
 							Uniting<Item> uniting2 = items.Uniting().For(consumer);
 							items[index1].Move(indexOld, indexNew);
-							uniting2.ValidateConsistency();							
+							uniting2.ValidateInternalConsistency();							
 							consumer.Dispose();
 						}
 					}

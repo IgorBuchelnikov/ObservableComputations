@@ -68,7 +68,7 @@ namespace ObservableComputations
 		}
 
 		[ExcludeFromCodeCoverage]
-		internal void ValidateConsistency()
+		internal void ValidateInternalConsistency()
 		{
 			IList<int> source = _sourceScalar.getValue(_source, new ObservableCollection<int>()) as IList<int>;
 			Averaging<int, double> @this = this as Averaging<int, double>;
@@ -78,12 +78,12 @@ namespace ObservableComputations
 			{
 				// ReSharper disable once PossibleNullReferenceException
 				// ReSharper disable once CompareOfFloatsByEqualityOperator
-				if (source.Average() != @this.Value) throw new ObservableComputationsException(this, "Consistency violation: Averaging.1");
+				if (source.Average() != @this.Value) throw new ValidateInternalConsistencyException("Consistency violation: Averaging.1");
 			}
 			else
 			{
 				// ReSharper disable once PossibleNullReferenceException
-				if (!double.IsNaN(@this.Value)) throw new ObservableComputationsException(this, "Consistency violation: Averaging.2");
+				if (!double.IsNaN(@this.Value)) throw new ValidateInternalConsistencyException("Consistency violation: Averaging.2");
 			}
 		}
 	}

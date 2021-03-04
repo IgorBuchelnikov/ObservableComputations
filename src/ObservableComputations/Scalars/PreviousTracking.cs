@@ -114,10 +114,10 @@ namespace ObservableComputations
 		#endregion
 
 		[ExcludeFromCodeCoverage]
-		internal void ValidateConsistency()
+		internal void ValidateInternalConsistency()
 		{
 			if (!_value.Equals(_source.Value))
-				throw new ObservableComputationsException("Consistency violation: PreviousTracking.1");
+				throw new ValidateInternalConsistencyException("Consistency violation: PreviousTracking.1");
 		}
 	}
 }

@@ -403,18 +403,18 @@ namespace ObservableComputations
 		#endregion
 
 		[ExcludeFromCodeCoverage]
-		internal void ValidateConsistency()
+		internal void ValidateInternalConsistency()
 		{
 			IList<TSourceItem> source = _sourceScalar.getValue(_source, new ObservableCollection<TSourceItem>()) as IList<TSourceItem>;
 			// ReSharper disable once PossibleNullReferenceException
-			if (_sourceCopy.Count != source.Count) throw new ObservableComputationsException(this, "Consistency violation: MinimazingOrMaximazing.1");
+			if (_sourceCopy.Count != source.Count) throw new ValidateInternalConsistencyException("Consistency violation: MinimazingOrMaximazing.1");
 			TSourceItem defaultValue = _defaultValue;
 
 			for (int i = 0; i < source.Count; i++)
 			{
 				TSourceItem sourceItem = source[i];
 				TSourceItem savedSourceItem = _sourceCopy[i];
-				if (!savedSourceItem.IsSameAs(sourceItem)) throw new ObservableComputationsException(this, "Consistency violation: MinimazingOrMaximazing.2");
+				if (!savedSourceItem.IsSameAs(sourceItem)) throw new ValidateInternalConsistencyException("Consistency violation: MinimazingOrMaximazing.2");
 			}
 
 			if (source.Count > 0)
@@ -423,16 +423,16 @@ namespace ObservableComputations
 					?  source.Max() 
 					: source.Min();
 
-				if (!result.Equals(_value)) throw new ObservableComputationsException(this, "Consistency violation: MinimazingOrMaximazing.3");
+				if (!result.Equals(_value)) throw new ValidateInternalConsistencyException("Consistency violation: MinimazingOrMaximazing.3");
 
-				if (source.Count(i => i.Equals(result)) != _valueCount) throw new ObservableComputationsException(this, "Consistency violation: MinimazingOrMaximazing.4");
+				if (source.Count(i => i.Equals(result)) != _valueCount) throw new ValidateInternalConsistencyException("Consistency violation: MinimazingOrMaximazing.4");
 
-				if (IsDefaulted) throw new ObservableComputationsException(this, "Consistency violation: MinimazingOrMaximazing.4");
+				if (IsDefaulted) throw new ValidateInternalConsistencyException("Consistency violation: MinimazingOrMaximazing.4");
 			}
 			else
 			{
-				if (!defaultValue.Equals(_value)) throw new ObservableComputationsException(this, "Consistency violation: MinimazingOrMaximazing.5");
-				if (!IsDefaulted) throw new ObservableComputationsException(this, "Consistency violation: MinimazingOrMaximazing.4");
+				if (!defaultValue.Equals(_value)) throw new ValidateInternalConsistencyException("Consistency violation: MinimazingOrMaximazing.5");
+				if (!IsDefaulted) throw new ValidateInternalConsistencyException("Consistency violation: MinimazingOrMaximazing.4");
 			}
 
 		}

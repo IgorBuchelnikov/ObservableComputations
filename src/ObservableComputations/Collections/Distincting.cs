@@ -96,7 +96,7 @@ namespace ObservableComputations
 			int initialCapacity) =>
 			sourceScalar.Grouping<TSourceItem, TSourceItem>(sourceItem => sourceItem, equalityComparer, initialCapacity);
 
-		public new void ValidateConsistency()
+		public new void ValidateInternalConsistency()
 		{
 			IList<TSourceItem> source = (IList<TSourceItem>) _sourceScalar.getValue(_source, new ObservableCollection<TSourceItem>());
 			IEqualityComparer<TSourceItem> equalityComparer = _equalityComparerScalar.getValue(_equalityComparer);
@@ -104,7 +104,7 @@ namespace ObservableComputations
 				equalityComparer = EqualityComparer<TSourceItem>.Default;
 
 			if (!this.SequenceEqual(source.Distinct(equalityComparer)))
-				throw new ObservableComputationsException(this, "Consistency violation: Distincting.1");
+				throw new ValidateInternalConsistencyException("Consistency violation: Distincting.1");
 		}
 	}
 }

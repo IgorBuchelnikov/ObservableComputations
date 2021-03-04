@@ -127,10 +127,10 @@ namespace ObservableComputations
 		#endregion
 
 		[ExcludeFromCodeCoverage]
-		internal void ValidateConsistency()
+		internal void ValidateInternalConsistency()
 		{
 			if (!_value.IsSameAs(_source.Value))
-				throw new ObservableComputationsException("Consistency violation: WeakPreviousTracking.1");
+				throw new ValidateInternalConsistencyException("Consistency violation: WeakPreviousTracking.1");
 		}
 	}
 }

@@ -208,18 +208,18 @@ namespace ObservableComputations
 		#endregion
 
 		[ExcludeFromCodeCoverage]
-		internal void ValidateConsistency()
+		internal void ValidateInternalConsistency()
 		{
 			IList source = _sourceScalar.getValue(_source, new ObservableCollection<object>()) as IList;
 			// ReSharper disable once PossibleNullReferenceException
-			if (Count != source.Count) throw new ObservableComputationsException(this, "Consistency violation: Casting.1");
+			if (Count != source.Count) throw new ValidateInternalConsistencyException("Consistency violation: Casting.1");
 
 			for (int i = 0; i < source.Count; i++)
 			{
 				object sourceItem = source[i];
 				TResultItem resultItem = this[i];
 
-				if (!resultItem.IsSameAs(sourceItem)) throw new ObservableComputationsException(this, "Consistency violation: Casting.2");
+				if (!resultItem.IsSameAs(sourceItem)) throw new ValidateInternalConsistencyException("Consistency violation: Casting.2");
 			}
 		}
 	}

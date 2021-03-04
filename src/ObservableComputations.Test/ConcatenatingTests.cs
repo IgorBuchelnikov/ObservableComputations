@@ -111,7 +111,7 @@ namespace ObservableComputations.Test
 				trace(testNum = "1", itemsCounts, index, itemsCount, indexOld, indexNew);
 				items = getObservableCollections(itemsCounts);
 				concatenating = items.Concatenating().For(consumer);
-				concatenating.ValidateConsistency();				
+				concatenating.ValidateInternalConsistency();				
 				consumer.Dispose();
 
 				for (index = 0; index < itemsCounts.Length; index++)
@@ -120,7 +120,7 @@ namespace ObservableComputations.Test
 					items = getObservableCollections(itemsCounts);
 					Concatenating<Item> concating1 = items.Concatenating().For(consumer);
 					items.RemoveAt(index);
-					concating1.ValidateConsistency();					
+					concating1.ValidateInternalConsistency();					
 					consumer.Dispose();
 				}
 
@@ -132,7 +132,7 @@ namespace ObservableComputations.Test
 						items = getObservableCollections(itemsCounts);
 						Concatenating<Item> concating2 = items.Concatenating().For(consumer);
 						items.Insert(index, getObservableCollection(itemsCount));
-						concating2.ValidateConsistency();						
+						concating2.ValidateInternalConsistency();						
 						consumer.Dispose();
 					}
 				}
@@ -143,7 +143,7 @@ namespace ObservableComputations.Test
 					items = getObservableCollections(itemsCounts);
 					Concatenating<Item> concating3 = items.Concatenating().For(consumer);
 					items[index] = new ObservableCollection<Item>();
-					concating3.ValidateConsistency();					
+					concating3.ValidateInternalConsistency();					
 					consumer.Dispose();
 
 					for (itemsCount = -1; itemsCount <= itemsCounts.Length; itemsCount++)
@@ -152,7 +152,7 @@ namespace ObservableComputations.Test
 						items = getObservableCollections(itemsCounts);
 						Concatenating<Item> concating2 = items.Concatenating().For(consumer);
 						items[index] = getObservableCollection(itemsCount);
-						concating2.ValidateConsistency();						
+						concating2.ValidateInternalConsistency();						
 						consumer.Dispose();
 
 					}
@@ -164,7 +164,7 @@ namespace ObservableComputations.Test
 					items = getObservableCollections(itemsCounts);
 					Concatenating<Item> concating1 = items.Concatenating().For(consumer);
 					items[index] = null;
-					concating1.ValidateConsistency();					
+					concating1.ValidateInternalConsistency();					
 					consumer.Dispose();
 
 					for (itemsCount = -1; itemsCount <= itemsCounts.Length; itemsCount++)
@@ -173,7 +173,7 @@ namespace ObservableComputations.Test
 						items = getObservableCollections(itemsCounts);
 						Concatenating<Item> concating2 = items.Concatenating().For(consumer);
 						items[index] = getObservableCollection(itemsCount);
-						concating2.ValidateConsistency();						
+						concating2.ValidateInternalConsistency();						
 						consumer.Dispose();
 
 					}
@@ -187,7 +187,7 @@ namespace ObservableComputations.Test
 						items = getObservableCollections(itemsCounts);
 						Concatenating<Item> concating2 = items.Concatenating().For(consumer);
 						items.Move(indexOld, indexNew);
-						concating2.ValidateConsistency();						
+						concating2.ValidateInternalConsistency();						
 						consumer.Dispose();
 					}
 				}
@@ -203,7 +203,7 @@ namespace ObservableComputations.Test
 						items = getObservableCollections(itemsCounts);
 						Concatenating<Item> concating1 = items.Concatenating().For(consumer);
 						items[index1].RemoveAt(index);
-						concating1.ValidateConsistency();						
+						concating1.ValidateInternalConsistency();						
 						consumer.Dispose();
 					}
 
@@ -213,7 +213,7 @@ namespace ObservableComputations.Test
 						items = getObservableCollections(itemsCounts);
 						Concatenating<Item> concating1 = items.Concatenating().For(consumer);
 						items[index1].Insert(index, new Item());
-						concating1.ValidateConsistency();						
+						concating1.ValidateInternalConsistency();						
 						consumer.Dispose();
 					}
 
@@ -223,14 +223,14 @@ namespace ObservableComputations.Test
 						items = getObservableCollections(itemsCounts);
 						Concatenating<Item> concating3 = items.Concatenating().For(consumer);
 						items[index1][index] = null;
-						concating3.ValidateConsistency();						
+						concating3.ValidateInternalConsistency();						
 						consumer.Dispose();
 
 						trace(testNum = "9", itemsCounts, index, itemsCount, indexOld, indexNew);
 						items = getObservableCollections(itemsCounts);
 						Concatenating<Item> concating2 = items.Concatenating().For(consumer);
 						items[index1][index] = new Item();
-						concating2.ValidateConsistency();						
+						concating2.ValidateInternalConsistency();						
 						consumer.Dispose();
 					}
 
@@ -242,7 +242,7 @@ namespace ObservableComputations.Test
 							items = getObservableCollections(itemsCounts);
 							Concatenating<Item> concating2 = items.Concatenating().For(consumer);
 							items[index1].Move(indexOld, indexNew);
-							concating2.ValidateConsistency();							
+							concating2.ValidateInternalConsistency();							
 							consumer.Dispose();
 						}
 					}

@@ -89,7 +89,7 @@ namespace ObservableComputations
 		}
 
 		[ExcludeFromCodeCoverage]
-		internal void ValidateConsistency()
+		internal void ValidateInternalConsistency()
 		{
 			IList<TSourceItem> source = _sourceScalarSummarizing.getValue(_sourceSummarizing, new ObservableCollection<TSourceItem>()) as IList<TSourceItem>;
 
@@ -100,7 +100,7 @@ namespace ObservableComputations
 				result = aggregateFunc(result, source[index]);
 
 			if (!Value.Equals(result))
-				throw new ObservableComputationsException(this, "Consistency violation: Summarizing.1");
+				throw new ValidateInternalConsistencyException("Consistency violation: Summarizing.1");
 		}
 
 	}

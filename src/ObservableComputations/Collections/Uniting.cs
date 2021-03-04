@@ -146,7 +146,7 @@ namespace ObservableComputations
 		}
 
 		[ExcludeFromCodeCoverage]
-		internal void ValidateConsistency()
+		internal void ValidateInternalConsistency()
 		{
 			IList sources = (IList) SourceScalar.getValue(Source, new ObservableCollection<ObservableCollection<TSourceItem>>());
 
@@ -166,7 +166,7 @@ namespace ObservableComputations
 			}
 
 			if (!this.SequenceEqual(result))
-				throw new ObservableComputationsException(this, "Consistency violation: Uniting.1");
+				throw new ValidateInternalConsistencyException("Consistency violation: Uniting.1");
 		}
 	}
 }

@@ -159,7 +159,6 @@ namespace ObservableComputations
 		private bool _isRunning = true;
 		private bool _isDisposed;
 		internal readonly Thread _thread;
-		readonly Thread _exceptionMonitoringThread;
 		internal readonly int _managedThreadId;
 		private NewInvocationBehaviour _newInvocationBehaviour;
 		private OcDispatcherStatus _status;
@@ -239,8 +238,6 @@ namespace ObservableComputations
 
 			_thread = new Thread(() =>
 			{
-				_exceptionMonitoringThread.Start();
-
 				StaticInfo._ocDispatchers[Thread.CurrentThread] = this;
 
 				while (_isRunning)
@@ -256,27 +253,6 @@ namespace ObservableComputations
 				PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Status)));
 				StaticInfo._ocDispatchers.TryRemove(Thread.CurrentThread, out _);
 			});
-
-			_exceptionMonitoringThread = new Thread(() =>
-			{
-				_thread.Join();
-				if (_status == OcDispatcherStatus.RunOrWait)
-				{
-					_status = OcDispatcherStatus.Failed;
-
-					if (_doingInvocation != null)
-					{
-						_doingInvocation._status = InvocationStatus.Failed;
-						_failedInvocation = _doingInvocation;
-						_doingInvocation = null;
-					}
-
-					Failed?.Invoke(this, null);
-					_failedInvocation?._doneManualResetEvent?.Set();
-				}
-			});
-
-			_exceptionMonitoringThread.Name = "ObservableComputations.OcDispatcher failure monitoring";
 
 			_managedThreadId = _thread.ManagedThreadId;
 			_thread.SetApartmentState(threadApartmentState);
@@ -485,9 +461,6 @@ namespace ObservableComputations
 			manualResetEvent.Wait();
 			manualResetEvent.Dispose();
 
-			if (resultInvocation._status == InvocationStatus.Failed)
-				throw new OcDispatcherInvocationFailedException(this, resultInvocation);
-
 			return resultInvocation;
 		}
 
@@ -535,9 +508,6 @@ namespace ObservableComputations
 				doneManualResetEvent: manualResetEvent);
 			manualResetEvent.Wait();
 			manualResetEvent.Dispose();
-
-			if (resultInvocation._status == InvocationStatus.Failed)
-				throw new OcDispatcherInvocationFailedException(this, resultInvocation);
 
 			return resultInvocation;
 		}
@@ -673,22 +643,6 @@ namespace ObservableComputations
 		#endregion
 	}
 
-	public class OcDispatcherInvocationFailedException : ObservableComputationsException
-	{
-		OcDispatcher _dispatcher;
-		Invocation _invocation;
-
-		public OcDispatcher Dispatcher => _dispatcher;
-
-		public Invocation Invocation => _invocation;
-
-		public OcDispatcherInvocationFailedException(OcDispatcher dispatcher, Invocation invocation) : base("Invocation failed")
-		{
-			_dispatcher = dispatcher;
-			_invocation = invocation;
-		}
-	}
-
 	public enum NewInvocationBehaviour
 	{
 		Accept,
@@ -699,7 +653,6 @@ namespace ObservableComputations
 	public enum OcDispatcherStatus
 	{
 		RunOrWait,
-		Failed,
 		Disposing,
 		Disposed
 	}
@@ -709,7 +662,6 @@ namespace ObservableComputations
 		Invoked,
 		Doing,
 		Done,
-		Failed,
 		Canceled
 	}
 

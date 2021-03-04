@@ -953,38 +953,38 @@ namespace ObservableComputations
 
 
 		[ExcludeFromCodeCoverage]
-		void IOrderingInternal<TSourceItem>.ValidateConsistency()
+		void IOrderingInternal<TSourceItem>.ValidateInternalConsistency()
 		{
-			ValidateConsistency();
+			ValidateInternalConsistency();
 		}
 
 		[ExcludeFromCodeCoverage]
-		internal void ValidateConsistency()
+		internal void ValidateInternalConsistency()
 		{
 			IList<TSourceItem> source = _sourceScalar.getValue(_source, new ObservableCollection<TSourceItem>()) as IList<TSourceItem>;
 
-			if (_itemInfos.Count != Count) throw new ObservableComputationsException(this, "Consistency violation: Ordering.7");
+			if (_itemInfos.Count != Count) throw new ValidateInternalConsistencyException("Consistency violation: Ordering.7");
 
 			List<TSourceItem> copy = this.ToList();			
 			// ReSharper disable once PossibleNullReferenceException
 			for (int sourceIndex = 0; sourceIndex < source.Count; sourceIndex++)
 			{
 				TSourceItem sourceItem = source[sourceIndex];
-				if (!copy.Remove(sourceItem)) throw new ObservableComputationsException(this, "Consistency violation: Ordering.1");
+				if (!copy.Remove(sourceItem)) throw new ValidateInternalConsistencyException("Consistency violation: Ordering.1");
 			}
 
-			_orderedPositions.ValidateConsistency();
+			_orderedPositions.ValidateInternalConsistency();
 
 			Func<TSourceItem, TOrderingValue> orderingValueSelector = _orderingValueSelectorExpression.Compile();
 			IComparer<TOrderingValue> comparer = _comparerScalar.getValue(_comparer) ?? Comparer<TOrderingValue>.Default;
 			ListSortDirection listSortDirection = _sortDirectionScalar.getValue(_sortDirection);
 
 			if (_orderingValues.Count != Count) 
-				throw new ObservableComputationsException(this, "Consistency violation: Ordering.14");
+				throw new ValidateInternalConsistencyException("Consistency violation: Ordering.14");
 
 			if (_thenOrderingsCount > 0)
 			{
-				_equalOrderingValueRangePositions.ValidateConsistency();
+				_equalOrderingValueRangePositions.ValidateInternalConsistency();
 			}
 
 			RangePosition rangePosition = null;
@@ -999,7 +999,7 @@ namespace ObservableComputations
 					int compareResult = comparer.Compare(orderingValueSelector(this[orderedIndex - 1]), orderingValueSelector(this[orderedIndex]));
 					if ((compareResult < 0 && listSortDirection == ListSortDirection.Descending)
 						|| (compareResult > 0 && listSortDirection == ListSortDirection.Ascending)) 
-						throw new ObservableComputationsException(this, "Consistency violation: Ordering.3");
+						throw new ValidateInternalConsistencyException("Consistency violation: Ordering.3");
 
 					if (_thenOrderingsCount > 0)
 					{
@@ -1007,16 +1007,16 @@ namespace ObservableComputations
 						{
 							equalOrderingValueItemsCount++;
 							if (rangePosition !=  _orderedItemInfos[orderedIndex].RangePosition)
-								throw new ObservableComputationsException(this, "Consistency violation: Ordering.17");
+								throw new ValidateInternalConsistencyException("Consistency violation: Ordering.17");
 						}
 						else				
 						{
 							// ReSharper disable once PossibleNullReferenceException
 							if (rangePosition.Length != equalOrderingValueItemsCount)
-								throw new ObservableComputationsException(this, "Consistency violation: Ordering.20");
+								throw new ValidateInternalConsistencyException("Consistency violation: Ordering.20");
 
 							if (rangePosition.Index != rangePositionIndex)
-								throw new ObservableComputationsException(this, "Consistency violation: Ordering.21");
+								throw new ValidateInternalConsistencyException("Consistency violation: Ordering.21");
 
 							rangePositionIndex++;
 							equalOrderingValueItemsCount = 1;
@@ -1035,44 +1035,44 @@ namespace ObservableComputations
 				}
 
 				OrderingItemInfo<TOrderingValue> itemInfo = _orderedItemInfos[orderedIndex].ItemInfo;
-				if (itemInfo.OrderedItemInfo.Index != orderedIndex) throw new ObservableComputationsException(this, "Consistency violation: Ordering.13");
+				if (itemInfo.OrderedItemInfo.Index != orderedIndex) throw new ValidateInternalConsistencyException("Consistency violation: Ordering.13");
 
 				if (!EqualityComparer<TOrderingValue>.Default.Equals(_orderingValues[orderedIndex], orderingValueSelector(orderedItem)))
-					throw new ObservableComputationsException(this, "Consistency violation: Ordering.10");
+					throw new ValidateInternalConsistencyException("Consistency violation: Ordering.10");
 			}
 
 			if (_thenOrderingsCount > 0 && Count > 0)
 			{
 				// ReSharper disable once PossibleNullReferenceException
 				if (rangePosition.Length != equalOrderingValueItemsCount)
-					throw new ObservableComputationsException(this, "Consistency violation: Ordering.22");
+					throw new ValidateInternalConsistencyException("Consistency violation: Ordering.22");
 
 				if (rangePosition.Index != rangePositionIndex)
-					throw new ObservableComputationsException(this, "Consistency violation: Ordering.23");
+					throw new ValidateInternalConsistencyException("Consistency violation: Ordering.23");
 			}
 
-			_sourcePositions.ValidateConsistency();
+			_sourcePositions.ValidateInternalConsistency();
 
 			if (_sourcePositions.List.Count != source.Count)
-				throw new ObservableComputationsException(this, "Consistency violation: Ordering.15");
+				throw new ValidateInternalConsistencyException("Consistency violation: Ordering.15");
 
 			for (int sourceIndex = 0; sourceIndex < source.Count; sourceIndex++)
 			{
 				TSourceItem sourceItem = source[sourceIndex];
 				OrderingItemInfo<TOrderingValue> itemInfo = _itemInfos[sourceIndex];
 				if (itemInfo.ExpressionWatcher._position != _sourcePositions.List[sourceIndex])
-					throw new ObservableComputationsException(this, "Consistency violation: Ordering.8");
+					throw new ValidateInternalConsistencyException("Consistency violation: Ordering.8");
 				if (!EqualityComparer<TOrderingValue>.Default.Equals(_orderingValues[itemInfo.OrderedItemInfo.Index], orderingValueSelector(sourceItem)))
-					throw new ObservableComputationsException(this, "Consistency violation: Ordering.9");
+					throw new ValidateInternalConsistencyException("Consistency violation: Ordering.9");
 
 				if (!_orderedItemInfos.Contains(_itemInfos[sourceIndex].OrderedItemInfo))
-					throw new ObservableComputationsException(this, "Consistency violation: Ordering.11");
+					throw new ValidateInternalConsistencyException("Consistency violation: Ordering.11");
 
 				if (!_sourcePositions.List.Contains(_itemInfos[sourceIndex].ExpressionWatcher._position))
-					throw new ObservableComputationsException(this, "Consistency violation: Ordering.12");
+					throw new ValidateInternalConsistencyException("Consistency violation: Ordering.12");
 
 				if (_itemInfos[sourceIndex].ExpressionWatcher._position.Index != sourceIndex)
-					throw new ObservableComputationsException(this, "Consistency violation: Ordering.16");
+					throw new ValidateInternalConsistencyException("Consistency violation: Ordering.16");
 			}
 		}
 	}

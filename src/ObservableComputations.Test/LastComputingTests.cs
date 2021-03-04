@@ -53,7 +53,7 @@ namespace ObservableComputations.Test
 			ObservableCollection<Item> items = new ObservableCollection<Item>();
 
 			LastComputing<Item> last = items.LastComputing().For(consumer);
-			last.ValidateConsistency();			
+			last.ValidateInternalConsistency();			
 			consumer.Dispose();
 		}
 
@@ -74,9 +74,9 @@ namespace ObservableComputations.Test
 			);
 
 			LastComputing<Item> last = items.LastComputing().For(consumer);
-			last.ValidateConsistency();
+			last.ValidateInternalConsistency();
 			items.RemoveAt(index);
-			last.ValidateConsistency();			
+			last.ValidateInternalConsistency();			
 			consumer.Dispose();
 		}
 
@@ -91,9 +91,9 @@ namespace ObservableComputations.Test
 			);
 
 			LastComputing<Item> last = items.LastComputing().For(consumer);
-			last.ValidateConsistency();
+			last.ValidateInternalConsistency();
 			items.RemoveAt(0);
-			last.ValidateConsistency();			
+			last.ValidateInternalConsistency();			
 			consumer.Dispose();
 		}
 
@@ -113,9 +113,9 @@ namespace ObservableComputations.Test
 			);
 
 			LastComputing<Item> last = items.LastComputing().For(consumer);
-			last.ValidateConsistency();
+			last.ValidateInternalConsistency();
 			items.Insert(index, new Item());
-			last.ValidateConsistency();			
+			last.ValidateInternalConsistency();			
 			consumer.Dispose();
 		}
 
@@ -125,9 +125,9 @@ namespace ObservableComputations.Test
 			ObservableCollection<Item> items = new ObservableCollection<Item>();
 
 			LastComputing<Item> last = items.LastComputing().For(consumer);
-			last.ValidateConsistency();
+			last.ValidateInternalConsistency();
 			items.Insert(0, new Item());
-			last.ValidateConsistency();			
+			last.ValidateInternalConsistency();			
 			consumer.Dispose();
 		}
 
@@ -148,9 +148,9 @@ namespace ObservableComputations.Test
 			);
 
 			LastComputing<Item> last = items.LastComputing().For(consumer);
-			last.ValidateConsistency();
+			last.ValidateInternalConsistency();
 			items.Move(oldIndex, newIndex);
-			last.ValidateConsistency();			
+			last.ValidateInternalConsistency();			
 			consumer.Dispose();
 		}
 
@@ -171,9 +171,9 @@ namespace ObservableComputations.Test
 			);
 
 			LastComputing<Item> last = items.LastComputing().For(consumer);
-			last.ValidateConsistency();
+			last.ValidateInternalConsistency();
 			items[index] = new Item();
-			last.ValidateConsistency();			
+			last.ValidateInternalConsistency();			
 			consumer.Dispose();
 		}
 

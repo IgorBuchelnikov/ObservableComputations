@@ -75,14 +75,14 @@ namespace ObservableComputations
 		}
 
 		[ExcludeFromCodeCoverage]
-		internal void ValidateConsistency()
+		internal void ValidateInternalConsistency()
 		{
 			IList<TSourceItem> source = (IList<TSourceItem>) _sourceScalar.getValue(_source, new ObservableCollection<TSourceItem>());
 
 			Func<TSourceItem, bool> predicate = _predicateExpression.Compile();
 
 			if (_value != source.All(predicate))
-				throw new ObservableComputationsException(this, "Consistency violation: AllComputing.1");
+				throw new ValidateInternalConsistencyException("Consistency violation: AllComputing.1");
 		}
 	}
 }

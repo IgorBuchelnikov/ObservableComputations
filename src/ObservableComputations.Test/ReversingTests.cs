@@ -53,7 +53,7 @@ namespace ObservableComputations.Test
 			ObservableCollection<Item> items = new ObservableCollection<Item>();
 
 			Reversing<Item> reversing = items.Reversing().For(consumer);
-			reversing.ValidateConsistency();			
+			reversing.ValidateInternalConsistency();			
 			consumer.Dispose();
 		}
 
@@ -74,9 +74,9 @@ namespace ObservableComputations.Test
 			);
 
 			Reversing<Item> reversing = items.Reversing().For(consumer);
-			reversing.ValidateConsistency();
+			reversing.ValidateInternalConsistency();
 			items.RemoveAt(index);
-			reversing.ValidateConsistency();			
+			reversing.ValidateInternalConsistency();			
 			consumer.Dispose();
 		}
 
@@ -92,9 +92,9 @@ namespace ObservableComputations.Test
 			);
 
 			Reversing<Item> reversing = items.Reversing().For(consumer);
-			reversing.ValidateConsistency();
+			reversing.ValidateInternalConsistency();
 			items.RemoveAt(0);
-			reversing.ValidateConsistency();			
+			reversing.ValidateInternalConsistency();			
 			consumer.Dispose();
 		}
 
@@ -120,9 +120,9 @@ namespace ObservableComputations.Test
 			);
 
 			Reversing<Item> reversing = items.Reversing().For(consumer);
-			reversing.ValidateConsistency();
+			reversing.ValidateInternalConsistency();
 			items.Insert(index, new Item());
-			reversing.ValidateConsistency();			
+			reversing.ValidateInternalConsistency();			
 			consumer.Dispose();
 		}
 
@@ -132,9 +132,9 @@ namespace ObservableComputations.Test
 			ObservableCollection<Item> items = new ObservableCollection<Item>();
 
 			Reversing<Item> reversing = items.Reversing().For(consumer);
-			reversing.ValidateConsistency();
+			reversing.ValidateInternalConsistency();
 			items.Insert(0, new Item());
-			reversing.ValidateConsistency();			
+			reversing.ValidateInternalConsistency();			
 			consumer.Dispose();
 		}
 
@@ -155,9 +155,9 @@ namespace ObservableComputations.Test
 			);
 
 			Reversing<Item> reversing = items.Reversing().For(consumer);
-			reversing.ValidateConsistency();
+			reversing.ValidateInternalConsistency();
 			items.Move(oldIndex, newIndex);
-			reversing.ValidateConsistency();			
+			reversing.ValidateInternalConsistency();			
 			consumer.Dispose();
 		}
 
@@ -178,9 +178,9 @@ namespace ObservableComputations.Test
 			);
 
 			Reversing<Item> reversing = items.Reversing().For(consumer);
-			reversing.ValidateConsistency();
+			reversing.ValidateInternalConsistency();
 			items[index] = new Item();
-			reversing.ValidateConsistency();			
+			reversing.ValidateInternalConsistency();			
 			consumer.Dispose();
 		}
 

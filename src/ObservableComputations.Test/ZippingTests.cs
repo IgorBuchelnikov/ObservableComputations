@@ -84,7 +84,7 @@ namespace ObservableComputations.Test
 				items1 = getObservableCollection(count1);
 				items2 = getObservableCollection(count2);
 				zipping = items1.Zipping(items2).For(consumer);
-				zipping.ValidateConsistency();				
+				zipping.ValidateInternalConsistency();				
 				consumer.Dispose();
 
 				for (index = 0; index < count1; index++)
@@ -94,7 +94,7 @@ namespace ObservableComputations.Test
 					items2 = getObservableCollection(count2);
 					zipping = items1.Zipping(items2).For(consumer);
 					items1.RemoveAt(index);
-					zipping.ValidateConsistency();					
+					zipping.ValidateInternalConsistency();					
 					consumer.Dispose();
 				}
 
@@ -105,7 +105,7 @@ namespace ObservableComputations.Test
 					items2 = getObservableCollection(count2);
 					zipping = items1.Zipping(items2).For(consumer);
 					items2.RemoveAt(index);
-					zipping.ValidateConsistency();					
+					zipping.ValidateInternalConsistency();					
 					consumer.Dispose();
 				}
 
@@ -116,7 +116,7 @@ namespace ObservableComputations.Test
 					items2 = getObservableCollection(count2);
 					zipping = items1.Zipping(items2).For(consumer);
 					items1.Insert(index, new Item());
-					zipping.ValidateConsistency();					
+					zipping.ValidateInternalConsistency();					
 					consumer.Dispose();
 				}
 
@@ -127,7 +127,7 @@ namespace ObservableComputations.Test
 					items2 = getObservableCollection(count2);
 					zipping = items1.Zipping(items2).For(consumer);
 					items2.Insert(index, new Item());
-					zipping.ValidateConsistency();					
+					zipping.ValidateInternalConsistency();					
 					consumer.Dispose();
 				}
 
@@ -138,7 +138,7 @@ namespace ObservableComputations.Test
 					items2 = getObservableCollection(count2);
 					zipping = items1.Zipping(items2).For(consumer);
 					items1[index] = new Item();
-					zipping.ValidateConsistency();					
+					zipping.ValidateInternalConsistency();					
 					consumer.Dispose();
 				}
 
@@ -149,7 +149,7 @@ namespace ObservableComputations.Test
 					items2 = getObservableCollection(count2);
 					zipping = items1.Zipping(items2).For(consumer);
 					items2[index] = new Item();
-					zipping.ValidateConsistency();					
+					zipping.ValidateInternalConsistency();					
 					consumer.Dispose();
 				}
 
@@ -162,7 +162,7 @@ namespace ObservableComputations.Test
 						items2 = getObservableCollection(count2);
 						zipping = items1.Zipping(items2).For(consumer);
 						items1.Move(indexOld, indexNew);
-						zipping.ValidateConsistency();						
+						zipping.ValidateInternalConsistency();						
 						consumer.Dispose();
 					}
 				}
@@ -176,7 +176,7 @@ namespace ObservableComputations.Test
 						items2 = getObservableCollection(count2);
 						zipping = items1.Zipping(items2).For(consumer);
 						items2.Move(indexOld, indexNew);
-						zipping.ValidateConsistency();						
+						zipping.ValidateInternalConsistency();						
 						consumer.Dispose();
 					}
 				}

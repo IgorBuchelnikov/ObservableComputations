@@ -216,7 +216,7 @@
 //			}
 //		}
 
-//		public void ValidateConsistency()
+//		public void ValidateInternalConsistency()
 //		{
 
 //		}

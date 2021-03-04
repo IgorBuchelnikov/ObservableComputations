@@ -611,12 +611,12 @@ namespace ObservableComputations
 		}
 
 		[ExcludeFromCodeCoverage]
-		internal void ValidateConsistency()
+		internal void ValidateInternalConsistency()
 		{
-			_sourceRangePositions.ValidateConsistency();
+			_sourceRangePositions.ValidateInternalConsistency();
 			IList sources = _sourceScalar.getValue(_source, new ObservableCollection<ObservableCollection<TSourceItem>>()) as IList;
 			// ReSharper disable once PossibleNullReferenceException
-			if (_itemInfos.Count != sources.Count) throw new ObservableComputationsException(this, "Consistency violation: Concatenating.1");
+			if (_itemInfos.Count != sources.Count) throw new ValidateInternalConsistencyException("Consistency violation: Concatenating.1");
 
 			// ReSharper disable once ConditionIsAlwaysTrueOrFalse
 			if (sources != null)
@@ -633,30 +633,30 @@ namespace ObservableComputations
 					for (int sourceItemIndex = 0; sourceItemIndex < sourceCount; sourceItemIndex++)
 					{
 						if (!EqualityComparer<TSourceItem>.Default.Equals(this[index], (TSourceItem) source[sourceItemIndex]))
-							throw new ObservableComputationsException(this, "Consistency violation: Concatenating.2");
+							throw new ValidateInternalConsistencyException("Consistency violation: Concatenating.2");
 
 						index++;
 					}
 
 					ItemInfo itemInfo = _itemInfos[sourceIndex];
 
-					if (!Equals(itemInfo.Source, source)) throw new ObservableComputationsException(this, "Consistency violation: Concatenating.2");
-					if (itemInfo.Index != sourceIndex)  throw new ObservableComputationsException(this, "Consistency violation: Concatenating.3");
-					if (itemInfo.Length != sourceCount)  throw new ObservableComputationsException(this, "Consistency violation: Concatenating.4");
-					if (itemInfo.PlainIndex != plainIndex)  throw new ObservableComputationsException(this, "Consistency violation: Concatenating.5");					
+					if (!Equals(itemInfo.Source, source)) throw new ValidateInternalConsistencyException("Consistency violation: Concatenating.2");
+					if (itemInfo.Index != sourceIndex)  throw new ValidateInternalConsistencyException("Consistency violation: Concatenating.3");
+					if (itemInfo.Length != sourceCount)  throw new ValidateInternalConsistencyException("Consistency violation: Concatenating.4");
+					if (itemInfo.PlainIndex != plainIndex)  throw new ValidateInternalConsistencyException("Consistency violation: Concatenating.5");					
 
-					if (_sourceRangePositions.List[sourceIndex].Index != sourceIndex) throw new ObservableComputationsException(this, "Consistency violation: Concatenating.6");
+					if (_sourceRangePositions.List[sourceIndex].Index != sourceIndex) throw new ValidateInternalConsistencyException("Consistency violation: Concatenating.6");
 				}
 			}
 			
 			for (int i = 0; i < _itemInfos.Count; i++)
 			{
 				if (!_sourceRangePositions.List.Contains(_itemInfos[i]))
-					throw new ObservableComputationsException(this, "Consistency violation: Concatenating.7");
+					throw new ValidateInternalConsistencyException("Consistency violation: Concatenating.7");
 			}
 
 			if (_sourceRangePositions.List.Count != sources.Count)
-					throw new ObservableComputationsException(this, "Consistency violation: Concatenating.15");
+					throw new ValidateInternalConsistencyException("Consistency violation: Concatenating.15");
 		}
 
 		#region Implementation of ISourceIndexerPropertyTracker

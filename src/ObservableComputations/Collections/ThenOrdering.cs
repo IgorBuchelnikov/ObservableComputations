@@ -36,7 +36,6 @@ namespace ObservableComputations
 
 		public IComparer<TOrderingValue> Comparer => _comparer;
 
-		public Func<TSourceItem, TOrderingValue> OrderingValueSelectorFunc => _orderingValueSelectorFunc;
 
 		public virtual ReadOnlyCollection<INotifyCollectionChanged> Sources => new ReadOnlyCollection<INotifyCollectionChanged>(new INotifyCollectionChanged[]{Source});
 		public virtual ReadOnlyCollection<IReadScalar<INotifyCollectionChanged>> SourceScalars => new ReadOnlyCollection<IReadScalar<INotifyCollectionChanged>>(new IReadScalar<INotifyCollectionChanged>[]{SourceScalar});
@@ -238,7 +237,7 @@ namespace ObservableComputations
 			initializeComparer();
 			initializeSortDirectionScalar();
 			Utils.initializeSourceScalar(_sourceScalar, ref _source, scalarValueChangedHandler);
-			_source?.AddThenOrdering(this);
+			_source.AddThenOrdering(this);
 			Utils.initializeNestedComputings(_nestedComputings, this);
 		}
 
@@ -485,33 +484,34 @@ namespace ObservableComputations
 			baseRemoveItem(orderedIndex);	
 		}
 
-		public TOrderingValue GetOrderingValueBySourceIndex(int sourceIndex)
-		{ 
-			return getOrderingValueBySourceIndex(sourceIndex);
-		}
+		// TODO Uncomment and test
+		//public TOrderingValue GetOrderingValueBySourceIndex(int sourceIndex)
+		//{ 
+		//	return getOrderingValueBySourceIndex(sourceIndex);
+		//}
 
-		internal TOrderingValue getOrderingValueBySourceIndex(int sourceIndex)
-		{
-			TOrderingValue getValue() =>  
-				!_orderingValueSelectorContainsParametrizedObservableComputationsCalls 
-					? _orderingValueSelectorFunc(_sourceAsList[sourceIndex]) 
-					: _itemInfos[sourceIndex].GetOrderingValueFunc();
+		//internal TOrderingValue getOrderingValueBySourceIndex(int sourceIndex)
+		//{
+		//	TOrderingValue getValue() =>  
+		//		!_orderingValueSelectorContainsParametrizedObservableComputationsCalls 
+		//			? _orderingValueSelectorFunc(_sourceAsList[sourceIndex]) 
+		//			: _itemInfos[sourceIndex].GetOrderingValueFunc();
 
-			if (Configuration.TrackComputingsExecutingUserCode)
-			{
-				int currentThreadId = Utils.startComputingExecutingUserCode(out IComputing computing, out _userCodeIsCalledFrom, this);
-				TOrderingValue result = getValue();
-				Utils.endComputingExecutingUserCode(computing, currentThreadId, out _userCodeIsCalledFrom);
-				return result;
-			}
+		//	if (Configuration.TrackComputingsExecutingUserCode)
+		//	{
+		//		int currentThreadId = Utils.startComputingExecutingUserCode(out IComputing computing, out _userCodeIsCalledFrom, this);
+		//		TOrderingValue result = getValue();
+		//		Utils.endComputingExecutingUserCode(computing, currentThreadId, out _userCodeIsCalledFrom);
+		//		return result;
+		//	}
 
-			return getValue();
-		}
+		//	return getValue();
+		//}
 
-		public TOrderingValue GetOrderingValueByOrderedIndex(int orderedIndex)
-		{
-			return getOrderingValueByOrderedIndex(orderedIndex);
-		}
+		//public TOrderingValue GetOrderingValueByOrderedIndex(int orderedIndex)
+		//{
+		//	return getOrderingValueByOrderedIndex(orderedIndex);
+		//}
 
 		private TOrderingValue getOrderingValueByOrderedIndex(int orderedIndex)
 		{
@@ -724,10 +724,10 @@ namespace ObservableComputations
 					notifyThenOrderings(newOrderedIndex);
 				}
 			}
-			else if (_thenOrderingsCount > 0)
-			{
-				notifyThenOrderings(orderedIndex);
-			}
+			//else if (_thenOrderingsCount > 0)
+			//{
+			//	notifyThenOrderings(orderedIndex);
+			//}
 		}
 
 		void ISourceItemChangeProcessor.ProcessSourceItemChange(ExpressionWatcher expressionWatcher)
@@ -779,7 +779,7 @@ namespace ObservableComputations
 						newIndex = 0;
 					}
 
-					if (newIndex == -1) newIndex = 0;
+					//if (newIndex == -1) newIndex = 0;
 					return newIndex;
 				}
 
@@ -838,12 +838,12 @@ namespace ObservableComputations
 							upperIndex = nextAfterMiddleIndex;
 					}
 				}
-				else
-				{
-					newIndex = middleIndex + nextAfterMiddleIncrement;
-					if (newIndex == -1) newIndex = 0;
-					return newIndex;
-				}
+				//else
+				//{
+				//	newIndex = middleIndex + nextAfterMiddleIncrement;
+				//	if (newIndex == -1) newIndex = 0;
+				//	return newIndex;
+				//}
 			} while (true);
 		}
 
@@ -854,25 +854,26 @@ namespace ObservableComputations
 				: _sortDirection == ListSortDirection.Ascending ? index : index + 1;
 		}
 
-		internal int getOrderedIndexBySourceIndex(int sourceIndex)
-		{
-			return _itemInfos[sourceIndex].OrderedItemInfo.Index;
-		}
+		//internal int getOrderedIndexBySourceIndex(int sourceIndex)
+		//{
+		//	return _itemInfos[sourceIndex].OrderedItemInfo.Index;
+		//}
 
 		internal int getSourceIndexByOrderedIndex(int orderedIndex)
 		{
 			return  _orderedItemInfos[orderedIndex].ItemInfo.Index;	
 		}
 
-		public int GetOrderedIndexBySourceIndex(int sourceIndex)
-		{
-			return _itemInfos[sourceIndex].OrderedItemInfo.Index;
-		}
+		// TODO Uncomment and test
+		//public int GetOrderedIndexBySourceIndex(int sourceIndex)
+		//{
+		//	return _itemInfos[sourceIndex].OrderedItemInfo.Index;
+		//}
 
-		public int GetSourceIndexByOrderedIndex(int orderedIndex)
-		{
-			return _orderedItemInfos[orderedIndex].ItemInfo.Index;	
-		}
+		//public int GetSourceIndexByOrderedIndex(int orderedIndex)
+		//{
+		//	return _orderedItemInfos[orderedIndex].ItemInfo.Index;	
+		//}
 
 
 		//#region Implementation of IOrdering<TSourceItem>
@@ -968,85 +969,86 @@ namespace ObservableComputations
 			_thenOrderings.Remove(thenOrdering);
 		}
 
-		public OrderingIndicesRange? GetIndicesRangeOf(TOrderingValue orderingValue)
-		{
-			int lowerIndex = 0;
-			int upperIndex = Count - 1;
-			int length = upperIndex + 1;
+		// TODO Uncomment and test
+		//public OrderingIndicesRange? GetIndicesRangeOf(TOrderingValue orderingValue)
+		//{
+		//	int lowerIndex = 0;
+		//	int upperIndex = Count - 1;
+		//	int length = upperIndex + 1;
 
-			do
-			{
-				if (length == 0)
-				{
-					return null;
-				}
+		//	do
+		//	{
+		//		if (length == 0)
+		//		{
+		//			return null;
+		//		}
 
-				if (length == 1)
-				{
-					if (_comparer.Compare(orderingValue, getOrderingValueByOrderedIndex(lowerIndex)) == 0)
-						return new OrderingIndicesRange(0, 0);
+		//		if (length == 1)
+		//		{
+		//			if (_comparer.Compare(orderingValue, getOrderingValueByOrderedIndex(lowerIndex)) == 0)
+		//				return new OrderingIndicesRange(0, 0);
 
-					return null;
-				}
+		//			return null;
+		//		}
 
-				if (length == 2)
-				{
-					bool lower = _comparer.Compare(orderingValue, getOrderingValueByOrderedIndex(lowerIndex)) == 0;
-					bool upper = _comparer.Compare(orderingValue, getOrderingValueByOrderedIndex(upperIndex)) == 0;
+		//		if (length == 2)
+		//		{
+		//			bool lower = _comparer.Compare(orderingValue, getOrderingValueByOrderedIndex(lowerIndex)) == 0;
+		//			bool upper = _comparer.Compare(orderingValue, getOrderingValueByOrderedIndex(upperIndex)) == 0;
 
-					if (!upper && !lower) return null;
-					return new OrderingIndicesRange(lower ? 0 : 1, upper ? 0 : 1);
-				}
+		//			if (!upper && !lower) return null;
+		//			return new OrderingIndicesRange(lower ? 0 : 1, upper ? 0 : 1);
+		//		}
 
-				int middleIndex = lowerIndex + (length >> 1);
+		//		int middleIndex = lowerIndex + (length >> 1);
 
-				TOrderingValue middleItemOrderingValue = getOrderingValueByOrderedIndex(middleIndex);
-				int comparisonWithMiddleItem = _comparer.Compare(orderingValue, middleItemOrderingValue);
+		//		TOrderingValue middleItemOrderingValue = getOrderingValueByOrderedIndex(middleIndex);
+		//		int comparisonWithMiddleItem = _comparer.Compare(orderingValue, middleItemOrderingValue);
 
-				if (comparisonWithMiddleItem == 0)
-				{
-					int nextAfterMiddleIndex = middleIndex;
-					int from = middleIndex;
-					do
-					{
-						nextAfterMiddleIndex = nextAfterMiddleIndex - 1;
-						if (_comparer.Compare(getOrderingValueByOrderedIndex(nextAfterMiddleIndex), middleItemOrderingValue) == 0)
-							from = nextAfterMiddleIndex;
-						else
-							break;	
-					} while (
-						nextAfterMiddleIndex != lowerIndex);
+		//		if (comparisonWithMiddleItem == 0)
+		//		{
+		//			int nextAfterMiddleIndex = middleIndex;
+		//			int from = middleIndex;
+		//			do
+		//			{
+		//				nextAfterMiddleIndex = nextAfterMiddleIndex - 1;
+		//				if (_comparer.Compare(getOrderingValueByOrderedIndex(nextAfterMiddleIndex), middleItemOrderingValue) == 0)
+		//					from = nextAfterMiddleIndex;
+		//				else
+		//					break;	
+		//			} while (
+		//				nextAfterMiddleIndex != lowerIndex);
 
 
-					nextAfterMiddleIndex = middleIndex;
-					int to = middleIndex;
-					do
-					{
-						nextAfterMiddleIndex = nextAfterMiddleIndex + 1;
-						if (_comparer.Compare(getOrderingValueByOrderedIndex(nextAfterMiddleIndex), middleItemOrderingValue) == 0)
-							to = nextAfterMiddleIndex;
-						else
-							break;	
-					} while (
-						nextAfterMiddleIndex != upperIndex);
+		//			nextAfterMiddleIndex = middleIndex;
+		//			int to = middleIndex;
+		//			do
+		//			{
+		//				nextAfterMiddleIndex = nextAfterMiddleIndex + 1;
+		//				if (_comparer.Compare(getOrderingValueByOrderedIndex(nextAfterMiddleIndex), middleItemOrderingValue) == 0)
+		//					to = nextAfterMiddleIndex;
+		//				else
+		//					break;	
+		//			} while (
+		//				nextAfterMiddleIndex != upperIndex);
 
-					return new OrderingIndicesRange(from, to);
-				}
-				else
-				{
-					if (_sortDirection == ListSortDirection.Ascending)
-					{
-						if (comparisonWithMiddleItem > 0) lowerIndex = middleIndex;
-						else upperIndex = middleIndex;
-					}
-					else
-					{
-						if (comparisonWithMiddleItem > 0) upperIndex = middleIndex;
-						else lowerIndex = middleIndex;							
-					}
-				}
-			} while (true);
-		}
+		//			return new OrderingIndicesRange(from, to);
+		//		}
+		//		else
+		//		{
+		//			if (_sortDirection == ListSortDirection.Ascending)
+		//			{
+		//				if (comparisonWithMiddleItem > 0) lowerIndex = middleIndex;
+		//				else upperIndex = middleIndex;
+		//			}
+		//			else
+		//			{
+		//				if (comparisonWithMiddleItem > 0) upperIndex = middleIndex;
+		//				else lowerIndex = middleIndex;							
+		//			}
+		//		}
+		//	} while (true);
+		//}
 
 		void IThenOrderingInternal<TSourceItem>.ProcessSourceItemChange(int sourceIndex, TSourceItem sourceItem)
 		{

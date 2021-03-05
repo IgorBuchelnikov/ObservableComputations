@@ -421,24 +421,24 @@ namespace ObservableComputations
 			baseRemoveItem(orderedIndex);	
 		}
 
+		// TODO Uncomment and test
+		//public TOrderingValue GetOrderingValueBySourceIndex(int sourceIndex)
+		//{
+		//	TOrderingValue getValue() => 
+		//		!_orderingValueSelectorContainsParametrizedLiveLinqCalls 
+		//		? _orderingValueSelectorFunc(_sourceAsList[sourceIndex]) 
+		//		: _itemInfos[sourceIndex].GetOrderingValueFunc();
 
-		public TOrderingValue GetOrderingValueBySourceIndex(int sourceIndex)
-		{
-			TOrderingValue getValue() => 
-				!_orderingValueSelectorContainsParametrizedLiveLinqCalls 
-				? _orderingValueSelectorFunc(_sourceAsList[sourceIndex]) 
-				: _itemInfos[sourceIndex].GetOrderingValueFunc();
+		//	if (Configuration.TrackComputingsExecutingUserCode)
+		//	{
+		//		int currentThreadId = Utils.startComputingExecutingUserCode(out IComputing computing, out _userCodeIsCalledFrom, this);
+		//		TOrderingValue result = getValue();
+		//		Utils.endComputingExecutingUserCode(computing, currentThreadId, out _userCodeIsCalledFrom);
+		//		return result;
+		//	}
 
-			if (Configuration.TrackComputingsExecutingUserCode)
-			{
-				int currentThreadId = Utils.startComputingExecutingUserCode(out IComputing computing, out _userCodeIsCalledFrom, this);
-				TOrderingValue result = getValue();
-				Utils.endComputingExecutingUserCode(computing, currentThreadId, out _userCodeIsCalledFrom);
-				return result;
-			}
-
-			return getValue();
-		}
+		//	return getValue();
+		//}
 
 		public TOrderingValue GetOrderingValueByOrderedIndex(int orderedIndex)
 		{
@@ -641,10 +641,10 @@ namespace ObservableComputations
 					notifyThenOrderings(newOrderedIndex);
 				}
 			}
-			else if (_thenOrderingsCount > 0)
-			{
-				notifyThenOrderings(orderedIndex);
-			}
+			//else if (_thenOrderingsCount > 0)
+			//{
+			//	notifyThenOrderings(orderedIndex);
+			//}
 		}
 
 		void ISourceItemChangeProcessor.ProcessSourceItemChange(ExpressionWatcher expressionWatcher)
@@ -756,12 +756,12 @@ namespace ObservableComputations
 							upperIndex = nextAfterMiddleIndex;
 					}
 				}
-				else
-				{
-					newIndex = middleIndex + nextAfterMiddleIncrement;
-					if (newIndex == -1) newIndex = 0;
-					return newIndex;
-				}
+				//else
+				//{
+				//	newIndex = middleIndex + nextAfterMiddleIncrement;
+				//	if (newIndex == -1) newIndex = 0;
+				//	return newIndex;
+				//}
 			} while (true);
 		}
 
@@ -1077,20 +1077,21 @@ namespace ObservableComputations
 		}
 	}
 
-	public struct OrderingIndicesRange
-	{
-		// ReSharper disable once UnusedAutoPropertyAccessor.Global
-		// ReSharper disable once MemberCanBePrivate.Global
-		public int From { get; }
+	// TODO Uncomment and test
+	//public struct OrderingIndicesRange
+	//{
+	//	// ReSharper disable once UnusedAutoPropertyAccessor.Global
+	//	// ReSharper disable once MemberCanBePrivate.Global
+	//	public int From { get; }
 
-		// ReSharper disable once UnusedAutoPropertyAccessor.Global
-		// ReSharper disable once MemberCanBePrivate.Global
-		public int To { get; }
+	//	// ReSharper disable once UnusedAutoPropertyAccessor.Global
+	//	// ReSharper disable once MemberCanBePrivate.Global
+	//	public int To { get; }
 
-		public OrderingIndicesRange(int from, int to)
-		{
-			From = from;
-			To = to;
-		}
-	}
+	//	public OrderingIndicesRange(int from, int to)
+	//	{
+	//		From = from;
+	//		To = to;
+	//	}
+	//}
 }

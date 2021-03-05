@@ -641,10 +641,10 @@ namespace ObservableComputations
 					notifyThenOrderings(newOrderedIndex);
 				}
 			}
-			//else if (_thenOrderingsCount > 0)
-			//{
-			//	notifyThenOrderings(orderedIndex);
-			//}
+			else if (_thenOrderingsCount > 0)
+			{
+				notifyThenOrderings(orderedIndex);
+			}
 		}
 
 		void ISourceItemChangeProcessor.ProcessSourceItemChange(ExpressionWatcher expressionWatcher)

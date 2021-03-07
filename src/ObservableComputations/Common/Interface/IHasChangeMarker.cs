@@ -6,6 +6,6 @@ namespace ObservableComputations
 {
 	internal interface IHasChangeMarker
 	{
-		bool ChangeMarker { get; set; }
+		bool ChangeMarker { get; }
 	}
 }

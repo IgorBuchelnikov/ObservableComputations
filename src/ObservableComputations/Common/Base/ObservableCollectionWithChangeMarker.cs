@@ -28,7 +28,6 @@ namespace ObservableComputations
 		bool IHasChangeMarker.ChangeMarker
 		{
 			get => ChangeMarkerField;
-			set => ChangeMarkerField = value;
 		}
 	}
 }

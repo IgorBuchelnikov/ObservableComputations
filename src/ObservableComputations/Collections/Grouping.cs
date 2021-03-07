@@ -900,36 +900,37 @@ namespace ObservableComputations
 			}
 		}
 
-		private TKey applyKeySelector(int index)
-		{
-			TKey getValue() =>
-				_keySelectorExpressionContainsParametrizedObservableComputationsCalls 
-					? _itemInfos[index].SelectorFunc() 
-					: _keySelectorFunc(_sourceAsList[index]);
+		// TODO Uncomment and test
+		//private TKey applyKeySelector(int index)
+		//{
+		//	TKey getValue() =>
+		//		_keySelectorExpressionContainsParametrizedObservableComputationsCalls 
+		//			? _itemInfos[index].SelectorFunc() 
+		//			: _keySelectorFunc(_sourceAsList[index]);
 
-			if (Configuration.TrackComputingsExecutingUserCode)
-			{
-				int currentThreadId = Utils.startComputingExecutingUserCode(out IComputing computing, out _userCodeIsCalledFrom, this);
-				TKey result = getValue();
-				Utils.endComputingExecutingUserCode(computing, currentThreadId, out _userCodeIsCalledFrom);
-				return result;
-			}
+		//	if (Configuration.TrackComputingsExecutingUserCode)
+		//	{
+		//		int currentThreadId = Utils.startComputingExecutingUserCode(out IComputing computing, out _userCodeIsCalledFrom, this);
+		//		TKey result = getValue();
+		//		Utils.endComputingExecutingUserCode(computing, currentThreadId, out _userCodeIsCalledFrom);
+		//		return result;
+		//	}
 
-			return getValue();
-		}
+		//	return getValue();
+		//}
 
-		public TKey ApplyKeySelector(int index)
-		{
-			if (Configuration.TrackComputingsExecutingUserCode)
-			{
-				int currentThreadId = Utils.startComputingExecutingUserCode(out IComputing computing, out _userCodeIsCalledFrom, this);
-				TKey result = applyKeySelector(index);
-				Utils.endComputingExecutingUserCode(computing, currentThreadId, out _userCodeIsCalledFrom);
-				return result;
-			}
+		//public TKey ApplyKeySelector(int index)
+		//{
+		//	if (Configuration.TrackComputingsExecutingUserCode)
+		//	{
+		//		int currentThreadId = Utils.startComputingExecutingUserCode(out IComputing computing, out _userCodeIsCalledFrom, this);
+		//		TKey result = applyKeySelector(index);
+		//		Utils.endComputingExecutingUserCode(computing, currentThreadId, out _userCodeIsCalledFrom);
+		//		return result;
+		//	}
 
-			return applyKeySelector(index);
-		}
+		//	return applyKeySelector(index);
+		//}
 
 		private TKey applyKeySelector(TSourceItem sourceItem, Func<TKey> selectorFunc)
 		{

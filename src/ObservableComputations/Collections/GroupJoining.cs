@@ -675,30 +675,31 @@ namespace ObservableComputations
 			return getValue();
 		}
 
-		private TKey applyKeySelector(int index)
-		{
-			TKey getValue()
-			{
-				return _outerKeySelectorExpressionContainsParametrizedObservableComputationsCalls 
-					? _itemInfos[index].SelectorFunc()
-					: _outerKeySelectorFunc(_outerSourceAsList[index]);
-			}
+		// TODO Uncomment and test
+		//private TKey applyKeySelector(int index)
+		//{
+		//	TKey getValue()
+		//	{
+		//		return _outerKeySelectorExpressionContainsParametrizedObservableComputationsCalls 
+		//			? _itemInfos[index].SelectorFunc()
+		//			: _outerKeySelectorFunc(_outerSourceAsList[index]);
+		//	}
 
-			if (Configuration.TrackComputingsExecutingUserCode)
-			{
-				int currentThreadId = Utils.startComputingExecutingUserCode(out IComputing computing, out _userCodeIsCalledFrom, this);
-				TKey result = getValue();
-				Utils.endComputingExecutingUserCode(computing, currentThreadId, out _userCodeIsCalledFrom);
-				return result;
-			}
+		//	if (Configuration.TrackComputingsExecutingUserCode)
+		//	{
+		//		int currentThreadId = Utils.startComputingExecutingUserCode(out IComputing computing, out _userCodeIsCalledFrom, this);
+		//		TKey result = getValue();
+		//		Utils.endComputingExecutingUserCode(computing, currentThreadId, out _userCodeIsCalledFrom);
+		//		return result;
+		//	}
 
-			return getValue();
-		}
+		//	return getValue();
+		//}
 
-		public TKey ApplyKeySelector(int index)
-		{
-			return applyKeySelector(index);
-		}
+		//public TKey ApplyKeySelector(int index)
+		//{
+		//	return applyKeySelector(index);
+		//}
 
 		void ISourceItemChangeProcessor.ProcessSourceItemChange(ExpressionWatcher expressionWatcher)
 		{

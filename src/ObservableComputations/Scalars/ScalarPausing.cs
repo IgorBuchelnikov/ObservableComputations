@@ -5,6 +5,7 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Diagnostics.CodeAnalysis;
 
 namespace ObservableComputations
 {
@@ -306,6 +307,7 @@ namespace ObservableComputations
 			_lastChangesToApplyOnResumeCount = newValue;
 		}
 
+		[ExcludeFromCodeCoverage]
 		internal void ValidateInternalConsistency()
 		{
 			if (!_isPaused)

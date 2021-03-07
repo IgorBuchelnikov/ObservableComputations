@@ -48,10 +48,16 @@ namespace ObservableComputations.Test
 
 			public event PropertyChangedEventHandler PropertyChanged;
 
+			public PropertyChangedEventArgs _lastPropertyChangedEventArgs;
+
 			protected virtual void onPropertyChanged([CallerMemberName] string propertyName = null)
 			{
 				PropertyChangedEventHandler onPropertyChanged = PropertyChanged;
-				if (onPropertyChanged != null) onPropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+				if (onPropertyChanged != null)
+				{
+					_lastPropertyChangedEventArgs = new PropertyChangedEventArgs(propertyName);
+					onPropertyChanged(this, _lastPropertyChangedEventArgs);
+				}
 			}
 
 			protected bool updatePropertyValue<T>(ref T field, T value, [CallerMemberName] string propertyName = null)
@@ -85,6 +91,12 @@ namespace ObservableComputations.Test
 					new Item(2, "2")
 				});
 
+			NotifyCollectionChangedEventArgs lastNotifyCollectionChangedEventArgs = null;
+			items.CollectionChanged += (sender, args) =>
+			{
+				lastNotifyCollectionChangedEventArgs  = args;
+			};
+
 			OcConsumer consumer = new OcConsumer();
 			Dictionaring<Item, int, string> dictionaring = 
 				items.Dictionaring(i => new Computing<int>(() => i.Id).Value, i => new Computing<string>(() => i.Value).Value).For(consumer);
@@ -105,6 +117,12 @@ namespace ObservableComputations.Test
 				if (args.MethodName == "GetValueOrDefault" && args.ArgumentsPredicate(new object[]{changedKey, changedValue})) getValueOrDefaultRaised = true;
 				if (args.MethodName == "Item[]" && args.ArgumentsPredicate(new object[]{changedKey, changedValue})) itemRaised = true;
 				if (args.MethodName == "ContainsKey" && args.ArgumentsPredicate(new object[]{changedKey, changedValue})) containsKeyRaised = true;
+
+				if (dictionaring.HandledEventArgs is NotifyCollectionChangedEventArgs)
+				{
+					Assert.AreEqual(dictionaring.HandledEventSender, dictionaring.Source);
+					Assert.AreEqual(dictionaring.HandledEventArgs, lastNotifyCollectionChangedEventArgs);
+				}
 			};
 
 			Action<int, string> dictionaringAddItemRequestHandler = (id, value) => items.Add(new Item(id, value));
@@ -221,6 +239,12 @@ namespace ObservableComputations.Test
 					new Item(2, "2")
 				});
 
+			NotifyCollectionChangedEventArgs lastNotifyCollectionChangedEventArgs = null;
+			items.CollectionChanged += (sender, args) =>
+			{
+				lastNotifyCollectionChangedEventArgs  = args;
+			};
+
 			OcConsumer consumer = new OcConsumer();
 			ConcurrentDictionaring<Item, int, string> dictionaring = 
 				items.ConcurrentDictionaring(i => new Computing<int>(() => i.Id).Value, i => new Computing<string>(() => i.Value).Value).For(consumer);
@@ -241,6 +265,12 @@ namespace ObservableComputations.Test
 				if (args.MethodName == "GetValueOrDefault" && args.ArgumentsPredicate(new object[]{changedKey, changedValue})) getValueOrDefaultRaised = true;
 				if (args.MethodName == "Item[]" && args.ArgumentsPredicate(new object[]{changedKey, changedValue})) itemRaised = true;
 				if (args.MethodName == "ContainsKey" && args.ArgumentsPredicate(new object[]{changedKey, changedValue})) containsKeyRaised = true;
+
+				if (dictionaring.HandledEventArgs is NotifyCollectionChangedEventArgs)
+				{
+					Assert.AreEqual(dictionaring.HandledEventSender, dictionaring.Source);
+					Assert.AreEqual(dictionaring.HandledEventArgs, lastNotifyCollectionChangedEventArgs);
+				}
 			};
 
 			Action<int, string> dictionaringAddItemRequestHandler = (id, value) => items.Add(new Item(id, value));
@@ -356,6 +386,12 @@ namespace ObservableComputations.Test
 					new Item(2, "2")
 				});
 
+			NotifyCollectionChangedEventArgs lastNotifyCollectionChangedEventArgs = null;
+			items.CollectionChanged += (sender, args) =>
+			{
+				lastNotifyCollectionChangedEventArgs  = args;
+			};
+
 			OcConsumer consumer = new OcConsumer();
 			HashSetting<Item, int> dictionaring = 
 				items.HashSetting(i => new Computing<int>(() => i.Id).Value).For(consumer);
@@ -370,6 +406,12 @@ namespace ObservableComputations.Test
 			dictionaring.MethodChanged += (sender, args) =>
 			{
 				if (args.MethodName == "Contains" && args.ArgumentsPredicate(new object[]{changedKey})) containsRaised = true;
+
+				if (dictionaring.HandledEventArgs is NotifyCollectionChangedEventArgs)
+				{
+					Assert.AreEqual(dictionaring.HandledEventSender, dictionaring.Source);
+					Assert.AreEqual(dictionaring.HandledEventArgs, lastNotifyCollectionChangedEventArgs);
+				}
 			};
 
 			Action<int> dictionaringAddItemRequestHandler = (id) => items.Add(new Item(id, "value"));
@@ -654,8 +696,33 @@ namespace ObservableComputations.Test
 			computing.SetValueRequestHandler += computingSetValueRequestHandler;
 			Assert.AreEqual(computing.SetValueRequestHandler, computingSetValueRequestHandler);
 
+			bool disposing = false;
+
+			computing.PreValueChanged += (sender, args) =>
+			{
+				if (disposing) return;
+				Assert.AreEqual(computing.NewValue, 1);
+				Assert.AreEqual(computing.NewValueObject, 1);
+				Assert.AreEqual(computing.HandledEventSender, item);
+				Assert.AreEqual(computing.HandledEventArgs, item._lastPropertyChangedEventArgs);
+			};
+
+			computing.PostValueChanged += (sender, args) =>
+			{
+				if (disposing) return;
+				Assert.AreEqual(computing.NewValue, 1);
+				Assert.AreEqual(computing.NewValueObject, 1);
+				Assert.AreEqual(computing.HandledEventSender, item);
+				Assert.AreEqual(computing.HandledEventArgs, item._lastPropertyChangedEventArgs);
+			};
+
 			computing.Value = 1;
+
 			Assert.AreEqual(computing.Value, 1);
+			Assert.AreEqual(computing.ValueObject, 1);
+			Assert.AreEqual(computing.ValueType, typeof(int));
+
+			disposing = true;
 			consumer.Dispose();
 		}
 

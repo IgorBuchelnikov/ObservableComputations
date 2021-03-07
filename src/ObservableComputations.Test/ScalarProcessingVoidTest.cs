@@ -34,9 +34,13 @@ namespace ObservableComputations.Test
 			Item item = new Item();
 			Scalar<Item> itemScalar = new Scalar<Item>(item);
 
-			itemScalar.ScalarProcessing(
+			ScalarProcessingVoid<Item> scalarProcessingVoid = itemScalar.ScalarProcessing(
 				_newValueProcessor,
 				_oldValueProcessor).For(consumer);
+
+			Assert.AreEqual(scalarProcessingVoid.Source, itemScalar);
+			Assert.AreEqual(scalarProcessingVoid.NewValueProcessor, _newValueProcessor);
+			Assert.AreEqual(scalarProcessingVoid.OldValueProcessor, _oldValueProcessor);
 
 			test(item, itemScalar);
 			consumer.Dispose();
@@ -48,9 +52,12 @@ namespace ObservableComputations.Test
 			Item item = new Item();
 			Scalar<Item> itemScalar = new Scalar<Item>(item);
 
-			Expr.Is(() => itemScalar.Value).ScalarProcessing(
+			ScalarProcessingVoid<Item> scalarProcessingVoid = Expr.Is(() => itemScalar.Value).ScalarProcessing(
 				_newValueProcessor,
 				_oldValueProcessor).For(consumer);
+
+			Assert.AreEqual(scalarProcessingVoid.NewValueProcessor, _newValueProcessor);
+			Assert.AreEqual(scalarProcessingVoid.OldValueProcessor, _oldValueProcessor);
 
 			test(item, itemScalar);
 			consumer.Dispose();

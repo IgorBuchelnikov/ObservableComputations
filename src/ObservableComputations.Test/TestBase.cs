@@ -15,13 +15,8 @@ namespace ObservableComputations.Test
 		public TestBase(bool debug)
 		{
 			_debug = debug;
-			if (debug)
-			{
-				Configuration.SaveInstantiatingStackTrace = true;
-				Configuration.TrackComputingsExecutingUserCode = true;
-				Configuration.SaveOcDispatcherInvokingStackTrace = true;
-			}
-			else
+
+			if (!debug)
 			{
 #if GeneratingMinimalTestsToCover
 				if (GetType().Name != nameof(QuickTests))

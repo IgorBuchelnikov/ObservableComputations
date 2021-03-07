@@ -73,12 +73,24 @@ namespace ObservableComputations.Test
 
 			items.Move(1, 2);
 
-			consumer.Dispose();
+			Item item2 = new Item();
+			items[0] = item2;
+			Assert.IsTrue(item1.ProcessedAsNew == 1);
+			Assert.IsTrue(item1.ProcessedAsOld == 1);
+			Assert.IsTrue(item2.ProcessedAsNew == 1);
+			Assert.IsTrue(item2.ProcessedAsOld == 0);
+
+			items.Move(1, 2);
+
+			items.Clear();
+
 			foreach (Item item in items)
 			{
 				Assert.IsTrue(item.ProcessedAsNew == 1);
 				Assert.IsTrue(item.ProcessedAsOld == 1);
 			}
+
+			consumer.Dispose();
 		}
 
 		[Test]
@@ -96,12 +108,16 @@ namespace ObservableComputations.Test
 			ObservableCollection<Item> items = new ObservableCollection<Item>(
 				sourceCollection);
 
+
+
 			CollectionProcessing<Item, object> collectionProcessing;
 
 			collectionProcessing = items.CollectionProcessing(
 				_newItemProcessor,
 				_oldItemProcessor,
 				_moveItemProcessor).For(consumer);
+
+			Assert.AreEqual(collectionProcessing.Source, items);
 
 			test(collectionProcessing, items, sourceCollection);
 			consumer.Dispose();

@@ -11,6 +11,7 @@ namespace ObservableComputations.Test
 	[TestFixture(false)]
 	public class ObservableCollectionExtendedTests : TestBase
 	{
+		NotifyCollectionChangedEventArgs _lastNotifyCollectionChangedEventArgs = null;
 		private void test(INotifyCollectionChangedExtended notifyCollectionChangedExtended)
 		{
 			ObservableCollection<int> collection = (ObservableCollection<int>) notifyCollectionChangedExtended;
@@ -21,6 +22,8 @@ namespace ObservableComputations.Test
 			int oldIndex = -1;
 			int newIndex = -1;
 
+			Extending<int> extending = notifyCollectionChangedExtended as Extending<int>;
+
 			notifyCollectionChangedExtended.PreCollectionChanged += (sender, args) =>
 			{
 				Assert.AreEqual(notifyCollectionChangedExtended.CurrentChange, currentChange);
@@ -28,6 +31,11 @@ namespace ObservableComputations.Test
 				Assert.AreEqual(notifyCollectionChangedExtended.NewItemObject, newItem);
 				Assert.AreEqual(notifyCollectionChangedExtended.OldIndex, oldIndex);
 				Assert.AreEqual(notifyCollectionChangedExtended.NewIndex, newIndex);
+				if (extending != null)
+				{
+					Assert.AreEqual(extending.HandledEventSender, extending.Source);
+					Assert.AreEqual(extending.HandledEventArgs, _lastNotifyCollectionChangedEventArgs);
+				}
 			};
 
 			notifyCollectionChangedExtended.PostCollectionChanged += (sender, args) =>
@@ -37,6 +45,11 @@ namespace ObservableComputations.Test
 				Assert.AreEqual(notifyCollectionChangedExtended.NewItemObject, newItem);
 				Assert.AreEqual(notifyCollectionChangedExtended.OldIndex, oldIndex);
 				Assert.AreEqual(notifyCollectionChangedExtended.NewIndex, newIndex);
+				if (extending != null)
+				{
+					Assert.AreEqual(extending.HandledEventSender, extending.Source);
+					Assert.AreEqual(extending.HandledEventArgs, _lastNotifyCollectionChangedEventArgs);
+				}
 			};
 
 			currentChange = NotifyCollectionChangedAction.Add;
@@ -102,7 +115,13 @@ namespace ObservableComputations.Test
 		{
 			OcConsumer consumer = new OcConsumer();
 			ObservableCollection<int> sourceCollection = (new ObservableCollection<int>(new []{1, 2, 3}));
+			sourceCollection.CollectionChanged += (sender, args) =>
+			{
+				_lastNotifyCollectionChangedEventArgs  = args;
+			};
+
 			Extending<int> collection = sourceCollection.Extending().For(consumer);
+
 
 			Action<int, int> collectionInsertItemRequestHandler = (index, newItem) =>
 			{
@@ -137,6 +156,7 @@ namespace ObservableComputations.Test
 				sourceCollection.Clear();
 			};
 			collection.ClearItemsRequestHandler = collectionClearItemsRequestHandler;
+			Assert.IsTrue(collection.ClearItemsRequestHandler == collectionClearItemsRequestHandler);
 
 			test(collection);
 

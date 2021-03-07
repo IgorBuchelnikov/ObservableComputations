@@ -13,7 +13,7 @@ namespace ObservableComputations
 
 		// ReSharper disable once ArrangeTypeMemberModifiers
 		// ReSharper disable once UnusedMember.Local
-		private Expression<Func<TArgument, TResult>> GetValueExpressionUsing => _getValueExpressionUsing;
+		public  Expression<Func<TArgument, TResult>> GetValueExpressionUsing => _getValueExpressionUsing;
 		private readonly TArgument _argument;
 		private readonly Expression<Func<TArgument, TResult>> _getValueExpressionUsing;
 

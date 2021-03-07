@@ -2,6 +2,7 @@
 // Buchelnikov Igor Vladimirovich licenses this file to you under the MIT license.
 // The LICENSE file is located at https://github.com/IgorBuchelnikov/ObservableComputations/blob/master/LICENSE
 
+using System;
 using System.Collections.Generic;
 using System.Collections.Specialized;
 using System.ComponentModel;
@@ -21,6 +22,8 @@ namespace ObservableComputations
 		private bool _indexerPropertyChangedEventRaised;
 		private readonly INotifyPropertyChanged _sourceAsINotifyPropertyChanged;
 		private readonly IList<TSourceItem> _items;
+		internal object HandledEventSender;
+		internal NotifyCollectionChangedEventArgs HandledEventArgs;
 
 		internal RootSourceWrapper(
 			INotifyCollectionChanged source)
@@ -80,6 +83,9 @@ namespace ObservableComputations
 
 		private void handleSourceCollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
 		{
+			HandledEventSender = sender;
+			HandledEventArgs = e;
+
 			if (_indexerPropertyChangedEventRaised)
 			{
 				_indexerPropertyChangedEventRaised = false;
@@ -111,7 +117,6 @@ namespace ObservableComputations
 						break;
 				}
 			}
-			
 		}
 	}
 }

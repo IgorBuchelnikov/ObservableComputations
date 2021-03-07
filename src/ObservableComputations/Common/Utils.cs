@@ -933,9 +933,11 @@ namespace ObservableComputations
 
 			lastProcessedSourceChangeMarker = !lastProcessedSourceChangeMarker;
 
+			RootSourceWrapper<TSourceItem> rootSourceWrapperList = sourceAsList as RootSourceWrapper<TSourceItem>;
+
 			return preHandleSourceCollectionChanged(
-				sender, 
-				e, 
+				rootSourceWrapper ? rootSourceWrapperList.HandledEventSender : sender, 
+				rootSourceWrapper ? rootSourceWrapperList.HandledEventArgs : e, 
 				ref isConsistent, 
 				ref handledEventSender, 
 				ref handledEventArgs, 
@@ -1008,7 +1010,16 @@ namespace ObservableComputations
 				sourceAsIHasChangeMarker))
 				return false;
 
-			return preHandleSourceCollectionChanged(sender, e, ref isConsistent, ref handledEventSender, ref handledEventArgs, ref deferredProcessings, deferredSourceCollectionChangedEventProcessingsIndex, deferredProcessingsCount, sourceCollectionChangeProcessor);
+			return preHandleSourceCollectionChanged(
+				sender, 
+				e, 
+				ref isConsistent, 
+				ref handledEventSender, 
+				ref handledEventArgs, 
+				ref deferredProcessings, 
+				deferredSourceCollectionChangedEventProcessingsIndex, 
+				deferredProcessingsCount, 
+				sourceCollectionChangeProcessor);
 		}
 
 		internal static bool preHandleSourceCollectionChanged(ref bool indexerPropertyChangedEventRaised,

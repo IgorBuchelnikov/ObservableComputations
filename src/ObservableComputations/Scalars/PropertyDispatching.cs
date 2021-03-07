@@ -7,14 +7,15 @@ using System.Collections.Concurrent;
 using System.ComponentModel;
 using System.Linq.Expressions;
 using System.Reflection;
+using System.Runtime.CompilerServices;
 
 namespace ObservableComputations
 {
-	public class PropertyDispatching<THolder, TResult> : ScalarComputing<TResult>
-		where THolder : INotifyPropertyChanged
+	public class PropertyDispatching<TPropertyHolder, TResult> : ScalarComputing<TResult>
+		where TPropertyHolder : INotifyPropertyChanged
 	{
-		public THolder PropertyHolder => _propertyHolder;
-		public Expression<Func<TResult>>  PropertyExpression => _propertyExpression;
+		public TPropertyHolder PropertyHolder => _propertyHolder;
+		public string  PropertyName => _propertyName;
 		public IOcDispatcher SourceOcDispatcher => _sourceOcDispatcher;
 		public IOcDispatcher DestinationOcDispatcher => _destinationOcDispatcher;
 		public int DestinationOcDispatcherPriority => _destinationOcDispatcherPriority;
@@ -26,14 +27,14 @@ namespace ObservableComputations
 			_propertyAccessors =
 				new ConcurrentDictionary<PropertyInfo, PropertyAccessors>();
 		
-		private THolder _propertyHolder;
-		private readonly Expression<Func<TResult>> _propertyExpression;
+		private TPropertyHolder _propertyHolder;
+		private readonly string _propertyName;
 
 		private readonly IOcDispatcher _sourceOcDispatcher;
 		private readonly IOcDispatcher _destinationOcDispatcher;
 
-		private Action<THolder, TResult> _setter;
-		private Func<THolder, TResult> _getter;
+		private Action<TPropertyHolder, TResult> _setter;
+		private Func<TPropertyHolder, TResult> _getter;
 
 		private readonly int _destinationOcDispatcherPriority;
 		private readonly int _sourceOcDispatcherPriority;
@@ -42,43 +43,37 @@ namespace ObservableComputations
 
 		[ObservableComputationsCall]
 		public PropertyDispatching(
-			Expression<Func<TResult>> propertyExpression,
+			TPropertyHolder propertyHolder,
+			string propertyName,
 			IOcDispatcher destinationOcDispatcher,
 			IOcDispatcher sourceOcDispatcher = null,
 			int destinationOcDispatcherPriority = 0,
 			int sourceOcDispatcherPriority = 0,
 			object destinationOcDispatcherParameter = null,
-			object sourceOcDispatcherParameter = null) : this()
+			object sourceOcDispatcherParameter = null)
 		{
 			_sourceOcDispatcher = sourceOcDispatcher;
 			_destinationOcDispatcher = destinationOcDispatcher;
-			_propertyExpression = propertyExpression;
+			_propertyHolder = propertyHolder;
+			_propertyName = propertyName;
 
 			_destinationOcDispatcherPriority = destinationOcDispatcherPriority;
 			_sourceOcDispatcherPriority = sourceOcDispatcherPriority;
 			_destinationOcDispatcherParameter = destinationOcDispatcherParameter;
 			_sourceOcDispatcherParameter = sourceOcDispatcherParameter;
 
-			lockChangeSetValueHandle();
-		}
-
-
-		private PropertyDispatching()
-		{
-		}
-
-		private void lockChangeSetValueHandle()
-		{
 			PropertyChanged += (sender, args) =>
 			{
 				if (args == Utils.SetValueRequestHandlerPropertyChangedEventArgs)
-					throw new ObjectDisposedException(
-						$"Cannot set property {nameof(PropertyDispatching<THolder, TResult>)}.{nameof(SetValueRequestHandler)}, since that it is predefined");
+					throw new ObservableComputationsException(
+						$"Cannot set property {nameof(PropertyDispatching<TPropertyHolder, TResult>)}.{nameof(SetValueRequestHandler)}, since that it is predefined");
 			};
 		}
 
+
 		private void handlePropertyHolderPropertyChanged(object sender, PropertyChangedEventArgs e)
 		{
+			if (e.PropertyName != _propertyName) return;
 			TResult value = getValue();
 			_destinationOcDispatcher.Invoke(
 				() => setValue(value), 
@@ -108,14 +103,14 @@ namespace ObservableComputations
 
 		private struct PropertyAccessors
 		{
-			public PropertyAccessors(Func<THolder, TResult> getter, Action<THolder, TResult> setter)
+			public PropertyAccessors(Func<TPropertyHolder, TResult> getter, Action<TPropertyHolder, TResult> setter)
 			{
 				Getter = getter;
 				Setter = setter;
 			}
 
-			public readonly Func<THolder, TResult> Getter;
-			public readonly Action<THolder, TResult> Setter;
+			public readonly Func<TPropertyHolder, TResult> Getter;
+			public readonly Action<TPropertyHolder, TResult> Setter;
 		}
 
 		#region Overrides of ScalarComputing<TResult>
@@ -127,19 +122,17 @@ namespace ObservableComputations
 
 		protected override void initialize()
 		{
-			MemberExpression memberExpression = (MemberExpression) _propertyExpression.Body;
-
-			PropertyInfo propertyInfo = (PropertyInfo) ((MemberExpression) _propertyExpression.Body).Member;
+			PropertyInfo propertyInfo = _propertyHolder.GetType().GetProperty(_propertyName);
 
 			if (!_propertyAccessors.TryGetValue(propertyInfo, out PropertyAccessors propertyAccessors))
 			{
 				ParameterExpression valueParameterExpression = Expression.Parameter(typeof(TResult));
-				ParameterExpression holderParameterExpression = Expression.Parameter(typeof(THolder));
-				Action<THolder, TResult> setter = Expression.Lambda<Action<THolder, TResult>>(
+				ParameterExpression holderParameterExpression = Expression.Parameter(typeof(TPropertyHolder));
+				Action<TPropertyHolder, TResult> setter = Expression.Lambda<Action<TPropertyHolder, TResult>>(
 					Expression.Assign(Expression.Property(holderParameterExpression, propertyInfo), valueParameterExpression),
 					holderParameterExpression, valueParameterExpression).Compile();
 
-				Func<THolder, TResult> getter = Expression.Lambda<Func<THolder, TResult>>(
+				Func<TPropertyHolder, TResult> getter = Expression.Lambda<Func<TPropertyHolder, TResult>>(
 					Expression.Property(holderParameterExpression, propertyInfo),
 					holderParameterExpression).Compile();
 
@@ -149,6 +142,7 @@ namespace ObservableComputations
 
 			_getter = propertyAccessors.Getter;
 			_setter = propertyAccessors.Setter;
+
 			_setValueRequestHandler = value =>
 			{
 				void set() => _setter(_propertyHolder, value);
@@ -161,8 +155,6 @@ namespace ObservableComputations
 						this);
 				else set();
 			};
-
-			_propertyHolder = (THolder) ((ConstantExpression) memberExpression.Expression).Value;
 
 			void readAndSubscribe()
 			{

@@ -8,13 +8,17 @@ using System.Collections.ObjectModel;
 using System.Collections.Specialized;
 using System.ComponentModel;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Runtime.CompilerServices;
 using System.Threading;
 using NUnit.Framework;
+using ObservableComputations;
+using ObservableComputations.Test;
 
 namespace ObservableComputations.Test
 {
 	[TestFixture(false)]
+	[TestFixture(true)]
 	public partial class CollectionDispatchingTest : TestBase
 	{
 		public class Item : INotifyPropertyChanged
@@ -24,8 +28,8 @@ namespace ObservableComputations.Test
 			{
 				_num = num;
 				_num2 = num2;
-				_numBackgroundToMainDispatching = new PropertyDispatching<Item, int>(() => Num, mainOcDispatcher, backgroundOcDispatcher).For(Consumer);
-				_num2MainToBackgroundDispatching = new PropertyDispatching<Item, int>(() => Num2, backgroundOcDispatcher, mainOcDispatcher).For(Consumer);
+				_numBackgroundToMainDispatching = new PropertyDispatching<Item, int>(this, nameof(Num), mainOcDispatcher, backgroundOcDispatcher).For(Consumer);
+				_num2MainToBackgroundDispatching = new PropertyDispatching<Item, int>(this, nameof(Num2), backgroundOcDispatcher, mainOcDispatcher).For(Consumer);
 				_numBackgroundToMainScalarDispatching = new Computing<int>(() => Num).ScalarDispatching(mainOcDispatcher, backgroundOcDispatcher).For(Consumer);				
 				_num2MainToBackgroundScalarDispatching = new Computing<int>(() => Num2).ScalarDispatching(backgroundOcDispatcher, mainOcDispatcher).For(Consumer);
 				
@@ -65,6 +69,10 @@ namespace ObservableComputations.Test
 						throw new Exception("Wrong thread");
 					}
 				};
+			}
+
+			public Item()
+			{
 			}
 
 			private int _num;
@@ -116,7 +124,35 @@ namespace ObservableComputations.Test
 		}
 
 		[Test]
-		[Repeat(5)]
+		public void TestPropertyDispatchingProperties()
+		{
+			Item item = new Item();
+			Expression<Func<int>> propertyExpression = () => item.Num;
+			OcDispatcher mainOcDispatcher = new OcDispatcher(2);
+			OcDispatcher backgroundOcDispatcher = new OcDispatcher(2);
+			OcConsumer consumer = new OcConsumer();
+			object dispatcherParameter = new object();
+			object sourceOcDispatcherParameter = new object();
+			PropertyDispatching<Item, int> propertyDispatching = new PropertyDispatching<Item, int>(item, nameof(Item.Num), mainOcDispatcher, backgroundOcDispatcher, 1, 1, dispatcherParameter, sourceOcDispatcherParameter).For(consumer);
+
+			Assert.AreEqual(propertyDispatching.PropertyHolder, item);
+			Assert.AreEqual(propertyDispatching.PropertyName, nameof(Item.Num));
+			Assert.AreEqual(propertyDispatching.SourceOcDispatcher, backgroundOcDispatcher);
+			Assert.AreEqual(propertyDispatching.DestinationOcDispatcher, mainOcDispatcher);
+			Assert.AreEqual(propertyDispatching.DestinationOcDispatcherPriority, 1);
+			Assert.AreEqual(propertyDispatching.SourceOcDispatcherPriority, 1);
+			Assert.AreEqual(propertyDispatching.DestinationOcDispatcherParameter, dispatcherParameter);
+			Assert.AreEqual(propertyDispatching.SourceOcDispatcherParameter, sourceOcDispatcherParameter);
+
+			Assert.Throws<ObservableComputationsException>(() => propertyDispatching.SetValueRequestHandler = null);
+
+			consumer.Dispose();
+			mainOcDispatcher.Dispose();
+			backgroundOcDispatcher.Dispose();
+		}
+
+		[Test]
+		[Repeat(1)]
 		[Timeout(1000 * 60 * 60 * 5)]
 		public void TestCollectionDispatchingTest()
 		{

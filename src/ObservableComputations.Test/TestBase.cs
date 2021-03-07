@@ -16,6 +16,10 @@ namespace ObservableComputations.Test
 		{
 			_debug = debug;
 
+			Configuration.SaveInstantiatingStackTrace = _debug;
+			Configuration.TrackComputingsExecutingUserCode = _debug;
+			Configuration.SaveOcDispatcherInvokingStackTrace = _debug;
+
 			if (!debug)
 			{
 #if GeneratingMinimalTestsToCover

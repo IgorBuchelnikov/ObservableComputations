@@ -51,13 +51,13 @@ namespace ObservableComputations.Test
 			{
 			}
 
-			var arguments = new List<(int argumentIndex, string variableType, string argumentType, string name, string result, string sourceAccessor, string scalarType, bool isCombinatorical, string additionalTest)>();
+			var arguments = new List<(int argumentIndex, string variableType, string argumentTestType, string argumentType, string name, string result, string sourceAccessor, string scalarType, bool isCombinatorical, string additionalTest)>();
 			var signatureArguments = extensionMethod.ArgumentsWithoutDefaultValue;
 			int index = 0;
 			foreach (ExtensionMethodArgument argument in signatureArguments)
 			{
 				var argumentValue = getArgumentValue(argument.Type, argument.Name, extensionMethod.Name);
-				arguments.Add((index, argumentValue.variableType, argument.Type, argument.Name, argumentValue.result, argumentValue.sourceAccessor, argumentValue.scalarType, argumentValue.isCombinatorical, argumentValue.additionalTest));
+				arguments.Add((index, argumentValue.variableType, argumentValue.argumentTestType, argument.Type, argument.Name, argumentValue.result, argumentValue.sourceAccessor, argumentValue.scalarType, argumentValue.isCombinatorical, argumentValue.additionalTest));
 				index++;
 			}
 
@@ -86,7 +86,7 @@ namespace ObservableComputations.Test
 			string genericParamsValues = getTestType(extensionMethod.GenericParameters, extensionMethod.Name);
 #>
 			OcConsumer consumer = new OcConsumer();
-			var testing = <#=arguments.First().name#>.<#=extensionMethod.Name#><#=genericParamsValues#>(<#=arguments.Count == 1 ? ").For(consumer);" : ""#>
+			var testing = ((<#=arguments.First().argumentTestType#>)<#=arguments.First().name#>).<#=extensionMethod.Name#><#=genericParamsValues#>(<#=arguments.Count == 1 ? ").For(consumer);" : ""#>
 <#
 			index = 0;
 			foreach (var argument in arguments.Skip(1))
@@ -383,12 +383,13 @@ namespace ObservableComputations.Test
 		return type;
 	}
 
-	private (string result, string sourceAccessor, string variableType, string scalarType, bool isCombinatorical, string additionalTest) getArgumentValue(string type, string argumentName, string extensionMethodName)
+	private (string result, string sourceAccessor, string variableType, string argumentTestType, string scalarType, bool isCombinatorical, string additionalTest) getArgumentValue(string type, string argumentName, string extensionMethodName)
 	{
 		string checkingType = type;
 		string result = null;
 		string sourceAccessor = "";
 		string variableType = null;
+		string argumentTestType = getTestType(type, extensionMethodName).Replace("Scalar", "IReadScalar");
 
 		bool scalar = false;
 		Regex regex = new Regex(@"ObservableComputations\.IReadScalar<(?<scalarType>.+)>");
@@ -452,6 +453,7 @@ namespace ObservableComputations.Test
 					variableType = "Selecting<Item, int>";
 					sourceAccessor = "?.Source";
 					checkingType = "ObservableCollection<int>";
+					argumentTestType = argumentTestType.Replace("Item", "int");
 				}
 				else if (extensionMethodName == "StringsConcatenating")
 				{
@@ -612,7 +614,7 @@ namespace ObservableComputations.Test
 
 		if (expression) result = $"() => {result}";
 
-		return (result, sourceAccessor, variableType, scalarType, isCombinatoricalArgument(type, argumentName, extensionMethodName), getAdditionalTest(argumentName, extensionMethodName, type));
+		return (result, sourceAccessor, variableType, argumentTestType, scalarType, isCombinatoricalArgument(type, argumentName, extensionMethodName), getAdditionalTest(argumentName, extensionMethodName, type));
 	}
 
 	private string getAdditionalTest(string argumentName, string extensionMethodName, string argumentType)

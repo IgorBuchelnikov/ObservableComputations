@@ -426,6 +426,8 @@ namespace ObservableComputations.Test
 		[Test]
 		public void DisableThreadComObjectEagerCleanupTest()
 		{
+			if (RuntimeInformation.IsOSPlatform(OSPlatform.Linux)) return;
+
 			OcDispatcher dispatcher = new OcDispatcher();
 			dispatcher.DisableThreadComObjectEagerCleanup();
 			dispatcher.Dispose();

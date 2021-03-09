@@ -13,7 +13,7 @@ using System.Linq.Expressions;
 
 namespace ObservableComputations
 {
-	public class SelectingMany<TSourceItem, TResultItem> : Concatenating<TResultItem>, IHasSourceCollections
+	public class SelectingMany<TSourceItem, TResultItem> : Concatenating<TResultItem>, IHasSources
 	{
 		private readonly IReadScalar<INotifyCollectionChanged> _sourceScalar;
 		private readonly INotifyCollectionChanged _source;
@@ -32,8 +32,7 @@ namespace ObservableComputations
 		// ReSharper disable once MemberCanBePrivate.Global
 		public Expression<Func<TSourceItem, int, INotifyCollectionChanged>> SelectorWithIndexExpression => _selectorWithIndexExpression;
 
-		public override ReadOnlyCollection<INotifyCollectionChanged> Sources => new ReadOnlyCollection<INotifyCollectionChanged>(new []{Source});
-		public override ReadOnlyCollection<IReadScalar<INotifyCollectionChanged>> SourceScalars => new ReadOnlyCollection<IReadScalar<INotifyCollectionChanged>>(new []{SourceScalar});
+		public override ReadOnlyCollection<object> Sources => new ReadOnlyCollection<object>(new object[]{Source, SourceScalar});
 
 		[ObservableComputationsCall]
 		public SelectingMany(			
@@ -138,7 +137,7 @@ namespace ObservableComputations
 		}
 
 		[ExcludeFromCodeCoverage]
-		internal void ValidateInternalConsistency()
+		internal new void ValidateInternalConsistency()
 		{
 			IList<TSourceItem> source = _sourceScalar.getValue(_source, new ObservableCollection<TSourceItem>()) as IList<TSourceItem>;
 			Func<TSourceItem, INotifyCollectionChanged> selector = _selectorExpression?.Compile();

@@ -11,7 +11,7 @@ using System.Diagnostics.CodeAnalysis;
 
 namespace ObservableComputations
 {
-	public class Aggregating<TSourceItem, TResult> : ScalarComputing<TResult>, IHasSourceCollections, ISourceIndexerPropertyTracker, ISourceCollectionChangeProcessor
+	public class Aggregating<TSourceItem, TResult> : ScalarComputing<TResult>, IHasSources, ISourceIndexerPropertyTracker, ISourceCollectionChangeProcessor
 	{
 		// ReSharper disable once MemberCanBePrivate.Global
 		public virtual IReadScalar<INotifyCollectionChanged> SourceScalar => _sourceScalar;
@@ -25,8 +25,7 @@ namespace ObservableComputations
 		// ReSharper disable once MemberCanBePrivate.Global
 		public virtual INotifyCollectionChanged Source => _source;
 
-		public virtual ReadOnlyCollection<INotifyCollectionChanged> Sources => new ReadOnlyCollection<INotifyCollectionChanged>(new []{Source});
-		public virtual ReadOnlyCollection<IReadScalar<INotifyCollectionChanged>> SourceScalars => new ReadOnlyCollection<IReadScalar<INotifyCollectionChanged>>(new []{SourceScalar});
+		public virtual ReadOnlyCollection<object> Sources => new ReadOnlyCollection<object>(new object[]{Source, SourceScalar});
 
 		private IList<TSourceItem> _sourceAsList;
 
@@ -171,7 +170,7 @@ namespace ObservableComputations
 
 		private TResult aggregate(TSourceItem addedSourceItem, TResult value)
 		{
-			if (Configuration.TrackComputingsExecutingUserCode)
+			if (OcConfiguration.TrackComputingsExecutingUserCode)
 			{
 				int currentThreadId = Utils.startComputingExecutingUserCode(out IComputing computing, out _userCodeIsCalledFrom, this);
 				TResult result = _aggregateFunc(addedSourceItem, value);
@@ -184,7 +183,7 @@ namespace ObservableComputations
 
 		private TResult deaggregate(TSourceItem removedSourceItem, TResult value)
 		{
-			if (Configuration.TrackComputingsExecutingUserCode)
+			if (OcConfiguration.TrackComputingsExecutingUserCode)
 			{
 				int currentThreadId = Utils.startComputingExecutingUserCode(out IComputing computing, out _userCodeIsCalledFrom, this);
 				TResult result = _deaggregateFunc(removedSourceItem, value);

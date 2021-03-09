@@ -4,16 +4,19 @@
 
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Diagnostics.CodeAnalysis;
 
 namespace ObservableComputations
 {
-	public class Differing<TResult> : ScalarComputing<TResult>
+	public class Differing<TResult> : ScalarComputing<TResult>, IHasSources
 	{
 		public IReadScalar<TResult> Source => _source;
 		public IEqualityComparer<TResult> EqualityComparer =>_equalityComparer;
 		public IReadScalar<IEqualityComparer<TResult>> EqualityComparerScalar =>_equalityComparerScalar;
+
+		public virtual ReadOnlyCollection<object> Sources => new ReadOnlyCollection<object>(new object[]{Source});
 
 		private readonly IReadScalar<TResult> _source;
 		private IEqualityComparer<TResult> _equalityComparer;

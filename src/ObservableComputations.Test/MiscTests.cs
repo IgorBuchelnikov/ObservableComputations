@@ -20,7 +20,7 @@ namespace ObservableComputations.Test
 		[Test]
 		public void TestComputingsExecutingUserCode()
 		{
-			Configuration.TrackComputingsExecutingUserCode = true;
+			OcConfiguration.TrackComputingsExecutingUserCode = true;
 			_computing = new Computing<int>(() => test());
 			OcConsumer consumer = new OcConsumer();
 			_computing.For(consumer);

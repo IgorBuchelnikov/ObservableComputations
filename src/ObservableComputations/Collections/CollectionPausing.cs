@@ -11,15 +11,14 @@ using System.Linq;
 
 namespace ObservableComputations
 {
-	public class CollectionPausing<TSourceItem> : CollectionComputing<TSourceItem>, IHasSourceCollections, ISourceIndexerPropertyTracker, ISourceCollectionChangeProcessor
+	public class CollectionPausing<TSourceItem> : CollectionComputing<TSourceItem>, IHasSources, ISourceIndexerPropertyTracker, ISourceCollectionChangeProcessor
 	{
 		public virtual INotifyCollectionChanged Source => _source;
 		public virtual IReadScalar<INotifyCollectionChanged> SourceScalar => _sourceScalar;
 		public IReadScalar<bool> IsPausedScalar => _isPausedScalar;
 		public bool Resuming => _resuming;
 
-		public virtual ReadOnlyCollection<INotifyCollectionChanged> Sources => new ReadOnlyCollection<INotifyCollectionChanged>(new []{Source});
-		public virtual ReadOnlyCollection<IReadScalar<INotifyCollectionChanged>> SourceScalars => new ReadOnlyCollection<IReadScalar<INotifyCollectionChanged>>(new []{SourceScalar});
+		public virtual ReadOnlyCollection<object> Sources => new ReadOnlyCollection<object>(new object[]{Source, SourceScalar});
 
 		public bool IsPaused
 		{

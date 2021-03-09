@@ -37,6 +37,7 @@ OcDispatcher Failure monitoring api
 InvocationResult.Result -&gt; InvocationResult.Value
 DebugInfo.ExecutingOcDispatcherInvocations -&gt; DebugInfo.ExecutingOcDispatcherInvocationStacks 
 OcDispatcher.BeginInvoke -&gt; OcDispatcher.InvokeAsync
+Configuration -&gt; OcConfiguration
 
 * API changed
 —  Binding

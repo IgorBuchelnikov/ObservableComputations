@@ -7,9 +7,8 @@ using System.Collections.Specialized;
 
 namespace ObservableComputations
 {
-	public interface IHasSourceCollections
+	public interface IHasSources
 	{
-		ReadOnlyCollection<INotifyCollectionChanged> Sources {get;}
-		ReadOnlyCollection<IReadScalar<INotifyCollectionChanged>> SourceScalars {get;}
+		ReadOnlyCollection<object> Sources {get;}
 	}
 }

@@ -10,7 +10,7 @@ using System.Linq;
 
 namespace ObservableComputations
 {
-	public class Prepending<TSourceItem> : Concatenating<TSourceItem>, IHasSourceCollections
+	public class Prepending<TSourceItem> : Concatenating<TSourceItem>, IHasSources
 	{
 		public override IReadScalar<INotifyCollectionChanged> SourceScalar => _sourceScalar;
 
@@ -23,8 +23,7 @@ namespace ObservableComputations
 		// ReSharper disable once MemberCanBePrivate.Global
 		public TSourceItem Item => _item;
 
-		public override ReadOnlyCollection<INotifyCollectionChanged> Sources => new ReadOnlyCollection<INotifyCollectionChanged>(new []{Source});
-		public override ReadOnlyCollection<IReadScalar<INotifyCollectionChanged>> SourceScalars => new ReadOnlyCollection<IReadScalar<INotifyCollectionChanged>>(new []{SourceScalar});
+		public override ReadOnlyCollection<object> Sources => new ReadOnlyCollection<object>(new object[]{Source, SourceScalar});
 
 		private readonly IReadScalar<INotifyCollectionChanged> _sourceScalar;
 		private readonly IReadScalar<TSourceItem> _itemScalar;
@@ -91,7 +90,7 @@ namespace ObservableComputations
 			new FreezedObservableCollection<object>(new object[]{new Computing<FreezedObservableCollection<TSourceItem>>(() => new FreezedObservableCollection<TSourceItem>(itemScalar.Value)), sourceScalar});
 
 		[ExcludeFromCodeCoverage]
-		internal void ValidateInternalConsistency()
+		internal new void ValidateInternalConsistency()
 		{
 			IList<TSourceItem> source = _sourceScalar.getValue(_source, new ObservableCollection<TSourceItem>()) as IList<TSourceItem>;
 			TSourceItem item = _itemScalar.getValue(_item);

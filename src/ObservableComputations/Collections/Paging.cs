@@ -12,15 +12,14 @@ using System.Linq;
 
 namespace ObservableComputations
 {
-	public class Paging<TSourceItem> : CollectionComputing<TSourceItem>, IHasSourceCollections, ISourceIndexerPropertyTracker, ISourceCollectionChangeProcessor
+	public class Paging<TSourceItem> : CollectionComputing<TSourceItem>, IHasSources, ISourceIndexerPropertyTracker, ISourceCollectionChangeProcessor
 	{
 		public virtual INotifyCollectionChanged Source => _source;
 		public virtual IReadScalar<INotifyCollectionChanged> SourceScalar => _sourceScalar;
 		public IReadScalar<int> PageSizeScalar => _pageSizeScalar;
 		public IReadScalar<int> CurrentPageScalar => _currentPageScalar;
 
-		public virtual ReadOnlyCollection<INotifyCollectionChanged> Sources => new ReadOnlyCollection<INotifyCollectionChanged>(new []{Source});
-		public virtual ReadOnlyCollection<IReadScalar<INotifyCollectionChanged>> SourceScalars => new ReadOnlyCollection<IReadScalar<INotifyCollectionChanged>>(new []{SourceScalar});
+		public virtual ReadOnlyCollection<object> Sources => new ReadOnlyCollection<object>(new object[]{Source, SourceScalar});
 
 		public int PageSize
 		{

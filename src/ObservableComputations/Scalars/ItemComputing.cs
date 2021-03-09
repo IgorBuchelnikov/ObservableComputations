@@ -11,7 +11,7 @@ using System.Diagnostics.CodeAnalysis;
 
 namespace ObservableComputations
 {
-	public class ItemComputing<TSourceItem> : ScalarComputing<TSourceItem>, IHasSourceCollections, ISourceIndexerPropertyTracker, ISourceCollectionChangeProcessor
+	public class ItemComputing<TSourceItem> : ScalarComputing<TSourceItem>, IHasSources, ISourceIndexerPropertyTracker, ISourceCollectionChangeProcessor
 	{
 		public virtual IReadScalar<INotifyCollectionChanged> SourceScalar => _sourceScalar;
 
@@ -26,8 +26,7 @@ namespace ObservableComputations
 		// ReSharper disable once MemberCanBeProtected.Global
 		public TSourceItem DefaultValue => _defaultValue;
 
-		public virtual ReadOnlyCollection<INotifyCollectionChanged> Sources => new ReadOnlyCollection<INotifyCollectionChanged>(new []{Source});
-		public virtual ReadOnlyCollection<IReadScalar<INotifyCollectionChanged>> SourceScalars => new ReadOnlyCollection<IReadScalar<INotifyCollectionChanged>>(new []{SourceScalar});
+		public virtual ReadOnlyCollection<object> Sources => new ReadOnlyCollection<object>(new object[]{Source, SourceScalar});
 
 		protected readonly IReadScalar<INotifyCollectionChanged> _sourceScalar;
 

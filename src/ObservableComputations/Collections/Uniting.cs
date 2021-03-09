@@ -11,7 +11,7 @@ using System.Linq;
 
 namespace ObservableComputations
 {
-	public class Uniting<TSourceItem> : Distincting<TSourceItem>, IHasSourceCollections
+	public class Uniting<TSourceItem> : Distincting<TSourceItem>, IHasSources
 	{
 		// ReSharper disable once MemberCanBePrivate.Global
 		public override IReadScalar<INotifyCollectionChanged> SourceScalar => ((Concatenating<TSourceItem>)base.Source).SourceScalar;
@@ -19,8 +19,7 @@ namespace ObservableComputations
 		// ReSharper disable once MemberCanBePrivate.Global
 		public override INotifyCollectionChanged Source => ((Concatenating<TSourceItem>)base.Source).Source;
 
-		public override ReadOnlyCollection<INotifyCollectionChanged> Sources => new ReadOnlyCollection<INotifyCollectionChanged>(new []{Source});
-		public override ReadOnlyCollection<IReadScalar<INotifyCollectionChanged>> SourceScalars => new ReadOnlyCollection<IReadScalar<INotifyCollectionChanged>>(new []{SourceScalar});
+		public override ReadOnlyCollection<object> Sources => new ReadOnlyCollection<object>(new object[]{Source, SourceScalar});
 
 		[ObservableComputationsCall]
 		public Uniting(
@@ -146,7 +145,7 @@ namespace ObservableComputations
 		}
 
 		[ExcludeFromCodeCoverage]
-		internal void ValidateInternalConsistency()
+		internal new void ValidateInternalConsistency()
 		{
 			IList sources = (IList) SourceScalar.getValue(Source, new ObservableCollection<ObservableCollection<TSourceItem>>());
 

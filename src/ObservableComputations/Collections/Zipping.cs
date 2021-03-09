@@ -13,7 +13,7 @@ using INotifyPropertyChanged = System.ComponentModel.INotifyPropertyChanged;
 
 namespace ObservableComputations
 {
-	public class Zipping<TLeftSourceItem, TRightSourceItem> : CollectionComputing<ZipPair<TLeftSourceItem, TRightSourceItem>>, IHasSourceCollections, ILeftSourceIndexerPropertyTracker, IRightSourceIndexerPropertyTracker, ISourceCollectionChangeProcessor
+	public class Zipping<TLeftSourceItem, TRightSourceItem> : CollectionComputing<ZipPair<TLeftSourceItem, TRightSourceItem>>, IHasSources, ILeftSourceIndexerPropertyTracker, IRightSourceIndexerPropertyTracker, ISourceCollectionChangeProcessor
 	{
 		// ReSharper disable once MemberCanBePrivate.Global
 		public IReadScalar<INotifyCollectionChanged> LeftSourceScalar => _leftSourceScalar;
@@ -27,8 +27,7 @@ namespace ObservableComputations
 		// ReSharper disable once MemberCanBePrivate.Global
 		public INotifyCollectionChanged RightSource => _rightSource;
 
-		public virtual ReadOnlyCollection<INotifyCollectionChanged> Sources => new ReadOnlyCollection<INotifyCollectionChanged>(new []{LeftSource, RightSource});
-		public virtual ReadOnlyCollection<IReadScalar<INotifyCollectionChanged>> SourceScalars => new ReadOnlyCollection<IReadScalar<INotifyCollectionChanged>>(new []{LeftSourceScalar, RightSourceScalar});
+		public virtual ReadOnlyCollection<object> Sources => new ReadOnlyCollection<object>(new object[]{LeftSource, RightSource, LeftSourceScalar, RightSourceScalar});
 
 		public Action<ZipPair<TLeftSourceItem, TRightSourceItem>, TLeftSourceItem> SetLeftItemRequestHandler
 		{
@@ -679,7 +678,7 @@ namespace ObservableComputations
 			// ReSharper disable once MemberCanBePrivate.Global
 			set
 			{
-				if (Configuration.TrackComputingsExecutingUserCode)
+				if (OcConfiguration.TrackComputingsExecutingUserCode)
 				{
 					int currentThreadId = Utils.startComputingExecutingUserCode(out IComputing computing, out  _zipping._userCodeIsCalledFrom, _zipping);
 					_zipping._setLeftItemRequestHandler(this, value);
@@ -698,7 +697,7 @@ namespace ObservableComputations
 			// ReSharper disable once MemberCanBePrivate.Global
 			set
 			{
-				if (Configuration.TrackComputingsExecutingUserCode)
+				if (OcConfiguration.TrackComputingsExecutingUserCode)
 				{
 					int currentThreadId = Utils.startComputingExecutingUserCode(out IComputing computing, out _zipping._userCodeIsCalledFrom, _zipping);
 					_zipping._setRightItemRequestHandler(this, value);

@@ -15,7 +15,7 @@ using INotifyPropertyChanged = System.ComponentModel.INotifyPropertyChanged;
 namespace ObservableComputations
 {
 	// ReSharper disable once RedundantExtendsListEntry
-	public class ThenOrdering<TSourceItem, TOrderingValue> : CollectionComputing<TSourceItem>, INotifyPropertyChanged, IOrderingInternal<TSourceItem>, IThenOrderingInternal<TSourceItem>, IHasSourceCollections, ISourceItemChangeProcessor, ISourceCollectionChangeProcessor
+	public class ThenOrdering<TSourceItem, TOrderingValue> : CollectionComputing<TSourceItem>, INotifyPropertyChanged, IOrderingInternal<TSourceItem>, IThenOrderingInternal<TSourceItem>, IHasSources, ISourceItemChangeProcessor, ISourceCollectionChangeProcessor
 	{
 		// ReSharper disable once MemberCanBePrivate.Global
 		public IReadScalar<IOrdering<TSourceItem>> SourceScalar => _sourceScalar;
@@ -36,10 +36,7 @@ namespace ObservableComputations
 
 		public IComparer<TOrderingValue> Comparer => _comparer;
 
-
-		public virtual ReadOnlyCollection<INotifyCollectionChanged> Sources => new ReadOnlyCollection<INotifyCollectionChanged>(new INotifyCollectionChanged[]{Source});
-		public virtual ReadOnlyCollection<IReadScalar<INotifyCollectionChanged>> SourceScalars => new ReadOnlyCollection<IReadScalar<INotifyCollectionChanged>>(new IReadScalar<INotifyCollectionChanged>[]{SourceScalar});
-
+		public virtual ReadOnlyCollection<object> Sources => new ReadOnlyCollection<object>(new object[]{Source, SourceScalar});
 
 		private IOrderingInternal<TSourceItem> _source;
 		private ObservableCollectionWithChangeMarker<TSourceItem> _sourceAsList;
@@ -497,7 +494,7 @@ namespace ObservableComputations
 		//			? _orderingValueSelectorFunc(_sourceAsList[sourceIndex]) 
 		//			: _itemInfos[sourceIndex].GetOrderingValueFunc();
 
-		//	if (Configuration.TrackComputingsExecutingUserCode)
+		//	if (OcConfiguration.TrackComputingsExecutingUserCode)
 		//	{
 		//		int currentThreadId = Utils.startComputingExecutingUserCode(out IComputing computing, out _userCodeIsCalledFrom, this);
 		//		TOrderingValue result = getValue();
@@ -520,7 +517,7 @@ namespace ObservableComputations
 					? _orderingValueSelectorFunc(this[orderedIndex]) 
 					: _orderedItemInfos[orderedIndex].ItemInfo.GetOrderingValueFunc();
 
-			if (Configuration.TrackComputingsExecutingUserCode)
+			if (OcConfiguration.TrackComputingsExecutingUserCode)
 			{
 				int currentThreadId = Utils.startComputingExecutingUserCode(out IComputing computing, out _userCodeIsCalledFrom, this);
 				TOrderingValue result = getValue();
@@ -538,7 +535,7 @@ namespace ObservableComputations
 					? _orderingValueSelectorFunc(sourceItem) 
 					: itemInfo.GetOrderingValueFunc();
 
-			if (Configuration.TrackComputingsExecutingUserCode)
+			if (OcConfiguration.TrackComputingsExecutingUserCode)
 			{
 				int currentThreadId = Utils.startComputingExecutingUserCode(out IComputing computing, out _userCodeIsCalledFrom, this);
 				TOrderingValue result = getValue();

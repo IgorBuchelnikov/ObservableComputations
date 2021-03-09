@@ -51,7 +51,7 @@ namespace ObservableComputations
 			_newIndex = index;
 			_newItem = item;
 
-			if (Configuration.TrackComputingsExecutingUserCode)
+			if (OcConfiguration.TrackComputingsExecutingUserCode)
 			{
 				int currentThreadId = Utils.startComputingExecutingUserCode(out IComputing computing, out _userCodeIsCalledFrom, this);
 
@@ -84,7 +84,7 @@ namespace ObservableComputations
 			_oldIndex = oldIndex;
 			_newIndex = newIndex;
 
-			if (Configuration.TrackComputingsExecutingUserCode)
+			if (OcConfiguration.TrackComputingsExecutingUserCode)
 			{
 				int currentThreadId = Utils.startComputingExecutingUserCode(out IComputing computing, out _userCodeIsCalledFrom, this);
 
@@ -117,7 +117,7 @@ namespace ObservableComputations
 			_currentChange = NotifyCollectionChangedAction.Remove;
 			_oldIndex = index;
 
-			if (Configuration.TrackComputingsExecutingUserCode)
+			if (OcConfiguration.TrackComputingsExecutingUserCode)
 			{
 				int currentThreadId = Utils.startComputingExecutingUserCode(out IComputing computing, out _userCodeIsCalledFrom, this);
 
@@ -151,7 +151,7 @@ namespace ObservableComputations
 			_newIndex = index;
 			_oldIndex = index;
 
-			if (Configuration.TrackComputingsExecutingUserCode)
+			if (OcConfiguration.TrackComputingsExecutingUserCode)
 			{
 				int currentThreadId = Utils.startComputingExecutingUserCode(out IComputing computing, out _userCodeIsCalledFrom, this);
 
@@ -184,7 +184,7 @@ namespace ObservableComputations
 
 			_currentChange = NotifyCollectionChangedAction.Reset;
 
-			if (Configuration.TrackComputingsExecutingUserCode)
+			if (OcConfiguration.TrackComputingsExecutingUserCode)
 			{
 				int currentThreadId = Utils.startComputingExecutingUserCode(out IComputing computing, out _userCodeIsCalledFrom, this);
 

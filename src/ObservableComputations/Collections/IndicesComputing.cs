@@ -13,11 +13,11 @@ using System.Linq.Expressions;
 
 namespace ObservableComputations
 {
-	public class IndicesComputing<TSourceItem> : Selecting<ZipPair<int, TSourceItem>, int>, IHasSourceCollections
+	public class IndicesComputing<TSourceItem> : Selecting<ZipPair<int, TSourceItem>, int>, IHasSources
 	{
 		private readonly Expression<Func<TSourceItem, bool>> _predicateExpression;
 		private readonly IReadScalar<INotifyCollectionChanged> _sourceScalar;
-		private readonly INotifyCollectionChanged _source;
+		private readonly INotifyCollectionChanged _sourceIndicesComputing;
 
 		// ReSharper disable once MemberCanBePrivate.Global
 		public Expression<Func<TSourceItem, bool>> PredicateExpression => _predicateExpression;
@@ -26,12 +26,11 @@ namespace ObservableComputations
 		public override IReadScalar<INotifyCollectionChanged> SourceScalar => _sourceScalar;
 
 		// ReSharper disable once MemberCanBePrivate.Global
-		public override INotifyCollectionChanged Source => _source;
+		public override INotifyCollectionChanged Source => _sourceIndicesComputing;
 
-		public override int InitialCapacity => ((IHasInitialCapacity)base._source).InitialCapacity;
+		public override int InitialCapacity => ((IHasInitialCapacity)_source).InitialCapacity;
 
-		public override ReadOnlyCollection<INotifyCollectionChanged> Sources => new ReadOnlyCollection<INotifyCollectionChanged>(new []{Source});
-		public override ReadOnlyCollection<IReadScalar<INotifyCollectionChanged>> SourceScalars => new ReadOnlyCollection<IReadScalar<INotifyCollectionChanged>>(new []{SourceScalar});
+		public override ReadOnlyCollection<object> Sources => new ReadOnlyCollection<object>(new object[]{Source, SourceScalar});
 
 		[ObservableComputationsCall]
 		public IndicesComputing(
@@ -50,7 +49,7 @@ namespace ObservableComputations
 			int initialCapacity = 0) : base(getSource(source, predicateExpression, initialCapacity), pair => pair.LeftItem) 
 		{
 			_predicateExpression = predicateExpression;
-			_source = source;
+			_sourceIndicesComputing = source;
 		}
 
 		private static INotifyCollectionChanged getSource(
@@ -97,9 +96,9 @@ namespace ObservableComputations
 		}
 
 		[ExcludeFromCodeCoverage]
-		internal void ValidateInternalConsistency()
+		internal new void ValidateInternalConsistency()
 		{
-			IList<TSourceItem> source = _sourceScalar.getValue(_source, new ObservableCollection<TSourceItem>()) as IList<TSourceItem>;
+			IList<TSourceItem> source = _sourceScalar.getValue(_sourceIndicesComputing, new ObservableCollection<TSourceItem>()) as IList<TSourceItem>;
 			Func<TSourceItem, bool> predicate = _predicateExpression.Compile();
 
 			List<int> result = new List<int>();

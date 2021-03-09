@@ -6,9 +6,9 @@ using System;
 
 namespace ObservableComputations
 {
-	public interface IScalar<TValue> : System.ComponentModel.INotifyPropertyChanged
+	public interface IScalar<TValue> : IReadScalar<TValue>, IWriteScalar<TValue>
 	{
-		TValue Value { get; set;}
+
 	}
 
 	public interface IScalar : System.ComponentModel.INotifyPropertyChanged

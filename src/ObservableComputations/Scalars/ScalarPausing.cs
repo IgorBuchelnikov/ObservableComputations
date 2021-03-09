@@ -4,12 +4,13 @@
 
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Diagnostics.CodeAnalysis;
 
 namespace ObservableComputations
 {
-	public class ScalarPausing<TResult> : ScalarComputing<TResult>
+	public class ScalarPausing<TResult> : ScalarComputing<TResult>, IHasSources
 	{
 		public IReadScalar<TResult> Source => _source;
 		private readonly IReadScalar<TResult> _source;
@@ -17,6 +18,9 @@ namespace ObservableComputations
 		public IReadScalar<int?> LastChangesToApplyOnResumeCountScalar => _lastChangesToApplyOnResumeCountScalar;
 
 		public bool Resuming => _resuming;
+
+		public virtual ReadOnlyCollection<object> Sources => new ReadOnlyCollection<object>(new object[]{Source});
+
 
 		private readonly IReadScalar<bool> _isPausedScalar;
 

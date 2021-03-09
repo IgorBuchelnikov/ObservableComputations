@@ -64,7 +64,7 @@ namespace ObservableComputations
 
 		static EventUnsubscriber()
 		{
-			_threadsCount = Configuration.EventUnsubscriberThreadsCount;
+			_threadsCount = OcConfiguration.EventUnsubscriberThreadsCount;
 			_newSubscriptionManualResetEvents = new ManualResetEventSlim[_threadsCount];
 			__threads = new Thread[_threadsCount];
 

@@ -11,7 +11,7 @@ using System.Linq;
 
 namespace ObservableComputations
 {
-	public class Skipping<TSourceItem> : Taking<TSourceItem>, IHasSourceCollections
+	public class Skipping<TSourceItem> : Taking<TSourceItem>, IHasSources
 	{
 		public override IReadScalar<INotifyCollectionChanged> SourceScalar => _sourceScalarSkipping;
 
@@ -24,8 +24,7 @@ namespace ObservableComputations
 		// ReSharper disable once MemberCanBePrivate.Global
 		public int SkippingCount => _skippingCount;
 
-		public override ReadOnlyCollection<INotifyCollectionChanged> Sources => new ReadOnlyCollection<INotifyCollectionChanged>(new []{Source});
-		public override ReadOnlyCollection<IReadScalar<INotifyCollectionChanged>> SourceScalars => new ReadOnlyCollection<IReadScalar<INotifyCollectionChanged>>(new []{SourceScalar});
+		public override ReadOnlyCollection<object> Sources => new ReadOnlyCollection<object>(new object[]{Source, SourceScalar});
 
 		private readonly IReadScalar<INotifyCollectionChanged> _sourceScalarSkipping;
 		private readonly INotifyCollectionChanged _sourceSkipping;
@@ -105,7 +104,7 @@ namespace ObservableComputations
 		}
 
 		[ExcludeFromCodeCoverage]
-		internal void ValidateInternalConsistency()
+		internal new void ValidateInternalConsistency()
 		{
 			IList<TSourceItem> source = _sourceScalarSkipping.getValue(_sourceSkipping, new ObservableCollection<TSourceItem>()) as IList<TSourceItem>;
 			int count = _skippingCountScalar.getValue(_skippingCount);

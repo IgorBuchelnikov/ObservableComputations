@@ -10,7 +10,7 @@ using System.Linq;
 
 namespace ObservableComputations
 {
-	public class Distincting<TSourceItem> : Selecting<Group<TSourceItem, TSourceItem>, TSourceItem>, IHasSourceCollections
+	public class Distincting<TSourceItem> : Selecting<Group<TSourceItem, TSourceItem>, TSourceItem>, IHasSources
 	{
 		// ReSharper disable once UnusedMember.Local
 		public override IReadScalar<INotifyCollectionChanged> SourceScalar => _sourceScalar;
@@ -18,20 +18,19 @@ namespace ObservableComputations
 		public virtual IReadScalar<IEqualityComparer<TSourceItem>> EqualityComparerScalar => _equalityComparerScalar;
 
 		// ReSharper disable once MemberCanBePrivate.Global
-		public override INotifyCollectionChanged Source => _source;
+		public override INotifyCollectionChanged Source => _sourceDistincting;
 
 		public IEqualityComparer<TSourceItem> EqualityComparer => _equalityComparer;
 
-		public override ReadOnlyCollection<INotifyCollectionChanged> Sources => new ReadOnlyCollection<INotifyCollectionChanged>(new []{Source});
-		public override ReadOnlyCollection<IReadScalar<INotifyCollectionChanged>> SourceScalars => new ReadOnlyCollection<IReadScalar<INotifyCollectionChanged>>(new []{SourceScalar});
+		public override ReadOnlyCollection<object> Sources => new ReadOnlyCollection<object>(new object[]{Source, SourceScalar});
 
 		protected IReadScalar<IEqualityComparer<TSourceItem>> _equalityComparerScalar;
 
 		protected IEqualityComparer<TSourceItem> _equalityComparer;
 		private readonly IReadScalar<INotifyCollectionChanged> _sourceScalar;
-		private readonly INotifyCollectionChanged _source;
+		private readonly INotifyCollectionChanged _sourceDistincting;
 
-		public override int InitialCapacity => ((IHasInitialCapacity)base._source).InitialCapacity;
+		public override int InitialCapacity => ((IHasInitialCapacity) _source).InitialCapacity;
 
 		[ObservableComputationsCall]
 		public Distincting(
@@ -49,7 +48,7 @@ namespace ObservableComputations
 			IReadScalar<IEqualityComparer<TSourceItem>> equalityComparerScalar = null,
 			int initialCapacity = 0) : base(getSource(source, equalityComparerScalar, initialCapacity), g => g.Key)
 		{
-			_source = source;
+			_sourceDistincting = source;
 			_equalityComparerScalar = equalityComparerScalar;
 		}
 
@@ -59,7 +58,7 @@ namespace ObservableComputations
 			IEqualityComparer<TSourceItem> equalityComparer,
 			int initialCapacity = 0) : base(getSource(source, equalityComparer, initialCapacity), g => g.Key)
 		{
-			_source = source;
+			_sourceDistincting = source;
 			_equalityComparer = equalityComparer;
 		}
 
@@ -100,7 +99,7 @@ namespace ObservableComputations
 		[ExcludeFromCodeCoverage]
 		public new void ValidateInternalConsistency()
 		{
-			IList<TSourceItem> source = (IList<TSourceItem>) _sourceScalar.getValue(_source, new ObservableCollection<TSourceItem>());
+			IList<TSourceItem> source = (IList<TSourceItem>) _sourceScalar.getValue(_sourceDistincting, new ObservableCollection<TSourceItem>());
 			IEqualityComparer<TSourceItem> equalityComparer = _equalityComparerScalar.getValue(_equalityComparer);
 			if (_equalityComparerScalar == null)
 				equalityComparer = EqualityComparer<TSourceItem>.Default;

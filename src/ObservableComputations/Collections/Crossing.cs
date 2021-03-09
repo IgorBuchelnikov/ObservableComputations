@@ -9,7 +9,7 @@
 
 //namespace ObservableComputations
 //{
-//	internal class Crossing<TOuterSourceItem, TInnerSourceItem> : CollectionComputing<JoinPair<TOuterSourceItem, TInnerSourceItem>>, IHasSourceCollections
+//	internal class Crossing<TOuterSourceItem, TInnerSourceItem> : CollectionComputing<JoinPair<TOuterSourceItem, TInnerSourceItem>>, IHasSources
 //	{
 //		// ReSharper disable once MemberCanBePrivate.Global
 //		// ReSharper disable once UnusedMember.Global

@@ -10,7 +10,7 @@ using System.Linq;
 
 namespace ObservableComputations
 {
-	public class OfTypeComputing<TResultItem> : Casting<TResultItem>, IHasSourceCollections
+	public class OfTypeComputing<TResultItem> : Casting<TResultItem>, IHasSources
 	{
 		public override IReadScalar<INotifyCollectionChanged> SourceScalar => _sourceScalarOfTypeComputing;
 
@@ -19,8 +19,7 @@ namespace ObservableComputations
 		private readonly IReadScalar<INotifyCollectionChanged> _sourceScalarOfTypeComputing;
 		private readonly INotifyCollectionChanged _sourceOfTypeComputing;
 
-		public override ReadOnlyCollection<INotifyCollectionChanged> Sources => new ReadOnlyCollection<INotifyCollectionChanged>(new []{Source});
-		public override ReadOnlyCollection<IReadScalar<INotifyCollectionChanged>> SourceScalars => new ReadOnlyCollection<IReadScalar<INotifyCollectionChanged>>(new []{SourceScalar});
+		public override ReadOnlyCollection<object> Sources => new ReadOnlyCollection<object>(new object[]{Source, SourceScalar});
 
 		// ReSharper disable once MemberCanBePrivate.Global
 
@@ -50,7 +49,7 @@ namespace ObservableComputations
 
 		// ReSharper disable once InconsistentNaming
 		[ExcludeFromCodeCoverage]
-		internal void ValidateInternalConsistency()
+		internal new void ValidateInternalConsistency()
 		{
 			IList source = _sourceScalarOfTypeComputing.getValue(_sourceOfTypeComputing, new ObservableCollection<object>()) as IList;
 

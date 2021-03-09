@@ -13,7 +13,7 @@ using System.Linq.Expressions;
 
 namespace ObservableComputations
 {
-	public class Averaging<TSourceItem, TResult> : Computing<TResult>, IHasSourceCollections
+	public class Averaging<TSourceItem, TResult> : Computing<TResult>, IHasSources
 	{
 		// ReSharper disable once MemberCanBePrivate.Global
 		public virtual IReadScalar<INotifyCollectionChanged> SourceScalar => _sourceScalar;
@@ -21,8 +21,7 @@ namespace ObservableComputations
 		// ReSharper disable once MemberCanBePrivate.Global
 		public virtual INotifyCollectionChanged Source => _source;
 
-		public virtual ReadOnlyCollection<INotifyCollectionChanged> Sources => new ReadOnlyCollection<INotifyCollectionChanged>(new []{Source});
-		public virtual ReadOnlyCollection<IReadScalar<INotifyCollectionChanged>> SourceScalars => new ReadOnlyCollection<IReadScalar<INotifyCollectionChanged>>(new []{SourceScalar});
+		public virtual ReadOnlyCollection<object> Sources => new ReadOnlyCollection<object>(new object[]{Source, SourceScalar});
 
 		private readonly IReadScalar<INotifyCollectionChanged> _sourceScalar;
 		private readonly INotifyCollectionChanged _source;

@@ -11,7 +11,7 @@ using System.Linq;
 
 namespace ObservableComputations
 {
-	public class Taking<TSourceItem> : Selecting<ZipPair<int, TSourceItem>, TSourceItem>, IHasSourceCollections
+	public class Taking<TSourceItem> : Selecting<ZipPair<int, TSourceItem>, TSourceItem>, IHasSources
 	{
 		public override IReadScalar<INotifyCollectionChanged> SourceScalar => _sourceScalarTaking;
 
@@ -27,8 +27,7 @@ namespace ObservableComputations
 		// ReSharper disable once MemberCanBePrivate.Global
 		public IReadScalar<int> StartIndexScalar => _startIndexScalar;
 
-		public override ReadOnlyCollection<INotifyCollectionChanged> Sources => new ReadOnlyCollection<INotifyCollectionChanged>(new []{Source});
-		public override ReadOnlyCollection<IReadScalar<INotifyCollectionChanged>> SourceScalars => new ReadOnlyCollection<IReadScalar<INotifyCollectionChanged>>(new []{SourceScalar});
+		public override ReadOnlyCollection<object> Sources => new ReadOnlyCollection<object>(new object[]{Source, SourceScalar});
 
 		public override int InitialCapacity => ((IHasInitialCapacity)base._source).InitialCapacity;
 
@@ -255,7 +254,7 @@ namespace ObservableComputations
 		}
 
 		[ExcludeFromCodeCoverage]
-		internal void ValidateInternalConsistency()
+		internal new void ValidateInternalConsistency()
 		{
 			IList<TSourceItem> source = _sourceScalarTaking.getValue(_sourceTaking, new ObservableCollection<TSourceItem>()) as IList<TSourceItem>;
 			int startIndex = _startIndexScalar.getValue(_startIndex);

@@ -12,17 +12,16 @@ using System.Linq;
 
 namespace ObservableComputations
 {
-	public class Reversing<TSourceItem> : Selecting<ZipPair<int, TSourceItem>, TSourceItem>, IHasSourceCollections
+	public class Reversing<TSourceItem> : Selecting<ZipPair<int, TSourceItem>, TSourceItem>, IHasSources
 	{
 		public override IReadScalar<INotifyCollectionChanged> SourceScalar => _sourceScalar;
 
 		// ReSharper disable once MemberCanBePrivate.Global
-		public override INotifyCollectionChanged Source => _source;
+		public override INotifyCollectionChanged Source => _sourceReversing;
 		private readonly IReadScalar<INotifyCollectionChanged> _sourceScalar;
-		private readonly INotifyCollectionChanged _source;
+		private readonly INotifyCollectionChanged _sourceReversing;
 
-		public override ReadOnlyCollection<INotifyCollectionChanged> Sources => new ReadOnlyCollection<INotifyCollectionChanged>(new []{Source});
-		public override ReadOnlyCollection<IReadScalar<INotifyCollectionChanged>> SourceScalars => new ReadOnlyCollection<IReadScalar<INotifyCollectionChanged>>(new []{SourceScalar});
+		public override ReadOnlyCollection<object> Sources => new ReadOnlyCollection<object>(new object[]{Source, SourceScalar});
 
 		// ReSharper disable once MemberCanBePrivate.Global
 		[ObservableComputationsCall]
@@ -38,7 +37,7 @@ namespace ObservableComputations
 			INotifyCollectionChanged source)
 			: base(getSource(source), zipPair => zipPair.RightItem)
 		{
-			_source = source;
+			_sourceReversing = source;
 		}
 
 		private static INotifyCollectionChanged getSource(
@@ -60,9 +59,9 @@ namespace ObservableComputations
 		}
 
 		[ExcludeFromCodeCoverage]
-		internal void ValidateInternalConsistency()
+		internal new void ValidateInternalConsistency()
 		{
-			IList<TSourceItem> source = _sourceScalar.getValue(_source, new ObservableCollection<TSourceItem>()) as IList<TSourceItem>;
+			IList<TSourceItem> source = _sourceScalar.getValue(_sourceReversing, new ObservableCollection<TSourceItem>()) as IList<TSourceItem>;
 
 			// ReSharper disable once AssignNullToNotNullAttribute
 			if (!this.SequenceEqual(source.Reverse()))

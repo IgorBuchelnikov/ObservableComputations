@@ -12,15 +12,14 @@ using System.Linq;
 
 namespace ObservableComputations
 {
-	public class CollectionDispatching<TSourceItem> : CollectionComputing<TSourceItem>, IHasSourceCollections, ISourceIndexerPropertyTracker
+	public class CollectionDispatching<TSourceItem> : CollectionComputing<TSourceItem>, IHasSources, ISourceIndexerPropertyTracker
 	{
 		public virtual INotifyCollectionChanged Source => _source;
 		public virtual IReadScalar<INotifyCollectionChanged> SourceScalar => _sourceScalar;
 		public IOcDispatcher DestinationOcDispatcher => _destinationOcDispatcher;
 		public IOcDispatcher SourceOcDispatcher => _sourceOcDispatcher;
 
-		public virtual ReadOnlyCollection<INotifyCollectionChanged> Sources => new ReadOnlyCollection<INotifyCollectionChanged>(new []{Source});
-		public virtual ReadOnlyCollection<IReadScalar<INotifyCollectionChanged>> SourceScalars => new ReadOnlyCollection<IReadScalar<INotifyCollectionChanged>>(new []{SourceScalar});
+		public virtual ReadOnlyCollection<object> Sources => new ReadOnlyCollection<object>(new object[]{Source, SourceScalar});
 
 		public int DestinationOcDispatcherPriority => _destinationOcDispatcherPriority;
 		public int SourceOcDispatcherPriority => _sourceOcDispatcherPriority;

@@ -16,7 +16,7 @@ namespace ObservableComputations.Test
 			[Values(true, false)] bool debug,
 			[Values(true, false)]bool secondAsync)
 		{
-			Configuration.SaveOcDispatcherInvokingStackTrace = debug;
+			OcConfiguration.SaveOcDispatcherInvokingStackTrace = debug;
 
 			object context = new object();
 			OcDispatcher dispatcher = new OcDispatcher(2);
@@ -84,7 +84,7 @@ namespace ObservableComputations.Test
 			[Values(true, false)] bool debug, 
 			[Values(true, false)] bool secondAsync)
 		{
-			Configuration.SaveOcDispatcherInvokingStackTrace = debug;
+			OcConfiguration.SaveOcDispatcherInvokingStackTrace = debug;
 
 			object context = new object();
 			object state = new object();
@@ -284,7 +284,7 @@ namespace ObservableComputations.Test
 		[Test]
 		public void TestSetThreadProperites()
 		{
-			Configuration.SaveInstantiatingStackTrace = true;
+			OcConfiguration.SaveInstantiatingStackTrace = true;
 			OcDispatcher dispatcher = new OcDispatcher(2);
 			Assert.AreEqual(dispatcher.GetQueueCount(0), 0);
 			Assert.IsTrue(dispatcher.InstantiatingStackTrace != null);
@@ -493,7 +493,7 @@ namespace ObservableComputations.Test
 		[Test]
 		public void DoerTest()
 		{
-			Configuration.SaveOcDispatcherDoingStackTrace = true;
+			OcConfiguration.SaveOcDispatcherDoingStackTrace = true;
 			OcDispatcher dispatcher = new OcDispatcher();
 			ManualResetEventSlim mre = new ManualResetEventSlim(false);
 

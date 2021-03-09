@@ -3,14 +3,14 @@
 // The LICENSE file is located at https://github.com/IgorBuchelnikov/ObservableComputations/blob/master/LICENSE
 
 using System;
+using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq.Expressions;
 
 namespace ObservableComputations
 {
-	public class Binding<TValue> : ScalarComputing<TValue>
+	public class Binding<TValue> : ScalarComputing<TValue>, IHasSources
 	{
-		readonly Expression<Func<TValue>> _getSourceExpression;
 		// ReSharper disable once PrivateFieldCanBeConvertedToLocalVariable
 		IReadScalar<TValue> _source;
 		// ReSharper disable once PrivateFieldCanBeConvertedToLocalVariable
@@ -21,6 +21,8 @@ namespace ObservableComputations
 		public Action<TValue, Binding<TValue>> ModifyTargetAction => _modifyTargetAction;
 
 		public IReadScalar<TValue> Source => _source;
+
+		public virtual ReadOnlyCollection<object> Sources => new ReadOnlyCollection<object>(new object[]{Source});
 
 		private bool _applyOnActivation;
 		public bool ApplyOnActivation

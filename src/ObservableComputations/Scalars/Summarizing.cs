@@ -11,12 +11,11 @@ using System.Linq.Expressions;
 
 namespace ObservableComputations
 {
-	public class Summarizing<TSourceItem> : Aggregating<TSourceItem, TSourceItem>, IHasSourceCollections
+	public class Summarizing<TSourceItem> : Aggregating<TSourceItem, TSourceItem>, IHasSources
 	{
 		public override IReadScalar<INotifyCollectionChanged> SourceScalar => _sourceScalarSummarizing;
 
-		public override ReadOnlyCollection<INotifyCollectionChanged> Sources => new ReadOnlyCollection<INotifyCollectionChanged>(new []{Source});
-		public override ReadOnlyCollection<IReadScalar<INotifyCollectionChanged>> SourceScalars => new ReadOnlyCollection<IReadScalar<INotifyCollectionChanged>>(new []{SourceScalar});
+		public override ReadOnlyCollection<object> Sources => new ReadOnlyCollection<object>(new object[]{Source, SourceScalar});
 
 		// ReSharper disable once MemberCanBePrivate.Global
 		public override INotifyCollectionChanged Source => _sourceSummarizing;
@@ -89,7 +88,7 @@ namespace ObservableComputations
 		}
 
 		[ExcludeFromCodeCoverage]
-		internal void ValidateInternalConsistency()
+		internal new void ValidateInternalConsistency()
 		{
 			IList<TSourceItem> source = _sourceScalarSummarizing.getValue(_sourceSummarizing, new ObservableCollection<TSourceItem>()) as IList<TSourceItem>;
 

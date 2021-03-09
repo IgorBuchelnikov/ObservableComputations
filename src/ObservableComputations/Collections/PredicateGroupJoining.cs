@@ -13,7 +13,7 @@ using System.Linq.Expressions;
 
 namespace ObservableComputations
 {
-	public class PredicateGroupJoining<TOuterSourceItem, TInnerSourceItem> : Selecting<TOuterSourceItem, PredicateJoinGroup<TOuterSourceItem, TInnerSourceItem>>, IHasSourceCollections
+	public class PredicateGroupJoining<TOuterSourceItem, TInnerSourceItem> : Selecting<TOuterSourceItem, PredicateJoinGroup<TOuterSourceItem, TInnerSourceItem>>, IHasSources
 	{
 		public IReadScalar<INotifyCollectionChanged> OuterSourceScalar => _outerSourceScalar;
 
@@ -26,8 +26,7 @@ namespace ObservableComputations
 		// ReSharper disable once MemberCanBePrivate.Global
 		public INotifyCollectionChanged InnerSource => _innerSource;
 
-		public override ReadOnlyCollection<INotifyCollectionChanged> Sources => new ReadOnlyCollection<INotifyCollectionChanged>(new []{OuterSource, InnerSource});
-		public override ReadOnlyCollection<IReadScalar<INotifyCollectionChanged>> SourceScalars => new ReadOnlyCollection<IReadScalar<INotifyCollectionChanged>>(new []{OuterSourceScalar, InnerSourceScalar});
+		public override ReadOnlyCollection<object> Sources => new ReadOnlyCollection<object>(new object[]{OuterSource, InnerSource, OuterSourceScalar, InnerSourceScalar});
 
 		// ReSharper disable once MemberCanBePrivate.Global
 		public Expression<Func<TOuterSourceItem, TInnerSourceItem, bool>> JoinPredicateExpression => _joinPredicateExpression;
@@ -127,7 +126,7 @@ namespace ObservableComputations
 		}
 
 		[ExcludeFromCodeCoverage]
-		internal void ValidateInternalConsistency()
+		internal new void ValidateInternalConsistency()
 		{
 			IList<TOuterSourceItem> outerSource = (IList<TOuterSourceItem>) _outerSourceScalar.getValue(_outerSource, new ObservableCollection<TOuterSourceItem>());
 			IList<TInnerSourceItem> innerSource = (IList<TInnerSourceItem>) _innerSourceScalar.getValue(_innerSource, new ObservableCollection<TInnerSourceItem>());

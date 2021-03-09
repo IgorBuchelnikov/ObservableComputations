@@ -12,15 +12,14 @@ using System.Linq.Expressions;
 
 namespace ObservableComputations
 {
-	public class ContainsComputing<TSourceItem> : AnyComputing<TSourceItem>, IHasSourceCollections
+	public class ContainsComputing<TSourceItem> : AnyComputing<TSourceItem>, IHasSources
 	{
 		public override IReadScalar<INotifyCollectionChanged> SourceScalar => _sourceScalarContainsComputing;
 
 		// ReSharper disable once MemberCanBePrivate.Global
 		public override INotifyCollectionChanged Source => _sourceContainsComputing;
 
-		public override ReadOnlyCollection<INotifyCollectionChanged> Sources => new ReadOnlyCollection<INotifyCollectionChanged>(new []{Source});
-		public override ReadOnlyCollection<IReadScalar<INotifyCollectionChanged>> SourceScalars => new ReadOnlyCollection<IReadScalar<INotifyCollectionChanged>>(new []{SourceScalar});
+		public override ReadOnlyCollection<object> Sources => new ReadOnlyCollection<object>(new object[]{Source, SourceScalar});
 
 		// ReSharper disable once MemberCanBePrivate.Global
 		public IReadScalar<TSourceItem> ItemScalar => _itemScalar;
@@ -183,7 +182,7 @@ namespace ObservableComputations
 		}
 
 		[ExcludeFromCodeCoverage]
-		internal void ValidateInternalConsistency()
+		internal new void ValidateInternalConsistency()
 		{
 			IList<TSourceItem> source = (IList<TSourceItem>) _sourceScalarContainsComputing.getValue(_sourceContainsComputing, new ObservableCollection<TSourceItem>());
 			TSourceItem sourceItem = _itemScalar.getValue(_item);

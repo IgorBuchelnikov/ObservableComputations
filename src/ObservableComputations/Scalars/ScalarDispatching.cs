@@ -3,12 +3,13 @@
 // The LICENSE file is located at https://github.com/IgorBuchelnikov/ObservableComputations/blob/master/LICENSE
 
 using System;
+using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Diagnostics.CodeAnalysis;
 
 namespace ObservableComputations
 {
-	public class ScalarDispatching<TResult> : ScalarComputing<TResult>
+	public class ScalarDispatching<TResult> : ScalarComputing<TResult>, IHasSources
 	{
 		public IReadScalar<TResult> Source => _source;
 		public IOcDispatcher DestinationOcDispatcher => _destinationOcDispatcher;
@@ -18,6 +19,8 @@ namespace ObservableComputations
 		public int SourceOcDispatcherPriority => _sourceOcDispatcherPriority;
 		public object DestinationOcDispatcherParameter => _destinationOcDispatcherParameter;
 		public object SourceOcDispatcherParameter => _sourceOcDispatcherParameter;
+
+		public virtual ReadOnlyCollection<object> Sources => new ReadOnlyCollection<object>(new object[]{Source});
 
 		private readonly IOcDispatcher _destinationOcDispatcher;
 		private readonly IOcDispatcher _sourceOcDispatcher;

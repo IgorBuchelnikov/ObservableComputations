@@ -13,7 +13,7 @@ using System.Linq.Expressions;
 
 namespace ObservableComputations
 {
-	public class SkippingWhile<TSourceItem> : Selecting<ZipPair<int, TSourceItem>, TSourceItem>, IHasSourceCollections
+	public class SkippingWhile<TSourceItem> : Selecting<ZipPair<int, TSourceItem>, TSourceItem>, IHasSources
 	{
 		public override IReadScalar<INotifyCollectionChanged> SourceScalar => _sourceScalarSkippingWhile;
 
@@ -24,8 +24,7 @@ namespace ObservableComputations
 		public Expression<Func<TSourceItem, bool>> PredicateExpression => _predicateExpression;
 		public Expression<Func<TSourceItem, int, bool>> IndexedPredicateExpression => _indexedPredicateExpression;
 
-		public override ReadOnlyCollection<INotifyCollectionChanged> Sources => new ReadOnlyCollection<INotifyCollectionChanged>(new []{Source});
-		public override ReadOnlyCollection<IReadScalar<INotifyCollectionChanged>> SourceScalars => new ReadOnlyCollection<IReadScalar<INotifyCollectionChanged>>(new []{SourceScalar});
+		public override ReadOnlyCollection<object> Sources => new ReadOnlyCollection<object>(new object[]{Source, SourceScalar});
 
 		public override int InitialCapacity => ((IHasInitialCapacity)_source).InitialCapacity;
 
@@ -150,7 +149,7 @@ namespace ObservableComputations
 		}
 
 		[ExcludeFromCodeCoverage]
-		internal void ValidateInternalConsistency()
+		internal new void ValidateInternalConsistency()
 		{
 			IList<TSourceItem> source = _sourceScalarSkippingWhile.getValue(_sourceSkippingWhile, new ObservableCollection<TSourceItem>()) as IList<TSourceItem>;
 			OcConsumer ocConsumer = new OcConsumer();

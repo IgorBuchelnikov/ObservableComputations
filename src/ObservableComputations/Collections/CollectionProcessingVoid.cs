@@ -11,7 +11,7 @@ using System.Linq;
 
 namespace ObservableComputations
 {
-	public class CollectionProcessingVoid<TSourceItem> : CollectionComputing<TSourceItem>, IHasSourceCollections, ISourceIndexerPropertyTracker, ISourceCollectionChangeProcessor
+	public class CollectionProcessingVoid<TSourceItem> : CollectionComputing<TSourceItem>, IHasSources, ISourceIndexerPropertyTracker, ISourceCollectionChangeProcessor
 	{
 		// ReSharper disable once MemberCanBePrivate.Global
 		public virtual IReadScalar<INotifyCollectionChanged> SourceScalar => _sourceScalar;
@@ -19,8 +19,7 @@ namespace ObservableComputations
 		// ReSharper disable once MemberCanBePrivate.Global
 		public virtual INotifyCollectionChanged Source => _source;
 
-		public virtual ReadOnlyCollection<INotifyCollectionChanged> Sources => new ReadOnlyCollection<INotifyCollectionChanged>(new []{Source});
-		public virtual ReadOnlyCollection<IReadScalar<INotifyCollectionChanged>> SourceScalars => new ReadOnlyCollection<IReadScalar<INotifyCollectionChanged>>(new []{SourceScalar});
+		public virtual ReadOnlyCollection<object> Sources => new ReadOnlyCollection<object>(new object[]{Source, SourceScalar});
 
 		public Action<TSourceItem[], CollectionProcessingVoid<TSourceItem>> NewItemsProcessor => _newItemsProcessor;
 		public Action<TSourceItem[], CollectionProcessingVoid<TSourceItem>> OldItemsProcessor => _oldItemsProcessor;
@@ -202,7 +201,7 @@ namespace ObservableComputations
 
 		private void processNewItems(TSourceItem[] sourceItems)
 		{
-			if (Configuration.TrackComputingsExecutingUserCode)
+			if (OcConfiguration.TrackComputingsExecutingUserCode)
 			{
 				int currentThreadId = Utils.startComputingExecutingUserCode(out IComputing computing, out _userCodeIsCalledFrom, this);
 				_newItemsProcessor(sourceItems, this);
@@ -215,7 +214,7 @@ namespace ObservableComputations
 
 		private void processOldItems(TSourceItem[] sourceItems)
 		{
-			if (Configuration.TrackComputingsExecutingUserCode)
+			if (OcConfiguration.TrackComputingsExecutingUserCode)
 			{
 				int currentThreadId = Utils.startComputingExecutingUserCode(out IComputing computing, out _userCodeIsCalledFrom, this);
 				_oldItemsProcessor(sourceItems, this);
@@ -229,7 +228,7 @@ namespace ObservableComputations
 
 		private void processMovedItem(TSourceItem sourceItem)
 		{
-			if (Configuration.TrackComputingsExecutingUserCode)
+			if (OcConfiguration.TrackComputingsExecutingUserCode)
 			{
 				int currentThreadId = Utils.startComputingExecutingUserCode(out IComputing computing, out _userCodeIsCalledFrom, this);
 				_moveItemProcessor(sourceItem, this);

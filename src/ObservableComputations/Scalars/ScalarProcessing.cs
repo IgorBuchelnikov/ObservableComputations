@@ -3,14 +3,17 @@
 // The LICENSE file is located at https://github.com/IgorBuchelnikov/ObservableComputations/blob/master/LICENSE
 
 using System;
+using System.Collections.ObjectModel;
 using System.ComponentModel;
 
 namespace ObservableComputations
 {
-	public class ScalarProcessing<TValue, TReturnValue> : ScalarComputing<TReturnValue>
+	public class ScalarProcessing<TValue, TReturnValue> : ScalarComputing<TReturnValue>, IHasSources
 	{
 		public IReadScalar<TValue> Source => _source;
 		public Func<TValue, IScalarComputing, TReturnValue> NewValueProcessor => _newValueProcessor;
+
+		public virtual ReadOnlyCollection<object> Sources => new ReadOnlyCollection<object>(new object[]{Source});
 
 		private readonly IReadScalar<TValue> _source;
 
@@ -65,7 +68,7 @@ namespace ObservableComputations
 
 		private TReturnValue processNewValue(TValue newValue)
 		{
-			if (Configuration.TrackComputingsExecutingUserCode)
+			if (OcConfiguration.TrackComputingsExecutingUserCode)
 			{
 				int currentThreadId = Utils.startComputingExecutingUserCode(out IComputing computing, out _userCodeIsCalledFrom, this);
 				TReturnValue returnValue = _newValueProcessor(newValue, this);
@@ -83,7 +86,7 @@ namespace ObservableComputations
 		{
 			if (_oldValueProcessor == null) return;
 
-			if (Configuration.TrackComputingsExecutingUserCode)
+			if (OcConfiguration.TrackComputingsExecutingUserCode)
 			{
 				int currentThreadId = Utils.startComputingExecutingUserCode(out IComputing computing, out _userCodeIsCalledFrom, this);
 				_oldValueProcessor(oldValue, this, _value);

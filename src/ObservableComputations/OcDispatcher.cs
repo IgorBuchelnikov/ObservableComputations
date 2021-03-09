@@ -88,7 +88,7 @@ namespace ObservableComputations
 						_invoker));
 			}
 
-			if (Configuration.SaveOcDispatcherDoingStackTrace)
+			if (OcConfiguration.SaveOcDispatcherDoingStackTrace)
 				_doingStackTrace = Environment.StackTrace;
 
 			_doer = originalExecutingInvocation;
@@ -157,18 +157,13 @@ namespace ObservableComputations
 		internal readonly ConcurrentQueue<Invocation>[] _invocationQueues;
 		private readonly ManualResetEventSlim _newInvocationManualResetEvent = new ManualResetEventSlim(false);
 		private bool _isRunning = true;
-		private bool _isDisposed;
 		internal readonly Thread _thread;
 		internal readonly int _managedThreadId;
 		private NewInvocationBehaviour _newInvocationBehaviour;
 		private OcDispatcherStatus _status;
 		internal Invocation _doingInvocation;
-		private Invocation _failedInvocation;
-
-		public event EventHandler Failed; 
 
 		public Invocation DoingInvocation => _doingInvocation;
-		public Invocation FailedInvocation => _failedInvocation;
 
 		public static OcDispatcher Current => 
 			StaticInfo._ocDispatchers.TryGetValue(Thread.CurrentThread, out OcDispatcher ocDispatcher) 
@@ -207,7 +202,7 @@ namespace ObservableComputations
 		private static string getCallStackTrace()
 		{
 			string callStackTrace = null;
-			if (Configuration.SaveOcDispatcherInvokingStackTrace)
+			if (OcConfiguration.SaveOcDispatcherInvokingStackTrace)
 				callStackTrace = Environment.StackTrace;
 			return callStackTrace;
 		}
@@ -225,7 +220,7 @@ namespace ObservableComputations
 			int prioritiesNumber = 1,
 			ApartmentState threadApartmentState = ApartmentState.Unknown)
 		{
-			if (Configuration.SaveInstantiatingStackTrace)
+			if (OcConfiguration.SaveInstantiatingStackTrace)
 				_instantiatingStackTrace = Environment.StackTrace;
 
 			_highestPriority = prioritiesNumber - 1;

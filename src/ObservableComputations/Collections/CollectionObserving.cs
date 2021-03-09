@@ -12,7 +12,7 @@
 
 //namespace ObservableComputations
 //{
-//	public class CollectionObserving<TSourceItem> : CollectionComputing<TSourceItem>, IHasSourceCollections
+//	public class CollectionObserving<TSourceItem> : CollectionComputing<TSourceItem>, IHasSources
 //	{
 //		public virtual INotifyCollectionChanged Source => _source;
 //		public virtual IReadScalar<INotifyCollectionChanged> SourceScalar => _sourceScalar;

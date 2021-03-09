@@ -12,7 +12,7 @@ using System.Linq.Expressions;
 
 namespace ObservableComputations
 {
-	public class GroupJoining<TOuterSourceItem, TInnerSourceItem, TKey> : CollectionComputing<JoinGroup<TOuterSourceItem, TInnerSourceItem, TKey>>, IHasSourceCollections, ISourceItemChangeProcessor, ISourceCollectionChangeProcessor
+	public class GroupJoining<TOuterSourceItem, TInnerSourceItem, TKey> : CollectionComputing<JoinGroup<TOuterSourceItem, TInnerSourceItem, TKey>>, IHasSources, ISourceItemChangeProcessor, ISourceCollectionChangeProcessor
 	{
 		// ReSharper disable once MemberCanBePrivate.Global
 		public IReadScalar<INotifyCollectionChanged> OuterSourceScalar => _outerSourceScalar;
@@ -32,8 +32,7 @@ namespace ObservableComputations
 
 		public Expression<Func<TOuterSourceItem, TKey>> OuterKeySelector => _outerKeySelectorExpressionOriginal;
 
-		public virtual ReadOnlyCollection<INotifyCollectionChanged> Sources => new ReadOnlyCollection<INotifyCollectionChanged>(new []{OuterSource, InnerSource});
-		public virtual ReadOnlyCollection<IReadScalar<INotifyCollectionChanged>> SourceScalars => new ReadOnlyCollection<IReadScalar<INotifyCollectionChanged>>(new []{OuterSourceScalar, InnerSourceScalar});
+		public virtual ReadOnlyCollection<object> Sources => new ReadOnlyCollection<object>(new object[]{OuterSource, InnerSource, OuterSourceScalar, InnerSourceScalar});
 
 		public Action<JoinGroup<TOuterSourceItem, TInnerSourceItem, TKey>, int, TInnerSourceItem> InsertItemIntoGroupRequestHandler
 		{
@@ -664,7 +663,7 @@ namespace ObservableComputations
 					? outerSelectorFunc() 
 					: _outerKeySelectorFunc(outerSourceItem);
 
-			if (Configuration.TrackComputingsExecutingUserCode)
+			if (OcConfiguration.TrackComputingsExecutingUserCode)
 			{
 				int currentThreadId = Utils.startComputingExecutingUserCode(out IComputing computing, out _userCodeIsCalledFrom, this);
 				TKey result = getValue();
@@ -685,7 +684,7 @@ namespace ObservableComputations
 		//			: _outerKeySelectorFunc(_outerSourceAsList[index]);
 		//	}
 
-		//	if (Configuration.TrackComputingsExecutingUserCode)
+		//	if (OcConfiguration.TrackComputingsExecutingUserCode)
 		//	{
 		//		int currentThreadId = Utils.startComputingExecutingUserCode(out IComputing computing, out _userCodeIsCalledFrom, this);
 		//		TKey result = getValue();
@@ -888,7 +887,7 @@ namespace ObservableComputations
 
 		protected override void InsertItem(int index, TInnerSourceItem item)
 		{
-			if (Configuration.TrackComputingsExecutingUserCode)
+			if (OcConfiguration.TrackComputingsExecutingUserCode)
 			{
 				int currentThreadId = Utils.startComputingExecutingUserCode(out IComputing computing, out _userCodeIsCalledFrom, this);
 				_groupJoining._insertItemIntoGroupRequestHandler(this, index, item);
@@ -901,7 +900,7 @@ namespace ObservableComputations
 
 		protected override void MoveItem(int oldIndex, int newIndex)
 		{
-			if (Configuration.TrackComputingsExecutingUserCode)
+			if (OcConfiguration.TrackComputingsExecutingUserCode)
 			{
 				int currentThreadId = Utils.startComputingExecutingUserCode(out IComputing computing, out _userCodeIsCalledFrom, this);
 				_groupJoining._moveItemInGroupRequestHandler(this, oldIndex, newIndex);
@@ -914,7 +913,7 @@ namespace ObservableComputations
 
 		protected override void RemoveItem(int index)
 		{
-			if (Configuration.TrackComputingsExecutingUserCode)
+			if (OcConfiguration.TrackComputingsExecutingUserCode)
 			{
 				int currentThreadId = Utils.startComputingExecutingUserCode(out IComputing computing, out _userCodeIsCalledFrom, this);
 				_groupJoining._removeItemFromGroupRequestHandler(this, index);
@@ -927,7 +926,7 @@ namespace ObservableComputations
 
 		protected override void SetItem(int index, TInnerSourceItem item)
 		{
-			if (Configuration.TrackComputingsExecutingUserCode)
+			if (OcConfiguration.TrackComputingsExecutingUserCode)
 			{
 				int currentThreadId = Utils.startComputingExecutingUserCode(out IComputing computing, out _userCodeIsCalledFrom, this);
 				_groupJoining._setGroupItemRequestHandler(this, index, item);
@@ -940,7 +939,7 @@ namespace ObservableComputations
 
 		protected override void ClearItems()
 		{
-			if (Configuration.TrackComputingsExecutingUserCode)
+			if (OcConfiguration.TrackComputingsExecutingUserCode)
 			{
 				int currentThreadId = Utils.startComputingExecutingUserCode(out IComputing computing, out _userCodeIsCalledFrom, this);
 				_groupJoining._clearGroupItemsRequestHandler(this);

@@ -14,7 +14,7 @@ using System.Linq.Expressions;
 namespace ObservableComputations
 {
 	// ReSharper disable once RedundantExtendsListEntry
-	public class HashSetting<TSourceItem, TKey> : ICollection<TKey>, IHasSourceCollections, IComputing, INotifyMethodChanged, ISourceItemChangeProcessor, ISourceCollectionChangeProcessor
+	public class HashSetting<TSourceItem, TKey> : ICollection<TKey>, IHasSources, IComputing, INotifyMethodChanged, ISourceItemChangeProcessor, ISourceCollectionChangeProcessor
 	{
 		// ReSharper disable once MemberCanBePrivate.Global
 		public virtual IReadScalar<INotifyCollectionChanged> SourceScalar => _sourceScalar;
@@ -31,8 +31,7 @@ namespace ObservableComputations
 
 		public string InstantiatingStackTrace => _instantiatingStackTrace;
 
-		public virtual ReadOnlyCollection<INotifyCollectionChanged> Sources => new ReadOnlyCollection<INotifyCollectionChanged>(new []{Source});
-		public virtual ReadOnlyCollection<IReadScalar<INotifyCollectionChanged>> SourceScalars => new ReadOnlyCollection<IReadScalar<INotifyCollectionChanged>>(new []{SourceScalar});
+		public virtual ReadOnlyCollection<object> Sources => new ReadOnlyCollection<object>(new object[]{Source, SourceScalar});
 
 		public string DebugTag { get; set; }
 		public object Tag { get; set; }
@@ -144,7 +143,7 @@ namespace ObservableComputations
 			Expression<Func<TSourceItem, TKey>> keySelectorExpression,
 			int sourceCapacity)
 		{
-			if (Configuration.SaveInstantiatingStackTrace) _instantiatingStackTrace = Environment.StackTrace;
+			if (OcConfiguration.SaveInstantiatingStackTrace) _instantiatingStackTrace = Environment.StackTrace;
 
 			Utils.construct(sourceCapacity, out _itemInfos, out _sourcePositions);
 
@@ -427,7 +426,7 @@ namespace ObservableComputations
 		{
 			TKey getValue() => _keySelectorContainsParametrizedObservableComputationsCalls ? itemInfo._keySelectorFunc() : _keySelectorFunc(sourceItem);
 
-			if (Configuration.TrackComputingsExecutingUserCode)
+			if (OcConfiguration.TrackComputingsExecutingUserCode)
 			{
 				int currentThreadId = Utils.startComputingExecutingUserCode(out IComputing computing, out _userCodeIsCalledFrom, this);
 				TKey result = getValue();
@@ -689,7 +688,7 @@ namespace ObservableComputations
 
 		public void Add(TKey item)
 		{
-			if (Configuration.TrackComputingsExecutingUserCode)
+			if (OcConfiguration.TrackComputingsExecutingUserCode)
 			{
 				int currentThreadId = Utils.startComputingExecutingUserCode(out IComputing computing, out _userCodeIsCalledFrom, this);
 				_addItemRequestHandler(item);
@@ -702,7 +701,7 @@ namespace ObservableComputations
 
 		public void Clear()
 		{
-			if (Configuration.TrackComputingsExecutingUserCode)
+			if (OcConfiguration.TrackComputingsExecutingUserCode)
 			{
 				int currentThreadId = Utils.startComputingExecutingUserCode(out IComputing computing, out _userCodeIsCalledFrom, this);
 				_clearItemsRequestHandler();
@@ -725,7 +724,7 @@ namespace ObservableComputations
 
 		public bool Remove(TKey item)
 		{
-			if (Configuration.TrackComputingsExecutingUserCode)
+			if (OcConfiguration.TrackComputingsExecutingUserCode)
 			{
 				int currentThreadId = Utils.startComputingExecutingUserCode(out IComputing computing, out _userCodeIsCalledFrom, this);
 				bool result =  _removeItemRequestHandler(item);

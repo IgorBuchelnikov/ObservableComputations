@@ -16,7 +16,7 @@ namespace ObservableComputations
 {
 	public class
 		Joining<TLeftSourceItem, TRightSourceItem> : CollectionComputing<JoinPair<TLeftSourceItem, TRightSourceItem>>,
-			IHasSourceCollections, IFiltering<JoinPair<TLeftSourceItem, TRightSourceItem>>
+			IHasSources, IFiltering<JoinPair<TLeftSourceItem, TRightSourceItem>>
 	{
 		public IReadScalar<INotifyCollectionChanged> LeftSourceScalar => _leftSourceScalar;
 
@@ -29,12 +29,7 @@ namespace ObservableComputations
 		// ReSharper disable once MemberCanBePrivate.Global
 		public INotifyCollectionChanged RightSource => _rightSource;
 
-		public virtual ReadOnlyCollection<INotifyCollectionChanged> Sources =>
-			new ReadOnlyCollection<INotifyCollectionChanged>(new[] {LeftSource, RightSource});
-
-		public virtual ReadOnlyCollection<IReadScalar<INotifyCollectionChanged>> SourceScalars =>
-			new ReadOnlyCollection<IReadScalar<INotifyCollectionChanged>>(new[] {LeftSourceScalar, RightSourceScalar});
-
+		public virtual ReadOnlyCollection<object> Sources => new ReadOnlyCollection<object>(new object[]{LeftSource, RightSource, LeftSourceScalar, RightSourceScalar});
 
 		// ReSharper disable once MemberCanBePrivate.Global
 		public Expression<Func<TLeftSourceItem, TRightSourceItem, bool>> PredicateExpression => _predicateExpressionOriginal;
@@ -817,7 +812,7 @@ namespace ObservableComputations
 					? _itemInfos[leftSourceIndex * rightCount + rightSourceIndex].PredicateFunc()
 					: _predicateFunc(_leftSourceAsList[leftSourceIndex], _rightSourceAsList[rightSourceIndex]);
 
-			if (Configuration.TrackComputingsExecutingUserCode)
+			if (OcConfiguration.TrackComputingsExecutingUserCode)
 			{
 				int currentThreadId =
 					Utils.startComputingExecutingUserCode(out IComputing computing, out _userCodeIsCalledFrom, this);
@@ -836,7 +831,7 @@ namespace ObservableComputations
 					? itemPredicateFunc()
 					: _predicateFunc(leftSourceItem, rightSourceItem);
 
-			if (Configuration.TrackComputingsExecutingUserCode)
+			if (OcConfiguration.TrackComputingsExecutingUserCode)
 			{
 				int currentThreadId = Utils.startComputingExecutingUserCode(out IComputing computing, out _userCodeIsCalledFrom, this);
 				bool result = getValue();
@@ -1025,7 +1020,7 @@ namespace ObservableComputations
 			// ReSharper disable once MemberCanBePrivate.Global
 			set
 			{
-				if (Configuration.TrackComputingsExecutingUserCode)
+				if (OcConfiguration.TrackComputingsExecutingUserCode)
 				{
 					int currentThreadId = Utils.startComputingExecutingUserCode(out IComputing computing, out _joining._userCodeIsCalledFrom, _joining);
 					_joining._setLeftItemRequestHandler(this, value);
@@ -1043,7 +1038,7 @@ namespace ObservableComputations
 			// ReSharper disable once MemberCanBePrivate.Global
 			set
 			{
-				if (Configuration.TrackComputingsExecutingUserCode)
+				if (OcConfiguration.TrackComputingsExecutingUserCode)
 				{
 					int currentThreadId = Utils.startComputingExecutingUserCode(out IComputing computing, out _joining._userCodeIsCalledFrom, _joining);
 					_joining._setRightItemRequestHandler(this, value);

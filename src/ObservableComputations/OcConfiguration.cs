@@ -4,7 +4,7 @@
 
 namespace ObservableComputations
 {
-	public static class Configuration
+	public static class OcConfiguration
 	{
 		public static bool SaveInstantiatingStackTrace = false;
 		public static bool SaveOcDispatcherInvokingStackTrace = false;

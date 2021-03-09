@@ -3,13 +3,14 @@
 // The LICENSE file is located at https://github.com/IgorBuchelnikov/ObservableComputations/blob/master/LICENSE
 
 using System;
+using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Diagnostics.CodeAnalysis;
 using System.Reflection;
 
 namespace ObservableComputations
 {
-	public class PropertyAccessing<TResult> : ScalarComputing<TResult>
+	public class PropertyAccessing<TResult> : ScalarComputing<TResult>, IHasSources
 	{
 		public IReadScalar<object> SourceScalar => _sourceScalar;
 		public object Source => _source;
@@ -23,6 +24,8 @@ namespace ObservableComputations
 		public PropertyInfo  PropertyInfo => _propertyInfo;
 		// ReSharper disable once MemberCanBeProtected.Global
 		public TResult DefaultValue => _defaultValue;
+
+		public virtual ReadOnlyCollection<object> Sources => new ReadOnlyCollection<object>(new object[]{Source, SourceScalar});
 
 		private readonly IReadScalar<INotifyPropertyChanged> _sourceScalar;
 		private INotifyPropertyChanged _source;

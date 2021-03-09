@@ -57,7 +57,7 @@ namespace ObservableComputations
 		private TResult getResult()
 		{
 			TResult result;
-			if (Configuration.TrackComputingsExecutingUserCode)
+			if (OcConfiguration.TrackComputingsExecutingUserCode)
 			{
 				int currentThreadId = Utils.startComputingExecutingUserCode(out IComputing computing, out _userCodeIsCalledFrom, this);
 				result = _getValueFunc();

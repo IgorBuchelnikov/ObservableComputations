@@ -24,7 +24,7 @@ namespace ObservableComputations
 		{
 			_initialCapacity = initialCapacity;
 
-			if (Configuration.SaveInstantiatingStackTrace)
+			if (OcConfiguration.SaveInstantiatingStackTrace)
 			{
 				_instantiatingStackTrace = Environment.StackTrace;
 			}
@@ -116,7 +116,7 @@ namespace ObservableComputations
 		#region Overrides of ObservableCollection<TResult>
 		protected override void InsertItem(int index, TItem item)
 		{
-			if (Configuration.TrackComputingsExecutingUserCode)
+			if (OcConfiguration.TrackComputingsExecutingUserCode)
 			{
 				int currentThreadId = Utils.startComputingExecutingUserCode(out IComputing computing, out _userCodeIsCalledFrom, this);
 				_insertItemRequestHandler(index, item);
@@ -129,7 +129,7 @@ namespace ObservableComputations
 
 		protected override void MoveItem(int oldIndex, int newIndex)
 		{
-			if (Configuration.TrackComputingsExecutingUserCode)
+			if (OcConfiguration.TrackComputingsExecutingUserCode)
 			{
 				int currentThreadId = Utils.startComputingExecutingUserCode(out IComputing computing, out _userCodeIsCalledFrom, this);
 				_moveItemRequestHandler(oldIndex, newIndex);
@@ -142,7 +142,7 @@ namespace ObservableComputations
 
 		protected override void RemoveItem(int index)
 		{
-			if (Configuration.TrackComputingsExecutingUserCode)
+			if (OcConfiguration.TrackComputingsExecutingUserCode)
 			{
 				int currentThreadId = Utils.startComputingExecutingUserCode(out IComputing computing, out _userCodeIsCalledFrom, this);
 				_removeItemRequestHandler(index);
@@ -155,7 +155,7 @@ namespace ObservableComputations
 
 		protected override void SetItem(int index, TItem item)
 		{
-			if (Configuration.TrackComputingsExecutingUserCode)
+			if (OcConfiguration.TrackComputingsExecutingUserCode)
 			{
 				int currentThreadId = Utils.startComputingExecutingUserCode(out IComputing computing, out _userCodeIsCalledFrom, this);
 				_setItemRequestHandler(index, item);
@@ -168,7 +168,7 @@ namespace ObservableComputations
 
 		protected override void ClearItems()
 		{
-			if (Configuration.TrackComputingsExecutingUserCode)
+			if (OcConfiguration.TrackComputingsExecutingUserCode)
 			{
 				int currentThreadId = Utils.startComputingExecutingUserCode(out IComputing computing, out _userCodeIsCalledFrom, this);
 				_clearItemsRequestHandler();
@@ -207,7 +207,7 @@ namespace ObservableComputations
 			_newIndex = index;
 			_newItem = item;
 
-			if (Configuration.TrackComputingsExecutingUserCode)
+			if (OcConfiguration.TrackComputingsExecutingUserCode)
 			{
 				int currentThreadId = Utils.startComputingExecutingUserCode(out IComputing computing, out _userCodeIsCalledFrom, this);
 
@@ -240,7 +240,7 @@ namespace ObservableComputations
 			_oldIndex = oldIndex;
 			_newIndex = newIndex;
 
-			if (Configuration.TrackComputingsExecutingUserCode)
+			if (OcConfiguration.TrackComputingsExecutingUserCode)
 			{
 				int currentThreadId = Utils.startComputingExecutingUserCode(out IComputing computing, out _userCodeIsCalledFrom, this);
 
@@ -273,7 +273,7 @@ namespace ObservableComputations
 			_currentChange = NotifyCollectionChangedAction.Remove;
 			_oldIndex = index;
 
-			if (Configuration.TrackComputingsExecutingUserCode)
+			if (OcConfiguration.TrackComputingsExecutingUserCode)
 			{
 				int currentThreadId = Utils.startComputingExecutingUserCode(out IComputing computing, out _userCodeIsCalledFrom, this);
 				perform();			
@@ -305,7 +305,7 @@ namespace ObservableComputations
 			_newIndex = index;
 			_oldIndex = index;
 
-			if (Configuration.TrackComputingsExecutingUserCode)
+			if (OcConfiguration.TrackComputingsExecutingUserCode)
 			{
 				int currentThreadId = Utils.startComputingExecutingUserCode(out IComputing computing, out _userCodeIsCalledFrom, this);
 
@@ -338,7 +338,7 @@ namespace ObservableComputations
 
 			_currentChange = NotifyCollectionChangedAction.Reset;
 
-			if (Configuration.TrackComputingsExecutingUserCode)
+			if (OcConfiguration.TrackComputingsExecutingUserCode)
 			{
 				int currentThreadId = Utils.startComputingExecutingUserCode(out IComputing computing, out _userCodeIsCalledFrom, this);
 

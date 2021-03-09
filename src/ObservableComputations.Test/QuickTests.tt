@@ -101,16 +101,21 @@ namespace ObservableComputations.Test
 <#
 			foreach (var argument in arguments)
 			{
-				if (
-						(
-							(extensionMethod.Name == "Concatenating" || extensionMethod.Name == "Uniting") 
-							&& (argument.name == "source1" || argument.name == "source2" || argument.name == "source1Scalar" || argument.name == "source2Scalar")
-						)
-						|| (extensionMethod.Name == "Paging" && argument.name == "initialPage")
+				if ((extensionMethod.Name == "Concatenating" || extensionMethod.Name == "Uniting") 
+					&& (argument.name == "source1" || argument.name == "source2" || argument.name == "source1Scalar" || argument.name == "source2Scalar"))					
+					continue;
+
+				if (argument.name.ToUpper().Contains("SOURCE") && !argument.variableType.Contains("Func<") && !argument.name.Contains("Dispatcher"))
+				{
+#>
+			Assert.IsTrue(testing.Sources.Contains(<#=argument.name#>));
+<#
+				}
+
+				if ((extensionMethod.Name == "Paging" && argument.name == "initialPage")
 						|| (extensionMethod.Name == "CollectionPausing" && argument.name == "initialIsPaused")
 						|| (extensionMethod.Name == "ScalarPausing" && argument.name == "initialIsPaused")
-						|| (argument.argumentType.Contains("Func") && argument.argumentType.Contains("Expression") && !ExpressionArgumentNames.Any(an => argument.name.ToUpper().Contains(an)))
-					)
+						|| (argument.argumentType.Contains("Func") && argument.argumentType.Contains("Expression") && !ExpressionArgumentNames.Any(an => argument.name.ToUpper().Contains(an))))
 					continue;
 #>
 			Assert.AreEqual(<#=argument.name#>, testing.<#=FirstCharToUpper(argument.name)#>);

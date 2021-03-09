@@ -10,7 +10,7 @@ using System.Linq;
 
 namespace ObservableComputations
 {
-	public class Intersecting<TSourceItem> : Distincting<TSourceItem>, IHasSourceCollections
+	public class Intersecting<TSourceItem> : Distincting<TSourceItem>, IHasSources
 	{
 		private readonly IReadScalar<INotifyCollectionChanged> _source1Scalar;
 		private readonly IReadScalar<INotifyCollectionChanged> _source2Scalar;
@@ -34,8 +34,7 @@ namespace ObservableComputations
 
 		public new IEqualityComparer<TSourceItem> EqualityComparer => _equalityComparer;
 
-		public override ReadOnlyCollection<INotifyCollectionChanged> Sources => new ReadOnlyCollection<INotifyCollectionChanged>(new []{Source1, Source2});
-		public override ReadOnlyCollection<IReadScalar<INotifyCollectionChanged>> SourceScalars => new ReadOnlyCollection<IReadScalar<INotifyCollectionChanged>>(new []{Source1Scalar, Source2Scalar});
+		public override ReadOnlyCollection<object> Sources => new ReadOnlyCollection<object>(new object[]{Source1, Source2, Source1Scalar, Source2Scalar});
 
 		[ObservableComputationsCall]
 		public Intersecting(
@@ -262,7 +261,7 @@ namespace ObservableComputations
 		}
 
 		[ExcludeFromCodeCoverage]
-		internal void ValidateInternalConsistency()
+		internal new void ValidateInternalConsistency()
 		{
 			IList<TSourceItem> source1 = (IList<TSourceItem>) _source1Scalar.getValue(_source1, new ObservableCollection<TSourceItem>());
 			IList<TSourceItem> source2 = (IList<TSourceItem>) _source2Scalar.getValue(_source2, new ObservableCollection<TSourceItem>());

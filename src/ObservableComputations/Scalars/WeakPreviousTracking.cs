@@ -3,16 +3,20 @@
 // The LICENSE file is located at https://github.com/IgorBuchelnikov/ObservableComputations/blob/master/LICENSE
 
 using System;
+using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Diagnostics.CodeAnalysis;
 
 namespace ObservableComputations
 {
-	public class WeakPreviousTracking<TResult> : ScalarComputing<TResult>
+	public class WeakPreviousTracking<TResult> : ScalarComputing<TResult>, IHasSources
 		where TResult : class
 	{
 		public IReadScalar<TResult> Source => _source;
 		public bool IsEverChanged => _isEverChanged;
+
+		public virtual ReadOnlyCollection<object> Sources => new ReadOnlyCollection<object>(new object[]{Source});
+
 
 		public bool TryGetPreviousValue(out TResult result)
 		{

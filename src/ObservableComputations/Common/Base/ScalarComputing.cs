@@ -8,7 +8,7 @@ using System.ComponentModel;
 
 namespace ObservableComputations
 {
-	public abstract class ScalarComputing<TValue> : IScalar<TValue>, IReadScalar<TValue>, IWriteScalar<TValue>, IScalarComputing,  IComputingInternal
+	public abstract class ScalarComputing<TValue> : IScalar<TValue>, IScalarComputing,  IComputingInternal
 	{
 		public string DebugTag {get; set;}
 		public object Tag {get; set;}
@@ -18,7 +18,7 @@ namespace ObservableComputations
 
 		public ScalarComputing()
 		{
-			if (Configuration.SaveInstantiatingStackTrace)
+			if (OcConfiguration.SaveInstantiatingStackTrace)
 			{
 				_instantiatingStackTrace = Environment.StackTrace;
 			}
@@ -48,7 +48,7 @@ namespace ObservableComputations
 			get => _value;
 			set
 			{
-				if (Configuration.TrackComputingsExecutingUserCode)
+				if (OcConfiguration.TrackComputingsExecutingUserCode)
 				{
 					int currentThreadId = Utils.startComputingExecutingUserCode(out IComputing computing, out _userCodeIsCalledFrom, this);
 					_setValueRequestHandler(value);
@@ -113,7 +113,7 @@ namespace ObservableComputations
 				}
 			}
 
-			if (Configuration.TrackComputingsExecutingUserCode)
+			if (OcConfiguration.TrackComputingsExecutingUserCode)
 			{
 				int currentThreadId = Utils.startComputingExecutingUserCode(out IComputing computing, out _userCodeIsCalledFrom, this);
 				perform();

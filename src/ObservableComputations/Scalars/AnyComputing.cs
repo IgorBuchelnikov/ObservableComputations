@@ -11,7 +11,7 @@ using System.Linq.Expressions;
 
 namespace ObservableComputations
 {
-	public class AnyComputing<TSourceItem> : ScalarComputing<bool>, IHasSourceCollections, ISourceItemChangeProcessor, ISourceCollectionChangeProcessor
+	public class AnyComputing<TSourceItem> : ScalarComputing<bool>, IHasSources, ISourceItemChangeProcessor, ISourceCollectionChangeProcessor
 	{
 		// ReSharper disable once MemberCanBePrivate.Global
 		public virtual IReadScalar<INotifyCollectionChanged> SourceScalar => _sourceScalar;
@@ -22,8 +22,7 @@ namespace ObservableComputations
 		// ReSharper disable once MemberCanBePrivate.Global
 		public virtual INotifyCollectionChanged Source => _source;
 
-		public virtual ReadOnlyCollection<INotifyCollectionChanged> Sources => new ReadOnlyCollection<INotifyCollectionChanged>(new []{Source});
-		public virtual ReadOnlyCollection<IReadScalar<INotifyCollectionChanged>> SourceScalars => new ReadOnlyCollection<IReadScalar<INotifyCollectionChanged>>(new []{SourceScalar});
+		public virtual ReadOnlyCollection<object> Sources => new ReadOnlyCollection<object>(new object[]{Source, SourceScalar});
 
 		private readonly ISourceCollectionChangeProcessor _thisAsSourceCollectionChangeProcessor;
 		// ReSharper disable once MemberCanBePrivate.Global
@@ -301,7 +300,7 @@ namespace ObservableComputations
 					? _itemInfos[sourceIndex].PredicateFunc() 
 					: _predicateFunc(_sourceAsList[sourceIndex]);
 
-			if (Configuration.TrackComputingsExecutingUserCode)
+			if (OcConfiguration.TrackComputingsExecutingUserCode)
 			{
 				int currentThreadId = Utils.startComputingExecutingUserCode(out IComputing computing, out _userCodeIsCalledFrom, this);
 				bool result = getValue();
@@ -319,7 +318,7 @@ namespace ObservableComputations
 					? itemPredicateFunc()
 					: _predicateFunc(sourceItem);
 
-			if (Configuration.TrackComputingsExecutingUserCode)
+			if (OcConfiguration.TrackComputingsExecutingUserCode)
 			{
 				int currentThreadId = Utils.startComputingExecutingUserCode(out IComputing computing, out _userCodeIsCalledFrom, this);
 				bool result = getValue();

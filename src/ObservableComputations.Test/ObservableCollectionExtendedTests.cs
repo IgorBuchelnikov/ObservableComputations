@@ -98,6 +98,7 @@ namespace ObservableComputations.Test
 		public void Test2()
 		{
 			ObservableCollectionExtended<int> collection = new ObservableCollectionExtended<int>(new []{1, 2, 3});
+			Assert.AreEqual(collection.ItemType, typeof(int));
 
 			test(collection);
 		}
@@ -106,6 +107,7 @@ namespace ObservableComputations.Test
 		public void Test3()
 		{
 			ObservableCollectionExtended<int> collection = new ObservableCollectionExtended<int>(new []{1, 2, 3}.ToList());
+			Assert.AreEqual(collection.ItemType, typeof(int));
 
 			test(collection);
 		}

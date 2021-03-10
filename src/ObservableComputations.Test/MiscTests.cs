@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq.Expressions;
 using System.Threading;
 using NUnit.Framework;
@@ -55,6 +57,87 @@ namespace ObservableComputations.Test
 			var @using = 0.Using(expression);
 			Assert.AreEqual(@using.Argument, 0);
 			Assert.AreEqual(@using.GetValueExpressionUsing, expression);
+		}
+
+		[Test]
+		public void TestScalarPausing()
+		{
+			OcConsumer consumer = new OcConsumer();
+			Scalar<int> scalar = new Scalar<int>(0);
+			ScalarPausing<int> scalarPausing = scalar.ScalarPausing(3).For(consumer);
+			Assert.AreEqual(scalarPausing.IsPaused, false);
+			scalarPausing.IsPaused  = true;
+			scalar.Change(1);
+			scalar.Change(2);
+			scalar.Change(3);
+			scalar.Change(4);
+			scalarPausing.LastChangesToApplyOnResumeCount = 2;
+
+			int[] values = new []{3, 4};
+			int index = 0;
+			scalarPausing.PropertyChanged += (sender, args) =>
+			{
+				if (args.PropertyName == "Value" && !scalarPausing.InactivationInProgress)
+					Assert.AreEqual(scalarPausing.Value, values[index++]);
+			};
+
+			scalarPausing.IsPaused  = false;
+			Assert.AreEqual(scalarPausing.Value, 4);
+			consumer.Dispose();
+		}
+
+		[Test]
+		public void TestResetRootSourceWrapper()
+		{
+			OcConsumer consumer = new OcConsumer();
+			MyObservableCollection<int> items1 = new MyObservableCollection<int>(new []
+			{
+				0,
+				1,
+				2
+			});
+
+
+			var selecting = items1.Selecting(i => i).For(consumer);
+			items1.Reset(new []
+			{
+				0,
+				1,
+				2,
+				3,
+				4,
+				5
+			});
+
+			selecting.ValidateInternalConsistency();
+			consumer.Dispose();
+		}
+
+		public class MyObservableCollection<TItem> : ObservableCollection<TItem>
+		{
+			public MyObservableCollection(IEnumerable<TItem> collection) : base(collection)
+			{
+			}
+
+			public void Reset(TItem[] newItems)
+			{
+				int originalCount = Items.Count;
+				int count = newItems.Length;
+				int sourceIndex;
+				for (sourceIndex = 0; sourceIndex < count; sourceIndex++)
+					if (originalCount > sourceIndex)
+						Items[sourceIndex] = newItems[sourceIndex];
+					else
+						Items.Insert(sourceIndex, newItems[sourceIndex]);
+
+				for (int index = originalCount - 1; index >= sourceIndex; index--)
+					Items.RemoveAt(index);
+
+				CheckReentrancy();
+				OnPropertyChanged(Utils.CountPropertyChangedEventArgs);
+				OnPropertyChanged(Utils.IndexerPropertyChangedEventArgs);
+				OnCollectionChanged(Utils.ResetNotifyCollectionChangedEventArgs);
+			}
 		}
 	}
 }

@@ -740,11 +740,48 @@ namespace ObservableComputations.Test
 					new Item(5, "3")
 				});
 
+			NotifyCollectionChangedEventArgs lastNotifyCollectionChangedEventArgs = null;
+			items.CollectionChanged += (sender, args) =>
+			{
+				lastNotifyCollectionChangedEventArgs  = args;
+			};
+
 			OcConsumer consumer = new OcConsumer();
 			Grouping<Item, string> grouping = 
-				items.Grouping(i => i.Value).For(consumer);
+				items.Grouping(i => i.Value);
+
+			bool activationInProgress = true;
+			bool inActivationInProgress = false;
+
+			grouping.CollectionChanged += (sender, args) =>
+			{
+				Assert.AreEqual(grouping.ActivationInProgress, activationInProgress);
+				Assert.AreEqual(grouping.InactivationInProgress, inActivationInProgress);
+			};
+
+			grouping.For(consumer);
+
+			activationInProgress = false;
 
 			Group<Item, string> group = grouping[2];
+
+			group.DebugTag = "DebugTag";
+			Assert.AreEqual(group.DebugTag,  "DebugTag");
+
+			group.Tag = "Tag";
+			Assert.AreEqual(group.Tag,  "Tag");
+
+			Assert.IsTrue(group.IsActive);
+
+			Assert.AreEqual(group.ItemType, typeof(Item));
+
+			Assert.IsTrue(group.IsConsistent);
+
+			if (OcConfiguration.SaveInstantiatingStackTrace)
+				Assert.IsNotNull(group.InstantiatingStackTrace);
+
+
+
 			PropertyInfo newItemPropertyInfo = group.GetType().GetProperty("NewItem");
 
 			NotifyCollectionChangedAction? currentChange = null;
@@ -759,6 +796,12 @@ namespace ObservableComputations.Test
 				Assert.AreEqual(group.NewItemObject, newItem);
 				Assert.AreEqual(group.OldIndex, oldIndex);
 				Assert.AreEqual(group.NewIndex, newIndex);
+
+				if (group.HandledEventArgs is NotifyCollectionChangedEventArgs)
+				{
+					Assert.AreEqual(group.HandledEventSender, items);
+					Assert.AreEqual(group.HandledEventArgs, lastNotifyCollectionChangedEventArgs);
+				}
 			};
 
 			group.PostCollectionChanged += (sender, args) =>
@@ -793,6 +836,9 @@ namespace ObservableComputations.Test
 			oldIndex = 1;
 			newIndex = 2;
 			items.Move(3, 4);
+
+			inActivationInProgress = true;
+			consumer.Dispose();
 		}
 
 		public ChangeRequestHandlersTests(bool debug) : base(debug)

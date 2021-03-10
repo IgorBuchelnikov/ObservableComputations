@@ -97,6 +97,21 @@ namespace ObservableComputations.Test
 			Assert.AreEqual(modifyTargetAction, binding.ModifyTargetAction);
 		}
 
+		[Test]
+		public void Test21()
+		{
+			Order order = new Order(){DeliveryAddress = "0"};
+			Car assignedDeliveryCar = new Car(){DestinationAddress = ""};
+
+			Action<string, Binding<string>> modifyTargetAction = (da, _) => assignedDeliveryCar.DestinationAddress = da;
+
+			Expression<Func<string>> expression = () => order.DeliveryAddress;
+			Binding<string> binding = expression.Binding(modifyTargetAction, true);
+			binding.ApplyOnActivation = false;
+			test(binding, false, order, assignedDeliveryCar);
+			Assert.AreEqual(modifyTargetAction, binding.ModifyTargetAction);
+		}
+
 
 		[Test]
 		public void Test3()
@@ -108,6 +123,8 @@ namespace ObservableComputations.Test
 			Computing<string> computing = new Computing<string>(() => order.DeliveryAddress);
 			Binding<string> binding = computing
 				.Binding(modifyTargetAction, false);
+
+			Assert.IsTrue(binding.Sources.Contains(computing));
 
 			test(binding, false, order, assignedDeliveryCar);
 			Assert.AreEqual(modifyTargetAction, binding.ModifyTargetAction);

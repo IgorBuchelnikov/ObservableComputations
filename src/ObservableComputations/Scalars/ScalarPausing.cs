@@ -50,14 +50,11 @@ namespace ObservableComputations
 				if (_isPausedScalar != null) throw new ObservableComputationsException(this, "Modifying of IsPaused property is controlled by IsPausedScalar");
 				checkConsistent(null, null);
 
-				_resuming = _isPaused != value && value;
+				_resuming = _isPaused != value && !value;
 				_isPaused = value;
 				raisePropertyChanged(Utils.IsPausedPropertyChangedEventArgs);
 
-				if (_resuming)
-				{
-					resume();
-				}
+				if (_resuming) resume();
 
 			}
 		}
@@ -281,8 +278,6 @@ namespace ObservableComputations
 			_handledEventArgs = e;
 
 			changeLastChangesToApplyOnResumeCount(_lastChangesToApplyOnResumeCountScalar.Value);
-
-			if (_resuming) resume();
 
 			_handledEventSender = null;
 			_handledEventArgs = null;

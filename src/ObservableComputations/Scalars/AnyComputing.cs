@@ -26,7 +26,7 @@ namespace ObservableComputations
 
 		private readonly ISourceCollectionChangeProcessor _thisAsSourceCollectionChangeProcessor;
 		// ReSharper disable once MemberCanBePrivate.Global
-		public Func<TSourceItem, bool> PredicateFunc => _predicateFunc;
+		//public Func<TSourceItem, bool> PredicateFunc => _predicateFunc;
 
 		private sealed class ItemInfo : ExpressionItemInfo
 		{
@@ -293,23 +293,24 @@ namespace ObservableComputations
 		}
 
 		// ReSharper disable once MemberCanBePrivate.Global
-		public bool ApplyPredicate(int sourceIndex)
-		{
-			bool getValue() =>
-				_predicateContainsParametrizedObservableComputationCalls 
-					? _itemInfos[sourceIndex].PredicateFunc() 
-					: _predicateFunc(_sourceAsList[sourceIndex]);
+		// TODO Uncomment and test
+		//public bool ApplyPredicate(int sourceIndex)
+		//{
+		//	bool getValue() =>
+		//		_predicateContainsParametrizedObservableComputationCalls 
+		//			? _itemInfos[sourceIndex].PredicateFunc() 
+		//			: _predicateFunc(_sourceAsList[sourceIndex]);
 
-			if (OcConfiguration.TrackComputingsExecutingUserCode)
-			{
-				int currentThreadId = Utils.startComputingExecutingUserCode(out IComputing computing, out _userCodeIsCalledFrom, this);
-				bool result = getValue();
-				Utils.endComputingExecutingUserCode(computing, currentThreadId, out _userCodeIsCalledFrom);
-				return result;
-			}
+		//	if (OcConfiguration.TrackComputingsExecutingUserCode)
+		//	{
+		//		int currentThreadId = Utils.startComputingExecutingUserCode(out IComputing computing, out _userCodeIsCalledFrom, this);
+		//		bool result = getValue();
+		//		Utils.endComputingExecutingUserCode(computing, currentThreadId, out _userCodeIsCalledFrom);
+		//		return result;
+		//	}
 
-			return  getValue();
-		}
+		//	return  getValue();
+		//}
 
 		private bool applyPredicate(TSourceItem sourceItem, Func<bool> itemPredicateFunc)
 		{

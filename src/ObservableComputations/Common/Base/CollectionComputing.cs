@@ -447,8 +447,8 @@ namespace ObservableComputations
 			_activationInProgress = value;
 		}
 
-		public ReadOnlyCollection<object> ConsumerTags =>
-			new ReadOnlyCollection<object>(_consumers.Union(_downstreamConsumedComputings.SelectMany(c => c.Consumers.Select(cons => cons.Tag))).ToList());
+		public ReadOnlyCollection<OcConsumer> Consumers =>
+			new ReadOnlyCollection<OcConsumer>(_consumers.Union(_downstreamConsumedComputings.SelectMany(c => c.Consumers)).ToList());
 
 
 		#region Implementation of IComputingInternal

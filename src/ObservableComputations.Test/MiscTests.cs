@@ -62,7 +62,8 @@ namespace ObservableComputations.Test
 		[Test]
 		public void TestScalarPausing()
 		{
-			OcConsumer consumer = new OcConsumer();
+			OcConsumer consumer = new OcConsumer("Tag");
+			Assert.AreEqual(consumer.Tag, "Tag");
 			Scalar<int> scalar = new Scalar<int>(0);
 			ScalarPausing<int> scalarPausing = scalar.ScalarPausing(3).For(consumer);
 			Assert.AreEqual(scalarPausing.IsPaused, false);
@@ -78,7 +79,11 @@ namespace ObservableComputations.Test
 			scalarPausing.PropertyChanged += (sender, args) =>
 			{
 				if (args.PropertyName == "Value" && !scalarPausing.InactivationInProgress)
+				{
 					Assert.AreEqual(scalarPausing.Value, values[index++]);
+
+					Assert.Throws<ObservableComputationsInconsistencyException>(() => scalarPausing.IsPaused = true);
+				}
 			};
 
 			scalarPausing.IsPaused  = false;

@@ -49,41 +49,60 @@ namespace ObservableComputations.Test
 
 			};
 
+			CollectionProcessingVoid<Item> collectionProcessingVoid = null;
+
 			switch (_sourceCollectionType)
 			{
 				case SourceCollectionType.INotifyPropertyChanged:
-					return ((INotifyCollectionChanged) items).CollectionProcessing(
+					collectionProcessingVoid = ((INotifyCollectionChanged) items).CollectionProcessing(
 						newItemProcessor,
 						oldItemProcessor,
 						moveItemProcessor).For(consumer);
+					Assert.AreEqual(collectionProcessingVoid.Source, items);
+					Assert.IsTrue(collectionProcessingVoid.Sources.Contains(items));
+					break;
 				case SourceCollectionType.ObservableCollection:
-					return items.CollectionProcessing(
+					collectionProcessingVoid = items.CollectionProcessing(
 						newItemProcessor,
 						oldItemProcessor,
 						moveItemProcessor).For(consumer);
+					Assert.AreEqual(collectionProcessingVoid.Source, items);
+					Assert.IsTrue(collectionProcessingVoid.Sources.Contains(items));
+					break;
 				case SourceCollectionType.ScalarINotifyPropertyChanged:
-					return new Scalar<INotifyCollectionChanged>(items).CollectionProcessing(
+					Scalar<INotifyCollectionChanged> scalar = new Scalar<INotifyCollectionChanged>(items);
+					collectionProcessingVoid = scalar.CollectionProcessing(
 						newItemProcessor,
 						oldItemProcessor,
 						moveItemProcessor).For(consumer);
+					Assert.AreEqual(collectionProcessingVoid.SourceScalar, scalar);
+					Assert.IsTrue(collectionProcessingVoid.Sources.Contains(scalar));
+					break;
 				case SourceCollectionType.ScalarObservableCollection:
-					return new Scalar<ObservableCollection<Item>>(items).CollectionProcessing(
+					collectionProcessingVoid = new Scalar<ObservableCollection<Item>>(items).CollectionProcessing(
 						newItemProcessor,
 						oldItemProcessor,
 						moveItemProcessor).For(consumer);
+					break;
 				case SourceCollectionType.ExpressionINotifyPropertyChanged:
-					return Expr.Is(() => items).CollectionProcessing(
+					collectionProcessingVoid = Expr.Is(() => items).CollectionProcessing(
 						newItemProcessor,
 						oldItemProcessor,
 						moveItemProcessor).For(consumer);
+					break;
 				case SourceCollectionType.ExpressionObservableCollection:
-					return Expr.Is(() => (INotifyCollectionChanged)items).CollectionProcessing(
+					collectionProcessingVoid = Expr.Is(() => (INotifyCollectionChanged)items).CollectionProcessing(
 						newItemProcessor,
 						oldItemProcessor,
 						moveItemProcessor).For(consumer);
+					break;
 			}
 
-			return null;
+			Assert.AreEqual(collectionProcessingVoid.NewItemsProcessor, newItemProcessor);
+			Assert.AreEqual(collectionProcessingVoid.OldItemsProcessor, oldItemProcessor);
+			Assert.AreEqual(collectionProcessingVoid.MoveItemProcessor, moveItemProcessor);
+
+			return collectionProcessingVoid;
 		}
 
 

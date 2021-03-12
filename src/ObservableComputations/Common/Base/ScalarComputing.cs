@@ -4,7 +4,9 @@
 
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.ComponentModel;
+using System.Linq;
 
 namespace ObservableComputations
 {
@@ -81,7 +83,18 @@ namespace ObservableComputations
 		public object ValueObject
 		{
 			get => Value;
-			set => Value = (TValue)value;
+			set
+			{
+				if (OcConfiguration.TrackComputingsExecutingUserCode)
+				{
+					int currentThreadId = Utils.startComputingExecutingUserCode(out IComputing computing, out _userCodeIsCalledFrom, this);
+					_setValueRequestHandler((TValue) value);
+					Utils.endComputingExecutingUserCode(computing, currentThreadId, out _userCodeIsCalledFrom);
+					return;
+				}
+
+				_setValueRequestHandler((TValue) value);
+			}
 		}
 
 		public Type ValueType => typeof(TValue);
@@ -205,6 +218,9 @@ namespace ObservableComputations
 
 		protected readonly List<OcConsumer> _consumers = new List<OcConsumer>();
 		internal readonly List<IComputingInternal> _downstreamConsumedComputings = new List<IComputingInternal>();
+
+		public ReadOnlyCollection<OcConsumer> Consumers =>
+			new ReadOnlyCollection<OcConsumer>(_consumers.Union(_downstreamConsumedComputings.SelectMany(c => c.Consumers)).ToList());
 
 		#region Implementation of IComputingInternal
 		IEnumerable<OcConsumer> IComputingInternal.Consumers => _consumers;

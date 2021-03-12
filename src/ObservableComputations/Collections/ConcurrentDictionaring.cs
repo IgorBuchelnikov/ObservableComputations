@@ -613,7 +613,7 @@ namespace ObservableComputations
 
 		private void baseRemoveItem(TKey key)
 		{
-			if (!_dictionary.TryRemove(key, out _)) return;
+			_dictionary.TryRemove(key, out _);
 			onPropertyChanged(Utils.CountPropertyChangedEventArgs);
 			onPropertyChanged(Utils.IndexerPropertyChangedEventArgs);
 			if (MethodChanged != null)

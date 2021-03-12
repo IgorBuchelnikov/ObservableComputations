@@ -7,6 +7,7 @@ using System.ComponentModel;
 using System.Linq;
 using System.Reflection;
 using System.Runtime.CompilerServices;
+using System.Threading;
 using NUnit.Framework;
 
 namespace ObservableComputations.Test
@@ -25,6 +26,8 @@ namespace ObservableComputations.Test
 				LastNum++;
 			}
 
+			public Computing<int> Computing;
+
 			public static int LastNum;
 			public int Num;
 
@@ -32,7 +35,12 @@ namespace ObservableComputations.Test
 
 			public int Id
 			{
-				get { return _id; }
+				get
+				{
+					if (Computing != null && OcConfiguration.TrackComputingsExecutingUserCode)
+						Assert.AreEqual(StaticInfo.ComputingsExecutingUserCode[Thread.CurrentThread.ManagedThreadId], Computing);
+					return _id;
+				}
 				set { updatePropertyValue(ref _id, value); }
 			}
 
@@ -99,12 +107,44 @@ namespace ObservableComputations.Test
 
 			OcConsumer consumer = new OcConsumer();
 			Dictionaring<Item, int, string> dictionaring = 
-				items.Dictionaring(i => new Computing<int>(() => i.Id).Value, i => new Computing<string>(() => i.Value).Value).For(consumer);
+				items.Dictionaring(i => new Computing<int>(() => i.Id).Value, i => new Computing<string>(() => i.Value).Value);
+
+			bool activationInProgress = true;
+			bool inActivationInProgress = false;
+
+			dictionaring.PropertyChanged += (sender, args) =>
+			{
+				if (args.PropertyName == "ActivationInProgress" || args.PropertyName == "InactivationInProgress") return;
+				Assert.AreEqual(dictionaring.ActivationInProgress, activationInProgress);
+				Assert.AreEqual(dictionaring.InactivationInProgress, inActivationInProgress);
+			};
+
+			dictionaring.For(consumer);
+			activationInProgress = false;
+
+			dictionaring.DebugTag = "DebugTag";
+			Assert.AreEqual(dictionaring.DebugTag,  "DebugTag");
+
+			dictionaring.Tag = "Tag";
+			Assert.AreEqual(dictionaring.Tag,  "Tag");
+
+			Assert.IsTrue(dictionaring.IsActive);
+
+			Assert.IsTrue(dictionaring.IsConsistent);
+
+			Assert.IsNotNull(dictionaring.ToString());
+
 
 			Assert.NotNull(dictionaring.GetEnumerator());
 			Assert.NotNull(((IEnumerable) dictionaring).GetEnumerator());
 			dictionaring.CopyTo(new KeyValuePair<int, string>[3], 0);
 			Assert.NotNull(dictionaring.ToString());
+
+			Assert.IsTrue(dictionaring.Contains(new KeyValuePair<int, string>(0, "0")));
+			Assert.IsFalse(dictionaring.IsReadOnly);
+			Assert.IsTrue(dictionaring.TryGetValue(0, out string value0));
+			Assert.AreEqual(value0, "0");
+			Assert.IsTrue(dictionaring.Values.SequenceEqual(items.Select(i => i.Value)));
 
 			int changedKey = 0;
 			string changedValue = null;
@@ -225,6 +265,7 @@ namespace ObservableComputations.Test
 			Assert.IsTrue(itemRaised);
 			Assert.IsTrue(containsKeyRaised);
 
+			inActivationInProgress = true;
 			consumer.Dispose();
 		}
 
@@ -247,12 +288,43 @@ namespace ObservableComputations.Test
 
 			OcConsumer consumer = new OcConsumer();
 			ConcurrentDictionaring<Item, int, string> dictionaring = 
-				items.ConcurrentDictionaring(i => new Computing<int>(() => i.Id).Value, i => new Computing<string>(() => i.Value).Value).For(consumer);
+				items.ConcurrentDictionaring(i => new Computing<int>(() => i.Id).Value, i => new Computing<string>(() => i.Value).Value);
+
+			bool activationInProgress = true;
+			bool inActivationInProgress = false;
+
+			dictionaring.PropertyChanged += (sender, args) =>
+			{
+				if (args.PropertyName == "ActivationInProgress" || args.PropertyName == "InactivationInProgress") return;
+				Assert.AreEqual(dictionaring.ActivationInProgress, activationInProgress);
+				Assert.AreEqual(dictionaring.InactivationInProgress, inActivationInProgress);
+			};
+
+			dictionaring.For(consumer);
+			activationInProgress = false;
+
+			dictionaring.DebugTag = "DebugTag";
+			Assert.AreEqual(dictionaring.DebugTag,  "DebugTag");
+
+			dictionaring.Tag = "Tag";
+			Assert.AreEqual(dictionaring.Tag,  "Tag");
+
+			Assert.IsTrue(dictionaring.IsActive);
+
+			Assert.IsTrue(dictionaring.IsConsistent);
+
+			Assert.IsNotNull(dictionaring.ToString());
 
 			Assert.NotNull(dictionaring.GetEnumerator());
 			Assert.NotNull(((IEnumerable) dictionaring).GetEnumerator());
 			dictionaring.CopyTo(new KeyValuePair<int, string>[3], 0);
 			Assert.NotNull(dictionaring.ToString());
+
+			Assert.IsTrue(dictionaring.Contains(new KeyValuePair<int, string>(0, "0")));
+			Assert.IsFalse(dictionaring.IsReadOnly);
+			Assert.IsTrue(dictionaring.TryGetValue(0, out string value0));
+			Assert.AreEqual(value0, "0");
+			Assert.IsTrue(dictionaring.Values.SequenceEqual(items.Select(i => i.Value)));
 
 			int changedKey = 0;
 			string changedValue = null;
@@ -373,6 +445,9 @@ namespace ObservableComputations.Test
 			Assert.IsTrue(getValueOrDefaultRaised);
 			Assert.IsTrue(itemRaised);
 			Assert.IsTrue(containsKeyRaised);
+
+			inActivationInProgress = true;
+			consumer.Dispose();
 		}
 
 		[Test]
@@ -394,11 +469,39 @@ namespace ObservableComputations.Test
 
 			OcConsumer consumer = new OcConsumer();
 			HashSetting<Item, int> dictionaring = 
-				items.HashSetting(i => new Computing<int>(() => i.Id).Value).For(consumer);
+				items.HashSetting(i => new Computing<int>(() => i.Id).Value);
+
+			bool activationInProgress = true;
+			bool inActivationInProgress = false;
+
+			dictionaring.PropertyChanged += (sender, args) =>
+			{
+				if (args.PropertyName == "ActivationInProgress" || args.PropertyName == "InactivationInProgress") return;
+				Assert.AreEqual(dictionaring.ActivationInProgress, activationInProgress);
+				Assert.AreEqual(dictionaring.InactivationInProgress, inActivationInProgress);
+			};
+
+			dictionaring.For(consumer);
+			activationInProgress = false;
+
+			dictionaring.DebugTag = "DebugTag";
+			Assert.AreEqual(dictionaring.DebugTag,  "DebugTag");
+
+			dictionaring.Tag = "Tag";
+			Assert.AreEqual(dictionaring.Tag,  "Tag");
+
+			Assert.IsTrue(dictionaring.IsActive);
+
+			Assert.IsTrue(dictionaring.IsConsistent);
+
+			Assert.IsNotNull(dictionaring.ToString());
 
 			Assert.NotNull(dictionaring.GetEnumerator());
 			dictionaring.CopyTo(new int[3], 0);
 			Assert.NotNull(dictionaring.ToString());
+
+			Assert.IsTrue(dictionaring.Contains(0));
+			Assert.IsFalse(dictionaring.IsReadOnly);
 
 			int changedKey = 0;
 			bool containsRaised = false;
@@ -444,6 +547,8 @@ namespace ObservableComputations.Test
 
 			dictionaring.Clear();
 			dictionaring.ValidateInternalConsistency();
+
+			inActivationInProgress = true;
 			consumer.Dispose();
 		}
 
@@ -687,7 +792,25 @@ namespace ObservableComputations.Test
 			Item item = new Item(0, "0");
 			OcConsumer consumer = new OcConsumer();
 
-			Computing<int> computing = new Computing<int>(() => item.Id).For(consumer);
+			Computing<int> computing = new Computing<int>(() => item.Id);
+			item.Computing = computing;
+				
+			bool activationInProgress = true;
+			bool inActivationInProgress = false;
+
+			computing.PropertyChanged += (sender, args) =>
+			{
+				if (args.PropertyName == "ActivationInProgress" || args.PropertyName == "InactivationInProgress") return;
+				Assert.AreEqual(computing.ActivationInProgress, activationInProgress);
+				Assert.AreEqual(computing.InactivationInProgress, inActivationInProgress);
+			};
+
+			computing.For(consumer);
+
+			activationInProgress = false;
+
+
+			Assert.IsTrue(computing.Consumers.Contains(consumer));
 
 			Action<int> computingSetValueRequestHandler = i =>
 			{
@@ -698,11 +821,13 @@ namespace ObservableComputations.Test
 
 			bool disposing = false;
 
+			int value = 1;
+
 			computing.PreValueChanged += (sender, args) =>
 			{
 				if (disposing) return;
-				Assert.AreEqual(computing.NewValue, 1);
-				Assert.AreEqual(computing.NewValueObject, 1);
+				Assert.AreEqual(computing.NewValue, value);
+				Assert.AreEqual(computing.NewValueObject, value);
 				Assert.AreEqual(computing.HandledEventSender, item);
 				Assert.AreEqual(computing.HandledEventArgs, item._lastPropertyChangedEventArgs);
 			};
@@ -710,8 +835,8 @@ namespace ObservableComputations.Test
 			computing.PostValueChanged += (sender, args) =>
 			{
 				if (disposing) return;
-				Assert.AreEqual(computing.NewValue, 1);
-				Assert.AreEqual(computing.NewValueObject, 1);
+				Assert.AreEqual(computing.NewValue, value);
+				Assert.AreEqual(computing.NewValueObject, value);
 				Assert.AreEqual(computing.HandledEventSender, item);
 				Assert.AreEqual(computing.HandledEventArgs, item._lastPropertyChangedEventArgs);
 			};
@@ -720,9 +845,33 @@ namespace ObservableComputations.Test
 
 			Assert.AreEqual(computing.Value, 1);
 			Assert.AreEqual(computing.ValueObject, 1);
+
+			value = 2;
+			computing.ValueObject = 2;
+
+			Assert.AreEqual(computing.Value, 2);
+			Assert.AreEqual(computing.ValueObject, 2);
+
 			Assert.AreEqual(computing.ValueType, typeof(int));
 
+			computing.DebugTag = "DebugTag";
+			Assert.AreEqual(computing.DebugTag,  "DebugTag");
+
+			computing.Tag = "Tag";
+			Assert.AreEqual(computing.Tag,  "Tag");
+
+			Assert.IsTrue(computing.IsActive);
+
+			Assert.IsTrue(computing.IsConsistent);
+
+			Assert.IsNotNull(computing.ToString());
+
+			if (OcConfiguration.SaveInstantiatingStackTrace)
+				Assert.IsNotNull(computing.InstantiatingStackTrace);
+
+
 			disposing = true;
+			inActivationInProgress = true;
 			consumer.Dispose();
 		}
 

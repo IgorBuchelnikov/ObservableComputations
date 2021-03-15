@@ -24,15 +24,27 @@ namespace ObservableComputations.Test
 		{
 			private bool _isActive;
 
-			public Computing<int> NumComputing;
-			public Computing<int> NumPlus1Computing;
+			public Computing<int> ZeroComputing;
+			public Computing<int> OneComputing;
 
-			public Computing<int> ActualNumComputing
+			private Computing<int> _actualNumComputing1;
+			public Computing<int> ActualNumComputing1
 			{
-				get => _actualNumComputing;
+				get => _actualNumComputing1;
 				set
 				{
-					_actualNumComputing = value;
+					_actualNumComputing1 = value;
+					onPropertyChanged();
+				}
+			}
+
+			private Computing<int> _actualNumComputing2;
+			public Computing<int> ActualNumComputing2
+			{
+				get => _actualNumComputing2;
+				set
+				{
+					_actualNumComputing2 = value;
 					onPropertyChanged();
 				}
 			}
@@ -56,16 +68,16 @@ namespace ObservableComputations.Test
 				_isActive = isActive;
 				Num = LastNum;
 				LastNum++;
-				NumComputing = new Computing<int>(() => Num);
-				NumPlus1Computing = new Computing<int>(() => Num + 1);
-				_actualNumComputing = NumComputing;
+				ZeroComputing = new Computing<int>(() => 0);
+				OneComputing = new Computing<int>(() => 1);
+				_actualNumComputing1 = ZeroComputing;
+				_actualNumComputing2 = ZeroComputing;
 			}
 
 			public static int LastNum;
 			public int Num;
 
 			private bool _specialChangeIsActive;
-			private Computing<int> _actualNumComputing;
 
 			public void SpecialChangeIsActive()
 			{
@@ -151,27 +163,35 @@ namespace ObservableComputations.Test
 
 		}
 
+
+
 		[Test]
 		public void Test3()
 		{
 			Item.LastNum = 3;
 			Item item = new Item(false);
-			Computing<int> comp = new Computing<int>(() => item.ActualNumComputing.Value).For(consumer);
+			Computing<int> comp = new Computing<int>(() => item.ActualNumComputing1.Value + item.ActualNumComputing2.Value).For(consumer);
 			
-			Assert.IsTrue(comp.Value == 3);
-			Assert.IsTrue(item.NumComputing.IsActive);
-			Assert.IsTrue(!item.NumPlus1Computing.IsActive);
+			Assert.IsTrue(comp.Value == 0);
+			Assert.IsTrue(item.ZeroComputing.IsActive);
+			Assert.IsTrue(!item.OneComputing.IsActive);
 
-			item.ActualNumComputing = item.NumPlus1Computing;
+			item.ActualNumComputing1 = item.OneComputing;
 
-			Assert.IsTrue(comp.Value == 4);
-			Assert.IsTrue(!item.NumComputing.IsActive);
-			Assert.IsTrue(item.NumPlus1Computing.IsActive);
+			Assert.IsTrue(comp.Value == 1);
+			Assert.IsTrue(item.ZeroComputing.IsActive);
+			Assert.IsTrue(item.OneComputing.IsActive);
+
+			item.ActualNumComputing2 = item.OneComputing;
+
+			Assert.IsTrue(comp.Value == 2);
+			Assert.IsTrue(!item.ZeroComputing.IsActive);
+			Assert.IsTrue(item.OneComputing.IsActive);
 
 			consumer.Dispose();
 
-			Assert.IsTrue(!item.NumComputing.IsActive);
-			Assert.IsTrue(!item.NumPlus1Computing.IsActive);
+			Assert.IsTrue(!item.ZeroComputing.IsActive);
+			Assert.IsTrue(!item.OneComputing.IsActive);
 		}
 
 		[Test]
@@ -185,22 +205,22 @@ namespace ObservableComputations.Test
 				}
 			);
 
-			Selecting<Item, int> sel = items.Selecting(i => i.ActualNumComputing.Value).For(consumer);
+			Selecting<Item, int> sel = items.Selecting(i => i.ActualNumComputing1.Value).For(consumer);
 			
 			Assert.IsTrue(sel[0] == 3);
-			Assert.IsTrue(items[0].NumComputing.IsActive);
-			Assert.IsTrue(!items[0].NumPlus1Computing.IsActive);
+			Assert.IsTrue(items[0].ZeroComputing.IsActive);
+			Assert.IsTrue(!items[0].OneComputing.IsActive);
 
-			items[0].ActualNumComputing = items[0].NumPlus1Computing;
+			items[0].ActualNumComputing1 = items[0].OneComputing;
 
 			Assert.IsTrue(sel[0] == 4);
-			Assert.IsTrue(!items[0].NumComputing.IsActive);
-			Assert.IsTrue(items[0].NumPlus1Computing.IsActive);
+			Assert.IsTrue(!items[0].ZeroComputing.IsActive);
+			Assert.IsTrue(items[0].OneComputing.IsActive);
 
 			consumer.Dispose();
 
-			Assert.IsTrue(!items[0].NumComputing.IsActive);
-			Assert.IsTrue(!items[0].NumPlus1Computing.IsActive);
+			Assert.IsTrue(!items[0].ZeroComputing.IsActive);
+			Assert.IsTrue(!items[0].OneComputing.IsActive);
 
 		}
 

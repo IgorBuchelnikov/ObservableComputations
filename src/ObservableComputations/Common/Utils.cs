@@ -543,41 +543,25 @@ namespace ObservableComputations
 			if (!expressionWatcher._computingsChanged) return;
 
 			int callCount = expressionWatcher._currentComputings.Length;
+
 			IComputingInternal[] newComputings = new IComputingInternal[callCount];
 			expressionWatcher._currentComputings.CopyTo(newComputings, 0);
 
+			ExpressionWatcher.CallReturningComputing[] callReturningComputingArray = new ExpressionWatcher.CallReturningComputing[callCount];
+			expressionWatcher._callReturningComputingArray.CopyTo(callReturningComputingArray, 0);
+
 			for (int callIndex = 0; callIndex < callCount; callIndex++)
 			{
-				IComputingInternal oldComputing = expressionWatcher._oldComputings[callIndex];
+				ExpressionWatcher.CallReturningComputing callReturningComputing = callReturningComputingArray[callIndex];
+				if (callReturningComputing == null) continue;
+
 				IComputingInternal newComputing = newComputings[callIndex];
-				bool newExistsInOld = false;
-				bool oldExistsInNew = false;
 
-				if (oldComputing != null || newComputing != null)
+				if (callReturningComputing.Changed)
 				{
-					for (int callIndex1 = 0; callIndex1 < callCount; callIndex1++)
-					{
-						if (newComputing != null && expressionWatcher._oldComputings[callIndex1] == newComputing)
-						{
-							newExistsInOld = true;
-							expressionWatcher._oldComputings[callIndex1] = null;
-							newComputings[callIndex] = null;
-						}
-
-						if (oldComputing != null && newComputings[callIndex1] == oldComputing)
-						{
-							oldExistsInNew = true;
-							expressionWatcher._oldComputings[callIndex] = null;
-							newComputings[callIndex1] = null;
-						}
-					}
+					callReturningComputing.OldComputing?.RemoveDownstreamConsumedComputing(computing);
+					newComputing?.AddDownstreamConsumedComputing(computing);
 				}
-
-				if (oldComputing != null && !oldExistsInNew)
-					oldComputing.RemoveDownstreamConsumedComputing(computing);
-
-				if (newComputing != null && !newExistsInOld)
-					newComputing.AddDownstreamConsumedComputing(computing);
 			}
 		}
 

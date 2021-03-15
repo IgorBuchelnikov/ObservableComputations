@@ -15,7 +15,7 @@ namespace ObservableComputations
 		internal Position _position;
 		internal readonly PropertyChangedEventSubscription[] _propertyChangedEventSubscriptions;
 		internal readonly MethodChangedEventSubscription[] _methodChangedEventSubscriptions;
-		internal readonly IComputingInternal[] _oldComputings;
+		internal readonly CallReturningComputing[] _callReturningComputingArray;
 		internal readonly IComputingInternal[] _currentComputings;
 		internal bool _computingsChanged;
 		private readonly ExpressionWatcher _rootExpressionWatcher;
@@ -322,7 +322,7 @@ namespace ObservableComputations
 			_parameterValues = null;
 			_propertyChangedEventSubscriptions = new PropertyChangedEventSubscription[expressionInfo._callCount];
 			_methodChangedEventSubscriptions = new MethodChangedEventSubscription[expressionInfo._callCount];
-			_oldComputings = new IComputingInternal[expressionInfo._callCount];
+			_callReturningComputingArray = new CallReturningComputing[expressionInfo._callCount];
 			_currentComputings = new IComputingInternal[expressionInfo._callCount];
 			_rootExpressionWatcher = this;
 			initialize(expressionInfo);
@@ -332,7 +332,7 @@ namespace ObservableComputations
 		private ExpressionWatcher(object[] parameterValues, ExpressionInfo expressionInfo,
 			PropertyChangedEventSubscription[] propertyChangedEventSubscriptions,
 			MethodChangedEventSubscription[] methodChangedEventSubscriptions, 
-			IComputingInternal[] oldComputings,
+			CallReturningComputing[] callReturningComputingArray,
 			IComputingInternal[] currentComputings,
 			ExpressionWatcher rootExpressionWatcher)
 		{
@@ -340,7 +340,7 @@ namespace ObservableComputations
 			_parameterValues = parameterValues;
 			_propertyChangedEventSubscriptions = propertyChangedEventSubscriptions;
 			_methodChangedEventSubscriptions = methodChangedEventSubscriptions;
-			_oldComputings = oldComputings;
+			_callReturningComputingArray = callReturningComputingArray;
 			_currentComputings = currentComputings;
 			_rootExpressionWatcher = rootExpressionWatcher;
 			initialize(expressionInfo);
@@ -352,7 +352,7 @@ namespace ObservableComputations
 			_parameterValues = parameters;
 			_propertyChangedEventSubscriptions = new PropertyChangedEventSubscription[expressionInfo._callCount];
 			_methodChangedEventSubscriptions = new MethodChangedEventSubscription[expressionInfo._callCount];
-			_oldComputings = new IComputingInternal[expressionInfo._callCount];
+			_callReturningComputingArray = new CallReturningComputing[expressionInfo._callCount];
 			_currentComputings = new IComputingInternal[expressionInfo._callCount];
 			_rootExpressionWatcher = this;
 			initialize(expressionInfo);
@@ -376,7 +376,7 @@ namespace ObservableComputations
 							_parameterValues, 
 							_propertyChangedEventSubscriptions, 
 							_methodChangedEventSubscriptions,
-							_oldComputings, 
+							_callReturningComputingArray, 
 							_currentComputings,
 							_rootExpressionWatcher);
 					}
@@ -413,7 +413,7 @@ namespace ObservableComputations
 					expressionCallTreesInfoItem.ExpressionInfo, 
 					_propertyChangedEventSubscriptions, 
 					_methodChangedEventSubscriptions, 
-					_oldComputings, 
+					_callReturningComputingArray, 
 					_currentComputings,
 					_rootExpressionWatcher);
 				expressionWatcher.compileExpressionToWatch();
@@ -426,7 +426,7 @@ namespace ObservableComputations
 						_parameterValues, 
 						_propertyChangedEventSubscriptions, 
 						_methodChangedEventSubscriptions, 
-						_oldComputings, 
+						_callReturningComputingArray, 
 						_currentComputings,
 						_rootExpressionWatcher);
 				}
@@ -490,7 +490,7 @@ namespace ObservableComputations
 						_parameterValues, 
 						_propertyChangedEventSubscriptions, 
 						_methodChangedEventSubscriptions, 
-						_oldComputings, 
+						_callReturningComputingArray, 
 						_currentComputings,
 						_rootExpressionWatcher);
 				}
@@ -713,13 +713,26 @@ namespace ObservableComputations
 
 				IComputingInternal newComputingInternal = holder as IComputingInternal;
 
-				if (newComputingInternal != _oldComputings[callIndex])
+				if (newComputingInternal != _currentComputings[callIndex])
 				{
-					_oldComputings[callIndex] = _currentComputings[callIndex];
+					if (_rootExpressionWatcher.ValueChanged != null)
+					{
+						if (_callReturningComputingArray[callIndex] == null)
+							_callReturningComputingArray[callIndex] =
+								new CallReturningComputing(_currentComputings[callIndex]);
+						else
+						{
+							CallReturningComputing callReturningComputing = _callReturningComputingArray[callIndex];
+							callReturningComputing.OldComputing = _currentComputings[callIndex];
+							callReturningComputing.Touched = true;
+						}
+
+						_rootExpressionWatcher._computingsChanged = true;
+					}
+
 					_currentComputings[callIndex] = newComputingInternal;
-					_rootExpressionWatcher._computingsChanged = true;
 				}
-			
+
 				switch (node._call.Type)
 				{
 					case CallType.PropertyOrField:
@@ -820,11 +833,36 @@ namespace ObservableComputations
 			{
 				_processingChange = true;
 				_computingsChanged = false;
+
+				void processCallReturningComputingArray()
+				{
+					int length = _callReturningComputingArray.Length;
+					for (int i = 0; i < length; i++)
+					{
+						CallReturningComputing callReturningComputing = _callReturningComputingArray[i];
+						if (callReturningComputing == null) continue;
+
+						if (callReturningComputing.Touched)
+							callReturningComputing.Changed = true;
+						else
+						{
+							callReturningComputing.Changed = false;
+							callReturningComputing.OldComputing = null;
+						}
+
+						callReturningComputing.Touched = false;
+					}
+				}
+
+				processCallReturningComputingArray();
+
 #if DEBUG
 				workWithCallTreeNodeChildren(node, root, WorkWithCallTreeNodeType.UpdateSubscriptionAndHolder);
+				if (this == _rootExpressionWatcher) processCallReturningComputingArray();
 				raiseValueChanged(root, sender, args);
 #else
 				workWithCallTreeNodeChildren(node, WorkWithCallTreeNodeType.UpdateSubscriptionAndHolder);
+				if (this == _rootExpressionWatcher) processCallReturningComputingArray();
 				raiseValueChanged(sender, args);
 #endif
 				if (_processChangeTasksQueue != null)
@@ -835,9 +873,11 @@ namespace ObservableComputations
 						_computingsChanged = false;
 #if DEBUG
 						workWithCallTreeNodeChildren(processChangeTask.Node, processChangeTask.Root, WorkWithCallTreeNodeType.UpdateSubscriptionAndHolder);
+						if (this == _rootExpressionWatcher) processCallReturningComputingArray();
 						raiseValueChanged(processChangeTask.Root, processChangeTask.Sender, processChangeTask.Args);
 #else
 						workWithCallTreeNodeChildren(processChangeTask.Node, WorkWithCallTreeNodeType.UpdateSubscriptionAndHolder);
+						if (this == _rootExpressionWatcher) processCallReturningComputingArray();				
 						raiseValueChanged(processChangeTask.Sender, processChangeTask.Args);
 #endif
 					}
@@ -846,6 +886,8 @@ namespace ObservableComputations
 				_processingChange = false;
 			}
 		}
+
+
 
 
 #if DEBUG
@@ -1242,6 +1284,19 @@ namespace ObservableComputations
 			Method
 		}
 
+		public class CallReturningComputing
+		{
+			public bool Changed;
+			public bool Touched;
+			public  IComputingInternal OldComputing;
+
+			public CallReturningComputing(IComputingInternal oldComputing)
+			{
+				OldComputing = oldComputing;
+				Touched = true;
+			}
+		}
+
 		public struct CallTreeNodeInfo
 		{
 			internal Call _call;
@@ -1272,7 +1327,7 @@ namespace ObservableComputations
 
 			internal CallTreeNode getCallTreeNode(object[] parameterValues,
 				PropertyChangedEventSubscription[] propertyChangedEventSubscriptions,
-				MethodChangedEventSubscription[] methodChangedEventSubscription, IComputingInternal[] oldComputings,
+				MethodChangedEventSubscription[] methodChangedEventSubscription, CallReturningComputing[] oldComputings,
 				IComputingInternal[] currentComputings, ExpressionWatcher rootExpressionWatcher)
 			{
 				CallTreeNode[] childNodes = null;

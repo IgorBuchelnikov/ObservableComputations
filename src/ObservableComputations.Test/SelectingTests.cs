@@ -305,6 +305,63 @@ namespace ObservableComputations.Test
 			Assert.IsTrue(new int[]{5, 6, 7, 8, 9}.SequenceEqual(selecting));
 			consumer.Dispose();
 		}
+
+		[Test]
+		public void Selecting_Nested4()
+		{
+			Item.LastNum = 0;
+
+			ObservableCollection<Item> items = new ObservableCollection<Item>(
+				new[]
+				{
+					new Item(),
+					new Item(),
+					new Item(),
+					new Item(),
+					new Item()
+				}
+
+			);
+
+			Computing<int> computing = new Computing<int>(() => 1);
+			Assert.IsFalse(computing.IsActive);
+
+			OcConsumer consumer = new OcConsumer();
+			Selecting<Item, int> selecting = items.Selecting(item => computing.Value).For(consumer);
+			Assert.IsTrue(computing.IsActive);
+
+			Assert.IsTrue(new int[]{1, 1, 1, 1, 1}.SequenceEqual(selecting));
+			consumer.Dispose();
+			Assert.IsFalse(computing.IsActive);
+		}
+
+		[Test]
+		public void Selecting_Nested5()
+		{
+			Item.LastNum = 0;
+
+			ObservableCollection<Item> items = new ObservableCollection<Item>(
+				new[]
+				{
+					new Item(),
+					new Item(),
+					new Item(),
+					new Item()
+				}
+
+			);
+
+			Computing<int> computing = new Computing<int>(() => 1);
+			Assert.IsFalse(computing.IsActive);
+
+			OcConsumer consumer = new OcConsumer();
+			Selecting<Item, int> selecting = items.Selecting(item => computing.Value + items.Selecting(i => item).Count).For(consumer);
+			Assert.IsTrue(computing.IsActive);
+
+			Assert.IsTrue(new int[]{5, 5, 5, 5}.SequenceEqual(selecting));
+			consumer.Dispose();
+			Assert.IsFalse(computing.IsActive);
+		}
 		
 		[Test, Combinatorial]
 		public void Selecting_Dispose(

@@ -18,7 +18,6 @@ namespace ObservableComputations
 		// ReSharper disable once PrivateFieldCanBeConvertedToLocalVariable
 		private ExpressionWatcher _getValueExpressionWatcher;
 
-		private readonly List<IComputingInternal> _nestedComputings;
 		private readonly ExpressionWatcher.ExpressionInfo _expressionInfo;
 		private readonly Action _changeValueAction;
 
@@ -35,7 +34,6 @@ namespace ObservableComputations
 			// ReSharper disable once PossibleNullReferenceException
 			_getValueFunc = getValueExpression1.Compile();
 			_expressionInfo = ExpressionWatcher.GetExpressionInfo(getValueExpression1);
-			_nestedComputings = callToConstantConverter.NestedComputings;
 		}
 
 		private void getValueExpressionWatcherOnValueChanged(ExpressionWatcher expressionWatcher, object sender, EventArgs eventArgs)
@@ -77,7 +75,7 @@ namespace ObservableComputations
 		{
 			if (_isActive)
 			{
-				Utils.initializeNestedComputings(_nestedComputings, this);
+
 				_getValueExpressionWatcher = new ExpressionWatcher(_expressionInfo);
 				Utils.initializeExpressionWatcherCurrentComputings(_getValueExpressionWatcher, _expressionInfo._callCount, this);
 				_getValueExpressionWatcher.ValueChanged = getValueExpressionWatcherOnValueChanged;
@@ -87,8 +85,7 @@ namespace ObservableComputations
 			{
 				_getValueExpressionWatcher.Dispose();
 				EventUnsubscriber.QueueSubscriptions(_getValueExpressionWatcher._propertyChangedEventSubscriptions, _getValueExpressionWatcher._methodChangedEventSubscriptions);
-				Utils.removeDownstreamConsumedComputing(_getValueExpressionWatcher, this);			
-				Utils.uninitializeNestedComputings(_nestedComputings, this);
+				Utils.removeDownstreamConsumedComputing(_getValueExpressionWatcher, this);
 				setDefaultValue();				
 			}
 		}

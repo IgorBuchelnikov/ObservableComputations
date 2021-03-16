@@ -1160,13 +1160,6 @@ namespace ObservableComputations
 			}
 		}
 
-		private static void addDownstreamConsumedComputing(ExpressionWatcher watcher, IComputingInternal current)
-		{
-			int currentComputingsLength = watcher._currentComputings.Length;
-			for (int computingIndex = 0; computingIndex < currentComputingsLength; computingIndex++)
-				watcher._currentComputings[computingIndex]?.AddDownstreamConsumedComputing(current);
-		}
-
 		internal static void AddDownstreamConsumedComputing(IComputingInternal computing, IReadScalar<INotifyCollectionChanged> sourceScalar, INotifyCollectionChanged source)
 		{
 			(sourceScalar as IComputingInternal)?.AddDownstreamConsumedComputing(computing);

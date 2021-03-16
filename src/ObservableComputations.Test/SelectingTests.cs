@@ -621,8 +621,11 @@ namespace ObservableComputations.Test
 			Assert.IsFalse(selectingWeakReference.TryGetTarget(out Selecting<Item, int> s));
 		}
 
+
 		public SelectingTests(bool debug) : base(debug)
 		{
+
+
 		}
 	}
 }

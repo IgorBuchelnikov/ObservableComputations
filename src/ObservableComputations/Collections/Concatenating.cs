@@ -28,6 +28,7 @@ namespace ObservableComputations
 		private readonly IReadScalar<INotifyCollectionChanged> _sourceScalar;
 		private INotifyCollectionChanged _source;
 
+		private bool _countPropertyChangedEventRaised;
 		private bool _indexerPropertyChangedEventRaised;
 		private INotifyPropertyChanged _sourceAsINotifyPropertyChanged;
 
@@ -48,6 +49,7 @@ namespace ObservableComputations
 			public NotifyCollectionChangedEventHandler SourceNotifyCollectionChangedEventHandler;
 			public PropertyChangedEventHandler SourcePropertyChangedEventHandler;
 			public bool IndexerPropertyChangedEventRaised;
+			public bool CountPropertyChangedEventRaised;
 			public INotifyPropertyChanged SourceAsINotifyPropertyChanged;
 			public IHasChangeMarker SourceAsIHasChangeMarker;
 			public bool LastProcessedSourceChangeMarker;
@@ -278,7 +280,7 @@ namespace ObservableComputations
 				itemInfo.SourceAsINotifyPropertyChanged = (INotifyPropertyChanged) source;
 
 				itemInfo.SourcePropertyChangedEventHandler = (sender, args) =>				
-					Utils.handleSourcePropertyChanged(args, ref itemInfo.IndexerPropertyChangedEventRaised);
+					Utils.handleSourcePropertyChanged(args, ref itemInfo.CountPropertyChangedEventRaised, ref itemInfo.IndexerPropertyChangedEventRaised);
 				
 				itemInfo.SourceAsINotifyPropertyChanged.PropertyChanged +=
 					itemInfo.SourcePropertyChangedEventHandler;
@@ -358,6 +360,7 @@ namespace ObservableComputations
 				sender, 
 				e, 
 				ref _isConsistent, 
+				ref itemInfo.CountPropertyChangedEventRaised,
 				ref itemInfo.IndexerPropertyChangedEventRaised, 
 				ref itemInfo.LastProcessedSourceChangeMarker, 
 				itemInfo.SourceAsIHasChangeMarker, 
@@ -435,6 +438,7 @@ namespace ObservableComputations
 				sender, 
 				e, 
 				ref _isConsistent, 
+				ref _countPropertyChangedEventRaised,
 				ref _indexerPropertyChangedEventRaised, 
 				ref _lastProcessedSourcesChangeMarker, 
 				_sourceAsIHasChangeMarker, 
@@ -662,7 +666,7 @@ namespace ObservableComputations
 
 		void ISourceIndexerPropertyTracker.HandleSourcePropertyChanged(object sender, PropertyChangedEventArgs propertyChangedEventArgs)
 		{
-			Utils.handleSourcePropertyChanged(propertyChangedEventArgs, ref _indexerPropertyChangedEventRaised);
+			Utils.handleSourcePropertyChanged(propertyChangedEventArgs, ref _countPropertyChangedEventRaised, ref _indexerPropertyChangedEventRaised);
 		}
 
 		#endregion

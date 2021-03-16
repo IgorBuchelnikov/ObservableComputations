@@ -885,10 +885,15 @@ namespace ObservableComputations
 			}
 		}
 
-		internal static void handleSourcePropertyChanged(PropertyChangedEventArgs propertyChangedEventArgs, ref bool indexerPropertyChangedEventRaised)
+		internal static void handleSourcePropertyChanged(
+			PropertyChangedEventArgs propertyChangedEventArgs,
+			ref bool countPropertyChangedEventRaised,
+			ref bool indexerPropertyChangedEventRaised)
 		{
 			if (propertyChangedEventArgs.PropertyName == "Item[]")
 				indexerPropertyChangedEventRaised = true;
+			else if (propertyChangedEventArgs.PropertyName == "Count")
+				countPropertyChangedEventRaised = true;
 		}
 
 		internal static void clearDeferredProcessings(Queue<IProcessable>[] deferredProcessings, int fromIndex = 1)
@@ -978,6 +983,7 @@ namespace ObservableComputations
 			object sender, 
 			NotifyCollectionChangedEventArgs e, 
 			ref bool isConsistent, 
+			ref bool countPropertyChangedEventRaised, 
 			ref bool indexerPropertyChangedEventRaised, 
 			ref bool lastProcessedSourceChangeMarker, 
 			IHasChangeMarker sourceAsIHasChangeMarker, 
@@ -989,9 +995,11 @@ namespace ObservableComputations
 			ISourceCollectionChangeProcessor sourceCollectionChangeProcessor)
 		{
 			if (!preHandleSourceCollectionChanged(
-				ref indexerPropertyChangedEventRaised, 
-				ref lastProcessedSourceChangeMarker, 
-				sourceAsIHasChangeMarker))
+					e.Action,
+					ref countPropertyChangedEventRaised,
+					ref indexerPropertyChangedEventRaised,
+					ref lastProcessedSourceChangeMarker, 
+					sourceAsIHasChangeMarker))
 				return false;
 
 			return preHandleSourceCollectionChanged(
@@ -1006,17 +1014,35 @@ namespace ObservableComputations
 				sourceCollectionChangeProcessor);
 		}
 
-		internal static bool preHandleSourceCollectionChanged(ref bool indexerPropertyChangedEventRaised,
-			ref bool lastProcessedSourceChangeMarker, IHasChangeMarker sourceAsIHasChangeMarker)
+		internal static bool preHandleSourceCollectionChanged(
+			NotifyCollectionChangedAction notifyCollectionChangedAction, 
+			ref bool countPropertyChangedEventRaised,
+			ref bool indexerPropertyChangedEventRaised,
+			ref bool lastProcessedSourceChangeMarker,
+			IHasChangeMarker sourceAsIHasChangeMarker)
 		{
-			if (!indexerPropertyChangedEventRaised &&
-				(sourceAsIHasChangeMarker == null
-				 || lastProcessedSourceChangeMarker == sourceAsIHasChangeMarker.ChangeMarker))
+			if (handledAfterActivationInCountOrIndexerPropertyChangedHandlers(notifyCollectionChangedAction, countPropertyChangedEventRaised, indexerPropertyChangedEventRaised)
+				 && (
+				    sourceAsIHasChangeMarker == null
+					|| lastProcessedSourceChangeMarker == sourceAsIHasChangeMarker.ChangeMarker))
 				return false;
 
 			lastProcessedSourceChangeMarker = !lastProcessedSourceChangeMarker;
+			countPropertyChangedEventRaised = false;
 			indexerPropertyChangedEventRaised = false;
 			return true;
+		}
+
+		internal static bool handledAfterActivationInCountOrIndexerPropertyChangedHandlers(NotifyCollectionChangedAction notifyCollectionChangedAction, bool countPropertyChangedEventRaised, bool indexerPropertyChangedEventRaised)
+		{
+			return 
+				((notifyCollectionChangedAction == NotifyCollectionChangedAction.Reset 
+				  || notifyCollectionChangedAction == NotifyCollectionChangedAction.Remove  
+				  || notifyCollectionChangedAction == NotifyCollectionChangedAction.Add) 
+				 && (!indexerPropertyChangedEventRaised || !countPropertyChangedEventRaised))
+				|| ((notifyCollectionChangedAction == NotifyCollectionChangedAction.Move 
+				     || notifyCollectionChangedAction == NotifyCollectionChangedAction.Replace) 
+				    && !indexerPropertyChangedEventRaised);
 		}
 
 		internal static void disposeExpressionWatcher(ExpressionWatcher watcher, List<IComputingInternal> nestedComputings, IComputingInternal current, bool expressionContainsParametrizedObservableComputationsCalls)

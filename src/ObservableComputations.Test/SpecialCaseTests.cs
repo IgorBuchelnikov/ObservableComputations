@@ -207,13 +207,13 @@ namespace ObservableComputations.Test
 
 			Selecting<Item, int> sel = items.Selecting(i => i.ActualNumComputing1.Value).For(consumer);
 			
-			Assert.IsTrue(sel[0] == 3);
+			Assert.IsTrue(sel[0] == 0);
 			Assert.IsTrue(items[0].ZeroComputing.IsActive);
 			Assert.IsTrue(!items[0].OneComputing.IsActive);
 
 			items[0].ActualNumComputing1 = items[0].OneComputing;
 
-			Assert.IsTrue(sel[0] == 4);
+			Assert.IsTrue(sel[0] == 1);
 			Assert.IsTrue(!items[0].ZeroComputing.IsActive);
 			Assert.IsTrue(items[0].OneComputing.IsActive);
 
@@ -290,6 +290,169 @@ namespace ObservableComputations.Test
 			Assert.IsTrue(selecting.SequenceEqual(items2.Select(s => s.Length)));
 
 			consumer.Dispose();
+		}
+
+		[Test, Combinatorial]
+		public void TestCreateOnCountChanged(
+			[Values(NotifyCollectionChangedAction.Add, NotifyCollectionChangedAction.Reset, NotifyCollectionChangedAction.Move, NotifyCollectionChangedAction.Remove, NotifyCollectionChangedAction.Replace)]
+			NotifyCollectionChangedAction action,
+			[Values("Count", "Item[]")] string propertyName)
+		{
+			MiscTests.MyObservableCollection<Item> items = new MiscTests.MyObservableCollection<Item>(
+				new[]
+				{
+					new Item(false),
+					new Item(false),
+					new Item(false),
+					new Item(false)
+				}
+			);
+
+			Casting<Item> casting = null;
+
+			((INotifyPropertyChanged) items).PropertyChanged += (sender, args) =>
+			{
+				if (args.PropertyName == propertyName)
+				{
+					OcConsumer consumer = new OcConsumer();
+					casting = items.Casting<Item>().For(consumer);
+					casting.ValidateInternalConsistency();
+				}
+			};
+
+			switch (action)
+			{
+				case NotifyCollectionChangedAction.Add:
+					items.Add(new Item(false));
+					break;
+				case NotifyCollectionChangedAction.Remove:
+					items.RemoveAt(0);
+					break;
+				case NotifyCollectionChangedAction.Replace:
+					items[0] = new Item(false);
+					break;
+				case NotifyCollectionChangedAction.Move:
+					items.Move(0, 1);
+					break;
+				case NotifyCollectionChangedAction.Reset:
+					items.Reset(new[]
+					{
+						new Item(false),
+						new Item(false)
+					});
+					break;
+			}
+
+			casting?.ValidateInternalConsistency();
+
+		}
+
+		[Test, Combinatorial]
+		public void TestCreateOnCountChanged2(
+			[Values(NotifyCollectionChangedAction.Add, NotifyCollectionChangedAction.Reset, NotifyCollectionChangedAction.Move, NotifyCollectionChangedAction.Remove, NotifyCollectionChangedAction.Replace)]
+			NotifyCollectionChangedAction action,
+			[Values("Count", "Item[]")] string propertyName)
+		{
+			MiscTests.MyObservableCollection<Item> items = new MiscTests.MyObservableCollection<Item>(
+				new[]
+				{
+					new Item(false),
+					new Item(false),
+					new Item(false),
+					new Item(false)
+				}
+			);
+
+			Selecting<Item, Item> selecting = null;
+
+			((INotifyPropertyChanged) items).PropertyChanged += (sender, args) =>
+			{
+				if (args.PropertyName == propertyName)
+				{
+					OcConsumer consumer = new OcConsumer();
+					selecting = items.Selecting(i => i).For(consumer);
+				}
+			};
+
+			switch (action)
+			{
+				case NotifyCollectionChangedAction.Add:
+					items.Add(new Item(false));
+					break;
+				case NotifyCollectionChangedAction.Remove:
+					items.RemoveAt(0);
+					break;
+				case NotifyCollectionChangedAction.Replace:
+					items[0] = new Item(false);
+					break;
+				case NotifyCollectionChangedAction.Move:
+					items.Move(0, 1);
+					break;
+				case NotifyCollectionChangedAction.Reset:
+					items.Reset(new[]
+					{
+						new Item(false),
+						new Item(false)
+					});
+					break;
+			}
+
+			selecting?.ValidateInternalConsistency();
+		}
+
+		[Test, Combinatorial]
+		public void TestCreateOnCountChanged3(
+			[Values(NotifyCollectionChangedAction.Add, NotifyCollectionChangedAction.Reset, NotifyCollectionChangedAction.Move, NotifyCollectionChangedAction.Remove, NotifyCollectionChangedAction.Replace)]
+			NotifyCollectionChangedAction action,
+			[Values("Count", "Item[]")] string propertyName)
+		{
+			MiscTests.MyObservableCollection<Item> items = new MiscTests.MyObservableCollection<Item>(
+				new[]
+				{
+					new Item(false),
+					new Item(false),
+					new Item(false),
+					new Item(false)
+				}
+			);
+
+			Selecting<Item, Item> testingSelecting = null;
+
+			OcConsumer consumer = new OcConsumer();
+			Selecting<Item, Item> selecting = items.Selecting(i => i).For(consumer);
+
+			((INotifyPropertyChanged) selecting).PropertyChanged += (sender, args) =>
+			{
+				if (args.PropertyName == propertyName)
+				{
+					testingSelecting = selecting.Selecting(i => i).For(consumer);
+				}
+			};
+
+			switch (action)
+			{
+				case NotifyCollectionChangedAction.Add:
+					items.Add(new Item(false));
+					break;
+				case NotifyCollectionChangedAction.Remove:
+					items.RemoveAt(0);
+					break;
+				case NotifyCollectionChangedAction.Replace:
+					items[0] = new Item(false);
+					break;
+				case NotifyCollectionChangedAction.Move:
+					items.Move(0, 1);
+					break;
+				case NotifyCollectionChangedAction.Reset:
+					items.Reset(new[]
+					{
+						new Item(false),
+						new Item(false)
+					});
+					break;
+			}
+
+			testingSelecting?.ValidateInternalConsistency();
 		}
 
 		public SpecialCaseTests(bool debug) : base(debug)

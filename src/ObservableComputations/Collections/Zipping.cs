@@ -71,9 +71,12 @@ namespace ObservableComputations
 		private List<TLeftSourceItem> _leftSourceCopy;
 		private List<TRightSourceItem> _rightSourceCopy;
 
+
+		private bool _leftSourceCountPropertyChangedEventRaised;
 		private bool _leftSourceIndexerPropertyChangedEventRaised;
 		private INotifyPropertyChanged _leftSourceAsINotifyPropertyChanged;
 
+		private bool _rightSourceCountPropertyChangedEventRaised;
 		private bool _rightSourceIndexerPropertyChangedEventRaised;
 		private INotifyPropertyChanged _rightSourceAsINotifyPropertyChanged;
 
@@ -328,6 +331,7 @@ namespace ObservableComputations
 				sender, 
 				e, 
 				ref _isConsistent, 
+				ref _leftSourceCountPropertyChangedEventRaised,
 				ref _leftSourceIndexerPropertyChangedEventRaised, 
 				ref _lastProcessedLeftSourceChangeMarker, 
 				_leftSourceAsIHasChangeMarker, 
@@ -571,7 +575,8 @@ namespace ObservableComputations
 			if (!Utils.preHandleSourceCollectionChanged(
 				sender, 
 				e, 
-				ref _isConsistent, 
+				ref _isConsistent,
+				ref _rightSourceCountPropertyChangedEventRaised,
 				ref _rightSourceIndexerPropertyChangedEventRaised, 
 				ref _lastProcessedRightSourceChangeMarker, 
 				_rightSourceAsHasChangeMarker, 
@@ -657,12 +662,12 @@ namespace ObservableComputations
 
 		void IRightSourceIndexerPropertyTracker.HandleSourcePropertyChanged(object sender, PropertyChangedEventArgs propertyChangedEventArgs)
 		{
-			Utils.handleSourcePropertyChanged(propertyChangedEventArgs, ref _rightSourceIndexerPropertyChangedEventRaised);
+			Utils.handleSourcePropertyChanged(propertyChangedEventArgs, ref _rightSourceCountPropertyChangedEventRaised, ref _rightSourceIndexerPropertyChangedEventRaised);
 		}
 
 		void ILeftSourceIndexerPropertyTracker.HandleSourcePropertyChanged(object sender, PropertyChangedEventArgs propertyChangedEventArgs)
 		{
-			Utils.handleSourcePropertyChanged(propertyChangedEventArgs, ref _leftSourceIndexerPropertyChangedEventRaised);
+			Utils.handleSourcePropertyChanged(propertyChangedEventArgs, ref _leftSourceCountPropertyChangedEventRaised, ref _leftSourceIndexerPropertyChangedEventRaised);
 		}
 
 		#endregion

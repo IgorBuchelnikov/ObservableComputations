@@ -20,6 +20,7 @@ namespace ObservableComputations
 		private readonly IList<TSourceItem> _sourceAsList;
 
 		private bool _indexerPropertyChangedEventRaised;
+		private bool _countPropertyChangedEventRaised;
 		private readonly INotifyPropertyChanged _sourceAsINotifyPropertyChanged;
 		private readonly IList<TSourceItem> _items;
 		internal object HandledEventSender;
@@ -78,7 +79,7 @@ namespace ObservableComputations
 
 		private void handleSourcePropertyChanged(object sender, PropertyChangedEventArgs args)
 		{
-			if (args.PropertyName == "Item[]") _indexerPropertyChangedEventRaised = true; // ObservableCollection raises this before CollectionChanged event raising
+			Utils.handleSourcePropertyChanged(args, ref _countPropertyChangedEventRaised, ref _indexerPropertyChangedEventRaised);
 		}
 
 		private void handleSourceCollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
@@ -86,7 +87,7 @@ namespace ObservableComputations
 			HandledEventSender = sender;
 			HandledEventArgs = e;
 
-			if (_indexerPropertyChangedEventRaised)
+			if (!Utils.handledAfterActivationInCountOrIndexerPropertyChangedHandlers(e.Action, _countPropertyChangedEventRaised, _indexerPropertyChangedEventRaised))
 			{
 				_indexerPropertyChangedEventRaised = false;
 				switch (e.Action)

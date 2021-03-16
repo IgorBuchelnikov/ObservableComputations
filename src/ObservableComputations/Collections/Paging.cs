@@ -156,6 +156,7 @@ namespace ObservableComputations
 		private List<TSourceItem> _sourceCopy;
 		private readonly IReadScalar<INotifyCollectionChanged> _sourceScalar;
 
+		private bool _countPropertyChangedEventRaised;
 		private bool _indexerPropertyChangedEventRaised;
 		private INotifyPropertyChanged _sourceAsINotifyPropertyChanged;
 
@@ -458,6 +459,7 @@ namespace ObservableComputations
 				sender, 
 				e, 
 				ref _isConsistent, 
+				ref _countPropertyChangedEventRaised,
 				ref _indexerPropertyChangedEventRaised, 
 				ref _lastProcessedSourceChangeMarker, 
 				_sourceAsIHasChangeMarker, 
@@ -676,7 +678,7 @@ namespace ObservableComputations
 
 		void ISourceIndexerPropertyTracker.HandleSourcePropertyChanged(object sender, PropertyChangedEventArgs propertyChangedEventArgs)
 		{
-			Utils.handleSourcePropertyChanged(propertyChangedEventArgs, ref _indexerPropertyChangedEventRaised);
+			Utils.handleSourcePropertyChanged(propertyChangedEventArgs, ref _countPropertyChangedEventRaised, ref _indexerPropertyChangedEventRaised);
 		}
 
 		#endregion

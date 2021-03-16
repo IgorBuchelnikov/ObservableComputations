@@ -32,8 +32,8 @@ namespace ObservableComputations
 		private bool _indexerPropertyChangedEventRaised;
 		private INotifyPropertyChanged _sourceAsINotifyPropertyChanged;
 
-		private IHasChangeMarker _sourceAsIHasChangeMarker;
-		private bool _lastProcessedSourcesChangeMarker;
+		private IHasTickTackVersion _sourceAsIHasTickTackVersion;
+		private bool _lastProcessedSourcesTickTackVersion;
 
 		private readonly ISourceCollectionChangeProcessor _thisAsSourceCollectionChangeProcessor;
 		private bool _initialized;
@@ -51,8 +51,8 @@ namespace ObservableComputations
 			public bool IndexerPropertyChangedEventRaised;
 			public bool CountPropertyChangedEventRaised;
 			public INotifyPropertyChanged SourceAsINotifyPropertyChanged;
-			public IHasChangeMarker SourceAsIHasChangeMarker;
-			public bool LastProcessedSourceChangeMarker;
+			public IHasTickTackVersion SourceAsIHasTickTackVersion;
+			public bool LastProcessedSourceTickTackVersion;
 
 			#region Implementation of ISourceCollectionChangeProcessor
 
@@ -186,9 +186,9 @@ namespace ObservableComputations
 			{
 				if (replaceSource)
 					Utils.subscribeSource(
-						out _sourceAsIHasChangeMarker, 
+						out _sourceAsIHasTickTackVersion, 
 						_sourcesAsList, 
-						ref _lastProcessedSourcesChangeMarker, 
+						ref _lastProcessedSourcesTickTackVersion, 
 						ref _sourceAsINotifyPropertyChanged,
 						(ISourceIndexerPropertyTracker)this,
 						_source,
@@ -289,11 +289,11 @@ namespace ObservableComputations
 					handleSourceCollectionChanged(sender, eventArgs, itemInfo);
 				source.CollectionChanged += itemInfo.SourceNotifyCollectionChangedEventHandler;
 
-				IHasChangeMarker sourceAsIHasChangeMarker = source as IHasChangeMarker;
-				itemInfo.SourceAsIHasChangeMarker = sourceAsIHasChangeMarker;
-				if (sourceAsIHasChangeMarker != null)
+				IHasTickTackVersion sourceAsIHasTickTackVersion = source as IHasTickTackVersion;
+				itemInfo.SourceAsIHasTickTackVersion = sourceAsIHasTickTackVersion;
+				if (sourceAsIHasTickTackVersion != null)
 				{
-					itemInfo.LastProcessedSourceChangeMarker = sourceAsIHasChangeMarker.ChangeMarker;
+					itemInfo.LastProcessedSourceTickTackVersion = sourceAsIHasTickTackVersion.TickTackVersion;
 				}			  
 			}
 
@@ -362,8 +362,8 @@ namespace ObservableComputations
 				ref _isConsistent, 
 				ref itemInfo.CountPropertyChangedEventRaised,
 				ref itemInfo.IndexerPropertyChangedEventRaised, 
-				ref itemInfo.LastProcessedSourceChangeMarker, 
-				itemInfo.SourceAsIHasChangeMarker, 
+				ref itemInfo.LastProcessedSourceTickTackVersion, 
+				itemInfo.SourceAsIHasTickTackVersion, 
 				ref _handledEventSender, 
 				ref _handledEventArgs,
 				ref _deferredProcessings,
@@ -440,8 +440,8 @@ namespace ObservableComputations
 				ref _isConsistent, 
 				ref _countPropertyChangedEventRaised,
 				ref _indexerPropertyChangedEventRaised, 
-				ref _lastProcessedSourcesChangeMarker, 
-				_sourceAsIHasChangeMarker, 
+				ref _lastProcessedSourcesTickTackVersion, 
+				_sourceAsIHasTickTackVersion, 
 				ref _handledEventSender, 
 				ref _handledEventArgs,
 				ref _deferredProcessings,

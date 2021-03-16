@@ -249,14 +249,12 @@ namespace ObservableComputations
 		}
 
 		internal static void subscribeSource<TSourceItem>(INotifyCollectionChanged source,
-			ref ObservableCollectionWithChangeMarker<TSourceItem> sourceAsList, ref bool rootSourceWrapper,
-			ref bool lastProcessedSourceChangeMarker, NotifyCollectionChangedEventHandler handleLeftSourceCollectionChanged)
+			ref ObservableCollectionWithTickTackVersion<TSourceItem> sourceAsList, ref bool rootSourceWrapper,
+			ref bool lastProcessedSourceTickTackVersion, NotifyCollectionChangedEventHandler handleLeftSourceCollectionChanged)
 		{
-			if (source == null) return;
-
-			if (source is ObservableCollectionWithChangeMarker<TSourceItem> sourceAsObservableCollectionWithChangeMarker)
+			if (source is ObservableCollectionWithTickTackVersion<TSourceItem> sourceAsObservableCollectionWithTickTackVersion)
 			{
-				sourceAsList = sourceAsObservableCollectionWithChangeMarker;
+				sourceAsList = sourceAsObservableCollectionWithTickTackVersion;
 				rootSourceWrapper = false;
 			}
 			else
@@ -265,7 +263,7 @@ namespace ObservableComputations
 				rootSourceWrapper = true;
 			}
 
-			lastProcessedSourceChangeMarker = sourceAsList.ChangeMarkerField;
+			lastProcessedSourceTickTackVersion = sourceAsList.TickTackVersion;
 			sourceAsList.CollectionChanged += handleLeftSourceCollectionChanged;
 		}
 
@@ -307,13 +305,6 @@ namespace ObservableComputations
 			where TSource : class
 		{
 			if (sourceScalar != null) source = null;
-		}
-
-		internal static  void checkConsistent(object sender, EventArgs eventArgs, bool isConsistent, IComputing computing)
-		{
-			if (!isConsistent)
-				throw new ObservableComputationsInconsistencyException(computing,
-					$"The source collection has been changed. It is not possible to process this change (event sender = {sender.ToStringSafe(e => $"{e.ToString()} in sender.ToString()")}, event args = {eventArgs.ToStringAlt()}), as the processing of the previous change is not completed. Make the change on ConsistencyRestored event raising (after IsConsistent property becomes true). This exception is fatal and cannot be handled as the inner state is damaged.", sender, eventArgs);
 		}
 
 		private static Queue<IProcessable> getOrInitializeDeferredProcessingsQueue(
@@ -469,8 +460,8 @@ namespace ObservableComputations
 			object sender,
 			EventArgs eventArgs,
 			bool rootSourceWrapper,
-			ObservableCollectionWithChangeMarker<TSourceItem> observableCollectionWithChangeMarker,
-			bool lastProcessedSourceChangeMarker,
+			ObservableCollectionWithTickTackVersion<TSourceItem> observableCollectionWithTickTackVersion,
+			bool lastProcessedSourceTickTackVersion,
 			TCanProcessSourceItemChange thisAsCanProcessSourceItemChange,
 			ref bool isConsistent, 
 			ref object handledEventSender, 
@@ -483,7 +474,7 @@ namespace ObservableComputations
 		{
 			processExpressionWatcherNestedComputings(expressionWatcher, thisAsCanProcessSourceItemChange);
 
-			bool canProcessNow = isConsistent && (rootSourceWrapper || observableCollectionWithChangeMarker.ChangeMarkerField == lastProcessedSourceChangeMarker);
+			bool canProcessNow = isConsistent && (rootSourceWrapper || observableCollectionWithTickTackVersion.TickTackVersion == lastProcessedSourceTickTackVersion);
 
 			processSourceItemChange(
 				expressionWatcher, 
@@ -503,11 +494,11 @@ namespace ObservableComputations
 			object sender, 
 			EventArgs eventArgs,
 			bool rootSourceWrapper1,
-			ObservableCollectionWithChangeMarker<TSourceItem1> observableCollectionWithChangeMarker1,
+			ObservableCollectionWithTickTackVersion<TSourceItem1> observableCollectionWithTickTackVersion1,
 			bool rootSourceWrapper2,
-			ObservableCollectionWithChangeMarker<TSourceItem2> observableCollectionWithChangeMarker2,
-			bool lastProcessedSource1ChangeMarker, 
-			bool lastProcessedSource2ChangeMarker, 
+			ObservableCollectionWithTickTackVersion<TSourceItem2> observableCollectionWithTickTackVersion2,
+			bool lastProcessedSource1TickTackVersion, 
+			bool lastProcessedSource2TickTackVersion, 
 			TCanProcessSourceItemChange thisAsCanProcessSourceItemChange,		   
 			ref bool isConsistent, 
 			ref object handledEventSender,
@@ -520,8 +511,8 @@ namespace ObservableComputations
 			processExpressionWatcherNestedComputings(expressionWatcher, thisAsCanProcessSourceItemChange);
 
 			bool canProcessNow = isConsistent
-				&& (rootSourceWrapper1 || observableCollectionWithChangeMarker1.ChangeMarkerField == lastProcessedSource1ChangeMarker)
-				&& (rootSourceWrapper2 || observableCollectionWithChangeMarker2.ChangeMarkerField == lastProcessedSource2ChangeMarker);
+				&& (rootSourceWrapper1 || observableCollectionWithTickTackVersion1.TickTackVersion == lastProcessedSource1TickTackVersion)
+				&& (rootSourceWrapper2 || observableCollectionWithTickTackVersion2.TickTackVersion == lastProcessedSource2TickTackVersion);
 
 			processSourceItemChange(
 				expressionWatcher, 
@@ -862,9 +853,9 @@ namespace ObservableComputations
 		}
 
 		internal static void subscribeSource<TSourceList, TSourceIndexerPropertyTracker>(
-			out IHasChangeMarker sourceAsIHasChangeMarker,
+			out IHasTickTackVersion sourceAsIHasTickTackVersion,
 			TSourceList sourceAsList,
-			ref bool lastProcessedSourceChangeMarker,
+			ref bool lastProcessedSourceTickTackVersion,
 			ref INotifyPropertyChanged sourceAsINotifyPropertyChanged,
 			TSourceIndexerPropertyTracker current,
 			INotifyCollectionChanged source,
@@ -872,11 +863,11 @@ namespace ObservableComputations
 		{
 			source.CollectionChanged += handler;
 
-			sourceAsIHasChangeMarker = sourceAsList as IHasChangeMarker;
+			sourceAsIHasTickTackVersion = sourceAsList as IHasTickTackVersion;
 
-			if (sourceAsIHasChangeMarker != null)
+			if (sourceAsIHasTickTackVersion != null)
 			{
-				lastProcessedSourceChangeMarker = sourceAsIHasChangeMarker.ChangeMarker;
+				lastProcessedSourceTickTackVersion = sourceAsIHasTickTackVersion.TickTackVersion;
 			}
 			else
 			{
@@ -908,8 +899,8 @@ namespace ObservableComputations
 			object sender,
 			NotifyCollectionChangedEventArgs e,
 			bool rootSourceWrapper,
-			ref bool lastProcessedSourceChangeMarker,
-			ObservableCollectionWithChangeMarker<TSourceItem> sourceAsList,
+			ref bool lastProcessedSourceTickTackVersion,
+			ObservableCollectionWithTickTackVersion<TSourceItem> sourceAsList,
 			ref bool isConsistent,
 			ref object handledEventSender,
 			ref EventArgs handledEventArgs,
@@ -918,9 +909,9 @@ namespace ObservableComputations
 			int deferredProcessingsCount,
 			ISourceCollectionChangeProcessor sourceCollectionChangeProcessor)
 		{
-			if (!rootSourceWrapper && lastProcessedSourceChangeMarker == sourceAsList.ChangeMarkerField) return false;
+			if (!rootSourceWrapper && lastProcessedSourceTickTackVersion == sourceAsList.TickTackVersion) return false;
 
-			lastProcessedSourceChangeMarker = !lastProcessedSourceChangeMarker;
+			lastProcessedSourceTickTackVersion = !lastProcessedSourceTickTackVersion;
 
 			RootSourceWrapper<TSourceItem> rootSourceWrapperList = sourceAsList as RootSourceWrapper<TSourceItem>;
 
@@ -985,8 +976,8 @@ namespace ObservableComputations
 			ref bool isConsistent, 
 			ref bool countPropertyChangedEventRaised, 
 			ref bool indexerPropertyChangedEventRaised, 
-			ref bool lastProcessedSourceChangeMarker, 
-			IHasChangeMarker sourceAsIHasChangeMarker, 
+			ref bool lastProcessedSourceTickTackVersion, 
+			IHasTickTackVersion sourceAsIHasTickTackVersion, 
 			ref object handledEventSender, 
 			ref EventArgs handledEventArgs,
 			ref Queue<IProcessable>[] deferredProcessings, 
@@ -998,8 +989,8 @@ namespace ObservableComputations
 					e.Action,
 					ref countPropertyChangedEventRaised,
 					ref indexerPropertyChangedEventRaised,
-					ref lastProcessedSourceChangeMarker, 
-					sourceAsIHasChangeMarker))
+					ref lastProcessedSourceTickTackVersion, 
+					sourceAsIHasTickTackVersion))
 				return false;
 
 			return preHandleSourceCollectionChanged(
@@ -1018,16 +1009,16 @@ namespace ObservableComputations
 			NotifyCollectionChangedAction notifyCollectionChangedAction, 
 			ref bool countPropertyChangedEventRaised,
 			ref bool indexerPropertyChangedEventRaised,
-			ref bool lastProcessedSourceChangeMarker,
-			IHasChangeMarker sourceAsIHasChangeMarker)
+			ref bool lastProcessedSourceTickTackVersion,
+			IHasTickTackVersion sourceAsIHasTickTackVersion)
 		{
 			if (handledAfterActivationInCountOrIndexerPropertyChangedHandlers(notifyCollectionChangedAction, countPropertyChangedEventRaised, indexerPropertyChangedEventRaised)
 				 && (
-				    sourceAsIHasChangeMarker == null
-					|| lastProcessedSourceChangeMarker == sourceAsIHasChangeMarker.ChangeMarker))
+				    sourceAsIHasTickTackVersion == null
+					|| lastProcessedSourceTickTackVersion == sourceAsIHasTickTackVersion.TickTackVersion))
 				return false;
 
-			lastProcessedSourceChangeMarker = !lastProcessedSourceChangeMarker;
+			lastProcessedSourceTickTackVersion = !lastProcessedSourceTickTackVersion;
 			countPropertyChangedEventRaised = false;
 			indexerPropertyChangedEventRaised = false;
 			return true;

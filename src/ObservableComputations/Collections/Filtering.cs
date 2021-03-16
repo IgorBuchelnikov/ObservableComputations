@@ -50,9 +50,9 @@ namespace ObservableComputations
 
 		private readonly ExpressionWatcher.ExpressionInfo _predicateExpressionInfo;
 
-		private ObservableCollectionWithChangeMarker<TSourceItem> _sourceAsList;
+		private ObservableCollectionWithTickTackVersion<TSourceItem> _sourceAsList;
 		bool _rootSourceWrapper;
-		private bool _lastProcessedSourceChangeMarker;
+		private bool _lastProcessedSourceTickTackVersion;
 
 		private readonly bool _predicateContainsParametrizedObservableComputationsCalls;
 
@@ -245,7 +245,7 @@ namespace ObservableComputations
 						_source, 
 						ref _sourceAsList, 
 						ref _rootSourceWrapper, 
-						ref _lastProcessedSourceChangeMarker,
+						ref _lastProcessedSourceTickTackVersion,
 						handleSourceCollectionChanged);
 
 				Position nextItemPosition = _filteredPositions.Add();
@@ -316,7 +316,7 @@ namespace ObservableComputations
 				sender, 
 				e, 
 				_rootSourceWrapper, 
-				ref _lastProcessedSourceChangeMarker, 
+				ref _lastProcessedSourceTickTackVersion, 
 				_sourceAsList, 
 				ref _isConsistent,
 				ref _handledEventSender,
@@ -413,7 +413,7 @@ namespace ObservableComputations
 				eventArgs, 
 				_rootSourceWrapper, 
 				_sourceAsList, 
-				_lastProcessedSourceChangeMarker, 
+				_lastProcessedSourceTickTackVersion, 
 				_thisAsSourceItemChangeProcessor,
 				ref _isConsistent,
 				ref _handledEventSender,

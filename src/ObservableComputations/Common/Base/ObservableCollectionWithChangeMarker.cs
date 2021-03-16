@@ -7,27 +7,27 @@ using System.Collections.ObjectModel;
 
 namespace ObservableComputations
 {
-	public class ObservableCollectionWithChangeMarker<TItem> : ObservableCollection<TItem>, IHasChangeMarker
+	public class ObservableCollectionWithTickTackVersion<TItem> : ObservableCollection<TItem>, IHasTickTackVersion
 	{
-		internal bool ChangeMarkerField;
+		internal bool TickTackVersion;
 
-		public ObservableCollectionWithChangeMarker(List<TItem> list) : base(list)
+		public ObservableCollectionWithTickTackVersion(List<TItem> list) : base(list)
 		{
 
 		}
 
-		public ObservableCollectionWithChangeMarker(IEnumerable<TItem> collection) : base(collection)
+		public ObservableCollectionWithTickTackVersion(IEnumerable<TItem> collection) : base(collection)
 		{
 
 		}
 
-		public ObservableCollectionWithChangeMarker()
+		public ObservableCollectionWithTickTackVersion()
 		{
 		}
 
-		bool IHasChangeMarker.ChangeMarker
+		bool IHasTickTackVersion.TickTackVersion
 		{
-			get => ChangeMarkerField;
+			get => TickTackVersion;
 		}
 	}
 }

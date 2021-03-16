@@ -129,8 +129,8 @@ namespace ObservableComputations
 					}
 				}
 
-				if (_sourceAsIHasChangeMarker != null)
-					_lastProcessedSourceChangeMarker = _sourceAsIHasChangeMarker.ChangeMarker;
+				if (_sourceAsIHasTickTackVersion != null)
+					_lastProcessedSourceTickTackVersion = _sourceAsIHasTickTackVersion.TickTackVersion;
 
 				_resuming = false;
 
@@ -157,8 +157,8 @@ namespace ObservableComputations
 		private bool _indexerPropertyChangedEventRaised;
 		private INotifyPropertyChanged _sourceAsINotifyPropertyChanged;
 
-		private IHasChangeMarker _sourceAsIHasChangeMarker;
-		private bool _lastProcessedSourceChangeMarker;
+		private IHasTickTackVersion _sourceAsIHasTickTackVersion;
+		private bool _lastProcessedSourceTickTackVersion;
 		private bool _isPaused;
 		private bool _resuming;
 		private CollectionPausingResumeType _resumeType;
@@ -271,9 +271,9 @@ namespace ObservableComputations
 			{
 				if (replaceSource)
 					Utils.subscribeSource(
-						out _sourceAsIHasChangeMarker, 
+						out _sourceAsIHasTickTackVersion, 
 						_sourceAsList, 
-						ref _lastProcessedSourceChangeMarker, 
+						ref _lastProcessedSourceTickTackVersion, 
 						ref _sourceAsINotifyPropertyChanged,
 						(ISourceIndexerPropertyTracker)this,
 						_source,
@@ -341,8 +341,8 @@ namespace ObservableComputations
 				ref _isConsistent, 
 				ref _countPropertyChangedEventRaised,
 				ref _indexerPropertyChangedEventRaised, 
-				ref _lastProcessedSourceChangeMarker, 
-				_sourceAsIHasChangeMarker, 
+				ref _lastProcessedSourceTickTackVersion, 
+				_sourceAsIHasTickTackVersion, 
 				ref _handledEventSender, 
 				ref _handledEventArgs,
 				ref _deferredProcessings,

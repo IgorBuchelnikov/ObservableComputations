@@ -36,8 +36,8 @@
 //		private INotifyPropertyChanged _sourceAsINotifyPropertyChanged;
 
 
-//		private IHasChangeMarker _sourceAsIHasChangeMarker;
-//		private bool _lastProcessedSourceChangeMarker;
+//		private IHasTickTackVersion _sourceAsIHasTickTackVersion;
+//		private bool _lastProcessedSourceTickTackVersion;
 
 
 //		[ObservableComputationsCall]
@@ -92,11 +92,11 @@
 
 //			if (_sourceAsList != null)
 //			{
-//				_sourceAsIHasChangeMarker = _sourceAsList as IHasChangeMarker;
+//				_sourceAsIHasTickTackVersion = _sourceAsList as IHasTickTackVersion;
 
-//				if (_sourceAsIHasChangeMarker != null)
+//				if (_sourceAsIHasTickTackVersion != null)
 //				{
-//					_lastProcessedSourceChangeMarker = _sourceAsIHasChangeMarker.ChangeMarker;
+//					_lastProcessedSourceTickTackVersion = _sourceAsIHasTickTackVersion.TickTackVersion;
 //				}
 //				else
 //				{
@@ -149,9 +149,9 @@
 //			_handledEventSender = sender;
 //			_handledEventArgs = e;
 
-//			if (_indexerPropertyChangedEventRaised || _lastProcessedSourceChangeMarker != _sourceAsIHasChangeMarker.ChangeMarker)
+//			if (_indexerPropertyChangedEventRaised || _lastProcessedSourceTickTackVersion != _sourceAsIHasTickTackVersion.TickTackVersion)
 //			{
-//				_lastProcessedSourceChangeMarker = !_lastProcessedSourceChangeMarker;
+//				_lastProcessedSourceTickTackVersion = !_lastProcessedSourceTickTackVersion;
 //				_indexerPropertyChangedEventRaised = false;
 
 //				switch (e.Action)

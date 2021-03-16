@@ -385,7 +385,7 @@ namespace ObservableComputations.Test
 			Action action = () =>
 			{
 				OcConsumer consumer = new OcConsumer();
-				Selecting<Item, int> selecting = items.Selecting(item => item.Num).For(consumer);
+				Selecting<Item, int> selecting = items.Selecting(item => item.Num).For(consumer).For(consumer);
 				consumer.Dispose();
 				selectingWeakReference = new WeakReference<Selecting<Item, int>>(selecting);
 			};
@@ -508,9 +508,13 @@ namespace ObservableComputations.Test
 			Action action = () =>
 			{
 				OcConsumer consumer = new OcConsumer();
-				Selecting<Item, int> selecting = items.Selecting(item => item).Selecting(item => item).Selecting(item => item.Num).For(consumer);
+				OcConsumer consumer1 = new OcConsumer();
+				Selecting<Item, Item> selecting1 = items.Selecting(item => item).Selecting(item => item);
+				Selecting<Item, int> selecting = selecting1.Selecting(item => item.Num).For(consumer);
+				selecting1.For(consumer1);
 				Assert.IsTrue(new int[]{0, 1, 2, 3, 4}.SequenceEqual(selecting));
 				consumer.Dispose();
+				consumer1.Dispose();
 				selectingWeakReference = new WeakReference<Selecting<Item, int>>(selecting);
 			};
 

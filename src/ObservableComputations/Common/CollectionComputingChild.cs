@@ -7,7 +7,7 @@ using System.Collections.Specialized;
 
 namespace ObservableComputations
 {
-	public abstract class CollectionComputingChild<TItem> : ObservableCollectionWithChangeMarker<TItem>, ICollectionComputingChild
+	public abstract class CollectionComputingChild<TItem> : ObservableCollectionWithTickTackVersion<TItem>, ICollectionComputingChild
 	{
 		public string DebugTag {get; set;}
 		public object Tag {get; set;}
@@ -45,7 +45,7 @@ namespace ObservableComputations
 				PostCollectionChanged?.Invoke(this, null);
 			}
 
-			ChangeMarkerField = !ChangeMarkerField;
+			TickTackVersion = !TickTackVersion;
 
 			_currentChange = NotifyCollectionChangedAction.Add;
 			_newIndex = index;
@@ -78,7 +78,7 @@ namespace ObservableComputations
 				PostCollectionChanged?.Invoke(this, null);
 			}
 
-			ChangeMarkerField = !ChangeMarkerField;
+			TickTackVersion = !TickTackVersion;
 
 			_currentChange = NotifyCollectionChangedAction.Move;
 			_oldIndex = oldIndex;
@@ -112,7 +112,7 @@ namespace ObservableComputations
 				PostCollectionChanged?.Invoke(this, null);
 			}
 
-			ChangeMarkerField = !ChangeMarkerField;
+			TickTackVersion = !TickTackVersion;
 
 			_currentChange = NotifyCollectionChangedAction.Remove;
 			_oldIndex = index;
@@ -144,7 +144,7 @@ namespace ObservableComputations
 				PostCollectionChanged?.Invoke(this, null);
 			}
 
-			ChangeMarkerField = !ChangeMarkerField;
+			TickTackVersion = !TickTackVersion;
 			
 			_currentChange = NotifyCollectionChangedAction.Replace;
 			_newItem = item;
@@ -180,7 +180,7 @@ namespace ObservableComputations
 				PostCollectionChanged?.Invoke(this, null);
 			}
 
-			ChangeMarkerField = !ChangeMarkerField;
+			TickTackVersion = !TickTackVersion;
 
 			_currentChange = NotifyCollectionChangedAction.Reset;
 

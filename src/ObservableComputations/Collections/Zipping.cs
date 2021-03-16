@@ -80,11 +80,11 @@ namespace ObservableComputations
 		private bool _rightSourceIndexerPropertyChangedEventRaised;
 		private INotifyPropertyChanged _rightSourceAsINotifyPropertyChanged;
 
-		private IHasChangeMarker _leftSourceAsIHasChangeMarker;
-		private bool _lastProcessedLeftSourceChangeMarker;
+		private IHasTickTackVersion _leftSourceAsIHasTickTackVersion;
+		private bool _lastProcessedLeftSourceTickTackVersion;
 
-		private IHasChangeMarker _rightSourceAsHasChangeMarker;
-		private bool _lastProcessedRightSourceChangeMarker;
+		private IHasTickTackVersion _rightSourceAsHasTickTackVersion;
+		private bool _lastProcessedRightSourceTickTackVersion;
 
 		private readonly ISourceCollectionChangeProcessor _thisAsSourceCollectionChangeProcessor;
 
@@ -248,9 +248,9 @@ namespace ObservableComputations
 				if (replaceLeftSource || !_leftSourceSubscribed)
 				{
 					Utils.subscribeSource(
-						out _leftSourceAsIHasChangeMarker,
+						out _leftSourceAsIHasTickTackVersion,
 						_leftSourceAsList,
-						ref _lastProcessedLeftSourceChangeMarker,
+						ref _lastProcessedLeftSourceTickTackVersion,
 						ref _leftSourceAsINotifyPropertyChanged,
 						(ILeftSourceIndexerPropertyTracker) this,
 						_leftSource,
@@ -262,9 +262,9 @@ namespace ObservableComputations
 				if (replaceRightSource || !_rightSourceSubscribed)
 				{
 					Utils.subscribeSource(
-						out _rightSourceAsHasChangeMarker,
+						out _rightSourceAsHasTickTackVersion,
 						_rightSourceAsList,
-						ref _lastProcessedRightSourceChangeMarker,
+						ref _lastProcessedRightSourceTickTackVersion,
 						ref _rightSourceAsINotifyPropertyChanged,
 						(IRightSourceIndexerPropertyTracker) this,
 						_rightSource,
@@ -333,8 +333,8 @@ namespace ObservableComputations
 				ref _isConsistent, 
 				ref _leftSourceCountPropertyChangedEventRaised,
 				ref _leftSourceIndexerPropertyChangedEventRaised, 
-				ref _lastProcessedLeftSourceChangeMarker, 
-				_leftSourceAsIHasChangeMarker, 
+				ref _lastProcessedLeftSourceTickTackVersion, 
+				_leftSourceAsIHasTickTackVersion, 
 				ref _handledEventSender, 
 				ref _handledEventArgs,
 				ref _deferredProcessings,
@@ -578,8 +578,8 @@ namespace ObservableComputations
 				ref _isConsistent,
 				ref _rightSourceCountPropertyChangedEventRaised,
 				ref _rightSourceIndexerPropertyChangedEventRaised, 
-				ref _lastProcessedRightSourceChangeMarker, 
-				_rightSourceAsHasChangeMarker, 
+				ref _lastProcessedRightSourceTickTackVersion, 
+				_rightSourceAsHasTickTackVersion, 
 				ref _handledEventSender, 
 				ref _handledEventArgs,
 				ref _deferredProcessings,

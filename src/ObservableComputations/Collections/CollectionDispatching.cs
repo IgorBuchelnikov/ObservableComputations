@@ -37,8 +37,8 @@ namespace ObservableComputations
 		private readonly IOcDispatcher _destinationOcDispatcher;
 		private readonly IOcDispatcher _sourceOcDispatcher;
 
-		private IHasChangeMarker _sourceAsIHasChangeMarker;
-		private bool _lastProcessedSourceChangeMarker;
+		private IHasTickTackVersion _sourceAsIHasTickTackVersion;
+		private bool _lastProcessedSourceTickTackVersion;
 
 		private readonly int _destinationOcDispatcherPriority;
 		private readonly int _sourceOcDispatcherPriority;
@@ -127,9 +127,9 @@ namespace ObservableComputations
 			{
 				if (replaceSource)
 					Utils.subscribeSource(
-						out _sourceAsIHasChangeMarker,
+						out _sourceAsIHasTickTackVersion,
 						_sourceAsList,
-						ref _lastProcessedSourceChangeMarker,
+						ref _lastProcessedSourceTickTackVersion,
 						ref _sourceAsINotifyPropertyChanged,
 						(ISourceIndexerPropertyTracker) this,
 						_source,
@@ -201,8 +201,8 @@ namespace ObservableComputations
 				e.Action,
 				ref _countPropertyChangedEventRaised,
 				ref _indexerPropertyChangedEventRaised, 
-				ref _lastProcessedSourceChangeMarker, 
-				_sourceAsIHasChangeMarker)) return;
+				ref _lastProcessedSourceTickTackVersion, 
+				_sourceAsIHasTickTackVersion)) return;
 
 			switch (e.Action)
 			{

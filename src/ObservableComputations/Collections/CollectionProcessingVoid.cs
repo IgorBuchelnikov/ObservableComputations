@@ -30,8 +30,8 @@ namespace ObservableComputations
 		private readonly Action<TSourceItem, CollectionProcessingVoid<TSourceItem>> _moveItemProcessor;
 
 		private IList<TSourceItem> _sourceAsList;
-		private IHasChangeMarker _sourceAsIHasChangeMarker;
-		private bool _lastProcessedSourceChangeMarker;
+		private IHasTickTackVersion _sourceAsIHasTickTackVersion;
+		private bool _lastProcessedSourceTickTackVersion;
 
 		private readonly IReadScalar<INotifyCollectionChanged> _sourceScalar;
 		private INotifyCollectionChanged _source;
@@ -111,9 +111,9 @@ namespace ObservableComputations
 			{
 				if (replaceSource)
 					Utils.subscribeSource(
-						out _sourceAsIHasChangeMarker, 
+						out _sourceAsIHasTickTackVersion, 
 						_sourceAsList, 
-						ref _lastProcessedSourceChangeMarker, 
+						ref _lastProcessedSourceTickTackVersion, 
 						ref _sourceAsINotifyPropertyChanged,
 						(ISourceIndexerPropertyTracker)this,
 						_source,
@@ -142,8 +142,8 @@ namespace ObservableComputations
 				ref _isConsistent, 
 				ref _countPropertyChangedEventRaised,
 				ref _indexerPropertyChangedEventRaised, 
-				ref _lastProcessedSourceChangeMarker, 
-				_sourceAsIHasChangeMarker, 
+				ref _lastProcessedSourceTickTackVersion, 
+				_sourceAsIHasTickTackVersion, 
 				ref _handledEventSender, 
 				ref _handledEventArgs,
 				ref _deferredProcessings,

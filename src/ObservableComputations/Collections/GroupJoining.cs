@@ -116,7 +116,7 @@ namespace ObservableComputations
 
 		Grouping<TInnerSourceItem, TKey> _grouping;
 
-		private ObservableCollectionWithChangeMarker<TOuterSourceItem> _outerSourceAsList;
+		private ObservableCollectionWithTickTackVersion<TOuterSourceItem> _outerSourceAsList;
 		bool _outerRootSourceWrapper;
 
 		private NotifyCollectionChangedEventHandler _groupingNotifyCollectionChangedEventHandler;
@@ -126,7 +126,7 @@ namespace ObservableComputations
 		Dictionary<TKey, List<OuterItemInfo>> _keyPositions;
 		readonly List<OuterItemInfo> _nullKeyPositions = new List<OuterItemInfo>();
 
-		private bool _lastProcessedSourceChangeMarker;
+		private bool _lastProcessedSourceTickTackVersion;
 		private readonly ISourceCollectionChangeProcessor _thisAsSourceCollectionChangeProcessor;
 		private readonly IReadScalar<INotifyCollectionChanged> _outerSourceScalar;
 		private INotifyCollectionChanged _outerSource;
@@ -339,7 +339,7 @@ namespace ObservableComputations
 						_outerSource, 
 						ref _outerSourceAsList, 
 						ref _outerRootSourceWrapper, 
-						ref _lastProcessedSourceChangeMarker,
+						ref _lastProcessedSourceTickTackVersion,
 						handleOuterSourceCollectionChanged);
 
 				int count = _outerSourceAsList.Count;
@@ -429,7 +429,7 @@ namespace ObservableComputations
 				sender, 
 				e, 
 				_outerRootSourceWrapper,				 
-				ref _lastProcessedSourceChangeMarker, 
+				ref _lastProcessedSourceTickTackVersion, 
 				_outerSourceAsList, 
 				ref _isConsistent,
 				ref _handledEventSender,
@@ -567,7 +567,7 @@ namespace ObservableComputations
 				eventArgs, 
 				_outerRootSourceWrapper, 
 				_outerSourceAsList,
-				_lastProcessedSourceChangeMarker, 
+				_lastProcessedSourceTickTackVersion, 
 				_thisAsSourceItemChangeProcessor,
 				ref _isConsistent,
 				ref _handledEventSender,

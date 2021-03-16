@@ -52,14 +52,14 @@ namespace ObservableComputations
 
 		private readonly ExpressionWatcher.ExpressionInfo _predicateExpressionInfo;
 
-		private ObservableCollectionWithChangeMarker<TLeftSourceItem> _leftSourceAsList;
-		private ObservableCollectionWithChangeMarker<TRightSourceItem> _rightSourceAsList;
+		private ObservableCollectionWithTickTackVersion<TLeftSourceItem> _leftSourceAsList;
+		private ObservableCollectionWithTickTackVersion<TRightSourceItem> _rightSourceAsList;
 		private List<TLeftSourceItem> _leftSourceCopy;
 		private List<TRightSourceItem> _rightSourceCopy;
 		bool _rootLeftSourceWrapper;
 		bool _rootRightSourceWrapper;
-		private bool _lastProcessedLeftSourceChangeMarker;
-		private bool _lastProcessedRightSourceChangeMarker;
+		private bool _lastProcessedLeftSourceTickTackVersion;
+		private bool _lastProcessedRightSourceTickTackVersion;
 
 		private readonly bool _predicateContainsParametrizedObservableComputationsCalls;
 
@@ -354,7 +354,7 @@ namespace ObservableComputations
 						_leftSource,
 						ref _leftSourceAsList,
 						ref _rootLeftSourceWrapper,
-						ref _lastProcessedLeftSourceChangeMarker,
+						ref _lastProcessedLeftSourceTickTackVersion,
 						handleLeftSourceCollectionChanged);
 
 					_leftSourceSubscribed  = true;
@@ -366,7 +366,7 @@ namespace ObservableComputations
 						_rightSource,
 						ref _rightSourceAsList,
 						ref _rootRightSourceWrapper,
-						ref _lastProcessedRightSourceChangeMarker,
+						ref _lastProcessedRightSourceTickTackVersion,
 						handleRightSourceCollectionChanged);
 
 					_rightSourceSubscribed  = true;
@@ -489,7 +489,7 @@ namespace ObservableComputations
 				sender, 
 				e, 
 				_rootLeftSourceWrapper, 
-				ref _lastProcessedLeftSourceChangeMarker, 
+				ref _lastProcessedLeftSourceTickTackVersion, 
 				_leftSourceAsList, 
 				ref _isConsistent,
 				ref _handledEventSender,
@@ -736,7 +736,7 @@ namespace ObservableComputations
 				sender, 
 				e, 
 				_rootRightSourceWrapper, 
-				ref _lastProcessedRightSourceChangeMarker, 
+				ref _lastProcessedRightSourceTickTackVersion, 
 				_rightSourceAsList, 
 				ref _isConsistent,
 				ref _handledEventSender,
@@ -778,8 +778,8 @@ namespace ObservableComputations
 				_leftSourceAsList,
 				_rootRightSourceWrapper,
 				_rightSourceAsList,
-				_lastProcessedLeftSourceChangeMarker,
-				_lastProcessedRightSourceChangeMarker,
+				_lastProcessedLeftSourceTickTackVersion,
+				_lastProcessedRightSourceTickTackVersion,
 				_thisAsSourceItemChangeProcessor,
 				ref _isConsistent,
 				ref _handledEventSender,

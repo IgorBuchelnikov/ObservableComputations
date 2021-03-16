@@ -11,7 +11,7 @@ using System.Linq;
 
 namespace ObservableComputations
 {
-	public abstract class CollectionComputing<TItem> : ObservableCollectionWithChangeMarker<TItem>, ICollectionComputing, IComputingInternal
+	public abstract class CollectionComputing<TItem> : ObservableCollectionWithTickTackVersion<TItem>, ICollectionComputing, IComputingInternal
 	{
 		public string DebugTag {get; set;}
 		public object Tag {get; set;}
@@ -201,7 +201,7 @@ namespace ObservableComputations
 				PostCollectionChanged?.Invoke(this, null);
 			}
 
-			ChangeMarkerField = !ChangeMarkerField;
+			TickTackVersion = !TickTackVersion;
 
 			_currentChange = NotifyCollectionChangedAction.Add;
 			_newIndex = index;
@@ -234,7 +234,7 @@ namespace ObservableComputations
 				PostCollectionChanged?.Invoke(this, null);
 			}
 
-			ChangeMarkerField = !ChangeMarkerField;
+			TickTackVersion = !TickTackVersion;
 
 			_currentChange = NotifyCollectionChangedAction.Move;
 			_oldIndex = oldIndex;
@@ -268,7 +268,7 @@ namespace ObservableComputations
 				PostCollectionChanged?.Invoke(this, null);
 			}
 
-			ChangeMarkerField = !ChangeMarkerField;
+			TickTackVersion = !TickTackVersion;
 
 			_currentChange = NotifyCollectionChangedAction.Remove;
 			_oldIndex = index;
@@ -298,7 +298,7 @@ namespace ObservableComputations
 				PostCollectionChanged?.Invoke(this, null);
 			}
 
-			ChangeMarkerField = !ChangeMarkerField;
+			TickTackVersion = !TickTackVersion;
 			
 			_currentChange = NotifyCollectionChangedAction.Replace;
 			_newItem = item;
@@ -334,7 +334,7 @@ namespace ObservableComputations
 				PostCollectionChanged?.Invoke(this, null);
 			}
 
-			ChangeMarkerField = !ChangeMarkerField;
+			TickTackVersion = !TickTackVersion;
 
 			_currentChange = NotifyCollectionChangedAction.Reset;
 
@@ -356,7 +356,7 @@ namespace ObservableComputations
 
 		protected void reset()
 		{
-			ChangeMarkerField = !ChangeMarkerField;
+			TickTackVersion = !TickTackVersion;
 			CheckReentrancy();
 			OnPropertyChanged(Utils.CountPropertyChangedEventArgs);
 			OnPropertyChanged(Utils.IndexerPropertyChangedEventArgs);

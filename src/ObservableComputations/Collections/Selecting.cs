@@ -36,9 +36,9 @@ namespace ObservableComputations
 
 		private readonly bool _selectorContainsParametrizedObservableComputationsCalls;
 
-		private ObservableCollectionWithChangeMarker<TSourceItem> _sourceAsList;
+		private ObservableCollectionWithTickTackVersion<TSourceItem> _sourceAsList;
 		bool _rootSourceWrapper;
-		private bool _lastProcessedSourceChangeMarker;
+		private bool _lastProcessedSourceTickTackVersion;
 
 		private readonly IReadScalar<INotifyCollectionChanged> _sourceScalar;
 		private readonly Expression<Func<TSourceItem, TResultItem>> _selectorExpressionOriginal;
@@ -127,7 +127,7 @@ namespace ObservableComputations
 						_source, 
 						ref _sourceAsList, 
 						ref _rootSourceWrapper, 
-						ref _lastProcessedSourceChangeMarker,
+						ref _lastProcessedSourceTickTackVersion,
 						handleSourceCollectionChanged);
 
 				int count = _sourceAsList.Count;
@@ -182,7 +182,7 @@ namespace ObservableComputations
 					sender, 
 					e, 
 					_rootSourceWrapper, 
-					ref _lastProcessedSourceChangeMarker, 
+					ref _lastProcessedSourceTickTackVersion, 
 					_sourceAsList, 
 					ref _isConsistent,
 					ref _handledEventSender,
@@ -259,7 +259,7 @@ namespace ObservableComputations
 				eventArgs, 
 				_rootSourceWrapper, 
 				_sourceAsList, 
-				_lastProcessedSourceChangeMarker, 
+				_lastProcessedSourceTickTackVersion, 
 				_thisAsSourceItemChangeProcessor,
 				ref _isConsistent,
 				ref _handledEventSender,

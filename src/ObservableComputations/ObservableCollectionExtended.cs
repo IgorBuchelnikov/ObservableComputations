@@ -8,7 +8,7 @@ using System.Collections.Specialized;
 
 namespace ObservableComputations
 {
-	public class ObservableCollectionExtended<TItem> : ObservableCollectionWithChangeMarker<TItem>, INotifyCollectionChangedExtended, IHasItemType
+	public class ObservableCollectionExtended<TItem> : ObservableCollectionWithTickTackVersion<TItem>, INotifyCollectionChangedExtended, IHasItemType
 	{
 		public event EventHandler PreCollectionChanged;
 		public event EventHandler PostCollectionChanged;
@@ -40,7 +40,7 @@ namespace ObservableComputations
 
 		protected override void InsertItem(int index, TItem item)
 		{
-			ChangeMarkerField = !ChangeMarkerField;
+			TickTackVersion = !TickTackVersion;
 
 			_currentChange = NotifyCollectionChangedAction.Add;
 			_newIndex = index;
@@ -58,7 +58,7 @@ namespace ObservableComputations
 		
 		protected override void MoveItem(int oldIndex, int newIndex)
 		{
-			ChangeMarkerField = !ChangeMarkerField;
+			TickTackVersion = !TickTackVersion;
 
 			_currentChange = NotifyCollectionChangedAction.Move;
 			_oldIndex = oldIndex;
@@ -75,7 +75,7 @@ namespace ObservableComputations
 	
 		protected override void RemoveItem(int index)
 		{
-			ChangeMarkerField = !ChangeMarkerField;
+			TickTackVersion = !TickTackVersion;
 
 			_currentChange = NotifyCollectionChangedAction.Remove;
 			_oldIndex = index;
@@ -90,7 +90,7 @@ namespace ObservableComputations
 
 		protected override void SetItem(int index, TItem item)
 		{
-			ChangeMarkerField = !ChangeMarkerField;
+			TickTackVersion = !TickTackVersion;
 			
 			_currentChange = NotifyCollectionChangedAction.Replace;
 			_newItem = item;
@@ -109,7 +109,7 @@ namespace ObservableComputations
 
 		protected override void ClearItems()
 		{
-			ChangeMarkerField = !ChangeMarkerField;
+			TickTackVersion = !TickTackVersion;
 
 			_currentChange = NotifyCollectionChangedAction.Reset;
 

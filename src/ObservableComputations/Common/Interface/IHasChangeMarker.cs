@@ -4,8 +4,8 @@
 
 namespace ObservableComputations
 {
-	internal interface IHasChangeMarker
+	internal interface IHasTickTackVersion
 	{
-		bool ChangeMarker { get; }
+		bool TickTackVersion { get; }
 	}
 }

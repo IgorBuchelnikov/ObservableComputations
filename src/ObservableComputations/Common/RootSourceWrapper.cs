@@ -14,7 +14,7 @@ namespace ObservableComputations
 		void Uninitialize();
 	}
 
-	internal sealed class RootSourceWrapper<TSourceItem> : ObservableCollectionWithChangeMarker<TSourceItem>, IRootSourceWrapper
+	internal sealed class RootSourceWrapper<TSourceItem> : ObservableCollectionWithTickTackVersion<TSourceItem>, IRootSourceWrapper
 	{
 		private readonly INotifyCollectionChanged _source;
 		private readonly IList<TSourceItem> _sourceAsList;

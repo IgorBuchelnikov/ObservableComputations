@@ -57,11 +57,11 @@
 //		private bool _outerSourceIndexerPropertyChangedEventRaised;
 //		private INotifyPropertyChanged _outerSourceAsINotifyPropertyChanged;
 
-//		private ObservableCollectionWithChangeMarker<TOuterSourceItem> _outerSourceAsObservableCollectionWithChangeMarker;
-//		private bool _lastProcessedOuterSourceChangeMarker;
+//		private ObservableCollectionWithTickTackVersion<TOuterSourceItem> _outerSourceAsObservableCollectionWithTickTackVersion;
+//		private bool _lastProcessedOuterSourceTickTackVersion;
 
-//		private ObservableCollectionWithChangeMarker<TInnerSourceItem> _innerSourceAsObservableCollectionWithChangeMarker;
-//		private bool _lastProcessedInnerSourceChangeMarker;
+//		private ObservableCollectionWithTickTackVersion<TInnerSourceItem> _innerSourceAsObservableCollectionWithTickTackVersion;
+//		private bool _lastProcessedInnerSourceTickTackVersion;
 
 
 //		[ObservableComputationsCall]
@@ -179,11 +179,11 @@
 
 //			if (_outerSource != null && _innerSource != null)
 //			{
-//				_outerSourceAsObservableCollectionWithChangeMarker = _outerSourceAsList as ObservableCollectionWithChangeMarker<TOuterSourceItem>;
+//				_outerSourceAsObservableCollectionWithTickTackVersion = _outerSourceAsList as ObservableCollectionWithTickTackVersion<TOuterSourceItem>;
 
-//				if (_outerSourceAsObservableCollectionWithChangeMarker != null)
+//				if (_outerSourceAsObservableCollectionWithTickTackVersion != null)
 //				{
-//					_lastProcessedOuterSourceChangeMarker = _outerSourceAsObservableCollectionWithChangeMarker.ChangeMarkerField;
+//					_lastProcessedOuterSourceTickTackVersion = _outerSourceAsObservableCollectionWithTickTackVersion.TickTackVersion;
 //				}
 //				else
 //				{
@@ -202,11 +202,11 @@
 //				}
 
 
-//				_innerSourceAsObservableCollectionWithChangeMarker = _innerSourceAsList as ObservableCollectionWithChangeMarker<TInnerSourceItem>;
+//				_innerSourceAsObservableCollectionWithTickTackVersion = _innerSourceAsList as ObservableCollectionWithTickTackVersion<TInnerSourceItem>;
 
-//				if (_innerSourceAsObservableCollectionWithChangeMarker != null)
+//				if (_innerSourceAsObservableCollectionWithTickTackVersion != null)
 //				{
-//					_lastProcessedInnerSourceChangeMarker = _innerSourceAsObservableCollectionWithChangeMarker.ChangeMarkerField;
+//					_lastProcessedInnerSourceTickTackVersion = _innerSourceAsObservableCollectionWithTickTackVersion.TickTackVersion;
 //				}
 //				else
 //				{
@@ -285,10 +285,10 @@
 //			_handledEventSender = sender;
 //			_handledEventArgs = e;
 
-//			if (_outerSourceIndexerPropertyChangedEventRaised || _outerSourceAsObservableCollectionWithChangeMarker != null && _lastProcessedOuterSourceChangeMarker != _outerSourceAsObservableCollectionWithChangeMarker.ChangeMarkerField)
+//			if (_outerSourceIndexerPropertyChangedEventRaised || _outerSourceAsObservableCollectionWithTickTackVersion != null && _lastProcessedOuterSourceTickTackVersion != _outerSourceAsObservableCollectionWithTickTackVersion.TickTackVersion)
 //			{
 //				_outerSourceIndexerPropertyChangedEventRaised = false;
-//				_lastProcessedOuterSourceChangeMarker = !_lastProcessedOuterSourceChangeMarker;
+//				_lastProcessedOuterSourceTickTackVersion = !_lastProcessedOuterSourceTickTackVersion;
 
 //				_isConsistent = false;
 
@@ -382,10 +382,10 @@
 //			_handledEventSender = sender;
 //			_handledEventArgs = e;
 
-//			if (_innerSourceIndexerPropertyChangedEventRaised || _lastProcessedInnerSourceChangeMarker != _innerSourceAsObservableCollectionWithChangeMarker.ChangeMarkerField)
+//			if (_innerSourceIndexerPropertyChangedEventRaised || _lastProcessedInnerSourceTickTackVersion != _innerSourceAsObservableCollectionWithTickTackVersion.TickTackVersion)
 //			{
 //				_innerSourceIndexerPropertyChangedEventRaised = false;
-//				_lastProcessedInnerSourceChangeMarker = !_lastProcessedInnerSourceChangeMarker;
+//				_lastProcessedInnerSourceTickTackVersion = !_lastProcessedInnerSourceTickTackVersion;
 
 //				_isConsistent = false;
 

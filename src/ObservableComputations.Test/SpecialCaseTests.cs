@@ -217,6 +217,12 @@ namespace ObservableComputations.Test
 			Assert.IsTrue(!items[0].ZeroComputing.IsActive);
 			Assert.IsTrue(items[0].OneComputing.IsActive);
 
+			items[0].ActualNumComputing1 = items[0].ZeroComputing;
+
+			Assert.IsTrue(sel[0] == 0);
+			Assert.IsTrue(items[0].ZeroComputing.IsActive);
+			Assert.IsTrue(!items[0].OneComputing.IsActive);
+
 			consumer.Dispose();
 
 			Assert.IsTrue(!items[0].ZeroComputing.IsActive);

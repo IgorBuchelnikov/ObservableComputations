@@ -98,6 +98,7 @@ namespace ObservableComputations.Test
 			expressionWatcher.ValueChanged = (ew, sender, eventArgs) => { raised = true; };
 			item.Num = "1";
 			Assert.IsTrue(raised);
+			expressionWatcher.Dispose();
 		}
 
 		[Test]
@@ -111,6 +112,7 @@ namespace ObservableComputations.Test
 			expressionWatcher.ValueChanged = (ew, sender, eventArgs) => { raised = true; };
 			((Item)item).Num = "1";
 			Assert.IsTrue(raised);
+			expressionWatcher.Dispose();
 		}
 
 		[Test]
@@ -124,6 +126,7 @@ namespace ObservableComputations.Test
 			expressionWatcher.ValueChanged = (ew, sender, eventArgs) => { raised = true; };
 			item.Num = "1";
 			Assert.IsTrue(raised);
+			expressionWatcher.Dispose();
 		}
 
 		[Test]
@@ -141,7 +144,28 @@ namespace ObservableComputations.Test
 			raised = false;
 			item.GetChild(item.AltNum).Num = "888";
 			Assert.IsTrue(raised);
+			expressionWatcher.Dispose();
 		}
+
+		[Test]
+		public void TestRaiseValueChanged41()
+		{
+			bool raised = false;
+			Item item = new Item();
+			item.Num = "777";
+			item.GetChild(item.AltNum).SetChild("888", new Item());
+			Expression<Func<string>> expression = () => item.GetChild(item.AltNum).GetChild("888").Num;
+			ExpressionWatcher expressionWatcher = new ExpressionWatcher(
+				ExpressionWatcher.GetExpressionInfo(expression));
+			expressionWatcher.ValueChanged = (ew, sender, eventArgs) => { raised = true; };
+			item.Num = "1";
+			Assert.IsTrue(raised);
+			raised = false;
+			item.GetChild(item.AltNum).SetChild("888", new Item());
+			Assert.IsTrue(raised);
+			expressionWatcher.Dispose();
+		}
+
 
 		[Test]
 		public void TestRaiseValueChanged5()
@@ -158,6 +182,7 @@ namespace ObservableComputations.Test
 			raised = false;
 			item.GetChild(item.AltNum + "777").Num = "888";
 			Assert.IsTrue(raised);
+			expressionWatcher.Dispose();
 		}
 
 		[Test]
@@ -171,6 +196,7 @@ namespace ObservableComputations.Test
 			expressionWatcher.ValueChanged = (ew, sender, eventArgs) => { raised = true; };
 			item.Num = "777";
 			Assert.IsTrue(raised);
+			expressionWatcher.Dispose();
 		}
 
 		[Test]
@@ -185,6 +211,7 @@ namespace ObservableComputations.Test
 			expressionWatcher.ValueChanged = (ew, sender, eventArgs) => { raised = true; };
 			item.GetChild("888").Num = "888";
 			Assert.IsTrue(raised);
+			expressionWatcher.Dispose();
 		}
 
 		[Test]
@@ -199,6 +226,7 @@ namespace ObservableComputations.Test
 			expressionWatcher.ValueChanged = (ew, sender, eventArgs) => { raised = true; };
 			item.GetChild("888" + 1).Num = "888";
 			Assert.IsTrue(raised);
+			expressionWatcher.Dispose();
 		}
 
 		[Test]
@@ -213,6 +241,7 @@ namespace ObservableComputations.Test
 			expressionWatcher.ValueChanged = (ew, sender, eventArgs) => { raised = true; };
 			item.GetChild("888").Num = "888";
 			Assert.IsTrue(raised);
+			expressionWatcher.Dispose();
 		}
 
 
@@ -227,6 +256,7 @@ namespace ObservableComputations.Test
 			expressionWatcher.ValueChanged = (ew, sender, eventArgs) => { raised = true; };
 			item.SetChild("777", new Item(){Num = "888"});
 			Assert.IsTrue(raised);
+			expressionWatcher.Dispose();
 		}
 
 
@@ -250,6 +280,7 @@ namespace ObservableComputations.Test
 			Assert.IsFalse(raised);
 			item.SetChild("888", new Item(){Num = "000"});
 			Assert.IsTrue(raised);
+			expressionWatcher.Dispose();
 		}
 
 
@@ -268,6 +299,7 @@ namespace ObservableComputations.Test
 			raised = false;
 			item.SetChild("999", new Item(){Num = "000"});
 			Assert.IsTrue(raised);
+			expressionWatcher.Dispose();
 		}
 
 		[Test]
@@ -286,6 +318,7 @@ namespace ObservableComputations.Test
 			raised = false;
 			item2.SetChild("999", new Item(){Num = "000"});
 			Assert.IsTrue(raised);
+			expressionWatcher.Dispose();
 		}
 
 		[Test]
@@ -303,6 +336,7 @@ namespace ObservableComputations.Test
 			raised = false;
 			((Item)item).SetChild("999", new Item(){Num = "000"});
 			Assert.IsTrue(raised);
+			expressionWatcher.Dispose();
 		}
 
 		[Test]
@@ -321,6 +355,7 @@ namespace ObservableComputations.Test
 			raised = false;
 			item2.SetChild("999", new Item(){Num = "000"});
 			Assert.IsTrue(raised);
+			expressionWatcher.Dispose();
 		}
 
 		//[Test]

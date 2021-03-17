@@ -246,7 +246,6 @@ namespace ObservableComputations
 				itemInfo.SourceScalarPropertyChangedEventHandler = 
 					(sender, eventArgs) =>
 					{
-
 						Utils.processChange(sender, eventArgs, 
 							() =>
 							{
@@ -483,7 +482,8 @@ namespace ObservableComputations
 					//if (e.OldItems.Count > 1) throw new ObservableComputationsException(this, "Removing of multiple items is not supported");
 					ItemInfo itemInfo1;
 
-					IList removedItem = (IList) e.OldItems[0];
+					object oldItem = e.OldItems[0];
+					IList removedItem = oldItem is IReadScalar<IList> scalar ? scalar.Value : (IList)oldItem;
 					itemInfo1 = unregisterSourceItem(e.OldStartingIndex);
 					int rangePositionPlainIndex = itemInfo1.PlainIndex;
 

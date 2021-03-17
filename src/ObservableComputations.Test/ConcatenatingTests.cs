@@ -305,6 +305,170 @@ namespace ObservableComputations.Test
 				: null;
 		}
 
+		[Test]
+		public void TestConcatenatingQueuedItemCollectionChange()
+		{
+			ObservableCollection<ObservableCollection<Item>> items = new ObservableCollection<ObservableCollection<Item>>(
+				new[]
+				{
+					new ObservableCollection<Item>(
+						new[]
+						{
+							new Item(),
+							new Item(),
+							new Item(),
+							new Item()
+						}
+					),
+					new ObservableCollection<Item>(
+						new[]
+						{
+							new Item(),
+							new Item(),
+							new Item(),
+							new Item()
+						}
+					)
+				}
+			);
+
+			OcConsumer consumer = new OcConsumer();
+			Concatenating<Item> concatenating = items.Concatenating().For(consumer);
+			bool handled = false;
+
+			concatenating.CollectionChanged += (sender, args) =>
+			{
+				if (!handled)
+				{
+					items[1].Add(new Item());
+					handled = true;
+				}
+			};
+
+			items[0].Add(new Item());
+
+			concatenating.ValidateInternalConsistency();
+			consumer.Dispose();
+		}
+
+		[Test]
+		public void TestConcatenatingQueuedItemCollectionReset()
+		{
+			ObservableCollection<ObservableCollection<Item>> items = new ObservableCollection<ObservableCollection<Item>>(
+				new[]
+				{
+					new ObservableCollection<Item>(
+						new[]
+						{
+							new Item(),
+							new Item(),
+							new Item(),
+							new Item()
+						}
+					),
+					new ObservableCollection<Item>(
+						new[]
+						{
+							new Item(),
+							new Item(),
+							new Item(),
+							new Item()
+						}
+					)
+				}
+			);
+
+			OcConsumer consumer = new OcConsumer();
+			Concatenating<Item> concatenating = items.Concatenating().For(consumer);
+			bool handled = false;
+
+			concatenating.CollectionChanged += (sender, args) =>
+			{
+				if (!handled)
+				{
+					items[1].Clear();
+					handled = true;
+				}
+			};
+
+			items[0].Add(new Item());
+
+			concatenating.ValidateInternalConsistency();
+			consumer.Dispose();
+		}
+
+		[Test]
+		public void TestConcatenating1()
+		{
+			ObservableCollection<object> items = new ObservableCollection<object>(
+				new object[]
+				{
+					new Scalar<ObservableCollection<Item>>(
+						new ObservableCollection<Item>(
+							new[]
+							{
+								new Item(),
+								new Item(),
+								new Item(),
+								new Item()
+							})
+					), 
+					new ObservableCollection<Item>(
+						new[]
+						{
+							new Item(),
+							new Item(),
+							new Item(),
+							new Item()
+						}
+					)
+				}
+			);
+
+			OcConsumer consumer = new OcConsumer();
+			Concatenating<Item> concatenating = items.Concatenating<Item>().For(consumer);
+
+			items.RemoveAt(0);
+
+			concatenating.ValidateInternalConsistency();
+		}
+
+		[Test]
+		public void TestConcatenating2()
+		{
+			ObservableCollection<ObservableCollection<Item>> items = new ObservableCollection<ObservableCollection<Item>>(
+				new[]
+				{
+					new ObservableCollection<Item>(
+						new[]
+						{
+							new Item(),
+							new Item(),
+							new Item(),
+							new Item()
+						}
+					),
+					new ObservableCollection<Item>(
+						new[]
+						{
+							new Item(),
+							new Item(),
+							new Item(),
+							new Item()
+						}
+					)
+				}
+			);
+
+			OcConsumer consumer = new OcConsumer();
+			Concatenating<Item> concatenating1 = items.Concatenating();
+			Selecting<Item, Item> concatenating = concatenating1.Selecting(i => i).For(consumer);
+			concatenating1.For(consumer);
+
+			concatenating.ValidateInternalConsistency();
+			consumer.Dispose();
+		}
+
 		public ConcatenatingTests(bool debug) : base(debug)
 		{
 		}

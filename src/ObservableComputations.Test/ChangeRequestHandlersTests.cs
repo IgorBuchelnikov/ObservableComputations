@@ -605,6 +605,9 @@ namespace ObservableComputations.Test
 			grouping.ClearGroupItemsRequestHandler = groupingClearGroupItemsRequestHandler;
 			Assert.IsTrue(grouping.ClearGroupItemsRequestHandler == groupingClearGroupItemsRequestHandler);
 
+			Assert.AreEqual(grouping[2].Grouping, grouping);
+			Assert.AreEqual(grouping.GetGroup("3"), grouping[2]);
+
 			grouping[2].Add(new Item(6, "3"));
 			grouping.ValidateInternalConsistency();
 			Assert.IsTrue(grouping[2].Remove(grouping[2][1]));
@@ -612,6 +615,8 @@ namespace ObservableComputations.Test
 			Assert.IsFalse(grouping[2].Remove(new Item(0, "0")));
 			grouping.ValidateInternalConsistency();
 			grouping[2][0] = new Item(7, "3");
+			grouping.ValidateInternalConsistency();
+			grouping[2].Move(0, 1);
 			grouping.ValidateInternalConsistency();
 			grouping[2].Clear();
 			grouping.ValidateInternalConsistency();

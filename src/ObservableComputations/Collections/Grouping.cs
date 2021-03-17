@@ -28,7 +28,7 @@ namespace ObservableComputations
 		public IEqualityComparer<TKey> EqualityComparer => _equalityComparer;
 
 		// ReSharper disable once MemberCanBePrivate.Global
-		public Func<TSourceItem, TKey> KeySelectorFunc => _keySelectorFunc;
+		//public Func<TSourceItem, TKey> KeySelectorFunc => _keySelectorFunc;
 
 		public virtual ReadOnlyCollection<object> Sources => new ReadOnlyCollection<object>(new object[]{Source, SourceScalar});
 
@@ -340,27 +340,27 @@ namespace ObservableComputations
 							int sourcePositionsCount = group1SourcePositions.Count;
 							if (oldIndex == 0)
 							{
-								if (group1SourcePositions[0].Index <= newStartingIndex)
-								{
+								//if (group1SourcePositions[0].Index <= newStartingIndex)
+								//{
 									newIndex = findInsertingIndexInGroup(newStartingIndex, group1,
 												   1, sourcePositionsCount - 1) - 1;
-								}
-								else
-								{
-									newIndex = 0;
-								}
+								//}
+								//else
+								//{
+								//	newIndex = 0;
+								//}
 							}
 							else if (oldIndex == sourcePositionsCount - 1)
 							{
-								if (group1SourcePositions[oldIndex].Index >= newStartingIndex)
-								{
+								//if (group1SourcePositions[oldIndex].Index >= newStartingIndex)
+								//{
 									newIndex = findInsertingIndexInGroup(newStartingIndex, group1,
 										0, sourcePositionsCount - 2);
-								}
-								else
-								{
-									newIndex = sourcePositionsCount - 1;
-								}
+								//}
+								//else
+								//{
+								//	newIndex = sourcePositionsCount - 1;
+								//}
 							}
 							else
 							{

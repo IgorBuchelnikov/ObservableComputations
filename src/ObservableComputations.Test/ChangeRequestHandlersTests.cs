@@ -122,6 +122,16 @@ namespace ObservableComputations.Test
 			dictionaring.For(consumer);
 			activationInProgress = false;
 
+			if (OcConfiguration.SaveInstantiatingStackTrace)
+				Assert.IsNotNull(dictionaring.InstantiatingStackTrace);
+
+			Assert.IsNotNull(dictionaring.ToString());
+
+			Assert.IsNull(dictionaring.UserCodeIsCalledFrom);
+
+			Assert.IsTrue(((IComputingInternal) dictionaring).Consumers.Contains(consumer));
+
+
 			dictionaring.DebugTag = "DebugTag";
 			Assert.AreEqual(dictionaring.DebugTag,  "DebugTag");
 
@@ -248,6 +258,15 @@ namespace ObservableComputations.Test
 			getValueOrDefaultRaised = false;
 			itemRaised = false;
 			containsKeyRaised = false;
+			Assert.IsFalse(dictionaring.Remove(new KeyValuePair<int, string>(7, "88")));
+			dictionaring.ValidateInternalConsistency();
+			Assert.IsFalse(getValueOrDefaultRaised);
+			Assert.IsFalse(itemRaised);
+			Assert.IsFalse(containsKeyRaised);
+
+			getValueOrDefaultRaised = false;
+			itemRaised = false;
+			containsKeyRaised = false;
 			changedKey = 0;
 			changedValue = "0";
 			dictionaring[0] = "1";
@@ -302,6 +321,15 @@ namespace ObservableComputations.Test
 
 			dictionaring.For(consumer);
 			activationInProgress = false;
+
+			if (OcConfiguration.SaveInstantiatingStackTrace)
+				Assert.IsNotNull(dictionaring.InstantiatingStackTrace);
+
+			Assert.IsNotNull(dictionaring.ToString());
+
+			Assert.IsNull(dictionaring.UserCodeIsCalledFrom);
+
+			Assert.IsTrue(((IComputingInternal) dictionaring).Consumers.Contains(consumer));
 
 			dictionaring.DebugTag = "DebugTag";
 			Assert.AreEqual(dictionaring.DebugTag,  "DebugTag");
@@ -429,6 +457,15 @@ namespace ObservableComputations.Test
 			getValueOrDefaultRaised = false;
 			itemRaised = false;
 			containsKeyRaised = false;
+			Assert.IsFalse(dictionaring.Remove(new KeyValuePair<int, string>(7, "88")));
+			dictionaring.ValidateInternalConsistency();
+			Assert.IsFalse(getValueOrDefaultRaised);
+			Assert.IsFalse(itemRaised);
+			Assert.IsFalse(containsKeyRaised);
+
+			getValueOrDefaultRaised = false;
+			itemRaised = false;
+			containsKeyRaised = false;
 			changedKey = 0;
 			changedValue = "0";
 			dictionaring[0] = "1";
@@ -483,6 +520,15 @@ namespace ObservableComputations.Test
 
 			dictionaring.For(consumer);
 			activationInProgress = false;
+
+			if (OcConfiguration.SaveInstantiatingStackTrace)
+				Assert.IsNotNull(dictionaring.InstantiatingStackTrace);
+
+			Assert.IsNotNull(dictionaring.ToString());
+
+			Assert.IsNull(dictionaring.UserCodeIsCalledFrom);
+
+			Assert.IsTrue(((IComputingInternal) dictionaring).Consumers.Contains(consumer));
 
 			dictionaring.DebugTag = "DebugTag";
 			Assert.AreEqual(dictionaring.DebugTag,  "DebugTag");

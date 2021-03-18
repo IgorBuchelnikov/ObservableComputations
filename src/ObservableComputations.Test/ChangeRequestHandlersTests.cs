@@ -789,6 +789,9 @@ namespace ObservableComputations.Test
 			joining.SetRightItemRequestHandler = setRightItemRequestHandler;
 			Assert.AreEqual(joining.SetRightItemRequestHandler, setRightItemRequestHandler);
 
+			Assert.AreEqual(joining[2].Joining, joining);
+			Assert.NotNull(joining[2].ToString());
+
 			joining[2].LeftItem = new Item(50, "50");
 			joining[3].RightItem = new Item(70, "70");
 			joining.ValidateInternalConsistency();

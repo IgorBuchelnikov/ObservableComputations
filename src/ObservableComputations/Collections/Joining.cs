@@ -36,7 +36,7 @@ namespace ObservableComputations
 
 
 		// ReSharper disable once MemberCanBePrivate.Global
-		public Func<TLeftSourceItem, TRightSourceItem, bool> PredicateFunc => _predicateFunc;
+		//public Func<TLeftSourceItem, TRightSourceItem, bool> PredicateFunc => _predicateFunc;
 
 		public override int InitialCapacity => _initialCapacity;
 
@@ -1059,7 +1059,7 @@ namespace ObservableComputations
 		private readonly Joining<TLeftSourceItem, TRightSourceItem> _joining;
 
 		// ReSharper disable once UnusedMember.Local
-		private Joining<TLeftSourceItem, TRightSourceItem> Joining => _joining;
+		public Joining<TLeftSourceItem, TRightSourceItem> Joining => _joining;
 
 		public JoinPair(
 			TLeftSourceItem leftItem, TRightSourceItem rightItem,
@@ -1085,16 +1085,6 @@ namespace ObservableComputations
 		public override int GetHashCode()
 		{
 			return _leftSourceItemEqualityComparer.GetHashCode(LeftItem) +_rightSourceItemEqualityComparer.GetHashCode(RightItem);
-		}
-
-		public override bool Equals(object obj)
-		{
-			return obj is JoinPair<TLeftSourceItem, TRightSourceItem> other && Equals(other);
-		}
-
-		public bool Equals(JoinPair<TLeftSourceItem, TRightSourceItem> other)
-		{
-			return other != null && (_leftSourceItemEqualityComparer.Equals(LeftItem, other.LeftItem) && _rightSourceItemEqualityComparer.Equals(RightItem, other.RightItem));
 		}
 
 		public override string ToString()

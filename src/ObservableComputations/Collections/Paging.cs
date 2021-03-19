@@ -55,37 +55,38 @@ namespace ObservableComputations
 			int sourceCount = _sourceCopy.Count;
 
 			_pageCount = (int) Math.Ceiling(sourceCount / (double) _pageSize);
-			bool currentPageChanged = false;
+
 			if (_currentPage > _pageCount)
 			{
 				_currentPage = _pageCount;
-				currentPageChanged = true;
+				processCurrentPageChanged();
 			}
-
-			_lowerIndex = _pageSize * (_currentPage - 1);
-			_upperIndex = _lowerIndex + _pageSize;
-
-			if (originalPageSize < _pageSize)
+			else
 			{
-				int index = originalPageSize;
-				for (int sourceIndex = originalUpperIndex;
-					sourceIndex < sourceCount && sourceIndex < _upperIndex;
-					sourceIndex++)
-					baseInsertItem(index++, _sourceCopy[sourceIndex]);
-			}
-			else if (originalPageSize > _pageSize)
-			{
-				int index = originalPageSize - 1;
-				index = index < Count ? index : Count - 1;
+				_lowerIndex = _pageSize * (_currentPage - 1);
+				_upperIndex = _lowerIndex + _pageSize;
 
-				for (; index >= _pageSize; index--)
+				if (originalPageSize < _pageSize)
 				{
-					baseRemoveItem(index);
+					int index = originalPageSize;
+					for (int sourceIndex = originalUpperIndex;
+						sourceIndex < sourceCount && sourceIndex < _upperIndex;
+						sourceIndex++)
+						baseInsertItem(index++, _sourceCopy[sourceIndex]);
 				}
+				else if (originalPageSize > _pageSize)
+				{
+					int index = originalPageSize - 1;
+					index = index < Count ? index : Count - 1;
+
+					for (; index >= _pageSize; index--)
+					{
+						baseRemoveItem(index);
+					}
+				}				
 			}
 
 			OnPropertyChanged(Utils.PageSizePropertyChangedEventArgs);
-			if (currentPageChanged) OnPropertyChanged(Utils.CurrentPagePropertyChangedEventArgs);
 		}
 
 		public int CurrentPage

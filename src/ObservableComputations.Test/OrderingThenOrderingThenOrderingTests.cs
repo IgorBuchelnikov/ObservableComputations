@@ -8,6 +8,7 @@ using NUnit.Framework;
 
 namespace ObservableComputations.Test
 {
+	[TestFixture(true)]
 	[TestFixture(false)]
 	public partial class OrderingThenOrderingThenOrderingTests : TestBase
 	{

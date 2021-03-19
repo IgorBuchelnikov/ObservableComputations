@@ -321,6 +321,10 @@ namespace ObservableComputations.Test
 			paging.CurrentPage = 4;
 			test();
 
+			paging.CurrentPage = 4;
+			paging.PageSize = 80;
+			test();
+
 			consumer.Dispose();
 		}
 

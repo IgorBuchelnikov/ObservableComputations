@@ -1012,7 +1012,7 @@ namespace ObservableComputations
 		}
 	}
 
-	public class JoinPair<TLeftSourceItem, TRightSourceItem> : IEquatable<JoinPair<TLeftSourceItem, TRightSourceItem>>, INotifyPropertyChanged
+	public class JoinPair<TLeftSourceItem, TRightSourceItem> : INotifyPropertyChanged
 	{
 		public TLeftSourceItem LeftItem
 		{

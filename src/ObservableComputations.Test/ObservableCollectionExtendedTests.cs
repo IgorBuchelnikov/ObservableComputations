@@ -38,7 +38,21 @@ namespace ObservableComputations.Test
 				}
 			};
 
-			notifyCollectionChangedExtended.PostCollectionChanged += (sender, args) =>
+			if (notifyCollectionChangedExtended is CollectionComputing<int> collectionComputing)
+			{
+				Assert.IsTrue(((IComputingInternal) collectionComputing).Consumers.Count() > 0);
+				Assert.IsTrue(collectionComputing.Consumers.Count() > 0);
+				Assert.NotNull( collectionComputing.ToString());
+				collectionComputing.DebugTag = "DebugTag";
+				Assert.AreEqual(collectionComputing.DebugTag,  "DebugTag");
+
+				collectionComputing.Tag = "Tag";
+				Assert.AreEqual(collectionComputing.Tag,  "Tag");
+				Assert.NotNull(collectionComputing.ToString());
+				Assert.AreEqual(collectionComputing.ItemType, typeof(int));
+			}
+
+				notifyCollectionChangedExtended.PostCollectionChanged += (sender, args) =>
 			{
 				Assert.AreEqual(notifyCollectionChangedExtended.CurrentChange, currentChange);
 				Assert.AreEqual(newItemPropertyInfo.GetValue(notifyCollectionChangedExtended), newItem);

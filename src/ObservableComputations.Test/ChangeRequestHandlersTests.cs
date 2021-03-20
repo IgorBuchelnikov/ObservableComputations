@@ -267,6 +267,15 @@ namespace ObservableComputations.Test
 			getValueOrDefaultRaised = false;
 			itemRaised = false;
 			containsKeyRaised = false;
+			Assert.IsFalse(dictionaring.Remove(new KeyValuePair<int, string>(5, "3")));
+			dictionaring.ValidateInternalConsistency();
+			Assert.IsFalse(getValueOrDefaultRaised);
+			Assert.IsFalse(itemRaised);
+			Assert.IsFalse(containsKeyRaised);
+
+			getValueOrDefaultRaised = false;
+			itemRaised = false;
+			containsKeyRaised = false;
 			changedKey = 0;
 			changedValue = "0";
 			dictionaring[0] = "1";
@@ -466,6 +475,15 @@ namespace ObservableComputations.Test
 			getValueOrDefaultRaised = false;
 			itemRaised = false;
 			containsKeyRaised = false;
+			Assert.IsFalse(dictionaring.Remove(new KeyValuePair<int, string>(5, "3")));
+			dictionaring.ValidateInternalConsistency();
+			Assert.IsFalse(getValueOrDefaultRaised);
+			Assert.IsFalse(itemRaised);
+			Assert.IsFalse(containsKeyRaised);
+
+			getValueOrDefaultRaised = false;
+			itemRaised = false;
+			containsKeyRaised = false;
 			changedKey = 0;
 			changedValue = "0";
 			dictionaring[0] = "1";
@@ -484,6 +502,26 @@ namespace ObservableComputations.Test
 			Assert.IsTrue(containsKeyRaised);
 
 			inActivationInProgress = true;
+			consumer.Dispose();
+		}
+
+		[Test]
+		public void TestConcurrentDictionaring1()
+		{
+			ObservableCollection<Item> items = new ObservableCollection<Item>(
+				new Item[]
+				{
+					new Item(0, "0"), 
+					new Item(1, "1"),
+					new Item(2, "2")
+				});
+
+			OcConsumer consumer = new OcConsumer();
+			ConcurrentDictionaring<Item, int, string> dictionaring = 
+				items.ConcurrentDictionaring(i => i.Id, i => i.Value).For(consumer);
+
+			Assert.Throws<ObservableComputationsException>(() => items.Add(new Item(0, "2")));
+
 			consumer.Dispose();
 		}
 
@@ -523,6 +561,8 @@ namespace ObservableComputations.Test
 
 			if (OcConfiguration.SaveInstantiatingStackTrace)
 				Assert.IsNotNull(dictionaring.InstantiatingStackTrace);
+
+			Assert.AreEqual(dictionaring.Cast<int>().Count(), 3);
 
 			Assert.IsNotNull(dictionaring.ToString());
 

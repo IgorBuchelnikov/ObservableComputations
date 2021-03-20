@@ -785,7 +785,7 @@ namespace ObservableComputations
 
 		void ISourceItemChangeProcessor.ProcessSourceItemChange(ExpressionWatcher expressionWatcher)
 		{
-			throw new NotImplementedException();
+
 		}
 
 		void IComputingInternal.AddConsumer(OcConsumer addingOcConsumer)

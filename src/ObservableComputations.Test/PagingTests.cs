@@ -312,6 +312,8 @@ namespace ObservableComputations.Test
 			paging.PageSize = 10;
 			test();
 
+			Assert.AreEqual(paging.PageCount, 10);
+
 			paging.CurrentPage = 1;
 			test();
 
@@ -325,7 +327,16 @@ namespace ObservableComputations.Test
 			paging.PageSize = 80;
 			test();
 
+			paging.CurrentPage = -1;
+			test();
+
+			items.Value.Clear();
+			Assert.AreEqual(paging.PageCount, 1);
+
 			consumer.Dispose();
+
+			Assert.Throws<ObservableComputationsException>(() => items.Paging(-1));
+			Assert.Throws<ObservableComputationsException>(() => items.Paging(2, -1));
 		}
 
 		public PagingTests(bool debug) : base(debug)

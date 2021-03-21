@@ -41,6 +41,8 @@ namespace ObservableComputations
 
 			public void Process(Queue<IProcessable>[] deferredProcessings)
 			{
+				if (ExpressionWatcher._disposed) return;
+
 				if (SourceItemChangeProcessorType == typeof(ISourceItemChangeProcessor))
 					SourceItemChangeProcessor.ProcessSourceItemChange(ExpressionWatcher);
 				else if (SourceItemChangeProcessorType == typeof(ISourceItemKeyChangeProcessor))

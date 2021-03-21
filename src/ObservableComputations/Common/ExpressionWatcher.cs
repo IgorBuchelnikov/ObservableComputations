@@ -854,8 +854,6 @@ namespace ObservableComputations
 					}
 				}
 
-				processCallReturningComputingArray();
-
 #if DEBUG
 				workWithCallTreeNodeChildren(node, root, WorkWithCallTreeNodeType.UpdateSubscriptionAndHolder);
 				if (this == _rootExpressionWatcher) processCallReturningComputingArray();
@@ -880,6 +878,8 @@ namespace ObservableComputations
 						if (this == _rootExpressionWatcher) processCallReturningComputingArray();				
 						raiseValueChanged(processChangeTask.Sender, processChangeTask.Args);
 #endif
+
+						if (_disposed) break;
 					}
 				}
 

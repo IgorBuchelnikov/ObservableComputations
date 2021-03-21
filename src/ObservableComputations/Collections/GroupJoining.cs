@@ -702,7 +702,6 @@ namespace ObservableComputations
 
 		void ISourceItemChangeProcessor.ProcessSourceItemChange(ExpressionWatcher expressionWatcher)
 		{
-			if (expressionWatcher._disposed) return;
 			int outerSourceIndex = expressionWatcher._position.Index;
 			JoinGroup<TOuterSourceItem, TInnerSourceItem, TKey> joinGroup = this[outerSourceIndex];
 			OuterItemInfo outerItemInfo = _itemInfos[outerSourceIndex];

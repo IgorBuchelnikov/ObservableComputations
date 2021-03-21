@@ -406,7 +406,6 @@ namespace ObservableComputations
 
 		void ISourceItemChangeProcessor.ProcessSourceItemChange(ExpressionWatcher expressionWatcher)
 		{
-			if (expressionWatcher._disposed) return;
 			int sourceIndex = expressionWatcher._position.Index;
 			ItemInfo itemInfo = _itemInfos[sourceIndex];
 			TKey key = itemInfo.Key;

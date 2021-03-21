@@ -294,7 +294,6 @@ namespace ObservableComputations
 
 		void ISourceItemChangeProcessor.ProcessSourceItemChange(ExpressionWatcher expressionWatcher)
 		{
-			if (expressionWatcher._disposed) return;
 			int sourceIndex = expressionWatcher._position.Index;
 			baseSetItem(sourceIndex, applySelector((ItemInfo)expressionWatcher._position, _sourceAsList[sourceIndex]));
 		}

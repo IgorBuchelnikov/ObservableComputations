@@ -507,7 +507,6 @@ namespace ObservableComputations
 
 		void ISourceItemKeyChangeProcessor.ProcessSourceItemChange(ExpressionWatcher expressionWatcher)
 		{
-			if (expressionWatcher._disposed) return;
 			int sourceIndex = expressionWatcher._position.Index;
 			KeyValueExpressionItemInfo<TKey, TValue> itemInfo = _itemInfos[sourceIndex];
 			TKey key = itemInfo.Key;
@@ -519,7 +518,6 @@ namespace ObservableComputations
 
 		void ISourceItemValueChangeProcessor.ProcessSourceItemChange(ExpressionWatcher expressionWatcher)
 		{
-			if (expressionWatcher._disposed) return;
 			int sourceIndex = expressionWatcher._position.Index;
 			KeyValueExpressionItemInfo<TKey, TValue> itemInfo = _itemInfos[sourceIndex];
 			TKey key = itemInfo.Key;

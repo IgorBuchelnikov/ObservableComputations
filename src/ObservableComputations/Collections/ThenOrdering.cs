@@ -437,26 +437,19 @@ namespace ObservableComputations
 			{
 				previousOrderedItemInfo = _orderedItemInfos[orderedIndex - 1];
 				if (sourceRangePosition.PlainIndex < orderedIndex)
-				{
 					tryIncludeInRange(previousOrderedItemInfo, previousOrderedIndex);
-				}
 
 			}
 
-			if (!isIncludedInRange && orderedIndex < Count)
-			{
-				if (sourceRangePosition.PlainIndex + sourceRangePosition.Length - 1 > orderedIndex)
-				{
-					tryIncludeInRange(_orderedItemInfos[orderedIndex + 1], nextOrderedIndex);
-				}
-			}
+			if (!isIncludedInRange 
+				&& orderedIndex < Count 
+				&& sourceRangePosition.PlainIndex + sourceRangePosition.Length - 1 > orderedIndex)
+				tryIncludeInRange(_orderedItemInfos[orderedIndex + 1], nextOrderedIndex);
 
 			if (!isIncludedInRange)
-			{
-				orderedItemInfo.RangePosition = previousOrderedItemInfo != null 
-					? _equalOrderingValueRangePositions.Insert(previousOrderedItemInfo.RangePosition.Index + 1, 1) 
+				orderedItemInfo.RangePosition = previousOrderedItemInfo != null
+					? _equalOrderingValueRangePositions.Insert(previousOrderedItemInfo.RangePosition.Index + 1, 1)
 					: _equalOrderingValueRangePositions.Insert(0, 1);
-			}
 		}
 
 		private void unregisterSourceItem(int sourceIndex)
@@ -722,14 +715,11 @@ namespace ObservableComputations
 				}
 			}
 			else if (_thenOrderingsCount > 0)
-			{
 				notifyThenOrderings(orderedIndex);
-			}
 		}
 
 		void ISourceItemChangeProcessor.ProcessSourceItemChange(ExpressionWatcher expressionWatcher)
 		{
-			if (expressionWatcher._disposed) return;
 			int sourceIndex = expressionWatcher._position.Index;
 			processSourceItemChange(sourceIndex, true, _sourceAsList[sourceIndex]);
 		}

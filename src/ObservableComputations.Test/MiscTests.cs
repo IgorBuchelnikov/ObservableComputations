@@ -144,5 +144,12 @@ namespace ObservableComputations.Test
 				OnCollectionChanged(Utils.ResetNotifyCollectionChangedEventArgs);
 			}
 		}
+
+		[Test]
+		public void DoTest()
+		{
+			ObservableCollection<int> observableCollection = new ObservableCollection<int>();
+			Assert.IsTrue(observableCollection.Do(oc => oc.Add(1)).Count == 1);
+		}
 	}
 }

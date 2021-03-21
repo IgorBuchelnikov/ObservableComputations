@@ -493,7 +493,6 @@ namespace ObservableComputations
 
 		void ISourceItemChangeProcessor.ProcessSourceItemChange(ExpressionWatcher expressionWatcher)
 		{
-			if (expressionWatcher._disposed) return;
 			int index = expressionWatcher._position.Index;
 			FilteringUtils.ProcessChangeSourceItem(index, _sourceAsList[index], _itemInfos, this,
 				_filteredPositions, this);

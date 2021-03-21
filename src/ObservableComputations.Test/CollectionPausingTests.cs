@@ -12,7 +12,7 @@ namespace ObservableComputations.Test
 	public class CollectionPausingTests
 	{
 		[Test]
-		public void TestClear()
+		public void TestCollectionPausing()
 		{
 			OcConsumer consumer = new OcConsumer();
 			Scalar<ObservableCollection<int>> sourceScalar = 

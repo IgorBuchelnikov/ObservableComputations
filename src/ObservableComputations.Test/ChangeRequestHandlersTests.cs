@@ -879,6 +879,7 @@ namespace ObservableComputations.Test
 			};
 			zipping.SetRightItemRequestHandler = setRightItemRequestHandler;
 			Assert.AreEqual(zipping.SetRightItemRequestHandler, setRightItemRequestHandler);
+			Assert.NotNull(zipping[2].ToString());
 
 			zipping[2].LeftItem = new Item(50, "50");
 			zipping[1].RightItem = new Item(70, "70");

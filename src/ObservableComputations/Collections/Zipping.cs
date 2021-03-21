@@ -197,8 +197,6 @@ namespace ObservableComputations
 
 			void unsubscribeLeftSource()
 			{
-				if (_leftSource == null) return;
-
 				Utils.unsubscribeSource(
 					_leftSource, 
 					ref _leftSourceAsINotifyPropertyChanged, 
@@ -211,8 +209,6 @@ namespace ObservableComputations
 
 			void unsubscribeRightSource()
 			{
-				if (_rightSource == null) return;
-
 				Utils.unsubscribeSource(
 					_rightSource, 
 					ref _rightSourceAsINotifyPropertyChanged, 

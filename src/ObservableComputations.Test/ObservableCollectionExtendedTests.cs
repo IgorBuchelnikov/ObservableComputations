@@ -50,6 +50,8 @@ namespace ObservableComputations.Test
 				Assert.AreEqual(collectionComputing.Tag,  "Tag");
 				Assert.NotNull(collectionComputing.ToString());
 				Assert.AreEqual(collectionComputing.ItemType, typeof(int));
+				Assert.IsTrue(collectionComputing.UserCodeIsCalledFrom == null);
+				Assert.AreEqual(collectionComputing.InitialCapacity, 3);
 			}
 
 				notifyCollectionChangedExtended.PostCollectionChanged += (sender, args) =>

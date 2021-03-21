@@ -17,7 +17,7 @@ namespace ObservableComputations
 		public virtual INotifyCollectionChanged Source => _source;
 		public virtual IReadScalar<INotifyCollectionChanged> SourceScalar => _sourceScalar;
 		public IReadScalar<bool> IsPausedScalar => _isPausedScalar;
-		public bool Resuming => _resuming;
+		public bool IsResuming => _isResuming;
 
 		public virtual ReadOnlyCollection<object> Sources => new ReadOnlyCollection<object>(new object[]{Source, SourceScalar});
 
@@ -33,11 +33,11 @@ namespace ObservableComputations
 
 				void action()
 				{
-					_resuming = _isPaused != value && !value;
+					_isResuming = _isPaused != value && !value;
 					_isPaused = value;
 					OnPropertyChanged(Utils.IsPausedPropertyChangedEventArgs);
 
-					if (_resuming) resume();
+					if (_isResuming) resume();
 				}
 
 				Utils.processChange(
@@ -133,7 +133,7 @@ namespace ObservableComputations
 				if (_sourceAsIHasTickTackVersion != null)
 					_lastProcessedSourceTickTackVersion = _sourceAsIHasTickTackVersion.TickTackVersion;
 
-				_resuming = false;
+				_isResuming = false;
 
 				Utils.postHandleChange(
 					ref _handledEventSender,
@@ -161,7 +161,7 @@ namespace ObservableComputations
 		private IHasTickTackVersion _sourceAsIHasTickTackVersion;
 		private bool _lastProcessedSourceTickTackVersion;
 		private bool _isPaused;
-		private bool _resuming;
+		private bool _isResuming;
 		private CollectionPausingResumeType _resumeType;
 
 		private readonly ISourceCollectionChangeProcessor _thisAsSourceCollectionChangeProcessor;
@@ -234,10 +234,10 @@ namespace ObservableComputations
 			_handledEventArgs = e;
 
 			bool newValue = _isPausedScalar.Value;
-			_resuming = _isPaused != newValue && !newValue;
+			_isResuming = _isPaused != newValue && !newValue;
 			_isPaused = newValue;
 
-			if (_resuming) resume();
+			if (_isResuming) resume();
 
 			_handledEventSender = null;
 			_handledEventArgs = null;

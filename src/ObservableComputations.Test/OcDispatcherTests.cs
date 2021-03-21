@@ -537,6 +537,7 @@ namespace ObservableComputations.Test
 					count++;
 					Assert.IsTrue(dispatcher.DoingInvocation.SetSynchronizationContext);
 					Assert.AreEqual(dispatcher.DoingInvocation.Invoker, invocation);
+					Assert.AreEqual(((OcDispatcherSynchronizationContext) SynchronizationContext.Current).OcDispatcher, dispatcher);
 
 					await dispatcher.InvokeAsyncAwaitable(() =>
 					{

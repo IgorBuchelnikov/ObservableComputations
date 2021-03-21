@@ -912,6 +912,7 @@ namespace ObservableComputations.Test
 
 
 			Assert.IsTrue(computing.Consumers.Contains(consumer));
+			Assert.IsTrue(computing.UserCodeIsCalledFrom == null);
 
 			Action<int> computingSetValueRequestHandler = i =>
 			{

@@ -21,11 +21,16 @@ namespace ObservableComputations.Test
 	
 			CollectionPausing<int> collectionPausing = sourceScalar.CollectionPausing(true, CollectionPausingResumeType.ReplayChanges).For(consumer);
 
+			collectionPausing.CollectionChanged += (sender, args) =>
+			{
+				Assert.IsTrue(collectionPausing.IsResuming);
+			};
+
 			sourceScalar.Change(new ObservableCollection<int>(new int[]{1,2,3,5,6}).Selecting(i => i).For(consumer));
 			collectionPausing.IsPaused = false;
 			collectionPausing.ValidateInternalConsistency();
 
-			collectionPausing.IsPaused = false;
+			collectionPausing.IsPaused = true;
 			sourceScalar.Change(null);
 			collectionPausing.IsPaused =false;
 			collectionPausing.ValidateInternalConsistency();

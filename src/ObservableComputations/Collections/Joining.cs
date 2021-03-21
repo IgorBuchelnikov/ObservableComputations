@@ -1081,11 +1081,6 @@ namespace ObservableComputations
 			PropertyChanged?.Invoke(this, Utils.LeftItemPropertyChangedEventArgs);
 		}
 
-		public override int GetHashCode()
-		{
-			return _leftSourceItemEqualityComparer.GetHashCode(LeftItem) +_rightSourceItemEqualityComparer.GetHashCode(RightItem);
-		}
-
 		public override string ToString()
 		{
 			return $"JoinPair: LeftItem = {(LeftItem != null ? $"{LeftItem.ToString()}" : "null")}	RightItem = {(RightItem != null ? $"{RightItem.ToString()}" : "null")}";

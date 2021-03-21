@@ -812,12 +812,12 @@ namespace ObservableComputations
 			do
 			{
 				int length = upperIndex - lowerIndex + 1;
-				//if (length == 0)
-				//{
-				//	resultIndex = 0;
-				//}
-				//else
-				//{
+				if (length == 0)
+				{
+					resultIndex = 0;
+				}
+				else
+				{
 					int index = this[lowerIndex]._sourcePositions[0].Index;
 
 					if (length == 1)
@@ -863,7 +863,7 @@ namespace ObservableComputations
 							}
 						}
 					}
-				//}
+				}
 			} while (!resultIndex.HasValue);
 
 			return resultIndex.Value;

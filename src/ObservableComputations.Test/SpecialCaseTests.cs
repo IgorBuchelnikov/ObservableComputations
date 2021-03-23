@@ -299,7 +299,7 @@ namespace ObservableComputations.Test
 		}
 
 		[Test, Combinatorial]
-		public void TestCreateOnCountChanged(
+		public void TestCreateCastingOnCountChanged(
 			[Values(NotifyCollectionChangedAction.Add, NotifyCollectionChangedAction.Reset, NotifyCollectionChangedAction.Move, NotifyCollectionChangedAction.Remove, NotifyCollectionChangedAction.Replace)]
 			NotifyCollectionChangedAction action,
 			[Values("Count", "Item[]")] string propertyName)
@@ -350,11 +350,11 @@ namespace ObservableComputations.Test
 			}
 
 			casting?.ValidateInternalConsistency();
-
+			consumer.Dispose();
 		}
 
 		[Test, Combinatorial]
-		public void TestCreateOnCountChanged2(
+		public void TestCreateSelectingOnCountChanged2(
 			[Values(NotifyCollectionChangedAction.Add, NotifyCollectionChangedAction.Reset, NotifyCollectionChangedAction.Move, NotifyCollectionChangedAction.Remove, NotifyCollectionChangedAction.Replace)]
 			NotifyCollectionChangedAction action,
 			[Values("Count", "Item[]")] string propertyName)
@@ -404,10 +404,11 @@ namespace ObservableComputations.Test
 			}
 
 			selecting?.ValidateInternalConsistency();
+			consumer.Dispose();
 		}
 
 		[Test, Combinatorial]
-		public void TestCreateOnCountChanged3(
+		public void TestCreateSelecting2OnCountChanged3(
 			[Values(NotifyCollectionChangedAction.Add, NotifyCollectionChangedAction.Reset, NotifyCollectionChangedAction.Move, NotifyCollectionChangedAction.Remove, NotifyCollectionChangedAction.Replace)]
 			NotifyCollectionChangedAction action,
 			[Values("Count", "Item[]")] string propertyName)
@@ -459,6 +460,1146 @@ namespace ObservableComputations.Test
 			}
 
 			testingSelecting?.ValidateInternalConsistency();
+			consumer.Dispose();
+		}
+
+		[Test, Combinatorial]
+		public void TestCreateCollectionDispatchingOnCountChanged(
+			[Values(NotifyCollectionChangedAction.Add, NotifyCollectionChangedAction.Reset, NotifyCollectionChangedAction.Move, NotifyCollectionChangedAction.Remove, NotifyCollectionChangedAction.Replace)]
+			NotifyCollectionChangedAction action,
+			[Values("Count", "Item[]")] string propertyName)
+		{
+			MiscTests.MyObservableCollection<Item> items = new MiscTests.MyObservableCollection<Item>(
+				new[]
+				{
+					new Item(false),
+					new Item(false),
+					new Item(false),
+					new Item(false)
+				}
+			);
+
+			OcDispatcher dispatcher = new OcDispatcher();
+			CollectionDispatching<Item> collectionDispatching = null;
+
+			((INotifyPropertyChanged) items).PropertyChanged += (sender, args) =>
+			{
+				if (args.PropertyName == propertyName)
+				{
+					OcConsumer consumer = new OcConsumer();
+					collectionDispatching = items.CollectionDispatching(dispatcher).For(consumer);
+					collectionDispatching.ValidateInternalConsistency();
+				}
+			};
+
+			switch (action)
+			{
+				case NotifyCollectionChangedAction.Add:
+					items.Add(new Item(false));
+					break;
+				case NotifyCollectionChangedAction.Remove:
+					items.RemoveAt(0);
+					break;
+				case NotifyCollectionChangedAction.Replace:
+					items[0] = new Item(false);
+					break;
+				case NotifyCollectionChangedAction.Move:
+					items.Move(0, 1);
+					break;
+				case NotifyCollectionChangedAction.Reset:
+					items.Reset(new[]
+					{
+						new Item(false),
+						new Item(false)
+					});
+					break;
+			}
+
+			dispatcher.Pass();
+			collectionDispatching?.ValidateInternalConsistency();
+			dispatcher.Dispose();
+			consumer.Dispose();
+		}
+
+		[Test, Combinatorial]
+		public void TestCreateCollectionPausingOnCountChanged(
+			[Values(NotifyCollectionChangedAction.Add, NotifyCollectionChangedAction.Reset, NotifyCollectionChangedAction.Move, NotifyCollectionChangedAction.Remove, NotifyCollectionChangedAction.Replace)]
+			NotifyCollectionChangedAction action,
+			[Values("Count", "Item[]")] string propertyName)
+		{
+			MiscTests.MyObservableCollection<Item> items = new MiscTests.MyObservableCollection<Item>(
+				new[]
+				{
+					new Item(false),
+					new Item(false),
+					new Item(false),
+					new Item(false)
+				}
+			);
+
+			CollectionPausing<Item> collectionPausing = null;
+
+			((INotifyPropertyChanged) items).PropertyChanged += (sender, args) =>
+			{
+				if (args.PropertyName == propertyName)
+				{
+					OcConsumer consumer = new OcConsumer();
+					collectionPausing = items.CollectionPausing().For(consumer);
+					collectionPausing.ValidateInternalConsistency();
+				}
+			};
+
+			switch (action)
+			{
+				case NotifyCollectionChangedAction.Add:
+					items.Add(new Item(false));
+					break;
+				case NotifyCollectionChangedAction.Remove:
+					items.RemoveAt(0);
+					break;
+				case NotifyCollectionChangedAction.Replace:
+					items[0] = new Item(false);
+					break;
+				case NotifyCollectionChangedAction.Move:
+					items.Move(0, 1);
+					break;
+				case NotifyCollectionChangedAction.Reset:
+					items.Reset(new[]
+					{
+						new Item(false),
+						new Item(false)
+					});
+					break;
+			}
+
+			collectionPausing?.ValidateInternalConsistency();
+			consumer.Dispose();
+		}
+
+		[Test, Combinatorial]
+		public void TestCreateCollectionProcessingOnCountChanged(
+			[Values(NotifyCollectionChangedAction.Add, NotifyCollectionChangedAction.Reset, NotifyCollectionChangedAction.Move, NotifyCollectionChangedAction.Remove, NotifyCollectionChangedAction.Replace)]
+			NotifyCollectionChangedAction action,
+			[Values("Count", "Item[]")] string propertyName)
+		{
+			MiscTests.MyObservableCollection<Item> items = new MiscTests.MyObservableCollection<Item>(
+				new[]
+				{
+					new Item(false),
+					new Item(false),
+					new Item(false),
+					new Item(false)
+				}
+			);
+
+			CollectionProcessing<Item, Item> collectionProcessing = null;
+
+			((INotifyPropertyChanged) items).PropertyChanged += (sender, args) =>
+			{
+				if (args.PropertyName == propertyName)
+				{
+					OcConsumer consumer = new OcConsumer();
+					collectionProcessing = items.CollectionProcessing((items1, computing) => items1).For(consumer);
+				}
+			};
+
+				int count = 4;
+			switch (action)
+			{
+				case NotifyCollectionChangedAction.Add:
+					items.Add(new Item(false));
+					count = 5;
+					break;
+				case NotifyCollectionChangedAction.Remove:
+					items.RemoveAt(0);
+					count = 3;
+					break;
+				case NotifyCollectionChangedAction.Replace:
+					items[0] = new Item(false);
+					break;
+				case NotifyCollectionChangedAction.Move:
+					items.Move(0, 1);
+					break;
+				case NotifyCollectionChangedAction.Reset:
+					items.Reset(new[]
+					{
+						new Item(false),
+						new Item(false),
+						new Item(false),
+						new Item(false)
+					});
+					break;
+			}
+
+			if (collectionProcessing != null) Assert.AreEqual(collectionProcessing.Count, count);
+			consumer.Dispose();
+		}
+
+		[Test, Combinatorial]
+		public void TestCreateCollectionProcessingVoidOnCountChanged(
+			[Values(NotifyCollectionChangedAction.Add, NotifyCollectionChangedAction.Reset, NotifyCollectionChangedAction.Move, NotifyCollectionChangedAction.Remove, NotifyCollectionChangedAction.Replace)]
+			NotifyCollectionChangedAction action,
+			[Values("Count", "Item[]")] string propertyName)
+		{
+			MiscTests.MyObservableCollection<Item> items = new MiscTests.MyObservableCollection<Item>(
+				new[]
+				{
+					new Item(false),
+					new Item(false),
+					new Item(false),
+					new Item(false)
+				}
+			);
+
+			CollectionProcessingVoid<Item> collectionProcessing = null;
+
+			((INotifyPropertyChanged) items).PropertyChanged += (sender, args) =>
+			{
+				if (args.PropertyName == propertyName)
+				{
+					OcConsumer consumer = new OcConsumer();
+					collectionProcessing = items.CollectionProcessing((items1, computing) => { }).For(consumer);
+				}
+			};
+
+			int count = 4;
+			switch (action)
+			{
+				case NotifyCollectionChangedAction.Add:
+					items.Add(new Item(false));
+					count = 5;
+					break;
+				case NotifyCollectionChangedAction.Remove:
+					items.RemoveAt(0);
+					count = 3;
+					break;
+				case NotifyCollectionChangedAction.Replace:
+					items[0] = new Item(false);
+					break;
+				case NotifyCollectionChangedAction.Move:
+					items.Move(0, 1);
+					break;
+				case NotifyCollectionChangedAction.Reset:
+					items.Reset(new[]
+					{
+						new Item(false),
+						new Item(false),
+						new Item(false),
+						new Item(false)
+					});
+					break;
+			}
+
+			if (collectionProcessing != null) Assert.AreEqual(collectionProcessing.Count, count);
+			consumer.Dispose();
+		}
+
+		[Test, Combinatorial]
+		public void TestCreateConcatenatingOnCountChanged(
+			[Values(NotifyCollectionChangedAction.Add, NotifyCollectionChangedAction.Reset, NotifyCollectionChangedAction.Move, NotifyCollectionChangedAction.Remove, NotifyCollectionChangedAction.Replace)]
+			NotifyCollectionChangedAction action,
+			[Values("Count", "Item[]")] string propertyName)
+		{
+			MiscTests.MyObservableCollection<MiscTests.MyObservableCollection<Item>> items = new MiscTests.MyObservableCollection<MiscTests.MyObservableCollection<Item>>(
+				new[]
+				{
+					new MiscTests.MyObservableCollection<Item>(
+						new[]
+						{
+							new Item(false),
+							new Item(false),
+							new Item(false),
+							new Item(false)
+						}),
+					new MiscTests.MyObservableCollection<Item>(
+						new[]
+						{
+							new Item(false),
+							new Item(false),
+							new Item(false),
+							new Item(false)
+						})
+				}
+			);
+
+			Concatenating<Item> concatenating = null;
+
+			((INotifyPropertyChanged) items).PropertyChanged += (sender, args) =>
+			{
+				if (args.PropertyName == propertyName)
+				{
+					OcConsumer consumer = new OcConsumer();
+					concatenating = items.Concatenating<Item>().For(consumer);
+					concatenating.ValidateInternalConsistency();
+				}
+			};
+
+			switch (action)
+			{
+				case NotifyCollectionChangedAction.Add:
+					items.Add(new MiscTests.MyObservableCollection<Item>(
+						new[]
+						{
+							new Item(false),
+							new Item(false),
+							new Item(false),
+							new Item(false)
+						}));
+					break;
+				case NotifyCollectionChangedAction.Remove:
+					items.RemoveAt(0);
+					break;
+				case NotifyCollectionChangedAction.Replace:
+					items[0] = new MiscTests.MyObservableCollection<Item>(
+						new[]
+						{
+							new Item(false),
+							new Item(false),
+							new Item(false),
+							new Item(false)
+						});
+					break;
+				case NotifyCollectionChangedAction.Move:
+					items.Move(0, 1);
+					break;
+				case NotifyCollectionChangedAction.Reset:
+					items.Reset(
+						new[]
+						{
+							new MiscTests.MyObservableCollection<Item>(
+								new[]
+								{
+									new Item(false),
+									new Item(false),
+									new Item(false),
+									new Item(false)
+								})
+						});
+					break;
+			}
+
+			concatenating?.ValidateInternalConsistency();
+			consumer.Dispose();
+		}
+
+		[Test, Combinatorial]
+		public void TestCreateConcurrentDictionaringOnCountChanged(
+			[Values(NotifyCollectionChangedAction.Add, NotifyCollectionChangedAction.Reset, NotifyCollectionChangedAction.Move, NotifyCollectionChangedAction.Remove, NotifyCollectionChangedAction.Replace)]
+			NotifyCollectionChangedAction action,
+			[Values("Count", "Item[]")] string propertyName)
+		{
+			MiscTests.MyObservableCollection<Item> items = new MiscTests.MyObservableCollection<Item>(
+				new[]
+				{
+					new Item(false),
+					new Item(false),
+					new Item(false),
+					new Item(false)
+				}
+			);
+
+			ConcurrentDictionaring<Item, int, Item> concurrentDictionaring = null;
+
+			((INotifyPropertyChanged) items).PropertyChanged += (sender, args) =>
+			{
+				if (args.PropertyName == propertyName)
+				{
+					OcConsumer consumer = new OcConsumer();
+					concurrentDictionaring = items.ConcurrentDictionaring(i => i.Num, i => i).For(consumer);
+					concurrentDictionaring.ValidateInternalConsistency();
+				}
+			};
+
+			switch (action)
+			{
+				case NotifyCollectionChangedAction.Add:
+					items.Add(new Item(false));
+					break;
+				case NotifyCollectionChangedAction.Remove:
+					items.RemoveAt(0);
+					break;
+				case NotifyCollectionChangedAction.Replace:
+					items[0] = new Item(false);
+					break;
+				case NotifyCollectionChangedAction.Move:
+					items.Move(0, 1);
+					break;
+				case NotifyCollectionChangedAction.Reset:
+					items.Reset(new[]
+					{
+						new Item(false),
+						new Item(false)
+					});
+					break;
+			}
+
+			concurrentDictionaring?.ValidateInternalConsistency();
+			consumer.Dispose();
+		}
+
+		[Test, Combinatorial]
+		public void TestCreateDictionaringOnCountChanged(
+			[Values(NotifyCollectionChangedAction.Add, NotifyCollectionChangedAction.Reset, NotifyCollectionChangedAction.Move, NotifyCollectionChangedAction.Remove, NotifyCollectionChangedAction.Replace)]
+			NotifyCollectionChangedAction action,
+			[Values("Count", "Item[]")] string propertyName)
+		{
+			MiscTests.MyObservableCollection<Item> items = new MiscTests.MyObservableCollection<Item>(
+				new[]
+				{
+					new Item(false),
+					new Item(false),
+					new Item(false),
+					new Item(false)
+				}
+			);
+
+			Dictionaring<Item, int, Item> dictionaring = null;
+
+			((INotifyPropertyChanged) items).PropertyChanged += (sender, args) =>
+			{
+				if (args.PropertyName == propertyName)
+				{
+					OcConsumer consumer = new OcConsumer();
+					dictionaring = items.Dictionaring(i => i.Num, i => i).For(consumer);
+					dictionaring.ValidateInternalConsistency();
+				}
+			};
+
+			switch (action)
+			{
+				case NotifyCollectionChangedAction.Add:
+					items.Add(new Item(false));
+					break;
+				case NotifyCollectionChangedAction.Remove:
+					items.RemoveAt(0);
+					break;
+				case NotifyCollectionChangedAction.Replace:
+					items[0] = new Item(false);
+					break;
+				case NotifyCollectionChangedAction.Move:
+					items.Move(0, 1);
+					break;
+				case NotifyCollectionChangedAction.Reset:
+					items.Reset(new[]
+					{
+						new Item(false),
+						new Item(false)
+					});
+					break;
+			}
+
+			dictionaring?.ValidateInternalConsistency();
+			consumer.Dispose();
+		}
+
+		[Test, Combinatorial]
+		public void TestCreateFilteringOnCountChanged2(
+			[Values(NotifyCollectionChangedAction.Add, NotifyCollectionChangedAction.Reset, NotifyCollectionChangedAction.Move, NotifyCollectionChangedAction.Remove, NotifyCollectionChangedAction.Replace)]
+			NotifyCollectionChangedAction action,
+			[Values("Count", "Item[]")] string propertyName)
+		{
+			MiscTests.MyObservableCollection<Item> items = new MiscTests.MyObservableCollection<Item>(
+				new[]
+				{
+					new Item(false),
+					new Item(false),
+					new Item(false),
+					new Item(false)
+				}
+			);
+
+			Filtering<Item> filtering = null;
+
+			((INotifyPropertyChanged) items).PropertyChanged += (sender, args) =>
+			{
+				if (args.PropertyName == propertyName)
+				{
+					OcConsumer consumer = new OcConsumer();
+					filtering = items.Filtering(i => true).For(consumer);
+				}
+			};
+
+			switch (action)
+			{
+				case NotifyCollectionChangedAction.Add:
+					items.Add(new Item(false));
+					break;
+				case NotifyCollectionChangedAction.Remove:
+					items.RemoveAt(0);
+					break;
+				case NotifyCollectionChangedAction.Replace:
+					items[0] = new Item(false);
+					break;
+				case NotifyCollectionChangedAction.Move:
+					items.Move(0, 1);
+					break;
+				case NotifyCollectionChangedAction.Reset:
+					items.Reset(new[]
+					{
+						new Item(false),
+						new Item(false)
+					});
+					break;
+			}
+
+			filtering?.ValidateInternalConsistency();
+			consumer.Dispose();
+		}
+
+		[Test, Combinatorial]
+		public void TestCreateGroupingOnCountChanged2(
+			[Values(NotifyCollectionChangedAction.Add, NotifyCollectionChangedAction.Reset, NotifyCollectionChangedAction.Move, NotifyCollectionChangedAction.Remove, NotifyCollectionChangedAction.Replace)]
+			NotifyCollectionChangedAction action,
+			[Values("Count", "Item[]")] string propertyName)
+		{
+			MiscTests.MyObservableCollection<Item> items = new MiscTests.MyObservableCollection<Item>(
+				new[]
+				{
+					new Item(false),
+					new Item(false),
+					new Item(false),
+					new Item(false)
+				}
+			);
+
+			Grouping<Item, int> grouping = null;
+
+			((INotifyPropertyChanged) items).PropertyChanged += (sender, args) =>
+			{
+				if (args.PropertyName == propertyName)
+				{
+					OcConsumer consumer = new OcConsumer();
+					grouping = items.Grouping(i => i.Num).For(consumer);
+				}
+			};
+
+			switch (action)
+			{
+				case NotifyCollectionChangedAction.Add:
+					items.Add(new Item(false));
+					break;
+				case NotifyCollectionChangedAction.Remove:
+					items.RemoveAt(0);
+					break;
+				case NotifyCollectionChangedAction.Replace:
+					items[0] = new Item(false);
+					break;
+				case NotifyCollectionChangedAction.Move:
+					items.Move(0, 1);
+					break;
+				case NotifyCollectionChangedAction.Reset:
+					items.Reset(new[]
+					{
+						new Item(false),
+						new Item(false)
+					});
+					break;
+			}
+
+			grouping?.ValidateInternalConsistency();
+			consumer.Dispose();
+		}
+
+		[Test, Combinatorial]
+		public void TestCreateGroupJoiningOnCountChanged2(
+			[Values(NotifyCollectionChangedAction.Add, NotifyCollectionChangedAction.Reset, NotifyCollectionChangedAction.Move, NotifyCollectionChangedAction.Remove, NotifyCollectionChangedAction.Replace)]
+			NotifyCollectionChangedAction action,
+			[Values("Count", "Item[]")] string propertyName)
+		{
+			MiscTests.MyObservableCollection<Item> items = new MiscTests.MyObservableCollection<Item>(
+				new[]
+				{
+					new Item(false),
+					new Item(false),
+					new Item(false),
+					new Item(false)
+				}
+			);
+
+			GroupJoining<Item, Item, int> groupJoining = null;
+
+			((INotifyPropertyChanged) items).PropertyChanged += (sender, args) =>
+			{
+				if (args.PropertyName == propertyName)
+				{
+					OcConsumer consumer = new OcConsumer();
+					groupJoining = items.GroupJoining(items, i => i.Num, i => i.Num).For(consumer);
+				}
+			};
+
+			switch (action)
+			{
+				case NotifyCollectionChangedAction.Add:
+					items.Add(new Item(false));
+					break;
+				case NotifyCollectionChangedAction.Remove:
+					items.RemoveAt(0);
+					break;
+				case NotifyCollectionChangedAction.Replace:
+					items[0] = new Item(false);
+					break;
+				case NotifyCollectionChangedAction.Move:
+					items.Move(0, 1);
+					break;
+				case NotifyCollectionChangedAction.Reset:
+					items.Reset(new[]
+					{
+						new Item(false),
+						new Item(false)
+					});
+					break;
+			}
+
+			groupJoining?.ValidateInternalConsistency();
+			consumer.Dispose();
+		}
+
+		[Test, Combinatorial]
+		public void TestCreateHashSettingOnCountChanged(
+			[Values(NotifyCollectionChangedAction.Add, NotifyCollectionChangedAction.Reset, NotifyCollectionChangedAction.Move, NotifyCollectionChangedAction.Remove, NotifyCollectionChangedAction.Replace)]
+			NotifyCollectionChangedAction action,
+			[Values("Count", "Item[]")] string propertyName)
+		{
+			MiscTests.MyObservableCollection<Item> items = new MiscTests.MyObservableCollection<Item>(
+				new[]
+				{
+					new Item(false),
+					new Item(false),
+					new Item(false),
+					new Item(false)
+				}
+			);
+
+			HashSetting<Item, int> hashSetting = null;
+
+			((INotifyPropertyChanged) items).PropertyChanged += (sender, args) =>
+			{
+				if (args.PropertyName == propertyName)
+				{
+					OcConsumer consumer = new OcConsumer();
+					hashSetting = items.HashSetting(i => i.Num).For(consumer);
+					hashSetting.ValidateInternalConsistency();
+				}
+			};
+
+			switch (action)
+			{
+				case NotifyCollectionChangedAction.Add:
+					items.Add(new Item(false));
+					break;
+				case NotifyCollectionChangedAction.Remove:
+					items.RemoveAt(0);
+					break;
+				case NotifyCollectionChangedAction.Replace:
+					items[0] = new Item(false);
+					break;
+				case NotifyCollectionChangedAction.Move:
+					items.Move(0, 1);
+					break;
+				case NotifyCollectionChangedAction.Reset:
+					items.Reset(new[]
+					{
+						new Item(false),
+						new Item(false)
+					});
+					break;
+			}
+
+			hashSetting?.ValidateInternalConsistency();
+			consumer.Dispose();
+		}
+
+		[Test, Combinatorial]
+		public void TestCreateJoiningOnCountChanged2(
+			[Values(NotifyCollectionChangedAction.Add, NotifyCollectionChangedAction.Reset, NotifyCollectionChangedAction.Move, NotifyCollectionChangedAction.Remove, NotifyCollectionChangedAction.Replace)]
+			NotifyCollectionChangedAction action,
+			[Values("Count", "Item[]")] string propertyName)
+		{
+			MiscTests.MyObservableCollection<Item> items = new MiscTests.MyObservableCollection<Item>(
+				new[]
+				{
+					new Item(false),
+					new Item(false),
+					new Item(false),
+					new Item(false)
+				}
+			);
+
+			Joining<Item, Item> joining = null;
+
+			((INotifyPropertyChanged) items).PropertyChanged += (sender, args) =>
+			{
+				if (args.PropertyName == propertyName)
+				{
+					OcConsumer consumer = new OcConsumer();
+					joining = items.Joining(items, (i1, i2) => i1.Num == i2.Num).For(consumer);
+				}
+			};
+
+			switch (action)
+			{
+				case NotifyCollectionChangedAction.Add:
+					items.Add(new Item(false));
+					break;
+				case NotifyCollectionChangedAction.Remove:
+					items.RemoveAt(0);
+					break;
+				case NotifyCollectionChangedAction.Replace:
+					items[0] = new Item(false);
+					break;
+				case NotifyCollectionChangedAction.Move:
+					items.Move(0, 1);
+					break;
+				case NotifyCollectionChangedAction.Reset:
+					items.Reset(new[]
+					{
+						new Item(false),
+						new Item(false)
+					});
+					break;
+			}
+
+			joining?.ValidateInternalConsistency();
+			consumer.Dispose();
+		}
+
+		[Test, Combinatorial]
+		public void TestCreateOrderingOnCountChanged2(
+			[Values(NotifyCollectionChangedAction.Add, NotifyCollectionChangedAction.Reset, NotifyCollectionChangedAction.Move, NotifyCollectionChangedAction.Remove, NotifyCollectionChangedAction.Replace)]
+			NotifyCollectionChangedAction action,
+			[Values("Count", "Item[]")] string propertyName)
+		{
+			MiscTests.MyObservableCollection<Item> items = new MiscTests.MyObservableCollection<Item>(
+				new[]
+				{
+					new Item(false),
+					new Item(false),
+					new Item(false),
+					new Item(false)
+				}
+			);
+
+			Ordering<Item, int> ordering = null;
+
+			((INotifyPropertyChanged) items).PropertyChanged += (sender, args) =>
+			{
+				if (args.PropertyName == propertyName)
+				{
+					OcConsumer consumer = new OcConsumer();
+					ordering = items.Ordering(i => i.Num).For(consumer);
+				}
+			};
+
+			switch (action)
+			{
+				case NotifyCollectionChangedAction.Add:
+					items.Add(new Item(false));
+					break;
+				case NotifyCollectionChangedAction.Remove:
+					items.RemoveAt(0);
+					break;
+				case NotifyCollectionChangedAction.Replace:
+					items[0] = new Item(false);
+					break;
+				case NotifyCollectionChangedAction.Move:
+					items.Move(0, 1);
+					break;
+				case NotifyCollectionChangedAction.Reset:
+					items.Reset(new[]
+					{
+						new Item(false),
+						new Item(false)
+					});
+					break;
+			}
+
+			ordering?.ValidateInternalConsistency();
+			consumer.Dispose();
+		}
+
+		[Test, Combinatorial]
+		public void TestCreateThenOrderingOnCountChanged3(
+			[Values(NotifyCollectionChangedAction.Add, NotifyCollectionChangedAction.Reset, NotifyCollectionChangedAction.Move, NotifyCollectionChangedAction.Remove, NotifyCollectionChangedAction.Replace)]
+			NotifyCollectionChangedAction action,
+			[Values("Count", "Item[]")] string propertyName)
+		{
+			MiscTests.MyObservableCollection<Item> items = new MiscTests.MyObservableCollection<Item>(
+				new[]
+				{
+					new Item(false),
+					new Item(false),
+					new Item(false),
+					new Item(false)
+				}
+			);
+
+			ThenOrdering<Item, int> thenOrdering = null;
+
+			OcConsumer consumer = new OcConsumer();
+			Ordering<Item, int> ordering = items.Ordering(i => i.Num).For(consumer);
+
+			((INotifyPropertyChanged) ordering).PropertyChanged += (sender, args) =>
+			{
+				if (args.PropertyName == propertyName)
+				{
+					thenOrdering = ordering.ThenOrdering(i => i.Num).For(consumer);
+				}
+			};
+
+			switch (action)
+			{
+				case NotifyCollectionChangedAction.Add:
+					items.Add(new Item(false));
+					break;
+				case NotifyCollectionChangedAction.Remove:
+					items.RemoveAt(0);
+					break;
+				case NotifyCollectionChangedAction.Replace:
+					items[0] = new Item(false);
+					break;
+				case NotifyCollectionChangedAction.Move:
+					items.Move(0, 1);
+					break;
+				case NotifyCollectionChangedAction.Reset:
+					items.Reset(new[]
+					{
+						new Item(false),
+						new Item(false)
+					});
+					break;
+			}
+
+			thenOrdering?.ValidateInternalConsistency();
+			consumer.Dispose();
+		}
+
+		[Test, Combinatorial]
+		public void TestCreatePagingOnCountChanged(
+			[Values(NotifyCollectionChangedAction.Add, NotifyCollectionChangedAction.Reset, NotifyCollectionChangedAction.Move, NotifyCollectionChangedAction.Remove, NotifyCollectionChangedAction.Replace)]
+			NotifyCollectionChangedAction action,
+			[Values("Count", "Item[]")] string propertyName)
+		{
+			MiscTests.MyObservableCollection<Item> items = new MiscTests.MyObservableCollection<Item>(
+				new[]
+				{
+					new Item(false),
+					new Item(false),
+					new Item(false),
+					new Item(false)
+				}
+			);
+
+			Paging<Item> paging = null;
+
+			((INotifyPropertyChanged) items).PropertyChanged += (sender, args) =>
+			{
+				if (args.PropertyName == propertyName)
+				{
+					OcConsumer consumer = new OcConsumer();
+					paging = items.Paging(2).For(consumer);
+					paging.ValidateInternalConsistency();
+				}
+			};
+
+			switch (action)
+			{
+				case NotifyCollectionChangedAction.Add:
+					items.Add(new Item(false));
+					break;
+				case NotifyCollectionChangedAction.Remove:
+					items.RemoveAt(0);
+					break;
+				case NotifyCollectionChangedAction.Replace:
+					items[0] = new Item(false);
+					break;
+				case NotifyCollectionChangedAction.Move:
+					items.Move(0, 1);
+					break;
+				case NotifyCollectionChangedAction.Reset:
+					items.Reset(new[]
+					{
+						new Item(false),
+						new Item(false)
+					});
+					break;
+			}
+
+			paging?.ValidateInternalConsistency();
+			consumer.Dispose();
+		}
+
+		[Test, Combinatorial]
+		public void TestCreateZippingOnCountChanged(
+			[Values(NotifyCollectionChangedAction.Add, NotifyCollectionChangedAction.Reset, NotifyCollectionChangedAction.Move, NotifyCollectionChangedAction.Remove, NotifyCollectionChangedAction.Replace)]
+			NotifyCollectionChangedAction action,
+			[Values("Count", "Item[]")] string propertyName)
+		{
+			MiscTests.MyObservableCollection<Item> items = new MiscTests.MyObservableCollection<Item>(
+				new[]
+				{
+					new Item(false),
+					new Item(false),
+					new Item(false),
+					new Item(false)
+				}
+			);
+
+			Zipping<Item, Item> zipping = null;
+
+			((INotifyPropertyChanged) items).PropertyChanged += (sender, args) =>
+			{
+				if (args.PropertyName == propertyName)
+				{
+					OcConsumer consumer = new OcConsumer();
+					zipping = items.Zipping(items).For(consumer);
+				}
+			};
+
+			switch (action)
+			{
+				case NotifyCollectionChangedAction.Add:
+					items.Add(new Item(false));
+					break;
+				case NotifyCollectionChangedAction.Remove:
+					items.RemoveAt(0);
+					break;
+				case NotifyCollectionChangedAction.Replace:
+					items[0] = new Item(false);
+					break;
+				case NotifyCollectionChangedAction.Move:
+					items.Move(0, 1);
+					break;
+				case NotifyCollectionChangedAction.Reset:
+					items.Reset(new[]
+					{
+						new Item(false),
+						new Item(false)
+					});
+					break;
+			}
+
+			zipping?.ValidateInternalConsistency();
+			consumer.Dispose();
+		}
+
+		[Test, Combinatorial]
+		public void TestCreateAggregatingOnCountChanged(
+			[Values(NotifyCollectionChangedAction.Add, NotifyCollectionChangedAction.Reset, NotifyCollectionChangedAction.Move, NotifyCollectionChangedAction.Remove, NotifyCollectionChangedAction.Replace)]
+			NotifyCollectionChangedAction action,
+			[Values("Count", "Item[]")] string propertyName)
+		{
+			MiscTests.MyObservableCollection<Item> items = new MiscTests.MyObservableCollection<Item>(
+				new[]
+				{
+					new Item(false),
+					new Item(false),
+					new Item(false),
+					new Item(false)
+				}
+			);
+
+			Summarizing<int> summarizing = null;
+
+			((INotifyPropertyChanged) items).PropertyChanged += (sender, args) =>
+			{
+				if (args.PropertyName == propertyName)
+				{
+					OcConsumer consumer = new OcConsumer();
+					summarizing = items.Selecting(i => i.Num).Summarizing().For(consumer);
+					summarizing.ValidateInternalConsistency();
+				}
+			};
+
+			switch (action)
+			{
+				case NotifyCollectionChangedAction.Add:
+					items.Add(new Item(false));
+					break;
+				case NotifyCollectionChangedAction.Remove:
+					items.RemoveAt(0);
+					break;
+				case NotifyCollectionChangedAction.Replace:
+					items[0] = new Item(false);
+					break;
+				case NotifyCollectionChangedAction.Move:
+					items.Move(0, 1);
+					break;
+				case NotifyCollectionChangedAction.Reset:
+					items.Reset(new[]
+					{
+						new Item(false),
+						new Item(false)
+					});
+					break;
+			}
+
+			summarizing?.ValidateInternalConsistency();
+			consumer.Dispose();
+		}
+
+		[Test, Combinatorial]
+		public void TestCreateAnyComputingOnCountChanged(
+			[Values(NotifyCollectionChangedAction.Add, NotifyCollectionChangedAction.Reset, NotifyCollectionChangedAction.Move, NotifyCollectionChangedAction.Remove, NotifyCollectionChangedAction.Replace)]
+			NotifyCollectionChangedAction action,
+			[Values("Count", "Item[]")] string propertyName)
+		{
+			MiscTests.MyObservableCollection<Item> items = new MiscTests.MyObservableCollection<Item>(
+				new[]
+				{
+					new Item(false),
+					new Item(false),
+					new Item(false),
+					new Item(false)
+				}
+			);
+
+			AnyComputing<Item> anyComputing = null;
+
+			((INotifyPropertyChanged) items).PropertyChanged += (sender, args) =>
+			{
+				if (args.PropertyName == propertyName)
+				{
+					OcConsumer consumer = new OcConsumer();
+					anyComputing = items.AnyComputing<Item>(i => true).For(consumer);
+					anyComputing.ValidateInternalConsistency();
+				}
+			};
+
+			switch (action)
+			{
+				case NotifyCollectionChangedAction.Add:
+					items.Add(new Item(false));
+					break;
+				case NotifyCollectionChangedAction.Remove:
+					items.RemoveAt(0);
+					break;
+				case NotifyCollectionChangedAction.Replace:
+					items[0] = new Item(false);
+					break;
+				case NotifyCollectionChangedAction.Move:
+					items.Move(0, 1);
+					break;
+				case NotifyCollectionChangedAction.Reset:
+					items.Reset(new[]
+					{
+						new Item(false),
+						new Item(false)
+					});
+					break;
+			}
+
+			anyComputing?.ValidateInternalConsistency();
+			consumer.Dispose();
+		}
+
+		[Test, Combinatorial]
+		public void TestCreateItemComputingOnCountChanged(
+			[Values(NotifyCollectionChangedAction.Add, NotifyCollectionChangedAction.Reset, NotifyCollectionChangedAction.Move, NotifyCollectionChangedAction.Remove, NotifyCollectionChangedAction.Replace)]
+			NotifyCollectionChangedAction action,
+			[Values("Count", "Item[]")] string propertyName)
+		{
+			MiscTests.MyObservableCollection<Item> items = new MiscTests.MyObservableCollection<Item>(
+				new[]
+				{
+					new Item(false),
+					new Item(false),
+					new Item(false),
+					new Item(false)
+				}
+			);
+
+			ItemComputing<Item> itemComputing = null;
+
+			((INotifyPropertyChanged) items).PropertyChanged += (sender, args) =>
+			{
+				if (args.PropertyName == propertyName)
+				{
+					OcConsumer consumer = new OcConsumer();
+					itemComputing = items.ItemComputing<Item>(1).For(consumer);
+					itemComputing.ValidateInternalConsistency();
+				}
+			};
+
+			switch (action)
+			{
+				case NotifyCollectionChangedAction.Add:
+					items.Add(new Item(false));
+					break;
+				case NotifyCollectionChangedAction.Remove:
+					items.RemoveAt(0);
+					break;
+				case NotifyCollectionChangedAction.Replace:
+					items[0] = new Item(false);
+					break;
+				case NotifyCollectionChangedAction.Move:
+					items.Move(0, 1);
+					break;
+				case NotifyCollectionChangedAction.Reset:
+					items.Reset(new[]
+					{
+						new Item(false),
+						new Item(false)
+					});
+					break;
+			}
+
+			itemComputing?.ValidateInternalConsistency();
+			consumer.Dispose();
+		}
+
+		[Test, Combinatorial]
+		public void TestCreateMinimazingOnCountChanged(
+			[Values(NotifyCollectionChangedAction.Add, NotifyCollectionChangedAction.Reset, NotifyCollectionChangedAction.Move, NotifyCollectionChangedAction.Remove, NotifyCollectionChangedAction.Replace)]
+			NotifyCollectionChangedAction action,
+			[Values("Count", "Item[]")] string propertyName)
+		{
+			MiscTests.MyObservableCollection<Item> items = new MiscTests.MyObservableCollection<Item>(
+				new[]
+				{
+					new Item(false),
+					new Item(false),
+					new Item(false),
+					new Item(false)
+				}
+			);
+
+			MinimazingOrMaximazing<int> minimazing = null;
+
+			((INotifyPropertyChanged) items).PropertyChanged += (sender, args) =>
+			{
+				if (args.PropertyName == propertyName)
+				{
+					OcConsumer consumer = new OcConsumer();
+					minimazing = items.Selecting(i => i.Num).Minimazing().For(consumer);
+					minimazing.ValidateInternalConsistency();
+				}
+			};
+
+			switch (action)
+			{
+				case NotifyCollectionChangedAction.Add:
+					items.Add(new Item(false));
+					break;
+				case NotifyCollectionChangedAction.Remove:
+					items.RemoveAt(0);
+					break;
+				case NotifyCollectionChangedAction.Replace:
+					items[0] = new Item(false);
+					break;
+				case NotifyCollectionChangedAction.Move:
+					items.Move(0, 1);
+					break;
+				case NotifyCollectionChangedAction.Reset:
+					items.Reset(new[]
+					{
+						new Item(false),
+						new Item(false)
+					});
+					break;
+			}
+
+			minimazing?.ValidateInternalConsistency();
+			consumer.Dispose();
 		}
 
 		public SpecialCaseTests(bool debug) : base(debug)

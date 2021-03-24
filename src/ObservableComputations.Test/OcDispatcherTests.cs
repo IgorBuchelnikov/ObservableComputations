@@ -20,6 +20,7 @@ namespace ObservableComputations.Test
 
 			object context = new object();
 			OcDispatcher dispatcher = new OcDispatcher(2);
+			Assert.NotNull(OcDispatcher.PassContext);
 
 			Action action = null;
 			Invocation parentInvocation;

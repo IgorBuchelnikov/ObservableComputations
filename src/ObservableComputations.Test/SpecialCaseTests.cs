@@ -798,14 +798,16 @@ namespace ObservableComputations.Test
 				}
 			);
 
+			OcConsumer consumer = new OcConsumer();
+			Selecting<Item, Item> selecting = items.Selecting(i => i).For(consumer);
+
 			ConcurrentDictionaring<Item, int, Item> concurrentDictionaring = null;
 
 			((INotifyPropertyChanged) items).PropertyChanged += (sender, args) =>
 			{
 				if (args.PropertyName == propertyName)
 				{
-					OcConsumer consumer = new OcConsumer();
-					concurrentDictionaring = items.ConcurrentDictionaring(i => i.Num, i => i).For(consumer);
+					concurrentDictionaring = selecting.ConcurrentDictionaring(i => i.Num, i => i).For(consumer);
 					concurrentDictionaring.ValidateInternalConsistency();
 				}
 			};
@@ -853,14 +855,16 @@ namespace ObservableComputations.Test
 				}
 			);
 
+			OcConsumer consumer = new OcConsumer();
+			Selecting<Item, Item> selecting = items.Selecting(i => i).For(consumer);
+
 			Dictionaring<Item, int, Item> dictionaring = null;
 
 			((INotifyPropertyChanged) items).PropertyChanged += (sender, args) =>
 			{
 				if (args.PropertyName == propertyName)
 				{
-					OcConsumer consumer = new OcConsumer();
-					dictionaring = items.Dictionaring(i => i.Num, i => i).For(consumer);
+					dictionaring = selecting.Dictionaring(i => i.Num, i => i).For(consumer);
 					dictionaring.ValidateInternalConsistency();
 				}
 			};
@@ -908,14 +912,16 @@ namespace ObservableComputations.Test
 				}
 			);
 
+			OcConsumer consumer = new OcConsumer();
+			Selecting<Item, Item> selecting = items.Selecting(i => i).For(consumer);
+
 			Filtering<Item> filtering = null;
 
 			((INotifyPropertyChanged) items).PropertyChanged += (sender, args) =>
 			{
 				if (args.PropertyName == propertyName)
 				{
-					OcConsumer consumer = new OcConsumer();
-					filtering = items.Filtering(i => true).For(consumer);
+					filtering = selecting.Filtering(i => true).For(consumer);
 				}
 			};
 
@@ -962,14 +968,16 @@ namespace ObservableComputations.Test
 				}
 			);
 
+			OcConsumer consumer = new OcConsumer();
+			Selecting<Item, Item> selecting = items.Selecting(i => i).For(consumer);
+
 			Grouping<Item, int> grouping = null;
 
 			((INotifyPropertyChanged) items).PropertyChanged += (sender, args) =>
 			{
 				if (args.PropertyName == propertyName)
 				{
-					OcConsumer consumer = new OcConsumer();
-					grouping = items.Grouping(i => i.Num).For(consumer);
+					grouping = selecting.Grouping(i => i.Num).For(consumer);
 				}
 			};
 
@@ -1016,14 +1024,16 @@ namespace ObservableComputations.Test
 				}
 			);
 
+			OcConsumer consumer = new OcConsumer();
+			Selecting<Item, Item> selecting = items.Selecting(i => i).For(consumer);
+
 			GroupJoining<Item, Item, int> groupJoining = null;
 
 			((INotifyPropertyChanged) items).PropertyChanged += (sender, args) =>
 			{
 				if (args.PropertyName == propertyName)
 				{
-					OcConsumer consumer = new OcConsumer();
-					groupJoining = items.GroupJoining(items, i => i.Num, i => i.Num).For(consumer);
+					groupJoining = selecting.GroupJoining(selecting, i => i.Num, i => i.Num).For(consumer);
 				}
 			};
 
@@ -1179,14 +1189,16 @@ namespace ObservableComputations.Test
 				}
 			);
 
+			OcConsumer consumer = new OcConsumer();
+			Selecting<Item, Item> selecting = items.Selecting(i => i).For(consumer);
+
 			Ordering<Item, int> ordering = null;
 
 			((INotifyPropertyChanged) items).PropertyChanged += (sender, args) =>
 			{
 				if (args.PropertyName == propertyName)
 				{
-					OcConsumer consumer = new OcConsumer();
-					ordering = items.Ordering(i => i.Num).For(consumer);
+					ordering = selecting.Ordering(i => i.Num).For(consumer);
 				}
 			};
 
@@ -1398,14 +1410,16 @@ namespace ObservableComputations.Test
 				}
 			);
 
+			OcConsumer consumer = new OcConsumer();
+			Selecting<Item, Item> selecting = items.Selecting(i => i).For(consumer);
+
 			Summarizing<int> summarizing = null;
 
 			((INotifyPropertyChanged) items).PropertyChanged += (sender, args) =>
 			{
 				if (args.PropertyName == propertyName)
 				{
-					OcConsumer consumer = new OcConsumer();
-					summarizing = items.Selecting(i => i.Num).Summarizing().For(consumer);
+					summarizing = selecting.Selecting(i => i.Num).Summarizing().For(consumer);
 					summarizing.ValidateInternalConsistency();
 				}
 			};
@@ -1453,14 +1467,16 @@ namespace ObservableComputations.Test
 				}
 			);
 
+			OcConsumer consumer = new OcConsumer();
+			Selecting<Item, Item> selecting = items.Selecting(i => i).For(consumer);
+
 			AnyComputing<Item> anyComputing = null;
 
 			((INotifyPropertyChanged) items).PropertyChanged += (sender, args) =>
 			{
 				if (args.PropertyName == propertyName)
 				{
-					OcConsumer consumer = new OcConsumer();
-					anyComputing = items.AnyComputing<Item>(i => true).For(consumer);
+					anyComputing = selecting.AnyComputing<Item>(i => true).For(consumer);
 					anyComputing.ValidateInternalConsistency();
 				}
 			};
@@ -1563,14 +1579,16 @@ namespace ObservableComputations.Test
 				}
 			);
 
+			OcConsumer consumer = new OcConsumer();
+			Selecting<Item, Item> selecting = items.Selecting(i => i).For(consumer);
+
 			MinimazingOrMaximazing<int> minimazing = null;
 
 			((INotifyPropertyChanged) items).PropertyChanged += (sender, args) =>
 			{
 				if (args.PropertyName == propertyName)
 				{
-					OcConsumer consumer = new OcConsumer();
-					minimazing = items.Selecting(i => i.Num).Minimazing().For(consumer);
+					minimazing = selecting.Selecting(i => i.Num).Minimazing().For(consumer);
 					minimazing.ValidateInternalConsistency();
 				}
 			};

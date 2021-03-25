@@ -99,7 +99,6 @@ namespace ObservableComputations.Test
 			Assert.AreEqual(consumer.Tag, "Tag");
 			Scalar<int> scalar = new Scalar<int>(0);
 			ScalarPausing<int> scalarPausing = scalar.ScalarPausing(isPausedScalar).For(consumer);
-			Assert.AreEqual(scalarPausing.IsPaused, false);
 			scalar.Change(1);
 			scalar.Change(2);
 			scalar.Change(3);
@@ -118,8 +117,6 @@ namespace ObservableComputations.Test
 				}
 			};
 
-			scalarPausing.IsPaused  = false;
-			Assert.AreEqual(scalarPausing.Value, 4);
 			consumer.Dispose();
 		}
 

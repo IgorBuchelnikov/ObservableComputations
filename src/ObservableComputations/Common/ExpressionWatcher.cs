@@ -805,9 +805,9 @@ namespace ObservableComputations
 				}			
 
 #if DEBUG
-				workWithCallTreeNodeChildren(node, root, workType);	
+				workWithCallTreeNodeChildren(node, root);	
 #else
-				workWithCallTreeNodeChildren(node, workType);	
+				workWithCallTreeNodeChildren(node);	
 #endif
 
 			}
@@ -857,11 +857,11 @@ namespace ObservableComputations
 				}
 
 #if DEBUG
-				workWithCallTreeNodeChildren(node, root, WorkWithCallTreeNodeType.UpdateSubscriptionAndHolder);
+				workWithCallTreeNodeChildren(node, root);
 				if (this == _rootExpressionWatcher) processCallReturningComputingArray();
 				raiseValueChanged(root, sender, args);
 #else
-				workWithCallTreeNodeChildren(node, WorkWithCallTreeNodeType.UpdateSubscriptionAndHolder);
+				workWithCallTreeNodeChildren(node);
 				if (this == _rootExpressionWatcher) processCallReturningComputingArray();
 				raiseValueChanged(sender, args);
 #endif
@@ -872,11 +872,11 @@ namespace ObservableComputations
 						ProcessChangeTask processChangeTask = _processChangeTasksQueue.Dequeue();
 						_computingsChanged = false;
 #if DEBUG
-						workWithCallTreeNodeChildren(processChangeTask.Node, processChangeTask.Root, WorkWithCallTreeNodeType.UpdateSubscriptionAndHolder);
+						workWithCallTreeNodeChildren(processChangeTask.Node, processChangeTask.Root);
 						if (this == _rootExpressionWatcher) processCallReturningComputingArray();
 						raiseValueChanged(processChangeTask.Root, processChangeTask.Sender, processChangeTask.Args);
 #else
-						workWithCallTreeNodeChildren(processChangeTask.Node, WorkWithCallTreeNodeType.UpdateSubscriptionAndHolder);
+						workWithCallTreeNodeChildren(processChangeTask.Node);
 						if (this == _rootExpressionWatcher) processCallReturningComputingArray();				
 						raiseValueChanged(processChangeTask.Sender, processChangeTask.Args);
 #endif
@@ -893,9 +893,9 @@ namespace ObservableComputations
 
 
 #if DEBUG
-		private void workWithCallTreeNodeChildren(CallTreeNode node, Root root, WorkWithCallTreeNodeType workType)
+		private void workWithCallTreeNodeChildren(CallTreeNode node, Root root)
 #else
-		private void workWithCallTreeNodeChildren(CallTreeNode node, WorkWithCallTreeNodeType workType)
+		private void workWithCallTreeNodeChildren(CallTreeNode node)
 #endif
 		{
 			CallTreeNode[] nodeChildren = node._children;
@@ -907,8 +907,8 @@ namespace ObservableComputations
 				{
 					object value = null;
 					
-					if (workType == WorkWithCallTreeNodeType.UpdateSubscriptionAndHolder)
-					{
+					//if (workType == WorkWithCallTreeNodeType.UpdateSubscriptionAndHolder)
+					//{
 						switch (node._call.Type)
 						{
 							case CallType.PropertyOrField:
@@ -927,11 +927,11 @@ namespace ObservableComputations
 						}
 
 						node._call.Result = value;					
-					}
-					else //if (workType == WorkWithCallTreeNodeType.Dispose)
-					{
-						value = node._call.Result;
-					}
+					//}
+					//else //if (workType == WorkWithCallTreeNodeType.Dispose)
+					//{
+					//	value = node._call.Result;
+					//}
 
 
 					if (value != null)
@@ -939,9 +939,9 @@ namespace ObservableComputations
 						int childrenCount = nodeChildrenLength;
 						for (int index = 0; index < childrenCount; index++)
 #if DEBUG
-							workWithCallTreeNode(nodeChildren[index], value, root, workType);
+							workWithCallTreeNode(nodeChildren[index], value, root, WorkWithCallTreeNodeType.UpdateSubscriptionAndHolder);
 #else
-							workWithCallTreeNode(nodeChildren[index], value, workType);
+							workWithCallTreeNode(nodeChildren[index], value, WorkWithCallTreeNodeType.UpdateSubscriptionAndHolder);
 #endif						
 					}			
 				}

@@ -803,7 +803,7 @@ namespace ObservableComputations.Test
 
 			ConcurrentDictionaring<Item, int, Item> concurrentDictionaring = null;
 
-			((INotifyPropertyChanged) items).PropertyChanged += (sender, args) =>
+			((INotifyPropertyChanged) selecting).PropertyChanged += (sender, args) =>
 			{
 				if (args.PropertyName == propertyName)
 				{
@@ -860,7 +860,7 @@ namespace ObservableComputations.Test
 
 			Dictionaring<Item, int, Item> dictionaring = null;
 
-			((INotifyPropertyChanged) items).PropertyChanged += (sender, args) =>
+			((INotifyPropertyChanged) selecting).PropertyChanged += (sender, args) =>
 			{
 				if (args.PropertyName == propertyName)
 				{
@@ -917,7 +917,7 @@ namespace ObservableComputations.Test
 
 			Filtering<Item> filtering = null;
 
-			((INotifyPropertyChanged) items).PropertyChanged += (sender, args) =>
+			((INotifyPropertyChanged) selecting).PropertyChanged += (sender, args) =>
 			{
 				if (args.PropertyName == propertyName)
 				{
@@ -973,7 +973,7 @@ namespace ObservableComputations.Test
 
 			Grouping<Item, int> grouping = null;
 
-			((INotifyPropertyChanged) items).PropertyChanged += (sender, args) =>
+			((INotifyPropertyChanged) selecting).PropertyChanged += (sender, args) =>
 			{
 				if (args.PropertyName == propertyName)
 				{
@@ -1029,7 +1029,7 @@ namespace ObservableComputations.Test
 
 			GroupJoining<Item, Item, int> groupJoining = null;
 
-			((INotifyPropertyChanged) items).PropertyChanged += (sender, args) =>
+			((INotifyPropertyChanged) selecting).PropertyChanged += (sender, args) =>
 			{
 				if (args.PropertyName == propertyName)
 				{
@@ -1194,7 +1194,7 @@ namespace ObservableComputations.Test
 
 			Ordering<Item, int> ordering = null;
 
-			((INotifyPropertyChanged) items).PropertyChanged += (sender, args) =>
+			((INotifyPropertyChanged) selecting).PropertyChanged += (sender, args) =>
 			{
 				if (args.PropertyName == propertyName)
 				{
@@ -1415,7 +1415,7 @@ namespace ObservableComputations.Test
 
 			Summarizing<int> summarizing = null;
 
-			((INotifyPropertyChanged) items).PropertyChanged += (sender, args) =>
+			((INotifyPropertyChanged) selecting).PropertyChanged += (sender, args) =>
 			{
 				if (args.PropertyName == propertyName)
 				{
@@ -1472,7 +1472,7 @@ namespace ObservableComputations.Test
 
 			AnyComputing<Item> anyComputing = null;
 
-			((INotifyPropertyChanged) items).PropertyChanged += (sender, args) =>
+			((INotifyPropertyChanged) selecting).PropertyChanged += (sender, args) =>
 			{
 				if (args.PropertyName == propertyName)
 				{
@@ -1584,7 +1584,7 @@ namespace ObservableComputations.Test
 
 			MinimazingOrMaximazing<int> minimazing = null;
 
-			((INotifyPropertyChanged) items).PropertyChanged += (sender, args) =>
+			((INotifyPropertyChanged) selecting).PropertyChanged += (sender, args) =>
 			{
 				if (args.PropertyName == propertyName)
 				{

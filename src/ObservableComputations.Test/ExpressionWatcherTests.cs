@@ -5,6 +5,7 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Linq;
 using System.Linq.Expressions;
 using System.Runtime.CompilerServices;
 using NUnit.Framework;
@@ -174,8 +175,10 @@ namespace ObservableComputations.Test
 			Item item = new Item();
 			item.Num = "777";
 			Expression<Func<string, string>> expression = n => item.GetChild(item.AltNum + n).Num;
+			object[] parameters = new object[]{"777"};
 			ExpressionWatcher expressionWatcher = new ExpressionWatcher(
-				ExpressionWatcher.GetExpressionInfo(expression), new object[]{"777"});
+				ExpressionWatcher.GetExpressionInfo(expression), parameters);
+			expressionWatcher.ParameterValues.SequenceEqual(parameters);
 			expressionWatcher.ValueChanged = (ew, sender, eventArgs) => { raised = true; };
 			item.Num = "1";
 			Assert.IsTrue(raised);
@@ -354,6 +357,26 @@ namespace ObservableComputations.Test
 
 			raised = false;
 			item2.SetChild("999", new Item(){Num = "000"});
+			Assert.IsTrue(raised);
+			expressionWatcher.Dispose();
+		}
+
+		[Test]
+		public void TestRaiseValueChanged13()
+		{
+			bool raised = false;
+			Item item1 = new Item();
+			Item item2 = new Item();
+			item1.Child = item2;
+			Expression<Func<string>> expression = () => item1.Child.Num;
+			ExpressionWatcher expressionWatcher = new ExpressionWatcher(
+				ExpressionWatcher.GetExpressionInfo(expression));
+			expressionWatcher.ValueChanged = (ew, sender, eventArgs) => { raised = true; };
+			item1.Child = new Item();
+			Assert.IsTrue(raised);
+
+			raised = false;
+			item1.Child.Num = "111";
 			Assert.IsTrue(raised);
 			expressionWatcher.Dispose();
 		}

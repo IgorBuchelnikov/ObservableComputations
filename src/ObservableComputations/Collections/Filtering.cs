@@ -32,7 +32,7 @@ namespace ObservableComputations
 		public virtual INotifyCollectionChanged Source => _source;
 
 		// ReSharper disable once MemberCanBePrivate.Global
-		public Func<TSourceItem, bool> PredicateFunc => _predicateFunc;
+		//public Func<TSourceItem, bool> PredicateFunc => _predicateFunc;
 
 		public virtual ReadOnlyCollection<object> Sources => new ReadOnlyCollection<object>(new object[]{Source, SourceScalar});
 

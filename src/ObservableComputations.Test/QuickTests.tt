@@ -47,7 +47,7 @@ namespace ObservableComputations.Test
 		{
 			testNum++;
 
-			if (extensionMethod.Name == "Aggregating" && testNum == 3)
+			if (extensionMethod.Name == "ContainsComputing" && testNum == 3)
 			{
 			}
 

@@ -3743,17 +3743,6 @@ namespace ObservableComputations
 		[ObservableComputationsCall]
 		public static ObservableComputations.ContainsComputing<TSourceItem> ContainsComputing<TSourceItem>(this
 			 ObservableComputations.IReadScalar<System.Collections.Specialized.INotifyCollectionChanged> sourceScalar,
-			 ObservableComputations.IReadScalar<TSourceItem> itemScalar)
-		{
-			return new ObservableComputations.ContainsComputing<TSourceItem>(
-				sourceScalar: sourceScalar,
-				itemScalar: itemScalar,
-				equalityComparerScalar: null);
-		}
-
-		[ObservableComputationsCall]
-		public static ObservableComputations.ContainsComputing<TSourceItem> ContainsComputing<TSourceItem>(this
-			 ObservableComputations.IReadScalar<System.Collections.Specialized.INotifyCollectionChanged> sourceScalar,
 			 ObservableComputations.IReadScalar<TSourceItem> itemScalar,
 			 Expression<Func<System.Collections.Generic.IEqualityComparer<TSourceItem>>> equalityComparerExpression)
 		{
@@ -3773,6 +3762,293 @@ namespace ObservableComputations
 				sourceScalar: sourceScalar,
 				itemScalar: new Computing<TSourceItem>(itemExpression),
 				equalityComparerScalar: equalityComparerScalar);
+		}
+
+		[ObservableComputationsCall]
+		public static ObservableComputations.ContainsComputing<TSourceItem> ContainsComputing<TSourceItem>(this
+			 ObservableComputations.IReadScalar<System.Collections.Specialized.INotifyCollectionChanged> sourceScalar,
+			 Expression<Func<TSourceItem>> itemExpression,
+			 Expression<Func<System.Collections.Generic.IEqualityComparer<TSourceItem>>> equalityComparerExpression)
+		{
+			return new ObservableComputations.ContainsComputing<TSourceItem>(
+				sourceScalar: sourceScalar,
+				itemScalar: new Computing<TSourceItem>(itemExpression),
+				equalityComparerScalar: new Computing<System.Collections.Generic.IEqualityComparer<TSourceItem>>(equalityComparerExpression));
+		}
+
+		[ObservableComputationsCall]
+		public static ObservableComputations.ContainsComputing<TSourceItem> ContainsComputing<TSourceItem>(this
+			 ObservableComputations.IReadScalar<ObservableCollection<TSourceItem>> sourceScalar,
+			 ObservableComputations.IReadScalar<TSourceItem> itemScalar,
+			 ObservableComputations.IReadScalar<System.Collections.Generic.IEqualityComparer<TSourceItem>> equalityComparerScalar)
+		{
+			return new ObservableComputations.ContainsComputing<TSourceItem>(
+				sourceScalar: sourceScalar,
+				itemScalar: itemScalar,
+				equalityComparerScalar: equalityComparerScalar);
+		}
+
+		[ObservableComputationsCall]
+		public static ObservableComputations.ContainsComputing<TSourceItem> ContainsComputing<TSourceItem>(this
+			 ObservableComputations.IReadScalar<ObservableCollection<TSourceItem>> sourceScalar,
+			 ObservableComputations.IReadScalar<TSourceItem> itemScalar,
+			 Expression<Func<System.Collections.Generic.IEqualityComparer<TSourceItem>>> equalityComparerExpression)
+		{
+			return new ObservableComputations.ContainsComputing<TSourceItem>(
+				sourceScalar: sourceScalar,
+				itemScalar: itemScalar,
+				equalityComparerScalar: new Computing<System.Collections.Generic.IEqualityComparer<TSourceItem>>(equalityComparerExpression));
+		}
+
+		[ObservableComputationsCall]
+		public static ObservableComputations.ContainsComputing<TSourceItem> ContainsComputing<TSourceItem>(this
+			 ObservableComputations.IReadScalar<ObservableCollection<TSourceItem>> sourceScalar,
+			 Expression<Func<TSourceItem>> itemExpression,
+			 ObservableComputations.IReadScalar<System.Collections.Generic.IEqualityComparer<TSourceItem>> equalityComparerScalar)
+		{
+			return new ObservableComputations.ContainsComputing<TSourceItem>(
+				sourceScalar: sourceScalar,
+				itemScalar: new Computing<TSourceItem>(itemExpression),
+				equalityComparerScalar: equalityComparerScalar);
+		}
+
+		[ObservableComputationsCall]
+		public static ObservableComputations.ContainsComputing<TSourceItem> ContainsComputing<TSourceItem>(this
+			 ObservableComputations.IReadScalar<ObservableCollection<TSourceItem>> sourceScalar,
+			 Expression<Func<TSourceItem>> itemExpression,
+			 Expression<Func<System.Collections.Generic.IEqualityComparer<TSourceItem>>> equalityComparerExpression)
+		{
+			return new ObservableComputations.ContainsComputing<TSourceItem>(
+				sourceScalar: sourceScalar,
+				itemScalar: new Computing<TSourceItem>(itemExpression),
+				equalityComparerScalar: new Computing<System.Collections.Generic.IEqualityComparer<TSourceItem>>(equalityComparerExpression));
+		}
+
+		[ObservableComputationsCall]
+		public static ObservableComputations.ContainsComputing<TSourceItem> ContainsComputing<TSourceItem>(this
+			 Expression<Func<System.Collections.Specialized.INotifyCollectionChanged>> sourceExpression,
+			 ObservableComputations.IReadScalar<TSourceItem> itemScalar,
+			 ObservableComputations.IReadScalar<System.Collections.Generic.IEqualityComparer<TSourceItem>> equalityComparerScalar)
+		{
+			return new ObservableComputations.ContainsComputing<TSourceItem>(
+				sourceScalar: new Computing<System.Collections.Specialized.INotifyCollectionChanged>(sourceExpression),
+				itemScalar: itemScalar,
+				equalityComparerScalar: equalityComparerScalar);
+		}
+
+		[ObservableComputationsCall]
+		public static ObservableComputations.ContainsComputing<TSourceItem> ContainsComputing<TSourceItem>(this
+			 Expression<Func<System.Collections.Specialized.INotifyCollectionChanged>> sourceExpression,
+			 ObservableComputations.IReadScalar<TSourceItem> itemScalar,
+			 Expression<Func<System.Collections.Generic.IEqualityComparer<TSourceItem>>> equalityComparerExpression)
+		{
+			return new ObservableComputations.ContainsComputing<TSourceItem>(
+				sourceScalar: new Computing<System.Collections.Specialized.INotifyCollectionChanged>(sourceExpression),
+				itemScalar: itemScalar,
+				equalityComparerScalar: new Computing<System.Collections.Generic.IEqualityComparer<TSourceItem>>(equalityComparerExpression));
+		}
+
+		[ObservableComputationsCall]
+		public static ObservableComputations.ContainsComputing<TSourceItem> ContainsComputing<TSourceItem>(this
+			 Expression<Func<System.Collections.Specialized.INotifyCollectionChanged>> sourceExpression,
+			 Expression<Func<TSourceItem>> itemExpression,
+			 ObservableComputations.IReadScalar<System.Collections.Generic.IEqualityComparer<TSourceItem>> equalityComparerScalar)
+		{
+			return new ObservableComputations.ContainsComputing<TSourceItem>(
+				sourceScalar: new Computing<System.Collections.Specialized.INotifyCollectionChanged>(sourceExpression),
+				itemScalar: new Computing<TSourceItem>(itemExpression),
+				equalityComparerScalar: equalityComparerScalar);
+		}
+
+		[ObservableComputationsCall]
+		public static ObservableComputations.ContainsComputing<TSourceItem> ContainsComputing<TSourceItem>(this
+			 Expression<Func<System.Collections.Specialized.INotifyCollectionChanged>> sourceExpression,
+			 Expression<Func<TSourceItem>> itemExpression,
+			 Expression<Func<System.Collections.Generic.IEqualityComparer<TSourceItem>>> equalityComparerExpression)
+		{
+			return new ObservableComputations.ContainsComputing<TSourceItem>(
+				sourceScalar: new Computing<System.Collections.Specialized.INotifyCollectionChanged>(sourceExpression),
+				itemScalar: new Computing<TSourceItem>(itemExpression),
+				equalityComparerScalar: new Computing<System.Collections.Generic.IEqualityComparer<TSourceItem>>(equalityComparerExpression));
+		}
+
+		[ObservableComputationsCall]
+		public static ObservableComputations.ContainsComputing<TSourceItem> ContainsComputing<TSourceItem>(this
+			 Expression<Func<ObservableCollection<TSourceItem>>> sourceExpression,
+			 ObservableComputations.IReadScalar<TSourceItem> itemScalar,
+			 ObservableComputations.IReadScalar<System.Collections.Generic.IEqualityComparer<TSourceItem>> equalityComparerScalar)
+		{
+			return new ObservableComputations.ContainsComputing<TSourceItem>(
+				sourceScalar: new Computing<ObservableCollection<TSourceItem>>(sourceExpression),
+				itemScalar: itemScalar,
+				equalityComparerScalar: equalityComparerScalar);
+		}
+
+		[ObservableComputationsCall]
+		public static ObservableComputations.ContainsComputing<TSourceItem> ContainsComputing<TSourceItem>(this
+			 Expression<Func<ObservableCollection<TSourceItem>>> sourceExpression,
+			 ObservableComputations.IReadScalar<TSourceItem> itemScalar,
+			 Expression<Func<System.Collections.Generic.IEqualityComparer<TSourceItem>>> equalityComparerExpression)
+		{
+			return new ObservableComputations.ContainsComputing<TSourceItem>(
+				sourceScalar: new Computing<ObservableCollection<TSourceItem>>(sourceExpression),
+				itemScalar: itemScalar,
+				equalityComparerScalar: new Computing<System.Collections.Generic.IEqualityComparer<TSourceItem>>(equalityComparerExpression));
+		}
+
+		[ObservableComputationsCall]
+		public static ObservableComputations.ContainsComputing<TSourceItem> ContainsComputing<TSourceItem>(this
+			 Expression<Func<ObservableCollection<TSourceItem>>> sourceExpression,
+			 Expression<Func<TSourceItem>> itemExpression,
+			 ObservableComputations.IReadScalar<System.Collections.Generic.IEqualityComparer<TSourceItem>> equalityComparerScalar)
+		{
+			return new ObservableComputations.ContainsComputing<TSourceItem>(
+				sourceScalar: new Computing<ObservableCollection<TSourceItem>>(sourceExpression),
+				itemScalar: new Computing<TSourceItem>(itemExpression),
+				equalityComparerScalar: equalityComparerScalar);
+		}
+
+		[ObservableComputationsCall]
+		public static ObservableComputations.ContainsComputing<TSourceItem> ContainsComputing<TSourceItem>(this
+			 Expression<Func<ObservableCollection<TSourceItem>>> sourceExpression,
+			 Expression<Func<TSourceItem>> itemExpression,
+			 Expression<Func<System.Collections.Generic.IEqualityComparer<TSourceItem>>> equalityComparerExpression)
+		{
+			return new ObservableComputations.ContainsComputing<TSourceItem>(
+				sourceScalar: new Computing<ObservableCollection<TSourceItem>>(sourceExpression),
+				itemScalar: new Computing<TSourceItem>(itemExpression),
+				equalityComparerScalar: new Computing<System.Collections.Generic.IEqualityComparer<TSourceItem>>(equalityComparerExpression));
+		}
+
+		[ObservableComputationsCall]
+		public static ObservableComputations.ContainsComputing<TSourceItem> ContainsComputing<TSourceItem>(this
+			 ObservableComputations.IReadScalar<System.Collections.Specialized.INotifyCollectionChanged> sourceScalar,
+			 TSourceItem item,
+			 ObservableComputations.IReadScalar<System.Collections.Generic.IEqualityComparer<TSourceItem>> equalityComparerScalar)
+		{
+			return new ObservableComputations.ContainsComputing<TSourceItem>(
+				sourceScalar: sourceScalar,
+				item: item,
+				equalityComparerScalar: equalityComparerScalar);
+		}
+
+		[ObservableComputationsCall]
+		public static ObservableComputations.ContainsComputing<TSourceItem> ContainsComputing<TSourceItem>(this
+			 ObservableComputations.IReadScalar<System.Collections.Specialized.INotifyCollectionChanged> sourceScalar,
+			 TSourceItem item,
+			 Expression<Func<System.Collections.Generic.IEqualityComparer<TSourceItem>>> equalityComparerExpression)
+		{
+			return new ObservableComputations.ContainsComputing<TSourceItem>(
+				sourceScalar: sourceScalar,
+				item: item,
+				equalityComparerScalar: new Computing<System.Collections.Generic.IEqualityComparer<TSourceItem>>(equalityComparerExpression));
+		}
+
+		[ObservableComputationsCall]
+		public static ObservableComputations.ContainsComputing<TSourceItem> ContainsComputing<TSourceItem>(this
+			 ObservableComputations.IReadScalar<ObservableCollection<TSourceItem>> sourceScalar,
+			 TSourceItem item,
+			 ObservableComputations.IReadScalar<System.Collections.Generic.IEqualityComparer<TSourceItem>> equalityComparerScalar)
+		{
+			return new ObservableComputations.ContainsComputing<TSourceItem>(
+				sourceScalar: sourceScalar,
+				item: item,
+				equalityComparerScalar: equalityComparerScalar);
+		}
+
+		[ObservableComputationsCall]
+		public static ObservableComputations.ContainsComputing<TSourceItem> ContainsComputing<TSourceItem>(this
+			 ObservableComputations.IReadScalar<ObservableCollection<TSourceItem>> sourceScalar,
+			 TSourceItem item,
+			 Expression<Func<System.Collections.Generic.IEqualityComparer<TSourceItem>>> equalityComparerExpression)
+		{
+			return new ObservableComputations.ContainsComputing<TSourceItem>(
+				sourceScalar: sourceScalar,
+				item: item,
+				equalityComparerScalar: new Computing<System.Collections.Generic.IEqualityComparer<TSourceItem>>(equalityComparerExpression));
+		}
+
+		[ObservableComputationsCall]
+		public static ObservableComputations.ContainsComputing<TSourceItem> ContainsComputing<TSourceItem>(this
+			 Expression<Func<System.Collections.Specialized.INotifyCollectionChanged>> sourceExpression,
+			 TSourceItem item,
+			 ObservableComputations.IReadScalar<System.Collections.Generic.IEqualityComparer<TSourceItem>> equalityComparerScalar)
+		{
+			return new ObservableComputations.ContainsComputing<TSourceItem>(
+				sourceScalar: new Computing<System.Collections.Specialized.INotifyCollectionChanged>(sourceExpression),
+				item: item,
+				equalityComparerScalar: equalityComparerScalar);
+		}
+
+		[ObservableComputationsCall]
+		public static ObservableComputations.ContainsComputing<TSourceItem> ContainsComputing<TSourceItem>(this
+			 Expression<Func<System.Collections.Specialized.INotifyCollectionChanged>> sourceExpression,
+			 TSourceItem item,
+			 Expression<Func<System.Collections.Generic.IEqualityComparer<TSourceItem>>> equalityComparerExpression)
+		{
+			return new ObservableComputations.ContainsComputing<TSourceItem>(
+				sourceScalar: new Computing<System.Collections.Specialized.INotifyCollectionChanged>(sourceExpression),
+				item: item,
+				equalityComparerScalar: new Computing<System.Collections.Generic.IEqualityComparer<TSourceItem>>(equalityComparerExpression));
+		}
+
+		[ObservableComputationsCall]
+		public static ObservableComputations.ContainsComputing<TSourceItem> ContainsComputing<TSourceItem>(this
+			 Expression<Func<ObservableCollection<TSourceItem>>> sourceExpression,
+			 TSourceItem item,
+			 ObservableComputations.IReadScalar<System.Collections.Generic.IEqualityComparer<TSourceItem>> equalityComparerScalar)
+		{
+			return new ObservableComputations.ContainsComputing<TSourceItem>(
+				sourceScalar: new Computing<ObservableCollection<TSourceItem>>(sourceExpression),
+				item: item,
+				equalityComparerScalar: equalityComparerScalar);
+		}
+
+		[ObservableComputationsCall]
+		public static ObservableComputations.ContainsComputing<TSourceItem> ContainsComputing<TSourceItem>(this
+			 Expression<Func<ObservableCollection<TSourceItem>>> sourceExpression,
+			 TSourceItem item,
+			 Expression<Func<System.Collections.Generic.IEqualityComparer<TSourceItem>>> equalityComparerExpression)
+		{
+			return new ObservableComputations.ContainsComputing<TSourceItem>(
+				sourceScalar: new Computing<ObservableCollection<TSourceItem>>(sourceExpression),
+				item: item,
+				equalityComparerScalar: new Computing<System.Collections.Generic.IEqualityComparer<TSourceItem>>(equalityComparerExpression));
+		}
+
+		[ObservableComputationsCall]
+		public static ObservableComputations.ContainsComputing<TSourceItem> ContainsComputing<TSourceItem>(this
+			 ObservableComputations.IReadScalar<System.Collections.Specialized.INotifyCollectionChanged> sourceScalar,
+			 ObservableComputations.IReadScalar<TSourceItem> itemScalar,
+			 System.Collections.Generic.IEqualityComparer<TSourceItem> equalityComparer)
+		{
+			return new ObservableComputations.ContainsComputing<TSourceItem>(
+				sourceScalar: sourceScalar,
+				itemScalar: itemScalar,
+				equalityComparer: equalityComparer);
+		}
+
+		[ObservableComputationsCall]
+		public static ObservableComputations.ContainsComputing<TSourceItem> ContainsComputing<TSourceItem>(this
+			 ObservableComputations.IReadScalar<System.Collections.Specialized.INotifyCollectionChanged> sourceScalar,
+			 ObservableComputations.IReadScalar<TSourceItem> itemScalar)
+		{
+			return new ObservableComputations.ContainsComputing<TSourceItem>(
+				sourceScalar: sourceScalar,
+				itemScalar: itemScalar,
+				equalityComparer: null);
+		}
+
+		[ObservableComputationsCall]
+		public static ObservableComputations.ContainsComputing<TSourceItem> ContainsComputing<TSourceItem>(this
+			 ObservableComputations.IReadScalar<System.Collections.Specialized.INotifyCollectionChanged> sourceScalar,
+			 Expression<Func<TSourceItem>> itemExpression,
+			 System.Collections.Generic.IEqualityComparer<TSourceItem> equalityComparer)
+		{
+			return new ObservableComputations.ContainsComputing<TSourceItem>(
+				sourceScalar: sourceScalar,
+				itemScalar: new Computing<TSourceItem>(itemExpression),
+				equalityComparer: equalityComparer);
 		}
 
 		[ObservableComputationsCall]
@@ -3783,31 +4059,19 @@ namespace ObservableComputations
 			return new ObservableComputations.ContainsComputing<TSourceItem>(
 				sourceScalar: sourceScalar,
 				itemScalar: new Computing<TSourceItem>(itemExpression),
-				equalityComparerScalar: null);
-		}
-
-		[ObservableComputationsCall]
-		public static ObservableComputations.ContainsComputing<TSourceItem> ContainsComputing<TSourceItem>(this
-			 ObservableComputations.IReadScalar<System.Collections.Specialized.INotifyCollectionChanged> sourceScalar,
-			 Expression<Func<TSourceItem>> itemExpression,
-			 Expression<Func<System.Collections.Generic.IEqualityComparer<TSourceItem>>> equalityComparerExpression)
-		{
-			return new ObservableComputations.ContainsComputing<TSourceItem>(
-				sourceScalar: sourceScalar,
-				itemScalar: new Computing<TSourceItem>(itemExpression),
-				equalityComparerScalar: new Computing<System.Collections.Generic.IEqualityComparer<TSourceItem>>(equalityComparerExpression));
+				equalityComparer: null);
 		}
 
 		[ObservableComputationsCall]
 		public static ObservableComputations.ContainsComputing<TSourceItem> ContainsComputing<TSourceItem>(this
 			 ObservableComputations.IReadScalar<ObservableCollection<TSourceItem>> sourceScalar,
 			 ObservableComputations.IReadScalar<TSourceItem> itemScalar,
-			 ObservableComputations.IReadScalar<System.Collections.Generic.IEqualityComparer<TSourceItem>> equalityComparerScalar)
+			 System.Collections.Generic.IEqualityComparer<TSourceItem> equalityComparer)
 		{
 			return new ObservableComputations.ContainsComputing<TSourceItem>(
 				sourceScalar: sourceScalar,
 				itemScalar: itemScalar,
-				equalityComparerScalar: equalityComparerScalar);
+				equalityComparer: equalityComparer);
 		}
 
 		[ObservableComputationsCall]
@@ -3818,31 +4082,19 @@ namespace ObservableComputations
 			return new ObservableComputations.ContainsComputing<TSourceItem>(
 				sourceScalar: sourceScalar,
 				itemScalar: itemScalar,
-				equalityComparerScalar: null);
-		}
-
-		[ObservableComputationsCall]
-		public static ObservableComputations.ContainsComputing<TSourceItem> ContainsComputing<TSourceItem>(this
-			 ObservableComputations.IReadScalar<ObservableCollection<TSourceItem>> sourceScalar,
-			 ObservableComputations.IReadScalar<TSourceItem> itemScalar,
-			 Expression<Func<System.Collections.Generic.IEqualityComparer<TSourceItem>>> equalityComparerExpression)
-		{
-			return new ObservableComputations.ContainsComputing<TSourceItem>(
-				sourceScalar: sourceScalar,
-				itemScalar: itemScalar,
-				equalityComparerScalar: new Computing<System.Collections.Generic.IEqualityComparer<TSourceItem>>(equalityComparerExpression));
+				equalityComparer: null);
 		}
 
 		[ObservableComputationsCall]
 		public static ObservableComputations.ContainsComputing<TSourceItem> ContainsComputing<TSourceItem>(this
 			 ObservableComputations.IReadScalar<ObservableCollection<TSourceItem>> sourceScalar,
 			 Expression<Func<TSourceItem>> itemExpression,
-			 ObservableComputations.IReadScalar<System.Collections.Generic.IEqualityComparer<TSourceItem>> equalityComparerScalar)
+			 System.Collections.Generic.IEqualityComparer<TSourceItem> equalityComparer)
 		{
 			return new ObservableComputations.ContainsComputing<TSourceItem>(
 				sourceScalar: sourceScalar,
 				itemScalar: new Computing<TSourceItem>(itemExpression),
-				equalityComparerScalar: equalityComparerScalar);
+				equalityComparer: equalityComparer);
 		}
 
 		[ObservableComputationsCall]
@@ -3853,31 +4105,19 @@ namespace ObservableComputations
 			return new ObservableComputations.ContainsComputing<TSourceItem>(
 				sourceScalar: sourceScalar,
 				itemScalar: new Computing<TSourceItem>(itemExpression),
-				equalityComparerScalar: null);
-		}
-
-		[ObservableComputationsCall]
-		public static ObservableComputations.ContainsComputing<TSourceItem> ContainsComputing<TSourceItem>(this
-			 ObservableComputations.IReadScalar<ObservableCollection<TSourceItem>> sourceScalar,
-			 Expression<Func<TSourceItem>> itemExpression,
-			 Expression<Func<System.Collections.Generic.IEqualityComparer<TSourceItem>>> equalityComparerExpression)
-		{
-			return new ObservableComputations.ContainsComputing<TSourceItem>(
-				sourceScalar: sourceScalar,
-				itemScalar: new Computing<TSourceItem>(itemExpression),
-				equalityComparerScalar: new Computing<System.Collections.Generic.IEqualityComparer<TSourceItem>>(equalityComparerExpression));
+				equalityComparer: null);
 		}
 
 		[ObservableComputationsCall]
 		public static ObservableComputations.ContainsComputing<TSourceItem> ContainsComputing<TSourceItem>(this
 			 Expression<Func<System.Collections.Specialized.INotifyCollectionChanged>> sourceExpression,
 			 ObservableComputations.IReadScalar<TSourceItem> itemScalar,
-			 ObservableComputations.IReadScalar<System.Collections.Generic.IEqualityComparer<TSourceItem>> equalityComparerScalar)
+			 System.Collections.Generic.IEqualityComparer<TSourceItem> equalityComparer)
 		{
 			return new ObservableComputations.ContainsComputing<TSourceItem>(
 				sourceScalar: new Computing<System.Collections.Specialized.INotifyCollectionChanged>(sourceExpression),
 				itemScalar: itemScalar,
-				equalityComparerScalar: equalityComparerScalar);
+				equalityComparer: equalityComparer);
 		}
 
 		[ObservableComputationsCall]
@@ -3888,31 +4128,19 @@ namespace ObservableComputations
 			return new ObservableComputations.ContainsComputing<TSourceItem>(
 				sourceScalar: new Computing<System.Collections.Specialized.INotifyCollectionChanged>(sourceExpression),
 				itemScalar: itemScalar,
-				equalityComparerScalar: null);
-		}
-
-		[ObservableComputationsCall]
-		public static ObservableComputations.ContainsComputing<TSourceItem> ContainsComputing<TSourceItem>(this
-			 Expression<Func<System.Collections.Specialized.INotifyCollectionChanged>> sourceExpression,
-			 ObservableComputations.IReadScalar<TSourceItem> itemScalar,
-			 Expression<Func<System.Collections.Generic.IEqualityComparer<TSourceItem>>> equalityComparerExpression)
-		{
-			return new ObservableComputations.ContainsComputing<TSourceItem>(
-				sourceScalar: new Computing<System.Collections.Specialized.INotifyCollectionChanged>(sourceExpression),
-				itemScalar: itemScalar,
-				equalityComparerScalar: new Computing<System.Collections.Generic.IEqualityComparer<TSourceItem>>(equalityComparerExpression));
+				equalityComparer: null);
 		}
 
 		[ObservableComputationsCall]
 		public static ObservableComputations.ContainsComputing<TSourceItem> ContainsComputing<TSourceItem>(this
 			 Expression<Func<System.Collections.Specialized.INotifyCollectionChanged>> sourceExpression,
 			 Expression<Func<TSourceItem>> itemExpression,
-			 ObservableComputations.IReadScalar<System.Collections.Generic.IEqualityComparer<TSourceItem>> equalityComparerScalar)
+			 System.Collections.Generic.IEqualityComparer<TSourceItem> equalityComparer)
 		{
 			return new ObservableComputations.ContainsComputing<TSourceItem>(
 				sourceScalar: new Computing<System.Collections.Specialized.INotifyCollectionChanged>(sourceExpression),
 				itemScalar: new Computing<TSourceItem>(itemExpression),
-				equalityComparerScalar: equalityComparerScalar);
+				equalityComparer: equalityComparer);
 		}
 
 		[ObservableComputationsCall]
@@ -3923,31 +4151,19 @@ namespace ObservableComputations
 			return new ObservableComputations.ContainsComputing<TSourceItem>(
 				sourceScalar: new Computing<System.Collections.Specialized.INotifyCollectionChanged>(sourceExpression),
 				itemScalar: new Computing<TSourceItem>(itemExpression),
-				equalityComparerScalar: null);
-		}
-
-		[ObservableComputationsCall]
-		public static ObservableComputations.ContainsComputing<TSourceItem> ContainsComputing<TSourceItem>(this
-			 Expression<Func<System.Collections.Specialized.INotifyCollectionChanged>> sourceExpression,
-			 Expression<Func<TSourceItem>> itemExpression,
-			 Expression<Func<System.Collections.Generic.IEqualityComparer<TSourceItem>>> equalityComparerExpression)
-		{
-			return new ObservableComputations.ContainsComputing<TSourceItem>(
-				sourceScalar: new Computing<System.Collections.Specialized.INotifyCollectionChanged>(sourceExpression),
-				itemScalar: new Computing<TSourceItem>(itemExpression),
-				equalityComparerScalar: new Computing<System.Collections.Generic.IEqualityComparer<TSourceItem>>(equalityComparerExpression));
+				equalityComparer: null);
 		}
 
 		[ObservableComputationsCall]
 		public static ObservableComputations.ContainsComputing<TSourceItem> ContainsComputing<TSourceItem>(this
 			 Expression<Func<ObservableCollection<TSourceItem>>> sourceExpression,
 			 ObservableComputations.IReadScalar<TSourceItem> itemScalar,
-			 ObservableComputations.IReadScalar<System.Collections.Generic.IEqualityComparer<TSourceItem>> equalityComparerScalar)
+			 System.Collections.Generic.IEqualityComparer<TSourceItem> equalityComparer)
 		{
 			return new ObservableComputations.ContainsComputing<TSourceItem>(
 				sourceScalar: new Computing<ObservableCollection<TSourceItem>>(sourceExpression),
 				itemScalar: itemScalar,
-				equalityComparerScalar: equalityComparerScalar);
+				equalityComparer: equalityComparer);
 		}
 
 		[ObservableComputationsCall]
@@ -3958,31 +4174,19 @@ namespace ObservableComputations
 			return new ObservableComputations.ContainsComputing<TSourceItem>(
 				sourceScalar: new Computing<ObservableCollection<TSourceItem>>(sourceExpression),
 				itemScalar: itemScalar,
-				equalityComparerScalar: null);
-		}
-
-		[ObservableComputationsCall]
-		public static ObservableComputations.ContainsComputing<TSourceItem> ContainsComputing<TSourceItem>(this
-			 Expression<Func<ObservableCollection<TSourceItem>>> sourceExpression,
-			 ObservableComputations.IReadScalar<TSourceItem> itemScalar,
-			 Expression<Func<System.Collections.Generic.IEqualityComparer<TSourceItem>>> equalityComparerExpression)
-		{
-			return new ObservableComputations.ContainsComputing<TSourceItem>(
-				sourceScalar: new Computing<ObservableCollection<TSourceItem>>(sourceExpression),
-				itemScalar: itemScalar,
-				equalityComparerScalar: new Computing<System.Collections.Generic.IEqualityComparer<TSourceItem>>(equalityComparerExpression));
+				equalityComparer: null);
 		}
 
 		[ObservableComputationsCall]
 		public static ObservableComputations.ContainsComputing<TSourceItem> ContainsComputing<TSourceItem>(this
 			 Expression<Func<ObservableCollection<TSourceItem>>> sourceExpression,
 			 Expression<Func<TSourceItem>> itemExpression,
-			 ObservableComputations.IReadScalar<System.Collections.Generic.IEqualityComparer<TSourceItem>> equalityComparerScalar)
+			 System.Collections.Generic.IEqualityComparer<TSourceItem> equalityComparer)
 		{
 			return new ObservableComputations.ContainsComputing<TSourceItem>(
 				sourceScalar: new Computing<ObservableCollection<TSourceItem>>(sourceExpression),
 				itemScalar: new Computing<TSourceItem>(itemExpression),
-				equalityComparerScalar: equalityComparerScalar);
+				equalityComparer: equalityComparer);
 		}
 
 		[ObservableComputationsCall]
@@ -3993,31 +4197,19 @@ namespace ObservableComputations
 			return new ObservableComputations.ContainsComputing<TSourceItem>(
 				sourceScalar: new Computing<ObservableCollection<TSourceItem>>(sourceExpression),
 				itemScalar: new Computing<TSourceItem>(itemExpression),
-				equalityComparerScalar: null);
-		}
-
-		[ObservableComputationsCall]
-		public static ObservableComputations.ContainsComputing<TSourceItem> ContainsComputing<TSourceItem>(this
-			 Expression<Func<ObservableCollection<TSourceItem>>> sourceExpression,
-			 Expression<Func<TSourceItem>> itemExpression,
-			 Expression<Func<System.Collections.Generic.IEqualityComparer<TSourceItem>>> equalityComparerExpression)
-		{
-			return new ObservableComputations.ContainsComputing<TSourceItem>(
-				sourceScalar: new Computing<ObservableCollection<TSourceItem>>(sourceExpression),
-				itemScalar: new Computing<TSourceItem>(itemExpression),
-				equalityComparerScalar: new Computing<System.Collections.Generic.IEqualityComparer<TSourceItem>>(equalityComparerExpression));
+				equalityComparer: null);
 		}
 
 		[ObservableComputationsCall]
 		public static ObservableComputations.ContainsComputing<TSourceItem> ContainsComputing<TSourceItem>(this
 			 ObservableComputations.IReadScalar<System.Collections.Specialized.INotifyCollectionChanged> sourceScalar,
 			 TSourceItem item,
-			 ObservableComputations.IReadScalar<System.Collections.Generic.IEqualityComparer<TSourceItem>> equalityComparerScalar)
+			 System.Collections.Generic.IEqualityComparer<TSourceItem> equalityComparer)
 		{
 			return new ObservableComputations.ContainsComputing<TSourceItem>(
 				sourceScalar: sourceScalar,
 				item: item,
-				equalityComparerScalar: equalityComparerScalar);
+				equalityComparer: equalityComparer);
 		}
 
 		[ObservableComputationsCall]
@@ -4028,31 +4220,19 @@ namespace ObservableComputations
 			return new ObservableComputations.ContainsComputing<TSourceItem>(
 				sourceScalar: sourceScalar,
 				item: item,
-				equalityComparerScalar: null);
-		}
-
-		[ObservableComputationsCall]
-		public static ObservableComputations.ContainsComputing<TSourceItem> ContainsComputing<TSourceItem>(this
-			 ObservableComputations.IReadScalar<System.Collections.Specialized.INotifyCollectionChanged> sourceScalar,
-			 TSourceItem item,
-			 Expression<Func<System.Collections.Generic.IEqualityComparer<TSourceItem>>> equalityComparerExpression)
-		{
-			return new ObservableComputations.ContainsComputing<TSourceItem>(
-				sourceScalar: sourceScalar,
-				item: item,
-				equalityComparerScalar: new Computing<System.Collections.Generic.IEqualityComparer<TSourceItem>>(equalityComparerExpression));
+				equalityComparer: null);
 		}
 
 		[ObservableComputationsCall]
 		public static ObservableComputations.ContainsComputing<TSourceItem> ContainsComputing<TSourceItem>(this
 			 ObservableComputations.IReadScalar<ObservableCollection<TSourceItem>> sourceScalar,
 			 TSourceItem item,
-			 ObservableComputations.IReadScalar<System.Collections.Generic.IEqualityComparer<TSourceItem>> equalityComparerScalar)
+			 System.Collections.Generic.IEqualityComparer<TSourceItem> equalityComparer)
 		{
 			return new ObservableComputations.ContainsComputing<TSourceItem>(
 				sourceScalar: sourceScalar,
 				item: item,
-				equalityComparerScalar: equalityComparerScalar);
+				equalityComparer: equalityComparer);
 		}
 
 		[ObservableComputationsCall]
@@ -4063,31 +4243,19 @@ namespace ObservableComputations
 			return new ObservableComputations.ContainsComputing<TSourceItem>(
 				sourceScalar: sourceScalar,
 				item: item,
-				equalityComparerScalar: null);
-		}
-
-		[ObservableComputationsCall]
-		public static ObservableComputations.ContainsComputing<TSourceItem> ContainsComputing<TSourceItem>(this
-			 ObservableComputations.IReadScalar<ObservableCollection<TSourceItem>> sourceScalar,
-			 TSourceItem item,
-			 Expression<Func<System.Collections.Generic.IEqualityComparer<TSourceItem>>> equalityComparerExpression)
-		{
-			return new ObservableComputations.ContainsComputing<TSourceItem>(
-				sourceScalar: sourceScalar,
-				item: item,
-				equalityComparerScalar: new Computing<System.Collections.Generic.IEqualityComparer<TSourceItem>>(equalityComparerExpression));
+				equalityComparer: null);
 		}
 
 		[ObservableComputationsCall]
 		public static ObservableComputations.ContainsComputing<TSourceItem> ContainsComputing<TSourceItem>(this
 			 Expression<Func<System.Collections.Specialized.INotifyCollectionChanged>> sourceExpression,
 			 TSourceItem item,
-			 ObservableComputations.IReadScalar<System.Collections.Generic.IEqualityComparer<TSourceItem>> equalityComparerScalar)
+			 System.Collections.Generic.IEqualityComparer<TSourceItem> equalityComparer)
 		{
 			return new ObservableComputations.ContainsComputing<TSourceItem>(
 				sourceScalar: new Computing<System.Collections.Specialized.INotifyCollectionChanged>(sourceExpression),
 				item: item,
-				equalityComparerScalar: equalityComparerScalar);
+				equalityComparer: equalityComparer);
 		}
 
 		[ObservableComputationsCall]
@@ -4098,31 +4266,19 @@ namespace ObservableComputations
 			return new ObservableComputations.ContainsComputing<TSourceItem>(
 				sourceScalar: new Computing<System.Collections.Specialized.INotifyCollectionChanged>(sourceExpression),
 				item: item,
-				equalityComparerScalar: null);
-		}
-
-		[ObservableComputationsCall]
-		public static ObservableComputations.ContainsComputing<TSourceItem> ContainsComputing<TSourceItem>(this
-			 Expression<Func<System.Collections.Specialized.INotifyCollectionChanged>> sourceExpression,
-			 TSourceItem item,
-			 Expression<Func<System.Collections.Generic.IEqualityComparer<TSourceItem>>> equalityComparerExpression)
-		{
-			return new ObservableComputations.ContainsComputing<TSourceItem>(
-				sourceScalar: new Computing<System.Collections.Specialized.INotifyCollectionChanged>(sourceExpression),
-				item: item,
-				equalityComparerScalar: new Computing<System.Collections.Generic.IEqualityComparer<TSourceItem>>(equalityComparerExpression));
+				equalityComparer: null);
 		}
 
 		[ObservableComputationsCall]
 		public static ObservableComputations.ContainsComputing<TSourceItem> ContainsComputing<TSourceItem>(this
 			 Expression<Func<ObservableCollection<TSourceItem>>> sourceExpression,
 			 TSourceItem item,
-			 ObservableComputations.IReadScalar<System.Collections.Generic.IEqualityComparer<TSourceItem>> equalityComparerScalar)
+			 System.Collections.Generic.IEqualityComparer<TSourceItem> equalityComparer)
 		{
 			return new ObservableComputations.ContainsComputing<TSourceItem>(
 				sourceScalar: new Computing<ObservableCollection<TSourceItem>>(sourceExpression),
 				item: item,
-				equalityComparerScalar: equalityComparerScalar);
+				equalityComparer: equalityComparer);
 		}
 
 		[ObservableComputationsCall]
@@ -4133,163 +4289,7 @@ namespace ObservableComputations
 			return new ObservableComputations.ContainsComputing<TSourceItem>(
 				sourceScalar: new Computing<ObservableCollection<TSourceItem>>(sourceExpression),
 				item: item,
-				equalityComparerScalar: null);
-		}
-
-		[ObservableComputationsCall]
-		public static ObservableComputations.ContainsComputing<TSourceItem> ContainsComputing<TSourceItem>(this
-			 Expression<Func<ObservableCollection<TSourceItem>>> sourceExpression,
-			 TSourceItem item,
-			 Expression<Func<System.Collections.Generic.IEqualityComparer<TSourceItem>>> equalityComparerExpression)
-		{
-			return new ObservableComputations.ContainsComputing<TSourceItem>(
-				sourceScalar: new Computing<ObservableCollection<TSourceItem>>(sourceExpression),
-				item: item,
-				equalityComparerScalar: new Computing<System.Collections.Generic.IEqualityComparer<TSourceItem>>(equalityComparerExpression));
-		}
-
-		[ObservableComputationsCall]
-		public static ObservableComputations.ContainsComputing<TSourceItem> ContainsComputing<TSourceItem>(this
-			 ObservableComputations.IReadScalar<System.Collections.Specialized.INotifyCollectionChanged> sourceScalar,
-			 ObservableComputations.IReadScalar<TSourceItem> itemScalar,
-			 System.Collections.Generic.IEqualityComparer<TSourceItem> equalityComparer)
-		{
-			return new ObservableComputations.ContainsComputing<TSourceItem>(
-				sourceScalar: sourceScalar,
-				itemScalar: itemScalar,
-				equalityComparer: equalityComparer);
-		}
-
-		[ObservableComputationsCall]
-		public static ObservableComputations.ContainsComputing<TSourceItem> ContainsComputing<TSourceItem>(this
-			 ObservableComputations.IReadScalar<System.Collections.Specialized.INotifyCollectionChanged> sourceScalar,
-			 Expression<Func<TSourceItem>> itemExpression,
-			 System.Collections.Generic.IEqualityComparer<TSourceItem> equalityComparer)
-		{
-			return new ObservableComputations.ContainsComputing<TSourceItem>(
-				sourceScalar: sourceScalar,
-				itemScalar: new Computing<TSourceItem>(itemExpression),
-				equalityComparer: equalityComparer);
-		}
-
-		[ObservableComputationsCall]
-		public static ObservableComputations.ContainsComputing<TSourceItem> ContainsComputing<TSourceItem>(this
-			 ObservableComputations.IReadScalar<ObservableCollection<TSourceItem>> sourceScalar,
-			 ObservableComputations.IReadScalar<TSourceItem> itemScalar,
-			 System.Collections.Generic.IEqualityComparer<TSourceItem> equalityComparer)
-		{
-			return new ObservableComputations.ContainsComputing<TSourceItem>(
-				sourceScalar: sourceScalar,
-				itemScalar: itemScalar,
-				equalityComparer: equalityComparer);
-		}
-
-		[ObservableComputationsCall]
-		public static ObservableComputations.ContainsComputing<TSourceItem> ContainsComputing<TSourceItem>(this
-			 ObservableComputations.IReadScalar<ObservableCollection<TSourceItem>> sourceScalar,
-			 Expression<Func<TSourceItem>> itemExpression,
-			 System.Collections.Generic.IEqualityComparer<TSourceItem> equalityComparer)
-		{
-			return new ObservableComputations.ContainsComputing<TSourceItem>(
-				sourceScalar: sourceScalar,
-				itemScalar: new Computing<TSourceItem>(itemExpression),
-				equalityComparer: equalityComparer);
-		}
-
-		[ObservableComputationsCall]
-		public static ObservableComputations.ContainsComputing<TSourceItem> ContainsComputing<TSourceItem>(this
-			 Expression<Func<System.Collections.Specialized.INotifyCollectionChanged>> sourceExpression,
-			 ObservableComputations.IReadScalar<TSourceItem> itemScalar,
-			 System.Collections.Generic.IEqualityComparer<TSourceItem> equalityComparer)
-		{
-			return new ObservableComputations.ContainsComputing<TSourceItem>(
-				sourceScalar: new Computing<System.Collections.Specialized.INotifyCollectionChanged>(sourceExpression),
-				itemScalar: itemScalar,
-				equalityComparer: equalityComparer);
-		}
-
-		[ObservableComputationsCall]
-		public static ObservableComputations.ContainsComputing<TSourceItem> ContainsComputing<TSourceItem>(this
-			 Expression<Func<System.Collections.Specialized.INotifyCollectionChanged>> sourceExpression,
-			 Expression<Func<TSourceItem>> itemExpression,
-			 System.Collections.Generic.IEqualityComparer<TSourceItem> equalityComparer)
-		{
-			return new ObservableComputations.ContainsComputing<TSourceItem>(
-				sourceScalar: new Computing<System.Collections.Specialized.INotifyCollectionChanged>(sourceExpression),
-				itemScalar: new Computing<TSourceItem>(itemExpression),
-				equalityComparer: equalityComparer);
-		}
-
-		[ObservableComputationsCall]
-		public static ObservableComputations.ContainsComputing<TSourceItem> ContainsComputing<TSourceItem>(this
-			 Expression<Func<ObservableCollection<TSourceItem>>> sourceExpression,
-			 ObservableComputations.IReadScalar<TSourceItem> itemScalar,
-			 System.Collections.Generic.IEqualityComparer<TSourceItem> equalityComparer)
-		{
-			return new ObservableComputations.ContainsComputing<TSourceItem>(
-				sourceScalar: new Computing<ObservableCollection<TSourceItem>>(sourceExpression),
-				itemScalar: itemScalar,
-				equalityComparer: equalityComparer);
-		}
-
-		[ObservableComputationsCall]
-		public static ObservableComputations.ContainsComputing<TSourceItem> ContainsComputing<TSourceItem>(this
-			 Expression<Func<ObservableCollection<TSourceItem>>> sourceExpression,
-			 Expression<Func<TSourceItem>> itemExpression,
-			 System.Collections.Generic.IEqualityComparer<TSourceItem> equalityComparer)
-		{
-			return new ObservableComputations.ContainsComputing<TSourceItem>(
-				sourceScalar: new Computing<ObservableCollection<TSourceItem>>(sourceExpression),
-				itemScalar: new Computing<TSourceItem>(itemExpression),
-				equalityComparer: equalityComparer);
-		}
-
-		[ObservableComputationsCall]
-		public static ObservableComputations.ContainsComputing<TSourceItem> ContainsComputing<TSourceItem>(this
-			 ObservableComputations.IReadScalar<System.Collections.Specialized.INotifyCollectionChanged> sourceScalar,
-			 TSourceItem item,
-			 System.Collections.Generic.IEqualityComparer<TSourceItem> equalityComparer)
-		{
-			return new ObservableComputations.ContainsComputing<TSourceItem>(
-				sourceScalar: sourceScalar,
-				item: item,
-				equalityComparer: equalityComparer);
-		}
-
-		[ObservableComputationsCall]
-		public static ObservableComputations.ContainsComputing<TSourceItem> ContainsComputing<TSourceItem>(this
-			 ObservableComputations.IReadScalar<ObservableCollection<TSourceItem>> sourceScalar,
-			 TSourceItem item,
-			 System.Collections.Generic.IEqualityComparer<TSourceItem> equalityComparer)
-		{
-			return new ObservableComputations.ContainsComputing<TSourceItem>(
-				sourceScalar: sourceScalar,
-				item: item,
-				equalityComparer: equalityComparer);
-		}
-
-		[ObservableComputationsCall]
-		public static ObservableComputations.ContainsComputing<TSourceItem> ContainsComputing<TSourceItem>(this
-			 Expression<Func<System.Collections.Specialized.INotifyCollectionChanged>> sourceExpression,
-			 TSourceItem item,
-			 System.Collections.Generic.IEqualityComparer<TSourceItem> equalityComparer)
-		{
-			return new ObservableComputations.ContainsComputing<TSourceItem>(
-				sourceScalar: new Computing<System.Collections.Specialized.INotifyCollectionChanged>(sourceExpression),
-				item: item,
-				equalityComparer: equalityComparer);
-		}
-
-		[ObservableComputationsCall]
-		public static ObservableComputations.ContainsComputing<TSourceItem> ContainsComputing<TSourceItem>(this
-			 Expression<Func<ObservableCollection<TSourceItem>>> sourceExpression,
-			 TSourceItem item,
-			 System.Collections.Generic.IEqualityComparer<TSourceItem> equalityComparer)
-		{
-			return new ObservableComputations.ContainsComputing<TSourceItem>(
-				sourceScalar: new Computing<ObservableCollection<TSourceItem>>(sourceExpression),
-				item: item,
-				equalityComparer: equalityComparer);
+				equalityComparer: null);
 		}
 
 		[ObservableComputationsCall]
@@ -4302,6 +4302,150 @@ namespace ObservableComputations
 				source: source,
 				itemScalar: itemScalar,
 				equalityComparerScalar: equalityComparerScalar);
+		}
+
+		[ObservableComputationsCall]
+		public static ObservableComputations.ContainsComputing<TSourceItem> ContainsComputing<TSourceItem>(this
+			 System.Collections.Specialized.INotifyCollectionChanged source,
+			 ObservableComputations.IReadScalar<TSourceItem> itemScalar,
+			 Expression<Func<System.Collections.Generic.IEqualityComparer<TSourceItem>>> equalityComparerExpression)
+		{
+			return new ObservableComputations.ContainsComputing<TSourceItem>(
+				source: source,
+				itemScalar: itemScalar,
+				equalityComparerScalar: new Computing<System.Collections.Generic.IEqualityComparer<TSourceItem>>(equalityComparerExpression));
+		}
+
+		[ObservableComputationsCall]
+		public static ObservableComputations.ContainsComputing<TSourceItem> ContainsComputing<TSourceItem>(this
+			 System.Collections.Specialized.INotifyCollectionChanged source,
+			 Expression<Func<TSourceItem>> itemExpression,
+			 ObservableComputations.IReadScalar<System.Collections.Generic.IEqualityComparer<TSourceItem>> equalityComparerScalar)
+		{
+			return new ObservableComputations.ContainsComputing<TSourceItem>(
+				source: source,
+				itemScalar: new Computing<TSourceItem>(itemExpression),
+				equalityComparerScalar: equalityComparerScalar);
+		}
+
+		[ObservableComputationsCall]
+		public static ObservableComputations.ContainsComputing<TSourceItem> ContainsComputing<TSourceItem>(this
+			 System.Collections.Specialized.INotifyCollectionChanged source,
+			 Expression<Func<TSourceItem>> itemExpression,
+			 Expression<Func<System.Collections.Generic.IEqualityComparer<TSourceItem>>> equalityComparerExpression)
+		{
+			return new ObservableComputations.ContainsComputing<TSourceItem>(
+				source: source,
+				itemScalar: new Computing<TSourceItem>(itemExpression),
+				equalityComparerScalar: new Computing<System.Collections.Generic.IEqualityComparer<TSourceItem>>(equalityComparerExpression));
+		}
+
+		[ObservableComputationsCall]
+		public static ObservableComputations.ContainsComputing<TSourceItem> ContainsComputing<TSourceItem>(this
+			 ObservableCollection<TSourceItem> source,
+			 ObservableComputations.IReadScalar<TSourceItem> itemScalar,
+			 ObservableComputations.IReadScalar<System.Collections.Generic.IEqualityComparer<TSourceItem>> equalityComparerScalar)
+		{
+			return new ObservableComputations.ContainsComputing<TSourceItem>(
+				source: source,
+				itemScalar: itemScalar,
+				equalityComparerScalar: equalityComparerScalar);
+		}
+
+		[ObservableComputationsCall]
+		public static ObservableComputations.ContainsComputing<TSourceItem> ContainsComputing<TSourceItem>(this
+			 ObservableCollection<TSourceItem> source,
+			 ObservableComputations.IReadScalar<TSourceItem> itemScalar,
+			 Expression<Func<System.Collections.Generic.IEqualityComparer<TSourceItem>>> equalityComparerExpression)
+		{
+			return new ObservableComputations.ContainsComputing<TSourceItem>(
+				source: source,
+				itemScalar: itemScalar,
+				equalityComparerScalar: new Computing<System.Collections.Generic.IEqualityComparer<TSourceItem>>(equalityComparerExpression));
+		}
+
+		[ObservableComputationsCall]
+		public static ObservableComputations.ContainsComputing<TSourceItem> ContainsComputing<TSourceItem>(this
+			 ObservableCollection<TSourceItem> source,
+			 Expression<Func<TSourceItem>> itemExpression,
+			 ObservableComputations.IReadScalar<System.Collections.Generic.IEqualityComparer<TSourceItem>> equalityComparerScalar)
+		{
+			return new ObservableComputations.ContainsComputing<TSourceItem>(
+				source: source,
+				itemScalar: new Computing<TSourceItem>(itemExpression),
+				equalityComparerScalar: equalityComparerScalar);
+		}
+
+		[ObservableComputationsCall]
+		public static ObservableComputations.ContainsComputing<TSourceItem> ContainsComputing<TSourceItem>(this
+			 ObservableCollection<TSourceItem> source,
+			 Expression<Func<TSourceItem>> itemExpression,
+			 Expression<Func<System.Collections.Generic.IEqualityComparer<TSourceItem>>> equalityComparerExpression)
+		{
+			return new ObservableComputations.ContainsComputing<TSourceItem>(
+				source: source,
+				itemScalar: new Computing<TSourceItem>(itemExpression),
+				equalityComparerScalar: new Computing<System.Collections.Generic.IEqualityComparer<TSourceItem>>(equalityComparerExpression));
+		}
+
+		[ObservableComputationsCall]
+		public static ObservableComputations.ContainsComputing<TSourceItem> ContainsComputing<TSourceItem>(this
+			 System.Collections.Specialized.INotifyCollectionChanged source,
+			 TSourceItem item,
+			 ObservableComputations.IReadScalar<System.Collections.Generic.IEqualityComparer<TSourceItem>> equalityComparerScalar)
+		{
+			return new ObservableComputations.ContainsComputing<TSourceItem>(
+				source: source,
+				item: item,
+				equalityComparerScalar: equalityComparerScalar);
+		}
+
+		[ObservableComputationsCall]
+		public static ObservableComputations.ContainsComputing<TSourceItem> ContainsComputing<TSourceItem>(this
+			 System.Collections.Specialized.INotifyCollectionChanged source,
+			 TSourceItem item,
+			 Expression<Func<System.Collections.Generic.IEqualityComparer<TSourceItem>>> equalityComparerExpression)
+		{
+			return new ObservableComputations.ContainsComputing<TSourceItem>(
+				source: source,
+				item: item,
+				equalityComparerScalar: new Computing<System.Collections.Generic.IEqualityComparer<TSourceItem>>(equalityComparerExpression));
+		}
+
+		[ObservableComputationsCall]
+		public static ObservableComputations.ContainsComputing<TSourceItem> ContainsComputing<TSourceItem>(this
+			 ObservableCollection<TSourceItem> source,
+			 TSourceItem item,
+			 ObservableComputations.IReadScalar<System.Collections.Generic.IEqualityComparer<TSourceItem>> equalityComparerScalar)
+		{
+			return new ObservableComputations.ContainsComputing<TSourceItem>(
+				source: source,
+				item: item,
+				equalityComparerScalar: equalityComparerScalar);
+		}
+
+		[ObservableComputationsCall]
+		public static ObservableComputations.ContainsComputing<TSourceItem> ContainsComputing<TSourceItem>(this
+			 ObservableCollection<TSourceItem> source,
+			 TSourceItem item,
+			 Expression<Func<System.Collections.Generic.IEqualityComparer<TSourceItem>>> equalityComparerExpression)
+		{
+			return new ObservableComputations.ContainsComputing<TSourceItem>(
+				source: source,
+				item: item,
+				equalityComparerScalar: new Computing<System.Collections.Generic.IEqualityComparer<TSourceItem>>(equalityComparerExpression));
+		}
+
+		[ObservableComputationsCall]
+		public static ObservableComputations.ContainsComputing<TSourceItem> ContainsComputing<TSourceItem>(this
+			 System.Collections.Specialized.INotifyCollectionChanged source,
+			 ObservableComputations.IReadScalar<TSourceItem> itemScalar,
+			 System.Collections.Generic.IEqualityComparer<TSourceItem> equalityComparer)
+		{
+			return new ObservableComputations.ContainsComputing<TSourceItem>(
+				source: source,
+				itemScalar: itemScalar,
+				equalityComparer: equalityComparer);
 		}
 
 		[ObservableComputationsCall]
@@ -4312,31 +4456,19 @@ namespace ObservableComputations
 			return new ObservableComputations.ContainsComputing<TSourceItem>(
 				source: source,
 				itemScalar: itemScalar,
-				equalityComparerScalar: null);
-		}
-
-		[ObservableComputationsCall]
-		public static ObservableComputations.ContainsComputing<TSourceItem> ContainsComputing<TSourceItem>(this
-			 System.Collections.Specialized.INotifyCollectionChanged source,
-			 ObservableComputations.IReadScalar<TSourceItem> itemScalar,
-			 Expression<Func<System.Collections.Generic.IEqualityComparer<TSourceItem>>> equalityComparerExpression)
-		{
-			return new ObservableComputations.ContainsComputing<TSourceItem>(
-				source: source,
-				itemScalar: itemScalar,
-				equalityComparerScalar: new Computing<System.Collections.Generic.IEqualityComparer<TSourceItem>>(equalityComparerExpression));
+				equalityComparer: null);
 		}
 
 		[ObservableComputationsCall]
 		public static ObservableComputations.ContainsComputing<TSourceItem> ContainsComputing<TSourceItem>(this
 			 System.Collections.Specialized.INotifyCollectionChanged source,
 			 Expression<Func<TSourceItem>> itemExpression,
-			 ObservableComputations.IReadScalar<System.Collections.Generic.IEqualityComparer<TSourceItem>> equalityComparerScalar)
+			 System.Collections.Generic.IEqualityComparer<TSourceItem> equalityComparer)
 		{
 			return new ObservableComputations.ContainsComputing<TSourceItem>(
 				source: source,
 				itemScalar: new Computing<TSourceItem>(itemExpression),
-				equalityComparerScalar: equalityComparerScalar);
+				equalityComparer: equalityComparer);
 		}
 
 		[ObservableComputationsCall]
@@ -4347,31 +4479,19 @@ namespace ObservableComputations
 			return new ObservableComputations.ContainsComputing<TSourceItem>(
 				source: source,
 				itemScalar: new Computing<TSourceItem>(itemExpression),
-				equalityComparerScalar: null);
-		}
-
-		[ObservableComputationsCall]
-		public static ObservableComputations.ContainsComputing<TSourceItem> ContainsComputing<TSourceItem>(this
-			 System.Collections.Specialized.INotifyCollectionChanged source,
-			 Expression<Func<TSourceItem>> itemExpression,
-			 Expression<Func<System.Collections.Generic.IEqualityComparer<TSourceItem>>> equalityComparerExpression)
-		{
-			return new ObservableComputations.ContainsComputing<TSourceItem>(
-				source: source,
-				itemScalar: new Computing<TSourceItem>(itemExpression),
-				equalityComparerScalar: new Computing<System.Collections.Generic.IEqualityComparer<TSourceItem>>(equalityComparerExpression));
+				equalityComparer: null);
 		}
 
 		[ObservableComputationsCall]
 		public static ObservableComputations.ContainsComputing<TSourceItem> ContainsComputing<TSourceItem>(this
 			 ObservableCollection<TSourceItem> source,
 			 ObservableComputations.IReadScalar<TSourceItem> itemScalar,
-			 ObservableComputations.IReadScalar<System.Collections.Generic.IEqualityComparer<TSourceItem>> equalityComparerScalar)
+			 System.Collections.Generic.IEqualityComparer<TSourceItem> equalityComparer)
 		{
 			return new ObservableComputations.ContainsComputing<TSourceItem>(
 				source: source,
 				itemScalar: itemScalar,
-				equalityComparerScalar: equalityComparerScalar);
+				equalityComparer: equalityComparer);
 		}
 
 		[ObservableComputationsCall]
@@ -4382,31 +4502,19 @@ namespace ObservableComputations
 			return new ObservableComputations.ContainsComputing<TSourceItem>(
 				source: source,
 				itemScalar: itemScalar,
-				equalityComparerScalar: null);
-		}
-
-		[ObservableComputationsCall]
-		public static ObservableComputations.ContainsComputing<TSourceItem> ContainsComputing<TSourceItem>(this
-			 ObservableCollection<TSourceItem> source,
-			 ObservableComputations.IReadScalar<TSourceItem> itemScalar,
-			 Expression<Func<System.Collections.Generic.IEqualityComparer<TSourceItem>>> equalityComparerExpression)
-		{
-			return new ObservableComputations.ContainsComputing<TSourceItem>(
-				source: source,
-				itemScalar: itemScalar,
-				equalityComparerScalar: new Computing<System.Collections.Generic.IEqualityComparer<TSourceItem>>(equalityComparerExpression));
+				equalityComparer: null);
 		}
 
 		[ObservableComputationsCall]
 		public static ObservableComputations.ContainsComputing<TSourceItem> ContainsComputing<TSourceItem>(this
 			 ObservableCollection<TSourceItem> source,
 			 Expression<Func<TSourceItem>> itemExpression,
-			 ObservableComputations.IReadScalar<System.Collections.Generic.IEqualityComparer<TSourceItem>> equalityComparerScalar)
+			 System.Collections.Generic.IEqualityComparer<TSourceItem> equalityComparer)
 		{
 			return new ObservableComputations.ContainsComputing<TSourceItem>(
 				source: source,
 				itemScalar: new Computing<TSourceItem>(itemExpression),
-				equalityComparerScalar: equalityComparerScalar);
+				equalityComparer: equalityComparer);
 		}
 
 		[ObservableComputationsCall]
@@ -4417,31 +4525,19 @@ namespace ObservableComputations
 			return new ObservableComputations.ContainsComputing<TSourceItem>(
 				source: source,
 				itemScalar: new Computing<TSourceItem>(itemExpression),
-				equalityComparerScalar: null);
-		}
-
-		[ObservableComputationsCall]
-		public static ObservableComputations.ContainsComputing<TSourceItem> ContainsComputing<TSourceItem>(this
-			 ObservableCollection<TSourceItem> source,
-			 Expression<Func<TSourceItem>> itemExpression,
-			 Expression<Func<System.Collections.Generic.IEqualityComparer<TSourceItem>>> equalityComparerExpression)
-		{
-			return new ObservableComputations.ContainsComputing<TSourceItem>(
-				source: source,
-				itemScalar: new Computing<TSourceItem>(itemExpression),
-				equalityComparerScalar: new Computing<System.Collections.Generic.IEqualityComparer<TSourceItem>>(equalityComparerExpression));
+				equalityComparer: null);
 		}
 
 		[ObservableComputationsCall]
 		public static ObservableComputations.ContainsComputing<TSourceItem> ContainsComputing<TSourceItem>(this
 			 System.Collections.Specialized.INotifyCollectionChanged source,
 			 TSourceItem item,
-			 ObservableComputations.IReadScalar<System.Collections.Generic.IEqualityComparer<TSourceItem>> equalityComparerScalar)
+			 System.Collections.Generic.IEqualityComparer<TSourceItem> equalityComparer)
 		{
 			return new ObservableComputations.ContainsComputing<TSourceItem>(
 				source: source,
 				item: item,
-				equalityComparerScalar: equalityComparerScalar);
+				equalityComparer: equalityComparer);
 		}
 
 		[ObservableComputationsCall]
@@ -4452,31 +4548,19 @@ namespace ObservableComputations
 			return new ObservableComputations.ContainsComputing<TSourceItem>(
 				source: source,
 				item: item,
-				equalityComparerScalar: null);
-		}
-
-		[ObservableComputationsCall]
-		public static ObservableComputations.ContainsComputing<TSourceItem> ContainsComputing<TSourceItem>(this
-			 System.Collections.Specialized.INotifyCollectionChanged source,
-			 TSourceItem item,
-			 Expression<Func<System.Collections.Generic.IEqualityComparer<TSourceItem>>> equalityComparerExpression)
-		{
-			return new ObservableComputations.ContainsComputing<TSourceItem>(
-				source: source,
-				item: item,
-				equalityComparerScalar: new Computing<System.Collections.Generic.IEqualityComparer<TSourceItem>>(equalityComparerExpression));
+				equalityComparer: null);
 		}
 
 		[ObservableComputationsCall]
 		public static ObservableComputations.ContainsComputing<TSourceItem> ContainsComputing<TSourceItem>(this
 			 ObservableCollection<TSourceItem> source,
 			 TSourceItem item,
-			 ObservableComputations.IReadScalar<System.Collections.Generic.IEqualityComparer<TSourceItem>> equalityComparerScalar)
+			 System.Collections.Generic.IEqualityComparer<TSourceItem> equalityComparer)
 		{
 			return new ObservableComputations.ContainsComputing<TSourceItem>(
 				source: source,
 				item: item,
-				equalityComparerScalar: equalityComparerScalar);
+				equalityComparer: equalityComparer);
 		}
 
 		[ObservableComputationsCall]
@@ -4487,91 +4571,7 @@ namespace ObservableComputations
 			return new ObservableComputations.ContainsComputing<TSourceItem>(
 				source: source,
 				item: item,
-				equalityComparerScalar: null);
-		}
-
-		[ObservableComputationsCall]
-		public static ObservableComputations.ContainsComputing<TSourceItem> ContainsComputing<TSourceItem>(this
-			 ObservableCollection<TSourceItem> source,
-			 TSourceItem item,
-			 Expression<Func<System.Collections.Generic.IEqualityComparer<TSourceItem>>> equalityComparerExpression)
-		{
-			return new ObservableComputations.ContainsComputing<TSourceItem>(
-				source: source,
-				item: item,
-				equalityComparerScalar: new Computing<System.Collections.Generic.IEqualityComparer<TSourceItem>>(equalityComparerExpression));
-		}
-
-		[ObservableComputationsCall]
-		public static ObservableComputations.ContainsComputing<TSourceItem> ContainsComputing<TSourceItem>(this
-			 System.Collections.Specialized.INotifyCollectionChanged source,
-			 ObservableComputations.IReadScalar<TSourceItem> itemScalar,
-			 System.Collections.Generic.IEqualityComparer<TSourceItem> equalityComparer)
-		{
-			return new ObservableComputations.ContainsComputing<TSourceItem>(
-				source: source,
-				itemScalar: itemScalar,
-				equalityComparer: equalityComparer);
-		}
-
-		[ObservableComputationsCall]
-		public static ObservableComputations.ContainsComputing<TSourceItem> ContainsComputing<TSourceItem>(this
-			 System.Collections.Specialized.INotifyCollectionChanged source,
-			 Expression<Func<TSourceItem>> itemExpression,
-			 System.Collections.Generic.IEqualityComparer<TSourceItem> equalityComparer)
-		{
-			return new ObservableComputations.ContainsComputing<TSourceItem>(
-				source: source,
-				itemScalar: new Computing<TSourceItem>(itemExpression),
-				equalityComparer: equalityComparer);
-		}
-
-		[ObservableComputationsCall]
-		public static ObservableComputations.ContainsComputing<TSourceItem> ContainsComputing<TSourceItem>(this
-			 ObservableCollection<TSourceItem> source,
-			 ObservableComputations.IReadScalar<TSourceItem> itemScalar,
-			 System.Collections.Generic.IEqualityComparer<TSourceItem> equalityComparer)
-		{
-			return new ObservableComputations.ContainsComputing<TSourceItem>(
-				source: source,
-				itemScalar: itemScalar,
-				equalityComparer: equalityComparer);
-		}
-
-		[ObservableComputationsCall]
-		public static ObservableComputations.ContainsComputing<TSourceItem> ContainsComputing<TSourceItem>(this
-			 ObservableCollection<TSourceItem> source,
-			 Expression<Func<TSourceItem>> itemExpression,
-			 System.Collections.Generic.IEqualityComparer<TSourceItem> equalityComparer)
-		{
-			return new ObservableComputations.ContainsComputing<TSourceItem>(
-				source: source,
-				itemScalar: new Computing<TSourceItem>(itemExpression),
-				equalityComparer: equalityComparer);
-		}
-
-		[ObservableComputationsCall]
-		public static ObservableComputations.ContainsComputing<TSourceItem> ContainsComputing<TSourceItem>(this
-			 System.Collections.Specialized.INotifyCollectionChanged source,
-			 TSourceItem item,
-			 System.Collections.Generic.IEqualityComparer<TSourceItem> equalityComparer)
-		{
-			return new ObservableComputations.ContainsComputing<TSourceItem>(
-				source: source,
-				item: item,
-				equalityComparer: equalityComparer);
-		}
-
-		[ObservableComputationsCall]
-		public static ObservableComputations.ContainsComputing<TSourceItem> ContainsComputing<TSourceItem>(this
-			 ObservableCollection<TSourceItem> source,
-			 TSourceItem item,
-			 System.Collections.Generic.IEqualityComparer<TSourceItem> equalityComparer)
-		{
-			return new ObservableComputations.ContainsComputing<TSourceItem>(
-				source: source,
-				item: item,
-				equalityComparer: equalityComparer);
+				equalityComparer: null);
 		}
 
 		#endregion

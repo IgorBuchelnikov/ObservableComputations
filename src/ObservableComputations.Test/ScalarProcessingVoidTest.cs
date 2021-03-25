@@ -41,6 +41,7 @@ namespace ObservableComputations.Test
 			Assert.AreEqual(scalarProcessingVoid.Source, itemScalar);
 			Assert.AreEqual(scalarProcessingVoid.NewValueProcessor, _newValueProcessor);
 			Assert.AreEqual(scalarProcessingVoid.OldValueProcessor, _oldValueProcessor);
+			Assert.IsTrue(scalarProcessingVoid.Sources.Contains(itemScalar));
 
 			test(item, itemScalar);
 			consumer.Dispose();

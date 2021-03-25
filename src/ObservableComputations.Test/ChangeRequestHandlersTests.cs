@@ -894,6 +894,7 @@ namespace ObservableComputations.Test
 			OcConsumer consumer = new OcConsumer();
 
 			Computing<int> computing = new Computing<int>(() => item.Id);
+			Differing<int> differing = computing.Differing();
 			item.Computing = computing;
 				
 			bool activationInProgress = true;
@@ -906,12 +907,12 @@ namespace ObservableComputations.Test
 				Assert.AreEqual(computing.InactivationInProgress, inActivationInProgress);
 			};
 
-			computing.For(consumer);
+			differing.For(consumer);
 
 			activationInProgress = false;
-
-
 			Assert.IsTrue(computing.Consumers.Contains(consumer));
+
+			Assert.IsTrue(((IComputingInternal) differing).Consumers.Contains(consumer));
 			Assert.IsTrue(computing.UserCodeIsCalledFrom == null);
 
 			Action<int> computingSetValueRequestHandler = i =>
@@ -955,6 +956,8 @@ namespace ObservableComputations.Test
 			Assert.AreEqual(computing.ValueObject, 2);
 
 			Assert.AreEqual(computing.ValueType, typeof(int));
+
+			Assert.IsNotNull(computing.ToString());
 
 			computing.DebugTag = "DebugTag";
 			Assert.AreEqual(computing.DebugTag,  "DebugTag");
@@ -1004,10 +1007,16 @@ namespace ObservableComputations.Test
 			bool activationInProgress = true;
 			bool inActivationInProgress = false;
 
+
 			grouping.CollectionChanged += (sender, args) =>
 			{
 				Assert.AreEqual(grouping.ActivationInProgress, activationInProgress);
 				Assert.AreEqual(grouping.InactivationInProgress, inActivationInProgress);
+				if (grouping.Count >= 3)
+				{
+					Assert.AreEqual(grouping[2].ActivationInProgress, activationInProgress);
+					Assert.AreEqual(grouping[2].InactivationInProgress, inActivationInProgress);
+				}
 			};
 
 			grouping.For(consumer);
@@ -1018,6 +1027,8 @@ namespace ObservableComputations.Test
 
 			group.DebugTag = "DebugTag";
 			Assert.AreEqual(group.DebugTag,  "DebugTag");
+
+			Assert.IsNull(group.UserCodeIsCalledFrom);
 
 			group.Tag = "Tag";
 			Assert.AreEqual(group.Tag,  "Tag");

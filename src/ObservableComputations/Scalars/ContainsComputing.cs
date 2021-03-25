@@ -46,7 +46,7 @@ namespace ObservableComputations
 		public ContainsComputing(
 			IReadScalar<INotifyCollectionChanged> sourceScalar,
 			IReadScalar<TSourceItem> itemScalar,
-			IReadScalar<IEqualityComparer<TSourceItem>> equalityComparerScalar = null) 
+			IReadScalar<IEqualityComparer<TSourceItem>> equalityComparerScalar) 
 			: base(sourceScalar, getPredicateExpression(itemScalar, equalityComparerScalar))
 		{
 			_sourceScalarContainsComputing = sourceScalar;
@@ -58,7 +58,7 @@ namespace ObservableComputations
 		public ContainsComputing(
 			IReadScalar<INotifyCollectionChanged> sourceScalar,
 			TSourceItem item,
-			IReadScalar<IEqualityComparer<TSourceItem>> equalityComparerScalar = null) 
+			IReadScalar<IEqualityComparer<TSourceItem>> equalityComparerScalar) 
 			: base(sourceScalar, getPredicateExpression(item, equalityComparerScalar))
 		{
 			_sourceScalarContainsComputing = sourceScalar;
@@ -96,7 +96,7 @@ namespace ObservableComputations
 		public ContainsComputing(
 			INotifyCollectionChanged source,
 			IReadScalar<TSourceItem> itemScalar,
-			IReadScalar<IEqualityComparer<TSourceItem>> equalityComparerScalar = null) 
+			IReadScalar<IEqualityComparer<TSourceItem>> equalityComparerScalar) 
 			: base(source, getPredicateExpression(itemScalar, equalityComparerScalar))
 		{
 			_sourceContainsComputing = source;
@@ -108,7 +108,7 @@ namespace ObservableComputations
 		public ContainsComputing(
 			INotifyCollectionChanged source,
 			TSourceItem item,
-			IReadScalar<IEqualityComparer<TSourceItem>> equalityComparerScalar = null) 
+			IReadScalar<IEqualityComparer<TSourceItem>> equalityComparerScalar) 
 			: base(source, getPredicateExpression(item, equalityComparerScalar))
 		{
 			_sourceContainsComputing = source;

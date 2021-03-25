@@ -36,6 +36,24 @@ namespace ObservableComputations.Test
 			collectionPausing.ValidateInternalConsistency();
 		}
 
+		[Test]
+		public void TestScalarPausing()
+		{
+			OcConsumer consumer = new OcConsumer();
+			Scalar<ObservableCollection<int>> sourceScalar = 
+				new Scalar<ObservableCollection<int>>(new ObservableCollection<int>(new int[]{1,2,3}).Selecting(i => i).For(consumer));
 
+	
+			ScalarPausing<ObservableCollection<int>> scalarPausing = sourceScalar.ScalarPausing(true).For(consumer);
+
+			scalarPausing.PropertyChanged += (sender, args) =>
+			{
+				Assert.IsTrue(scalarPausing.IsResuming);
+			};
+
+			sourceScalar.Change(new ObservableCollection<int>(new int[]{1,2,3,5,6}).Selecting(i => i).For(consumer));
+			scalarPausing.IsPaused = false;
+			scalarPausing.ValidateInternalConsistency();
+		}
 	}
 }

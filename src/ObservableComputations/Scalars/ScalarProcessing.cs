@@ -12,6 +12,7 @@ namespace ObservableComputations
 	{
 		public IReadScalar<TValue> Source => _source;
 		public Func<TValue, IScalarComputing, TReturnValue> NewValueProcessor => _newValueProcessor;
+		public Action<TValue, IScalarComputing, TReturnValue> OldValueProcessor => _oldValueProcessor;
 
 		public virtual ReadOnlyCollection<object> Sources => new ReadOnlyCollection<object>(new object[]{Source});
 

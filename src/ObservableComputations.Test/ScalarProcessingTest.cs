@@ -45,9 +45,14 @@ namespace ObservableComputations.Test
 		{
 			Item item = new Item();
 			Scalar<Item> itemScalar = new Scalar<Item>(item);
-			itemScalar.ScalarProcessing<Item, object>(
+			ScalarProcessing<Item, object> scalarProcessing = itemScalar.ScalarProcessing<Item, object>(
 				_newValueProcessor,
 				_oldValueProcessor).For(consumer);
+
+			Assert.AreEqual(scalarProcessing.Source, itemScalar);
+			Assert.AreEqual(scalarProcessing.NewValueProcessor, _newValueProcessor);
+			Assert.AreEqual(scalarProcessing.OldValueProcessor, _oldValueProcessor);
+			Assert.IsTrue(scalarProcessing.Sources.Contains(itemScalar));
 
 			test(item, itemScalar);
 

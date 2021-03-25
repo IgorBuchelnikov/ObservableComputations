@@ -44,9 +44,17 @@ namespace ObservableComputations.Test
 		}
 
 		[Test]
-		public void PropertyChangedEventArgsNull()
+		public void EventArgsNull()
 		{
 			EventArgs args = null;
+			string str = args.ToStringAlt();
+			Assert.AreEqual(str, "(null)");
+		}
+
+		[Test]
+		public void PropertyChangedEventArgsNull()
+		{
+			PropertyChangedEventArgs args = null;
 			string str = args.ToStringAlt();
 			Assert.AreEqual(str, "(null)");
 		}
@@ -82,6 +90,7 @@ namespace ObservableComputations.Test
 			string str = args.ToStringAlt();
 			Assert.AreEqual(str, "(null)");
 		}
+
 
 		[Test]
 		public void MethodChangedEventArgs()

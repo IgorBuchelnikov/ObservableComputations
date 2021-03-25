@@ -92,6 +92,39 @@ namespace ObservableComputations.Test
 		}
 
 		[Test]
+		public void TestScalarPausing2()
+		{
+			OcConsumer consumer = new OcConsumer("Tag");
+			Scalar<bool> isPausedScalar = new Scalar<bool>(false);
+			Assert.AreEqual(consumer.Tag, "Tag");
+			Scalar<int> scalar = new Scalar<int>(0);
+			ScalarPausing<int> scalarPausing = scalar.ScalarPausing(isPausedScalar).For(consumer);
+			Assert.AreEqual(scalarPausing.IsPaused, false);
+			scalarPausing.IsPaused  = true;
+			scalar.Change(1);
+			scalar.Change(2);
+			scalar.Change(3);
+			scalar.Change(4);
+			scalarPausing.LastChangesToApplyOnResumeCount = 2;
+
+			int[] values = new []{3, 4};
+			int index = 0;
+			scalarPausing.PropertyChanged += (sender, args) =>
+			{
+				if (args.PropertyName == "Value" && !scalarPausing.InactivationInProgress)
+				{
+					Assert.AreEqual(scalarPausing.Value, values[index++]);
+
+					Assert.Throws<ObservableComputationsInconsistencyException>(() => isPausedScalar.Change(true));
+				}
+			};
+
+			scalarPausing.IsPaused  = false;
+			Assert.AreEqual(scalarPausing.Value, 4);
+			consumer.Dispose();
+		}
+
+		[Test]
 		public void TestResetRootSourceWrapper()
 		{
 			OcConsumer consumer = new OcConsumer();

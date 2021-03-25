@@ -136,6 +136,7 @@ namespace ObservableComputations.Test
 			PropertyDispatching<Item, int> propertyDispatching = new PropertyDispatching<Item, int>(item, nameof(Item.Num), mainOcDispatcher, backgroundOcDispatcher, 1, 1, dispatcherParameter, sourceOcDispatcherParameter).For(consumer);
 
 			Assert.AreEqual(propertyDispatching.Source, item);
+			Assert.IsTrue(propertyDispatching.Sources.Contains(item));
 			Assert.AreEqual(propertyDispatching.PropertyName, nameof(Item.Num));
 			Assert.AreEqual(propertyDispatching.SourceOcDispatcher, backgroundOcDispatcher);
 			Assert.AreEqual(propertyDispatching.DestinationOcDispatcher, mainOcDispatcher);

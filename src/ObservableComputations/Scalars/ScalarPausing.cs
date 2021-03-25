@@ -17,7 +17,7 @@ namespace ObservableComputations
 		public IReadScalar<bool> IsPausedScalar => _isPausedScalar;
 		public IReadScalar<int?> LastChangesToApplyOnResumeCountScalar => _lastChangesToApplyOnResumeCountScalar;
 
-		public bool Resuming => _resuming;
+		public bool IsResuming => _isResuming;
 
 		public virtual ReadOnlyCollection<object> Sources => new ReadOnlyCollection<object>(new object[]{Source});
 
@@ -26,7 +26,7 @@ namespace ObservableComputations
 
 		private readonly IReadScalar<int?> _lastChangesToApplyOnResumeCountScalar;
 
-		private bool _resuming;
+		private bool _isResuming;
 
 		private readonly Action _changeValueAction;
 
@@ -50,11 +50,11 @@ namespace ObservableComputations
 				if (_isPausedScalar != null) throw new ObservableComputationsException(this, "Modifying of IsPaused property is controlled by IsPausedScalar");
 				checkConsistent(null, null);
 
-				_resuming = _isPaused != value && !value;
+				_isResuming = _isPaused != value && !value;
 				_isPaused = value;
 				raisePropertyChanged(Utils.IsPausedPropertyChangedEventArgs);
 
-				if (_resuming) resume();
+				if (_isResuming) resume();
 
 			}
 		}
@@ -80,7 +80,7 @@ namespace ObservableComputations
 					_handledEventArgs = null;
 				}
 			}
-			_resuming = false;
+			_isResuming = false;
 
 			Utils.postHandleChange(
 				ref _handledEventSender,
@@ -261,10 +261,10 @@ namespace ObservableComputations
 			_handledEventArgs = e;
 
 			bool newValue = _isPausedScalar.Value;
-			_resuming = _isPaused != newValue && !newValue;
+			_isResuming = _isPaused != newValue && !newValue;
 			_isPaused = newValue;
 
-			if (_resuming) resume();
+			if (_isResuming) resume();
 
 			_handledEventSender = null;
 			_handledEventArgs = null;

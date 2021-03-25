@@ -351,7 +351,7 @@ namespace ObservableComputations
 			}
 		}
 
-		private static string ToStringAlt(this PropertyChangedEventArgs propertyChangedEventArgs)
+		public static string ToStringAlt(this PropertyChangedEventArgs propertyChangedEventArgs)
 		{
 			if (propertyChangedEventArgs == null) return "(null)";
 			return $"(PropertyChangedEventArgs (PropertyName = '{propertyChangedEventArgs.PropertyName}'))";

@@ -95,12 +95,11 @@ namespace ObservableComputations.Test
 		public void TestScalarPausing2()
 		{
 			OcConsumer consumer = new OcConsumer("Tag");
-			Scalar<bool> isPausedScalar = new Scalar<bool>(false);
+			Scalar<bool> isPausedScalar = new Scalar<bool>(true);
 			Assert.AreEqual(consumer.Tag, "Tag");
 			Scalar<int> scalar = new Scalar<int>(0);
 			ScalarPausing<int> scalarPausing = scalar.ScalarPausing(isPausedScalar).For(consumer);
 			Assert.AreEqual(scalarPausing.IsPaused, false);
-			scalarPausing.IsPaused  = true;
 			scalar.Change(1);
 			scalar.Change(2);
 			scalar.Change(3);

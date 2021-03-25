@@ -781,6 +781,7 @@ namespace ObservableComputations
 			_isActive = value;
 		}
 
+		[ExcludeFromCodeCoverage]
 		void ISourceItemChangeProcessor.ProcessSourceItemChange(ExpressionWatcher expressionWatcher)
 		{
 
@@ -815,6 +816,7 @@ namespace ObservableComputations
 				3);
 		}
 
+		[ExcludeFromCodeCoverage]
 		void IComputingInternal.AddDownstreamConsumedComputing(IComputingInternal computing)
 		{
 			//Utils.addDownstreamConsumedComputing(
@@ -829,6 +831,7 @@ namespace ObservableComputations
 			//	3);
 		}
 
+		[ExcludeFromCodeCoverage]
 		void IComputingInternal.RemoveDownstreamConsumedComputing(IComputingInternal computing)
 		{
 			//Utils.removeDownstreamConsumedComputing(

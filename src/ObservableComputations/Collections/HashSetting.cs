@@ -403,7 +403,6 @@ namespace ObservableComputations
 				2, 3, this);
 		}
 
-
 		void ISourceItemChangeProcessor.ProcessSourceItemChange(ExpressionWatcher expressionWatcher)
 		{
 			int sourceIndex = expressionWatcher._position.Index;
@@ -630,6 +629,7 @@ namespace ObservableComputations
 				3);
 		}
 
+		[ExcludeFromCodeCoverage]
 		void IComputingInternal.AddDownstreamConsumedComputing(IComputingInternal computing)
 		{
 			//Utils.addDownstreamConsumedComputing(
@@ -644,6 +644,7 @@ namespace ObservableComputations
 			//	3);
 		}
 
+		[ExcludeFromCodeCoverage]
 		void IComputingInternal.RemoveDownstreamConsumedComputing(IComputingInternal computing)
 		{
 			//Utils.removeDownstreamConsumedComputing(

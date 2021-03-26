@@ -5,6 +5,7 @@ using System.Collections.ObjectModel;
 using System.Collections.Specialized;
 using System.ComponentModel;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Reflection;
 using System.Runtime.CompilerServices;
 using System.Threading;
@@ -267,7 +268,7 @@ namespace ObservableComputations.Test
 			getValueOrDefaultRaised = false;
 			itemRaised = false;
 			containsKeyRaised = false;
-			Assert.IsFalse(dictionaring.Remove(new KeyValuePair<int, string>(5, "3")));
+			Assert.IsFalse(dictionaring.Remove(new KeyValuePair<int, string>(2, "3")));
 			dictionaring.ValidateInternalConsistency();
 			Assert.IsFalse(getValueOrDefaultRaised);
 			Assert.IsFalse(itemRaised);
@@ -475,7 +476,7 @@ namespace ObservableComputations.Test
 			getValueOrDefaultRaised = false;
 			itemRaised = false;
 			containsKeyRaised = false;
-			Assert.IsFalse(dictionaring.Remove(new KeyValuePair<int, string>(5, "3")));
+			Assert.IsFalse(dictionaring.Remove(new KeyValuePair<int, string>(2, "3")));
 			dictionaring.ValidateInternalConsistency();
 			Assert.IsFalse(getValueOrDefaultRaised);
 			Assert.IsFalse(itemRaised);
@@ -893,7 +894,9 @@ namespace ObservableComputations.Test
 			Item item = new Item(0, "0");
 			OcConsumer consumer = new OcConsumer();
 
-			Computing<int> computing = new Computing<int>(() => item.Id);
+			Expression<Func<int>> valueExpression = () => item.Id;
+			Computing<int> computing = new Computing<int>(valueExpression);
+			Assert.AreEqual(computing.GetValueExpression, valueExpression);
 			Differing<int> differing = computing.Differing();
 			item.Computing = computing;
 				

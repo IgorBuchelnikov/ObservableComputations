@@ -469,6 +469,44 @@ namespace ObservableComputations.Test
 			consumer.Dispose();
 		}
 
+		[Test]
+		public void TestConcatenating3()
+		{
+			OcConsumer consumer = new OcConsumer();
+
+			ObservableCollection<ObservableCollection<Item>> items = new ObservableCollection<ObservableCollection<Item>>(
+				new[]
+				{
+					new ObservableCollection<Item>(
+						new[]
+						{
+							new Item(),
+							new Item(),
+							new Item(),
+							new Item()
+						}
+					),
+					new ObservableCollection<Item>(
+						new[]
+						{
+							new Item(),
+							new Item(),
+							new Item(),
+							new Item()
+						}
+					).Selecting(i => i).For(consumer)
+				}
+			);
+
+
+			Concatenating<Item> concatenating1 = items.Concatenating();
+			Selecting<Item, Item> concatenating = concatenating1.Selecting(i => i).For(consumer);
+			concatenating1.For(consumer);
+
+			concatenating.ValidateInternalConsistency();
+			consumer.Dispose();
+		}
+
 		public ConcatenatingTests(bool debug) : base(debug)
 		{
 		}

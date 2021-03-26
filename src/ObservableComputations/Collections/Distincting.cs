@@ -35,7 +35,7 @@ namespace ObservableComputations
 		[ObservableComputationsCall]
 		public Distincting(
 			IReadScalar<INotifyCollectionChanged> sourceScalar,
-			IReadScalar<IEqualityComparer<TSourceItem>> equalityComparerScalar = null,
+			IReadScalar<IEqualityComparer<TSourceItem>> equalityComparerScalar,
 			int initialCapacity = 0) : base(getSource(sourceScalar, equalityComparerScalar, initialCapacity), g => g.Key)
 		{
 			_sourceScalar = sourceScalar;
@@ -45,7 +45,7 @@ namespace ObservableComputations
 		[ObservableComputationsCall]
 		public Distincting(
 			INotifyCollectionChanged source,
-			IReadScalar<IEqualityComparer<TSourceItem>> equalityComparerScalar = null,
+			IReadScalar<IEqualityComparer<TSourceItem>> equalityComparerScalar,
 			int initialCapacity = 0) : base(getSource(source, equalityComparerScalar, initialCapacity), g => g.Key)
 		{
 			_sourceDistincting = source;
@@ -55,7 +55,7 @@ namespace ObservableComputations
 		[ObservableComputationsCall]
 		public Distincting(
 			INotifyCollectionChanged source,
-			IEqualityComparer<TSourceItem> equalityComparer,
+			IEqualityComparer<TSourceItem> equalityComparer = null,
 			int initialCapacity = 0) : base(getSource(source, equalityComparer, initialCapacity), g => g.Key)
 		{
 			_sourceDistincting = source;

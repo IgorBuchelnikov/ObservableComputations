@@ -783,6 +783,52 @@ namespace ObservableComputations.Test
 		}
 
 		[Test, Combinatorial]
+		public void TestCreateStringsConcatenatingOnCountChanged(
+			[Values(NotifyCollectionChangedAction.Add, NotifyCollectionChangedAction.Reset, NotifyCollectionChangedAction.Move, NotifyCollectionChangedAction.Remove, NotifyCollectionChangedAction.Replace)]
+			NotifyCollectionChangedAction action,
+			[Values("Count", "Item[]")] string propertyName)
+		{
+			MiscTests.MyObservableCollection<string> items = new MiscTests.MyObservableCollection<string>(
+				new []{"a","b"}
+			);
+
+			StringsConcatenating concatenating = null;
+
+			((INotifyPropertyChanged) items).PropertyChanged += (sender, args) =>
+			{
+				if (args.PropertyName == propertyName)
+				{
+					OcConsumer consumer = new OcConsumer();
+					concatenating = items.StringsConcatenating().For(consumer);
+					concatenating.ValidateInternalConsistency();
+				}
+			};
+
+			switch (action)
+			{
+				case NotifyCollectionChangedAction.Add:
+					items.Add("c");
+					break;
+				case NotifyCollectionChangedAction.Remove:
+					items.RemoveAt(0);
+					break;
+				case NotifyCollectionChangedAction.Replace:
+					items[0] = "c";
+					break;
+				case NotifyCollectionChangedAction.Move:
+					items.Move(0, 1);
+					break;
+				case NotifyCollectionChangedAction.Reset:
+					items.Reset(
+						new []{"a","b"});
+					break;
+			}
+
+			concatenating?.ValidateInternalConsistency();
+			consumer.Dispose();
+		}
+
+		[Test, Combinatorial]
 		public void TestCreateConcurrentDictionaringOnCountChanged(
 			[Values(NotifyCollectionChangedAction.Add, NotifyCollectionChangedAction.Reset, NotifyCollectionChangedAction.Move, NotifyCollectionChangedAction.Remove, NotifyCollectionChangedAction.Replace)]
 			NotifyCollectionChangedAction action,
@@ -1081,13 +1127,14 @@ namespace ObservableComputations.Test
 			);
 
 			HashSetting<Item, int> hashSetting = null;
+			Selecting<Item, Item> selecting = items.Selecting(i => i).For(consumer);
 
-			((INotifyPropertyChanged) items).PropertyChanged += (sender, args) =>
+			((INotifyPropertyChanged) selecting).PropertyChanged += (sender, args) =>
 			{
 				if (args.PropertyName == propertyName)
 				{
 					OcConsumer consumer = new OcConsumer();
-					hashSetting = items.HashSetting(i => i.Num).For(consumer);
+					hashSetting = selecting.HashSetting(i => i.Num).For(consumer);
 					hashSetting.ValidateInternalConsistency();
 				}
 			};
@@ -1136,13 +1183,14 @@ namespace ObservableComputations.Test
 			);
 
 			Joining<Item, Item> joining = null;
+			Selecting<Item, Item> selecting = items.Selecting(i => i).For(consumer);
 
-			((INotifyPropertyChanged) items).PropertyChanged += (sender, args) =>
+			((INotifyPropertyChanged) selecting).PropertyChanged += (sender, args) =>
 			{
 				if (args.PropertyName == propertyName)
 				{
 					OcConsumer consumer = new OcConsumer();
-					joining = items.Joining(items, (i1, i2) => i1.Num == i2.Num).For(consumer);
+					joining = selecting.Joining(items, (i1, i2) => i1.Num == i2.Num).For(consumer);
 				}
 			};
 

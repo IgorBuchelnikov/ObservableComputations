@@ -154,7 +154,7 @@ namespace ObservableComputations
 			IReadScalar<INotifyCollectionChanged> innerSourceScalar,
 			Expression<Func<TOuterSourceItem, TKey>> outerKeySelector,
 			Expression<Func<TInnerSourceItem, TKey>> innerKeySelector,
-			IReadScalar<IEqualityComparer<TKey>> equalityComparerScalar = null) : this(outerKeySelector, Utils.getCapacity(outerSourceScalar))
+			IReadScalar<IEqualityComparer<TKey>> equalityComparerScalar) : this(outerKeySelector, Utils.getCapacity(outerSourceScalar))
 		{
 			_outerSourceScalar = outerSourceScalar;
 			_innerSourceScalar = innerSourceScalar;
@@ -168,7 +168,7 @@ namespace ObservableComputations
 			INotifyCollectionChanged innerSource,
 			Expression<Func<TOuterSourceItem, TKey>> outerKeySelector,
 			Expression<Func<TInnerSourceItem, TKey>> innerKeySelector,
-			IReadScalar<IEqualityComparer<TKey>> equalityComparerScalar = null) : this(outerKeySelector, Utils.getCapacity(outerSourceScalar))
+			IReadScalar<IEqualityComparer<TKey>> equalityComparerScalar) : this(outerKeySelector, Utils.getCapacity(outerSourceScalar))
 		{
 			_outerSourceScalar = outerSourceScalar;
 			_innerSource = innerSource;
@@ -210,7 +210,7 @@ namespace ObservableComputations
 			IReadScalar<INotifyCollectionChanged> innerSourceScalar,
 			Expression<Func<TOuterSourceItem, TKey>> outerKeySelector,
 			Expression<Func<TInnerSourceItem, TKey>> innerKeySelector,
-			IReadScalar<IEqualityComparer<TKey>> equalityComparerScalar = null) : this(outerKeySelector, Utils.getCapacity(outerSource))
+			IReadScalar<IEqualityComparer<TKey>> equalityComparerScalar) : this(outerKeySelector, Utils.getCapacity(outerSource))
 		{
 			_outerSource = outerSource;
 			_innerSourceScalar = innerSourceScalar;
@@ -224,7 +224,7 @@ namespace ObservableComputations
 			INotifyCollectionChanged innerSource,
 			Expression<Func<TOuterSourceItem, TKey>> outerKeySelector,
 			Expression<Func<TInnerSourceItem, TKey>> innerKeySelector,
-			IReadScalar<IEqualityComparer<TKey>> equalityComparerScalar = null) : this(outerKeySelector, Utils.getCapacity(outerSource))
+			IReadScalar<IEqualityComparer<TKey>> equalityComparerScalar) : this(outerKeySelector, Utils.getCapacity(outerSource))
 		{
 			_outerSource = outerSource;
 			_innerSource = innerSource;

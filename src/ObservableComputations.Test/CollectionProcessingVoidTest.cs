@@ -5,6 +5,7 @@
 using System;
 using System.Collections.ObjectModel;
 using System.Collections.Specialized;
+using System.Linq;
 using NUnit.Framework;
 
 namespace ObservableComputations.Test
@@ -240,6 +241,30 @@ namespace ObservableComputations.Test
 			Assert.IsTrue(sourceCollection[index].ProcessedAsOld == 1);
 			Assert.IsTrue(items[index].ProcessedAsNew == 1);
 			Assert.IsTrue(items[index].ProcessedAsOld == 0);
+			consumer.Dispose();
+		}	
+
+		[Test, Combinatorial]
+		public void CollectionProcessing_Reset()
+		{
+			Item[] sourceCollection = new[]
+			{
+				new Item(),
+				new Item(),
+				new Item(),
+				new Item(),
+				new Item()
+			};
+
+			ObservableCollection<Item> items = new ObservableCollection<Item>(
+				sourceCollection);
+
+			CollectionProcessingVoid<Item> collectionProcessing = getCollectionProcessing(items, consumer);
+			items.Clear();
+			Assert.IsTrue(sourceCollection.All(i => i.ProcessedAsNew == 1));
+			Assert.IsTrue(sourceCollection.All(i => i.ProcessedAsOld == 1));
+			Assert.IsTrue(items.All(i => i.ProcessedAsNew == 1));
+			Assert.IsTrue(items.All(i => i.ProcessedAsOld == 1));
 			consumer.Dispose();
 		}	
 

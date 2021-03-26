@@ -36,7 +36,7 @@ namespace ObservableComputations
 
 		public IComparer<TOrderingValue> Comparer => _comparer;
 
-		public Func<TSourceItem, TOrderingValue> OrderingValueSelectorFunc => _orderingValueSelectorFunc;
+		//public Func<TSourceItem, TOrderingValue> OrderingValueSelectorFunc => _orderingValueSelectorFunc;
 
 		public virtual ReadOnlyCollection<object> Sources => new ReadOnlyCollection<object>(new object[]{Source, SourceScalar});
 
@@ -151,7 +151,7 @@ namespace ObservableComputations
 			INotifyCollectionChanged source,
 			Expression<Func<TSourceItem, TOrderingValue>> orderingValueSelectorExpression,
 			ListSortDirection sortDirection = ListSortDirection.Ascending,
-			IComparer<TOrderingValue> comparer= null) : this(orderingValueSelectorExpression, Utils.getCapacity(source))
+			IComparer<TOrderingValue> comparer = null) : this(orderingValueSelectorExpression, Utils.getCapacity(source))
 		{
 			_source = source;
 			_sortDirection = sortDirection;

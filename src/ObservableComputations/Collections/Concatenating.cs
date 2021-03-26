@@ -291,9 +291,7 @@ namespace ObservableComputations
 				IHasTickTackVersion sourceAsIHasTickTackVersion = source as IHasTickTackVersion;
 				itemInfo.SourceAsIHasTickTackVersion = sourceAsIHasTickTackVersion;
 				if (sourceAsIHasTickTackVersion != null)
-				{
 					itemInfo.LastProcessedSourceTickTackVersion = sourceAsIHasTickTackVersion.TickTackVersion;
-				}			  
 			}
 
 			initializeSourceCopy(itemInfo);

@@ -651,6 +651,7 @@ namespace ObservableComputations
 
 		#region Implementation of ISourceIndexerPropertyTracker
 
+		[ExcludeFromCodeCoverage]
 		void ISourceIndexerPropertyTracker.HandleSourcePropertyChanged(object sender, PropertyChangedEventArgs propertyChangedEventArgs)
 		{
 

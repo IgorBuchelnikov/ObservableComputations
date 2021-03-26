@@ -83,6 +83,8 @@ namespace ObservableComputations
 
 		private void processSource(bool replaceSource)
 		{
+			int originalCount = _items.Count;
+
 			if (_sourceReadAndSubscribed)
 			{
 				if (replaceSource)
@@ -92,13 +94,7 @@ namespace ObservableComputations
 						this, 
 						handleSourceCollectionChanged);
 
-				int count = Count;
-				for (int i = 0; i < count; i++)
-				{
-					baseRemoveItem(0);
-				}
-
-				if (_oldItemsProcessor!= null) processOldItems(_sourceAsList.ToArray());
+				if (_oldItemsProcessor != null) processOldItems(this.ToArray());
 
 				_sourceReadAndSubscribed = false;
 			}
@@ -124,14 +120,28 @@ namespace ObservableComputations
 				TSourceItem[] sourceCopy = new TSourceItem[count];
 				_sourceAsList.CopyTo(sourceCopy, 0);
 
-				for (int index = 0; index < count; index++)
-					baseInsertItem(index, sourceCopy[index]);
-				
+				int sourceIndex;
+				for (sourceIndex = 0; sourceIndex < count; sourceIndex++)
+				{
+					if (originalCount > sourceIndex)
+						_items[sourceIndex] = sourceCopy[sourceIndex];
+					else
+						_items.Insert(sourceIndex, sourceCopy[sourceIndex]);
+				}
+
+				for (int index = originalCount - 1; index >= sourceIndex; index--)
+				{
+					_items.RemoveAt(index);
+				}
 
 				if (_newItemsProcessor != null) processNewItems(sourceCopy);
 			 
 				_sourceReadAndSubscribed = true;
 			}
+			else
+				_items.Clear();
+
+			reset();
 		}
 
 		private void handleSourceCollectionChanged(object sender, NotifyCollectionChangedEventArgs e)

@@ -59,6 +59,8 @@ namespace ObservableComputations.Test
 			string result = null;
 			bool raised = false;
 
+			Assert.IsNotNull(propertyAccessing.PropertyInfo);
+
 			propertyAccessing.PropertyChanged += (sender, eventArgs) =>
 			{
 				if (eventArgs.PropertyName != nameof(PropertyAccessing<string>.Value)) return;

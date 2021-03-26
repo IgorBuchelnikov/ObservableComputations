@@ -152,7 +152,7 @@ namespace ObservableComputations
 		public Grouping(
 			IReadScalar<INotifyCollectionChanged> sourceScalar,
 			Expression<Func<TSourceItem, TKey>> keySelectorExpression,
-			IReadScalar<IEqualityComparer<TKey>> equalityComparerScalar = null,
+			IReadScalar<IEqualityComparer<TKey>> equalityComparerScalar,
 			int initialCapacity = 0) : this(keySelectorExpression, Utils.getCapacity(sourceScalar), initialCapacity)
 		{
 			_equalityComparerScalar = equalityComparerScalar;
@@ -166,7 +166,7 @@ namespace ObservableComputations
 		public Grouping(
 			INotifyCollectionChanged source,
 			Expression<Func<TSourceItem, TKey>> keySelectorExpression,
-			IReadScalar<IEqualityComparer<TKey>> equalityComparerScalar = null,
+			IReadScalar<IEqualityComparer<TKey>> equalityComparerScalar,
 			int initialCapacity = 0) : this(keySelectorExpression, Utils.getCapacity(source), initialCapacity)
 		{
 			_equalityComparerScalar = equalityComparerScalar;

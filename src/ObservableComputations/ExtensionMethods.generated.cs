@@ -5017,27 +5017,6 @@ namespace ObservableComputations
 		[ObservableComputationsCall]
 		public static ObservableComputations.Distincting<TSourceItem> Distincting<TSourceItem>(this
 			 ObservableComputations.IReadScalar<System.Collections.Specialized.INotifyCollectionChanged> sourceScalar,
-			 int initialCapacity)
-		{
-			return new ObservableComputations.Distincting<TSourceItem>(
-				sourceScalar: sourceScalar,
-				equalityComparerScalar: null,
-				initialCapacity: initialCapacity);
-		}
-
-		[ObservableComputationsCall]
-		public static ObservableComputations.Distincting<TSourceItem> Distincting<TSourceItem>(this
-			 ObservableComputations.IReadScalar<System.Collections.Specialized.INotifyCollectionChanged> sourceScalar)
-		{
-			return new ObservableComputations.Distincting<TSourceItem>(
-				sourceScalar: sourceScalar,
-				equalityComparerScalar: null,
-				initialCapacity: 0);
-		}
-
-		[ObservableComputationsCall]
-		public static ObservableComputations.Distincting<TSourceItem> Distincting<TSourceItem>(this
-			 ObservableComputations.IReadScalar<System.Collections.Specialized.INotifyCollectionChanged> sourceScalar,
 			 Expression<Func<System.Collections.Generic.IEqualityComparer<TSourceItem>>> equalityComparerExpression,
 			 int initialCapacity)
 		{
@@ -5084,27 +5063,6 @@ namespace ObservableComputations
 		[ObservableComputationsCall]
 		public static ObservableComputations.Distincting<TSourceItem> Distincting<TSourceItem>(this
 			 ObservableComputations.IReadScalar<ObservableCollection<TSourceItem>> sourceScalar,
-			 int initialCapacity)
-		{
-			return new ObservableComputations.Distincting<TSourceItem>(
-				sourceScalar: sourceScalar,
-				equalityComparerScalar: null,
-				initialCapacity: initialCapacity);
-		}
-
-		[ObservableComputationsCall]
-		public static ObservableComputations.Distincting<TSourceItem> Distincting<TSourceItem>(this
-			 ObservableComputations.IReadScalar<ObservableCollection<TSourceItem>> sourceScalar)
-		{
-			return new ObservableComputations.Distincting<TSourceItem>(
-				sourceScalar: sourceScalar,
-				equalityComparerScalar: null,
-				initialCapacity: 0);
-		}
-
-		[ObservableComputationsCall]
-		public static ObservableComputations.Distincting<TSourceItem> Distincting<TSourceItem>(this
-			 ObservableComputations.IReadScalar<ObservableCollection<TSourceItem>> sourceScalar,
 			 Expression<Func<System.Collections.Generic.IEqualityComparer<TSourceItem>>> equalityComparerExpression,
 			 int initialCapacity)
 		{
@@ -5151,27 +5109,6 @@ namespace ObservableComputations
 		[ObservableComputationsCall]
 		public static ObservableComputations.Distincting<TSourceItem> Distincting<TSourceItem>(this
 			 Expression<Func<System.Collections.Specialized.INotifyCollectionChanged>> sourceExpression,
-			 int initialCapacity)
-		{
-			return new ObservableComputations.Distincting<TSourceItem>(
-				sourceScalar: new Computing<System.Collections.Specialized.INotifyCollectionChanged>(sourceExpression),
-				equalityComparerScalar: null,
-				initialCapacity: initialCapacity);
-		}
-
-		[ObservableComputationsCall]
-		public static ObservableComputations.Distincting<TSourceItem> Distincting<TSourceItem>(this
-			 Expression<Func<System.Collections.Specialized.INotifyCollectionChanged>> sourceExpression)
-		{
-			return new ObservableComputations.Distincting<TSourceItem>(
-				sourceScalar: new Computing<System.Collections.Specialized.INotifyCollectionChanged>(sourceExpression),
-				equalityComparerScalar: null,
-				initialCapacity: 0);
-		}
-
-		[ObservableComputationsCall]
-		public static ObservableComputations.Distincting<TSourceItem> Distincting<TSourceItem>(this
-			 Expression<Func<System.Collections.Specialized.INotifyCollectionChanged>> sourceExpression,
 			 Expression<Func<System.Collections.Generic.IEqualityComparer<TSourceItem>>> equalityComparerExpression,
 			 int initialCapacity)
 		{
@@ -5212,27 +5149,6 @@ namespace ObservableComputations
 			return new ObservableComputations.Distincting<TSourceItem>(
 				sourceScalar: new Computing<ObservableCollection<TSourceItem>>(sourceExpression),
 				equalityComparerScalar: equalityComparerScalar,
-				initialCapacity: 0);
-		}
-
-		[ObservableComputationsCall]
-		public static ObservableComputations.Distincting<TSourceItem> Distincting<TSourceItem>(this
-			 Expression<Func<ObservableCollection<TSourceItem>>> sourceExpression,
-			 int initialCapacity)
-		{
-			return new ObservableComputations.Distincting<TSourceItem>(
-				sourceScalar: new Computing<ObservableCollection<TSourceItem>>(sourceExpression),
-				equalityComparerScalar: null,
-				initialCapacity: initialCapacity);
-		}
-
-		[ObservableComputationsCall]
-		public static ObservableComputations.Distincting<TSourceItem> Distincting<TSourceItem>(this
-			 Expression<Func<ObservableCollection<TSourceItem>>> sourceExpression)
-		{
-			return new ObservableComputations.Distincting<TSourceItem>(
-				sourceScalar: new Computing<ObservableCollection<TSourceItem>>(sourceExpression),
-				equalityComparerScalar: null,
 				initialCapacity: 0);
 		}
 
@@ -5285,11 +5201,103 @@ namespace ObservableComputations
 		[ObservableComputationsCall]
 		public static ObservableComputations.Distincting<TSourceItem> Distincting<TSourceItem>(this
 			 System.Collections.Specialized.INotifyCollectionChanged source,
+			 Expression<Func<System.Collections.Generic.IEqualityComparer<TSourceItem>>> equalityComparerExpression,
 			 int initialCapacity)
 		{
 			return new ObservableComputations.Distincting<TSourceItem>(
 				source: source,
-				equalityComparerScalar: null,
+				equalityComparerScalar: new Computing<System.Collections.Generic.IEqualityComparer<TSourceItem>>(equalityComparerExpression),
+				initialCapacity: initialCapacity);
+		}
+
+		[ObservableComputationsCall]
+		public static ObservableComputations.Distincting<TSourceItem> Distincting<TSourceItem>(this
+			 System.Collections.Specialized.INotifyCollectionChanged source,
+			 Expression<Func<System.Collections.Generic.IEqualityComparer<TSourceItem>>> equalityComparerExpression)
+		{
+			return new ObservableComputations.Distincting<TSourceItem>(
+				source: source,
+				equalityComparerScalar: new Computing<System.Collections.Generic.IEqualityComparer<TSourceItem>>(equalityComparerExpression),
+				initialCapacity: 0);
+		}
+
+		[ObservableComputationsCall]
+		public static ObservableComputations.Distincting<TSourceItem> Distincting<TSourceItem>(this
+			 ObservableCollection<TSourceItem> source,
+			 ObservableComputations.IReadScalar<System.Collections.Generic.IEqualityComparer<TSourceItem>> equalityComparerScalar,
+			 int initialCapacity)
+		{
+			return new ObservableComputations.Distincting<TSourceItem>(
+				source: source,
+				equalityComparerScalar: equalityComparerScalar,
+				initialCapacity: initialCapacity);
+		}
+
+		[ObservableComputationsCall]
+		public static ObservableComputations.Distincting<TSourceItem> Distincting<TSourceItem>(this
+			 ObservableCollection<TSourceItem> source,
+			 ObservableComputations.IReadScalar<System.Collections.Generic.IEqualityComparer<TSourceItem>> equalityComparerScalar)
+		{
+			return new ObservableComputations.Distincting<TSourceItem>(
+				source: source,
+				equalityComparerScalar: equalityComparerScalar,
+				initialCapacity: 0);
+		}
+
+		[ObservableComputationsCall]
+		public static ObservableComputations.Distincting<TSourceItem> Distincting<TSourceItem>(this
+			 ObservableCollection<TSourceItem> source,
+			 Expression<Func<System.Collections.Generic.IEqualityComparer<TSourceItem>>> equalityComparerExpression,
+			 int initialCapacity)
+		{
+			return new ObservableComputations.Distincting<TSourceItem>(
+				source: source,
+				equalityComparerScalar: new Computing<System.Collections.Generic.IEqualityComparer<TSourceItem>>(equalityComparerExpression),
+				initialCapacity: initialCapacity);
+		}
+
+		[ObservableComputationsCall]
+		public static ObservableComputations.Distincting<TSourceItem> Distincting<TSourceItem>(this
+			 ObservableCollection<TSourceItem> source,
+			 Expression<Func<System.Collections.Generic.IEqualityComparer<TSourceItem>>> equalityComparerExpression)
+		{
+			return new ObservableComputations.Distincting<TSourceItem>(
+				source: source,
+				equalityComparerScalar: new Computing<System.Collections.Generic.IEqualityComparer<TSourceItem>>(equalityComparerExpression),
+				initialCapacity: 0);
+		}
+
+		[ObservableComputationsCall]
+		public static ObservableComputations.Distincting<TSourceItem> Distincting<TSourceItem>(this
+			 System.Collections.Specialized.INotifyCollectionChanged source,
+			 System.Collections.Generic.IEqualityComparer<TSourceItem> equalityComparer,
+			 int initialCapacity)
+		{
+			return new ObservableComputations.Distincting<TSourceItem>(
+				source: source,
+				equalityComparer: equalityComparer,
+				initialCapacity: initialCapacity);
+		}
+
+		[ObservableComputationsCall]
+		public static ObservableComputations.Distincting<TSourceItem> Distincting<TSourceItem>(this
+			 System.Collections.Specialized.INotifyCollectionChanged source,
+			 System.Collections.Generic.IEqualityComparer<TSourceItem> equalityComparer)
+		{
+			return new ObservableComputations.Distincting<TSourceItem>(
+				source: source,
+				equalityComparer: equalityComparer,
+				initialCapacity: 0);
+		}
+
+		[ObservableComputationsCall]
+		public static ObservableComputations.Distincting<TSourceItem> Distincting<TSourceItem>(this
+			 System.Collections.Specialized.INotifyCollectionChanged source,
+			 int initialCapacity)
+		{
+			return new ObservableComputations.Distincting<TSourceItem>(
+				source: source,
+				equalityComparer: null,
 				initialCapacity: initialCapacity);
 		}
 
@@ -5299,53 +5307,30 @@ namespace ObservableComputations
 		{
 			return new ObservableComputations.Distincting<TSourceItem>(
 				source: source,
-				equalityComparerScalar: null,
-				initialCapacity: 0);
-		}
-
-		[ObservableComputationsCall]
-		public static ObservableComputations.Distincting<TSourceItem> Distincting<TSourceItem>(this
-			 System.Collections.Specialized.INotifyCollectionChanged source,
-			 Expression<Func<System.Collections.Generic.IEqualityComparer<TSourceItem>>> equalityComparerExpression,
-			 int initialCapacity)
-		{
-			return new ObservableComputations.Distincting<TSourceItem>(
-				source: source,
-				equalityComparerScalar: new Computing<System.Collections.Generic.IEqualityComparer<TSourceItem>>(equalityComparerExpression),
-				initialCapacity: initialCapacity);
-		}
-
-		[ObservableComputationsCall]
-		public static ObservableComputations.Distincting<TSourceItem> Distincting<TSourceItem>(this
-			 System.Collections.Specialized.INotifyCollectionChanged source,
-			 Expression<Func<System.Collections.Generic.IEqualityComparer<TSourceItem>>> equalityComparerExpression)
-		{
-			return new ObservableComputations.Distincting<TSourceItem>(
-				source: source,
-				equalityComparerScalar: new Computing<System.Collections.Generic.IEqualityComparer<TSourceItem>>(equalityComparerExpression),
+				equalityComparer: null,
 				initialCapacity: 0);
 		}
 
 		[ObservableComputationsCall]
 		public static ObservableComputations.Distincting<TSourceItem> Distincting<TSourceItem>(this
 			 ObservableCollection<TSourceItem> source,
-			 ObservableComputations.IReadScalar<System.Collections.Generic.IEqualityComparer<TSourceItem>> equalityComparerScalar,
+			 System.Collections.Generic.IEqualityComparer<TSourceItem> equalityComparer,
 			 int initialCapacity)
 		{
 			return new ObservableComputations.Distincting<TSourceItem>(
 				source: source,
-				equalityComparerScalar: equalityComparerScalar,
+				equalityComparer: equalityComparer,
 				initialCapacity: initialCapacity);
 		}
 
 		[ObservableComputationsCall]
 		public static ObservableComputations.Distincting<TSourceItem> Distincting<TSourceItem>(this
 			 ObservableCollection<TSourceItem> source,
-			 ObservableComputations.IReadScalar<System.Collections.Generic.IEqualityComparer<TSourceItem>> equalityComparerScalar)
+			 System.Collections.Generic.IEqualityComparer<TSourceItem> equalityComparer)
 		{
 			return new ObservableComputations.Distincting<TSourceItem>(
 				source: source,
-				equalityComparerScalar: equalityComparerScalar,
+				equalityComparer: equalityComparer,
 				initialCapacity: 0);
 		}
 
@@ -5356,7 +5341,7 @@ namespace ObservableComputations
 		{
 			return new ObservableComputations.Distincting<TSourceItem>(
 				source: source,
-				equalityComparerScalar: null,
+				equalityComparer: null,
 				initialCapacity: initialCapacity);
 		}
 
@@ -5366,76 +5351,7 @@ namespace ObservableComputations
 		{
 			return new ObservableComputations.Distincting<TSourceItem>(
 				source: source,
-				equalityComparerScalar: null,
-				initialCapacity: 0);
-		}
-
-		[ObservableComputationsCall]
-		public static ObservableComputations.Distincting<TSourceItem> Distincting<TSourceItem>(this
-			 ObservableCollection<TSourceItem> source,
-			 Expression<Func<System.Collections.Generic.IEqualityComparer<TSourceItem>>> equalityComparerExpression,
-			 int initialCapacity)
-		{
-			return new ObservableComputations.Distincting<TSourceItem>(
-				source: source,
-				equalityComparerScalar: new Computing<System.Collections.Generic.IEqualityComparer<TSourceItem>>(equalityComparerExpression),
-				initialCapacity: initialCapacity);
-		}
-
-		[ObservableComputationsCall]
-		public static ObservableComputations.Distincting<TSourceItem> Distincting<TSourceItem>(this
-			 ObservableCollection<TSourceItem> source,
-			 Expression<Func<System.Collections.Generic.IEqualityComparer<TSourceItem>>> equalityComparerExpression)
-		{
-			return new ObservableComputations.Distincting<TSourceItem>(
-				source: source,
-				equalityComparerScalar: new Computing<System.Collections.Generic.IEqualityComparer<TSourceItem>>(equalityComparerExpression),
-				initialCapacity: 0);
-		}
-
-		[ObservableComputationsCall]
-		public static ObservableComputations.Distincting<TSourceItem> Distincting<TSourceItem>(this
-			 System.Collections.Specialized.INotifyCollectionChanged source,
-			 System.Collections.Generic.IEqualityComparer<TSourceItem> equalityComparer,
-			 int initialCapacity)
-		{
-			return new ObservableComputations.Distincting<TSourceItem>(
-				source: source,
-				equalityComparer: equalityComparer,
-				initialCapacity: initialCapacity);
-		}
-
-		[ObservableComputationsCall]
-		public static ObservableComputations.Distincting<TSourceItem> Distincting<TSourceItem>(this
-			 System.Collections.Specialized.INotifyCollectionChanged source,
-			 System.Collections.Generic.IEqualityComparer<TSourceItem> equalityComparer)
-		{
-			return new ObservableComputations.Distincting<TSourceItem>(
-				source: source,
-				equalityComparer: equalityComparer,
-				initialCapacity: 0);
-		}
-
-		[ObservableComputationsCall]
-		public static ObservableComputations.Distincting<TSourceItem> Distincting<TSourceItem>(this
-			 ObservableCollection<TSourceItem> source,
-			 System.Collections.Generic.IEqualityComparer<TSourceItem> equalityComparer,
-			 int initialCapacity)
-		{
-			return new ObservableComputations.Distincting<TSourceItem>(
-				source: source,
-				equalityComparer: equalityComparer,
-				initialCapacity: initialCapacity);
-		}
-
-		[ObservableComputationsCall]
-		public static ObservableComputations.Distincting<TSourceItem> Distincting<TSourceItem>(this
-			 ObservableCollection<TSourceItem> source,
-			 System.Collections.Generic.IEqualityComparer<TSourceItem> equalityComparer)
-		{
-			return new ObservableComputations.Distincting<TSourceItem>(
-				source: source,
-				equalityComparer: equalityComparer,
+				equalityComparer: null,
 				initialCapacity: 0);
 		}
 
@@ -5464,6 +5380,27 @@ namespace ObservableComputations
 
 		[ObservableComputationsCall]
 		public static ObservableComputations.Distincting<TSourceItem> Distincting<TSourceItem>(this
+			 ObservableComputations.IReadScalar<System.Collections.Specialized.INotifyCollectionChanged> sourceScalar,
+			 int initialCapacity)
+		{
+			return new ObservableComputations.Distincting<TSourceItem>(
+				sourceScalar: sourceScalar,
+				equalityComparer: null,
+				initialCapacity: initialCapacity);
+		}
+
+		[ObservableComputationsCall]
+		public static ObservableComputations.Distincting<TSourceItem> Distincting<TSourceItem>(this
+			 ObservableComputations.IReadScalar<System.Collections.Specialized.INotifyCollectionChanged> sourceScalar)
+		{
+			return new ObservableComputations.Distincting<TSourceItem>(
+				sourceScalar: sourceScalar,
+				equalityComparer: null,
+				initialCapacity: 0);
+		}
+
+		[ObservableComputationsCall]
+		public static ObservableComputations.Distincting<TSourceItem> Distincting<TSourceItem>(this
 			 ObservableComputations.IReadScalar<ObservableCollection<TSourceItem>> sourceScalar,
 			 System.Collections.Generic.IEqualityComparer<TSourceItem> equalityComparer,
 			 int initialCapacity)
@@ -5482,6 +5419,27 @@ namespace ObservableComputations
 			return new ObservableComputations.Distincting<TSourceItem>(
 				sourceScalar: sourceScalar,
 				equalityComparer: equalityComparer,
+				initialCapacity: 0);
+		}
+
+		[ObservableComputationsCall]
+		public static ObservableComputations.Distincting<TSourceItem> Distincting<TSourceItem>(this
+			 ObservableComputations.IReadScalar<ObservableCollection<TSourceItem>> sourceScalar,
+			 int initialCapacity)
+		{
+			return new ObservableComputations.Distincting<TSourceItem>(
+				sourceScalar: sourceScalar,
+				equalityComparer: null,
+				initialCapacity: initialCapacity);
+		}
+
+		[ObservableComputationsCall]
+		public static ObservableComputations.Distincting<TSourceItem> Distincting<TSourceItem>(this
+			 ObservableComputations.IReadScalar<ObservableCollection<TSourceItem>> sourceScalar)
+		{
+			return new ObservableComputations.Distincting<TSourceItem>(
+				sourceScalar: sourceScalar,
+				equalityComparer: null,
 				initialCapacity: 0);
 		}
 
@@ -5510,6 +5468,27 @@ namespace ObservableComputations
 
 		[ObservableComputationsCall]
 		public static ObservableComputations.Distincting<TSourceItem> Distincting<TSourceItem>(this
+			 Expression<Func<System.Collections.Specialized.INotifyCollectionChanged>> sourceExpression,
+			 int initialCapacity)
+		{
+			return new ObservableComputations.Distincting<TSourceItem>(
+				sourceScalar: new Computing<System.Collections.Specialized.INotifyCollectionChanged>(sourceExpression),
+				equalityComparer: null,
+				initialCapacity: initialCapacity);
+		}
+
+		[ObservableComputationsCall]
+		public static ObservableComputations.Distincting<TSourceItem> Distincting<TSourceItem>(this
+			 Expression<Func<System.Collections.Specialized.INotifyCollectionChanged>> sourceExpression)
+		{
+			return new ObservableComputations.Distincting<TSourceItem>(
+				sourceScalar: new Computing<System.Collections.Specialized.INotifyCollectionChanged>(sourceExpression),
+				equalityComparer: null,
+				initialCapacity: 0);
+		}
+
+		[ObservableComputationsCall]
+		public static ObservableComputations.Distincting<TSourceItem> Distincting<TSourceItem>(this
 			 Expression<Func<ObservableCollection<TSourceItem>>> sourceExpression,
 			 System.Collections.Generic.IEqualityComparer<TSourceItem> equalityComparer,
 			 int initialCapacity)
@@ -5528,6 +5507,27 @@ namespace ObservableComputations
 			return new ObservableComputations.Distincting<TSourceItem>(
 				sourceScalar: new Computing<ObservableCollection<TSourceItem>>(sourceExpression),
 				equalityComparer: equalityComparer,
+				initialCapacity: 0);
+		}
+
+		[ObservableComputationsCall]
+		public static ObservableComputations.Distincting<TSourceItem> Distincting<TSourceItem>(this
+			 Expression<Func<ObservableCollection<TSourceItem>>> sourceExpression,
+			 int initialCapacity)
+		{
+			return new ObservableComputations.Distincting<TSourceItem>(
+				sourceScalar: new Computing<ObservableCollection<TSourceItem>>(sourceExpression),
+				equalityComparer: null,
+				initialCapacity: initialCapacity);
+		}
+
+		[ObservableComputationsCall]
+		public static ObservableComputations.Distincting<TSourceItem> Distincting<TSourceItem>(this
+			 Expression<Func<ObservableCollection<TSourceItem>>> sourceExpression)
+		{
+			return new ObservableComputations.Distincting<TSourceItem>(
+				sourceScalar: new Computing<ObservableCollection<TSourceItem>>(sourceExpression),
+				equalityComparer: null,
 				initialCapacity: 0);
 		}
 
@@ -9693,31 +9693,6 @@ namespace ObservableComputations
 		public static ObservableComputations.Grouping<TSourceItem, TKey> Grouping<TSourceItem, TKey>(this
 			 ObservableComputations.IReadScalar<System.Collections.Specialized.INotifyCollectionChanged> sourceScalar,
 			 System.Linq.Expressions.Expression<System.Func<TSourceItem, TKey>> keySelectorExpression,
-			 int initialCapacity)
-		{
-			return new ObservableComputations.Grouping<TSourceItem, TKey>(
-				sourceScalar: sourceScalar,
-				keySelectorExpression: keySelectorExpression,
-				equalityComparerScalar: null,
-				initialCapacity: initialCapacity);
-		}
-
-		[ObservableComputationsCall]
-		public static ObservableComputations.Grouping<TSourceItem, TKey> Grouping<TSourceItem, TKey>(this
-			 ObservableComputations.IReadScalar<System.Collections.Specialized.INotifyCollectionChanged> sourceScalar,
-			 System.Linq.Expressions.Expression<System.Func<TSourceItem, TKey>> keySelectorExpression)
-		{
-			return new ObservableComputations.Grouping<TSourceItem, TKey>(
-				sourceScalar: sourceScalar,
-				keySelectorExpression: keySelectorExpression,
-				equalityComparerScalar: null,
-				initialCapacity: 0);
-		}
-
-		[ObservableComputationsCall]
-		public static ObservableComputations.Grouping<TSourceItem, TKey> Grouping<TSourceItem, TKey>(this
-			 ObservableComputations.IReadScalar<System.Collections.Specialized.INotifyCollectionChanged> sourceScalar,
-			 System.Linq.Expressions.Expression<System.Func<TSourceItem, TKey>> keySelectorExpression,
 			 Expression<Func<System.Collections.Generic.IEqualityComparer<TKey>>> equalityComparerExpression,
 			 int initialCapacity)
 		{
@@ -9765,31 +9740,6 @@ namespace ObservableComputations
 				sourceScalar: sourceScalar,
 				keySelectorExpression: keySelectorExpression,
 				equalityComparerScalar: equalityComparerScalar,
-				initialCapacity: 0);
-		}
-
-		[ObservableComputationsCall]
-		public static ObservableComputations.Grouping<TSourceItem, TKey> Grouping<TSourceItem, TKey>(this
-			 ObservableComputations.IReadScalar<ObservableCollection<TSourceItem>> sourceScalar,
-			 System.Linq.Expressions.Expression<System.Func<TSourceItem, TKey>> keySelectorExpression,
-			 int initialCapacity)
-		{
-			return new ObservableComputations.Grouping<TSourceItem, TKey>(
-				sourceScalar: sourceScalar,
-				keySelectorExpression: keySelectorExpression,
-				equalityComparerScalar: null,
-				initialCapacity: initialCapacity);
-		}
-
-		[ObservableComputationsCall]
-		public static ObservableComputations.Grouping<TSourceItem, TKey> Grouping<TSourceItem, TKey>(this
-			 ObservableComputations.IReadScalar<ObservableCollection<TSourceItem>> sourceScalar,
-			 System.Linq.Expressions.Expression<System.Func<TSourceItem, TKey>> keySelectorExpression)
-		{
-			return new ObservableComputations.Grouping<TSourceItem, TKey>(
-				sourceScalar: sourceScalar,
-				keySelectorExpression: keySelectorExpression,
-				equalityComparerScalar: null,
 				initialCapacity: 0);
 		}
 
@@ -9851,31 +9801,6 @@ namespace ObservableComputations
 		public static ObservableComputations.Grouping<TSourceItem, TKey> Grouping<TSourceItem, TKey>(this
 			 Expression<Func<System.Collections.Specialized.INotifyCollectionChanged>> sourceExpression,
 			 System.Linq.Expressions.Expression<System.Func<TSourceItem, TKey>> keySelectorExpression,
-			 int initialCapacity)
-		{
-			return new ObservableComputations.Grouping<TSourceItem, TKey>(
-				sourceScalar: new Computing<System.Collections.Specialized.INotifyCollectionChanged>(sourceExpression),
-				keySelectorExpression: keySelectorExpression,
-				equalityComparerScalar: null,
-				initialCapacity: initialCapacity);
-		}
-
-		[ObservableComputationsCall]
-		public static ObservableComputations.Grouping<TSourceItem, TKey> Grouping<TSourceItem, TKey>(this
-			 Expression<Func<System.Collections.Specialized.INotifyCollectionChanged>> sourceExpression,
-			 System.Linq.Expressions.Expression<System.Func<TSourceItem, TKey>> keySelectorExpression)
-		{
-			return new ObservableComputations.Grouping<TSourceItem, TKey>(
-				sourceScalar: new Computing<System.Collections.Specialized.INotifyCollectionChanged>(sourceExpression),
-				keySelectorExpression: keySelectorExpression,
-				equalityComparerScalar: null,
-				initialCapacity: 0);
-		}
-
-		[ObservableComputationsCall]
-		public static ObservableComputations.Grouping<TSourceItem, TKey> Grouping<TSourceItem, TKey>(this
-			 Expression<Func<System.Collections.Specialized.INotifyCollectionChanged>> sourceExpression,
-			 System.Linq.Expressions.Expression<System.Func<TSourceItem, TKey>> keySelectorExpression,
 			 Expression<Func<System.Collections.Generic.IEqualityComparer<TKey>>> equalityComparerExpression,
 			 int initialCapacity)
 		{
@@ -9923,31 +9848,6 @@ namespace ObservableComputations
 				sourceScalar: new Computing<ObservableCollection<TSourceItem>>(sourceExpression),
 				keySelectorExpression: keySelectorExpression,
 				equalityComparerScalar: equalityComparerScalar,
-				initialCapacity: 0);
-		}
-
-		[ObservableComputationsCall]
-		public static ObservableComputations.Grouping<TSourceItem, TKey> Grouping<TSourceItem, TKey>(this
-			 Expression<Func<ObservableCollection<TSourceItem>>> sourceExpression,
-			 System.Linq.Expressions.Expression<System.Func<TSourceItem, TKey>> keySelectorExpression,
-			 int initialCapacity)
-		{
-			return new ObservableComputations.Grouping<TSourceItem, TKey>(
-				sourceScalar: new Computing<ObservableCollection<TSourceItem>>(sourceExpression),
-				keySelectorExpression: keySelectorExpression,
-				equalityComparerScalar: null,
-				initialCapacity: initialCapacity);
-		}
-
-		[ObservableComputationsCall]
-		public static ObservableComputations.Grouping<TSourceItem, TKey> Grouping<TSourceItem, TKey>(this
-			 Expression<Func<ObservableCollection<TSourceItem>>> sourceExpression,
-			 System.Linq.Expressions.Expression<System.Func<TSourceItem, TKey>> keySelectorExpression)
-		{
-			return new ObservableComputations.Grouping<TSourceItem, TKey>(
-				sourceScalar: new Computing<ObservableCollection<TSourceItem>>(sourceExpression),
-				keySelectorExpression: keySelectorExpression,
-				equalityComparerScalar: null,
 				initialCapacity: 0);
 		}
 
@@ -10009,31 +9909,6 @@ namespace ObservableComputations
 		public static ObservableComputations.Grouping<TSourceItem, TKey> Grouping<TSourceItem, TKey>(this
 			 System.Collections.Specialized.INotifyCollectionChanged source,
 			 System.Linq.Expressions.Expression<System.Func<TSourceItem, TKey>> keySelectorExpression,
-			 int initialCapacity)
-		{
-			return new ObservableComputations.Grouping<TSourceItem, TKey>(
-				source: source,
-				keySelectorExpression: keySelectorExpression,
-				equalityComparerScalar: null,
-				initialCapacity: initialCapacity);
-		}
-
-		[ObservableComputationsCall]
-		public static ObservableComputations.Grouping<TSourceItem, TKey> Grouping<TSourceItem, TKey>(this
-			 System.Collections.Specialized.INotifyCollectionChanged source,
-			 System.Linq.Expressions.Expression<System.Func<TSourceItem, TKey>> keySelectorExpression)
-		{
-			return new ObservableComputations.Grouping<TSourceItem, TKey>(
-				source: source,
-				keySelectorExpression: keySelectorExpression,
-				equalityComparerScalar: null,
-				initialCapacity: 0);
-		}
-
-		[ObservableComputationsCall]
-		public static ObservableComputations.Grouping<TSourceItem, TKey> Grouping<TSourceItem, TKey>(this
-			 System.Collections.Specialized.INotifyCollectionChanged source,
-			 System.Linq.Expressions.Expression<System.Func<TSourceItem, TKey>> keySelectorExpression,
 			 Expression<Func<System.Collections.Generic.IEqualityComparer<TKey>>> equalityComparerExpression,
 			 int initialCapacity)
 		{
@@ -10081,31 +9956,6 @@ namespace ObservableComputations
 				source: source,
 				keySelectorExpression: keySelectorExpression,
 				equalityComparerScalar: equalityComparerScalar,
-				initialCapacity: 0);
-		}
-
-		[ObservableComputationsCall]
-		public static ObservableComputations.Grouping<TSourceItem, TKey> Grouping<TSourceItem, TKey>(this
-			 ObservableCollection<TSourceItem> source,
-			 System.Linq.Expressions.Expression<System.Func<TSourceItem, TKey>> keySelectorExpression,
-			 int initialCapacity)
-		{
-			return new ObservableComputations.Grouping<TSourceItem, TKey>(
-				source: source,
-				keySelectorExpression: keySelectorExpression,
-				equalityComparerScalar: null,
-				initialCapacity: initialCapacity);
-		}
-
-		[ObservableComputationsCall]
-		public static ObservableComputations.Grouping<TSourceItem, TKey> Grouping<TSourceItem, TKey>(this
-			 ObservableCollection<TSourceItem> source,
-			 System.Linq.Expressions.Expression<System.Func<TSourceItem, TKey>> keySelectorExpression)
-		{
-			return new ObservableComputations.Grouping<TSourceItem, TKey>(
-				source: source,
-				keySelectorExpression: keySelectorExpression,
-				equalityComparerScalar: null,
 				initialCapacity: 0);
 		}
 
@@ -10165,6 +10015,31 @@ namespace ObservableComputations
 
 		[ObservableComputationsCall]
 		public static ObservableComputations.Grouping<TSourceItem, TKey> Grouping<TSourceItem, TKey>(this
+			 ObservableComputations.IReadScalar<System.Collections.Specialized.INotifyCollectionChanged> sourceScalar,
+			 System.Linq.Expressions.Expression<System.Func<TSourceItem, TKey>> keySelectorExpression,
+			 int initialCapacity)
+		{
+			return new ObservableComputations.Grouping<TSourceItem, TKey>(
+				sourceScalar: sourceScalar,
+				keySelectorExpression: keySelectorExpression,
+				equalityComparer: null,
+				initialCapacity: initialCapacity);
+		}
+
+		[ObservableComputationsCall]
+		public static ObservableComputations.Grouping<TSourceItem, TKey> Grouping<TSourceItem, TKey>(this
+			 ObservableComputations.IReadScalar<System.Collections.Specialized.INotifyCollectionChanged> sourceScalar,
+			 System.Linq.Expressions.Expression<System.Func<TSourceItem, TKey>> keySelectorExpression)
+		{
+			return new ObservableComputations.Grouping<TSourceItem, TKey>(
+				sourceScalar: sourceScalar,
+				keySelectorExpression: keySelectorExpression,
+				equalityComparer: null,
+				initialCapacity: 0);
+		}
+
+		[ObservableComputationsCall]
+		public static ObservableComputations.Grouping<TSourceItem, TKey> Grouping<TSourceItem, TKey>(this
 			 ObservableComputations.IReadScalar<ObservableCollection<TSourceItem>> sourceScalar,
 			 System.Linq.Expressions.Expression<System.Func<TSourceItem, TKey>> keySelectorExpression,
 			 System.Collections.Generic.IEqualityComparer<TKey> equalityComparer,
@@ -10187,6 +10062,31 @@ namespace ObservableComputations
 				sourceScalar: sourceScalar,
 				keySelectorExpression: keySelectorExpression,
 				equalityComparer: equalityComparer,
+				initialCapacity: 0);
+		}
+
+		[ObservableComputationsCall]
+		public static ObservableComputations.Grouping<TSourceItem, TKey> Grouping<TSourceItem, TKey>(this
+			 ObservableComputations.IReadScalar<ObservableCollection<TSourceItem>> sourceScalar,
+			 System.Linq.Expressions.Expression<System.Func<TSourceItem, TKey>> keySelectorExpression,
+			 int initialCapacity)
+		{
+			return new ObservableComputations.Grouping<TSourceItem, TKey>(
+				sourceScalar: sourceScalar,
+				keySelectorExpression: keySelectorExpression,
+				equalityComparer: null,
+				initialCapacity: initialCapacity);
+		}
+
+		[ObservableComputationsCall]
+		public static ObservableComputations.Grouping<TSourceItem, TKey> Grouping<TSourceItem, TKey>(this
+			 ObservableComputations.IReadScalar<ObservableCollection<TSourceItem>> sourceScalar,
+			 System.Linq.Expressions.Expression<System.Func<TSourceItem, TKey>> keySelectorExpression)
+		{
+			return new ObservableComputations.Grouping<TSourceItem, TKey>(
+				sourceScalar: sourceScalar,
+				keySelectorExpression: keySelectorExpression,
+				equalityComparer: null,
 				initialCapacity: 0);
 		}
 
@@ -10219,6 +10119,31 @@ namespace ObservableComputations
 
 		[ObservableComputationsCall]
 		public static ObservableComputations.Grouping<TSourceItem, TKey> Grouping<TSourceItem, TKey>(this
+			 Expression<Func<System.Collections.Specialized.INotifyCollectionChanged>> sourceExpression,
+			 System.Linq.Expressions.Expression<System.Func<TSourceItem, TKey>> keySelectorExpression,
+			 int initialCapacity)
+		{
+			return new ObservableComputations.Grouping<TSourceItem, TKey>(
+				sourceScalar: new Computing<System.Collections.Specialized.INotifyCollectionChanged>(sourceExpression),
+				keySelectorExpression: keySelectorExpression,
+				equalityComparer: null,
+				initialCapacity: initialCapacity);
+		}
+
+		[ObservableComputationsCall]
+		public static ObservableComputations.Grouping<TSourceItem, TKey> Grouping<TSourceItem, TKey>(this
+			 Expression<Func<System.Collections.Specialized.INotifyCollectionChanged>> sourceExpression,
+			 System.Linq.Expressions.Expression<System.Func<TSourceItem, TKey>> keySelectorExpression)
+		{
+			return new ObservableComputations.Grouping<TSourceItem, TKey>(
+				sourceScalar: new Computing<System.Collections.Specialized.INotifyCollectionChanged>(sourceExpression),
+				keySelectorExpression: keySelectorExpression,
+				equalityComparer: null,
+				initialCapacity: 0);
+		}
+
+		[ObservableComputationsCall]
+		public static ObservableComputations.Grouping<TSourceItem, TKey> Grouping<TSourceItem, TKey>(this
 			 Expression<Func<ObservableCollection<TSourceItem>>> sourceExpression,
 			 System.Linq.Expressions.Expression<System.Func<TSourceItem, TKey>> keySelectorExpression,
 			 System.Collections.Generic.IEqualityComparer<TKey> equalityComparer,
@@ -10241,6 +10166,31 @@ namespace ObservableComputations
 				sourceScalar: new Computing<ObservableCollection<TSourceItem>>(sourceExpression),
 				keySelectorExpression: keySelectorExpression,
 				equalityComparer: equalityComparer,
+				initialCapacity: 0);
+		}
+
+		[ObservableComputationsCall]
+		public static ObservableComputations.Grouping<TSourceItem, TKey> Grouping<TSourceItem, TKey>(this
+			 Expression<Func<ObservableCollection<TSourceItem>>> sourceExpression,
+			 System.Linq.Expressions.Expression<System.Func<TSourceItem, TKey>> keySelectorExpression,
+			 int initialCapacity)
+		{
+			return new ObservableComputations.Grouping<TSourceItem, TKey>(
+				sourceScalar: new Computing<ObservableCollection<TSourceItem>>(sourceExpression),
+				keySelectorExpression: keySelectorExpression,
+				equalityComparer: null,
+				initialCapacity: initialCapacity);
+		}
+
+		[ObservableComputationsCall]
+		public static ObservableComputations.Grouping<TSourceItem, TKey> Grouping<TSourceItem, TKey>(this
+			 Expression<Func<ObservableCollection<TSourceItem>>> sourceExpression,
+			 System.Linq.Expressions.Expression<System.Func<TSourceItem, TKey>> keySelectorExpression)
+		{
+			return new ObservableComputations.Grouping<TSourceItem, TKey>(
+				sourceScalar: new Computing<ObservableCollection<TSourceItem>>(sourceExpression),
+				keySelectorExpression: keySelectorExpression,
+				equalityComparer: null,
 				initialCapacity: 0);
 		}
 
@@ -10273,6 +10223,31 @@ namespace ObservableComputations
 
 		[ObservableComputationsCall]
 		public static ObservableComputations.Grouping<TSourceItem, TKey> Grouping<TSourceItem, TKey>(this
+			 System.Collections.Specialized.INotifyCollectionChanged source,
+			 System.Linq.Expressions.Expression<System.Func<TSourceItem, TKey>> keySelectorExpression,
+			 int initialCapacity)
+		{
+			return new ObservableComputations.Grouping<TSourceItem, TKey>(
+				source: source,
+				keySelectorExpression: keySelectorExpression,
+				equalityComparer: null,
+				initialCapacity: initialCapacity);
+		}
+
+		[ObservableComputationsCall]
+		public static ObservableComputations.Grouping<TSourceItem, TKey> Grouping<TSourceItem, TKey>(this
+			 System.Collections.Specialized.INotifyCollectionChanged source,
+			 System.Linq.Expressions.Expression<System.Func<TSourceItem, TKey>> keySelectorExpression)
+		{
+			return new ObservableComputations.Grouping<TSourceItem, TKey>(
+				source: source,
+				keySelectorExpression: keySelectorExpression,
+				equalityComparer: null,
+				initialCapacity: 0);
+		}
+
+		[ObservableComputationsCall]
+		public static ObservableComputations.Grouping<TSourceItem, TKey> Grouping<TSourceItem, TKey>(this
 			 ObservableCollection<TSourceItem> source,
 			 System.Linq.Expressions.Expression<System.Func<TSourceItem, TKey>> keySelectorExpression,
 			 System.Collections.Generic.IEqualityComparer<TKey> equalityComparer,
@@ -10295,6 +10270,31 @@ namespace ObservableComputations
 				source: source,
 				keySelectorExpression: keySelectorExpression,
 				equalityComparer: equalityComparer,
+				initialCapacity: 0);
+		}
+
+		[ObservableComputationsCall]
+		public static ObservableComputations.Grouping<TSourceItem, TKey> Grouping<TSourceItem, TKey>(this
+			 ObservableCollection<TSourceItem> source,
+			 System.Linq.Expressions.Expression<System.Func<TSourceItem, TKey>> keySelectorExpression,
+			 int initialCapacity)
+		{
+			return new ObservableComputations.Grouping<TSourceItem, TKey>(
+				source: source,
+				keySelectorExpression: keySelectorExpression,
+				equalityComparer: null,
+				initialCapacity: initialCapacity);
+		}
+
+		[ObservableComputationsCall]
+		public static ObservableComputations.Grouping<TSourceItem, TKey> Grouping<TSourceItem, TKey>(this
+			 ObservableCollection<TSourceItem> source,
+			 System.Linq.Expressions.Expression<System.Func<TSourceItem, TKey>> keySelectorExpression)
+		{
+			return new ObservableComputations.Grouping<TSourceItem, TKey>(
+				source: source,
+				keySelectorExpression: keySelectorExpression,
+				equalityComparer: null,
 				initialCapacity: 0);
 		}
 
@@ -10322,21 +10322,6 @@ namespace ObservableComputations
 			 ObservableComputations.IReadScalar<System.Collections.Specialized.INotifyCollectionChanged> outerSourceScalar,
 			 ObservableComputations.IReadScalar<System.Collections.Specialized.INotifyCollectionChanged> innerSourceScalar,
 			 System.Linq.Expressions.Expression<System.Func<TOuterSourceItem, TKey>> outerKeySelector,
-			 System.Linq.Expressions.Expression<System.Func<TInnerSourceItem, TKey>> innerKeySelector)
-		{
-			return new ObservableComputations.GroupJoining<TOuterSourceItem, TInnerSourceItem, TKey>(
-				outerSourceScalar: outerSourceScalar,
-				innerSourceScalar: innerSourceScalar,
-				outerKeySelector: outerKeySelector,
-				innerKeySelector: innerKeySelector,
-				equalityComparerScalar: null);
-		}
-
-		[ObservableComputationsCall]
-		public static ObservableComputations.GroupJoining<TOuterSourceItem, TInnerSourceItem, TKey> GroupJoining<TOuterSourceItem, TInnerSourceItem, TKey>(this
-			 ObservableComputations.IReadScalar<System.Collections.Specialized.INotifyCollectionChanged> outerSourceScalar,
-			 ObservableComputations.IReadScalar<System.Collections.Specialized.INotifyCollectionChanged> innerSourceScalar,
-			 System.Linq.Expressions.Expression<System.Func<TOuterSourceItem, TKey>> outerKeySelector,
 			 System.Linq.Expressions.Expression<System.Func<TInnerSourceItem, TKey>> innerKeySelector,
 			 Expression<Func<System.Collections.Generic.IEqualityComparer<TKey>>> equalityComparerExpression)
 		{
@@ -10362,21 +10347,6 @@ namespace ObservableComputations
 				outerKeySelector: outerKeySelector,
 				innerKeySelector: innerKeySelector,
 				equalityComparerScalar: equalityComparerScalar);
-		}
-
-		[ObservableComputationsCall]
-		public static ObservableComputations.GroupJoining<TOuterSourceItem, TInnerSourceItem, TKey> GroupJoining<TOuterSourceItem, TInnerSourceItem, TKey>(this
-			 ObservableComputations.IReadScalar<System.Collections.Specialized.INotifyCollectionChanged> outerSourceScalar,
-			 ObservableComputations.IReadScalar<ObservableCollection<TInnerSourceItem>> innerSourceScalar,
-			 System.Linq.Expressions.Expression<System.Func<TOuterSourceItem, TKey>> outerKeySelector,
-			 System.Linq.Expressions.Expression<System.Func<TInnerSourceItem, TKey>> innerKeySelector)
-		{
-			return new ObservableComputations.GroupJoining<TOuterSourceItem, TInnerSourceItem, TKey>(
-				outerSourceScalar: outerSourceScalar,
-				innerSourceScalar: innerSourceScalar,
-				outerKeySelector: outerKeySelector,
-				innerKeySelector: innerKeySelector,
-				equalityComparerScalar: null);
 		}
 
 		[ObservableComputationsCall]
@@ -10416,21 +10386,6 @@ namespace ObservableComputations
 			 ObservableComputations.IReadScalar<System.Collections.Specialized.INotifyCollectionChanged> outerSourceScalar,
 			 Expression<Func<System.Collections.Specialized.INotifyCollectionChanged>> innerSourceExpression,
 			 System.Linq.Expressions.Expression<System.Func<TOuterSourceItem, TKey>> outerKeySelector,
-			 System.Linq.Expressions.Expression<System.Func<TInnerSourceItem, TKey>> innerKeySelector)
-		{
-			return new ObservableComputations.GroupJoining<TOuterSourceItem, TInnerSourceItem, TKey>(
-				outerSourceScalar: outerSourceScalar,
-				innerSourceScalar: new Computing<System.Collections.Specialized.INotifyCollectionChanged>(innerSourceExpression),
-				outerKeySelector: outerKeySelector,
-				innerKeySelector: innerKeySelector,
-				equalityComparerScalar: null);
-		}
-
-		[ObservableComputationsCall]
-		public static ObservableComputations.GroupJoining<TOuterSourceItem, TInnerSourceItem, TKey> GroupJoining<TOuterSourceItem, TInnerSourceItem, TKey>(this
-			 ObservableComputations.IReadScalar<System.Collections.Specialized.INotifyCollectionChanged> outerSourceScalar,
-			 Expression<Func<System.Collections.Specialized.INotifyCollectionChanged>> innerSourceExpression,
-			 System.Linq.Expressions.Expression<System.Func<TOuterSourceItem, TKey>> outerKeySelector,
 			 System.Linq.Expressions.Expression<System.Func<TInnerSourceItem, TKey>> innerKeySelector,
 			 Expression<Func<System.Collections.Generic.IEqualityComparer<TKey>>> equalityComparerExpression)
 		{
@@ -10463,21 +10418,6 @@ namespace ObservableComputations
 			 ObservableComputations.IReadScalar<System.Collections.Specialized.INotifyCollectionChanged> outerSourceScalar,
 			 Expression<Func<ObservableCollection<TInnerSourceItem>>> innerSourceExpression,
 			 System.Linq.Expressions.Expression<System.Func<TOuterSourceItem, TKey>> outerKeySelector,
-			 System.Linq.Expressions.Expression<System.Func<TInnerSourceItem, TKey>> innerKeySelector)
-		{
-			return new ObservableComputations.GroupJoining<TOuterSourceItem, TInnerSourceItem, TKey>(
-				outerSourceScalar: outerSourceScalar,
-				innerSourceScalar: new Computing<ObservableCollection<TInnerSourceItem>>(innerSourceExpression),
-				outerKeySelector: outerKeySelector,
-				innerKeySelector: innerKeySelector,
-				equalityComparerScalar: null);
-		}
-
-		[ObservableComputationsCall]
-		public static ObservableComputations.GroupJoining<TOuterSourceItem, TInnerSourceItem, TKey> GroupJoining<TOuterSourceItem, TInnerSourceItem, TKey>(this
-			 ObservableComputations.IReadScalar<System.Collections.Specialized.INotifyCollectionChanged> outerSourceScalar,
-			 Expression<Func<ObservableCollection<TInnerSourceItem>>> innerSourceExpression,
-			 System.Linq.Expressions.Expression<System.Func<TOuterSourceItem, TKey>> outerKeySelector,
 			 System.Linq.Expressions.Expression<System.Func<TInnerSourceItem, TKey>> innerKeySelector,
 			 Expression<Func<System.Collections.Generic.IEqualityComparer<TKey>>> equalityComparerExpression)
 		{
@@ -10503,21 +10443,6 @@ namespace ObservableComputations
 				outerKeySelector: outerKeySelector,
 				innerKeySelector: innerKeySelector,
 				equalityComparerScalar: equalityComparerScalar);
-		}
-
-		[ObservableComputationsCall]
-		public static ObservableComputations.GroupJoining<TOuterSourceItem, TInnerSourceItem, TKey> GroupJoining<TOuterSourceItem, TInnerSourceItem, TKey>(this
-			 ObservableComputations.IReadScalar<ObservableCollection<TOuterSourceItem>> outerSourceScalar,
-			 ObservableComputations.IReadScalar<System.Collections.Specialized.INotifyCollectionChanged> innerSourceScalar,
-			 System.Linq.Expressions.Expression<System.Func<TOuterSourceItem, TKey>> outerKeySelector,
-			 System.Linq.Expressions.Expression<System.Func<TInnerSourceItem, TKey>> innerKeySelector)
-		{
-			return new ObservableComputations.GroupJoining<TOuterSourceItem, TInnerSourceItem, TKey>(
-				outerSourceScalar: outerSourceScalar,
-				innerSourceScalar: innerSourceScalar,
-				outerKeySelector: outerKeySelector,
-				innerKeySelector: innerKeySelector,
-				equalityComparerScalar: null);
 		}
 
 		[ObservableComputationsCall]
@@ -10557,21 +10482,6 @@ namespace ObservableComputations
 			 ObservableComputations.IReadScalar<ObservableCollection<TOuterSourceItem>> outerSourceScalar,
 			 ObservableComputations.IReadScalar<ObservableCollection<TInnerSourceItem>> innerSourceScalar,
 			 System.Linq.Expressions.Expression<System.Func<TOuterSourceItem, TKey>> outerKeySelector,
-			 System.Linq.Expressions.Expression<System.Func<TInnerSourceItem, TKey>> innerKeySelector)
-		{
-			return new ObservableComputations.GroupJoining<TOuterSourceItem, TInnerSourceItem, TKey>(
-				outerSourceScalar: outerSourceScalar,
-				innerSourceScalar: innerSourceScalar,
-				outerKeySelector: outerKeySelector,
-				innerKeySelector: innerKeySelector,
-				equalityComparerScalar: null);
-		}
-
-		[ObservableComputationsCall]
-		public static ObservableComputations.GroupJoining<TOuterSourceItem, TInnerSourceItem, TKey> GroupJoining<TOuterSourceItem, TInnerSourceItem, TKey>(this
-			 ObservableComputations.IReadScalar<ObservableCollection<TOuterSourceItem>> outerSourceScalar,
-			 ObservableComputations.IReadScalar<ObservableCollection<TInnerSourceItem>> innerSourceScalar,
-			 System.Linq.Expressions.Expression<System.Func<TOuterSourceItem, TKey>> outerKeySelector,
 			 System.Linq.Expressions.Expression<System.Func<TInnerSourceItem, TKey>> innerKeySelector,
 			 Expression<Func<System.Collections.Generic.IEqualityComparer<TKey>>> equalityComparerExpression)
 		{
@@ -10604,21 +10514,6 @@ namespace ObservableComputations
 			 ObservableComputations.IReadScalar<ObservableCollection<TOuterSourceItem>> outerSourceScalar,
 			 Expression<Func<System.Collections.Specialized.INotifyCollectionChanged>> innerSourceExpression,
 			 System.Linq.Expressions.Expression<System.Func<TOuterSourceItem, TKey>> outerKeySelector,
-			 System.Linq.Expressions.Expression<System.Func<TInnerSourceItem, TKey>> innerKeySelector)
-		{
-			return new ObservableComputations.GroupJoining<TOuterSourceItem, TInnerSourceItem, TKey>(
-				outerSourceScalar: outerSourceScalar,
-				innerSourceScalar: new Computing<System.Collections.Specialized.INotifyCollectionChanged>(innerSourceExpression),
-				outerKeySelector: outerKeySelector,
-				innerKeySelector: innerKeySelector,
-				equalityComparerScalar: null);
-		}
-
-		[ObservableComputationsCall]
-		public static ObservableComputations.GroupJoining<TOuterSourceItem, TInnerSourceItem, TKey> GroupJoining<TOuterSourceItem, TInnerSourceItem, TKey>(this
-			 ObservableComputations.IReadScalar<ObservableCollection<TOuterSourceItem>> outerSourceScalar,
-			 Expression<Func<System.Collections.Specialized.INotifyCollectionChanged>> innerSourceExpression,
-			 System.Linq.Expressions.Expression<System.Func<TOuterSourceItem, TKey>> outerKeySelector,
 			 System.Linq.Expressions.Expression<System.Func<TInnerSourceItem, TKey>> innerKeySelector,
 			 Expression<Func<System.Collections.Generic.IEqualityComparer<TKey>>> equalityComparerExpression)
 		{
@@ -10644,21 +10539,6 @@ namespace ObservableComputations
 				outerKeySelector: outerKeySelector,
 				innerKeySelector: innerKeySelector,
 				equalityComparerScalar: equalityComparerScalar);
-		}
-
-		[ObservableComputationsCall]
-		public static ObservableComputations.GroupJoining<TOuterSourceItem, TInnerSourceItem, TKey> GroupJoining<TOuterSourceItem, TInnerSourceItem, TKey>(this
-			 ObservableComputations.IReadScalar<ObservableCollection<TOuterSourceItem>> outerSourceScalar,
-			 Expression<Func<ObservableCollection<TInnerSourceItem>>> innerSourceExpression,
-			 System.Linq.Expressions.Expression<System.Func<TOuterSourceItem, TKey>> outerKeySelector,
-			 System.Linq.Expressions.Expression<System.Func<TInnerSourceItem, TKey>> innerKeySelector)
-		{
-			return new ObservableComputations.GroupJoining<TOuterSourceItem, TInnerSourceItem, TKey>(
-				outerSourceScalar: outerSourceScalar,
-				innerSourceScalar: new Computing<ObservableCollection<TInnerSourceItem>>(innerSourceExpression),
-				outerKeySelector: outerKeySelector,
-				innerKeySelector: innerKeySelector,
-				equalityComparerScalar: null);
 		}
 
 		[ObservableComputationsCall]
@@ -10698,21 +10578,6 @@ namespace ObservableComputations
 			 Expression<Func<System.Collections.Specialized.INotifyCollectionChanged>> outerSourceExpression,
 			 ObservableComputations.IReadScalar<System.Collections.Specialized.INotifyCollectionChanged> innerSourceScalar,
 			 System.Linq.Expressions.Expression<System.Func<TOuterSourceItem, TKey>> outerKeySelector,
-			 System.Linq.Expressions.Expression<System.Func<TInnerSourceItem, TKey>> innerKeySelector)
-		{
-			return new ObservableComputations.GroupJoining<TOuterSourceItem, TInnerSourceItem, TKey>(
-				outerSourceScalar: new Computing<System.Collections.Specialized.INotifyCollectionChanged>(outerSourceExpression),
-				innerSourceScalar: innerSourceScalar,
-				outerKeySelector: outerKeySelector,
-				innerKeySelector: innerKeySelector,
-				equalityComparerScalar: null);
-		}
-
-		[ObservableComputationsCall]
-		public static ObservableComputations.GroupJoining<TOuterSourceItem, TInnerSourceItem, TKey> GroupJoining<TOuterSourceItem, TInnerSourceItem, TKey>(this
-			 Expression<Func<System.Collections.Specialized.INotifyCollectionChanged>> outerSourceExpression,
-			 ObservableComputations.IReadScalar<System.Collections.Specialized.INotifyCollectionChanged> innerSourceScalar,
-			 System.Linq.Expressions.Expression<System.Func<TOuterSourceItem, TKey>> outerKeySelector,
 			 System.Linq.Expressions.Expression<System.Func<TInnerSourceItem, TKey>> innerKeySelector,
 			 Expression<Func<System.Collections.Generic.IEqualityComparer<TKey>>> equalityComparerExpression)
 		{
@@ -10745,21 +10610,6 @@ namespace ObservableComputations
 			 Expression<Func<System.Collections.Specialized.INotifyCollectionChanged>> outerSourceExpression,
 			 ObservableComputations.IReadScalar<ObservableCollection<TInnerSourceItem>> innerSourceScalar,
 			 System.Linq.Expressions.Expression<System.Func<TOuterSourceItem, TKey>> outerKeySelector,
-			 System.Linq.Expressions.Expression<System.Func<TInnerSourceItem, TKey>> innerKeySelector)
-		{
-			return new ObservableComputations.GroupJoining<TOuterSourceItem, TInnerSourceItem, TKey>(
-				outerSourceScalar: new Computing<System.Collections.Specialized.INotifyCollectionChanged>(outerSourceExpression),
-				innerSourceScalar: innerSourceScalar,
-				outerKeySelector: outerKeySelector,
-				innerKeySelector: innerKeySelector,
-				equalityComparerScalar: null);
-		}
-
-		[ObservableComputationsCall]
-		public static ObservableComputations.GroupJoining<TOuterSourceItem, TInnerSourceItem, TKey> GroupJoining<TOuterSourceItem, TInnerSourceItem, TKey>(this
-			 Expression<Func<System.Collections.Specialized.INotifyCollectionChanged>> outerSourceExpression,
-			 ObservableComputations.IReadScalar<ObservableCollection<TInnerSourceItem>> innerSourceScalar,
-			 System.Linq.Expressions.Expression<System.Func<TOuterSourceItem, TKey>> outerKeySelector,
 			 System.Linq.Expressions.Expression<System.Func<TInnerSourceItem, TKey>> innerKeySelector,
 			 Expression<Func<System.Collections.Generic.IEqualityComparer<TKey>>> equalityComparerExpression)
 		{
@@ -10785,21 +10635,6 @@ namespace ObservableComputations
 				outerKeySelector: outerKeySelector,
 				innerKeySelector: innerKeySelector,
 				equalityComparerScalar: equalityComparerScalar);
-		}
-
-		[ObservableComputationsCall]
-		public static ObservableComputations.GroupJoining<TOuterSourceItem, TInnerSourceItem, TKey> GroupJoining<TOuterSourceItem, TInnerSourceItem, TKey>(this
-			 Expression<Func<System.Collections.Specialized.INotifyCollectionChanged>> outerSourceExpression,
-			 Expression<Func<System.Collections.Specialized.INotifyCollectionChanged>> innerSourceExpression,
-			 System.Linq.Expressions.Expression<System.Func<TOuterSourceItem, TKey>> outerKeySelector,
-			 System.Linq.Expressions.Expression<System.Func<TInnerSourceItem, TKey>> innerKeySelector)
-		{
-			return new ObservableComputations.GroupJoining<TOuterSourceItem, TInnerSourceItem, TKey>(
-				outerSourceScalar: new Computing<System.Collections.Specialized.INotifyCollectionChanged>(outerSourceExpression),
-				innerSourceScalar: new Computing<System.Collections.Specialized.INotifyCollectionChanged>(innerSourceExpression),
-				outerKeySelector: outerKeySelector,
-				innerKeySelector: innerKeySelector,
-				equalityComparerScalar: null);
 		}
 
 		[ObservableComputationsCall]
@@ -10832,21 +10667,6 @@ namespace ObservableComputations
 				outerKeySelector: outerKeySelector,
 				innerKeySelector: innerKeySelector,
 				equalityComparerScalar: equalityComparerScalar);
-		}
-
-		[ObservableComputationsCall]
-		public static ObservableComputations.GroupJoining<TOuterSourceItem, TInnerSourceItem, TKey> GroupJoining<TOuterSourceItem, TInnerSourceItem, TKey>(this
-			 Expression<Func<System.Collections.Specialized.INotifyCollectionChanged>> outerSourceExpression,
-			 Expression<Func<ObservableCollection<TInnerSourceItem>>> innerSourceExpression,
-			 System.Linq.Expressions.Expression<System.Func<TOuterSourceItem, TKey>> outerKeySelector,
-			 System.Linq.Expressions.Expression<System.Func<TInnerSourceItem, TKey>> innerKeySelector)
-		{
-			return new ObservableComputations.GroupJoining<TOuterSourceItem, TInnerSourceItem, TKey>(
-				outerSourceScalar: new Computing<System.Collections.Specialized.INotifyCollectionChanged>(outerSourceExpression),
-				innerSourceScalar: new Computing<ObservableCollection<TInnerSourceItem>>(innerSourceExpression),
-				outerKeySelector: outerKeySelector,
-				innerKeySelector: innerKeySelector,
-				equalityComparerScalar: null);
 		}
 
 		[ObservableComputationsCall]
@@ -10886,21 +10706,6 @@ namespace ObservableComputations
 			 Expression<Func<ObservableCollection<TOuterSourceItem>>> outerSourceExpression,
 			 ObservableComputations.IReadScalar<System.Collections.Specialized.INotifyCollectionChanged> innerSourceScalar,
 			 System.Linq.Expressions.Expression<System.Func<TOuterSourceItem, TKey>> outerKeySelector,
-			 System.Linq.Expressions.Expression<System.Func<TInnerSourceItem, TKey>> innerKeySelector)
-		{
-			return new ObservableComputations.GroupJoining<TOuterSourceItem, TInnerSourceItem, TKey>(
-				outerSourceScalar: new Computing<ObservableCollection<TOuterSourceItem>>(outerSourceExpression),
-				innerSourceScalar: innerSourceScalar,
-				outerKeySelector: outerKeySelector,
-				innerKeySelector: innerKeySelector,
-				equalityComparerScalar: null);
-		}
-
-		[ObservableComputationsCall]
-		public static ObservableComputations.GroupJoining<TOuterSourceItem, TInnerSourceItem, TKey> GroupJoining<TOuterSourceItem, TInnerSourceItem, TKey>(this
-			 Expression<Func<ObservableCollection<TOuterSourceItem>>> outerSourceExpression,
-			 ObservableComputations.IReadScalar<System.Collections.Specialized.INotifyCollectionChanged> innerSourceScalar,
-			 System.Linq.Expressions.Expression<System.Func<TOuterSourceItem, TKey>> outerKeySelector,
 			 System.Linq.Expressions.Expression<System.Func<TInnerSourceItem, TKey>> innerKeySelector,
 			 Expression<Func<System.Collections.Generic.IEqualityComparer<TKey>>> equalityComparerExpression)
 		{
@@ -10933,21 +10738,6 @@ namespace ObservableComputations
 			 Expression<Func<ObservableCollection<TOuterSourceItem>>> outerSourceExpression,
 			 ObservableComputations.IReadScalar<ObservableCollection<TInnerSourceItem>> innerSourceScalar,
 			 System.Linq.Expressions.Expression<System.Func<TOuterSourceItem, TKey>> outerKeySelector,
-			 System.Linq.Expressions.Expression<System.Func<TInnerSourceItem, TKey>> innerKeySelector)
-		{
-			return new ObservableComputations.GroupJoining<TOuterSourceItem, TInnerSourceItem, TKey>(
-				outerSourceScalar: new Computing<ObservableCollection<TOuterSourceItem>>(outerSourceExpression),
-				innerSourceScalar: innerSourceScalar,
-				outerKeySelector: outerKeySelector,
-				innerKeySelector: innerKeySelector,
-				equalityComparerScalar: null);
-		}
-
-		[ObservableComputationsCall]
-		public static ObservableComputations.GroupJoining<TOuterSourceItem, TInnerSourceItem, TKey> GroupJoining<TOuterSourceItem, TInnerSourceItem, TKey>(this
-			 Expression<Func<ObservableCollection<TOuterSourceItem>>> outerSourceExpression,
-			 ObservableComputations.IReadScalar<ObservableCollection<TInnerSourceItem>> innerSourceScalar,
-			 System.Linq.Expressions.Expression<System.Func<TOuterSourceItem, TKey>> outerKeySelector,
 			 System.Linq.Expressions.Expression<System.Func<TInnerSourceItem, TKey>> innerKeySelector,
 			 Expression<Func<System.Collections.Generic.IEqualityComparer<TKey>>> equalityComparerExpression)
 		{
@@ -10973,21 +10763,6 @@ namespace ObservableComputations
 				outerKeySelector: outerKeySelector,
 				innerKeySelector: innerKeySelector,
 				equalityComparerScalar: equalityComparerScalar);
-		}
-
-		[ObservableComputationsCall]
-		public static ObservableComputations.GroupJoining<TOuterSourceItem, TInnerSourceItem, TKey> GroupJoining<TOuterSourceItem, TInnerSourceItem, TKey>(this
-			 Expression<Func<ObservableCollection<TOuterSourceItem>>> outerSourceExpression,
-			 Expression<Func<System.Collections.Specialized.INotifyCollectionChanged>> innerSourceExpression,
-			 System.Linq.Expressions.Expression<System.Func<TOuterSourceItem, TKey>> outerKeySelector,
-			 System.Linq.Expressions.Expression<System.Func<TInnerSourceItem, TKey>> innerKeySelector)
-		{
-			return new ObservableComputations.GroupJoining<TOuterSourceItem, TInnerSourceItem, TKey>(
-				outerSourceScalar: new Computing<ObservableCollection<TOuterSourceItem>>(outerSourceExpression),
-				innerSourceScalar: new Computing<System.Collections.Specialized.INotifyCollectionChanged>(innerSourceExpression),
-				outerKeySelector: outerKeySelector,
-				innerKeySelector: innerKeySelector,
-				equalityComparerScalar: null);
 		}
 
 		[ObservableComputationsCall]
@@ -11020,21 +10795,6 @@ namespace ObservableComputations
 				outerKeySelector: outerKeySelector,
 				innerKeySelector: innerKeySelector,
 				equalityComparerScalar: equalityComparerScalar);
-		}
-
-		[ObservableComputationsCall]
-		public static ObservableComputations.GroupJoining<TOuterSourceItem, TInnerSourceItem, TKey> GroupJoining<TOuterSourceItem, TInnerSourceItem, TKey>(this
-			 Expression<Func<ObservableCollection<TOuterSourceItem>>> outerSourceExpression,
-			 Expression<Func<ObservableCollection<TInnerSourceItem>>> innerSourceExpression,
-			 System.Linq.Expressions.Expression<System.Func<TOuterSourceItem, TKey>> outerKeySelector,
-			 System.Linq.Expressions.Expression<System.Func<TInnerSourceItem, TKey>> innerKeySelector)
-		{
-			return new ObservableComputations.GroupJoining<TOuterSourceItem, TInnerSourceItem, TKey>(
-				outerSourceScalar: new Computing<ObservableCollection<TOuterSourceItem>>(outerSourceExpression),
-				innerSourceScalar: new Computing<ObservableCollection<TInnerSourceItem>>(innerSourceExpression),
-				outerKeySelector: outerKeySelector,
-				innerKeySelector: innerKeySelector,
-				equalityComparerScalar: null);
 		}
 
 		[ObservableComputationsCall]
@@ -11074,21 +10834,6 @@ namespace ObservableComputations
 			 ObservableComputations.IReadScalar<System.Collections.Specialized.INotifyCollectionChanged> outerSourceScalar,
 			 System.Collections.Specialized.INotifyCollectionChanged innerSource,
 			 System.Linq.Expressions.Expression<System.Func<TOuterSourceItem, TKey>> outerKeySelector,
-			 System.Linq.Expressions.Expression<System.Func<TInnerSourceItem, TKey>> innerKeySelector)
-		{
-			return new ObservableComputations.GroupJoining<TOuterSourceItem, TInnerSourceItem, TKey>(
-				outerSourceScalar: outerSourceScalar,
-				innerSource: innerSource,
-				outerKeySelector: outerKeySelector,
-				innerKeySelector: innerKeySelector,
-				equalityComparerScalar: null);
-		}
-
-		[ObservableComputationsCall]
-		public static ObservableComputations.GroupJoining<TOuterSourceItem, TInnerSourceItem, TKey> GroupJoining<TOuterSourceItem, TInnerSourceItem, TKey>(this
-			 ObservableComputations.IReadScalar<System.Collections.Specialized.INotifyCollectionChanged> outerSourceScalar,
-			 System.Collections.Specialized.INotifyCollectionChanged innerSource,
-			 System.Linq.Expressions.Expression<System.Func<TOuterSourceItem, TKey>> outerKeySelector,
 			 System.Linq.Expressions.Expression<System.Func<TInnerSourceItem, TKey>> innerKeySelector,
 			 Expression<Func<System.Collections.Generic.IEqualityComparer<TKey>>> equalityComparerExpression)
 		{
@@ -11121,21 +10866,6 @@ namespace ObservableComputations
 			 ObservableComputations.IReadScalar<System.Collections.Specialized.INotifyCollectionChanged> outerSourceScalar,
 			 ObservableCollection<TInnerSourceItem> innerSource,
 			 System.Linq.Expressions.Expression<System.Func<TOuterSourceItem, TKey>> outerKeySelector,
-			 System.Linq.Expressions.Expression<System.Func<TInnerSourceItem, TKey>> innerKeySelector)
-		{
-			return new ObservableComputations.GroupJoining<TOuterSourceItem, TInnerSourceItem, TKey>(
-				outerSourceScalar: outerSourceScalar,
-				innerSource: innerSource,
-				outerKeySelector: outerKeySelector,
-				innerKeySelector: innerKeySelector,
-				equalityComparerScalar: null);
-		}
-
-		[ObservableComputationsCall]
-		public static ObservableComputations.GroupJoining<TOuterSourceItem, TInnerSourceItem, TKey> GroupJoining<TOuterSourceItem, TInnerSourceItem, TKey>(this
-			 ObservableComputations.IReadScalar<System.Collections.Specialized.INotifyCollectionChanged> outerSourceScalar,
-			 ObservableCollection<TInnerSourceItem> innerSource,
-			 System.Linq.Expressions.Expression<System.Func<TOuterSourceItem, TKey>> outerKeySelector,
 			 System.Linq.Expressions.Expression<System.Func<TInnerSourceItem, TKey>> innerKeySelector,
 			 Expression<Func<System.Collections.Generic.IEqualityComparer<TKey>>> equalityComparerExpression)
 		{
@@ -11161,21 +10891,6 @@ namespace ObservableComputations
 				outerKeySelector: outerKeySelector,
 				innerKeySelector: innerKeySelector,
 				equalityComparerScalar: equalityComparerScalar);
-		}
-
-		[ObservableComputationsCall]
-		public static ObservableComputations.GroupJoining<TOuterSourceItem, TInnerSourceItem, TKey> GroupJoining<TOuterSourceItem, TInnerSourceItem, TKey>(this
-			 ObservableComputations.IReadScalar<ObservableCollection<TOuterSourceItem>> outerSourceScalar,
-			 System.Collections.Specialized.INotifyCollectionChanged innerSource,
-			 System.Linq.Expressions.Expression<System.Func<TOuterSourceItem, TKey>> outerKeySelector,
-			 System.Linq.Expressions.Expression<System.Func<TInnerSourceItem, TKey>> innerKeySelector)
-		{
-			return new ObservableComputations.GroupJoining<TOuterSourceItem, TInnerSourceItem, TKey>(
-				outerSourceScalar: outerSourceScalar,
-				innerSource: innerSource,
-				outerKeySelector: outerKeySelector,
-				innerKeySelector: innerKeySelector,
-				equalityComparerScalar: null);
 		}
 
 		[ObservableComputationsCall]
@@ -11215,21 +10930,6 @@ namespace ObservableComputations
 			 ObservableComputations.IReadScalar<ObservableCollection<TOuterSourceItem>> outerSourceScalar,
 			 ObservableCollection<TInnerSourceItem> innerSource,
 			 System.Linq.Expressions.Expression<System.Func<TOuterSourceItem, TKey>> outerKeySelector,
-			 System.Linq.Expressions.Expression<System.Func<TInnerSourceItem, TKey>> innerKeySelector)
-		{
-			return new ObservableComputations.GroupJoining<TOuterSourceItem, TInnerSourceItem, TKey>(
-				outerSourceScalar: outerSourceScalar,
-				innerSource: innerSource,
-				outerKeySelector: outerKeySelector,
-				innerKeySelector: innerKeySelector,
-				equalityComparerScalar: null);
-		}
-
-		[ObservableComputationsCall]
-		public static ObservableComputations.GroupJoining<TOuterSourceItem, TInnerSourceItem, TKey> GroupJoining<TOuterSourceItem, TInnerSourceItem, TKey>(this
-			 ObservableComputations.IReadScalar<ObservableCollection<TOuterSourceItem>> outerSourceScalar,
-			 ObservableCollection<TInnerSourceItem> innerSource,
-			 System.Linq.Expressions.Expression<System.Func<TOuterSourceItem, TKey>> outerKeySelector,
 			 System.Linq.Expressions.Expression<System.Func<TInnerSourceItem, TKey>> innerKeySelector,
 			 Expression<Func<System.Collections.Generic.IEqualityComparer<TKey>>> equalityComparerExpression)
 		{
@@ -11262,21 +10962,6 @@ namespace ObservableComputations
 			 Expression<Func<System.Collections.Specialized.INotifyCollectionChanged>> outerSourceExpression,
 			 System.Collections.Specialized.INotifyCollectionChanged innerSource,
 			 System.Linq.Expressions.Expression<System.Func<TOuterSourceItem, TKey>> outerKeySelector,
-			 System.Linq.Expressions.Expression<System.Func<TInnerSourceItem, TKey>> innerKeySelector)
-		{
-			return new ObservableComputations.GroupJoining<TOuterSourceItem, TInnerSourceItem, TKey>(
-				outerSourceScalar: new Computing<System.Collections.Specialized.INotifyCollectionChanged>(outerSourceExpression),
-				innerSource: innerSource,
-				outerKeySelector: outerKeySelector,
-				innerKeySelector: innerKeySelector,
-				equalityComparerScalar: null);
-		}
-
-		[ObservableComputationsCall]
-		public static ObservableComputations.GroupJoining<TOuterSourceItem, TInnerSourceItem, TKey> GroupJoining<TOuterSourceItem, TInnerSourceItem, TKey>(this
-			 Expression<Func<System.Collections.Specialized.INotifyCollectionChanged>> outerSourceExpression,
-			 System.Collections.Specialized.INotifyCollectionChanged innerSource,
-			 System.Linq.Expressions.Expression<System.Func<TOuterSourceItem, TKey>> outerKeySelector,
 			 System.Linq.Expressions.Expression<System.Func<TInnerSourceItem, TKey>> innerKeySelector,
 			 Expression<Func<System.Collections.Generic.IEqualityComparer<TKey>>> equalityComparerExpression)
 		{
@@ -11302,21 +10987,6 @@ namespace ObservableComputations
 				outerKeySelector: outerKeySelector,
 				innerKeySelector: innerKeySelector,
 				equalityComparerScalar: equalityComparerScalar);
-		}
-
-		[ObservableComputationsCall]
-		public static ObservableComputations.GroupJoining<TOuterSourceItem, TInnerSourceItem, TKey> GroupJoining<TOuterSourceItem, TInnerSourceItem, TKey>(this
-			 Expression<Func<System.Collections.Specialized.INotifyCollectionChanged>> outerSourceExpression,
-			 ObservableCollection<TInnerSourceItem> innerSource,
-			 System.Linq.Expressions.Expression<System.Func<TOuterSourceItem, TKey>> outerKeySelector,
-			 System.Linq.Expressions.Expression<System.Func<TInnerSourceItem, TKey>> innerKeySelector)
-		{
-			return new ObservableComputations.GroupJoining<TOuterSourceItem, TInnerSourceItem, TKey>(
-				outerSourceScalar: new Computing<System.Collections.Specialized.INotifyCollectionChanged>(outerSourceExpression),
-				innerSource: innerSource,
-				outerKeySelector: outerKeySelector,
-				innerKeySelector: innerKeySelector,
-				equalityComparerScalar: null);
 		}
 
 		[ObservableComputationsCall]
@@ -11356,21 +11026,6 @@ namespace ObservableComputations
 			 Expression<Func<ObservableCollection<TOuterSourceItem>>> outerSourceExpression,
 			 System.Collections.Specialized.INotifyCollectionChanged innerSource,
 			 System.Linq.Expressions.Expression<System.Func<TOuterSourceItem, TKey>> outerKeySelector,
-			 System.Linq.Expressions.Expression<System.Func<TInnerSourceItem, TKey>> innerKeySelector)
-		{
-			return new ObservableComputations.GroupJoining<TOuterSourceItem, TInnerSourceItem, TKey>(
-				outerSourceScalar: new Computing<ObservableCollection<TOuterSourceItem>>(outerSourceExpression),
-				innerSource: innerSource,
-				outerKeySelector: outerKeySelector,
-				innerKeySelector: innerKeySelector,
-				equalityComparerScalar: null);
-		}
-
-		[ObservableComputationsCall]
-		public static ObservableComputations.GroupJoining<TOuterSourceItem, TInnerSourceItem, TKey> GroupJoining<TOuterSourceItem, TInnerSourceItem, TKey>(this
-			 Expression<Func<ObservableCollection<TOuterSourceItem>>> outerSourceExpression,
-			 System.Collections.Specialized.INotifyCollectionChanged innerSource,
-			 System.Linq.Expressions.Expression<System.Func<TOuterSourceItem, TKey>> outerKeySelector,
 			 System.Linq.Expressions.Expression<System.Func<TInnerSourceItem, TKey>> innerKeySelector,
 			 Expression<Func<System.Collections.Generic.IEqualityComparer<TKey>>> equalityComparerExpression)
 		{
@@ -11396,21 +11051,6 @@ namespace ObservableComputations
 				outerKeySelector: outerKeySelector,
 				innerKeySelector: innerKeySelector,
 				equalityComparerScalar: equalityComparerScalar);
-		}
-
-		[ObservableComputationsCall]
-		public static ObservableComputations.GroupJoining<TOuterSourceItem, TInnerSourceItem, TKey> GroupJoining<TOuterSourceItem, TInnerSourceItem, TKey>(this
-			 Expression<Func<ObservableCollection<TOuterSourceItem>>> outerSourceExpression,
-			 ObservableCollection<TInnerSourceItem> innerSource,
-			 System.Linq.Expressions.Expression<System.Func<TOuterSourceItem, TKey>> outerKeySelector,
-			 System.Linq.Expressions.Expression<System.Func<TInnerSourceItem, TKey>> innerKeySelector)
-		{
-			return new ObservableComputations.GroupJoining<TOuterSourceItem, TInnerSourceItem, TKey>(
-				outerSourceScalar: new Computing<ObservableCollection<TOuterSourceItem>>(outerSourceExpression),
-				innerSource: innerSource,
-				outerKeySelector: outerKeySelector,
-				innerKeySelector: innerKeySelector,
-				equalityComparerScalar: null);
 		}
 
 		[ObservableComputationsCall]
@@ -11448,6 +11088,21 @@ namespace ObservableComputations
 		[ObservableComputationsCall]
 		public static ObservableComputations.GroupJoining<TOuterSourceItem, TInnerSourceItem, TKey> GroupJoining<TOuterSourceItem, TInnerSourceItem, TKey>(this
 			 ObservableComputations.IReadScalar<System.Collections.Specialized.INotifyCollectionChanged> outerSourceScalar,
+			 System.Collections.Specialized.INotifyCollectionChanged innerSource,
+			 System.Linq.Expressions.Expression<System.Func<TOuterSourceItem, TKey>> outerKeySelector,
+			 System.Linq.Expressions.Expression<System.Func<TInnerSourceItem, TKey>> innerKeySelector)
+		{
+			return new ObservableComputations.GroupJoining<TOuterSourceItem, TInnerSourceItem, TKey>(
+				outerSourceScalar: outerSourceScalar,
+				innerSource: innerSource,
+				outerKeySelector: outerKeySelector,
+				innerKeySelector: innerKeySelector,
+				equalityComparer: null);
+		}
+
+		[ObservableComputationsCall]
+		public static ObservableComputations.GroupJoining<TOuterSourceItem, TInnerSourceItem, TKey> GroupJoining<TOuterSourceItem, TInnerSourceItem, TKey>(this
+			 ObservableComputations.IReadScalar<System.Collections.Specialized.INotifyCollectionChanged> outerSourceScalar,
 			 ObservableCollection<TInnerSourceItem> innerSource,
 			 System.Linq.Expressions.Expression<System.Func<TOuterSourceItem, TKey>> outerKeySelector,
 			 System.Linq.Expressions.Expression<System.Func<TInnerSourceItem, TKey>> innerKeySelector,
@@ -11459,6 +11114,21 @@ namespace ObservableComputations
 				outerKeySelector: outerKeySelector,
 				innerKeySelector: innerKeySelector,
 				equalityComparer: equalityComparer);
+		}
+
+		[ObservableComputationsCall]
+		public static ObservableComputations.GroupJoining<TOuterSourceItem, TInnerSourceItem, TKey> GroupJoining<TOuterSourceItem, TInnerSourceItem, TKey>(this
+			 ObservableComputations.IReadScalar<System.Collections.Specialized.INotifyCollectionChanged> outerSourceScalar,
+			 ObservableCollection<TInnerSourceItem> innerSource,
+			 System.Linq.Expressions.Expression<System.Func<TOuterSourceItem, TKey>> outerKeySelector,
+			 System.Linq.Expressions.Expression<System.Func<TInnerSourceItem, TKey>> innerKeySelector)
+		{
+			return new ObservableComputations.GroupJoining<TOuterSourceItem, TInnerSourceItem, TKey>(
+				outerSourceScalar: outerSourceScalar,
+				innerSource: innerSource,
+				outerKeySelector: outerKeySelector,
+				innerKeySelector: innerKeySelector,
+				equalityComparer: null);
 		}
 
 		[ObservableComputationsCall]
@@ -11480,6 +11150,21 @@ namespace ObservableComputations
 		[ObservableComputationsCall]
 		public static ObservableComputations.GroupJoining<TOuterSourceItem, TInnerSourceItem, TKey> GroupJoining<TOuterSourceItem, TInnerSourceItem, TKey>(this
 			 ObservableComputations.IReadScalar<ObservableCollection<TOuterSourceItem>> outerSourceScalar,
+			 System.Collections.Specialized.INotifyCollectionChanged innerSource,
+			 System.Linq.Expressions.Expression<System.Func<TOuterSourceItem, TKey>> outerKeySelector,
+			 System.Linq.Expressions.Expression<System.Func<TInnerSourceItem, TKey>> innerKeySelector)
+		{
+			return new ObservableComputations.GroupJoining<TOuterSourceItem, TInnerSourceItem, TKey>(
+				outerSourceScalar: outerSourceScalar,
+				innerSource: innerSource,
+				outerKeySelector: outerKeySelector,
+				innerKeySelector: innerKeySelector,
+				equalityComparer: null);
+		}
+
+		[ObservableComputationsCall]
+		public static ObservableComputations.GroupJoining<TOuterSourceItem, TInnerSourceItem, TKey> GroupJoining<TOuterSourceItem, TInnerSourceItem, TKey>(this
+			 ObservableComputations.IReadScalar<ObservableCollection<TOuterSourceItem>> outerSourceScalar,
 			 ObservableCollection<TInnerSourceItem> innerSource,
 			 System.Linq.Expressions.Expression<System.Func<TOuterSourceItem, TKey>> outerKeySelector,
 			 System.Linq.Expressions.Expression<System.Func<TInnerSourceItem, TKey>> innerKeySelector,
@@ -11495,6 +11180,21 @@ namespace ObservableComputations
 
 		[ObservableComputationsCall]
 		public static ObservableComputations.GroupJoining<TOuterSourceItem, TInnerSourceItem, TKey> GroupJoining<TOuterSourceItem, TInnerSourceItem, TKey>(this
+			 ObservableComputations.IReadScalar<ObservableCollection<TOuterSourceItem>> outerSourceScalar,
+			 ObservableCollection<TInnerSourceItem> innerSource,
+			 System.Linq.Expressions.Expression<System.Func<TOuterSourceItem, TKey>> outerKeySelector,
+			 System.Linq.Expressions.Expression<System.Func<TInnerSourceItem, TKey>> innerKeySelector)
+		{
+			return new ObservableComputations.GroupJoining<TOuterSourceItem, TInnerSourceItem, TKey>(
+				outerSourceScalar: outerSourceScalar,
+				innerSource: innerSource,
+				outerKeySelector: outerKeySelector,
+				innerKeySelector: innerKeySelector,
+				equalityComparer: null);
+		}
+
+		[ObservableComputationsCall]
+		public static ObservableComputations.GroupJoining<TOuterSourceItem, TInnerSourceItem, TKey> GroupJoining<TOuterSourceItem, TInnerSourceItem, TKey>(this
 			 Expression<Func<System.Collections.Specialized.INotifyCollectionChanged>> outerSourceExpression,
 			 System.Collections.Specialized.INotifyCollectionChanged innerSource,
 			 System.Linq.Expressions.Expression<System.Func<TOuterSourceItem, TKey>> outerKeySelector,
@@ -11512,6 +11212,21 @@ namespace ObservableComputations
 		[ObservableComputationsCall]
 		public static ObservableComputations.GroupJoining<TOuterSourceItem, TInnerSourceItem, TKey> GroupJoining<TOuterSourceItem, TInnerSourceItem, TKey>(this
 			 Expression<Func<System.Collections.Specialized.INotifyCollectionChanged>> outerSourceExpression,
+			 System.Collections.Specialized.INotifyCollectionChanged innerSource,
+			 System.Linq.Expressions.Expression<System.Func<TOuterSourceItem, TKey>> outerKeySelector,
+			 System.Linq.Expressions.Expression<System.Func<TInnerSourceItem, TKey>> innerKeySelector)
+		{
+			return new ObservableComputations.GroupJoining<TOuterSourceItem, TInnerSourceItem, TKey>(
+				outerSourceScalar: new Computing<System.Collections.Specialized.INotifyCollectionChanged>(outerSourceExpression),
+				innerSource: innerSource,
+				outerKeySelector: outerKeySelector,
+				innerKeySelector: innerKeySelector,
+				equalityComparer: null);
+		}
+
+		[ObservableComputationsCall]
+		public static ObservableComputations.GroupJoining<TOuterSourceItem, TInnerSourceItem, TKey> GroupJoining<TOuterSourceItem, TInnerSourceItem, TKey>(this
+			 Expression<Func<System.Collections.Specialized.INotifyCollectionChanged>> outerSourceExpression,
 			 ObservableCollection<TInnerSourceItem> innerSource,
 			 System.Linq.Expressions.Expression<System.Func<TOuterSourceItem, TKey>> outerKeySelector,
 			 System.Linq.Expressions.Expression<System.Func<TInnerSourceItem, TKey>> innerKeySelector,
@@ -11523,6 +11238,21 @@ namespace ObservableComputations
 				outerKeySelector: outerKeySelector,
 				innerKeySelector: innerKeySelector,
 				equalityComparer: equalityComparer);
+		}
+
+		[ObservableComputationsCall]
+		public static ObservableComputations.GroupJoining<TOuterSourceItem, TInnerSourceItem, TKey> GroupJoining<TOuterSourceItem, TInnerSourceItem, TKey>(this
+			 Expression<Func<System.Collections.Specialized.INotifyCollectionChanged>> outerSourceExpression,
+			 ObservableCollection<TInnerSourceItem> innerSource,
+			 System.Linq.Expressions.Expression<System.Func<TOuterSourceItem, TKey>> outerKeySelector,
+			 System.Linq.Expressions.Expression<System.Func<TInnerSourceItem, TKey>> innerKeySelector)
+		{
+			return new ObservableComputations.GroupJoining<TOuterSourceItem, TInnerSourceItem, TKey>(
+				outerSourceScalar: new Computing<System.Collections.Specialized.INotifyCollectionChanged>(outerSourceExpression),
+				innerSource: innerSource,
+				outerKeySelector: outerKeySelector,
+				innerKeySelector: innerKeySelector,
+				equalityComparer: null);
 		}
 
 		[ObservableComputationsCall]
@@ -11544,6 +11274,21 @@ namespace ObservableComputations
 		[ObservableComputationsCall]
 		public static ObservableComputations.GroupJoining<TOuterSourceItem, TInnerSourceItem, TKey> GroupJoining<TOuterSourceItem, TInnerSourceItem, TKey>(this
 			 Expression<Func<ObservableCollection<TOuterSourceItem>>> outerSourceExpression,
+			 System.Collections.Specialized.INotifyCollectionChanged innerSource,
+			 System.Linq.Expressions.Expression<System.Func<TOuterSourceItem, TKey>> outerKeySelector,
+			 System.Linq.Expressions.Expression<System.Func<TInnerSourceItem, TKey>> innerKeySelector)
+		{
+			return new ObservableComputations.GroupJoining<TOuterSourceItem, TInnerSourceItem, TKey>(
+				outerSourceScalar: new Computing<ObservableCollection<TOuterSourceItem>>(outerSourceExpression),
+				innerSource: innerSource,
+				outerKeySelector: outerKeySelector,
+				innerKeySelector: innerKeySelector,
+				equalityComparer: null);
+		}
+
+		[ObservableComputationsCall]
+		public static ObservableComputations.GroupJoining<TOuterSourceItem, TInnerSourceItem, TKey> GroupJoining<TOuterSourceItem, TInnerSourceItem, TKey>(this
+			 Expression<Func<ObservableCollection<TOuterSourceItem>>> outerSourceExpression,
 			 ObservableCollection<TInnerSourceItem> innerSource,
 			 System.Linq.Expressions.Expression<System.Func<TOuterSourceItem, TKey>> outerKeySelector,
 			 System.Linq.Expressions.Expression<System.Func<TInnerSourceItem, TKey>> innerKeySelector,
@@ -11555,6 +11300,21 @@ namespace ObservableComputations
 				outerKeySelector: outerKeySelector,
 				innerKeySelector: innerKeySelector,
 				equalityComparer: equalityComparer);
+		}
+
+		[ObservableComputationsCall]
+		public static ObservableComputations.GroupJoining<TOuterSourceItem, TInnerSourceItem, TKey> GroupJoining<TOuterSourceItem, TInnerSourceItem, TKey>(this
+			 Expression<Func<ObservableCollection<TOuterSourceItem>>> outerSourceExpression,
+			 ObservableCollection<TInnerSourceItem> innerSource,
+			 System.Linq.Expressions.Expression<System.Func<TOuterSourceItem, TKey>> outerKeySelector,
+			 System.Linq.Expressions.Expression<System.Func<TInnerSourceItem, TKey>> innerKeySelector)
+		{
+			return new ObservableComputations.GroupJoining<TOuterSourceItem, TInnerSourceItem, TKey>(
+				outerSourceScalar: new Computing<ObservableCollection<TOuterSourceItem>>(outerSourceExpression),
+				innerSource: innerSource,
+				outerKeySelector: outerKeySelector,
+				innerKeySelector: innerKeySelector,
+				equalityComparer: null);
 		}
 
 		[ObservableComputationsCall]
@@ -11576,6 +11336,21 @@ namespace ObservableComputations
 		[ObservableComputationsCall]
 		public static ObservableComputations.GroupJoining<TOuterSourceItem, TInnerSourceItem, TKey> GroupJoining<TOuterSourceItem, TInnerSourceItem, TKey>(this
 			 ObservableComputations.IReadScalar<System.Collections.Specialized.INotifyCollectionChanged> outerSourceScalar,
+			 ObservableComputations.IReadScalar<System.Collections.Specialized.INotifyCollectionChanged> innerSourceScalar,
+			 System.Linq.Expressions.Expression<System.Func<TOuterSourceItem, TKey>> outerKeySelector,
+			 System.Linq.Expressions.Expression<System.Func<TInnerSourceItem, TKey>> innerKeySelector)
+		{
+			return new ObservableComputations.GroupJoining<TOuterSourceItem, TInnerSourceItem, TKey>(
+				outerSourceScalar: outerSourceScalar,
+				innerSourceScalar: innerSourceScalar,
+				outerKeySelector: outerKeySelector,
+				innerKeySelector: innerKeySelector,
+				equalityComparer: null);
+		}
+
+		[ObservableComputationsCall]
+		public static ObservableComputations.GroupJoining<TOuterSourceItem, TInnerSourceItem, TKey> GroupJoining<TOuterSourceItem, TInnerSourceItem, TKey>(this
+			 ObservableComputations.IReadScalar<System.Collections.Specialized.INotifyCollectionChanged> outerSourceScalar,
 			 ObservableComputations.IReadScalar<ObservableCollection<TInnerSourceItem>> innerSourceScalar,
 			 System.Linq.Expressions.Expression<System.Func<TOuterSourceItem, TKey>> outerKeySelector,
 			 System.Linq.Expressions.Expression<System.Func<TInnerSourceItem, TKey>> innerKeySelector,
@@ -11587,6 +11362,21 @@ namespace ObservableComputations
 				outerKeySelector: outerKeySelector,
 				innerKeySelector: innerKeySelector,
 				equalityComparer: equalityComparer);
+		}
+
+		[ObservableComputationsCall]
+		public static ObservableComputations.GroupJoining<TOuterSourceItem, TInnerSourceItem, TKey> GroupJoining<TOuterSourceItem, TInnerSourceItem, TKey>(this
+			 ObservableComputations.IReadScalar<System.Collections.Specialized.INotifyCollectionChanged> outerSourceScalar,
+			 ObservableComputations.IReadScalar<ObservableCollection<TInnerSourceItem>> innerSourceScalar,
+			 System.Linq.Expressions.Expression<System.Func<TOuterSourceItem, TKey>> outerKeySelector,
+			 System.Linq.Expressions.Expression<System.Func<TInnerSourceItem, TKey>> innerKeySelector)
+		{
+			return new ObservableComputations.GroupJoining<TOuterSourceItem, TInnerSourceItem, TKey>(
+				outerSourceScalar: outerSourceScalar,
+				innerSourceScalar: innerSourceScalar,
+				outerKeySelector: outerKeySelector,
+				innerKeySelector: innerKeySelector,
+				equalityComparer: null);
 		}
 
 		[ObservableComputationsCall]
@@ -11608,6 +11398,21 @@ namespace ObservableComputations
 		[ObservableComputationsCall]
 		public static ObservableComputations.GroupJoining<TOuterSourceItem, TInnerSourceItem, TKey> GroupJoining<TOuterSourceItem, TInnerSourceItem, TKey>(this
 			 ObservableComputations.IReadScalar<System.Collections.Specialized.INotifyCollectionChanged> outerSourceScalar,
+			 Expression<Func<System.Collections.Specialized.INotifyCollectionChanged>> innerSourceExpression,
+			 System.Linq.Expressions.Expression<System.Func<TOuterSourceItem, TKey>> outerKeySelector,
+			 System.Linq.Expressions.Expression<System.Func<TInnerSourceItem, TKey>> innerKeySelector)
+		{
+			return new ObservableComputations.GroupJoining<TOuterSourceItem, TInnerSourceItem, TKey>(
+				outerSourceScalar: outerSourceScalar,
+				innerSourceScalar: new Computing<System.Collections.Specialized.INotifyCollectionChanged>(innerSourceExpression),
+				outerKeySelector: outerKeySelector,
+				innerKeySelector: innerKeySelector,
+				equalityComparer: null);
+		}
+
+		[ObservableComputationsCall]
+		public static ObservableComputations.GroupJoining<TOuterSourceItem, TInnerSourceItem, TKey> GroupJoining<TOuterSourceItem, TInnerSourceItem, TKey>(this
+			 ObservableComputations.IReadScalar<System.Collections.Specialized.INotifyCollectionChanged> outerSourceScalar,
 			 Expression<Func<ObservableCollection<TInnerSourceItem>>> innerSourceExpression,
 			 System.Linq.Expressions.Expression<System.Func<TOuterSourceItem, TKey>> outerKeySelector,
 			 System.Linq.Expressions.Expression<System.Func<TInnerSourceItem, TKey>> innerKeySelector,
@@ -11619,6 +11424,21 @@ namespace ObservableComputations
 				outerKeySelector: outerKeySelector,
 				innerKeySelector: innerKeySelector,
 				equalityComparer: equalityComparer);
+		}
+
+		[ObservableComputationsCall]
+		public static ObservableComputations.GroupJoining<TOuterSourceItem, TInnerSourceItem, TKey> GroupJoining<TOuterSourceItem, TInnerSourceItem, TKey>(this
+			 ObservableComputations.IReadScalar<System.Collections.Specialized.INotifyCollectionChanged> outerSourceScalar,
+			 Expression<Func<ObservableCollection<TInnerSourceItem>>> innerSourceExpression,
+			 System.Linq.Expressions.Expression<System.Func<TOuterSourceItem, TKey>> outerKeySelector,
+			 System.Linq.Expressions.Expression<System.Func<TInnerSourceItem, TKey>> innerKeySelector)
+		{
+			return new ObservableComputations.GroupJoining<TOuterSourceItem, TInnerSourceItem, TKey>(
+				outerSourceScalar: outerSourceScalar,
+				innerSourceScalar: new Computing<ObservableCollection<TInnerSourceItem>>(innerSourceExpression),
+				outerKeySelector: outerKeySelector,
+				innerKeySelector: innerKeySelector,
+				equalityComparer: null);
 		}
 
 		[ObservableComputationsCall]
@@ -11640,6 +11460,21 @@ namespace ObservableComputations
 		[ObservableComputationsCall]
 		public static ObservableComputations.GroupJoining<TOuterSourceItem, TInnerSourceItem, TKey> GroupJoining<TOuterSourceItem, TInnerSourceItem, TKey>(this
 			 ObservableComputations.IReadScalar<ObservableCollection<TOuterSourceItem>> outerSourceScalar,
+			 ObservableComputations.IReadScalar<System.Collections.Specialized.INotifyCollectionChanged> innerSourceScalar,
+			 System.Linq.Expressions.Expression<System.Func<TOuterSourceItem, TKey>> outerKeySelector,
+			 System.Linq.Expressions.Expression<System.Func<TInnerSourceItem, TKey>> innerKeySelector)
+		{
+			return new ObservableComputations.GroupJoining<TOuterSourceItem, TInnerSourceItem, TKey>(
+				outerSourceScalar: outerSourceScalar,
+				innerSourceScalar: innerSourceScalar,
+				outerKeySelector: outerKeySelector,
+				innerKeySelector: innerKeySelector,
+				equalityComparer: null);
+		}
+
+		[ObservableComputationsCall]
+		public static ObservableComputations.GroupJoining<TOuterSourceItem, TInnerSourceItem, TKey> GroupJoining<TOuterSourceItem, TInnerSourceItem, TKey>(this
+			 ObservableComputations.IReadScalar<ObservableCollection<TOuterSourceItem>> outerSourceScalar,
 			 ObservableComputations.IReadScalar<ObservableCollection<TInnerSourceItem>> innerSourceScalar,
 			 System.Linq.Expressions.Expression<System.Func<TOuterSourceItem, TKey>> outerKeySelector,
 			 System.Linq.Expressions.Expression<System.Func<TInnerSourceItem, TKey>> innerKeySelector,
@@ -11651,6 +11486,21 @@ namespace ObservableComputations
 				outerKeySelector: outerKeySelector,
 				innerKeySelector: innerKeySelector,
 				equalityComparer: equalityComparer);
+		}
+
+		[ObservableComputationsCall]
+		public static ObservableComputations.GroupJoining<TOuterSourceItem, TInnerSourceItem, TKey> GroupJoining<TOuterSourceItem, TInnerSourceItem, TKey>(this
+			 ObservableComputations.IReadScalar<ObservableCollection<TOuterSourceItem>> outerSourceScalar,
+			 ObservableComputations.IReadScalar<ObservableCollection<TInnerSourceItem>> innerSourceScalar,
+			 System.Linq.Expressions.Expression<System.Func<TOuterSourceItem, TKey>> outerKeySelector,
+			 System.Linq.Expressions.Expression<System.Func<TInnerSourceItem, TKey>> innerKeySelector)
+		{
+			return new ObservableComputations.GroupJoining<TOuterSourceItem, TInnerSourceItem, TKey>(
+				outerSourceScalar: outerSourceScalar,
+				innerSourceScalar: innerSourceScalar,
+				outerKeySelector: outerKeySelector,
+				innerKeySelector: innerKeySelector,
+				equalityComparer: null);
 		}
 
 		[ObservableComputationsCall]
@@ -11672,6 +11522,21 @@ namespace ObservableComputations
 		[ObservableComputationsCall]
 		public static ObservableComputations.GroupJoining<TOuterSourceItem, TInnerSourceItem, TKey> GroupJoining<TOuterSourceItem, TInnerSourceItem, TKey>(this
 			 ObservableComputations.IReadScalar<ObservableCollection<TOuterSourceItem>> outerSourceScalar,
+			 Expression<Func<System.Collections.Specialized.INotifyCollectionChanged>> innerSourceExpression,
+			 System.Linq.Expressions.Expression<System.Func<TOuterSourceItem, TKey>> outerKeySelector,
+			 System.Linq.Expressions.Expression<System.Func<TInnerSourceItem, TKey>> innerKeySelector)
+		{
+			return new ObservableComputations.GroupJoining<TOuterSourceItem, TInnerSourceItem, TKey>(
+				outerSourceScalar: outerSourceScalar,
+				innerSourceScalar: new Computing<System.Collections.Specialized.INotifyCollectionChanged>(innerSourceExpression),
+				outerKeySelector: outerKeySelector,
+				innerKeySelector: innerKeySelector,
+				equalityComparer: null);
+		}
+
+		[ObservableComputationsCall]
+		public static ObservableComputations.GroupJoining<TOuterSourceItem, TInnerSourceItem, TKey> GroupJoining<TOuterSourceItem, TInnerSourceItem, TKey>(this
+			 ObservableComputations.IReadScalar<ObservableCollection<TOuterSourceItem>> outerSourceScalar,
 			 Expression<Func<ObservableCollection<TInnerSourceItem>>> innerSourceExpression,
 			 System.Linq.Expressions.Expression<System.Func<TOuterSourceItem, TKey>> outerKeySelector,
 			 System.Linq.Expressions.Expression<System.Func<TInnerSourceItem, TKey>> innerKeySelector,
@@ -11687,6 +11552,21 @@ namespace ObservableComputations
 
 		[ObservableComputationsCall]
 		public static ObservableComputations.GroupJoining<TOuterSourceItem, TInnerSourceItem, TKey> GroupJoining<TOuterSourceItem, TInnerSourceItem, TKey>(this
+			 ObservableComputations.IReadScalar<ObservableCollection<TOuterSourceItem>> outerSourceScalar,
+			 Expression<Func<ObservableCollection<TInnerSourceItem>>> innerSourceExpression,
+			 System.Linq.Expressions.Expression<System.Func<TOuterSourceItem, TKey>> outerKeySelector,
+			 System.Linq.Expressions.Expression<System.Func<TInnerSourceItem, TKey>> innerKeySelector)
+		{
+			return new ObservableComputations.GroupJoining<TOuterSourceItem, TInnerSourceItem, TKey>(
+				outerSourceScalar: outerSourceScalar,
+				innerSourceScalar: new Computing<ObservableCollection<TInnerSourceItem>>(innerSourceExpression),
+				outerKeySelector: outerKeySelector,
+				innerKeySelector: innerKeySelector,
+				equalityComparer: null);
+		}
+
+		[ObservableComputationsCall]
+		public static ObservableComputations.GroupJoining<TOuterSourceItem, TInnerSourceItem, TKey> GroupJoining<TOuterSourceItem, TInnerSourceItem, TKey>(this
 			 Expression<Func<System.Collections.Specialized.INotifyCollectionChanged>> outerSourceExpression,
 			 ObservableComputations.IReadScalar<System.Collections.Specialized.INotifyCollectionChanged> innerSourceScalar,
 			 System.Linq.Expressions.Expression<System.Func<TOuterSourceItem, TKey>> outerKeySelector,
@@ -11699,6 +11579,21 @@ namespace ObservableComputations
 				outerKeySelector: outerKeySelector,
 				innerKeySelector: innerKeySelector,
 				equalityComparer: equalityComparer);
+		}
+
+		[ObservableComputationsCall]
+		public static ObservableComputations.GroupJoining<TOuterSourceItem, TInnerSourceItem, TKey> GroupJoining<TOuterSourceItem, TInnerSourceItem, TKey>(this
+			 Expression<Func<System.Collections.Specialized.INotifyCollectionChanged>> outerSourceExpression,
+			 ObservableComputations.IReadScalar<System.Collections.Specialized.INotifyCollectionChanged> innerSourceScalar,
+			 System.Linq.Expressions.Expression<System.Func<TOuterSourceItem, TKey>> outerKeySelector,
+			 System.Linq.Expressions.Expression<System.Func<TInnerSourceItem, TKey>> innerKeySelector)
+		{
+			return new ObservableComputations.GroupJoining<TOuterSourceItem, TInnerSourceItem, TKey>(
+				outerSourceScalar: new Computing<System.Collections.Specialized.INotifyCollectionChanged>(outerSourceExpression),
+				innerSourceScalar: innerSourceScalar,
+				outerKeySelector: outerKeySelector,
+				innerKeySelector: innerKeySelector,
+				equalityComparer: null);
 		}
 
 		[ObservableComputationsCall]
@@ -11720,6 +11615,21 @@ namespace ObservableComputations
 		[ObservableComputationsCall]
 		public static ObservableComputations.GroupJoining<TOuterSourceItem, TInnerSourceItem, TKey> GroupJoining<TOuterSourceItem, TInnerSourceItem, TKey>(this
 			 Expression<Func<System.Collections.Specialized.INotifyCollectionChanged>> outerSourceExpression,
+			 ObservableComputations.IReadScalar<ObservableCollection<TInnerSourceItem>> innerSourceScalar,
+			 System.Linq.Expressions.Expression<System.Func<TOuterSourceItem, TKey>> outerKeySelector,
+			 System.Linq.Expressions.Expression<System.Func<TInnerSourceItem, TKey>> innerKeySelector)
+		{
+			return new ObservableComputations.GroupJoining<TOuterSourceItem, TInnerSourceItem, TKey>(
+				outerSourceScalar: new Computing<System.Collections.Specialized.INotifyCollectionChanged>(outerSourceExpression),
+				innerSourceScalar: innerSourceScalar,
+				outerKeySelector: outerKeySelector,
+				innerKeySelector: innerKeySelector,
+				equalityComparer: null);
+		}
+
+		[ObservableComputationsCall]
+		public static ObservableComputations.GroupJoining<TOuterSourceItem, TInnerSourceItem, TKey> GroupJoining<TOuterSourceItem, TInnerSourceItem, TKey>(this
+			 Expression<Func<System.Collections.Specialized.INotifyCollectionChanged>> outerSourceExpression,
 			 Expression<Func<System.Collections.Specialized.INotifyCollectionChanged>> innerSourceExpression,
 			 System.Linq.Expressions.Expression<System.Func<TOuterSourceItem, TKey>> outerKeySelector,
 			 System.Linq.Expressions.Expression<System.Func<TInnerSourceItem, TKey>> innerKeySelector,
@@ -11736,6 +11646,21 @@ namespace ObservableComputations
 		[ObservableComputationsCall]
 		public static ObservableComputations.GroupJoining<TOuterSourceItem, TInnerSourceItem, TKey> GroupJoining<TOuterSourceItem, TInnerSourceItem, TKey>(this
 			 Expression<Func<System.Collections.Specialized.INotifyCollectionChanged>> outerSourceExpression,
+			 Expression<Func<System.Collections.Specialized.INotifyCollectionChanged>> innerSourceExpression,
+			 System.Linq.Expressions.Expression<System.Func<TOuterSourceItem, TKey>> outerKeySelector,
+			 System.Linq.Expressions.Expression<System.Func<TInnerSourceItem, TKey>> innerKeySelector)
+		{
+			return new ObservableComputations.GroupJoining<TOuterSourceItem, TInnerSourceItem, TKey>(
+				outerSourceScalar: new Computing<System.Collections.Specialized.INotifyCollectionChanged>(outerSourceExpression),
+				innerSourceScalar: new Computing<System.Collections.Specialized.INotifyCollectionChanged>(innerSourceExpression),
+				outerKeySelector: outerKeySelector,
+				innerKeySelector: innerKeySelector,
+				equalityComparer: null);
+		}
+
+		[ObservableComputationsCall]
+		public static ObservableComputations.GroupJoining<TOuterSourceItem, TInnerSourceItem, TKey> GroupJoining<TOuterSourceItem, TInnerSourceItem, TKey>(this
+			 Expression<Func<System.Collections.Specialized.INotifyCollectionChanged>> outerSourceExpression,
 			 Expression<Func<ObservableCollection<TInnerSourceItem>>> innerSourceExpression,
 			 System.Linq.Expressions.Expression<System.Func<TOuterSourceItem, TKey>> outerKeySelector,
 			 System.Linq.Expressions.Expression<System.Func<TInnerSourceItem, TKey>> innerKeySelector,
@@ -11747,6 +11672,21 @@ namespace ObservableComputations
 				outerKeySelector: outerKeySelector,
 				innerKeySelector: innerKeySelector,
 				equalityComparer: equalityComparer);
+		}
+
+		[ObservableComputationsCall]
+		public static ObservableComputations.GroupJoining<TOuterSourceItem, TInnerSourceItem, TKey> GroupJoining<TOuterSourceItem, TInnerSourceItem, TKey>(this
+			 Expression<Func<System.Collections.Specialized.INotifyCollectionChanged>> outerSourceExpression,
+			 Expression<Func<ObservableCollection<TInnerSourceItem>>> innerSourceExpression,
+			 System.Linq.Expressions.Expression<System.Func<TOuterSourceItem, TKey>> outerKeySelector,
+			 System.Linq.Expressions.Expression<System.Func<TInnerSourceItem, TKey>> innerKeySelector)
+		{
+			return new ObservableComputations.GroupJoining<TOuterSourceItem, TInnerSourceItem, TKey>(
+				outerSourceScalar: new Computing<System.Collections.Specialized.INotifyCollectionChanged>(outerSourceExpression),
+				innerSourceScalar: new Computing<ObservableCollection<TInnerSourceItem>>(innerSourceExpression),
+				outerKeySelector: outerKeySelector,
+				innerKeySelector: innerKeySelector,
+				equalityComparer: null);
 		}
 
 		[ObservableComputationsCall]
@@ -11768,6 +11708,21 @@ namespace ObservableComputations
 		[ObservableComputationsCall]
 		public static ObservableComputations.GroupJoining<TOuterSourceItem, TInnerSourceItem, TKey> GroupJoining<TOuterSourceItem, TInnerSourceItem, TKey>(this
 			 Expression<Func<ObservableCollection<TOuterSourceItem>>> outerSourceExpression,
+			 ObservableComputations.IReadScalar<System.Collections.Specialized.INotifyCollectionChanged> innerSourceScalar,
+			 System.Linq.Expressions.Expression<System.Func<TOuterSourceItem, TKey>> outerKeySelector,
+			 System.Linq.Expressions.Expression<System.Func<TInnerSourceItem, TKey>> innerKeySelector)
+		{
+			return new ObservableComputations.GroupJoining<TOuterSourceItem, TInnerSourceItem, TKey>(
+				outerSourceScalar: new Computing<ObservableCollection<TOuterSourceItem>>(outerSourceExpression),
+				innerSourceScalar: innerSourceScalar,
+				outerKeySelector: outerKeySelector,
+				innerKeySelector: innerKeySelector,
+				equalityComparer: null);
+		}
+
+		[ObservableComputationsCall]
+		public static ObservableComputations.GroupJoining<TOuterSourceItem, TInnerSourceItem, TKey> GroupJoining<TOuterSourceItem, TInnerSourceItem, TKey>(this
+			 Expression<Func<ObservableCollection<TOuterSourceItem>>> outerSourceExpression,
 			 ObservableComputations.IReadScalar<ObservableCollection<TInnerSourceItem>> innerSourceScalar,
 			 System.Linq.Expressions.Expression<System.Func<TOuterSourceItem, TKey>> outerKeySelector,
 			 System.Linq.Expressions.Expression<System.Func<TInnerSourceItem, TKey>> innerKeySelector,
@@ -11779,6 +11734,21 @@ namespace ObservableComputations
 				outerKeySelector: outerKeySelector,
 				innerKeySelector: innerKeySelector,
 				equalityComparer: equalityComparer);
+		}
+
+		[ObservableComputationsCall]
+		public static ObservableComputations.GroupJoining<TOuterSourceItem, TInnerSourceItem, TKey> GroupJoining<TOuterSourceItem, TInnerSourceItem, TKey>(this
+			 Expression<Func<ObservableCollection<TOuterSourceItem>>> outerSourceExpression,
+			 ObservableComputations.IReadScalar<ObservableCollection<TInnerSourceItem>> innerSourceScalar,
+			 System.Linq.Expressions.Expression<System.Func<TOuterSourceItem, TKey>> outerKeySelector,
+			 System.Linq.Expressions.Expression<System.Func<TInnerSourceItem, TKey>> innerKeySelector)
+		{
+			return new ObservableComputations.GroupJoining<TOuterSourceItem, TInnerSourceItem, TKey>(
+				outerSourceScalar: new Computing<ObservableCollection<TOuterSourceItem>>(outerSourceExpression),
+				innerSourceScalar: innerSourceScalar,
+				outerKeySelector: outerKeySelector,
+				innerKeySelector: innerKeySelector,
+				equalityComparer: null);
 		}
 
 		[ObservableComputationsCall]
@@ -11800,6 +11770,21 @@ namespace ObservableComputations
 		[ObservableComputationsCall]
 		public static ObservableComputations.GroupJoining<TOuterSourceItem, TInnerSourceItem, TKey> GroupJoining<TOuterSourceItem, TInnerSourceItem, TKey>(this
 			 Expression<Func<ObservableCollection<TOuterSourceItem>>> outerSourceExpression,
+			 Expression<Func<System.Collections.Specialized.INotifyCollectionChanged>> innerSourceExpression,
+			 System.Linq.Expressions.Expression<System.Func<TOuterSourceItem, TKey>> outerKeySelector,
+			 System.Linq.Expressions.Expression<System.Func<TInnerSourceItem, TKey>> innerKeySelector)
+		{
+			return new ObservableComputations.GroupJoining<TOuterSourceItem, TInnerSourceItem, TKey>(
+				outerSourceScalar: new Computing<ObservableCollection<TOuterSourceItem>>(outerSourceExpression),
+				innerSourceScalar: new Computing<System.Collections.Specialized.INotifyCollectionChanged>(innerSourceExpression),
+				outerKeySelector: outerKeySelector,
+				innerKeySelector: innerKeySelector,
+				equalityComparer: null);
+		}
+
+		[ObservableComputationsCall]
+		public static ObservableComputations.GroupJoining<TOuterSourceItem, TInnerSourceItem, TKey> GroupJoining<TOuterSourceItem, TInnerSourceItem, TKey>(this
+			 Expression<Func<ObservableCollection<TOuterSourceItem>>> outerSourceExpression,
 			 Expression<Func<ObservableCollection<TInnerSourceItem>>> innerSourceExpression,
 			 System.Linq.Expressions.Expression<System.Func<TOuterSourceItem, TKey>> outerKeySelector,
 			 System.Linq.Expressions.Expression<System.Func<TInnerSourceItem, TKey>> innerKeySelector,
@@ -11815,6 +11800,21 @@ namespace ObservableComputations
 
 		[ObservableComputationsCall]
 		public static ObservableComputations.GroupJoining<TOuterSourceItem, TInnerSourceItem, TKey> GroupJoining<TOuterSourceItem, TInnerSourceItem, TKey>(this
+			 Expression<Func<ObservableCollection<TOuterSourceItem>>> outerSourceExpression,
+			 Expression<Func<ObservableCollection<TInnerSourceItem>>> innerSourceExpression,
+			 System.Linq.Expressions.Expression<System.Func<TOuterSourceItem, TKey>> outerKeySelector,
+			 System.Linq.Expressions.Expression<System.Func<TInnerSourceItem, TKey>> innerKeySelector)
+		{
+			return new ObservableComputations.GroupJoining<TOuterSourceItem, TInnerSourceItem, TKey>(
+				outerSourceScalar: new Computing<ObservableCollection<TOuterSourceItem>>(outerSourceExpression),
+				innerSourceScalar: new Computing<ObservableCollection<TInnerSourceItem>>(innerSourceExpression),
+				outerKeySelector: outerKeySelector,
+				innerKeySelector: innerKeySelector,
+				equalityComparer: null);
+		}
+
+		[ObservableComputationsCall]
+		public static ObservableComputations.GroupJoining<TOuterSourceItem, TInnerSourceItem, TKey> GroupJoining<TOuterSourceItem, TInnerSourceItem, TKey>(this
 			 System.Collections.Specialized.INotifyCollectionChanged outerSource,
 			 ObservableComputations.IReadScalar<System.Collections.Specialized.INotifyCollectionChanged> innerSourceScalar,
 			 System.Linq.Expressions.Expression<System.Func<TOuterSourceItem, TKey>> outerKeySelector,
@@ -11827,21 +11827,6 @@ namespace ObservableComputations
 				outerKeySelector: outerKeySelector,
 				innerKeySelector: innerKeySelector,
 				equalityComparerScalar: equalityComparerScalar);
-		}
-
-		[ObservableComputationsCall]
-		public static ObservableComputations.GroupJoining<TOuterSourceItem, TInnerSourceItem, TKey> GroupJoining<TOuterSourceItem, TInnerSourceItem, TKey>(this
-			 System.Collections.Specialized.INotifyCollectionChanged outerSource,
-			 ObservableComputations.IReadScalar<System.Collections.Specialized.INotifyCollectionChanged> innerSourceScalar,
-			 System.Linq.Expressions.Expression<System.Func<TOuterSourceItem, TKey>> outerKeySelector,
-			 System.Linq.Expressions.Expression<System.Func<TInnerSourceItem, TKey>> innerKeySelector)
-		{
-			return new ObservableComputations.GroupJoining<TOuterSourceItem, TInnerSourceItem, TKey>(
-				outerSource: outerSource,
-				innerSourceScalar: innerSourceScalar,
-				outerKeySelector: outerKeySelector,
-				innerKeySelector: innerKeySelector,
-				equalityComparerScalar: null);
 		}
 
 		[ObservableComputationsCall]
@@ -11881,21 +11866,6 @@ namespace ObservableComputations
 			 System.Collections.Specialized.INotifyCollectionChanged outerSource,
 			 ObservableComputations.IReadScalar<ObservableCollection<TInnerSourceItem>> innerSourceScalar,
 			 System.Linq.Expressions.Expression<System.Func<TOuterSourceItem, TKey>> outerKeySelector,
-			 System.Linq.Expressions.Expression<System.Func<TInnerSourceItem, TKey>> innerKeySelector)
-		{
-			return new ObservableComputations.GroupJoining<TOuterSourceItem, TInnerSourceItem, TKey>(
-				outerSource: outerSource,
-				innerSourceScalar: innerSourceScalar,
-				outerKeySelector: outerKeySelector,
-				innerKeySelector: innerKeySelector,
-				equalityComparerScalar: null);
-		}
-
-		[ObservableComputationsCall]
-		public static ObservableComputations.GroupJoining<TOuterSourceItem, TInnerSourceItem, TKey> GroupJoining<TOuterSourceItem, TInnerSourceItem, TKey>(this
-			 System.Collections.Specialized.INotifyCollectionChanged outerSource,
-			 ObservableComputations.IReadScalar<ObservableCollection<TInnerSourceItem>> innerSourceScalar,
-			 System.Linq.Expressions.Expression<System.Func<TOuterSourceItem, TKey>> outerKeySelector,
 			 System.Linq.Expressions.Expression<System.Func<TInnerSourceItem, TKey>> innerKeySelector,
 			 Expression<Func<System.Collections.Generic.IEqualityComparer<TKey>>> equalityComparerExpression)
 		{
@@ -11928,21 +11898,6 @@ namespace ObservableComputations
 			 System.Collections.Specialized.INotifyCollectionChanged outerSource,
 			 Expression<Func<System.Collections.Specialized.INotifyCollectionChanged>> innerSourceExpression,
 			 System.Linq.Expressions.Expression<System.Func<TOuterSourceItem, TKey>> outerKeySelector,
-			 System.Linq.Expressions.Expression<System.Func<TInnerSourceItem, TKey>> innerKeySelector)
-		{
-			return new ObservableComputations.GroupJoining<TOuterSourceItem, TInnerSourceItem, TKey>(
-				outerSource: outerSource,
-				innerSourceScalar: new Computing<System.Collections.Specialized.INotifyCollectionChanged>(innerSourceExpression),
-				outerKeySelector: outerKeySelector,
-				innerKeySelector: innerKeySelector,
-				equalityComparerScalar: null);
-		}
-
-		[ObservableComputationsCall]
-		public static ObservableComputations.GroupJoining<TOuterSourceItem, TInnerSourceItem, TKey> GroupJoining<TOuterSourceItem, TInnerSourceItem, TKey>(this
-			 System.Collections.Specialized.INotifyCollectionChanged outerSource,
-			 Expression<Func<System.Collections.Specialized.INotifyCollectionChanged>> innerSourceExpression,
-			 System.Linq.Expressions.Expression<System.Func<TOuterSourceItem, TKey>> outerKeySelector,
 			 System.Linq.Expressions.Expression<System.Func<TInnerSourceItem, TKey>> innerKeySelector,
 			 Expression<Func<System.Collections.Generic.IEqualityComparer<TKey>>> equalityComparerExpression)
 		{
@@ -11968,21 +11923,6 @@ namespace ObservableComputations
 				outerKeySelector: outerKeySelector,
 				innerKeySelector: innerKeySelector,
 				equalityComparerScalar: equalityComparerScalar);
-		}
-
-		[ObservableComputationsCall]
-		public static ObservableComputations.GroupJoining<TOuterSourceItem, TInnerSourceItem, TKey> GroupJoining<TOuterSourceItem, TInnerSourceItem, TKey>(this
-			 System.Collections.Specialized.INotifyCollectionChanged outerSource,
-			 Expression<Func<ObservableCollection<TInnerSourceItem>>> innerSourceExpression,
-			 System.Linq.Expressions.Expression<System.Func<TOuterSourceItem, TKey>> outerKeySelector,
-			 System.Linq.Expressions.Expression<System.Func<TInnerSourceItem, TKey>> innerKeySelector)
-		{
-			return new ObservableComputations.GroupJoining<TOuterSourceItem, TInnerSourceItem, TKey>(
-				outerSource: outerSource,
-				innerSourceScalar: new Computing<ObservableCollection<TInnerSourceItem>>(innerSourceExpression),
-				outerKeySelector: outerKeySelector,
-				innerKeySelector: innerKeySelector,
-				equalityComparerScalar: null);
 		}
 
 		[ObservableComputationsCall]
@@ -12022,21 +11962,6 @@ namespace ObservableComputations
 			 ObservableCollection<TOuterSourceItem> outerSource,
 			 ObservableComputations.IReadScalar<System.Collections.Specialized.INotifyCollectionChanged> innerSourceScalar,
 			 System.Linq.Expressions.Expression<System.Func<TOuterSourceItem, TKey>> outerKeySelector,
-			 System.Linq.Expressions.Expression<System.Func<TInnerSourceItem, TKey>> innerKeySelector)
-		{
-			return new ObservableComputations.GroupJoining<TOuterSourceItem, TInnerSourceItem, TKey>(
-				outerSource: outerSource,
-				innerSourceScalar: innerSourceScalar,
-				outerKeySelector: outerKeySelector,
-				innerKeySelector: innerKeySelector,
-				equalityComparerScalar: null);
-		}
-
-		[ObservableComputationsCall]
-		public static ObservableComputations.GroupJoining<TOuterSourceItem, TInnerSourceItem, TKey> GroupJoining<TOuterSourceItem, TInnerSourceItem, TKey>(this
-			 ObservableCollection<TOuterSourceItem> outerSource,
-			 ObservableComputations.IReadScalar<System.Collections.Specialized.INotifyCollectionChanged> innerSourceScalar,
-			 System.Linq.Expressions.Expression<System.Func<TOuterSourceItem, TKey>> outerKeySelector,
 			 System.Linq.Expressions.Expression<System.Func<TInnerSourceItem, TKey>> innerKeySelector,
 			 Expression<Func<System.Collections.Generic.IEqualityComparer<TKey>>> equalityComparerExpression)
 		{
@@ -12062,21 +11987,6 @@ namespace ObservableComputations
 				outerKeySelector: outerKeySelector,
 				innerKeySelector: innerKeySelector,
 				equalityComparerScalar: equalityComparerScalar);
-		}
-
-		[ObservableComputationsCall]
-		public static ObservableComputations.GroupJoining<TOuterSourceItem, TInnerSourceItem, TKey> GroupJoining<TOuterSourceItem, TInnerSourceItem, TKey>(this
-			 ObservableCollection<TOuterSourceItem> outerSource,
-			 ObservableComputations.IReadScalar<ObservableCollection<TInnerSourceItem>> innerSourceScalar,
-			 System.Linq.Expressions.Expression<System.Func<TOuterSourceItem, TKey>> outerKeySelector,
-			 System.Linq.Expressions.Expression<System.Func<TInnerSourceItem, TKey>> innerKeySelector)
-		{
-			return new ObservableComputations.GroupJoining<TOuterSourceItem, TInnerSourceItem, TKey>(
-				outerSource: outerSource,
-				innerSourceScalar: innerSourceScalar,
-				outerKeySelector: outerKeySelector,
-				innerKeySelector: innerKeySelector,
-				equalityComparerScalar: null);
 		}
 
 		[ObservableComputationsCall]
@@ -12116,21 +12026,6 @@ namespace ObservableComputations
 			 ObservableCollection<TOuterSourceItem> outerSource,
 			 Expression<Func<System.Collections.Specialized.INotifyCollectionChanged>> innerSourceExpression,
 			 System.Linq.Expressions.Expression<System.Func<TOuterSourceItem, TKey>> outerKeySelector,
-			 System.Linq.Expressions.Expression<System.Func<TInnerSourceItem, TKey>> innerKeySelector)
-		{
-			return new ObservableComputations.GroupJoining<TOuterSourceItem, TInnerSourceItem, TKey>(
-				outerSource: outerSource,
-				innerSourceScalar: new Computing<System.Collections.Specialized.INotifyCollectionChanged>(innerSourceExpression),
-				outerKeySelector: outerKeySelector,
-				innerKeySelector: innerKeySelector,
-				equalityComparerScalar: null);
-		}
-
-		[ObservableComputationsCall]
-		public static ObservableComputations.GroupJoining<TOuterSourceItem, TInnerSourceItem, TKey> GroupJoining<TOuterSourceItem, TInnerSourceItem, TKey>(this
-			 ObservableCollection<TOuterSourceItem> outerSource,
-			 Expression<Func<System.Collections.Specialized.INotifyCollectionChanged>> innerSourceExpression,
-			 System.Linq.Expressions.Expression<System.Func<TOuterSourceItem, TKey>> outerKeySelector,
 			 System.Linq.Expressions.Expression<System.Func<TInnerSourceItem, TKey>> innerKeySelector,
 			 Expression<Func<System.Collections.Generic.IEqualityComparer<TKey>>> equalityComparerExpression)
 		{
@@ -12163,21 +12058,6 @@ namespace ObservableComputations
 			 ObservableCollection<TOuterSourceItem> outerSource,
 			 Expression<Func<ObservableCollection<TInnerSourceItem>>> innerSourceExpression,
 			 System.Linq.Expressions.Expression<System.Func<TOuterSourceItem, TKey>> outerKeySelector,
-			 System.Linq.Expressions.Expression<System.Func<TInnerSourceItem, TKey>> innerKeySelector)
-		{
-			return new ObservableComputations.GroupJoining<TOuterSourceItem, TInnerSourceItem, TKey>(
-				outerSource: outerSource,
-				innerSourceScalar: new Computing<ObservableCollection<TInnerSourceItem>>(innerSourceExpression),
-				outerKeySelector: outerKeySelector,
-				innerKeySelector: innerKeySelector,
-				equalityComparerScalar: null);
-		}
-
-		[ObservableComputationsCall]
-		public static ObservableComputations.GroupJoining<TOuterSourceItem, TInnerSourceItem, TKey> GroupJoining<TOuterSourceItem, TInnerSourceItem, TKey>(this
-			 ObservableCollection<TOuterSourceItem> outerSource,
-			 Expression<Func<ObservableCollection<TInnerSourceItem>>> innerSourceExpression,
-			 System.Linq.Expressions.Expression<System.Func<TOuterSourceItem, TKey>> outerKeySelector,
 			 System.Linq.Expressions.Expression<System.Func<TInnerSourceItem, TKey>> innerKeySelector,
 			 Expression<Func<System.Collections.Generic.IEqualityComparer<TKey>>> equalityComparerExpression)
 		{
@@ -12210,21 +12090,6 @@ namespace ObservableComputations
 			 System.Collections.Specialized.INotifyCollectionChanged outerSource,
 			 System.Collections.Specialized.INotifyCollectionChanged innerSource,
 			 System.Linq.Expressions.Expression<System.Func<TOuterSourceItem, TKey>> outerKeySelector,
-			 System.Linq.Expressions.Expression<System.Func<TInnerSourceItem, TKey>> innerKeySelector)
-		{
-			return new ObservableComputations.GroupJoining<TOuterSourceItem, TInnerSourceItem, TKey>(
-				outerSource: outerSource,
-				innerSource: innerSource,
-				outerKeySelector: outerKeySelector,
-				innerKeySelector: innerKeySelector,
-				equalityComparerScalar: null);
-		}
-
-		[ObservableComputationsCall]
-		public static ObservableComputations.GroupJoining<TOuterSourceItem, TInnerSourceItem, TKey> GroupJoining<TOuterSourceItem, TInnerSourceItem, TKey>(this
-			 System.Collections.Specialized.INotifyCollectionChanged outerSource,
-			 System.Collections.Specialized.INotifyCollectionChanged innerSource,
-			 System.Linq.Expressions.Expression<System.Func<TOuterSourceItem, TKey>> outerKeySelector,
 			 System.Linq.Expressions.Expression<System.Func<TInnerSourceItem, TKey>> innerKeySelector,
 			 Expression<Func<System.Collections.Generic.IEqualityComparer<TKey>>> equalityComparerExpression)
 		{
@@ -12250,21 +12115,6 @@ namespace ObservableComputations
 				outerKeySelector: outerKeySelector,
 				innerKeySelector: innerKeySelector,
 				equalityComparerScalar: equalityComparerScalar);
-		}
-
-		[ObservableComputationsCall]
-		public static ObservableComputations.GroupJoining<TOuterSourceItem, TInnerSourceItem, TKey> GroupJoining<TOuterSourceItem, TInnerSourceItem, TKey>(this
-			 System.Collections.Specialized.INotifyCollectionChanged outerSource,
-			 ObservableCollection<TInnerSourceItem> innerSource,
-			 System.Linq.Expressions.Expression<System.Func<TOuterSourceItem, TKey>> outerKeySelector,
-			 System.Linq.Expressions.Expression<System.Func<TInnerSourceItem, TKey>> innerKeySelector)
-		{
-			return new ObservableComputations.GroupJoining<TOuterSourceItem, TInnerSourceItem, TKey>(
-				outerSource: outerSource,
-				innerSource: innerSource,
-				outerKeySelector: outerKeySelector,
-				innerKeySelector: innerKeySelector,
-				equalityComparerScalar: null);
 		}
 
 		[ObservableComputationsCall]
@@ -12304,21 +12154,6 @@ namespace ObservableComputations
 			 ObservableCollection<TOuterSourceItem> outerSource,
 			 System.Collections.Specialized.INotifyCollectionChanged innerSource,
 			 System.Linq.Expressions.Expression<System.Func<TOuterSourceItem, TKey>> outerKeySelector,
-			 System.Linq.Expressions.Expression<System.Func<TInnerSourceItem, TKey>> innerKeySelector)
-		{
-			return new ObservableComputations.GroupJoining<TOuterSourceItem, TInnerSourceItem, TKey>(
-				outerSource: outerSource,
-				innerSource: innerSource,
-				outerKeySelector: outerKeySelector,
-				innerKeySelector: innerKeySelector,
-				equalityComparerScalar: null);
-		}
-
-		[ObservableComputationsCall]
-		public static ObservableComputations.GroupJoining<TOuterSourceItem, TInnerSourceItem, TKey> GroupJoining<TOuterSourceItem, TInnerSourceItem, TKey>(this
-			 ObservableCollection<TOuterSourceItem> outerSource,
-			 System.Collections.Specialized.INotifyCollectionChanged innerSource,
-			 System.Linq.Expressions.Expression<System.Func<TOuterSourceItem, TKey>> outerKeySelector,
 			 System.Linq.Expressions.Expression<System.Func<TInnerSourceItem, TKey>> innerKeySelector,
 			 Expression<Func<System.Collections.Generic.IEqualityComparer<TKey>>> equalityComparerExpression)
 		{
@@ -12351,21 +12186,6 @@ namespace ObservableComputations
 			 ObservableCollection<TOuterSourceItem> outerSource,
 			 ObservableCollection<TInnerSourceItem> innerSource,
 			 System.Linq.Expressions.Expression<System.Func<TOuterSourceItem, TKey>> outerKeySelector,
-			 System.Linq.Expressions.Expression<System.Func<TInnerSourceItem, TKey>> innerKeySelector)
-		{
-			return new ObservableComputations.GroupJoining<TOuterSourceItem, TInnerSourceItem, TKey>(
-				outerSource: outerSource,
-				innerSource: innerSource,
-				outerKeySelector: outerKeySelector,
-				innerKeySelector: innerKeySelector,
-				equalityComparerScalar: null);
-		}
-
-		[ObservableComputationsCall]
-		public static ObservableComputations.GroupJoining<TOuterSourceItem, TInnerSourceItem, TKey> GroupJoining<TOuterSourceItem, TInnerSourceItem, TKey>(this
-			 ObservableCollection<TOuterSourceItem> outerSource,
-			 ObservableCollection<TInnerSourceItem> innerSource,
-			 System.Linq.Expressions.Expression<System.Func<TOuterSourceItem, TKey>> outerKeySelector,
 			 System.Linq.Expressions.Expression<System.Func<TInnerSourceItem, TKey>> innerKeySelector,
 			 Expression<Func<System.Collections.Generic.IEqualityComparer<TKey>>> equalityComparerExpression)
 		{
@@ -12396,6 +12216,21 @@ namespace ObservableComputations
 		[ObservableComputationsCall]
 		public static ObservableComputations.GroupJoining<TOuterSourceItem, TInnerSourceItem, TKey> GroupJoining<TOuterSourceItem, TInnerSourceItem, TKey>(this
 			 System.Collections.Specialized.INotifyCollectionChanged outerSource,
+			 System.Collections.Specialized.INotifyCollectionChanged innerSource,
+			 System.Linq.Expressions.Expression<System.Func<TOuterSourceItem, TKey>> outerKeySelector,
+			 System.Linq.Expressions.Expression<System.Func<TInnerSourceItem, TKey>> innerKeySelector)
+		{
+			return new ObservableComputations.GroupJoining<TOuterSourceItem, TInnerSourceItem, TKey>(
+				outerSource: outerSource,
+				innerSource: innerSource,
+				outerKeySelector: outerKeySelector,
+				innerKeySelector: innerKeySelector,
+				equalityComparer: null);
+		}
+
+		[ObservableComputationsCall]
+		public static ObservableComputations.GroupJoining<TOuterSourceItem, TInnerSourceItem, TKey> GroupJoining<TOuterSourceItem, TInnerSourceItem, TKey>(this
+			 System.Collections.Specialized.INotifyCollectionChanged outerSource,
 			 ObservableCollection<TInnerSourceItem> innerSource,
 			 System.Linq.Expressions.Expression<System.Func<TOuterSourceItem, TKey>> outerKeySelector,
 			 System.Linq.Expressions.Expression<System.Func<TInnerSourceItem, TKey>> innerKeySelector,
@@ -12407,6 +12242,21 @@ namespace ObservableComputations
 				outerKeySelector: outerKeySelector,
 				innerKeySelector: innerKeySelector,
 				equalityComparer: equalityComparer);
+		}
+
+		[ObservableComputationsCall]
+		public static ObservableComputations.GroupJoining<TOuterSourceItem, TInnerSourceItem, TKey> GroupJoining<TOuterSourceItem, TInnerSourceItem, TKey>(this
+			 System.Collections.Specialized.INotifyCollectionChanged outerSource,
+			 ObservableCollection<TInnerSourceItem> innerSource,
+			 System.Linq.Expressions.Expression<System.Func<TOuterSourceItem, TKey>> outerKeySelector,
+			 System.Linq.Expressions.Expression<System.Func<TInnerSourceItem, TKey>> innerKeySelector)
+		{
+			return new ObservableComputations.GroupJoining<TOuterSourceItem, TInnerSourceItem, TKey>(
+				outerSource: outerSource,
+				innerSource: innerSource,
+				outerKeySelector: outerKeySelector,
+				innerKeySelector: innerKeySelector,
+				equalityComparer: null);
 		}
 
 		[ObservableComputationsCall]
@@ -12428,6 +12278,21 @@ namespace ObservableComputations
 		[ObservableComputationsCall]
 		public static ObservableComputations.GroupJoining<TOuterSourceItem, TInnerSourceItem, TKey> GroupJoining<TOuterSourceItem, TInnerSourceItem, TKey>(this
 			 ObservableCollection<TOuterSourceItem> outerSource,
+			 System.Collections.Specialized.INotifyCollectionChanged innerSource,
+			 System.Linq.Expressions.Expression<System.Func<TOuterSourceItem, TKey>> outerKeySelector,
+			 System.Linq.Expressions.Expression<System.Func<TInnerSourceItem, TKey>> innerKeySelector)
+		{
+			return new ObservableComputations.GroupJoining<TOuterSourceItem, TInnerSourceItem, TKey>(
+				outerSource: outerSource,
+				innerSource: innerSource,
+				outerKeySelector: outerKeySelector,
+				innerKeySelector: innerKeySelector,
+				equalityComparer: null);
+		}
+
+		[ObservableComputationsCall]
+		public static ObservableComputations.GroupJoining<TOuterSourceItem, TInnerSourceItem, TKey> GroupJoining<TOuterSourceItem, TInnerSourceItem, TKey>(this
+			 ObservableCollection<TOuterSourceItem> outerSource,
 			 ObservableCollection<TInnerSourceItem> innerSource,
 			 System.Linq.Expressions.Expression<System.Func<TOuterSourceItem, TKey>> outerKeySelector,
 			 System.Linq.Expressions.Expression<System.Func<TInnerSourceItem, TKey>> innerKeySelector,
@@ -12439,6 +12304,21 @@ namespace ObservableComputations
 				outerKeySelector: outerKeySelector,
 				innerKeySelector: innerKeySelector,
 				equalityComparer: equalityComparer);
+		}
+
+		[ObservableComputationsCall]
+		public static ObservableComputations.GroupJoining<TOuterSourceItem, TInnerSourceItem, TKey> GroupJoining<TOuterSourceItem, TInnerSourceItem, TKey>(this
+			 ObservableCollection<TOuterSourceItem> outerSource,
+			 ObservableCollection<TInnerSourceItem> innerSource,
+			 System.Linq.Expressions.Expression<System.Func<TOuterSourceItem, TKey>> outerKeySelector,
+			 System.Linq.Expressions.Expression<System.Func<TInnerSourceItem, TKey>> innerKeySelector)
+		{
+			return new ObservableComputations.GroupJoining<TOuterSourceItem, TInnerSourceItem, TKey>(
+				outerSource: outerSource,
+				innerSource: innerSource,
+				outerKeySelector: outerKeySelector,
+				innerKeySelector: innerKeySelector,
+				equalityComparer: null);
 		}
 
 		[ObservableComputationsCall]
@@ -12460,6 +12340,21 @@ namespace ObservableComputations
 		[ObservableComputationsCall]
 		public static ObservableComputations.GroupJoining<TOuterSourceItem, TInnerSourceItem, TKey> GroupJoining<TOuterSourceItem, TInnerSourceItem, TKey>(this
 			 System.Collections.Specialized.INotifyCollectionChanged outerSource,
+			 ObservableComputations.IReadScalar<System.Collections.Specialized.INotifyCollectionChanged> innerSourceScalar,
+			 System.Linq.Expressions.Expression<System.Func<TOuterSourceItem, TKey>> outerKeySelector,
+			 System.Linq.Expressions.Expression<System.Func<TInnerSourceItem, TKey>> innerKeySelector)
+		{
+			return new ObservableComputations.GroupJoining<TOuterSourceItem, TInnerSourceItem, TKey>(
+				outerSource: outerSource,
+				innerSourceScalar: innerSourceScalar,
+				outerKeySelector: outerKeySelector,
+				innerKeySelector: innerKeySelector,
+				equalityComparer: null);
+		}
+
+		[ObservableComputationsCall]
+		public static ObservableComputations.GroupJoining<TOuterSourceItem, TInnerSourceItem, TKey> GroupJoining<TOuterSourceItem, TInnerSourceItem, TKey>(this
+			 System.Collections.Specialized.INotifyCollectionChanged outerSource,
 			 ObservableComputations.IReadScalar<ObservableCollection<TInnerSourceItem>> innerSourceScalar,
 			 System.Linq.Expressions.Expression<System.Func<TOuterSourceItem, TKey>> outerKeySelector,
 			 System.Linq.Expressions.Expression<System.Func<TInnerSourceItem, TKey>> innerKeySelector,
@@ -12471,6 +12366,21 @@ namespace ObservableComputations
 				outerKeySelector: outerKeySelector,
 				innerKeySelector: innerKeySelector,
 				equalityComparer: equalityComparer);
+		}
+
+		[ObservableComputationsCall]
+		public static ObservableComputations.GroupJoining<TOuterSourceItem, TInnerSourceItem, TKey> GroupJoining<TOuterSourceItem, TInnerSourceItem, TKey>(this
+			 System.Collections.Specialized.INotifyCollectionChanged outerSource,
+			 ObservableComputations.IReadScalar<ObservableCollection<TInnerSourceItem>> innerSourceScalar,
+			 System.Linq.Expressions.Expression<System.Func<TOuterSourceItem, TKey>> outerKeySelector,
+			 System.Linq.Expressions.Expression<System.Func<TInnerSourceItem, TKey>> innerKeySelector)
+		{
+			return new ObservableComputations.GroupJoining<TOuterSourceItem, TInnerSourceItem, TKey>(
+				outerSource: outerSource,
+				innerSourceScalar: innerSourceScalar,
+				outerKeySelector: outerKeySelector,
+				innerKeySelector: innerKeySelector,
+				equalityComparer: null);
 		}
 
 		[ObservableComputationsCall]
@@ -12492,6 +12402,21 @@ namespace ObservableComputations
 		[ObservableComputationsCall]
 		public static ObservableComputations.GroupJoining<TOuterSourceItem, TInnerSourceItem, TKey> GroupJoining<TOuterSourceItem, TInnerSourceItem, TKey>(this
 			 System.Collections.Specialized.INotifyCollectionChanged outerSource,
+			 Expression<Func<System.Collections.Specialized.INotifyCollectionChanged>> innerSourceExpression,
+			 System.Linq.Expressions.Expression<System.Func<TOuterSourceItem, TKey>> outerKeySelector,
+			 System.Linq.Expressions.Expression<System.Func<TInnerSourceItem, TKey>> innerKeySelector)
+		{
+			return new ObservableComputations.GroupJoining<TOuterSourceItem, TInnerSourceItem, TKey>(
+				outerSource: outerSource,
+				innerSourceScalar: new Computing<System.Collections.Specialized.INotifyCollectionChanged>(innerSourceExpression),
+				outerKeySelector: outerKeySelector,
+				innerKeySelector: innerKeySelector,
+				equalityComparer: null);
+		}
+
+		[ObservableComputationsCall]
+		public static ObservableComputations.GroupJoining<TOuterSourceItem, TInnerSourceItem, TKey> GroupJoining<TOuterSourceItem, TInnerSourceItem, TKey>(this
+			 System.Collections.Specialized.INotifyCollectionChanged outerSource,
 			 Expression<Func<ObservableCollection<TInnerSourceItem>>> innerSourceExpression,
 			 System.Linq.Expressions.Expression<System.Func<TOuterSourceItem, TKey>> outerKeySelector,
 			 System.Linq.Expressions.Expression<System.Func<TInnerSourceItem, TKey>> innerKeySelector,
@@ -12503,6 +12428,21 @@ namespace ObservableComputations
 				outerKeySelector: outerKeySelector,
 				innerKeySelector: innerKeySelector,
 				equalityComparer: equalityComparer);
+		}
+
+		[ObservableComputationsCall]
+		public static ObservableComputations.GroupJoining<TOuterSourceItem, TInnerSourceItem, TKey> GroupJoining<TOuterSourceItem, TInnerSourceItem, TKey>(this
+			 System.Collections.Specialized.INotifyCollectionChanged outerSource,
+			 Expression<Func<ObservableCollection<TInnerSourceItem>>> innerSourceExpression,
+			 System.Linq.Expressions.Expression<System.Func<TOuterSourceItem, TKey>> outerKeySelector,
+			 System.Linq.Expressions.Expression<System.Func<TInnerSourceItem, TKey>> innerKeySelector)
+		{
+			return new ObservableComputations.GroupJoining<TOuterSourceItem, TInnerSourceItem, TKey>(
+				outerSource: outerSource,
+				innerSourceScalar: new Computing<ObservableCollection<TInnerSourceItem>>(innerSourceExpression),
+				outerKeySelector: outerKeySelector,
+				innerKeySelector: innerKeySelector,
+				equalityComparer: null);
 		}
 
 		[ObservableComputationsCall]
@@ -12524,6 +12464,21 @@ namespace ObservableComputations
 		[ObservableComputationsCall]
 		public static ObservableComputations.GroupJoining<TOuterSourceItem, TInnerSourceItem, TKey> GroupJoining<TOuterSourceItem, TInnerSourceItem, TKey>(this
 			 ObservableCollection<TOuterSourceItem> outerSource,
+			 ObservableComputations.IReadScalar<System.Collections.Specialized.INotifyCollectionChanged> innerSourceScalar,
+			 System.Linq.Expressions.Expression<System.Func<TOuterSourceItem, TKey>> outerKeySelector,
+			 System.Linq.Expressions.Expression<System.Func<TInnerSourceItem, TKey>> innerKeySelector)
+		{
+			return new ObservableComputations.GroupJoining<TOuterSourceItem, TInnerSourceItem, TKey>(
+				outerSource: outerSource,
+				innerSourceScalar: innerSourceScalar,
+				outerKeySelector: outerKeySelector,
+				innerKeySelector: innerKeySelector,
+				equalityComparer: null);
+		}
+
+		[ObservableComputationsCall]
+		public static ObservableComputations.GroupJoining<TOuterSourceItem, TInnerSourceItem, TKey> GroupJoining<TOuterSourceItem, TInnerSourceItem, TKey>(this
+			 ObservableCollection<TOuterSourceItem> outerSource,
 			 ObservableComputations.IReadScalar<ObservableCollection<TInnerSourceItem>> innerSourceScalar,
 			 System.Linq.Expressions.Expression<System.Func<TOuterSourceItem, TKey>> outerKeySelector,
 			 System.Linq.Expressions.Expression<System.Func<TInnerSourceItem, TKey>> innerKeySelector,
@@ -12535,6 +12490,21 @@ namespace ObservableComputations
 				outerKeySelector: outerKeySelector,
 				innerKeySelector: innerKeySelector,
 				equalityComparer: equalityComparer);
+		}
+
+		[ObservableComputationsCall]
+		public static ObservableComputations.GroupJoining<TOuterSourceItem, TInnerSourceItem, TKey> GroupJoining<TOuterSourceItem, TInnerSourceItem, TKey>(this
+			 ObservableCollection<TOuterSourceItem> outerSource,
+			 ObservableComputations.IReadScalar<ObservableCollection<TInnerSourceItem>> innerSourceScalar,
+			 System.Linq.Expressions.Expression<System.Func<TOuterSourceItem, TKey>> outerKeySelector,
+			 System.Linq.Expressions.Expression<System.Func<TInnerSourceItem, TKey>> innerKeySelector)
+		{
+			return new ObservableComputations.GroupJoining<TOuterSourceItem, TInnerSourceItem, TKey>(
+				outerSource: outerSource,
+				innerSourceScalar: innerSourceScalar,
+				outerKeySelector: outerKeySelector,
+				innerKeySelector: innerKeySelector,
+				equalityComparer: null);
 		}
 
 		[ObservableComputationsCall]
@@ -12556,6 +12526,21 @@ namespace ObservableComputations
 		[ObservableComputationsCall]
 		public static ObservableComputations.GroupJoining<TOuterSourceItem, TInnerSourceItem, TKey> GroupJoining<TOuterSourceItem, TInnerSourceItem, TKey>(this
 			 ObservableCollection<TOuterSourceItem> outerSource,
+			 Expression<Func<System.Collections.Specialized.INotifyCollectionChanged>> innerSourceExpression,
+			 System.Linq.Expressions.Expression<System.Func<TOuterSourceItem, TKey>> outerKeySelector,
+			 System.Linq.Expressions.Expression<System.Func<TInnerSourceItem, TKey>> innerKeySelector)
+		{
+			return new ObservableComputations.GroupJoining<TOuterSourceItem, TInnerSourceItem, TKey>(
+				outerSource: outerSource,
+				innerSourceScalar: new Computing<System.Collections.Specialized.INotifyCollectionChanged>(innerSourceExpression),
+				outerKeySelector: outerKeySelector,
+				innerKeySelector: innerKeySelector,
+				equalityComparer: null);
+		}
+
+		[ObservableComputationsCall]
+		public static ObservableComputations.GroupJoining<TOuterSourceItem, TInnerSourceItem, TKey> GroupJoining<TOuterSourceItem, TInnerSourceItem, TKey>(this
+			 ObservableCollection<TOuterSourceItem> outerSource,
 			 Expression<Func<ObservableCollection<TInnerSourceItem>>> innerSourceExpression,
 			 System.Linq.Expressions.Expression<System.Func<TOuterSourceItem, TKey>> outerKeySelector,
 			 System.Linq.Expressions.Expression<System.Func<TInnerSourceItem, TKey>> innerKeySelector,
@@ -12567,6 +12552,21 @@ namespace ObservableComputations
 				outerKeySelector: outerKeySelector,
 				innerKeySelector: innerKeySelector,
 				equalityComparer: equalityComparer);
+		}
+
+		[ObservableComputationsCall]
+		public static ObservableComputations.GroupJoining<TOuterSourceItem, TInnerSourceItem, TKey> GroupJoining<TOuterSourceItem, TInnerSourceItem, TKey>(this
+			 ObservableCollection<TOuterSourceItem> outerSource,
+			 Expression<Func<ObservableCollection<TInnerSourceItem>>> innerSourceExpression,
+			 System.Linq.Expressions.Expression<System.Func<TOuterSourceItem, TKey>> outerKeySelector,
+			 System.Linq.Expressions.Expression<System.Func<TInnerSourceItem, TKey>> innerKeySelector)
+		{
+			return new ObservableComputations.GroupJoining<TOuterSourceItem, TInnerSourceItem, TKey>(
+				outerSource: outerSource,
+				innerSourceScalar: new Computing<ObservableCollection<TInnerSourceItem>>(innerSourceExpression),
+				outerKeySelector: outerKeySelector,
+				innerKeySelector: innerKeySelector,
+				equalityComparer: null);
 		}
 
 		#endregion

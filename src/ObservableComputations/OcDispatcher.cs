@@ -251,7 +251,6 @@ namespace ObservableComputations
 
 			_managedThreadId = _thread.ManagedThreadId;
 			_thread.SetApartmentState(threadApartmentState);
-			_thread.Name = "ObservableComputations.OcDispatcher";
 			_thread.Start();
 		}
 

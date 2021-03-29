@@ -10,7 +10,7 @@ namespace ObservableComputations
 {
 	public interface IComputing : IHasTags, IConsistent, IEventHandler
 	{
-		string InstantiatingStackTrace { get; }
+		string InstantiationStackTrace { get; }
 		IComputing UserCodeIsCalledFrom { get; }
 		bool IsActive { get; }
 		bool ActivationInProgress {get; }

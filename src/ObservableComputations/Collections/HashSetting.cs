@@ -29,7 +29,7 @@ namespace ObservableComputations
 		// ReSharper disable once MemberCanBePrivate.Global
 		public virtual INotifyCollectionChanged Source => _source;
 
-		public string InstantiatingStackTrace => _instantiatingStackTrace;
+		public string InstantiationStackTrace => _instantiationStackTrace;
 
 		public virtual ReadOnlyCollection<object> Sources => new ReadOnlyCollection<object>(new object[]{Source, SourceScalar});
 
@@ -116,7 +116,7 @@ namespace ObservableComputations
 		private readonly IReadScalar<INotifyCollectionChanged> _sourceScalar;
 		private readonly Func<TSourceItem, TKey> _keySelectorFunc;
 		private INotifyCollectionChanged _source;
-		private readonly string _instantiatingStackTrace;
+		private readonly string _instantiationStackTrace;
 		private bool _isConsistent = true;
 
 		private readonly IReadScalar<IEqualityComparer<TKey>> _equalityComparerScalar;
@@ -143,7 +143,7 @@ namespace ObservableComputations
 			Expression<Func<TSourceItem, TKey>> keySelectorExpression,
 			int sourceCapacity)
 		{
-			if (OcConfiguration.SaveInstantiatingStackTrace) _instantiatingStackTrace = Environment.StackTrace;
+			if (OcConfiguration.SaveInstantiationStackTrace) _instantiationStackTrace = Environment.StackTrace;
 
 			Utils.construct(sourceCapacity, out _itemInfos, out _sourcePositions);
 

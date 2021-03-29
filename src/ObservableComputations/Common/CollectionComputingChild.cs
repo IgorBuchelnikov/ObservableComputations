@@ -26,7 +26,7 @@ namespace ObservableComputations
 		public int OldIndex => _oldIndex;
 		public int NewIndex => _newIndex;
 
-		public string InstantiatingStackTrace => Parent.InstantiatingStackTrace;
+		public string InstantiationStackTrace => Parent.InstantiationStackTrace;
 		internal IComputing _userCodeIsCalledFrom;
 		public IComputing UserCodeIsCalledFrom => _userCodeIsCalledFrom;
 		public object HandledEventSender => Parent.HandledEventSender;

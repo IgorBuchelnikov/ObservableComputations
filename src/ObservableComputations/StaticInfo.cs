@@ -15,9 +15,9 @@ namespace ObservableComputations
 		public static ReadOnlyDictionary<int, IComputing> ComputingsExecutingUserCode => 
 			new ReadOnlyDictionary<int, IComputing>(_computingsExecutingUserCode);
 
-		internal static readonly ConcurrentDictionary<Thread, OcDispatcher> _ocDispatchers = new ConcurrentDictionary<Thread, OcDispatcher>();
+		internal static readonly ConcurrentDictionary<int, OcDispatcher> _ocDispatchers = new ConcurrentDictionary<int, OcDispatcher>();
 
-		public static ReadOnlyDictionary<Thread, OcDispatcher> OcDispatchers => 
-			new ReadOnlyDictionary<Thread, OcDispatcher>(_ocDispatchers);
+		public static ReadOnlyDictionary<int, OcDispatcher> OcDispatchers => 
+			new ReadOnlyDictionary<int, OcDispatcher>(_ocDispatchers);
 	}
 }

@@ -24,9 +24,9 @@ namespace ObservableComputations
 		{
 			_initialCapacity = initialCapacity;
 
-			if (OcConfiguration.SaveInstantiatingStackTrace)
+			if (OcConfiguration.SaveInstantiationStackTrace)
 			{
-				_instantiatingStackTrace = Environment.StackTrace;
+				_instantiationStackTrace = Environment.StackTrace;
 			}
 
 			_items = Items;
@@ -405,7 +405,7 @@ namespace ObservableComputations
 		internal int _initialCapacity;
 
 		// ReSharper disable once MemberCanBePrivate.Global
-		public string InstantiatingStackTrace => _instantiatingStackTrace;
+		public string InstantiationStackTrace => _instantiationStackTrace;
 
 		internal IComputing _userCodeIsCalledFrom;
 		public IComputing UserCodeIsCalledFrom => _userCodeIsCalledFrom;
@@ -416,7 +416,7 @@ namespace ObservableComputations
 		public EventArgs HandledEventArgs => _handledEventArgs;
 
 		protected bool _isConsistent = true;
-		private readonly string _instantiatingStackTrace;
+		private readonly string _instantiationStackTrace;
 
 
 		public bool IsConsistent => _isConsistent;

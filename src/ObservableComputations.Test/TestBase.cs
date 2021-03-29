@@ -16,9 +16,9 @@ namespace ObservableComputations.Test
 		{
 			_debug = debug;
 
-			OcConfiguration.SaveInstantiatingStackTrace = _debug;
+			OcConfiguration.SaveInstantiationStackTrace = _debug;
 			OcConfiguration.TrackComputingsExecutingUserCode = _debug;
-			OcConfiguration.SaveOcDispatcherInvokingStackTrace = _debug;
+			OcConfiguration.SaveOcDispatcherInvocationInstantiationStackTrace = _debug;
 
 			if (!debug)
 			{

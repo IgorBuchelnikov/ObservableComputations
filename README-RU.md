@@ -1824,7 +1824,7 @@ namespace ObservableComputationsExamples
 
 * Обработчики результатов вычислений описаны в разделе ["Обработка изменений результатов вычислений"](#обработка-изменений-результатов-вычислений).
 
-* Код вызванный с помощью методов [*OcDispatcher.Invoke* и *OcDispatcher.BeginInvoke*](#использование-класса-ocDispatcher).
+* Код вызванный с помощью методов [*OcDispatcher.Invoke\**](#использование-класса-ocDispatcher).
 
 Вот код иллюстрирующий отладку произвольного выражения (другие типы могут быть отлажены аналогичным образом):
 
@@ -1856,8 +1856,8 @@ namespace ObservableComputationsExamples
 	{
 		static void Main(string[] args)
 		{
-			Configuration.SaveInstantiatingStackTrace = true;
-			Configuration.TrackComputingsExecutingUserCode = true;
+			OcConfiguration.SaveInstantiationStackTrace = true;
+			OcConfiguration.TrackComputingsExecutingUserCode = true;
 
 			ValueProvider valueProvider = new ValueProvider(){Value = 2};
 
@@ -1879,8 +1879,8 @@ namespace ObservableComputationsExamples
 			{
 				Console.WriteLine($"Exception stacktrace:\n{exception.StackTrace}");
 
-				IComputing computing = DebugInfo.ComputingsExecutingUserCode[Thread.CurrentThread];
-				Console.WriteLine($"\nComputing which caused the exception has been instantiated by the following stacktrace :\n{computing.InstantiatingStackTrace}");
+				IComputing computing = StaticInfo.ComputingsExecutingUserCode[Thread.CurrentThread.ManagedThreadId];
+				Console.WriteLine($"\nComputing which caused the exception has been instantiated by the following stacktrace :\n{computing.InstantiationStackTrace}");
 								Console.WriteLine($"\nSender of event now processing is :\n{computing.HandledEventSender.ToStringSafe()}");
 				Console.WriteLine($"\nArgs for the event that is currently being processed is :\n{computing.HandledEventArgs.ToStringAlt()}");
 			}
@@ -1893,11 +1893,11 @@ namespace ObservableComputationsExamples
 }
 ```
 
-Как Вы видите *exception.StackTrace* указывает на строку, которая вызвала исключение: *valueProvider.Value = new Random().Next(0, 1);*. Эта строка не указывает на вычисление, которое вызвало исключение: *computing1* or *computing2*. Чтобы определить исключение, которое вызвало исключение мы должны взглянуть на свойство *DebugInfo.ComputingsExecutingUserCode[Thread.CurrentThread].InstantiatingStackTrace*. Это свойство содержит трассировку стека инстанцирования вычисления. 
+Как Вы видите *exception.StackTrace* указывает на строку, которая вызвала исключение: *valueProvider.Value = new Random().Next(0, 1);*. Эта строка не указывает на вычисление, которое вызвало исключение: *computing1* or *computing2*. Чтобы определить исключение, которое вызвало исключение мы должны взглянуть на свойство *StaticInfo.ComputingsExecutingUserCode[Thread.CurrentThread.ManagedThreadId].InstantiatingStackTrace*. Это свойство содержит трассировку стека инстанцирования вычисления. 
 
-По умолчанию ObservableComputations не сохраняет трассировки стека инстанцирования вычислений по соображениям производительности. Чтобы сохранять эти трассировки стека используйте свойство *Configuration.SaveInstantiatingStackTrace*. 
+По умолчанию ObservableComputations не сохраняет трассировки стека инстанцирования вычислений по соображениям производительности. Чтобы сохранять эти трассировки стека используйте свойство *OcConfiguration.SaveInstantiationStackTrace*. 
 
-По умолчанию ObservableComputations не следит за вычислениями выполняющими пользовательский код по соображениям производительности. Для того чтобы следить за вычислениями выполняющими пользовательский код используйте свойство *Configuration.TrackComputingsExecutingUserCode*. Если пользовательский код был вызван из пользовательского кода другого вычисления, то *DebugInfo.ComputingsExecutingUserCode[Thread.CurrentThread].UserCodeIsCalledFrom* будет указывать на это вычисление.
+По умолчанию ObservableComputations не следит за вычислениями выполняющими пользовательский код по соображениям производительности. Для того чтобы следить за вычислениями выполняющими пользовательский код используйте свойство *OcConfiguration.TrackComputingsExecutingUserCode*. Если пользовательский код был вызван из пользовательского кода другого вычисления, то *StaticInfo.ComputingsExecutingUserCode[Thread.CurrentThread.ManagedThreadId].UserCodeIsCalledFrom* будет указывать на это вычисление.
 
 Все необработанные исключения выброшенные в пользовательском коде фатальны, так как внутреннее состояние вычисление становится повреждённым. Обратите внимание на проверки на null.
 
@@ -1933,10 +1933,10 @@ namespace ObservableComputationsExamples
 	{
 		static void Main(string[] args)
 		{
-			Configuration.SaveInstantiatingStackTrace = true;
-			Configuration.TrackComputingsExecutingUserCode = true;
-			Configuration.SaveOcDispatcherInvocationStackTrace = true;
-			Configuration.TrackOcDispatcherInvocations = true;
+			OcConfiguration.SaveInstantiationStackTrace = true;
+			OcConfiguration.TrackComputingsExecutingUserCode = true;
+			OcConfiguration.SaveOcDispatcherInvocationInstantiationStackTrace = true;
+			OcConfiguration.SaveOcDispatcherInvocationExecutionStackTrace = true;
 
 			ValueProvider valueProvider = new ValueProvider(){Value = 2};
 			
@@ -1946,17 +1946,22 @@ namespace ObservableComputationsExamples
 			{
 				Thread.CurrentThread.IsBackground = true;
 
-				Console.WriteLine($"Exception stacktrace:\n{DebugInfo.ExecutingOcDispatcherInvocations[ocDispatcher.ManagedThreadId].Peek().CallStackTrace}");
-				Console.WriteLine($"\nComputing which caused the exception has been instantiated by the following stacktrace :\n{DebugInfo.ComputingsExecutingUserCode[Thread.CurrentThread.ManagedThreadId].InstantiatingStackTrace}");
-				Console.WriteLine($"\nDispatch computing which caused the exception has been instantiated by the following stacktrace :\n{((IComputing) DebugInfo.ExecutingOcDispatcherInvocations[ocDispatcher.ManagedThreadId].Peek().Context).InstantiatingStackTrace}");
+				Invocation currentInvocation = StaticInfo.OcDispatchers[ocDispatcher.ManagedThreadId].CurrentInvocation;
+				Console.WriteLine($"Exception stacktrace:\n{currentInvocation.InstantiationStackTrace}");
+				Console.WriteLine($"\nComputing which caused the exception has been instantiated by the following stacktrace :\n{StaticInfo.ComputingsExecutingUserCode[Thread.CurrentThread.ManagedThreadId].InstantiationStackTrace}");
+				Console.WriteLine($"\nDispatch computing which caused the exception has been instantiated by the following stacktrace :\n{((IComputing)currentInvocation.Context).InstantiationStackTrace}");
 
 				while (true)
 					Thread.Sleep(TimeSpan.FromHours(1));
 			};
 
-			ScalarDispatching<int> valueProviderDispatching = valueProvider.ScalarDispatching(ocDispatcher);
-
 			OcConsumer consumer = new OcConsumer();
+
+			ScalarDispatching<int> valueProviderDispatching = 
+				valueProvider.ScalarDispatching(ocDispatcher)
+				.For(consumer);
+
+			ocDispatcher.Pass();
 
 			Computing<decimal> computing1 = 
 				new Computing<decimal>(() => 1 / valueProviderDispatching.Value)
@@ -1966,15 +1971,7 @@ namespace ObservableComputationsExamples
 				new Computing<decimal>(() => 1 / (valueProviderDispatching.Value - 1))
 				.For(consumer);
 
-			try
-			{
-				valueProvider.Value = new Random().Next(0, 2);
-			}
-			catch (DivideByZeroException exception)
-			{
-				Console.WriteLine($"Exception stacktrace:\n{exception.StackTrace}");
-				Console.WriteLine($"\nComputing which caused the exception has been instantiated by the following stacktrace :\n{DebugInfo.ComputingsExecutingUserCode[Thread.CurrentThread.ManagedThreadId].InstantiatingStackTrace}");
-			}
+			valueProvider.Value = new Random().Next(0, 2);
 
 			Console.ReadLine();
 
@@ -1986,9 +1983,9 @@ namespace ObservableComputationsExamples
 
 Данный пример аналогичен предыдущему, за исключением
 * Свойств, которые содержат информацию об исключении
-* Установки параметров конфигурации *Configuration.SaveOcDispatcherInvocationStackTrace* и *Configuration.TrackOcDispatcherInvocations*
+* Установки параметров конфигурации *Configuration.SaveOcDispatcherInvocationInstantiationStackTrace* и *Configuration.TrackOcDispatcherInvocations*
 
-*DebugInfo.ExecutingOcDispatcherInvocations[ocDispatcher.ManagedThreadId]* имеет тип Stack&lt;Invocation&gt;. Стек будет содержать более одного элемента, если вы вызывали метод *OcDispatcher.DoOthers*.
+Свойства *OcConfiguration.SaveOcDispatcherInvocationExecutionStackTrace*, *Invocation.ExecutionStackTrace*, *Invocation.Executor* и  *Invocation.Parent* могут пригодиться, если вы вызывали методы *OcDispatcher.DoOtherInvocations* или *OcDispatcher.Invoke\** находясь в потоке *OcDispatcher*.
 
 ## Дополнительные события для обработки изменений: PreCollectionChanged, PreValueChanged, PostCollectionChanged, PostValueChanged
 ```csharp
@@ -2156,7 +2153,7 @@ namespace ObservableComputationsExamples
 ### Потокобезопасность
 [*CollectionComputing&lt;TSourceItem&gt;*](#полный-список-операторов)) и [*ScalarComputing&lt;TSourceItem&gt;*](#полный-список-операторов))
 
-* поддерживают несколько читающих потоков одновременно, если во время чтения не меняются пишущим потоком. Исключение: вычисление *ConcurrentDictionaring*, которое поддерживает одновременно несколько читающих потоков и один пишущий. 
+* поддерживают несколько читающих потоков одновременно, если во время чтения не  изменяются пишущим потоком. Исключение: вычисление *ConcurrentDictionaring*, которое поддерживает одновременно несколько читающих потоков и один пишущий. 
 * не поддерживают одновременные изменения несколькими пишущими потоками. 
 
 Вычисления изменяются пишущим потоком когда 
@@ -2336,14 +2333,14 @@ namespace ObservableComputationsExample
 		{
 			Orders = new ObservableCollection<Order>();
 
-			WpfOcDispatcher wpfOcOcDispatcher = new WpfOcDispatcher(this.Dispatcher);
+			WpfOcDispatcher wpfOcDispatcher = new WpfOcDispatcher(this.Dispatcher);
 
 			fillOrdersFromDb();
 
 			PaidOrders = 
 				Orders.CollectionDispatching(_ocDispatcher) // direct the computation to the background thread
 				.Filtering(o => o.Paid)
-				.CollectionDispatching(wpfOcOcDispatcher, _ocDispatcher, (int)DispatcherPriority.Background) // return the computation to the main thread from the background one
+				.CollectionDispatching(wpfOcDispatcher, _ocDispatcher, (int)DispatcherPriority.Background) // return the computation to the main thread from the background one
 				.For(_consumer);
 
 			UnpaidOrders = 
@@ -2417,13 +2414,13 @@ namespace ObservableComputationsExample
 }
 ```
 В этом примере мы грузим данные из БД в главном потоке, но фильтрация коллекции-источника *Orders* для получения оплаченных заказов (*PaidOrders*) производится в фоновом потоке.   
-Класс *ObservableComputations.OcDispatcher* очень похож на класс [System.Windows.Threading.Dispatcher](https://docs.microsoft.com/en-us/dotnet/api/system.windows.threading.Dispatcher?view=netcore-3.1). Класс *ObservableComputations.OcDispatcher* ассоциирован с единственным потоком. В этом потоке вы можете выполнять делегаты, вызывая методы *ObservableComputations.OcDispatcher.Invoke* и *ObservableComputations.OcDispatcher.BeginInvoke*. 
+Класс *ObservableComputations.OcDispatcher* очень похож на класс [System.Windows.Threading.Dispatcher](https://docs.microsoft.com/en-us/dotnet/api/system.windows.threading.Dispatcher?view=netcore-3.1). Класс *ObservableComputations.OcDispatcher* ассоциирован с единственным потоком. В этом потоке вы можете выполнять делегаты, вызывая методы *ObservableComputations.OcDispatcher.Invoke\**. 
 Метод *CollectionDispatching* перенаправляет все изменения коллекции источника в поток целевого диспетчера (параметр *distinationDispatcher*). 
 В момент вызова метода *CollectionDispatching* происходит перечисление коллекции-источника (*Orders* или *Orders.CollectionDispatching(_ocDispatcher).Filtering(o => o.Paid)*) и подписка на её событие [CollectionChanged](https://docs.microsoft.com/en-us/dotnet/api/system.collections.specialized.inotifycollectionchanged.collectionchanged?view=netcore-3.1). При этом коллекция-источник не должна меняться. При вызове *.CollectionDispatching(_ocDispatcher)*, коллекция *Orders* не меняется. При вызове *.CollectionDispatching(wpfOcDispatcher, _ocDispatcher)* коллекция *Orders.CollectionDispatching(_ocDispatcher).Filtering(o => o.Paid)* может меняться в потоке *_ocOcDispatcher*, но так как мы передаём *_ocDispatcher* в параметр *sourceOcDispatcher*, то перечисление коллекции-источника и подписка на её событие [CollectionChanged](https://docs.microsoft.com/en-us/dotnet/api/system.collections.specialized.inotifycollectionchanged.collectionchanged?view=netcore-3.1) происходит в потоке *_ocDispatcher*, что гарантирует отсутствие изменений коллекции-источника при перечислении. Так как при вызове *.CollectionDispatching(_ocDispatcher)*, коллекция *Orders* не меняется, то передавать *wpfOcDispatcher* в параметр *sourceOcDispatcher* смысла нет, тем более что в момент вызова *.CollectionDispatching(_ocDispatcher)* мы и так находимся в потоке *wpfOcDispatcher*. В большинстве случаев излишняя передача параметра *sourceDispatcher* не приведёт к потере работоспособности, разве что немного пострадает производительность.
 Перечисление коллекции-источника происходит также в случае если [коллекция-источник передана как обозреваемый аргумент](#передача-коллекции-источника-как-обозреваемого-аргумента) и изменила своё значение.
 Обратите внимание на необходимость вызова *_ocDispatcher.Dispose()*.
 
-Обратите внимание  *DispatcherPriority.Background* iпередаётся через параметр *destinationOcDispatcherPriority* метода расшерения *CollectionDispatching* в метод *WpfOcDispatcher.Invoke*.
+Обратите внимание  *DispatcherPriority.Background* iпередаётся через параметр *destinationOcDispatcherPriority* метода расширения *CollectionDispatching* в метод *WpfOcDispatcher.Invoke*.
 
 Приведённый выше пример не является единственным вариантом проектирования. Вот ещё один вариант (XAML такой же как в предыдущем примере):
 
@@ -2811,7 +2808,7 @@ namespace ObservableComputationsExample
 		public Order(int num, IOcDispatcher backgroundOcDispatcher, IOcDispatcher wpfOcDispatcher)
 		{
 			Num = num;
-			PaidPropertyDispatching = new PropertyDispatching<Order, bool>(() => Paid, backgroundOcDispatcher, wpfOcDispatcher, 0, (int)DispatcherPriority.Background);
+			PaidPropertyDispatching = new PropertyDispatching<Order, bool>(this, nameof(Paid), backgroundOcDispatcher, wpfOcDispatcher, 0, (int)DispatcherPriority.Background);
 
 		}
 
@@ -2854,10 +2851,10 @@ namespace ObservableComputationsExample
 }
 ```
 
-В этом примере при двойном щелчке мышью по неоплаченному заказу мы делаем его оплаченным. Так как свойство *Paid* в этом случае меняется в главном потоке, то мы не можем читать его в фоновом потоке *_ocOcDispatcher*. Для того чтобы читать это свойство в фоновом потоке *_ocOcDispatcher*, необходимо диспетчеризировать изменения этого сойства в этот поток. Это происходит с помощью класса *PropertyDispatching&lt;THolder, TResult&gt;*. Аналогично методу *CollectionDispatching*, конструктор класса *PropertyDispatching&lt;THolder, TResult&gt;* имеет обязательный параметр *destinationOcDispatcher* и опциональный параметр *sourceOcDispatcher*. Отличие в том, что 
+В этом примере при двойном щелчке мышью по неоплаченному заказу мы делаем его оплаченным. Так как свойство *Paid* в этом случае меняется в главном потоке, то мы не можем читать его в фоновом потоке *_ocOcDispatcher*. Для того чтобы читать это свойство в фоновом потоке *_ocOcDispatcher*, необходимо диспетчеризировать изменения этого свойства в этот поток. Это происходит с помощью класса *PropertyDispatching&lt;THolder, TResult&gt;*. Аналогично методу *CollectionDispatching*, конструктор класса *PropertyDispatching&lt;THolder, TResult&gt;* имеет обязательный параметр *destinationOcDispatcher* и опциональный параметр *sourceOcDispatcher*. Отличие в том, что 
 
-* вместо перчисления коллекции-источника и подписки на событие [CollectionChanged](https://docs.microsoft.com/en-us/dotnet/api/system.collections.specialized.inotifycollectionchanged.collectionchanged?view=netcore-3.1), происходит считывание значения свойства и подписка на событие [PropertyChanged](https://docs.microsoft.com/en-us/dotnet/api/system.componentmodel.inotifypropertychanged.propertychanged?view=netcore-3.1). 
-* значение переданное в параметр *sourceOcDispatcher*, используется для диспетчеризации изменения значения свойства (сеттер *PropertyDispatching&lt;THolder, TResult&gt;.Value*) в поток *sourceOcDispatcher*, в случае если это изменение далается в другом потоке. 
+* вместо перечисления коллекции-источника и подписки на событие [CollectionChanged](https://docs.microsoft.com/en-us/dotnet/api/system.collections.specialized.inotifycollectionchanged.collectionchanged?view=netcore-3.1), происходит считывание значения свойства и подписка на событие [PropertyChanged](https://docs.microsoft.com/en-us/dotnet/api/system.componentmodel.inotifypropertychanged.propertychanged?view=netcore-3.1). 
+* значение переданное в параметр *sourceOcDispatcher*, используется для диспетчеризации изменения значения свойства (сеттер *PropertyDispatching&lt;THolder, TResult&gt;.Value*) в поток *sourceOcDispatcher*, в случае если это изменение делается в другом потоке. 
 
 Обратите внимание как *DispatcherPriority.Background* передаётся через параметр *sourceOcDispatcherPriority* конструктора класса *PropertyDispatching* в метод *WpfOcDispatcher.Invoke*.
 
@@ -2948,7 +2945,7 @@ namespace ObservableComputationsExample
 		public Order(int num, IOcDispatcher backgroundOcDispatcher, IOcDispatcher wpfOcDispatcher)
 		{
 			Num = num;
-			PaidPropertyDispatching = new PropertyDispatching<Order, bool>(() => Paid, backgroundOcDispatcher, wpfOcDispatcher, 0, (int)DispatcherPriority.Background);
+			PaidPropertyDispatching = new PropertyDispatching<Order, bool>(this, nameof(Paid), backgroundOcDispatcher, wpfOcDispatcher, 0, (int)DispatcherPriority.Background);
 
 		}
 
@@ -3128,8 +3125,9 @@ namespace ObservableComputationsExample
 
 ### Использование класса *OcDispatcher*
 Класса *OcDispatcher* имеет методы, которые Вы можете вызывать при необходимости
-* *Invoke* и *BeginInvoke* - для синхронного и асинхронного выполнения делегата в потоке экземпляра класса *OcDispatcher*, например, для изменения исходных данных для вычислений выполняющихся в потоке экземпляра класса *OcDispatcher*. После вызова метода *Dispose* данные методы возвращают управление без выполнения переданного делегата и без выброса исключения. 
-* *DoOthers* - в случае если делегат переданный в методы *Invoke* и *BeginInvoke* выполняется долго, при вызове *DoOthers* вызываются другие делегаты. Есть возможность задать максимальное количество делегатов, которые могут быть выполнены или приблизительное максимальное время их выполнения.
+* *Invoke\** - для синхронного и асинхронного выполнения делегата в потоке экземпляра класса *OcDispatcher*, например, для изменения исходных данных для вычислений выполняющихся в потоке экземпляра класса *OcDispatcher*. После вызова метода *Dispose* данные методы возвращают управление без выполнения переданного делегата и без выброса исключения. Методы имеют параметр *setSynchronizationContext*. Если установить для этого параметра значение *true*, то на время восполнения переданного делегата будет установлен синхронизации соответствующий данному вызову. Это может полезно при использовании ключевого слова *await* внутри делегата.
+* *InvokeAsyncAwaitable* - эти методы возвращают экземпляр класса*System.Threading.Tasks.Task*, и их можно использовать с ключевым словом *await*. 
+* *DoOtherInvocations* - в случае если делегат переданный в методы *Invoke\** выполняется долго, при вызове *DoOtherInvocations* вызываются другие делегаты. Есть возможность задать максимальное количество делегатов, которые могут быть выполнены или приблизительное максимальное время их выполнения.
 
 ### Варианты реализации интерфейса IOcDispatcher и других аналогичных интерфейсов
 До сих пор мы использовали очень простую реализацию интерфейса *IOcDispatcher*. Например, такую:  

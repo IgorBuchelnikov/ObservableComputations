@@ -123,8 +123,8 @@ namespace ObservableComputations.Test
 			dictionaring.For(consumer);
 			activationInProgress = false;
 
-			if (OcConfiguration.SaveInstantiatingStackTrace)
-				Assert.IsNotNull(dictionaring.InstantiatingStackTrace);
+			if (OcConfiguration.SaveInstantiationStackTrace)
+				Assert.IsNotNull(dictionaring.InstantiationStackTrace);
 
 			Assert.IsNotNull(dictionaring.ToString());
 
@@ -332,8 +332,8 @@ namespace ObservableComputations.Test
 			dictionaring.For(consumer);
 			activationInProgress = false;
 
-			if (OcConfiguration.SaveInstantiatingStackTrace)
-				Assert.IsNotNull(dictionaring.InstantiatingStackTrace);
+			if (OcConfiguration.SaveInstantiationStackTrace)
+				Assert.IsNotNull(dictionaring.InstantiationStackTrace);
 
 			Assert.IsNotNull(dictionaring.ToString());
 
@@ -560,8 +560,8 @@ namespace ObservableComputations.Test
 			dictionaring.For(consumer);
 			activationInProgress = false;
 
-			if (OcConfiguration.SaveInstantiatingStackTrace)
-				Assert.IsNotNull(dictionaring.InstantiatingStackTrace);
+			if (OcConfiguration.SaveInstantiationStackTrace)
+				Assert.IsNotNull(dictionaring.InstantiationStackTrace);
 
 			Assert.AreEqual(dictionaring.Cast<int>().Count(), 3);
 
@@ -974,8 +974,8 @@ namespace ObservableComputations.Test
 
 			Assert.IsNotNull(computing.ToString());
 
-			if (OcConfiguration.SaveInstantiatingStackTrace)
-				Assert.IsNotNull(computing.InstantiatingStackTrace);
+			if (OcConfiguration.SaveInstantiationStackTrace)
+				Assert.IsNotNull(computing.InstantiationStackTrace);
 
 
 			disposing = true;
@@ -1042,8 +1042,8 @@ namespace ObservableComputations.Test
 
 			Assert.IsTrue(group.IsConsistent);
 
-			if (OcConfiguration.SaveInstantiatingStackTrace)
-				Assert.IsNotNull(group.InstantiatingStackTrace);
+			if (OcConfiguration.SaveInstantiationStackTrace)
+				Assert.IsNotNull(group.InstantiationStackTrace);
 
 
 

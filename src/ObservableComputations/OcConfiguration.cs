@@ -6,9 +6,9 @@ namespace ObservableComputations
 {
 	public static class OcConfiguration
 	{
-		public static bool SaveInstantiatingStackTrace = false;
-		public static bool SaveOcDispatcherInvokingStackTrace = false;
-		public static bool SaveOcDispatcherDoingStackTrace = false;
+		public static bool SaveInstantiationStackTrace = false;
+		public static bool SaveOcDispatcherInvocationInstantiationStackTrace = false;
+		public static bool SaveOcDispatcherInvocationExecutionStackTrace = false;
 
 		public static bool TrackComputingsExecutingUserCode = false;
 		public static int EventUnsubscriberThreadsCount = 1;

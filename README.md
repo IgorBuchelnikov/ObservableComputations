@@ -1832,7 +1832,7 @@ Use code includes:
 
 * Handlers of changes of computation results were described in the ["Modifying computations"](#processing-changes-of-computation-results). 
 
-* Code called using the methods [*OcDispatcher.Invoke* and *OcDispatcher.BeginInvoke*](#using-the-ocDispatcher-class).
+* Code called using the methods [*OcDispatcher.Invoke\**](#using-the-ocDispatcher-class).
 
 Here is the code illustrating debugging of arbitrary expressions (other types of code can be debugged in the same way):
 
@@ -1864,8 +1864,8 @@ namespace ObservableComputationsExamples
 	{
 		static void Main(string[] args)
 		{
-			Configuration.SaveInstantiatingStackTrace = true;
-			Configuration.TrackComputingsExecutingUserCode = true;
+			OcConfiguration.SaveInstantiationStackTrace = true;
+			OcConfiguration.TrackComputingsExecutingUserCode = true;
 
 			ValueProvider valueProvider = new ValueProvider(){Value = 2};
 
@@ -1887,8 +1887,8 @@ namespace ObservableComputationsExamples
 			{
 				Console.WriteLine($"Exception stacktrace:\n{exception.StackTrace}");
 
-				IComputing computing = DebugInfo.ComputingsExecutingUserCode[Thread.CurrentThread];
-				Console.WriteLine($"\nComputing which caused the exception has been instantiated by the following stacktrace :\n{computing.InstantiatingStackTrace}");
+				IComputing computing = StaticInfo.ComputingsExecutingUserCode[Thread.CurrentThread.ManagedThreadId];
+				Console.WriteLine($"\nComputing which caused the exception has been instantiated by the following stacktrace :\n{computing.InstantiationStackTrace}");
 								Console.WriteLine($"\nSender of event now processing is :\n{computing.HandledEventSender.ToStringSafe()}");
 				Console.WriteLine($"\nArgs for the event that is currently being processed is :\n{computing.HandledEventArgs.ToStringAlt()}");
 			}
@@ -1899,15 +1899,14 @@ namespace ObservableComputationsExamples
 		}
 	}
 }
-
 ```
 
-As you see *exception.StackTrace* points to line caused the exception: *valueProvider.Value = new Random().Next(0, 1);*. That line doesn't point us to computation which caused the exception: *computing1* or *computing2*. To determine the computation which caused the exception we should look at *DebugInfo.ComputingsExecutingUserCode[Thread.CurrentThread].InstantiatingStackTrace* property. That property contains a stack trace of instantiating of the computation. 
+As you see *exception.StackTrace* points to line caused the exception: *valueProvider.Value = new Random().Next(0, 1);*. That line doesn't point us to computation which caused the exception: *computing1* or *computing2*. To determine the computation which caused the exception we should look at *StaticInfo.ComputingsExecutingUserCode[Thread.CurrentThread.ManagedThreadId].InstantiatingStackTrace* property. That property contains a stack trace of instantiating of the computation.
 
-By default, ObservableComputations doesn't save stack traces of instantiating of computations for performance reasons. To save those stack traces use *Configuration.SaveInstantiatingStackTrace* property. 
+By default, ObservableComputations doesn't save stack traces of instantiating of computations for performance reasons. To save those stack traces use *OcConfiguration.SaveInstantiationStackTrace* property. 
 
-By default, ObservableComputations doesn't track computations executing user code for performance reasons. To track computations executing user code use *Configuration.TrackComputingsExecutingUserCode* property.
-If the user code was called from the user code of another computation, then *DebugInfo.ComputingsExecutingUserCode[Thread.CurrentThread].UserCodeIsCalledFrom* will point to that computation.
+By default, ObservableComputations doesn't track computations executing user code for performance reasons. To track computations executing user code use *OcConfiguration.TrackComputingsExecutingUserCode* property.
+If the user code was called from the user code of another computation, then *StaticInfo.ComputingsExecutingUserCode[Thread.CurrentThread].UserCodeIsCalledFrom* will point to that computation.
 
 All unhandled exceptions thrown in the user code are fatal, as the internal state of the computations becomes damaged. Pay attention to null checks.
 
@@ -1942,10 +1941,10 @@ namespace ObservableComputationsExamples
 	{
 		static void Main(string[] args)
 		{
-			Configuration.SaveInstantiatingStackTrace = true;
-			Configuration.TrackComputingsExecutingUserCode = true;
-			Configuration.SaveOcDispatcherInvocationStackTrace = true;
-			Configuration.TrackOcDispatcherInvocations = true;
+			OcConfiguration.SaveInstantiationStackTrace = true;
+			OcConfiguration.TrackComputingsExecutingUserCode = true;
+			OcConfiguration.SaveOcDispatcherInvocationInstantiationStackTrace = true;
+			OcConfiguration.SaveOcDispatcherInvocationExecutionStackTrace = true;
 
 			ValueProvider valueProvider = new ValueProvider(){Value = 2};
 			
@@ -1955,17 +1954,22 @@ namespace ObservableComputationsExamples
 			{
 				Thread.CurrentThread.IsBackground = true;
 
-				Console.WriteLine($"Exception stacktrace:\n{DebugInfo.ExecutingOcDispatcherInvocations[ocDispatcher.ManagedThreadId].Peek().CallStackTrace}");
-				Console.WriteLine($"\nComputing which caused the exception has been instantiated by the following stacktrace :\n{DebugInfo.ComputingsExecutingUserCode[Thread.CurrentThread.ManagedThreadId].InstantiatingStackTrace}");
-				Console.WriteLine($"\nDispatch computing which caused the exception has been instantiated by the following stacktrace :\n{((IComputing) DebugInfo.ExecutingOcDispatcherInvocations[ocDispatcher.ManagedThreadId].Peek().Context).InstantiatingStackTrace}");
+				Invocation currentInvocation = StaticInfo.OcDispatchers[ocDispatcher.ManagedThreadId].CurrentInvocation;
+				Console.WriteLine($"Exception stacktrace:\n{currentInvocation.InstantiationStackTrace}");
+				Console.WriteLine($"\nComputing which caused the exception has been instantiated by the following stacktrace :\n{StaticInfo.ComputingsExecutingUserCode[Thread.CurrentThread.ManagedThreadId].InstantiationStackTrace}");
+				Console.WriteLine($"\nDispatch computing which caused the exception has been instantiated by the following stacktrace :\n{((IComputing)currentInvocation.Context).InstantiationStackTrace}");
 
 				while (true)
 					Thread.Sleep(TimeSpan.FromHours(1));
 			};
 
-			ScalarDispatching<int> valueProviderDispatching = valueProvider.ScalarDispatching(ocDispatcher);
-
 			OcConsumer consumer = new OcConsumer();
+
+			ScalarDispatching<int> valueProviderDispatching = 
+				valueProvider.ScalarDispatching(ocDispatcher)
+				.For(consumer);
+
+			ocDispatcher.Pass();
 
 			Computing<decimal> computing1 = 
 				new Computing<decimal>(() => 1 / valueProviderDispatching.Value)
@@ -1975,15 +1979,7 @@ namespace ObservableComputationsExamples
 				new Computing<decimal>(() => 1 / (valueProviderDispatching.Value - 1))
 				.For(consumer);
 
-			try
-			{
-				valueProvider.Value = new Random().Next(0, 2);
-			}
-			catch (DivideByZeroException exception)
-			{
-				Console.WriteLine($"Exception stacktrace:\n{exception.StackTrace}");
-				Console.WriteLine($"\nComputing which caused the exception has been instantiated by the following stacktrace :\n{DebugInfo.ComputingsExecutingUserCode[Thread.CurrentThread.ManagedThreadId].InstantiatingStackTrace}");
-			}
+			valueProvider.Value = new Random().Next(0, 2);
 
 			Console.ReadLine();
 
@@ -1994,9 +1990,9 @@ namespace ObservableComputationsExamples
 ```
 This example is similar to the previous one, except
 * Properties that contain exception information
-* Setting configuration parameters *Configuration.SaveOcDispatcherInvocationStackTrace* and *Configuration.TrackOcDispatcherInvocations*
+* Setting configuration parameters *OcConfiguration.SaveOcDispatcherInvocationInstantiationStackTrace* and *OcConfiguration.TrackOcDispatcherInvocations*
 
-*DebugInfo.ExecutingOcDispatcherInvocations [ocDispatcher.ManagedThreadId]* is of type Stack&lt;Invocation&gt;. The stack will contain more than one element if you called the *OcDispatcher.DoOthers* method.
+*OcConfiguration.SaveOcDispatcherInvocationExecutionStackTrace*, *Invocation.ExecutionStackTrace*, *Invocation.Executor* и  *Invocation.Parent* properties can be usefull, when you call *OcDispatcher.DoOtherInvocations* or *OcDispatcher.Invoke\** methods in the *OcDispatcher* thread.
 
 
 ## Additional events for changes handling: PreCollectionChanged, PreValueChanged, PostCollectionChanged, PostValueChanged
@@ -2344,14 +2340,14 @@ namespace ObservableComputationsExample
 		{
 			Orders = new ObservableCollection<Order>();
 
-			WpfOcDispatcher wpfOcOcDispatcher = new WpfOcDispatcher(this.Dispatcher);
+			WpfOcDispatcher wpfOcDispatcher = new WpfOcDispatcher(this.Dispatcher);
 
 			fillOrdersFromDb();
 
 			PaidOrders = 
 				Orders.CollectionDispatching(_ocDispatcher) // direct the computation to the background thread
 				.Filtering(o => o.Paid)
-				.CollectionDispatching(wpfOcOcDispatcher, _ocDispatcher, (int)DispatcherPriority.Background) // return the computation to the main thread from the background one
+				.CollectionDispatching(wpfOcDispatcher, _ocDispatcher, (int)DispatcherPriority.Background) // return the computation to the main thread from the background one
 				.For(_consumer);
 
 			UnpaidOrders = 
@@ -2425,13 +2421,13 @@ namespace ObservableComputationsExample
 }
 ```
 In this example, we load data from the database in the main thread, but filtering the source collection *Orders* to receive paid orders (*PaidOrders*) is performed in the background thread.
-*ObservableComputations.OcDispatcher* class is very similar to the class [System.Windows.Threading.Dispatcher](https://docs.microsoft.com/en-us/dotnet/api/system.windows.threading.Dispatcher?view=netcore- 3.1). *ObservableComputations.OcDispatcher* class is associated with a single thread. In this thread, you can execute delegates by calling *ObservableComputations.OcDispatcher.Invoke* and *ObservableComputations.OcDispatcher.BeginInvoke* methods.
+*ObservableComputations.OcDispatcher* class is very similar to the class [System.Windows.Threading.Dispatcher](https://docs.microsoft.com/en-us/dotnet/api/system.windows.threading.Dispatcher?view=netcore- 3.1). *ObservableComputations.OcDispatcher* class is associated with a single thread. In this thread, you can execute delegates by calling *ObservableComputations.OcDispatcher.Invoke\** methods.
 The *CollectionDispatching* method redirects all changes of the source collection to the target *OcDispatcher* thread (*distinationOcDispatcher* parameter).
 When the *CollectionDispatching* method is called, the source collection is enumerated (*Orders* or *Orders.CollectionDispatching(_ocDispatcher) .Filtering (o => o.Paid)*) and its [CollectionChanged](https: // docs. microsoft.com/en-us/dotnet/api/system.collections.specialized.inotifycollectionchanged.collectionchanged?view=netcore-3.1) event is subscribed . While that enumeration the source collection should not be changed. When calling *.CollectionDispatching (_ocDispatcher)*, the collection *Orders* do not change. When calling *CollectionDispatching(wpfOcDispatcher, _ocDispatcher)* collection *Orders.CollectionDispatching (_ocDispatcher) .Filtering (o => o.Paid)* may change in the *_ocDispatcher* thread, but since we pass *_ocDispatcher* to the *sourceOcDispatcher* parameter, the enumeration of the source  collection  and subscription to its  [CollectionChanged](https://docs.microsoft.com/en-us/dotnet/api/system.collections.specialized.inotifycollectionchanged.collectionchanged?view=netcore-3.1) event occurs in the thread of *_ocDispatcher*, which guarantees that there are no changes to the source collection during enumeration. Since when calling *.CollectionDispatching(_ocDispatcher)*, the *Orders* collection does not change, then passing *wpfOcDispatcher* to the *sourceOcDispatcher* parameter makes no sense, especially since at the time of calling *.CollectionDispatching (_ocDispatcher)* we are in the thread of *wpfOcDispatcher*. In most cases, unnecessarily passing the *sourceDispatcher* parameter will not result in a loss of workability, unless the performance is slightly affected.
 
 Note how *DispatcherPriority.Background* is passed through *destinationOcDispatcherPriority* parameter of *CollectionDispatching* extension method to *WpfOcDispatcher.Invoke* method.
 
-Note the need to call *_ocDispatcher.Dispose ()*.
+Note the need to call *_ocDispatcher.Dispose()*.
 The above example is not the only design option. Here is another option (XAML is the same as in the previous example):
 
  ```csharp
@@ -2816,7 +2812,7 @@ namespace ObservableComputationsExample
 		public Order(int num, IOcDispatcher backgroundOcDispatcher, IOcDispatcher wpfOcDispatcher)
 		{
 			Num = num;
-			PaidPropertyDispatching = new PropertyDispatching<Order, bool>(() => Paid, backgroundOcDispatcher, wpfOcDispatcher, 0, (int)DispatcherPriority.Background);
+			PaidPropertyDispatching = new PropertyDispatching<Order, bool>(this, nameof(Paid), backgroundOcDispatcher, wpfOcDispatcher, 0, (int)DispatcherPriority.Background);
 
 		}
 
@@ -2952,7 +2948,7 @@ namespace ObservableComputationsExample
 		public Order(int num, IOcDispatcher backgroundOcDispatcher, IOcDispatcher wpfOcDispatcher)
 		{
 			Num = num;
-			PaidPropertyDispatching = new PropertyDispatching<Order, bool>(() => Paid, backgroundOcDispatcher, wpfOcDispatcher, 0, (int)DispatcherPriority.Background);
+			PaidPropertyDispatching = new PropertyDispatching<Order, bool>(this, nameof(Paid), backgroundOcDispatcher, wpfOcDispatcher, 0, (int)DispatcherPriority.Background);
 
 		}
 
@@ -3130,12 +3126,14 @@ namespace ObservableComputationsExample
 ### Parallel computations in background threads
 In the previous examples, we saw how the computation is performed in one background thread. Using the dispatch methods described above, it is possible to organize computations in several background threads, the results of which are concurrently combined in another thread (main or background).
 
-### Using the *OcDispatcher* class
-The class *OcDispatcher* has methods that you can call if necessary
-* *Invoke* and *BeginInvoke* - for synchronous and asynchronous execution of a delegate in the thread of an instance of *OcDispatcher* class, for example, for changing the source data for computations performed in the thread of an instance of *OcDispatcher* class. 
-* *DoOthers* - if the delegate passed to the *Invoke* or *BeginInvoke* methods take a long time when *DoOthers* is called, other delegates are called. It is possible to set the maximum number of delegates that should be executed or the approximate maximum time for their execution.
+### Using *OcDispatcher* class
+*OcDispatcher* class has methods that you can call if necessary
 
-### Variants of the implementation of the IOcDispatcher interface and other similar interfaces
+* *Invoke\** - for synchronous and asynchronous execution of a delegate in the thread of an instance of *OcDispatcher* class, for example, for changing the source data for computations performed in the thread of an instance of *OcDispatcher* class. After calling *Dispose* method, these methods return without executing the passed delegate and without throwing an exception. Methods have *setSynchronizationContext* parameter. If you set this parameter to *true*, then the synchronization context corresponding to this call will be set for the duration of the passed delegate execution. This can be useful when using the *await* keyword inside the passed delegate. 
+* *InvokeAsyncAwaitable* - these methods return an instance of *System.Threading.Tasks.Task* class and can be used with *await* keyword. 
+* *DoOtherInvocations* - if the delegate passed to the *Invoke\** methods take a long time when *DoOthers* is called, other delegates are called. It is possible to set the maximum number of delegates that should be executed or the approximate maximum time for their execution.
+
+### Variants of implementation of IOcDispatcher interface and other similar interfaces
 So far, we have used a very simple implementation of the *IOcDispatcher* interface. For example, this:
 ```csharp
 public class WpfOcDispatcher : IOcDispatcher

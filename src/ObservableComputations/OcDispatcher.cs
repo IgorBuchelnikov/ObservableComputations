@@ -7,6 +7,7 @@ using System.Collections.Concurrent;
 using System.ComponentModel;
 using System.Diagnostics;
 using System.Globalization;
+using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using ThreadState = System.Threading.ThreadState;
@@ -188,7 +189,10 @@ namespace ObservableComputations
 			}
 		}
 
-		public int GetQueueCount(int priority = 0) => _invocationQueues[priority].Count;
+		public int GetQueueCount(int? priority = null) => 
+			priority == null 
+				? _invocationQueues.Sum(q => q.Count) 
+				: _invocationQueues[priority.Value].Count;
 
 		internal Invocation queueInvocation(Action action, int priority, object context,
 			bool setSynchronizationContext, Invocation parent, ManualResetEventSlim doneManualResetEvent = null)

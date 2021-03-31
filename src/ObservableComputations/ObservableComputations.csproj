@@ -10,7 +10,7 @@
 	<PublicSign Condition=" '$(OS)' != 'Windows_NT' ">true</PublicSign>
     <Authors>Igor Buchelnikov  (igor_buchelnikov_github@mail.ru)</Authors>
     <Company>Igor Buchelnikov  (igor_buchelnikov_github@mail.ru)</Company>
-    <Description>Cross-platform .NET library for computations whose arguments and results are objects that implement INotifyPropertyChanged and INotifyCollectionChanged (ObservableCollection) interfaces. The computations include ones similar to LINQ, the computation of arbitrary expression and additional features. The computations are implemented as extension methods, like LINQ ones. You can combine calls of ObservableComputations extension methods including chaining and nesting, as you do for LINQ methods. Computations in background threads, including parallel ones, as well as time-related processing of CollectionChanged and PropertyChanged events, are supported. ObservableComputations is easy to use and powerful implementation of reactive programming paradigm. With ObservableComputations, your code will fit more to the functional style than with standard LINQ.</Description>
+    <Description>Cross-platform .NET library for computations whose arguments and results are objects that implement INotifyPropertyChanged and INotifyCollectionChanged (ObservableCollection) interfaces. The computations include ones similar to LINQ, the computation of arbitrary expression, and additional features. The computations are implemented as extension methods, like LINQ ones. You can combine calls of ObservableComputations extension methods including chaining and nesting, as you do for LINQ methods. Computations in background threads, including parallel ones, as well as time-related processing of CollectionChanged and PropertyChanged events, are supported. ObservableComputations is easy to use and powerful implementation of reactive programming paradigm. With ObservableComputations, your code will fit more to the functional style than with standard LINQ.</Description>
     <PackageLicenseUrl>https://github.com/IgorBuchelnikov/ObservableComputations/blob/master/LICENSE</PackageLicenseUrl>
     <PackageProjectUrl>https://github.com/IgorBuchelnikov/ObservableComputations</PackageProjectUrl>
     <RepositoryUrl>https://github.com/IgorBuchelnikov/ObservableComputations.git</RepositoryUrl>
@@ -19,28 +19,26 @@
     <NeutralLanguage>en</NeutralLanguage>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
-    <PackageReleaseNotes>* New feaures
-OcDispatcher async delegates with await
-OcDispatcher InvocationResult IReadScalar
-OcDispatcher InvocationResult Invocation
-OcDispatcher Status Property
-
+    <PackageReleaseNotes>* New features
+"async" and "await" keywords support in OcDispatcher
+OcDispatcher's InvocationResult now implements IReadScalar
 
 * Fixed:
 — CollectionPausing
 — ScalarPausing
 — CollectionDispatching
 — OcDispatcher
+— other bug fixes
 
 * Renamed
 InvocationResult.Result -&gt; InvocationResult.Value
-DebugInfo.ExecutingOcDispatcherInvocations -&gt; StaticInfo.ExecutingOcDispatcherInvocationStacks 
+DebugInfo -&gt; StaticInfo
 OcDispatcher.BeginInvoke -&gt; OcDispatcher.InvokeAsync
 Configuration -&gt; OcConfiguration
 
 * API changed
 —  Binding
-</PackageReleaseNotes>
+—  StaticInfo</PackageReleaseNotes>
     <Version>2.1.0</Version>
     <AssemblyName>ObservableComputations</AssemblyName>
     <PackageId>ObservableComputations</PackageId>

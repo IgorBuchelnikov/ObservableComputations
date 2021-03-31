@@ -288,6 +288,7 @@ namespace ObservableComputations.Test
 			OcConfiguration.SaveInstantiationStackTrace = true;
 			OcDispatcher dispatcher = new OcDispatcher(2);
 			Assert.AreEqual(dispatcher.GetQueueCount(0), 0);
+			Assert.AreEqual(dispatcher.GetQueueCount(), 0);
 			Assert.IsTrue(dispatcher.InstantiationStackTrace != null);
 			ApartmentState apartmentState = RuntimeInformation.IsOSPlatform(OSPlatform.Linux) ?  ApartmentState.Unknown : ApartmentState.MTA;
 			Assert.AreEqual(dispatcher.NewInvocationBehaviour, NewInvocationBehaviour.Accept);

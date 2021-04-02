@@ -45,7 +45,7 @@ You can compare these libraries and ObservableComputations in action, see
 * [Samples](https://github.com/IgorBuchelnikov/ObservableComputations.Samples).
 
 ## Status
-All functions and operators needed to develop real applications have been implemented. All critical code is covered by unit tests. I'm working on increase percent of coverage now.
+All functions and operators needed to develop real applications have been implemented.
 
 ## Where can I download? How to install? Where can I see the change log? 
 

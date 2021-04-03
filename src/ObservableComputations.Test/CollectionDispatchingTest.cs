@@ -152,11 +152,14 @@ namespace ObservableComputations.Test
 			backgroundOcDispatcher.Dispose();
 		}
 
+		byte _initWay = 0;
+
 		[Test]
-		[Repeat(1)]
+		[Repeat(10)]
 		[Timeout(1000 * 60 * 60 * 5)]
 		public void TestCollectionDispatchingTest()
 		{
+
 			OcDispatcher mainOcDispatcher = new OcDispatcher();
 			mainOcDispatcher.ThreadName = "mainOcDispatcher";
 			OcDispatcher backgroundOcDispatcher = new OcDispatcher();
@@ -164,11 +167,79 @@ namespace ObservableComputations.Test
 			OcConsumer consumer = new OcConsumer();
 
 			ObservableCollection<Item> nums = new ObservableCollection<Item>();
+
 			Filtering<Item> filteredNums = nums.Filtering(i =>
 				i.Num % 3 == 0
 				|| i.Num2MainToBackgroundDispatching.Value % 5 == 0
 				|| i.Num2MainToBackgroundScalarDispatching.Value % 5 == 0);
-			CollectionDispatching<Item> dispatchingfilteredNums = filteredNums
+
+			CollectionDispatching<Item> dispatchingfilteredNums;
+			ManualResetEvent manualResetEvent = new ManualResetEvent(false);
+
+			Action func = () =>
+			{
+				Thread.Sleep(TimeSpan.FromSeconds(new Random().Next(1, 4)));
+				dispatchingfilteredNums = filteredNums
+					.CollectionDispatching(mainOcDispatcher, backgroundOcDispatcher).For(consumer);
+
+				dispatchingfilteredNums.CollectionChanged += (sender, args) =>
+				{
+					if (Thread.CurrentThread != mainOcDispatcher._thread)
+					{
+						throw new Exception("Wrong thread");
+					}
+				};
+
+				((INotifyPropertyChanged)dispatchingfilteredNums).PropertyChanged += (sender, args) =>
+				{
+					if (Thread.CurrentThread != mainOcDispatcher._thread)
+					{
+						throw new Exception("Wrong thread");
+					}
+				};
+
+				filteredNums.CollectionChanged += (sender, args) =>
+				{
+
+					if (Thread.CurrentThread != backgroundOcDispatcher._thread)
+					{
+						throw new Exception("Wrong thread");
+					}
+				};
+
+				((INotifyPropertyChanged)filteredNums).PropertyChanged += (sender, args) =>
+				{
+					if (Thread.CurrentThread != backgroundOcDispatcher._thread)
+					{
+						throw new Exception("Wrong thread");
+					}
+				};
+
+				manualResetEvent.Set();
+			};
+
+			if (_initWay == 0)
+			{
+				mainOcDispatcher.InvokeAsync(func);
+			}
+			else if (_initWay == 1)
+			{
+				Thread thread = new Thread(() => func());
+				thread.Start();
+			}
+			else if (_initWay == 2)
+			{
+				func();
+			}
+			else 
+			{
+				backgroundOcDispatcher.InvokeAsync(func);
+			}
+
+			_initWay++;
+			if (_initWay == 4) _initWay = 0;
+
+			dispatchingfilteredNums = filteredNums
 				.CollectionDispatching(mainOcDispatcher, backgroundOcDispatcher).For(consumer);
 
 			dispatchingfilteredNums.CollectionChanged += (sender, args) =>
@@ -209,7 +280,7 @@ namespace ObservableComputations.Test
 			Random stopperRandom = new Random();
 			Thread stopper = new Thread(() =>
 			{
-				Thread.Sleep(TimeSpan.FromSeconds(stopperRandom.Next(2, 20)));
+				Thread.Sleep(TimeSpan.FromSeconds(stopperRandom.Next(5, 20)));
 				stop = true;
 			});
 
@@ -309,6 +380,7 @@ namespace ObservableComputations.Test
 
 			ThreadStart numValueChangerThreadStart = () =>
 			{
+				manualResetEvent.WaitOne();
 				Random random = new Random();
 				while (!stop)
 				{
@@ -335,6 +407,7 @@ namespace ObservableComputations.Test
 
 			ThreadStart numValueChanger2ThreadStart = () =>
 			{
+				manualResetEvent.WaitOne();
 				Random random = new Random();
 				while (!stop)
 				{
@@ -362,6 +435,7 @@ namespace ObservableComputations.Test
 
 			ThreadStart num2ValueChangerThreadStart = () =>
 			{
+				manualResetEvent.WaitOne();
 				Random random = new Random();
 				while (!stop)
 				{
@@ -404,6 +478,8 @@ namespace ObservableComputations.Test
 			{
 				num2ValueChangerThreads[i].Join();
 			}
+
+			manualResetEvent.Dispose();
 
 			//consuminingOcDispatcherInvoker.Join();
 

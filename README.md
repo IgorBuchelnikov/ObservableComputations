@@ -24,8 +24,8 @@ ObservableComputations is not analog of [Reactive Extensions](https://github.com
 * [Reactive Extensions](https://github.com/dotnet/reactive) library provides a stream of events. ObservableComputations library provides not only the stream of data change events but currently computed data.
 
 Some of the tasks that you solved using [Reactive Extensions](https://github.com/dotnet/reactive) are now easier and more efficient to solve using ObservableComputations. You can use ObservableComputations separately or in cooperation with [Reactive Extensions](https://github.com/dotnet/reactive). Observable Computations will not replace [Reactive Extensions](https://github.com/dotnet/reactive):
-* when time-related processing of events (Throttle, Buffer) needed. ObservableComputations allow you to implement time-related handling of [CollectionChanged](https://docs.microsoft.com/en-us/dotnet/api/system.collections.specialized.inotifycollectionchanged.collectionchanged?view=netframework-4.8) and [PropertyChanged](https://docs.microsoft.com/en-us/dotnet/api/system.componentmodel.inotifypropertychanged.propertychanged?view=netframework-4.8) events by cooperation with [Reactive Extensions](https://github.com/dotnet/reactive) (see the example [here](#variants-of-implementation-of-iocdispatcher-interface-and-other-similar-interfaces));
-* when processing events not related to data (for example, keystrokes), especially when combining these events. Example of cooperation ObservableComputations with combination [Reactive Extensions](https://github.com/dotnet/reactive) operators see [here](#isconsistent-property-and-inconsistency-exception);
+* when time-related processing of events (Throttle, Buffer) needed. ObservableComputations allow you to implement time-related handling of [CollectionChanged](https://docs.microsoft.com/en-us/dotnet/api/system.collections.specialized.inotifycollectionchanged.collectionchanged?view=netframework-4.8) and [PropertyChanged](https://docs.microsoft.com/en-us/dotnet/api/system.componentmodel.inotifypropertychanged.propertychanged?view=netframework-4.8) events by cooperation with [Reactive Extensions](https://github.com/dotnet/reactive) (see the example [here](#variants-of-implementation-of-iocdispatcher-interface));
+* when processing events not related to data (for example, keystrokes), especially when combining these events.
 * when working with asynchronous operations ([Observable.FromAsyncPattern method](https://docs.microsoft.com/en-us/previous-versions/dotnet/reactive-extensions/hh229052(v%3Dvs.103))).
 
 
@@ -3133,7 +3133,7 @@ In the previous examples, we saw how the computation is performed in one backgro
 * *InvokeAsyncAwaitable* - these methods return an instance of *System.Threading.Tasks.Task* class and can be used with *await* keyword. 
 * *DoOtherInvocations* - if the delegate passed to the *Invoke\** methods take a long time when *DoOthers* is called, other delegates are called. It is possible to set the maximum number of delegates that should be executed or the approximate maximum time for their execution.
 
-### Variants of implementation of IOcDispatcher interface and other similar interfaces
+### Variants of implementation of IOcDispatcher interface
 So far, we have used a very simple implementation of the *IOcDispatcher* interface. For example, this:
 ```csharp
 public class WpfOcDispatcher : IOcDispatcher

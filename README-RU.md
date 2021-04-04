@@ -25,8 +25,8 @@ ObservableComputations не является аналогом [Reactive Extensio
 
 Часть задач, которые Вы решали с помощью [Reactive Extensions](https://github.com/dotnet/reactive), теперь проще и эффективней решить с помощью ObservableComputations. Вы можете использовать ObservableComputations отдельно или вместе с [Reactive Extensions](https://github.com/dotnet/reactive). ObservableComputations не заменит [Reactive Extensions](https://github.com/dotnet/reactive):
 
-* при обработке событий связанной со временем (Throttle, Buffer). ObservableComputation позволяет реализовать связанную со временем обработку событий [CollectionChanged](https://docs.microsoft.com/en-us/dotnet/api/system.collections.specialized.inotifycollectionchanged.collectionchanged?view=netframework-4.8) и [PropertyChanged](https://docs.microsoft.com/en-us/dotnet/api/system.componentmodel.inotifypropertychanged.propertychanged?view=netframework-4.8) путем взаимодействия с [Reactive Extensions](https://github.com/dotnet/reactive) (смотрите пример [здесь](#варианты-реализации-интерфейса-iocdispatcher-и-других-аналогичных-интерфейсов));
-* при обработке событий не связанных с данными (например, нажатие клавиш), особенно при необходимости комбинировать эти события. Пример взаимодействия ObservableComputations с операторами комбинирования [Reactive Extensions](https://github.com/dotnet/reactive) смотрите [здесь](#исключение-при-нарушении-целостности);
+* при обработке событий связанной со временем (Throttle, Buffer). ObservableComputation позволяет реализовать связанную со временем обработку событий [CollectionChanged](https://docs.microsoft.com/en-us/dotnet/api/system.collections.specialized.inotifycollectionchanged.collectionchanged?view=netframework-4.8) и [PropertyChanged](https://docs.microsoft.com/en-us/dotnet/api/system.componentmodel.inotifypropertychanged.propertychanged?view=netframework-4.8) путем взаимодействия с [Reactive Extensions](https://github.com/dotnet/reactive) (смотрите пример [здесь](#варианты-реализации-интерфейса-iocdispatcher));
+* при обработке событий не связанных с данными (например, нажатие клавиш), особенно при необходимости комбинировать эти события.
 * при работе с асинхронными операциями ([метод Observable.FromAsyncPattern](https://docs.microsoft.com/en-us/previous-versions/dotnet/reactive-extensions/hh229052(v%3Dvs.103))).
 
 ### [ReactiveUI](https://github.com/reactiveui/ReactiveUI) и [DynamicData](https://github.com/reactiveui/DynamicData)
@@ -3129,7 +3129,7 @@ namespace ObservableComputationsExample
 * *InvokeAsyncAwaitable* - эти методы возвращают экземпляр класса*System.Threading.Tasks.Task*, и их можно использовать с ключевым словом *await*. 
 * *DoOtherInvocations* - в случае если делегат переданный в методы *Invoke\** выполняется долго, при вызове *DoOtherInvocations* вызываются другие делегаты. Есть возможность задать максимальное количество делегатов, которые могут быть выполнены или приблизительное максимальное время их выполнения.
 
-### Варианты реализации интерфейса IOcDispatcher и других аналогичных интерфейсов
+### Варианты реализации интерфейса IOcDispatcher
 До сих пор мы использовали очень простую реализацию интерфейса *IOcDispatcher*. Например, такую:  
 ```csharp
 public class WpfOcDispatcher : IOcDispatcher

@@ -54,16 +54,17 @@ ObservableComputations не является аналогом [Reactive Extensio
 * [создать GitHub discussion](https://github.com/IgorBuchelnikov/ObservableComputations/discussions/new)
 * [связаться со мной по электронной почте](mailto:igor_buchelnikov_github@mail.ru)
 
-## Как я могу помочь проекту?
+## Как я могу внести свой вклад?
 
+* Нужны презентации, посты в блогах, руководства и отзывы
 * Приветствуются комментарии и замечания к документации
+* Создайте демо-проект
 * Создайте xml документацию в коде
-* Нужны демо проекты, посты в блогах и руководства
 * Создайте юнит-тест
 * Нужна красивая иконка
 
 ##  Быстрый старт
-### Пример приложения 
+### Демонстрационные приложения
 * [Samples](https://github.com/IgorBuchelnikov/ObservableComputations.Samples)
 * [Dynamic Trader](https://github.com/IgorBuchelnikov/Dynamic.Trader)
 

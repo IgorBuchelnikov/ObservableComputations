@@ -57,15 +57,16 @@ All ObservableComputations releases are available at [NuGet](https://www.nuget.o
 
 * [contact me via e-mail](mailto:igor_buchelnikov_github@mail.ru)
 
-## How can I help the project?
+## How can I contribute?
+* Presentations, blog posts, tutorials, feedbacks are needed
 * Documentation comments and corrections are welcome
+* Create a demo application
 * Create xml documentation in the code
-* Demo projects, blog posts, and tutorials are needed
 * Create a unit test
 * A pretty icon is needed
 
 ## Quick start
-### Sample application  
+### Demo applications 
 * [Samples](https://github.com/IgorBuchelnikov/ObservableComputations.Samples)
 * [Dynamic Trader](https://github.com/IgorBuchelnikov/Dynamic.Trader)
 

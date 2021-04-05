@@ -2374,7 +2374,7 @@ namespace ObservableComputationsExample
 		private void mainWindow_OnClosed(object sender, EventArgs e)
 		{
 			_ocDispatcher.Dispose();
-            _consumer.Dispose();
+			_consumer.Dispose();
 		}
 	}
 
@@ -2615,7 +2615,7 @@ namespace ObservableComputationsExample
 
 		private void mainWindow_OnClosed(object sender, EventArgs e)
 		{
-            _consumer.Dispose();
+			_consumer.Dispose();
 		}
 	}
 
@@ -3078,7 +3078,7 @@ namespace ObservableComputationsExample
 		public Order(int num, IOcDispatcher backgroundOcDispatcher, IOcDispatcher wpfOcDispatcher)
 		{
 			Num = num;
-			PaidPropertyDispatching = new PropertyDispatching<Order, bool>(() => Paid, backgroundOcDispatcher, wpfOcDispatcher, 0, (int)DispatcherPriority.Background);
+			PaidPropertyDispatching = new PropertyDispatching<Order, bool>(this, nameof(Paid), backgroundOcDispatcher, wpfOcDispatcher, 0, (int)DispatcherPriority.Background);
 
 		}
 

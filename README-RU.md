@@ -214,9 +214,9 @@ namespace ObservableComputationsExamples
 			OcConsumer consumer = new OcConsumer();
 
 			Computing<decimal> discountedPriceComputing = 
-                new Computing<decimal>(
+				new Computing<decimal>(
 					() => order.Price - order.Price * order.Discount / 100)
-                .For(consumer);
+				.For(consumer);
 				
 			Debug.Assert(discountedPriceComputing is INotifyPropertyChanged);
 
@@ -739,22 +739,22 @@ namespace ObservableComputationsExamples
 			Selecting<Order, decimal> highPrices = 
 				orders
 					.Filtering(o => o.Price > 25)
-                	.Selecting(o => o.Price);
-            
-            // Computations is not active
-            Debug.Assert(!highPrices.IsActive);
-            Debug.Assert(!((Filtering<Order>)highPrices.Source).IsActive);
-            
-            check(orders, highPrices); // Prints "False"
-                  
-            // Now we make computations active
+					.Selecting(o => o.Price);
+			
+			// Computations is not active
+			Debug.Assert(!highPrices.IsActive);
+			Debug.Assert(!((Filtering<Order>)highPrices.Source).IsActive);
+			
+			check(orders, highPrices); // Prints "False"
+				  
+			// Now we make computations active
 			highPrices.For(consumer); // Selecting and Filtering computations is needed for consumer
-            
-            // Computations is active
-            Debug.Assert(highPrices.IsActive);
-            Debug.Assert(((Filtering<Order>)highPrices.Source).IsActive);
-            
-            check(orders, highPrices); // Prints "True"            
+			
+			// Computations is active
+			Debug.Assert(highPrices.IsActive);
+			Debug.Assert(((Filtering<Order>)highPrices.Source).IsActive);
+			
+			check(orders, highPrices); // Prints "True"			
 			
 			Debug.Assert(highPrices is ObservableCollection<decimal>);
 			
@@ -775,16 +775,16 @@ namespace ObservableComputationsExamples
 			orders[1] = new Order{Num = 10, Price = 17};
 
 			check(orders, highPrices); // Prints "True"
-            
+			
 			consumer.Dispose(); // the consumer no longer needs its computations
-            
-            check(orders, highPrices); // Prints "False"
-            
-            // Computations is not active
-            Debug.Assert(!highPrices.IsActive);
-            Debug.Assert(!((Filtering<Order>)highPrices.Source).IsActive);            
-            
- 			Console.ReadLine();           
+			
+			check(orders, highPrices); // Prints "False"
+			
+			// Computations is not active
+			Debug.Assert(!highPrices.IsActive);
+			Debug.Assert(!((Filtering<Order>)highPrices.Source).IsActive);			
+			
+ 			Console.ReadLine();		   
 		}
 
 		static void check(
@@ -1129,17 +1129,17 @@ Expression<Func<ObservableCollection<Person>>> hockeyTeamInterestedExpression =
 	() => hockeyTeamManager.HockeyTeamInterested;
 
 ContainsComputing<Person> isLoggedInPersonHockeyPlayer =
-    hockeyTeamInterestedExpression
-        .ContainsComputing(() => loginManager.LoggedInPerson)
-        .For(consumer);
+	hockeyTeamInterestedExpression
+		.ContainsComputing(() => loginManager.LoggedInPerson)
+		.For(consumer);
 ```
 
 или:
 ```csharp
 ContainsComputing<Person> isLoggedInPersonHockeyPlayer =
-    Expr.Is(() => hockeyTeamManager.HockeyTeamInterested)
-    .ContainsComputing(() => loginManager.LoggedInPerson)
-    .For(consumer);
+	Expr.Is(() => hockeyTeamManager.HockeyTeamInterested)
+	.ContainsComputing(() => loginManager.LoggedInPerson)
+	.For(consumer);
 ```
 
 или:  
@@ -1148,7 +1148,7 @@ ContainsComputing<Person> isLoggedInPersonHockeyPlayer =
 	Expr.Is(() => hockeyTeamManager.HockeyTeamInterested).Computing()
 	.ContainsComputing(
 		() => loginManager.LoggedInPerson)
-    .For(consumer);
+	.For(consumer);
 ```
 
 или:
@@ -1230,9 +1230,9 @@ namespace ObservableComputationsExamples
 			OcConsumer consumer = new OcConsumer();
 
 			ObservableCollection<Order> filteredByTypeOrders = 
-			    orders.Filtering(o => 
-				    selectedOrderTypes.ContainsComputing(() => o.Type).Value)
-			    .For(consumer);
+				orders.Filtering(o => 
+					selectedOrderTypes.ContainsComputing(() => o.Type).Value)
+				.For(consumer);
 			
 
 			filteredByTypeOrders.CollectionChanged += (sender, eventArgs) =>
@@ -1406,8 +1406,8 @@ namespace ObservableComputationsExamples
 				new Client(){Name  = "Anatoley", Online = false},
 				new Client(){Name  = "Timofey", Online = true}
 			});
-            
-            OcConsumer consumer = new OcConsumer();
+			
+			OcConsumer consumer = new OcConsumer();
 
 			Filtering<Client> onlineClients = clients.Filtering(c => c.Online);
 
@@ -1429,14 +1429,14 @@ namespace ObservableComputationsExamples
 					foreach (NetworkChannel networkChannel in networkChannels)
 						networkChannel.Dispose();
 				})
-            .For(consumer);
+			.For(consumer);
 					
 			clients[2].Online = true;
 			clients.RemoveAt(1);
 
-            consumer.Dispose();
+			consumer.Dispose();
 
-			Console.ReadLine();          
+			Console.ReadLine();		  
 		}
 	}
 }
@@ -1533,10 +1533,10 @@ namespace ObservableComputationsExamples
 
 			client.NetworkChannel = new NetworkChannel(2);
 			client.NetworkChannel = new NetworkChannel(3);
-           
+		   
 			consumer.Dispose();
 
-			Console.ReadLine();             
+			Console.ReadLine();			 
 		}
 	}
 }
@@ -1602,13 +1602,13 @@ namespace ObservableComputationsExamples
 				new Client(){Name  = "Anatoley", Online = false},
 				new Client(){Name  = "Timofey", Online = true}
 			});
-            
-            OcConsumer consumer = new OcConsumer();
+			
+			OcConsumer consumer = new OcConsumer();
 
 			Filtering<Client> onlineClients = clients.Filtering(c => c.Online);
 
 			onlineClients
-            .CollectionProcessing(
+			.CollectionProcessing(
 				(newClients, collectionProcessing) =>
 				{
 					NetworkChannel[] networkChannels = new NetworkChannel[newClients.Length];
@@ -1621,15 +1621,15 @@ namespace ObservableComputationsExamples
 
 					return networkChannels;
 				})
-            .CollectionDisposing()
-            .For(consumer);
+			.CollectionDisposing()
+			.For(consumer);
 					
 			clients[2].Online = true;
 			clients.RemoveAt(1);
 
-            consumer.Dispose();
+			consumer.Dispose();
 
-			Console.ReadLine();          
+			Console.ReadLine();		  
 		}
 	}
 }
@@ -1697,7 +1697,7 @@ namespace ObservableComputationsExamples
 			networkChannelComputing.ScalarProcessing(
 				(newNetworkChannel, scalarProcessing) => 
 					newNetworkChannel.Open())
-            .ScalarDisposing()
+			.ScalarDisposing()
 			.For(consumer);
 
 			client.NetworkChannel = new NetworkChannel(2);
@@ -1790,7 +1790,7 @@ namespace ObservableComputationsExamples
 			Relation relation = new Relation{From = "Arseny", To = "Dmitry", Type = RelationType.Parent};
 			relations.Add(relation); 
 			// at this point orderedRelations has completed processing of change "relations.Add(relation);". 
-            // All deferred changes have been processed also 
+			// All deferred changes have been processed also 
 			// so following assertion is passes
 			Debug.Assert(orderedRelations.Contains(relation.CorrespondingRelation));
 
@@ -3135,21 +3135,21 @@ namespace ObservableComputationsExample
 ```csharp
 public class WpfOcDispatcher : IOcDispatcher
 {
-    private Dispatcher _dispatcher;
+	private Dispatcher _dispatcher;
 
-    public WpfOcDispatcher(Dispatcher dispatcher)
-    {
-        _dispatcher = dispatcher;
-    }
+	public WpfOcDispatcher(Dispatcher dispatcher)
+	{
+		_dispatcher = dispatcher;
+	}
 
-    #region Implementation of IOcDispatcher
+	#region Implementation of IOcDispatcher
 
-    public void Invoke(Action action, int priority, object parameter, object context)
-    {
-        _dispatcher.Invoke(action, DispatcherPriority.Background);
-    }
+	public void Invoke(Action action, int priority, object parameter, object context)
+	{
+		_dispatcher.Invoke(action, DispatcherPriority.Background);
+	}
 
-    #endregion
+	#endregion
 }
 ```
 В этой реализации вызывается метод [System.Windows.Threading.Dispatcher.Invoke](https://docs.microsoft.com/en-us/dotnet/api/system.windows.threading.Dispatcher.invoke?view=netcore-3.1). В других реализациях мы вызывали [System.Windows.Threading.Dispatcher.BeginInvoke]([System.Windows.Threading.Dispatcher.Invoke](https://docs.microsoft.com/en-us/dotnet/api/system.windows.threading.Dispatcher.invoke?view=netcore-3.1)). На этом варианты реализации не ограничиваются.
@@ -3913,7 +3913,7 @@ namespace ObservableComputationsExamples
 
 			// Start many changes...
 			ordersPausing.IsPaused = true;
-            
+			
 			for (int i = 10; i < 1000; i++)
 				orders.Add(new Order{Num = i, Price = 30});
 
@@ -4334,12 +4334,12 @@ namespace ObservableComputationsExamples
 			};
 
 			PropertyInfo pricePropertyInfo = typeof(Order).GetProperty(nameof(Order.Price));
-            
-            OcConsumer consumer = new OcConsumer();
+			
+			OcConsumer consumer = new OcConsumer();
 
 			Computing<decimal> priceReflectedComputing =
 				new Computing<decimal>(() => (decimal)pricePropertyInfo.GetValue(order))
-                .For(consumer);
+				.For(consumer);
 
 			priceReflectedComputing.PropertyChanged += (sender, eventArgs) =>
 			{
@@ -4353,8 +4353,8 @@ namespace ObservableComputationsExamples
 			order.Price = 3;
 		
 			Console.ReadLine();
-            
-            consumer.Dispose();
+			
+			consumer.Dispose();
 		}
 	}
 }
@@ -4396,12 +4396,12 @@ namespace ObservableComputationsExamples
 			{
 				Price = 1
 			};
-            
-            OcConsumer consumer = new OcConsumer();
+			
+			OcConsumer consumer = new OcConsumer();
 
 			PropertyAccessing<decimal> priceReflectedComputing =
 				order.PropertyAccessing<decimal>(nameof(Order.Price))
-                .For(consumer);
+				.For(consumer);
 
 			priceReflectedComputing.PropertyChanged += (sender, eventArgs) =>
 			{
@@ -4415,8 +4415,8 @@ namespace ObservableComputationsExamples
 			order.Price = 3;
 			
 			Console.ReadLine();
-            
-            consumer.Dispose();
+			
+			consumer.Dispose();
 		}
 	}
 }
@@ -4478,13 +4478,13 @@ namespace ObservableComputationsExamples
 			};
 
 			Manager manager = new Manager(){ProcessingOrder = order};
-            
-            OcConsumer consumer = new OcConsumer();
+			
+			OcConsumer consumer = new OcConsumer();
 
 			PropertyAccessing<decimal> priceReflectedComputing =
 				new Computing<Order>(() => manager.ProcessingOrder)
 					.PropertyAccessing<decimal>(nameof(Order.Price))
-                .For(consumer);
+				.For(consumer);
 
 			priceReflectedComputing.PropertyChanged += (sender, eventArgs) =>
 			{
@@ -4503,8 +4503,8 @@ namespace ObservableComputationsExamples
 				};
 			
 			Console.ReadLine();
-            
-            consumer.Dispose();
+			
+			consumer.Dispose();
 		}
 	}
 }

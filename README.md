@@ -19,8 +19,9 @@ ObservableComputations is implementation of [reactive programming paradigm](http
 ## Breaking change in version 2.0.0
 <details>
   <summary>details</summary>
-In the previous version, there was a possibility of memory leaks due to weak subscription to [INotifyPropertyChanged](https://docs.microsoft.com/en-us/dotnet/api/system.componentmodel.inotifypropertychanged?view=netframework-4.8) and [ INotifyCollectionChanged](https://docs.microsoft.com/en-us/dotnet/api/system.collections.specialized.inotifycollectionchanged?view=netframework-4.8) events. In the new version, I removed the weak subscription and added an API to manage the strong subscription to events. See [Two computation states: active and inactive](#two-computation-states-active-and-inactive) section for details. For other changes, see the Release Notes section at [NuGet](https://www.nuget.org/packages/ObservableComputations/2.0.0).
+In the previous version, there was a possibility of memory leaks due to weak subscription to <a href="https://docs.microsoft.com/en-us/dotnet/api/system.componentmodel.inotifypropertychanged?view=netframework-4.8">INotifyPropertyChanged</a> and <a href="https://docs.microsoft.com/en-us/dotnet/api/system.collections.specialized.inotifycollectionchanged?view=netframework-4.8">INotifyCollectionChanged</a> events. In the new version, I removed the weak subscription and added an API to manage the strong subscription to events. See <a href="#two-computation-states-active-and-inactive">Two computation states: active and inactive</a> section for details. For other changes, see the Release Notes section at <a href="https://www.nuget.org/packages/ObservableComputations/2.0.0">NuGet</a>.
 </details>
+
 
 ## Analogs
 The closest analogs of ObservableComputations are the following libraries: [Obtics](https://archive.codeplex.com/?p=obtics), [OLinq](https://github.com/wasabii/OLinq), [NFM.Expressions](https://github.com/NMFCode/NMF), [BindableLinq](https://github.com/svn2github/bindablelinq), [ContinuousLinq](https://github.com/ismell/Continuous-LINQ).

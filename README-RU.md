@@ -13,7 +13,7 @@
 
 ## Зачем ObservableComputations? 
 
-ObservableComputations это реализация [реактивного программирования](https://en.wikipedia.org/wiki/Reactive_programming). Реактивное программирование делает Ваш код понятнее, короче, надёжнее и производительнее. С реактивным программирование Вы можете быстрее создавать богатый пользовательский интерфейс.
+ObservableComputations это реализация [реактивного программирования](https://en.wikipedia.org/wiki/Reactive_programming). Реактивное программирование делает Ваш код понятнее, короче, надёжнее и производительнее. С реактивным программирование Вы можете быстрее создавать богатый пользовательский интерфейс. Смотрите подробнее в  разделе [Области применения и преимущества](#области-применения-и-преимущества).
 
 ## Критическое изменение в версии 2.0.0
 В предыдущей версии была вероятность утечки памяти из-за слабой подписки на события [INotifyPropertyChanged](https://docs.microsoft.com/en-us/dotnet/api/system.componentmodel.inotifypropertychanged?view=netframework-4.8) и [INotifyCollectionChanged](https://docs.microsoft.com/en-us/dotnet/api/system.collections.specialized.inotifycollectionchanged?view=netframework-4.8). В новой версии я убрал слабую подписку и добавил API для управления сильной подпиской на события. Смотрите подробности в разделе [Два состояния вычисления: активное и неактивное](#два-состояния-вычисления-активное-и-неактивное). Другие изменения смотрите в разделе Release Notes на [NuGet](https://www.nuget.org/packages/ObservableComputations/2.0.0).

@@ -14,7 +14,7 @@ This is a cross-platform .NET library for computations whose arguments and resul
 
 ## Why ObservableComputations? 
 
-ObservableComputations is implementation of [reactive programming paradigm](https://en.wikipedia.org/wiki/Reactive_programming). Reactive programming makes your code clearer, shorter, more reliable, and more performant. With reactive programming, you can develop rich UI faster.
+ObservableComputations is implementation of [reactive programming paradigm](https://en.wikipedia.org/wiki/Reactive_programming). Reactive programming makes your code clearer, shorter, more reliable, and more performant. With reactive programming, you can develop rich UI faster. See details in  [Use cases and benefits section](#use-cases-and-benefits).
 
 ## Breaking change in version 2.0.0
 In the previous version, there was a possibility of memory leaks due to weak subscription to [INotifyPropertyChanged](https://docs.microsoft.com/en-us/dotnet/api/system.componentmodel.inotifypropertychanged?view=netframework-4.8) and [ INotifyCollectionChanged](https://docs.microsoft.com/en-us/dotnet/api/system.collections.specialized.inotifycollectionchanged?view=netframework-4.8) events. In the new version, I removed the weak subscription and added an API to manage the strong subscription to events. See [Two computation states: active and inactive](#two-computation-states-active-and-inactive) section for details. For other changes, see the Release Notes section at [NuGet](https://www.nuget.org/packages/ObservableComputations/2.0.0).

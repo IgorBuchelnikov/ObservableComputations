@@ -14,7 +14,7 @@ This is a cross-platform .NET library for computations whose arguments and resul
 
 ## Why ObservableComputations? 
 
-ObservableComputations is easy to use and powerful implementation of [reactive programming paradigm](https://en.wikipedia.org/wiki/Reactive_programming). With ObservableComputations, your code will fit more to the functional style than with [standard LINQ](https://docs.microsoft.com/en-us/dotnet/csharp/programming-guide/concepts/linq/). Reactive programming in the functional style makes your code clearer, shorter, more reliable, and more performant. With reactive programming, you can develop rich UI faster. See details in  [Use cases and benefits section](#use-cases-and-benefits).
+ObservableComputations is easy to use and powerful implementation of [reactive programming paradigm](https://en.wikipedia.org/wiki/Reactive_programming). With ObservableComputations, your code will fit more to the functional (declarative) style than with [standard LINQ](https://docs.microsoft.com/en-us/dotnet/csharp/programming-guide/concepts/linq/). Reactive programming in the functional style makes your code clearer, shorter, more reliable, and more performant. With reactive programming, you can develop rich UI faster. See details in  [Use cases and benefits section](#use-cases-and-benefits).
 
 ## Breaking change in version 2.0.0
 <details>

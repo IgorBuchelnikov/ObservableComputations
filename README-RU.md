@@ -14,13 +14,6 @@
 ## Зачем ObservableComputations? 
 ObservableComputations это простая в использовании и мощная реализация [парадигмы реактивного программирования](https://en.wikipedia.org/wiki/Reactive_programming). С ObservableComputations, Ваш код будет более соответствовать функциональному (декларативному) стилю, чем при использовании стандартного [LINQ](https://docs.microsoft.com/en-us/dotnet/csharp/programming-guide/concepts/linq/). Реактивное программирование в функциональном стиле делает Ваш код понятнее, короче, надёжнее и производительнее. С реактивным программирование Вы можете быстрее создавать богатый пользовательский интерфейс. Смотрите подробнее в  разделе [Области применения и преимущества](#области-применения-и-преимущества).
 
-## Критическое изменение в версии 2.0.0
-<details>
-  <summary>Подробности</summary>
-В предыдущей версии была вероятность утечки памяти из-за слабой подписки на события <a href="https://docs.microsoft.com/en-us/dotnet/api/system.componentmodel.inotifypropertychanged?view=netframework-4.8">INotifyPropertyChanged</a> и <a href="https://docs.microsoft.com/en-us/dotnet/api/system.collections.specialized.inotifycollectionchanged?view=netframework-4.8">INotifyCollectionChanged</a>. В новой версии я убрал слабую подписку и добавил API для управления сильной подпиской на события. Смотрите подробности в разделе <a href="#два-состояния-вычисления-активное-и-неактивное">Два состояния вычисления: активное и неактивное</a>. Другие изменения смотрите в разделе Release Notes на <a href="https://www.nuget.org/packages/ObservableComputations/2.0.0">NuGet</a>.
-</details>
-
-
 ## Аналоги
 
 Ближайшими аналогами ObservableComputations являются следующие библиотеки: [Obtics](https://archive.codeplex.com/?p=obtics), [OLinq](https://github.com/wasabii/OLinq), [NFM.Expressions](https://github.com/NMFCode/NMF), [BindableLinq](https://github.com/svn2github/bindablelinq), [ContinuousLinq](https://github.com/ismell/Continuous-LINQ).

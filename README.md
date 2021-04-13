@@ -39,12 +39,13 @@ The [ReactiveUI](https://github.com/reactiveui/ReactiveUI) library (and its [Dyn
 * ObservableComputations does not require source collections to be unique or have the Id property in them. Instead, ObservableComputations respects the order of elements of source collection in the computed collection.
 * ObservableComputations is more like standard [LINQ](https://docs.microsoft.com/en-us/dotnet/csharp/programming-guide/concepts/linq/).
 * [INotifyPropertyChanged](https://docs.microsoft.com/en-us/dotnet/api/system.componentmodel.inotifypropertychanged?view=netframework-4.8) and [INotifyCollectionChanged](https://docs.microsoft.com/en-us/dotnet/api/system.collections.specialized.inotifycollectionchanged?view=netframework-4.8) interfaces are tightly integrated into Microsoft's UI platforms ([WPF](https://docs.microsoft.com/en-us/dotnet/desktop-wpf/data/data-binding-overview), [Xamarin](https://docs.microsoft.com/en-us/xamarin/xamarin-forms/app-fundamentals/data-binding/basic-bindings), [Blazor](https://demos.telerik.com/blazor-ui/grid/observable-data)).
+* [ReactiveUI](https://github.com/reactiveui/ReactiveUI) is an MVVM framework with reactive functionality. ObservableComputations only targets reactive functionality. With ObservableComputations, you can use any MVVM framework, implement the MVVM pattern yourself, or not follow the MVVM pattern at all. 
 
 You can compare these libraries and ObservableComputations in action, see
 
-* [Dynamic Trader](https://github.com/IgorBuchelnikov/Dynamic.Trader),
+* [Dynamic Trader](https://github.com/IgorBuchelnikov/Dynamic.Trader)
 
-* [Samples](https://github.com/IgorBuchelnikov/ObservableComputations.Samples).
+* [Samples](https://github.com/IgorBuchelnikov/ObservableComputations.Samples)
 
 ## Status
 All functions and operators needed to develop real applications have been implemented.

@@ -211,7 +211,7 @@ namespace ObservableComputations.Test
 		}
 
 		[Test, Combinatorial]
-		public void TestDoOthers([Values(1, 2, 3, 4)] int mode)
+		public void TestExecuteOthers([Values(1, 2, 3, 4)] int mode)
 		{
 			OcDispatcher dispatcher = new OcDispatcher(2);
 			ManualResetEventSlim mres = new ManualResetEventSlim();

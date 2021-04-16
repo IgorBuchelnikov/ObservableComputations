@@ -206,7 +206,7 @@ namespace ObservableComputations.Test
 			Assert.AreEqual(invocationResult.Value, returnObject);
 			Assert.IsTrue(propertyChanged);
 			Assert.AreEqual(invocationResult.ToString(), "(ObservableComputations.InvocationResult<TestValue> (Value = 'Mesasage'))");
-			Assert.AreEqual(invocationResult.Invocation.Status, InvocationStatus.Done);
+			Assert.AreEqual(invocationResult.Invocation.Status, InvocationStatus.Executed);
 			dispatcher.Dispose();
 		}
 
@@ -226,16 +226,16 @@ namespace ObservableComputations.Test
 				switch (mode)
 				{
 					case 1:
-						dispatcher.DoOtherInvocations();
+						dispatcher.ExecuteOtherInvocations();
 						break;
 					case 2:
-						dispatcher.DoOtherInvocations(1);
+						dispatcher.ExecuteOtherInvocations(1);
 						break;
 					case 3:
-						dispatcher.DoOtherInvocations(TimeSpan.FromSeconds(1));
+						dispatcher.ExecuteOtherInvocations(TimeSpan.FromSeconds(1));
 						break;
 					case 4:
-						dispatcher.DoOtherInvocations((count, invocation) => invocation.Context == context);
+						dispatcher.ExecuteOtherInvocations((count, invocation) => invocation.Context == context);
 						break;
 				}
 
@@ -259,16 +259,16 @@ namespace ObservableComputations.Test
 				switch (mode)
 				{
 					case 1:
-						dispatcher.DoOtherInvocations();
+						dispatcher.ExecuteOtherInvocations();
 						break;
 					case 2:
-						dispatcher.DoOtherInvocations(1);
+						dispatcher.ExecuteOtherInvocations(1);
 						break;
 					case 3:
-						dispatcher.DoOtherInvocations(TimeSpan.FromSeconds(1));
+						dispatcher.ExecuteOtherInvocations(TimeSpan.FromSeconds(1));
 						break;
 					case 4:
-						dispatcher.DoOtherInvocations((count, invocation) => invocation.Context == context);
+						dispatcher.ExecuteOtherInvocations((count, invocation) => invocation.Context == context);
 						break;
 				}
 			}
@@ -292,7 +292,7 @@ namespace ObservableComputations.Test
 			Assert.IsTrue(dispatcher.InstantiationStackTrace != null);
 			ApartmentState apartmentState = RuntimeInformation.IsOSPlatform(OSPlatform.Linux) ?  ApartmentState.Unknown : ApartmentState.MTA;
 			Assert.AreEqual(dispatcher.NewInvocationBehaviour, NewInvocationBehaviour.Accept);
-			Assert.AreEqual(dispatcher.Status, OcDispatcherStatus.RunOrWait);
+			Assert.AreEqual(dispatcher.Status, OcDispatcherStatus.ExecutingOrWait);
 			Assert.AreEqual(dispatcher.GetThreadApartmentState(), apartmentState);
 			Assert.AreEqual(dispatcher.PrioritiesNumber, 2);
 			CultureInfo culture = CultureInfo.GetCultureInfo("ru-RU");

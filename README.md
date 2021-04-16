@@ -1996,7 +1996,7 @@ This example is similar to the previous one, except
 * Properties that contain exception information
 * Setting configuration parameters *OcConfiguration.SaveOcDispatcherInvocationInstantiationStackTrace* and *OcConfiguration.TrackOcDispatcherInvocations*
 
-*OcConfiguration.SaveOcDispatcherInvocationExecutionStackTrace*, *Invocation.ExecutionStackTrace*, *Invocation.Executor* и  *Invocation.Parent* properties can be usefull, when you call *OcDispatcher.DoOtherInvocations* or *OcDispatcher.Invoke\** methods in the *OcDispatcher* thread.
+*OcConfiguration.SaveOcDispatcherInvocationExecutionStackTrace*, *Invocation.ExecutionStackTrace*, *Invocation.Executor* и  *Invocation.Parent* properties can be usefull, when you call *OcDispatcher.ExecuteOtherInvocations* or *OcDispatcher.Invoke\** methods in the *OcDispatcher* thread.
 
 
 ## Additional events for changes handling: PreCollectionChanged, PreValueChanged, PostCollectionChanged, PostValueChanged
@@ -3135,7 +3135,7 @@ In the previous examples, we saw how the computation is performed in one backgro
 
 * *Invoke\** - for synchronous and asynchronous execution of a delegate in the thread of an instance of *OcDispatcher* class, for example, for changing the source data for computations performed in the thread of an instance of *OcDispatcher* class. After calling *Dispose* method, these methods return without executing the passed delegate and without throwing an exception. Methods have *setSynchronizationContext* parameter. If you set this parameter to *true*, then the synchronization context corresponding to this call will be set for the duration of the passed delegate execution. This can be useful when using the *await* keyword inside the passed delegate. 
 * *InvokeAsyncAwaitable* - these methods return an instance of *System.Threading.Tasks.Task* class and can be used with *await* keyword. 
-* *DoOtherInvocations* - if the delegate passed to the *Invoke\** methods take a long time when *DoOthers* is called, other delegates are called. It is possible to set the maximum number of delegates that should be executed or the approximate maximum time for their execution.
+* *ExecuteOtherInvocations* - if the delegate passed to the *Invoke\** methods take a long time you may need to call *ExecuteOtherInvocations*. When *ExecuteOtherInvocations* is called other delegates are executed. It is possible to set the maximum number of delegates that should be executed or the approximate maximum time for their execution.
 
 ### Variants of implementation of IOcDispatcher interface
 So far, we have used a very simple implementation of the *IOcDispatcher* interface. For example, this:

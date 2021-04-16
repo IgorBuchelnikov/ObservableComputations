@@ -1996,7 +1996,7 @@ namespace ObservableComputationsExamples
 * Свойств, которые содержат информацию об исключении
 * Установки параметров конфигурации *Configuration.SaveOcDispatcherInvocationInstantiationStackTrace* и *Configuration.TrackOcDispatcherInvocations*
 
-Свойства *OcConfiguration.SaveOcDispatcherInvocationExecutionStackTrace*, *Invocation.ExecutionStackTrace*, *Invocation.Executor* и  *Invocation.Parent* могут пригодиться, если вы вызывали методы *OcDispatcher.DoOtherInvocations* или *OcDispatcher.Invoke\** находясь в потоке *OcDispatcher*.
+Свойства *OcConfiguration.SaveOcDispatcherInvocationExecutionStackTrace*, *Invocation.ExecutionStackTrace*, *Invocation.Executor* и  *Invocation.Parent* могут пригодиться, если вы вызывали методы *OcDispatcher.ExecuteOtherInvocations* или *OcDispatcher.Invoke\** находясь в потоке *OcDispatcher*.
 
 ## Дополнительные события для обработки изменений: PreCollectionChanged, PreValueChanged, PostCollectionChanged, PostValueChanged
 ```csharp
@@ -3138,7 +3138,7 @@ namespace ObservableComputationsExample
 Класса *OcDispatcher* имеет методы, которые Вы можете вызывать при необходимости
 * *Invoke\** - для синхронного и асинхронного выполнения делегата в потоке экземпляра класса *OcDispatcher*, например, для изменения исходных данных для вычислений выполняющихся в потоке экземпляра класса *OcDispatcher*. После вызова метода *Dispose* данные методы возвращают управление без выполнения переданного делегата и без выброса исключения. Методы имеют параметр *setSynchronizationContext*. Если установить для этого параметра значение *true*, то на время восполнения переданного делегата будет установлен синхронизации соответствующий данному вызову. Это может полезно при использовании ключевого слова *await* внутри делегата.
 * *InvokeAsyncAwaitable* - эти методы возвращают экземпляр класса*System.Threading.Tasks.Task*, и их можно использовать с ключевым словом *await*. 
-* *DoOtherInvocations* - в случае если делегат переданный в методы *Invoke\** выполняется долго, при вызове *DoOtherInvocations* вызываются другие делегаты. Есть возможность задать максимальное количество делегатов, которые могут быть выполнены или приблизительное максимальное время их выполнения.
+* *ExecuteOtherInvocations* - в случае если делегат переданный в метод *Invoke\** выполняется долго, то Вам может понадобиться вызвать *ExecuteOtherInvocations*. При вызове *ExecuteOtherInvocations* вызываются другие делегаты. Есть возможность задать максимальное количество делегатов, которые могут быть выполнены или приблизительное максимальное время их выполнения.
 
 ### Варианты реализации интерфейса IOcDispatcher
 До сих пор мы использовали очень простую реализацию интерфейса *IOcDispatcher*. Например, такую:  

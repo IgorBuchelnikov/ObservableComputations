@@ -95,14 +95,14 @@ namespace ObservableComputations
 			_executor = originalCurrentInvocation;
 			_ocDispatcher._currentInvocation = this;
 
-			_status = InvocationStatus.Doing;
+			_status = InvocationStatus.Executing;
 
 			if (_action != null)
 				_action();
 			else
 				_actionWithState(_state);
 
-			_status = InvocationStatus.Done;
+			_status = InvocationStatus.Executed;
 
 			if (_setSynchronizationContext)
 				SynchronizationContext.SetSynchronizationContext(originalSynchronizationContext);
@@ -164,8 +164,14 @@ namespace ObservableComputations
 		private OcDispatcherStatus _status;
 		internal Invocation _currentInvocation;
 
+		/// <summary>
+		/// The invocation that is being executed now
+		/// </summary>
 		public Invocation CurrentInvocation => _currentInvocation;
 
+		/// <summary>
+		/// OcDispatcher associated with the current thread
+		/// </summary>
 		public static OcDispatcher Current => 
 			StaticInfo._ocDispatchers.TryGetValue(Thread.CurrentThread.ManagedThreadId, out OcDispatcher ocDispatcher) 
 				? ocDispatcher : null;
@@ -184,7 +190,7 @@ namespace ObservableComputations
 			set
 			{
 				if (!_isRunning && value == NewInvocationBehaviour.Accept)
-					throw new ObservableComputationsException("Disposing is not running");
+					throw new ObservableComputationsException("The disposal is in progress");
 				_newInvocationBehaviour = value;
 			}
 		}
@@ -347,7 +353,7 @@ namespace ObservableComputations
 			}
 		}
 
-		public TimeSpan DoOtherInvocations(TimeSpan timeSpan)
+		public TimeSpan ExecuteOtherInvocations(TimeSpan timeSpan)
 		{
 			verifyCurrentThread();
 
@@ -357,7 +363,7 @@ namespace ObservableComputations
 			return timeSpan - TimeSpan.FromTicks(stopwatch.ElapsedTicks);
 		}
 
-		public int DoOtherInvocations(int targetCount)
+		public int ExecuteOtherInvocations(int targetCount)
 		{
 			verifyCurrentThread();
 
@@ -372,13 +378,13 @@ namespace ObservableComputations
 			return targetCount - factCount;
 		}
 
-		public void DoOtherInvocations(Func<int, Invocation, bool> stop)
+		public void ExecuteOtherInvocations(Func<int, Invocation, bool> stop)
 		{
 			verifyCurrentThread();
 			processQueues(stop);
 		}
 
-		public void DoOtherInvocations()
+		public void ExecuteOtherInvocations()
 		{
 			verifyCurrentThread();
 			processQueues(null);
@@ -390,7 +396,7 @@ namespace ObservableComputations
 		{
 			if (_thread != Thread.CurrentThread)
 				throw new ObservableComputationsException(
-					"OcDispatcher.DoOtherInvocations method can only be called from the same thread that is associated with this OcDispatcher.");
+					"OcDispatcher.ExecuteOtherInvocations method can only be called from the thread that is associated with this OcDispatcher.");
 		}
 
 		public void Dispose(NewInvocationBehaviour newInvocationBehaviour)
@@ -435,7 +441,7 @@ namespace ObservableComputations
 			if (currentInvocation != null && currentInvocation == _currentInvocation)
 			{
 				resultInvocation = queueInvocation(action, priority, context, setSynchronizationContext, currentInvocation);
-				processQueues((count, invocation) => invocation._status == InvocationStatus.Done);
+				processQueues((count, invocation) => invocation._status == InvocationStatus.Executed);
 				return resultInvocation;
 			}
 
@@ -481,7 +487,7 @@ namespace ObservableComputations
 			if (currentInvocation != null && currentInvocation == _currentInvocation)
 			{
 				resultInvocation = queueInvocation(action, priority, state, context, setSynchronizationContext, currentInvocation);
-				processQueues((count, invocation) => invocation._status == InvocationStatus.Done);
+				processQueues((count, invocation) => invocation._status == InvocationStatus.Executed);
 				return resultInvocation;
 			}
 
@@ -651,16 +657,42 @@ namespace ObservableComputations
 
 	public enum OcDispatcherStatus
 	{
-		RunOrWait,
+		/// <summary>
+		/// Executing an invocation or wait for new invocations
+		/// </summary>
+		ExecutingOrWait,
+
+		/// <summary>
+		/// Disposal is in progress
+		/// </summary>
 		Disposing,
+
+		/// <summary>
+		/// Disposal is finished
+		/// </summary>
 		Disposed
 	}
 
 	public enum InvocationStatus
 	{
+		/// <summary>
+		/// Execution is queued
+		/// </summary>
 		Invoked,
-		Doing,
-		Done,
+
+		/// <summary>
+		/// Execution is in progress
+		/// </summary>
+		Executing,
+
+		/// <summary>
+		/// Execution done
+		/// </summary>
+		Executed,
+
+		/// <summary>
+		/// Execution canceled
+		/// </summary>
 		Canceled
 	}
 

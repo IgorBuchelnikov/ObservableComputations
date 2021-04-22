@@ -123,8 +123,8 @@ namespace ObservableComputationsExamples
 
 			Filtering<Order> expensiveOrders = 
 				orders
-					.Filtering(o => o.Price > 25)
-					.For(consumer); 
+				.Filtering(o => o.Price > 25)
+				.For(consumer); 
 			
 			Debug.Assert(expensiveOrders is ObservableCollection<Order>);
 			

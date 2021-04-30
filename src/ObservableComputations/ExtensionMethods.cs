@@ -88,94 +88,372 @@ namespace ObservableComputations
 
 		#region CollectionProcessing
 		[ObservableComputationsCall]
-		public static CollectionProcessing<TSourceItem, TReturnValue> CollectionProcessing<TSourceItem, TReturnValue>(this
+
+		#region Batch
+
+		public static CollectionProcessing<TSourceItem, TReturnValue> CollectionItemsProcessing<TSourceItem, TReturnValue>(this
 			INotifyCollectionChanged source,
-			Func<TSourceItem[], ICollectionComputing, TReturnValue[]> newItemProcessor = null,
-			Action<TSourceItem[], ICollectionComputing, TReturnValue[]> oldItemProcessor = null,
+			Func<TSourceItem[], ICollectionComputing, TReturnValue[]> newItemsProcessor = null,
+			Action<TSourceItem[], ICollectionComputing, TReturnValue[]> oldItemsProcessor = null,
 			Action<TSourceItem, ICollectionComputing, TReturnValue> moveItemProcessor = null)
 			
 		{
 			return new CollectionProcessing<TSourceItem, TReturnValue>(
 				source: source,
-				newItemsProcessor: newItemProcessor,
-				oldItemsProcessor: oldItemProcessor,
+				newItemsProcessor: newItemsProcessor,
+				oldItemsProcessor: oldItemsProcessor,
 				moveItemProcessor: moveItemProcessor);
 		}
 
 		[ObservableComputationsCall]
-		public static CollectionProcessing<TSourceItem, TReturnValue> CollectionProcessing<TSourceItem, TReturnValue>(this
+		public static CollectionProcessing<TSourceItem, TReturnValue> CollectionItemsProcessing<TSourceItem, TReturnValue>(this
 			IReadScalar<INotifyCollectionChanged> sourceScalar,
-			Func<TSourceItem[], ICollectionComputing, TReturnValue[]> newItemProcessor = null,
-			Action<TSourceItem[], ICollectionComputing, TReturnValue[]> oldItemProcessor = null,
+			Func<TSourceItem[], ICollectionComputing, TReturnValue[]> newItemsProcessor = null,
+			Action<TSourceItem[], ICollectionComputing, TReturnValue[]> oldItemsProcessor = null,
 			Action<TSourceItem, ICollectionComputing, TReturnValue> moveItemProcessor = null)
 			
 		{
 			return new CollectionProcessing<TSourceItem, TReturnValue>(
 				sourceScalar: sourceScalar,
-				newItemsProcessor: newItemProcessor,
-				oldItemsProcessor: oldItemProcessor,
+				newItemsProcessor: newItemsProcessor,
+				oldItemsProcessor: oldItemsProcessor,
 				moveItemProcessor: moveItemProcessor);
 		}
 
 		[ObservableComputationsCall]
-		public static CollectionProcessing<TSourceItem, TReturnValue> CollectionProcessing<TSourceItem, TReturnValue>(this
+		public static CollectionProcessing<TSourceItem, TReturnValue> CollectionItemsProcessing<TSourceItem, TReturnValue>(this
 			Expression<Func<INotifyCollectionChanged>> getSourceExpression,
-			Func<TSourceItem[], ICollectionComputing, TReturnValue[]> newItemProcessor = null,
-			Action<TSourceItem[], ICollectionComputing, TReturnValue[]> oldItemProcessor = null,
+			Func<TSourceItem[], ICollectionComputing, TReturnValue[]> newItemsProcessor = null,
+			Action<TSourceItem[], ICollectionComputing, TReturnValue[]> oldItemsProcessor = null,
 			Action<TSourceItem, ICollectionComputing, TReturnValue> moveItemProcessor = null)
 			
 		{
 			return new CollectionProcessing<TSourceItem, TReturnValue>(
 				sourceScalar: new Computing<INotifyCollectionChanged>(getSourceExpression),
-				newItemsProcessor: newItemProcessor,
-				oldItemsProcessor: oldItemProcessor,
+				newItemsProcessor: newItemsProcessor,
+				oldItemsProcessor: oldItemsProcessor,
 				moveItemProcessor: moveItemProcessor);
 		}
 
 		[ObservableComputationsCall]
-		public static CollectionProcessingVoid<TSourceItem> CollectionProcessing<TSourceItem>(this
+		public static CollectionProcessingVoid<TSourceItem> CollectionItemsProcessing<TSourceItem>(this
 			INotifyCollectionChanged source,
-			Action<TSourceItem[], CollectionProcessingVoid<TSourceItem>> newItemProcessor = null,
-			Action<TSourceItem[], CollectionProcessingVoid<TSourceItem>> oldItemProcessor = null,
+			Action<TSourceItem[], CollectionProcessingVoid<TSourceItem>> newItemsProcessor = null,
+			Action<TSourceItem[], CollectionProcessingVoid<TSourceItem>> oldItemsProcessor = null,
 			Action<TSourceItem, CollectionProcessingVoid<TSourceItem>> moveItemProcessor = null)
 			
 		{
 			return new CollectionProcessingVoid<TSourceItem>(
 				source: source,
-				newItemsProcessor: newItemProcessor,
-				oldItemsProcessor: oldItemProcessor,
+				newItemsProcessor: newItemsProcessor,
+				oldItemsProcessor: oldItemsProcessor,
 				moveItemProcessor: moveItemProcessor);
 		}
 
 		[ObservableComputationsCall]
-		public static CollectionProcessingVoid<TSourceItem> CollectionProcessing<TSourceItem>(this
+		public static CollectionProcessingVoid<TSourceItem> CollectionItemsProcessing<TSourceItem>(this
 			IReadScalar<INotifyCollectionChanged> sourceScalar,
-			Action<TSourceItem[], CollectionProcessingVoid<TSourceItem>> newItemProcessor = null,
-			Action<TSourceItem[], CollectionProcessingVoid<TSourceItem>> oldItemProcessor = null,
+			Action<TSourceItem[], CollectionProcessingVoid<TSourceItem>> newItemsProcessor = null,
+			Action<TSourceItem[], CollectionProcessingVoid<TSourceItem>> oldItemsProcessor = null,
 			Action<TSourceItem, CollectionProcessingVoid<TSourceItem>> moveItemProcessor = null)
 			
 		{
 			return new CollectionProcessingVoid<TSourceItem>(
 				sourceScalar: sourceScalar,
-				newItemsProcessor: newItemProcessor,
-				oldItemsProcessor: oldItemProcessor,
+				newItemsProcessor: newItemsProcessor,
+				oldItemsProcessor: oldItemsProcessor,
 				moveItemProcessor: moveItemProcessor);
 		}
 
 		[ObservableComputationsCall]
-		public static CollectionProcessingVoid<TSourceItem> CollectionProcessing<TSourceItem>(this
+		public static CollectionProcessingVoid<TSourceItem> CollectionItemsProcessing<TSourceItem>(this
 			Expression<Func<INotifyCollectionChanged>> getSourceExpression,
-			Action<TSourceItem[], CollectionProcessingVoid<TSourceItem>> newItemProcessor = null,
-			Action<TSourceItem[], CollectionProcessingVoid<TSourceItem>> oldItemProcessor = null,
+			Action<TSourceItem[], CollectionProcessingVoid<TSourceItem>> newItemsProcessor = null,
+			Action<TSourceItem[], CollectionProcessingVoid<TSourceItem>> oldItemsProcessor = null,
 			Action<TSourceItem, CollectionProcessingVoid<TSourceItem>> moveItemProcessor = null)
 			
 		{
 			return new CollectionProcessingVoid<TSourceItem>(
 				sourceScalar: new Computing<INotifyCollectionChanged>(getSourceExpression),
-				newItemsProcessor: newItemProcessor,
-				oldItemsProcessor: oldItemProcessor,
+				newItemsProcessor: newItemsProcessor,
+				oldItemsProcessor: oldItemsProcessor,
 				moveItemProcessor: moveItemProcessor);
 		}
+
+		[ObservableComputationsCall]
+		public static CollectionProcessing<TSourceItem, TReturnValue> CollectionItemsProcessing<TSourceItem, TReturnValue>(this
+			ObservableCollection<TSourceItem> source,
+			Func<TSourceItem[], ICollectionComputing, TReturnValue[]> newItemsProcessor = null,
+			Action<TSourceItem[], ICollectionComputing, TReturnValue[]> oldItemsProcessor = null,
+			Action<TSourceItem, ICollectionComputing, TReturnValue> moveItemProcessor = null)
+			
+		{
+			return new CollectionProcessing<TSourceItem, TReturnValue>(
+				source: source,
+				newItemsProcessor: newItemsProcessor,
+				oldItemsProcessor: oldItemsProcessor,
+				moveItemProcessor: moveItemProcessor);
+		}
+
+		[ObservableComputationsCall]
+		public static CollectionProcessing<TSourceItem, TReturnValue> CollectionItemsProcessing<TSourceItem, TReturnValue>(this
+			IReadScalar<ObservableCollection<TSourceItem>> sourceScalar,
+			Func<TSourceItem[], ICollectionComputing, TReturnValue[]> newItemsProcessor = null,
+			Action<TSourceItem[], ICollectionComputing, TReturnValue[]> oldItemsProcessor = null,
+			Action<TSourceItem, ICollectionComputing, TReturnValue> moveItemProcessor = null)
+			
+		{
+			return new CollectionProcessing<TSourceItem, TReturnValue>(
+				sourceScalar: sourceScalar,
+				newItemsProcessor: newItemsProcessor,
+				oldItemsProcessor: oldItemsProcessor,
+				moveItemProcessor: moveItemProcessor);
+		}
+
+		[ObservableComputationsCall]
+		public static CollectionProcessing<TSourceItem, TReturnValue> CollectionItemsProcessing<TSourceItem, TReturnValue>(this
+			Expression<Func<ObservableCollection<TSourceItem>>> getSourceExpression,
+			Func<TSourceItem[], ICollectionComputing, TReturnValue[]> newItemsProcessor = null,
+			Action<TSourceItem[], ICollectionComputing, TReturnValue[]> oldItemsProcessor = null,
+			Action<TSourceItem, ICollectionComputing, TReturnValue> moveItemProcessor = null)
+			
+		{
+			return new CollectionProcessing<TSourceItem, TReturnValue>(
+				sourceScalar: new Computing<ObservableCollection<TSourceItem>>(getSourceExpression),
+				newItemsProcessor: newItemsProcessor,
+				oldItemsProcessor: oldItemsProcessor,
+				moveItemProcessor: moveItemProcessor);
+		}
+
+		[ObservableComputationsCall]
+		public static CollectionProcessingVoid<TSourceItem> CollectionItemsProcessing<TSourceItem>(this
+			ObservableCollection<TSourceItem> source,
+			Action<TSourceItem[], CollectionProcessingVoid<TSourceItem>> newItemsProcessor = null,
+			Action<TSourceItem[], CollectionProcessingVoid<TSourceItem>> oldItemsProcessor = null,
+			Action<TSourceItem, CollectionProcessingVoid<TSourceItem>> moveItemProcessor = null)
+			
+		{
+			return new CollectionProcessingVoid<TSourceItem>(
+				source: source,
+				newItemsProcessor: newItemsProcessor,
+				oldItemsProcessor: oldItemsProcessor,
+				moveItemProcessor: moveItemProcessor);
+		}
+
+		[ObservableComputationsCall]
+		public static CollectionProcessingVoid<TSourceItem> CollectionItemsProcessing<TSourceItem>(this
+				IReadScalar<ObservableCollection<TSourceItem>> sourceScalar,
+			Action<TSourceItem[], CollectionProcessingVoid<TSourceItem>> newItemsProcessor = null,
+			Action<TSourceItem[], CollectionProcessingVoid<TSourceItem>> oldItemsProcessor = null,
+			Action<TSourceItem, CollectionProcessingVoid<TSourceItem>> moveItemProcessor = null)
+			
+		{
+			return new CollectionProcessingVoid<TSourceItem>(
+				sourceScalar: sourceScalar,
+				newItemsProcessor: newItemsProcessor,
+				oldItemsProcessor: oldItemsProcessor,
+				moveItemProcessor: moveItemProcessor);
+		}
+
+		[ObservableComputationsCall]
+		public static CollectionProcessingVoid<TSourceItem> CollectionItemsProcessing<TSourceItem>(this
+				Expression<Func<ObservableCollection<TSourceItem>>> getSourceExpression,
+			Action<TSourceItem[], CollectionProcessingVoid<TSourceItem>> newItemsProcessor = null,
+			Action<TSourceItem[], CollectionProcessingVoid<TSourceItem>> oldItemsProcessor = null,
+			Action<TSourceItem, CollectionProcessingVoid<TSourceItem>> moveItemProcessor = null)
+			
+		{
+			return new CollectionProcessingVoid<TSourceItem>(
+				sourceScalar: new Computing<ObservableCollection<TSourceItem>>(getSourceExpression),
+				newItemsProcessor: newItemsProcessor,
+				oldItemsProcessor: oldItemsProcessor,
+				moveItemProcessor: moveItemProcessor);
+		}
+
+		#endregion
+
+		#region Single
+
+		public static CollectionProcessing<TSourceItem, TReturnValue> CollectionItemProcessing<TSourceItem, TReturnValue>(this
+			INotifyCollectionChanged source,
+			Func<TSourceItem, ICollectionComputing, TReturnValue> newItemProcessor = null,
+			Action<TSourceItem, ICollectionComputing, TReturnValue> oldItemProcessor = null,
+			Action<TSourceItem, ICollectionComputing, TReturnValue> moveItemProcessor = null)
+			
+		{
+			return new CollectionProcessing<TSourceItem, TReturnValue>(
+				source: source,
+				newItemProcessor: newItemProcessor,
+				oldItemProcessor: oldItemProcessor,
+				moveItemProcessor: moveItemProcessor);
+		}
+
+		[ObservableComputationsCall]
+		public static CollectionProcessing<TSourceItem, TReturnValue> CollectionItemProcessing<TSourceItem, TReturnValue>(this
+			IReadScalar<INotifyCollectionChanged> sourceScalar,
+			Func<TSourceItem, ICollectionComputing, TReturnValue> newItemProcessor = null,
+			Action<TSourceItem, ICollectionComputing, TReturnValue> oldItemProcessor = null,
+			Action<TSourceItem, ICollectionComputing, TReturnValue> moveItemProcessor = null)
+			
+		{
+			return new CollectionProcessing<TSourceItem, TReturnValue>(
+				sourceScalar: sourceScalar,
+				newItemProcessor: newItemProcessor,
+				oldItemProcessor: oldItemProcessor,
+				moveItemProcessor: moveItemProcessor);
+		}
+
+		[ObservableComputationsCall]
+		public static CollectionProcessing<TSourceItem, TReturnValue> CollectionItemProcessing<TSourceItem, TReturnValue>(this
+			Expression<Func<INotifyCollectionChanged>> getSourceExpression,
+			Func<TSourceItem, ICollectionComputing, TReturnValue> newItemProcessor = null,
+			Action<TSourceItem, ICollectionComputing, TReturnValue> oldItemProcessor = null,
+			Action<TSourceItem, ICollectionComputing, TReturnValue> moveItemProcessor = null)
+			
+		{
+			return new CollectionProcessing<TSourceItem, TReturnValue>(
+				sourceScalar: new Computing<INotifyCollectionChanged>(getSourceExpression),
+				newItemProcessor: newItemProcessor,
+				oldItemProcessor: oldItemProcessor,
+				moveItemProcessor: moveItemProcessor);
+		}
+
+		[ObservableComputationsCall]
+		public static CollectionProcessingVoid<TSourceItem> CollectionItemProcessing<TSourceItem>(this
+			INotifyCollectionChanged source,
+			Action<TSourceItem, CollectionProcessingVoid<TSourceItem>> newItemProcessor = null,
+			Action<TSourceItem, CollectionProcessingVoid<TSourceItem>> oldItemProcessor = null,
+			Action<TSourceItem, CollectionProcessingVoid<TSourceItem>> moveItemProcessor = null)
+			
+		{
+			return new CollectionProcessingVoid<TSourceItem>(
+				source: source,
+				newItemProcessor: newItemProcessor,
+				oldItemProcessor: oldItemProcessor,
+				moveItemProcessor: moveItemProcessor);
+		}
+
+		[ObservableComputationsCall]
+		public static CollectionProcessingVoid<TSourceItem> CollectionItemProcessing<TSourceItem>(this
+			IReadScalar<INotifyCollectionChanged> sourceScalar,
+			Action<TSourceItem, CollectionProcessingVoid<TSourceItem>> newItemProcessor = null,
+			Action<TSourceItem, CollectionProcessingVoid<TSourceItem>> oldItemProcessor = null,
+			Action<TSourceItem, CollectionProcessingVoid<TSourceItem>> moveItemProcessor = null)
+			
+		{
+			return new CollectionProcessingVoid<TSourceItem>(
+				sourceScalar: sourceScalar,
+				newItemProcessor: newItemProcessor,
+				oldItemProcessor: oldItemProcessor,
+				moveItemProcessor: moveItemProcessor);
+		}
+
+		[ObservableComputationsCall]
+		public static CollectionProcessingVoid<TSourceItem> CollectionItemProcessing<TSourceItem>(this
+			Expression<Func<INotifyCollectionChanged>> getSourceExpression,
+			Action<TSourceItem, CollectionProcessingVoid<TSourceItem>> newItemProcessor = null,
+			Action<TSourceItem, CollectionProcessingVoid<TSourceItem>> oldItemProcessor = null,
+			Action<TSourceItem, CollectionProcessingVoid<TSourceItem>> moveItemProcessor = null)
+			
+		{
+			return new CollectionProcessingVoid<TSourceItem>(
+				sourceScalar: new Computing<INotifyCollectionChanged>(getSourceExpression),
+				newItemProcessor: newItemProcessor,
+				oldItemProcessor: oldItemProcessor,
+				moveItemProcessor: moveItemProcessor);
+		}
+
+		[ObservableComputationsCall]
+		public static CollectionProcessing<TSourceItem, TReturnValue> CollectionItemProcessing<TSourceItem, TReturnValue>(this
+			ObservableCollection<TSourceItem> source,
+			Func<TSourceItem, ICollectionComputing, TReturnValue> newItemProcessor = null,
+			Action<TSourceItem, ICollectionComputing, TReturnValue> oldItemProcessor = null,
+			Action<TSourceItem, ICollectionComputing, TReturnValue> moveItemProcessor = null)
+			
+		{
+			return new CollectionProcessing<TSourceItem, TReturnValue>(
+				source: source,
+				newItemProcessor: newItemProcessor,
+				oldItemProcessor: oldItemProcessor,
+				moveItemProcessor: moveItemProcessor);
+		}
+
+		[ObservableComputationsCall]
+		public static CollectionProcessing<TSourceItem, TReturnValue> CollectionItemProcessing<TSourceItem, TReturnValue>(this
+			IReadScalar<ObservableCollection<TSourceItem>> sourceScalar,
+			Func<TSourceItem, ICollectionComputing, TReturnValue> newItemProcessor = null,
+			Action<TSourceItem, ICollectionComputing, TReturnValue> oldItemProcessor = null,
+			Action<TSourceItem, ICollectionComputing, TReturnValue> moveItemProcessor = null)
+			
+		{
+			return new CollectionProcessing<TSourceItem, TReturnValue>(
+				sourceScalar: sourceScalar,
+				newItemProcessor: newItemProcessor,
+				oldItemProcessor: oldItemProcessor,
+				moveItemProcessor: moveItemProcessor);
+		}
+
+		[ObservableComputationsCall]
+		public static CollectionProcessing<TSourceItem, TReturnValue> CollectionItemProcessing<TSourceItem, TReturnValue>(this
+			Expression<Func<ObservableCollection<TSourceItem>>> getSourceExpression,
+			Func<TSourceItem, ICollectionComputing, TReturnValue> newItemProcessor = null,
+			Action<TSourceItem, ICollectionComputing, TReturnValue> oldItemProcessor = null,
+			Action<TSourceItem, ICollectionComputing, TReturnValue> moveItemProcessor = null)
+			
+		{
+			return new CollectionProcessing<TSourceItem, TReturnValue>(
+				sourceScalar: new Computing<ObservableCollection<TSourceItem>>(getSourceExpression),
+				newItemProcessor: newItemProcessor,
+				oldItemProcessor: oldItemProcessor,
+				moveItemProcessor: moveItemProcessor);
+		}
+
+		[ObservableComputationsCall]
+		public static CollectionProcessingVoid<TSourceItem> CollectionItemProcessing<TSourceItem>(this
+				ObservableCollection<TSourceItem> source,
+			Action<TSourceItem, CollectionProcessingVoid<TSourceItem>> newItemProcessor = null,
+			Action<TSourceItem, CollectionProcessingVoid<TSourceItem>> oldItemProcessor = null,
+			Action<TSourceItem, CollectionProcessingVoid<TSourceItem>> moveItemProcessor = null)
+			
+		{
+			return new CollectionProcessingVoid<TSourceItem>(
+				source: source,
+				newItemProcessor: newItemProcessor,
+				oldItemProcessor: oldItemProcessor,
+				moveItemProcessor: moveItemProcessor);
+		}
+
+		[ObservableComputationsCall]
+		public static CollectionProcessingVoid<TSourceItem> CollectionItemProcessing<TSourceItem>(this
+				IReadScalar<ObservableCollection<TSourceItem>> sourceScalar,
+			Action<TSourceItem, CollectionProcessingVoid<TSourceItem>> newItemProcessor = null,
+			Action<TSourceItem, CollectionProcessingVoid<TSourceItem>> oldItemProcessor = null,
+			Action<TSourceItem, CollectionProcessingVoid<TSourceItem>> moveItemProcessor = null)
+			
+		{
+			return new CollectionProcessingVoid<TSourceItem>(
+				sourceScalar: sourceScalar,
+				newItemProcessor: newItemProcessor,
+				oldItemProcessor: oldItemProcessor,
+				moveItemProcessor: moveItemProcessor);
+		}
+
+		[ObservableComputationsCall]
+		public static CollectionProcessingVoid<TSourceItem> CollectionItemProcessing<TSourceItem>(this
+				Expression<Func<ObservableCollection<TSourceItem>>> getSourceExpression,
+			Action<TSourceItem, CollectionProcessingVoid<TSourceItem>> newItemProcessor = null,
+			Action<TSourceItem, CollectionProcessingVoid<TSourceItem>> oldItemProcessor = null,
+			Action<TSourceItem, CollectionProcessingVoid<TSourceItem>> moveItemProcessor = null)
+			
+		{
+			return new CollectionProcessingVoid<TSourceItem>(
+				sourceScalar: new Computing<ObservableCollection<TSourceItem>>(getSourceExpression),
+				newItemProcessor: newItemProcessor,
+				oldItemProcessor: oldItemProcessor,
+				moveItemProcessor: moveItemProcessor);
+		}
+
+		#endregion
 
 		[ObservableComputationsCall]
 		public static CollectionDisposing<TSourceItem> CollectionDisposing<TSourceItem>(this
@@ -202,96 +480,6 @@ namespace ObservableComputations
 		{
 			return new CollectionDisposing<TSourceItem>(
 				sourceScalar: new Computing<INotifyCollectionChanged>(getSourceExpression));
-		}
-
-		[ObservableComputationsCall]
-		public static CollectionProcessing<TSourceItem, TReturnValue> CollectionProcessing<TSourceItem, TReturnValue>(this
-			ObservableCollection<TSourceItem> source,
-			Func<TSourceItem[], ICollectionComputing, TReturnValue[]> newItemProcessor = null,
-			Action<TSourceItem[], ICollectionComputing, TReturnValue[]> oldItemProcessor = null,
-			Action<TSourceItem, ICollectionComputing, TReturnValue> moveItemProcessor = null)
-			
-		{
-			return new CollectionProcessing<TSourceItem, TReturnValue>(
-				source: source,
-				newItemsProcessor: newItemProcessor,
-				oldItemsProcessor: oldItemProcessor,
-				moveItemProcessor: moveItemProcessor);
-		}
-
-		[ObservableComputationsCall]
-		public static CollectionProcessing<TSourceItem, TReturnValue> CollectionProcessing<TSourceItem, TReturnValue>(this
-			IReadScalar<ObservableCollection<TSourceItem>> sourceScalar,
-			Func<TSourceItem[], ICollectionComputing, TReturnValue[]> newItemProcessor = null,
-			Action<TSourceItem[], ICollectionComputing, TReturnValue[]> oldItemProcessor = null,
-			Action<TSourceItem, ICollectionComputing, TReturnValue> moveItemProcessor = null)
-			
-		{
-			return new CollectionProcessing<TSourceItem, TReturnValue>(
-				sourceScalar: sourceScalar,
-				newItemsProcessor: newItemProcessor,
-				oldItemsProcessor: oldItemProcessor,
-				moveItemProcessor: moveItemProcessor);
-		}
-
-		[ObservableComputationsCall]
-		public static CollectionProcessing<TSourceItem, TReturnValue> CollectionProcessing<TSourceItem, TReturnValue>(this
-			Expression<Func<ObservableCollection<TSourceItem>>> getSourceExpression,
-			Func<TSourceItem[], ICollectionComputing, TReturnValue[]> newItemProcessor = null,
-			Action<TSourceItem[], ICollectionComputing, TReturnValue[]> oldItemProcessor = null,
-			Action<TSourceItem, ICollectionComputing, TReturnValue> moveItemProcessor = null)
-			
-		{
-			return new CollectionProcessing<TSourceItem, TReturnValue>(
-				sourceScalar: new Computing<ObservableCollection<TSourceItem>>(getSourceExpression),
-				newItemsProcessor: newItemProcessor,
-				oldItemsProcessor: oldItemProcessor,
-				moveItemProcessor: moveItemProcessor);
-		}
-
-		[ObservableComputationsCall]
-		public static CollectionProcessingVoid<TSourceItem> CollectionProcessing<TSourceItem>(this
-			ObservableCollection<TSourceItem> source,
-			Action<TSourceItem[], CollectionProcessingVoid<TSourceItem>> newItemProcessor = null,
-			Action<TSourceItem[], CollectionProcessingVoid<TSourceItem>> oldItemProcessor = null,
-			Action<TSourceItem, CollectionProcessingVoid<TSourceItem>> moveItemProcessor = null)
-			
-		{
-			return new CollectionProcessingVoid<TSourceItem>(
-				source: source,
-				newItemsProcessor: newItemProcessor,
-				oldItemsProcessor: oldItemProcessor,
-				moveItemProcessor: moveItemProcessor);
-		}
-
-		[ObservableComputationsCall]
-		public static CollectionProcessingVoid<TSourceItem> CollectionProcessing<TSourceItem>(this
-			IReadScalar<ObservableCollection<TSourceItem>> sourceScalar,
-			Action<TSourceItem[], CollectionProcessingVoid<TSourceItem>> newItemProcessor = null,
-			Action<TSourceItem[], CollectionProcessingVoid<TSourceItem>> oldItemProcessor = null,
-			Action<TSourceItem, CollectionProcessingVoid<TSourceItem>> moveItemProcessor = null)
-			
-		{
-			return new CollectionProcessingVoid<TSourceItem>(
-				sourceScalar: sourceScalar,
-				newItemsProcessor: newItemProcessor,
-				oldItemsProcessor: oldItemProcessor,
-				moveItemProcessor: moveItemProcessor);
-		}
-
-		[ObservableComputationsCall]
-		public static CollectionProcessingVoid<TSourceItem> CollectionProcessing<TSourceItem>(this
-			Expression<Func<ObservableCollection<TSourceItem>>> getSourceExpression,
-			Action<TSourceItem[], CollectionProcessingVoid<TSourceItem>> newItemProcessor = null,
-			Action<TSourceItem[], CollectionProcessingVoid<TSourceItem>> oldItemProcessor = null,
-			Action<TSourceItem, CollectionProcessingVoid<TSourceItem>> moveItemProcessor = null)
-			
-		{
-			return new CollectionProcessingVoid<TSourceItem>(
-				sourceScalar: new Computing<ObservableCollection<TSourceItem>>(getSourceExpression),
-				newItemsProcessor: newItemProcessor,
-				oldItemsProcessor: oldItemProcessor,
-				moveItemProcessor: moveItemProcessor);
 		}
 
 		[ObservableComputationsCall]

@@ -73,7 +73,7 @@ namespace ObservableComputations
 			_parent = parent;
 		}
 
-		internal void Do()
+		internal void Execute()
 		{
 			Invocation originalCurrentInvocation = _ocDispatcher._currentInvocation;
 			SynchronizationContext originalSynchronizationContext = null;
@@ -275,7 +275,7 @@ namespace ObservableComputations
 				for (priority = _highestPriority; priority >= 0; priority--)
 					if (_invocationQueues[priority].TryDequeue(out Invocation invocation))
 					{
-						invocation.Do();
+						invocation.Execute();
 						count++;
 						processed = stop == null || !stop(count, invocation);
 						break;

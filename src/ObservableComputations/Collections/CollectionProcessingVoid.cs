@@ -25,9 +25,15 @@ namespace ObservableComputations
 		public Action<TSourceItem[], CollectionProcessingVoid<TSourceItem>> OldItemsProcessor => _oldItemsProcessor;
 		public Action<TSourceItem, CollectionProcessingVoid<TSourceItem>> MoveItemProcessor => _moveItemProcessor;
 
+		public Action<TSourceItem, CollectionProcessingVoid<TSourceItem>> NewItemProcessor => _newItemProcessor;
+		public Action<TSourceItem, CollectionProcessingVoid<TSourceItem>> OldItemProcessor => _oldItemProcessor;
+
 		private readonly Action<TSourceItem[], CollectionProcessingVoid<TSourceItem>> _newItemsProcessor;
 		private readonly Action<TSourceItem[], CollectionProcessingVoid<TSourceItem>> _oldItemsProcessor;
 		private readonly Action<TSourceItem, CollectionProcessingVoid<TSourceItem>> _moveItemProcessor;
+
+		private readonly Action<TSourceItem, CollectionProcessingVoid<TSourceItem>> _newItemProcessor;
+		private readonly Action<TSourceItem, CollectionProcessingVoid<TSourceItem>> _oldItemProcessor;
 
 		private IList<TSourceItem> _sourceAsList;
 		private IHasTickTackVersion _sourceAsIHasTickTackVersion;
@@ -64,14 +70,80 @@ namespace ObservableComputations
 			_thisAsSourceCollectionChangeProcessor = this;
 		}
 
+		[ObservableComputationsCall]
+		public CollectionProcessingVoid(
+			IReadScalar<INotifyCollectionChanged> sourceScalar,
+			Action<TSourceItem, CollectionProcessingVoid<TSourceItem>> newItemProcessor = null,
+			Action<TSourceItem, CollectionProcessingVoid<TSourceItem>> oldItemProcessor = null,
+			Action<TSourceItem, CollectionProcessingVoid<TSourceItem>> moveItemProcessor = null) : this(newItemProcessor, oldItemProcessor, moveItemProcessor, Utils.getCapacity(sourceScalar))
+		{
+			_sourceScalar = sourceScalar;
+			_thisAsSourceCollectionChangeProcessor = this;
+		}
+
+		[ObservableComputationsCall]
+		public CollectionProcessingVoid(
+			INotifyCollectionChanged source,
+			Action<TSourceItem, CollectionProcessingVoid<TSourceItem>> newItemProcessor = null,
+			Action<TSourceItem, CollectionProcessingVoid<TSourceItem>> oldItemProcessor = null,
+			Action<TSourceItem, CollectionProcessingVoid<TSourceItem>> moveItemProcessor = null) : this(newItemProcessor, oldItemProcessor, moveItemProcessor, Utils.getCapacity(source))
+		{
+			_source = source;
+			_thisAsSourceCollectionChangeProcessor = this;
+		}
+
 		private CollectionProcessingVoid(
 			Action<TSourceItem[], CollectionProcessingVoid<TSourceItem>> newItemsProcessor,
 			Action<TSourceItem[], CollectionProcessingVoid<TSourceItem>> oldItemsProcessor,
 			Action<TSourceItem, CollectionProcessingVoid<TSourceItem>> moveItemProcessor, 
-			int initialCapacity) : base(initialCapacity)
+			int initialCapacity) : this(moveItemProcessor, initialCapacity)
 		{
 			_newItemsProcessor = newItemsProcessor;
 			_oldItemsProcessor = oldItemsProcessor;
+
+			if (_newItemsProcessor != null)
+				_newItemProcessor = (newItem, computing) =>
+					_newItemsProcessor(new []{newItem}, computing);
+			
+			if (_oldItemsProcessor != null)
+				_oldItemProcessor = (oldItem, computing) =>
+					_oldItemsProcessor(new []{oldItem}, computing);
+		}
+
+		private CollectionProcessingVoid(
+			Action<TSourceItem, CollectionProcessingVoid<TSourceItem>> newItemProcessor,
+			Action<TSourceItem, CollectionProcessingVoid<TSourceItem>> oldItemProcessor,
+			Action<TSourceItem, CollectionProcessingVoid<TSourceItem>> moveItemProcessor, 
+			int initialCapacity) : this(moveItemProcessor, initialCapacity)
+		{
+			_newItemProcessor = newItemProcessor;
+			_oldItemProcessor = oldItemProcessor;
+
+			if (_newItemProcessor != null)
+			{
+				_newItemsProcessor = (newItems, computing) =>
+				{
+					int newItemsLength = newItems.Length;
+					for (int index = 0; index < newItemsLength; index++)
+						newItemProcessor(newItems[index], computing);
+				};
+			}
+
+			if (_oldItemProcessor != null)
+			{
+				_oldItemsProcessor = (oldItems, _) =>
+				{
+					int newItemsLength = oldItems.Length;
+					for (int index = 0; index < newItemsLength; index++)
+						oldItemProcessor(oldItems[index], _);
+				};
+			}
+		}
+
+		private CollectionProcessingVoid(
+			Action<TSourceItem, CollectionProcessingVoid<TSourceItem>> moveItemProcessor, 
+			int initialCapacity) : base(initialCapacity)
+		{
 			_moveItemProcessor = moveItemProcessor;
 			_thisAsSourceCollectionChangeProcessor = this;
 		}
@@ -177,23 +249,23 @@ namespace ObservableComputations
 
 					int newStartingIndex = e.NewStartingIndex;
 					TSourceItem addedItem = (TSourceItem) e.NewItems[0];
-					if (_newItemsProcessor != null) processNewItems(new []{addedItem});
+					if (_newItemProcessor != null) processNewItem(addedItem);
 					baseInsertItem(newStartingIndex, addedItem);
 					break;
 				case NotifyCollectionChangedAction.Remove:
 					int oldStartingIndex = e.OldStartingIndex;
 					TSourceItem removedItem = (TSourceItem) e.OldItems[0];
 					baseRemoveItem(oldStartingIndex);
-					if (_oldItemsProcessor != null) processOldItems(new []{removedItem});
+					if (_oldItemProcessor != null) processOldItem(removedItem);
 					break;
 				case NotifyCollectionChangedAction.Replace:
 					int newStartingIndex1 = e.NewStartingIndex;
 					TSourceItem oldItem = (TSourceItem) e.OldItems[0];
 					TSourceItem newItem = _sourceAsList[newStartingIndex1];
 
-					if (_newItemsProcessor != null) processNewItems(new []{newItem});
+					if (_newItemProcessor != null) processNewItem(newItem);
 					baseSetItem(newStartingIndex1, newItem);
-					if (_oldItemsProcessor != null) processOldItems(new []{oldItem});
+					if (_oldItemProcessor != null) processOldItem(oldItem);
 					break;
 				case NotifyCollectionChangedAction.Move:
 					int oldStartingIndex2 = e.OldStartingIndex;
@@ -237,6 +309,31 @@ namespace ObservableComputations
 			_oldItemsProcessor(sourceItems, this);
 		}
 
+		private void processNewItem(TSourceItem sourceItem)
+		{
+			if (OcConfiguration.TrackComputingsExecutingUserCode)
+			{
+				int currentThreadId = Utils.startComputingExecutingUserCode(out IComputing computing, out _userCodeIsCalledFrom, this);
+				_newItemProcessor(sourceItem, this);
+				Utils.endComputingExecutingUserCode(computing, currentThreadId, out _userCodeIsCalledFrom);
+				return;
+			}
+
+			_newItemProcessor(sourceItem, this);
+		}
+
+		private void processOldItem(TSourceItem sourceItem)
+		{
+			if (OcConfiguration.TrackComputingsExecutingUserCode)
+			{
+				int currentThreadId = Utils.startComputingExecutingUserCode(out IComputing computing, out _userCodeIsCalledFrom, this);
+				_oldItemProcessor(sourceItem, this);
+				Utils.endComputingExecutingUserCode(computing, currentThreadId, out _userCodeIsCalledFrom);
+				return;
+			}
+
+			_oldItemProcessor(sourceItem, this);
+		}
 
 		private void processMovedItem(TSourceItem sourceItem)
 		{

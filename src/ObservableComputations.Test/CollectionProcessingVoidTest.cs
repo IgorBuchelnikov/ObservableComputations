@@ -29,22 +29,35 @@ namespace ObservableComputations.Test
 			public int ProcessedAsOld;
 		}
 
-		private CollectionProcessingVoid<Item> getCollectionProcessing(ObservableCollection<Item> items, OcConsumer consumer)
+		private CollectionProcessingVoid<Item> getCollectionProcessing(ObservableCollection<Item> items, OcConsumer consumer, bool batch)
 		{
-			Action<Item[], CollectionProcessingVoid<Item>> newItemProcessor = (newItems, current) =>
+			Action<Item[], CollectionProcessingVoid<Item>> newItemsProcessor = (newItems, current) =>
 			{
 				foreach (Item newItem in newItems)
 				{
 					newItem.ProcessedAsNew++;
 				}
 			};
-			Action<Item[], CollectionProcessingVoid<Item>> oldItemProcessor = (oldItems, current) =>
+
+			Action<Item[], CollectionProcessingVoid<Item>> oldItemsProcessor = (oldItems, current) =>
 			{
 				foreach (Item oldItem in oldItems)
 				{
 					oldItem.ProcessedAsOld++;
 				}
 			};
+
+			Action<Item, CollectionProcessingVoid<Item>> newItemProcessor = (newItem, current) =>
+			{
+				newItem.ProcessedAsNew++;
+				
+			};
+
+			Action<Item, CollectionProcessingVoid<Item>> oldItemProcessor = (oldItem, current) =>
+			{
+				oldItem.ProcessedAsOld++;
+			};
+
 			Action<Item, CollectionProcessingVoid<Item>> moveItemProcessor = (item, current) =>
 			{
 
@@ -55,70 +68,110 @@ namespace ObservableComputations.Test
 			switch (_sourceCollectionType)
 			{
 				case SourceCollectionType.INotifyPropertyChanged:
-					collectionProcessingVoid = ((INotifyCollectionChanged) items).CollectionProcessing(
-						newItemProcessor,
-						oldItemProcessor,
-						moveItemProcessor).For(consumer);
+					collectionProcessingVoid = batch ? 
+						((INotifyCollectionChanged) items).CollectionItemsProcessing(
+							newItemsProcessor,
+							oldItemsProcessor,
+							moveItemProcessor).For(consumer)
+						: ((INotifyCollectionChanged) items).CollectionItemProcessing(
+							newItemProcessor,
+							oldItemProcessor,
+							moveItemProcessor).For(consumer);
 					Assert.AreEqual(collectionProcessingVoid.Source, items);
 					Assert.IsTrue(collectionProcessingVoid.Sources.Contains(items));
 					break;
 				case SourceCollectionType.ObservableCollection:
-					collectionProcessingVoid = items.CollectionProcessing(
-						newItemProcessor,
-						oldItemProcessor,
-						moveItemProcessor).For(consumer);
+					collectionProcessingVoid = batch ? 
+						collectionProcessingVoid = items.CollectionItemsProcessing(
+							newItemsProcessor,
+							oldItemsProcessor,
+							moveItemProcessor).For(consumer)
+						: collectionProcessingVoid = items.CollectionItemProcessing(
+							newItemProcessor,
+							oldItemProcessor,
+							moveItemProcessor).For(consumer);
 					Assert.AreEqual(collectionProcessingVoid.Source, items);
 					Assert.IsTrue(collectionProcessingVoid.Sources.Contains(items));
 					break;
 				case SourceCollectionType.ScalarINotifyPropertyChanged:
 					Scalar<INotifyCollectionChanged> scalar = new Scalar<INotifyCollectionChanged>(items);
-					collectionProcessingVoid = scalar.CollectionProcessing(
-						newItemProcessor,
-						oldItemProcessor,
-						moveItemProcessor).For(consumer);
+					collectionProcessingVoid = batch ?
+						scalar.CollectionItemsProcessing(
+							newItemsProcessor,
+							oldItemsProcessor,
+							moveItemProcessor).For(consumer)
+						: scalar.CollectionItemProcessing(
+							newItemProcessor,
+							oldItemProcessor,
+							moveItemProcessor).For(consumer);
 					Assert.AreEqual(collectionProcessingVoid.SourceScalar, scalar);
 					Assert.IsTrue(collectionProcessingVoid.Sources.Contains(scalar));
 					break;
 				case SourceCollectionType.ScalarObservableCollection:
-					collectionProcessingVoid = new Scalar<ObservableCollection<Item>>(items).CollectionProcessing(
-						newItemProcessor,
-						oldItemProcessor,
-						moveItemProcessor).For(consumer);
+					collectionProcessingVoid = batch ?
+						new Scalar<ObservableCollection<Item>>(items).CollectionItemsProcessing(
+							newItemsProcessor,
+							oldItemsProcessor,
+							moveItemProcessor).For(consumer)
+						: new Scalar<ObservableCollection<Item>>(items).CollectionItemProcessing(
+							newItemProcessor,
+							oldItemProcessor,
+							moveItemProcessor).For(consumer);
 					break;
 				case SourceCollectionType.ExpressionINotifyPropertyChanged:
-					collectionProcessingVoid = Expr.Is(() => items).CollectionProcessing(
-						newItemProcessor,
-						oldItemProcessor,
-						moveItemProcessor).For(consumer);
+					collectionProcessingVoid = batch ?
+						Expr.Is(() => items).CollectionItemsProcessing(
+							newItemsProcessor,
+							oldItemsProcessor,
+							moveItemProcessor).For(consumer)
+						: Expr.Is(() => items).CollectionItemProcessing(
+							newItemProcessor,
+							oldItemProcessor,
+							moveItemProcessor).For(consumer);
 					break;
 				case SourceCollectionType.ExpressionObservableCollection:
-					collectionProcessingVoid = Expr.Is(() => (INotifyCollectionChanged)items).CollectionProcessing(
-						newItemProcessor,
-						oldItemProcessor,
-						moveItemProcessor).For(consumer);
+					collectionProcessingVoid = batch ?
+						Expr.Is(() => (INotifyCollectionChanged)items).CollectionItemsProcessing(
+							newItemsProcessor,
+							oldItemsProcessor,
+							moveItemProcessor).For(consumer)
+						: Expr.Is(() => (INotifyCollectionChanged)items).CollectionItemProcessing(
+							newItemProcessor,
+							oldItemProcessor,
+							moveItemProcessor).For(consumer);
 					break;
 			}
 
-			Assert.AreEqual(collectionProcessingVoid.NewItemsProcessor, newItemProcessor);
-			Assert.AreEqual(collectionProcessingVoid.OldItemsProcessor, oldItemProcessor);
+			if (batch)
+			{
+				Assert.AreEqual(collectionProcessingVoid.NewItemsProcessor, newItemsProcessor);
+				Assert.AreEqual(collectionProcessingVoid.OldItemsProcessor, oldItemsProcessor);
+			}
+			else
+			{
+				Assert.AreEqual(collectionProcessingVoid.NewItemProcessor, newItemProcessor);
+				Assert.AreEqual(collectionProcessingVoid.OldItemProcessor, oldItemProcessor);
+			}
+
 			Assert.AreEqual(collectionProcessingVoid.MoveItemProcessor, moveItemProcessor);
 
 			return collectionProcessingVoid;
 		}
 
 
-		[Test]
-		public void CollectionProcessing_Initialization_01()
+		[Test, Combinatorial]
+		public void CollectionProcessing_Initialization_01([Values(true, false)] bool batch)
 		{
 			ObservableCollection<Item> items = new ObservableCollection<Item>();
 
-			CollectionProcessingVoid<Item> collectionProcessing = getCollectionProcessing(items, consumer);
+			CollectionProcessingVoid<Item> collectionProcessing = getCollectionProcessing(items, consumer, batch);
 		}
 
 
 		[Test, Combinatorial]
 		public void CollectionProcessing_Remove(
-			[Range(0, 4, 1)] int index)
+			[Range(0, 4, 1)] int index,
+			[Values(true, false)] bool batch)
 		{
 			Item[] sourceCollection = new[]
 			{
@@ -132,7 +185,7 @@ namespace ObservableComputations.Test
 			ObservableCollection<Item> items = new ObservableCollection<Item>(
 				sourceCollection);
 
-			CollectionProcessingVoid<Item> collectionProcessing = getCollectionProcessing(items, consumer);
+			CollectionProcessingVoid<Item> collectionProcessing = getCollectionProcessing(items, consumer, batch);
 			items.RemoveAt(index);
 			Assert.IsTrue(sourceCollection[index].ProcessedAsNew == 1);
 			Assert.IsTrue(sourceCollection[index].ProcessedAsOld == 1);
@@ -140,7 +193,7 @@ namespace ObservableComputations.Test
 		}
 
 		[Test, Combinatorial]
-		public void CollectionProcessing_Remove1()
+		public void CollectionProcessing_Remove1([Values(true, false)] bool batch)
 		{
 			Item item = new Item();
 			ObservableCollection<Item> items = new ObservableCollection<Item>(
@@ -150,7 +203,7 @@ namespace ObservableComputations.Test
 				}
 			);
 
-			CollectionProcessingVoid<Item> collectionProcessing = getCollectionProcessing(items, consumer);
+			CollectionProcessingVoid<Item> collectionProcessing = getCollectionProcessing(items, consumer, batch);
 			items.RemoveAt(0);
 			Assert.IsTrue(item.ProcessedAsNew == 1);
 			Assert.IsTrue(item.ProcessedAsOld == 1);
@@ -159,7 +212,7 @@ namespace ObservableComputations.Test
 
 		[Test, Combinatorial]
 		public void CollectionProcessing_Insert(
-			[Range(0, 4, 1)] int index)
+			[Range(0, 4, 1)] int index, [Values(true, false)] bool batch)
 		{
 			Item[] sourceCollection = new[]
 			{
@@ -173,7 +226,7 @@ namespace ObservableComputations.Test
 			ObservableCollection<Item> items = new ObservableCollection<Item>(
 				sourceCollection);
 
-			CollectionProcessingVoid<Item> collectionProcessing = getCollectionProcessing(items, consumer);
+			CollectionProcessingVoid<Item> collectionProcessing = getCollectionProcessing(items, consumer, batch);
 			Item item = new Item();
 			items.Insert(index, item);
 			Assert.IsTrue(item.ProcessedAsNew == 1);
@@ -183,11 +236,11 @@ namespace ObservableComputations.Test
 
 		[Test, Combinatorial]
 		public void CollectionProcessing_Insert1(
-			[Range(-1, 5)] int newValue)
+			[Range(-1, 5)] int newValue, [Values(true, false)] bool batch)
 		{
 			ObservableCollection<Item> items = new ObservableCollection<Item>();
 
-			CollectionProcessingVoid<Item> collectionProcessing = getCollectionProcessing(items, consumer);
+			CollectionProcessingVoid<Item> collectionProcessing = getCollectionProcessing(items, consumer, batch);
 			Item item = new Item();
 			items.Insert(0, item);
 			Assert.IsTrue(item.ProcessedAsNew == 1);
@@ -198,7 +251,8 @@ namespace ObservableComputations.Test
 		[Test, Combinatorial]
 		public void CollectionProcessing_Move(
 			[Range(0, 4, 1)] int oldIndex,
-			[Range(0, 4, 1)] int newIndex)
+			[Range(0, 4, 1)] int newIndex,
+			[Values(true, false)] bool batch)
 		{
 			Item[] sourceCollection = new[]
 			{
@@ -212,7 +266,7 @@ namespace ObservableComputations.Test
 			ObservableCollection<Item> items = new ObservableCollection<Item>(
 				sourceCollection);
 
-			CollectionProcessingVoid<Item> collectionProcessing = getCollectionProcessing(items, consumer);
+			CollectionProcessingVoid<Item> collectionProcessing = getCollectionProcessing(items, consumer, batch);
 			items.Move(oldIndex, newIndex);
 			Assert.IsTrue(sourceCollection[oldIndex].ProcessedAsNew == 1);
 			Assert.IsTrue(sourceCollection[oldIndex].ProcessedAsOld == 0);
@@ -221,7 +275,8 @@ namespace ObservableComputations.Test
 
 		[Test, Combinatorial]
 		public void CollectionProcessing_Set(
-			[Range(0, 4, 1)] int index)
+			[Range(0, 4, 1)] int index,
+			[Values(true, false)] bool batch)
 		{
 			Item[] sourceCollection = new[]
 			{
@@ -235,7 +290,7 @@ namespace ObservableComputations.Test
 			ObservableCollection<Item> items = new ObservableCollection<Item>(
 				sourceCollection);
 
-			CollectionProcessingVoid<Item> collectionProcessing = getCollectionProcessing(items, consumer);
+			CollectionProcessingVoid<Item> collectionProcessing = getCollectionProcessing(items, consumer, batch);
 			items[index] = new Item();
 			Assert.IsTrue(sourceCollection[index].ProcessedAsNew == 1);
 			Assert.IsTrue(sourceCollection[index].ProcessedAsOld == 1);
@@ -245,7 +300,7 @@ namespace ObservableComputations.Test
 		}	
 
 		[Test, Combinatorial]
-		public void CollectionProcessing_Reset()
+		public void CollectionProcessing_Reset([Values(true, false)] bool batch)
 		{
 			Item[] sourceCollection = new[]
 			{
@@ -259,7 +314,7 @@ namespace ObservableComputations.Test
 			ObservableCollection<Item> items = new ObservableCollection<Item>(
 				sourceCollection);
 
-			CollectionProcessingVoid<Item> collectionProcessing = getCollectionProcessing(items, consumer);
+			CollectionProcessingVoid<Item> collectionProcessing = getCollectionProcessing(items, consumer, batch);
 			items.Clear();
 			Assert.IsTrue(sourceCollection.All(i => i.ProcessedAsNew == 1));
 			Assert.IsTrue(sourceCollection.All(i => i.ProcessedAsOld == 1));
@@ -269,7 +324,7 @@ namespace ObservableComputations.Test
 		}	
 
 		[Test, Combinatorial]
-		public void CollectionProcessing_InitDispose()
+		public void CollectionProcessing_InitDispose([Values(true, false)] bool batch)
 		{
 			Item[] sourceCollection = new[]
 			{
@@ -283,7 +338,7 @@ namespace ObservableComputations.Test
 			ObservableCollection<Item> items = new ObservableCollection<Item>(
 				sourceCollection);
 
-			CollectionProcessingVoid<Item> collectionProcessing = getCollectionProcessing(items, consumer);
+			CollectionProcessingVoid<Item> collectionProcessing = getCollectionProcessing(items, consumer, batch);
 			foreach (Item item in sourceCollection)
 			{
 				Assert.IsTrue(item.ProcessedAsNew == 1);

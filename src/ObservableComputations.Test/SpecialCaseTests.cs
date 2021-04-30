@@ -599,7 +599,7 @@ namespace ObservableComputations.Test
 				if (args.PropertyName == propertyName)
 				{
 					OcConsumer consumer = new OcConsumer();
-					collectionProcessing = items.CollectionProcessing((items1, computing) => items1).For(consumer);
+					collectionProcessing = items.CollectionItemsProcessing((items1, computing) => items1).For(consumer);
 				}
 			};
 
@@ -658,7 +658,7 @@ namespace ObservableComputations.Test
 				if (args.PropertyName == propertyName)
 				{
 					OcConsumer consumer = new OcConsumer();
-					collectionProcessing = items.CollectionProcessing((items1, computing) => { }).For(consumer);
+					collectionProcessing = items.CollectionItemsProcessing((items1, computing) => { }).For(consumer);
 				}
 			};
 

@@ -1422,24 +1422,11 @@ namespace ObservableComputationsExamples
 
 			Filtering<Client> onlineClients = clients.Filtering(c => c.Online);
 
-			onlineClients.CollectionProcessing(
-				(newClients, collectionProcessing) =>
-				{
-					NetworkChannel[] networkChannels = new NetworkChannel[newClients.Length];
-					for (var index = 0; index < newClients.Length; index++)
-					{
-						Client newClient = newClients[index];
-						NetworkChannel networkChannel = new NetworkChannel(newClient.Name);
-						networkChannels[index] = networkChannel;
-					}
-
-					return networkChannels;
-				},
-				(oldClients, collectionProcessing, networkChannels) =>
-				{
-					foreach (NetworkChannel networkChannel in networkChannels)
-						networkChannel.Dispose();
-				})
+			onlineClients.CollectionItemProcessing(
+				(newClient, collectionProcessing) => 
+					new NetworkChannel(newClient.Name),
+				(oldClient, collectionProcessing, networkChannel) => 
+					networkChannel.Dispose())
 			.For(consumer);
 					
 			clients[2].Online = true;
@@ -1453,25 +1440,27 @@ namespace ObservableComputationsExamples
 }
 ```
 
-Delegate passed to the *newItemsProcessor* parameter is called
+Delegate passed to the *newItemProcessor* parameter is called
 
 * when [activating](#two-computation-states-active-and-inactive) instance of *CollectionProcessing&lt;TSourceItem, TReturnValue&gt;* class (if the source collection (*onlineClients*) contains elements at the time of activation),
-* when adding items to the source collection (*onlineClients*),
+* when adding an item to the source collection (*onlineClients*),
 * when replacing an item in the source collection (setting the collection item by index),
 * when [resetting](https://docs.microsoft.com/en-us/dotnet/api/system.collections.specialized.notifycollectionchangedaction?view=net-5.0) the source collection and it contains items after [reset](https://docs.microsoft.com/en-us/dotnet/api/system.collections.specialized.notifycollectionchangedaction?view=net-5.0,
 * when [source collection is passed as a scalar](#passing-source-collection-argument-as-observable) (*IReadScalar&lt;TValue&gt;*), and its value changes to the collection that contains the elements.
 
-The delegate passed to the *oldItemsProcessor* parameter is called
+The delegate passed to the *oldItemProcessor* parameter is called
 
 * when [inactivating](#two-computation-states-active-and-inactive)  instance of *CollectionProcessing&lt;TSourceItem, TReturnValue&gt;* class
-* when removing items in the source collection,
+* when removing an item in the source collection,
 * when replacing an item in the source collection (setting the collection item by index),
 * when [resetting](https://docs.microsoft.com/en-us/dotnet/api/system.collections.specialized.notifycollectionchangedaction?view=net-5.0) the source collection ([Clear() method](https://docs.microsoft.com/en-us/dotnet/api/system.collections.objectmodel.collection-1.clear?view=net-5.0)),
 * when [source collection is passed as a scalar](#passing-source-collection-argument-as-observable) (*IReadScalar&lt;TValue&gt;*), and its value change.
 
 It is also possible to pass *moveItemProcessor* delegate to handle the event of element move in the source collection.
 
-There is also an overloaded version of the *CollectionProcessing* method, which accepts *newItemsProcessor* delegate that returns an empty value (void).
+The *CollectionItemProcessing* method processes items in a collection one at a time. The *CollectionItemsProcessing* method allows you to process multiple collection items at once. Multiple items are processed at [activation, deactivation](#two-computation-states-active-and-inactive) and at [Reset](https://docs.microsoft.com/en-us/dotnet/api/system. collections.specialized.notifycollectionchangedaction? view = net-5.0) ([Clear](https://docs.microsoft.com/en-us/dotnet/api/system.collections.objectmodel.collection-1.clear?view=net -5.0)) source collection. The *CollectionItemsProcessing* method is not convenient for processing changes associated with a single item in the source collection. 
+
+There is also an overloaded version of the *CollectionItemProcessing* (*CollectionItemsProcessing*) method, which accepts *newItemProcessor* (*newItemsProcessor*) delegate that returns an empty value (void).
 
 ### Handling changes in IReadScalar&lt;TValue&gt;
 
@@ -1618,19 +1607,9 @@ namespace ObservableComputationsExamples
 			Filtering<Client> onlineClients = clients.Filtering(c => c.Online);
 
 			onlineClients
-			.CollectionProcessing(
-				(newClients, collectionProcessing) =>
-				{
-					NetworkChannel[] networkChannels = new NetworkChannel[newClients.Length];
-					for (var index = 0; index < newClients.Length; index++)
-					{
-						Client newClient = newClients[index];
-						NetworkChannel networkChannel = new NetworkChannel(newClient.Name);
-						networkChannels[index] = networkChannel;
-					}
-
-					return networkChannels;
-				})
+			.CollectionItemProcessing(
+				(newClient, collectionProcessing) => 
+					new NetworkChannel(newClient.Name))
 			.CollectionDisposing()
 			.For(consumer);
 					

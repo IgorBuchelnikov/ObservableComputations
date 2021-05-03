@@ -23,7 +23,8 @@ namespace ObservableComputations
 
 		[ObservableComputationsCall]
 		public Computing(
-			Expression<Func<TResult>> getValueExpression)
+			Expression<Func<TResult>> getValueExpression,
+			TResult defaultValue) : base(defaultValue)
 		{
 			_changeValueAction = () => setValue(getResult());
 			_getValueExpressionOriginal = getValueExpression;
@@ -34,6 +35,13 @@ namespace ObservableComputations
 			// ReSharper disable once PossibleNullReferenceException
 			_getValueFunc = getValueExpression1.Compile();
 			_expressionInfo = ExpressionWatcher.GetExpressionInfo(getValueExpression1);
+		}
+
+		[ObservableComputationsCall]
+		public Computing(
+			Expression<Func<TResult>> getValueExpression) : this(getValueExpression, default)
+		{
+
 		}
 
 		private void getValueExpressionWatcherOnValueChanged(ExpressionWatcher expressionWatcher, object sender, EventArgs eventArgs)

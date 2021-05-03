@@ -30,8 +30,6 @@ namespace ObservableComputations
 		// ReSharper disable once MemberCanBePrivate.Global
 		public IComparer<TSourceItem> Comparer => _comparer;
 
-		// ReSharper disable once MemberCanBePrivate.Global
-		public TSourceItem DefaultValue => _defaultValue;
 
 		public virtual ReadOnlyCollection<object> Sources => new ReadOnlyCollection<object>(new object[]{Source, SourceScalar});
 
@@ -52,7 +50,6 @@ namespace ObservableComputations
 		private readonly MinimazingOrMaximazingMode _mode;
 		private INotifyCollectionChanged _source;
 		private IComparer<TSourceItem> _comparer;
-		private readonly TSourceItem _defaultValue;
 
 		private bool _countPropertyChangedEventRaised;
 		private bool _indexerPropertyChangedEventRaised;
@@ -85,11 +82,10 @@ namespace ObservableComputations
 			IReadScalar<INotifyCollectionChanged> sourceScalar,
 			MinimazingOrMaximazingMode mode,
 			IComparer<TSourceItem> comparer = null,
-			TSourceItem defaultValue = default(TSourceItem)) : this(mode, Utils.getCapacity(sourceScalar))
+			TSourceItem defaultValue = default) : this(mode, Utils.getCapacity(sourceScalar), defaultValue)
 		{
 			_sourceScalar = sourceScalar;
 			_comparer = comparer;
-			_defaultValue = defaultValue;
 		}
 
 		[ObservableComputationsCall]
@@ -97,12 +93,10 @@ namespace ObservableComputations
 			IReadScalar<INotifyCollectionChanged> sourceScalar,
 			MinimazingOrMaximazingMode mode,
 			IReadScalar<IComparer<TSourceItem>> comparerScalar = null,
-			TSourceItem defaultValue = default(TSourceItem)) : this(mode, Utils.getCapacity(sourceScalar))
+			TSourceItem defaultValue = default) : this(mode, Utils.getCapacity(sourceScalar), defaultValue)
 		{
 			_sourceScalar = sourceScalar;
 			_comparerScalar = comparerScalar;
-			_defaultValue = defaultValue;
-
 		}
 
 		[ObservableComputationsCall]
@@ -110,11 +104,10 @@ namespace ObservableComputations
 			INotifyCollectionChanged source,
 			MinimazingOrMaximazingMode mode,
 			IComparer<TSourceItem> comparer = null,
-			TSourceItem defaultValue = default(TSourceItem)) : this(mode, Utils.getCapacity(source))
+			TSourceItem defaultValue = default) : this(mode, Utils.getCapacity(source), defaultValue)
 		{
 			_source = source;	   
 			_comparer = comparer;
-			_defaultValue = defaultValue;
 		}
 
 		[ObservableComputationsCall]
@@ -122,14 +115,13 @@ namespace ObservableComputations
 			INotifyCollectionChanged source,
 			MinimazingOrMaximazingMode mode,
 			IReadScalar<IComparer<TSourceItem>> comparerScalar = null,
-			TSourceItem defaultValue = default(TSourceItem)) : this(mode, Utils.getCapacity(source))
+			TSourceItem defaultValue = default) : this(mode, Utils.getCapacity(source), defaultValue)
 		{
 			_source = source;
 			_comparerScalar = comparerScalar;
-			_defaultValue = defaultValue;
 		}
 
-		private MinimazingOrMaximazing(MinimazingOrMaximazingMode mode, int capacity)
+		private MinimazingOrMaximazing(MinimazingOrMaximazingMode mode, int capacity, TSourceItem defaultValue) : base(defaultValue)
 		{
 			_sourceCopy = new List<TSourceItem>(capacity);
 			_mode = mode;
@@ -224,18 +216,12 @@ namespace ObservableComputations
 					else if (compareResult == 0) _valueCount++;
 				}
 
-				if (_isDefaulted)
-				{
-					_isDefaulted = false;
-					raisePropertyChanged(Utils.IsDefaultedPropertyChangedEventArgs);
-				}
-
 				setValue(value);
 			}
 			else
 			{
 				if (!_isDefaulted)
-					setDefaultValue(_defaultValue);
+					setDefaultValue();
 			}
 		}
 
@@ -290,8 +276,6 @@ namespace ObservableComputations
 					}
 					else
 					{
-						_isDefaulted = false;
-						raisePropertyChanged(Utils.IsDefaultedPropertyChangedEventArgs);
 						_valueCount = 1;
 						setValue(addedSourceItem);
 					}
@@ -409,7 +393,6 @@ namespace ObservableComputations
 			IList<TSourceItem> source = _sourceScalar.getValue(_source, new ObservableCollection<TSourceItem>()) as IList<TSourceItem>;
 			// ReSharper disable once PossibleNullReferenceException
 			if (_sourceCopy.Count != source.Count) throw new ValidateInternalConsistencyException("Consistency violation: MinimazingOrMaximazing.1");
-			TSourceItem defaultValue = _defaultValue;
 
 			for (int i = 0; i < source.Count; i++)
 			{
@@ -432,7 +415,7 @@ namespace ObservableComputations
 			}
 			else
 			{
-				if (!defaultValue.Equals(_value)) throw new ValidateInternalConsistencyException("Consistency violation: MinimazingOrMaximazing.5");
+				if (!DefaultValue.Equals(_value)) throw new ValidateInternalConsistencyException("Consistency violation: MinimazingOrMaximazing.5");
 				if (!IsDefaulted) throw new ValidateInternalConsistencyException("Consistency violation: MinimazingOrMaximazing.4");
 			}
 

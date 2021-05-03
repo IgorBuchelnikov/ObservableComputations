@@ -10,24 +10,15 @@ namespace ObservableComputations
 	public class CollectionDisposing<TSourceItem> : CollectionProcessingVoid<TSourceItem>
 		where TSourceItem : IDisposable
 	{
-		public CollectionDisposing(IReadScalar<INotifyCollectionChanged> sourceScalar) : base(sourceScalar, null, getOldItemsProcessor())
+		public CollectionDisposing(IReadScalar<INotifyCollectionChanged> sourceScalar) : base(sourceScalar, null, getOldItemProcessor())
 		{
 		}
 
-		public CollectionDisposing(INotifyCollectionChanged source) : base(source, null, getOldItemsProcessor())
+		public CollectionDisposing(INotifyCollectionChanged source) : base(source, null, getOldItemProcessor())
 		{
 		}
 
-		private static Action<TSourceItem[], CollectionProcessingVoid<TSourceItem>> getOldItemsProcessor()
-		{
-			return (oldItems, _) =>
-			{
-				int oldItemsLength = oldItems.Length;
-				for (int index = 0; index < oldItemsLength; index++)
-				{
-					oldItems[index].Dispose();
-				}
-			};
-		}
+		private static Action<TSourceItem, CollectionProcessingVoid<TSourceItem>> getOldItemProcessor() => 
+			(oldItem, _) => oldItem.Dispose();
 	}
 }

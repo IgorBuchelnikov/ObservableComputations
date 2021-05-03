@@ -61,7 +61,8 @@ namespace ObservableComputations
 		[ObservableComputationsCall]
 		public AnyComputing(
 			IReadScalar<INotifyCollectionChanged> sourceScalar, 
-			Expression<Func<TSourceItem, bool>> predicateExpression) : this(predicateExpression, Utils.getCapacity(sourceScalar))
+			Expression<Func<TSourceItem, bool>> predicateExpression,
+			bool defaultValue = false) : this(predicateExpression, Utils.getCapacity(sourceScalar), defaultValue)
 		{
 			_sourceScalar = sourceScalar;
 		}
@@ -69,12 +70,16 @@ namespace ObservableComputations
 		[ObservableComputationsCall]
 		public AnyComputing(
 			INotifyCollectionChanged source, 
-			Expression<Func<TSourceItem, bool>> predicateExpression) : this(predicateExpression, Utils.getCapacity(source))
+			Expression<Func<TSourceItem, bool>> predicateExpression,
+			bool defaultValue = false) : this(predicateExpression, Utils.getCapacity(source), defaultValue)
 		{
 			_source = source;
 		}
 
-		private AnyComputing(Expression<Func<TSourceItem, bool>> predicateExpression, int capacity)
+		private AnyComputing(
+			Expression<Func<TSourceItem, bool>> predicateExpression, 
+			int capacity,
+			bool defaultValue) : base(defaultValue)
 		{
 			Utils.construct(
 				predicateExpression, 
@@ -289,7 +294,7 @@ namespace ObservableComputations
 				_sourceReadAndSubscribed = true;
 			}
 			else
-				setDefaultValue(false);
+				setDefaultValue();
 		}
 
 		// ReSharper disable once MemberCanBePrivate.Global

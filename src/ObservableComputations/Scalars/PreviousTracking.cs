@@ -25,7 +25,8 @@ namespace ObservableComputations
 
 		[ObservableComputationsCall]
 		public PreviousTracking(
-			IReadScalar<TResult> source)
+			IReadScalar<TResult> source,
+			TResult defaultValue = default) : base(defaultValue)
 		{
 			_changeValueAction = () =>
 			{

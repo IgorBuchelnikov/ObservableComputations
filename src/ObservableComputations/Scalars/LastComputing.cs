@@ -18,14 +18,14 @@ namespace ObservableComputations
 		[ObservableComputationsCall]
 		public LastComputing(
 			IReadScalar<INotifyCollectionChanged> sourceScalar,
-			TSourceItem defaultValue = default(TSourceItem)) : base(sourceScalar, getIndex(sourceScalar), defaultValue)
+			TSourceItem defaultValue = default) : base(sourceScalar, getIndex(sourceScalar), defaultValue)
 		{
 		}
 
 		[ObservableComputationsCall]
 		public LastComputing(
 			INotifyCollectionChanged source,
-			TSourceItem defaultValue = default(TSourceItem)) : base(source, getIndex(source), defaultValue)
+			TSourceItem defaultValue = default) : base(source, getIndex(source), defaultValue)
 		{
 		}
 
@@ -46,7 +46,7 @@ namespace ObservableComputations
 		internal new void ValidateInternalConsistency()
 		{
 			IList<TSourceItem> source = (IList<TSourceItem>) _sourceScalar.getValue(_source, new ObservableCollection<TSourceItem>());
-			TSourceItem defaultValue = _defaultValue;
+			TSourceItem defaultValue = DefaultValue;
 
 			if (!EqualityComparer<TSourceItem>.Default.Equals(_value, source.Count > 0 ? source.Last() : defaultValue))
 				throw new ValidateInternalConsistencyException("Consistency violation: LastComputing.1");

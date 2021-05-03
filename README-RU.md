@@ -1421,24 +1421,11 @@ namespace ObservableComputationsExamples
 
 			Filtering<Client> onlineClients = clients.Filtering(c => c.Online);
 
-			onlineClients.CollectionProcessing(
-				(newClients, collectionProcessing) =>
-				{
-					NetworkChannel[] networkChannels = new NetworkChannel[newClients.Length];
-					for (var index = 0; index < newClients.Length; index++)
-					{
-						Client newClient = newClients[index];
-						NetworkChannel networkChannel = new NetworkChannel(newClient.Name);
-						networkChannels[index] = networkChannel;
-					}
-
-					return networkChannels;
-				},
-				(oldClients, collectionProcessing, networkChannels) =>
-				{
-					foreach (NetworkChannel networkChannel in networkChannels)
-						networkChannel.Dispose();
-				})
+			onlineClients.CollectionItemProcessing(
+				(newClient, collectionProcessing) => 
+					new NetworkChannel(newClient.Name),
+				(oldClient, collectionProcessing, networkChannel) => 
+					networkChannel.Dispose())
 			.For(consumer);
 					
 			clients[2].Online = true;
@@ -1452,10 +1439,10 @@ namespace ObservableComputationsExamples
 }
 ```
 
-Делегат переданный в параметр *newItemsProcessor* вызывается 
+Делегат переданный в параметр *newItemProcessor* вызывается 
 
 * при активации экземпляра класса *CollectionProcessing&lt;TSourceItem, TReturnValue&gt;* (если коллекция-источник (*onlineClients*) содержит элементы в момент активации), 
-* при добавление элементов в коллекцию-источник, 
+* при добавление элемента в коллекцию-источник, 
 * при замене элемента в коллекции-источнике,
 * при [reset](https://docs.microsoft.com/en-us/dotnet/api/system.collections.specialized.notifycollectionchangedaction?view=net-5.0) коллекции источника и она содержит элементы после [reset](https://docs.microsoft.com/en-us/dotnet/api/system.collections.specialized.notifycollectionchangedaction?view=net-5.0),
 * в случае если [коллекция-источник передана как скаляр](#передача-коллекции-источника-как-обозреваемого-аргумента) (*IReadScalar&lt;TValue&gt;*), и у него меняется значение свойства *Value* на коллекцию, которая содержит элементы.
@@ -1464,14 +1451,16 @@ namespace ObservableComputationsExamples
 Делегат переданный в параметр *oldItemProcessor* вызывается 
 
 * при деактивации экземпляра класса *CollectionProcessing&lt;TSourceItem, TReturnValue&gt;*,
-* при удалении элементов в коллекции-источнике,   
+* при удалении элемента из коллекции-источника,   
 * при замене элемента в коллекции-источнике (установка элемента коллекции по индексу), 
 * при [reset](https://docs.microsoft.com/en-us/dotnet/api/system.collections.specialized.notifycollectionchangedaction?view=net-5.0) коллекции источника ([метод Clear()](https://docs.microsoft.com/en-us/dotnet/api/system.collections.objectmodel.collection-1.clear?view=net-5.0)).
 * в случае если [коллекция-источник передана как скаляр](#передача-коллекции-источника-как-обозреваемого-аргумента) (*IReadScalar&lt;TValue&gt;*), и у него меняется значение свойства *Value*.
 
 Есть также возможность передать делегат *moveItemProcessor* для обработки события перемещения элемента в коллекции-источнике.
 
-Существует также перегруженная версия метода *CollectionProcessing*, которая принимает делегат *newItemsProcessor*, возвращающий пустое значение (void).
+Метод *CollectionItemProcessing* обрабатывает элементы коллекции по одному. Метод *CollectionItemsProcessing* позволяет за один раз обработать множество элементов коллекции. Обработка множества элементов происходит при [активации, деактивации](#два-состояния-вычисления-активное-и-неактивное) и при [Reset](https://docs.microsoft.com/en-us/dotnet/api/system.collections.specialized.notifycollectionchangedaction?view=net-5.0)  ([Clear](https://docs.microsoft.com/en-us/dotnet/api/system.collections.objectmodel.collection-1.clear?view=net-5.0)) коллекции-источника. Метод *CollectionItemsProcessing* не удобен для обработки изменений связанных с единственным элементом коллекции источника.
+
+Существует также перегруженная версия метода *CollectionItemProcessing* (*CollectionItemsProcessing*), которая принимает делегат *newItemProcessor* (*newItemsProcessor*), возвращающий пустое значение (void).
 
 ### Обработка изменений в IReadScalar&lt;TValue&gt;
 
@@ -1618,19 +1607,9 @@ namespace ObservableComputationsExamples
 			Filtering<Client> onlineClients = clients.Filtering(c => c.Online);
 
 			onlineClients
-			.CollectionProcessing(
-				(newClients, collectionProcessing) =>
-				{
-					NetworkChannel[] networkChannels = new NetworkChannel[newClients.Length];
-					for (var index = 0; index < newClients.Length; index++)
-					{
-						Client newClient = newClients[index];
-						NetworkChannel networkChannel = new NetworkChannel(newClient.Name);
-						networkChannels[index] = networkChannel;
-					}
-
-					return networkChannels;
-				})
+			.CollectionItemProcessing(
+				(newClient, collectionProcessing) => 
+					new NetworkChannel(newClient.Name))
 			.CollectionDisposing()
 			.For(consumer);
 					

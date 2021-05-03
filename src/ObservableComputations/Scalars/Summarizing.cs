@@ -26,14 +26,16 @@ namespace ObservableComputations
 
 		[ObservableComputationsCall]
 		public Summarizing(
-			IReadScalar<INotifyCollectionChanged> sourceScalar) : base(sourceScalar, aggregateFunc, deaggregateFunc)
+			IReadScalar<INotifyCollectionChanged> sourceScalar,
+			TSourceItem defaultValue = default) : base(sourceScalar, aggregateFunc, deaggregateFunc, defaultValue)
 		{
 			_sourceScalarSummarizing = sourceScalar;
 		}
 
 		[ObservableComputationsCall]
 		public Summarizing(
-			INotifyCollectionChanged source) : base(source, aggregateFunc, deaggregateFunc)
+			INotifyCollectionChanged source,
+			TSourceItem defaultValue = default) : base(source, aggregateFunc, deaggregateFunc, defaultValue)
 		{
 			_sourceSummarizing = source;
 		}

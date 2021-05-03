@@ -799,7 +799,7 @@ namespace ObservableComputations.Test
 				if (args.PropertyName == propertyName)
 				{
 					OcConsumer consumer = new OcConsumer();
-					concatenating = items.StringsConcatenating().For(consumer);
+					concatenating = items.StringsConcatenating(string.Empty).For(consumer);
 					concatenating.ValidateInternalConsistency();
 				}
 			};

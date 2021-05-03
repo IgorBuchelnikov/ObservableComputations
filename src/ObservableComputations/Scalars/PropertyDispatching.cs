@@ -53,7 +53,8 @@ namespace ObservableComputations
 			int destinationOcDispatcherPriority = 0,
 			int sourceOcDispatcherPriority = 0,
 			object destinationOcDispatcherParameter = null,
-			object sourceOcDispatcherParameter = null)
+			object sourceOcDispatcherParameter = null,
+			TResult defaultValue = default) : base(defaultValue)
 		{
 			_sourceOcDispatcher = sourceOcDispatcher;
 			_destinationOcDispatcher = destinationOcDispatcher;

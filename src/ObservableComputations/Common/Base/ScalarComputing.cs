@@ -14,12 +14,18 @@ namespace ObservableComputations
 	{
 		public string DebugTag {get; set;}
 		public object Tag {get; set;}
+		public TValue DefaultValue => _defaultValue;
+
 		internal Queue<IProcessable>[] _deferredProcessings;
 		protected int _deferredQueuesCount = 1;
 		protected bool _sourceReadAndSubscribed;
+		private readonly TValue _defaultValue;
 
-		public ScalarComputing()
+		public ScalarComputing(TValue defaultValue)
 		{
+			_defaultValue = defaultValue;
+			_value = defaultValue;
+
 			if (OcConfiguration.SaveInstantiationStackTrace)
 			{
 				_instantiationStackTrace = Environment.StackTrace;
@@ -333,11 +339,11 @@ namespace ObservableComputations
 		protected bool _isDefaulted = true;
 		public bool IsDefaulted => _isDefaulted;
 
-		protected void setDefaultValue(TValue value = default)
+		protected void setDefaultValue()
 		{
 			if (_isDefaulted) return;
 			_isDefaulted = true;
-			setValue(value, false);
+			setValue(_defaultValue, false);
 			PropertyChanged?.Invoke(this, Utils.IsDefaultedPropertyChangedEventArgs);
 		}
 

@@ -54,7 +54,7 @@ namespace ObservableComputations
 		private int _sourceCount;
 		private PropertyChangedEventHandler _handleSeparatorScalarValueChanged;
 
-		private StringsConcatenating(int capacity)
+		private StringsConcatenating(int capacity, string defaultValue) : base(defaultValue)
 		{
 			_resultRangePositions = new RangePositions<RangePosition>(new List<RangePosition>(capacity * 2));
 			_thisAsSourceCollectionChangeProcessor = this;
@@ -64,7 +64,8 @@ namespace ObservableComputations
 		[ObservableComputationsCall]
 		public StringsConcatenating(
 			IReadScalar<INotifyCollectionChanged> sourceScalar,
-			IReadScalar<string> separatorScalar = null) : this(Utils.getCapacity(sourceScalar))
+			IReadScalar<string> separatorScalar,
+			string defaultValue = null) : this(Utils.getCapacity(sourceScalar), defaultValue)
 		{
 			_sourceScalar = sourceScalar;
 			_separatorScalar = separatorScalar;
@@ -73,7 +74,8 @@ namespace ObservableComputations
 		[ObservableComputationsCall]
 		public StringsConcatenating(
 			INotifyCollectionChanged source,
-			IReadScalar<string> separatorScalar = null) : this(Utils.getCapacity(source))
+			IReadScalar<string> separatorScalar,
+			string defaultValue = null) : this(Utils.getCapacity(source), defaultValue)
 		{
 			_source = source;
 			_separatorScalar = separatorScalar;
@@ -82,7 +84,8 @@ namespace ObservableComputations
 		[ObservableComputationsCall]
 		public StringsConcatenating(
 			INotifyCollectionChanged source,
-			string separator = "") : this(Utils.getCapacity(source))
+			string separator,
+			string defaultValue = null) : this(Utils.getCapacity(source), defaultValue)
 		{
 			_source = source;
 			_separator = separator;
@@ -91,7 +94,8 @@ namespace ObservableComputations
 		[ObservableComputationsCall]
 		public StringsConcatenating(
 			IReadScalar<INotifyCollectionChanged> sourceScalar,
-			string separator = "") : this(Utils.getCapacity(sourceScalar))
+			string separator,
+			string defaultValue = null) : this(Utils.getCapacity(sourceScalar), defaultValue)
 		{
 			_sourceScalar = sourceScalar;
 			_separator = separator;
@@ -154,7 +158,7 @@ namespace ObservableComputations
 				recalculateValue();
 			}
 			else
-				setDefaultValue(String.Empty);
+				setDefaultValue();
 		}
 
 		private void initializeSeparator()

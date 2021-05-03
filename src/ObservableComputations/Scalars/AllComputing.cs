@@ -32,7 +32,8 @@ namespace ObservableComputations
 		[ObservableComputationsCall]
 		public AllComputing(
 			IReadScalar<INotifyCollectionChanged> sourceScalar, 
-			Expression<Func<TSourceItem, bool>> predicateExpression) : base(getValueExpression(sourceScalar, predicateExpression))
+			Expression<Func<TSourceItem, bool>> predicateExpression,
+			bool defaultValue = false) : base(getValueExpression(sourceScalar, predicateExpression), defaultValue)
 		{
 			_sourceScalar = sourceScalar;
 			_predicateExpression = predicateExpression;
@@ -41,7 +42,8 @@ namespace ObservableComputations
 		[ObservableComputationsCall]
 		public AllComputing(
 			INotifyCollectionChanged source, 
-			Expression<Func<TSourceItem, bool>> predicateExpression) : base(getValueExpression(source, predicateExpression))
+			Expression<Func<TSourceItem, bool>> predicateExpression,
+			bool defaultValue = false) : base(getValueExpression(source, predicateExpression), defaultValue)
 		{
 			_source = source;
 			_predicateExpression = predicateExpression;

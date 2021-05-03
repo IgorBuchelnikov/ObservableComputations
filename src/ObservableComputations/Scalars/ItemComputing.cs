@@ -23,9 +23,6 @@ namespace ObservableComputations
 		// ReSharper disable once MemberCanBePrivate.Global
 		public int Index => _index;
 
-		// ReSharper disable once MemberCanBeProtected.Global
-		public TSourceItem DefaultValue => _defaultValue;
-
 		public virtual ReadOnlyCollection<object> Sources => new ReadOnlyCollection<object>(new object[]{Source, SourceScalar});
 
 		protected readonly IReadScalar<INotifyCollectionChanged> _sourceScalar;
@@ -35,7 +32,6 @@ namespace ObservableComputations
 
 		private readonly IReadScalar<int> _indexScalar;
 		private int _index;
-		internal readonly TSourceItem _defaultValue;
 
 		private bool _countPropertyChangedEventRaised;
 		private bool _indexerPropertyChangedEventRaised;
@@ -63,21 +59,19 @@ namespace ObservableComputations
 		public ItemComputing(
 			IReadScalar<INotifyCollectionChanged> sourceScalar,
 			int index, 
-			TSourceItem defaultValue = default(TSourceItem)) : this()
+			TSourceItem defaultValue = default) : this(defaultValue)
 		{
 			_sourceScalar = sourceScalar;
 			_index = index;
-			_defaultValue = defaultValue;
 		}
 
 		[ObservableComputationsCall]
 		public ItemComputing(
 			IReadScalar<INotifyCollectionChanged> sourceScalar,
 			IReadScalar<int> indexScalar, 
-			TSourceItem defaultValue = default) : this()
+			TSourceItem defaultValue = default) : this(defaultValue)
 		{
 			_sourceScalar = sourceScalar;
-			_defaultValue = defaultValue;
 			_indexScalar = indexScalar;
 		}
 
@@ -85,29 +79,26 @@ namespace ObservableComputations
 		public ItemComputing(
 			INotifyCollectionChanged source,
 			int index, 
-			TSourceItem defaultValue = default) : this()
+			TSourceItem defaultValue = default) : this(defaultValue)
 		{
 			_source = source;
 			_index = index;
-			_defaultValue = defaultValue;
-			//initializeFromSource();
 		}
 
 		[ObservableComputationsCall]
 		public ItemComputing(
 			INotifyCollectionChanged source,
 			IReadScalar<int> indexScalar, 
-			TSourceItem defaultValue = default) : this()
+			TSourceItem defaultValue = default) : this(defaultValue)
 		{
 			_source = source;
-			_defaultValue = defaultValue;
 			_indexScalar = indexScalar;
 			
 			//initializeIndexScalar();
 			//initializeFromSource();
 		}
 
-		private ItemComputing()
+		private ItemComputing(TSourceItem defaultValue) : base(defaultValue)
 		{
 			_thisAsSourceCollectionChangeProcessor = this;
 			_changeIndexAction = () =>
@@ -176,31 +167,15 @@ namespace ObservableComputations
 				_sourceReadAndSubscribed = true;
 			}
 			else
-				setDefaultValue(_defaultValue);
+				setDefaultValue();
 		}
 
 		private void recalculateValue()
 		{
 			if (_sourceCopy != null && _sourceCopy.Count > _index)
-			{
-				if (_isDefaulted)
-				{
-					_isDefaulted = false;
-					raisePropertyChanged(Utils.IsDefaultedPropertyChangedEventArgs);
-				}
-
 				setValue(_sourceCopy[_index]);
-			}
 			else
-			{
-				if (!_isDefaulted)
-				{
-					_isDefaulted = true;
-					raisePropertyChanged(Utils.IsDefaultedPropertyChangedEventArgs);
-				}
-
-				setValue(_defaultValue);
-			}
+				setDefaultValue();
 		}
 
 
@@ -321,7 +296,7 @@ namespace ObservableComputations
 		{
 			IList<TSourceItem> source = _sourceScalar.getValue(_source, new ObservableCollection<TSourceItem>()) as IList<TSourceItem>;
 			int index = _indexScalar.getValue(_index);
-			TSourceItem defaultValue = _defaultValue;
+			TSourceItem defaultValue = DefaultValue;
 
 			// ReSharper disable once PossibleNullReferenceException
 			if (source.Count > index)

@@ -97,7 +97,8 @@ namespace ObservableComputations
 		public ScalarPausing(
 			IReadScalar<TResult> source,
 			bool initialIsPaused = false,
-			int? lastChangesToApplyOnResumeCount = 1) : this()
+			int? lastChangesToApplyOnResumeCount = 1,
+			TResult defaultValue = default) : this(defaultValue)
 		{
 			_isPaused = initialIsPaused;
 			_lastChangesToApplyOnResumeCount = lastChangesToApplyOnResumeCount;
@@ -108,7 +109,8 @@ namespace ObservableComputations
 		public ScalarPausing(
 			IReadScalar<TResult> source,
 			IReadScalar<bool> isPausedScalar,
-			int? lastChangesToApplyOnResumeCount = null) : this()
+			int? lastChangesToApplyOnResumeCount = null,
+			TResult defaultValue = default) : this(defaultValue)
 		{
 			_isPausedScalar = isPausedScalar;
 			_lastChangesToApplyOnResumeCount = lastChangesToApplyOnResumeCount;
@@ -119,7 +121,8 @@ namespace ObservableComputations
 		public ScalarPausing(
 			IReadScalar<TResult> source,
 			IReadScalar<bool> isPausedScalar,
-			IReadScalar<int?> lastChangesToApplyOnResumeCountScalar) : this()
+			IReadScalar<int?> lastChangesToApplyOnResumeCountScalar,
+			TResult defaultValue = default) : this(defaultValue)
 		{
 			_isPausedScalar = isPausedScalar;
 			_lastChangesToApplyOnResumeCountScalar = lastChangesToApplyOnResumeCountScalar;
@@ -130,14 +133,15 @@ namespace ObservableComputations
 		public ScalarPausing(
 			IReadScalar<TResult> source,
 			bool initialIsPaused,
-			IReadScalar<int?> lastChangesToApplyOnResumeCountScalar) : this()
+			IReadScalar<int?> lastChangesToApplyOnResumeCountScalar,
+			TResult defaultValue = default) : this(defaultValue)
 		{
 			_isPaused = initialIsPaused;
 			_lastChangesToApplyOnResumeCountScalar = lastChangesToApplyOnResumeCountScalar;
 			_source = source;
 		}
 
-		private ScalarPausing()
+		private ScalarPausing(TResult defaultValue) : base(defaultValue)
 		{
 			_changeValueAction = () => setValue(_source.Value);
 		}

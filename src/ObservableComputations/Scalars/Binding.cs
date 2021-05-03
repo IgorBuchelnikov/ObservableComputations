@@ -36,7 +36,10 @@ namespace ObservableComputations
 		}
 
 		[ObservableComputationsCall]
-		public Binding(IReadScalar<TValue> source, Action<TValue, Binding<TValue>> modifyTargetAction, bool applyOnActivation = true)
+		public Binding(
+			IReadScalar<TValue> source, 
+			Action<TValue, Binding<TValue>> modifyTargetAction, 
+			bool applyOnActivation = true) : base(default)
 		{
 			_modifyTargetAction = modifyTargetAction;
 			_source = source;

@@ -46,8 +46,9 @@ namespace ObservableComputations
 		public ContainsComputing(
 			IReadScalar<INotifyCollectionChanged> sourceScalar,
 			IReadScalar<TSourceItem> itemScalar,
-			IReadScalar<IEqualityComparer<TSourceItem>> equalityComparerScalar) 
-			: base(sourceScalar, getPredicateExpression(itemScalar, equalityComparerScalar))
+			IReadScalar<IEqualityComparer<TSourceItem>> equalityComparerScalar,
+			bool defaultValue = false) 
+			: base(sourceScalar, getPredicateExpression(itemScalar, equalityComparerScalar), defaultValue)
 		{
 			_sourceScalarContainsComputing = sourceScalar;
 			_itemScalar = itemScalar;
@@ -58,8 +59,9 @@ namespace ObservableComputations
 		public ContainsComputing(
 			IReadScalar<INotifyCollectionChanged> sourceScalar,
 			TSourceItem item,
-			IReadScalar<IEqualityComparer<TSourceItem>> equalityComparerScalar) 
-			: base(sourceScalar, getPredicateExpression(item, equalityComparerScalar))
+			IReadScalar<IEqualityComparer<TSourceItem>> equalityComparerScalar, 
+			bool defaultValue = false) 
+			: base(sourceScalar, getPredicateExpression(item, equalityComparerScalar), defaultValue)
 		{
 			_sourceScalarContainsComputing = sourceScalar;
 			_item = item;
@@ -70,8 +72,9 @@ namespace ObservableComputations
 		public ContainsComputing(
 			IReadScalar<INotifyCollectionChanged> sourceScalar,
 			IReadScalar<TSourceItem> itemScalar,
-			IEqualityComparer<TSourceItem> equalityComparer = null) 
-			: base(sourceScalar, getPredicateExpression(itemScalar, equalityComparer))
+			IEqualityComparer<TSourceItem> equalityComparer = null,
+			bool defaultValue = false) 
+			: base(sourceScalar, getPredicateExpression(itemScalar, equalityComparer), defaultValue)
 		{
 			_sourceScalarContainsComputing = sourceScalar;
 			_itemScalar = itemScalar;
@@ -82,8 +85,9 @@ namespace ObservableComputations
 		public ContainsComputing(
 			IReadScalar<INotifyCollectionChanged> sourceScalar,
 			TSourceItem item,
-			IEqualityComparer<TSourceItem> equalityComparer = null) 
-			: base(sourceScalar, getPredicateExpression(item, equalityComparer))
+			IEqualityComparer<TSourceItem> equalityComparer = null,
+			bool defaultValue = false) 
+			: base(sourceScalar, getPredicateExpression(item, equalityComparer), defaultValue)
 		{
 			_sourceScalarContainsComputing = sourceScalar;
 			_item = item;

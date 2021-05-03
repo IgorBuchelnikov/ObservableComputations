@@ -47,7 +47,8 @@ namespace ObservableComputations
 		public Aggregating(
 			IReadScalar<INotifyCollectionChanged> sourceScalar,
 			Func<TSourceItem, TResult, TResult> aggregateFunc,
-			Func<TSourceItem, TResult, TResult> deaggregateFunc) : this(aggregateFunc, deaggregateFunc)
+			Func<TSourceItem, TResult, TResult> deaggregateFunc,
+			TResult defaultValue = default) : this(aggregateFunc, deaggregateFunc, defaultValue)
 		{
 			_sourceScalar = sourceScalar;
 		}
@@ -56,13 +57,14 @@ namespace ObservableComputations
 		public Aggregating(
 			INotifyCollectionChanged source,
 			Func<TSourceItem, TResult, TResult> aggregateFunc,
-			Func<TSourceItem, TResult, TResult> deaggregateFunc)
-			: this(aggregateFunc, deaggregateFunc)
+			Func<TSourceItem, TResult, TResult> deaggregateFunc,
+			TResult defaultValue = default)
+			: this(aggregateFunc, deaggregateFunc, defaultValue)
 		{
 			_source = source;
 		}
 
-		private Aggregating(Func<TSourceItem, TResult, TResult> aggregateFunc, Func<TSourceItem, TResult, TResult> deaggregateFunc)
+		private Aggregating(Func<TSourceItem, TResult, TResult> aggregateFunc, Func<TSourceItem, TResult, TResult> deaggregateFunc, TResult defaultValue) : base(defaultValue)
 		{
 			_aggregateFunc = aggregateFunc;
 			_deaggregateFunc = deaggregateFunc;

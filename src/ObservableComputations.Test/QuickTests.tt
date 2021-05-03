@@ -47,7 +47,7 @@ namespace ObservableComputations.Test
 		{
 			testNum++;
 
-			if (extensionMethod.Name == "ContainsComputing" && testNum == 3)
+			if (extensionMethod.Name == "Summarizing")
 			{
 			}
 
@@ -482,6 +482,9 @@ namespace ObservableComputations.Test
 				else if (extensionMethodName == "FirstComputing"
 					|| extensionMethodName == "LastComputing")
 					result = "null";
+				else if (extensionMethodName == "Summarizing"
+					&& argumentName == "defaultValue")
+					result = "0";
 				else
 					result = "new QuickTests.Item(1, true)";
 				break;

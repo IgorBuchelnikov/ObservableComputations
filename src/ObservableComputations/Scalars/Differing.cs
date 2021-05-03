@@ -29,7 +29,8 @@ namespace ObservableComputations
 		[ObservableComputationsCall]
 		public Differing(
 			IReadScalar<TResult> source,
-			IEqualityComparer<TResult> equalityComparer = null) : this(source)
+			IEqualityComparer<TResult> equalityComparer = null,
+			TResult defaultValue = default) : this(source, defaultValue)
 		{
 			_equalityComparer = equalityComparer ?? EqualityComparer<TResult>.Default;
 		}
@@ -37,13 +38,15 @@ namespace ObservableComputations
 		[ObservableComputationsCall]
 		public Differing(
 			IReadScalar<TResult> source,
-			IReadScalar<IEqualityComparer<TResult>> equalityComparerScalar) : this(source)
+			IReadScalar<IEqualityComparer<TResult>> equalityComparerScalar,
+			TResult defaultValue = default) : this(source, defaultValue)
 		{
 			_equalityComparerScalar = equalityComparerScalar;
 		}
 
 		private Differing(
-			IReadScalar<TResult> source)
+			IReadScalar<TResult> source,
+			TResult defaultValue) : base(defaultValue)
 		{
 			_source = source;
 

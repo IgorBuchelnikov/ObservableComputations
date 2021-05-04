@@ -266,32 +266,35 @@ namespace ObservableComputations
 			if (replaceSource)
 				Utils.replaceSource(ref _source, _sourceScalar, _downstreamConsumedComputings, _consumers, this, out _sourceAsList, false);
 
-			if (_source != null && _isActive)
+			if (_isActive)
 			{
-				if (replaceSource)
-					Utils.subscribeSource(
-						_source, 
-						ref _sourceAsList, 
-						ref _rootSourceWrapper, 
-						ref _lastProcessedSourceTickTackVersion,
-						handleSourceCollectionChanged);
-
-				int count = _sourceAsList.Count;
-				for (int sourceIndex = 0; sourceIndex < count; sourceIndex++)
+				if (_source != null)
 				{
-					TSourceItem sourceItem = _sourceAsList[sourceIndex];
-					ItemInfo itemInfo = registerSourceItem(sourceItem, sourceIndex);
+					if (replaceSource)
+						Utils.subscribeSource(
+							_source, 
+							ref _sourceAsList, 
+							ref _rootSourceWrapper, 
+							ref _lastProcessedSourceTickTackVersion,
+							handleSourceCollectionChanged);
 
-					if (applyPredicate(sourceItem, itemInfo.PredicateFunc))
+					int count = _sourceAsList.Count;
+					for (int sourceIndex = 0; sourceIndex < count; sourceIndex++)
 					{
-						_predicatePassedCount++;
-						itemInfo.PredicateResult = true;
+						TSourceItem sourceItem = _sourceAsList[sourceIndex];
+						ItemInfo itemInfo = registerSourceItem(sourceItem, sourceIndex);
+
+						if (applyPredicate(sourceItem, itemInfo.PredicateFunc))
+						{
+							_predicatePassedCount++;
+							itemInfo.PredicateResult = true;
+						}
 					}
+
+					_sourceReadAndSubscribed = true;
 				}
 
 				calculateValue();
-
-				_sourceReadAndSubscribed = true;
 			}
 			else
 				setDefaultValue();

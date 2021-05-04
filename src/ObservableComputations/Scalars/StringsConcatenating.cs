@@ -136,26 +136,29 @@ namespace ObservableComputations
 				_sourceReadAndSubscribed = false;
 			}
 
-
-
 			if (replaceSource)
 				Utils.replaceSource(ref _source, _sourceScalar, _downstreamConsumedComputings, _consumers, this,
 					out _sourceAsList, true);
 
-			if (_source != null && _isActive)
+			if (_isActive)
 			{
-				if (replaceSource)
-					Utils.subscribeSource(
-						out _sourceAsIHasTickTackVersion, 
-						_sourceAsList, 
-						ref _lastProcessedSourceTickTackVersion, 
-						ref _sourceAsINotifyPropertyChanged,
-						(ISourceIndexerPropertyTracker)this,
-						_source,
-						handleSourceCollectionChanged);
+				if (_source != null)
+				{
+					if (replaceSource)
+						Utils.subscribeSource(
+							out _sourceAsIHasTickTackVersion, 
+							_sourceAsList, 
+							ref _lastProcessedSourceTickTackVersion, 
+							ref _sourceAsINotifyPropertyChanged,
+							(ISourceIndexerPropertyTracker)this,
+							_source,
+							handleSourceCollectionChanged);
 
-				_sourceReadAndSubscribed = true;
-				recalculateValue();
+					_sourceReadAndSubscribed = true;
+					recalculateValue();
+				}
+				else
+					setValue(string.Empty);
 			}
 			else
 				setDefaultValue();

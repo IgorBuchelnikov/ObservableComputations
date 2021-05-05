@@ -30,41 +30,12 @@ namespace ObservableComputations
 		public static ObservableComputations.Aggregating<TSourceItem, TResult> Aggregating<TSourceItem, TResult>(this
 			 ObservableComputations.IReadScalar<System.Collections.Specialized.INotifyCollectionChanged> sourceScalar,
 			 System.Func<TSourceItem, TResult, TResult> aggregateFunc,
-			 System.Func<TSourceItem, TResult, TResult> deaggregateFunc,
-			 TResult defaultValue)
-		{
-			return new ObservableComputations.Aggregating<TSourceItem, TResult>(
-				sourceScalar: sourceScalar,
-				aggregateFunc: aggregateFunc,
-				deaggregateFunc: deaggregateFunc,
-				defaultValue: defaultValue);
-		}
-
-		[ObservableComputationsCall]
-		public static ObservableComputations.Aggregating<TSourceItem, TResult> Aggregating<TSourceItem, TResult>(this
-			 ObservableComputations.IReadScalar<System.Collections.Specialized.INotifyCollectionChanged> sourceScalar,
-			 System.Func<TSourceItem, TResult, TResult> aggregateFunc,
 			 System.Func<TSourceItem, TResult, TResult> deaggregateFunc)
 		{
 			return new ObservableComputations.Aggregating<TSourceItem, TResult>(
 				sourceScalar: sourceScalar,
 				aggregateFunc: aggregateFunc,
-				deaggregateFunc: deaggregateFunc,
-				defaultValue: default);
-		}
-
-		[ObservableComputationsCall]
-		public static ObservableComputations.Aggregating<TSourceItem, TResult> Aggregating<TSourceItem, TResult>(this
-			 ObservableComputations.IReadScalar<ObservableCollection<TSourceItem>> sourceScalar,
-			 System.Func<TSourceItem, TResult, TResult> aggregateFunc,
-			 System.Func<TSourceItem, TResult, TResult> deaggregateFunc,
-			 TResult defaultValue)
-		{
-			return new ObservableComputations.Aggregating<TSourceItem, TResult>(
-				sourceScalar: sourceScalar,
-				aggregateFunc: aggregateFunc,
-				deaggregateFunc: deaggregateFunc,
-				defaultValue: defaultValue);
+				deaggregateFunc: deaggregateFunc);
 		}
 
 		[ObservableComputationsCall]
@@ -76,22 +47,7 @@ namespace ObservableComputations
 			return new ObservableComputations.Aggregating<TSourceItem, TResult>(
 				sourceScalar: sourceScalar,
 				aggregateFunc: aggregateFunc,
-				deaggregateFunc: deaggregateFunc,
-				defaultValue: default);
-		}
-
-		[ObservableComputationsCall]
-		public static ObservableComputations.Aggregating<TSourceItem, TResult> Aggregating<TSourceItem, TResult>(this
-			 Expression<Func<System.Collections.Specialized.INotifyCollectionChanged>> sourceExpression,
-			 System.Func<TSourceItem, TResult, TResult> aggregateFunc,
-			 System.Func<TSourceItem, TResult, TResult> deaggregateFunc,
-			 TResult defaultValue)
-		{
-			return new ObservableComputations.Aggregating<TSourceItem, TResult>(
-				sourceScalar: new Computing<System.Collections.Specialized.INotifyCollectionChanged>(sourceExpression),
-				aggregateFunc: aggregateFunc,
-				deaggregateFunc: deaggregateFunc,
-				defaultValue: defaultValue);
+				deaggregateFunc: deaggregateFunc);
 		}
 
 		[ObservableComputationsCall]
@@ -103,22 +59,7 @@ namespace ObservableComputations
 			return new ObservableComputations.Aggregating<TSourceItem, TResult>(
 				sourceScalar: new Computing<System.Collections.Specialized.INotifyCollectionChanged>(sourceExpression),
 				aggregateFunc: aggregateFunc,
-				deaggregateFunc: deaggregateFunc,
-				defaultValue: default);
-		}
-
-		[ObservableComputationsCall]
-		public static ObservableComputations.Aggregating<TSourceItem, TResult> Aggregating<TSourceItem, TResult>(this
-			 Expression<Func<ObservableCollection<TSourceItem>>> sourceExpression,
-			 System.Func<TSourceItem, TResult, TResult> aggregateFunc,
-			 System.Func<TSourceItem, TResult, TResult> deaggregateFunc,
-			 TResult defaultValue)
-		{
-			return new ObservableComputations.Aggregating<TSourceItem, TResult>(
-				sourceScalar: new Computing<ObservableCollection<TSourceItem>>(sourceExpression),
-				aggregateFunc: aggregateFunc,
-				deaggregateFunc: deaggregateFunc,
-				defaultValue: defaultValue);
+				deaggregateFunc: deaggregateFunc);
 		}
 
 		[ObservableComputationsCall]
@@ -130,22 +71,7 @@ namespace ObservableComputations
 			return new ObservableComputations.Aggregating<TSourceItem, TResult>(
 				sourceScalar: new Computing<ObservableCollection<TSourceItem>>(sourceExpression),
 				aggregateFunc: aggregateFunc,
-				deaggregateFunc: deaggregateFunc,
-				defaultValue: default);
-		}
-
-		[ObservableComputationsCall]
-		public static ObservableComputations.Aggregating<TSourceItem, TResult> Aggregating<TSourceItem, TResult>(this
-			 System.Collections.Specialized.INotifyCollectionChanged source,
-			 System.Func<TSourceItem, TResult, TResult> aggregateFunc,
-			 System.Func<TSourceItem, TResult, TResult> deaggregateFunc,
-			 TResult defaultValue)
-		{
-			return new ObservableComputations.Aggregating<TSourceItem, TResult>(
-				source: source,
-				aggregateFunc: aggregateFunc,
-				deaggregateFunc: deaggregateFunc,
-				defaultValue: defaultValue);
+				deaggregateFunc: deaggregateFunc);
 		}
 
 		[ObservableComputationsCall]
@@ -157,22 +83,7 @@ namespace ObservableComputations
 			return new ObservableComputations.Aggregating<TSourceItem, TResult>(
 				source: source,
 				aggregateFunc: aggregateFunc,
-				deaggregateFunc: deaggregateFunc,
-				defaultValue: default);
-		}
-
-		[ObservableComputationsCall]
-		public static ObservableComputations.Aggregating<TSourceItem, TResult> Aggregating<TSourceItem, TResult>(this
-			 ObservableCollection<TSourceItem> source,
-			 System.Func<TSourceItem, TResult, TResult> aggregateFunc,
-			 System.Func<TSourceItem, TResult, TResult> deaggregateFunc,
-			 TResult defaultValue)
-		{
-			return new ObservableComputations.Aggregating<TSourceItem, TResult>(
-				source: source,
-				aggregateFunc: aggregateFunc,
-				deaggregateFunc: deaggregateFunc,
-				defaultValue: defaultValue);
+				deaggregateFunc: deaggregateFunc);
 		}
 
 		[ObservableComputationsCall]
@@ -184,8 +95,7 @@ namespace ObservableComputations
 			return new ObservableComputations.Aggregating<TSourceItem, TResult>(
 				source: source,
 				aggregateFunc: aggregateFunc,
-				deaggregateFunc: deaggregateFunc,
-				defaultValue: default);
+				deaggregateFunc: deaggregateFunc);
 		}
 
 		#endregion
@@ -194,36 +104,11 @@ namespace ObservableComputations
 		[ObservableComputationsCall]
 		public static ObservableComputations.AllComputing<TSourceItem> AllComputing<TSourceItem>(this
 			 ObservableComputations.IReadScalar<System.Collections.Specialized.INotifyCollectionChanged> sourceScalar,
-			 System.Linq.Expressions.Expression<System.Func<TSourceItem, bool>> predicateExpression,
-			 bool defaultValue)
-		{
-			return new ObservableComputations.AllComputing<TSourceItem>(
-				sourceScalar: sourceScalar,
-				predicateExpression: predicateExpression,
-				defaultValue: defaultValue);
-		}
-
-		[ObservableComputationsCall]
-		public static ObservableComputations.AllComputing<TSourceItem> AllComputing<TSourceItem>(this
-			 ObservableComputations.IReadScalar<System.Collections.Specialized.INotifyCollectionChanged> sourceScalar,
 			 System.Linq.Expressions.Expression<System.Func<TSourceItem, bool>> predicateExpression)
 		{
 			return new ObservableComputations.AllComputing<TSourceItem>(
 				sourceScalar: sourceScalar,
-				predicateExpression: predicateExpression,
-				defaultValue: false);
-		}
-
-		[ObservableComputationsCall]
-		public static ObservableComputations.AllComputing<TSourceItem> AllComputing<TSourceItem>(this
-			 ObservableComputations.IReadScalar<ObservableCollection<TSourceItem>> sourceScalar,
-			 System.Linq.Expressions.Expression<System.Func<TSourceItem, bool>> predicateExpression,
-			 bool defaultValue)
-		{
-			return new ObservableComputations.AllComputing<TSourceItem>(
-				sourceScalar: sourceScalar,
-				predicateExpression: predicateExpression,
-				defaultValue: defaultValue);
+				predicateExpression: predicateExpression);
 		}
 
 		[ObservableComputationsCall]
@@ -233,20 +118,7 @@ namespace ObservableComputations
 		{
 			return new ObservableComputations.AllComputing<TSourceItem>(
 				sourceScalar: sourceScalar,
-				predicateExpression: predicateExpression,
-				defaultValue: false);
-		}
-
-		[ObservableComputationsCall]
-		public static ObservableComputations.AllComputing<TSourceItem> AllComputing<TSourceItem>(this
-			 Expression<Func<System.Collections.Specialized.INotifyCollectionChanged>> sourceExpression,
-			 System.Linq.Expressions.Expression<System.Func<TSourceItem, bool>> predicateExpression,
-			 bool defaultValue)
-		{
-			return new ObservableComputations.AllComputing<TSourceItem>(
-				sourceScalar: new Computing<System.Collections.Specialized.INotifyCollectionChanged>(sourceExpression),
-				predicateExpression: predicateExpression,
-				defaultValue: defaultValue);
+				predicateExpression: predicateExpression);
 		}
 
 		[ObservableComputationsCall]
@@ -256,20 +128,7 @@ namespace ObservableComputations
 		{
 			return new ObservableComputations.AllComputing<TSourceItem>(
 				sourceScalar: new Computing<System.Collections.Specialized.INotifyCollectionChanged>(sourceExpression),
-				predicateExpression: predicateExpression,
-				defaultValue: false);
-		}
-
-		[ObservableComputationsCall]
-		public static ObservableComputations.AllComputing<TSourceItem> AllComputing<TSourceItem>(this
-			 Expression<Func<ObservableCollection<TSourceItem>>> sourceExpression,
-			 System.Linq.Expressions.Expression<System.Func<TSourceItem, bool>> predicateExpression,
-			 bool defaultValue)
-		{
-			return new ObservableComputations.AllComputing<TSourceItem>(
-				sourceScalar: new Computing<ObservableCollection<TSourceItem>>(sourceExpression),
-				predicateExpression: predicateExpression,
-				defaultValue: defaultValue);
+				predicateExpression: predicateExpression);
 		}
 
 		[ObservableComputationsCall]
@@ -279,20 +138,7 @@ namespace ObservableComputations
 		{
 			return new ObservableComputations.AllComputing<TSourceItem>(
 				sourceScalar: new Computing<ObservableCollection<TSourceItem>>(sourceExpression),
-				predicateExpression: predicateExpression,
-				defaultValue: false);
-		}
-
-		[ObservableComputationsCall]
-		public static ObservableComputations.AllComputing<TSourceItem> AllComputing<TSourceItem>(this
-			 System.Collections.Specialized.INotifyCollectionChanged source,
-			 System.Linq.Expressions.Expression<System.Func<TSourceItem, bool>> predicateExpression,
-			 bool defaultValue)
-		{
-			return new ObservableComputations.AllComputing<TSourceItem>(
-				source: source,
-				predicateExpression: predicateExpression,
-				defaultValue: defaultValue);
+				predicateExpression: predicateExpression);
 		}
 
 		[ObservableComputationsCall]
@@ -302,20 +148,7 @@ namespace ObservableComputations
 		{
 			return new ObservableComputations.AllComputing<TSourceItem>(
 				source: source,
-				predicateExpression: predicateExpression,
-				defaultValue: false);
-		}
-
-		[ObservableComputationsCall]
-		public static ObservableComputations.AllComputing<TSourceItem> AllComputing<TSourceItem>(this
-			 ObservableCollection<TSourceItem> source,
-			 System.Linq.Expressions.Expression<System.Func<TSourceItem, bool>> predicateExpression,
-			 bool defaultValue)
-		{
-			return new ObservableComputations.AllComputing<TSourceItem>(
-				source: source,
-				predicateExpression: predicateExpression,
-				defaultValue: defaultValue);
+				predicateExpression: predicateExpression);
 		}
 
 		[ObservableComputationsCall]
@@ -325,8 +158,7 @@ namespace ObservableComputations
 		{
 			return new ObservableComputations.AllComputing<TSourceItem>(
 				source: source,
-				predicateExpression: predicateExpression,
-				defaultValue: false);
+				predicateExpression: predicateExpression);
 		}
 
 		#endregion
@@ -335,36 +167,11 @@ namespace ObservableComputations
 		[ObservableComputationsCall]
 		public static ObservableComputations.AnyComputing<TSourceItem> AnyComputing<TSourceItem>(this
 			 ObservableComputations.IReadScalar<System.Collections.Specialized.INotifyCollectionChanged> sourceScalar,
-			 System.Linq.Expressions.Expression<System.Func<TSourceItem, bool>> predicateExpression,
-			 bool defaultValue)
-		{
-			return new ObservableComputations.AnyComputing<TSourceItem>(
-				sourceScalar: sourceScalar,
-				predicateExpression: predicateExpression,
-				defaultValue: defaultValue);
-		}
-
-		[ObservableComputationsCall]
-		public static ObservableComputations.AnyComputing<TSourceItem> AnyComputing<TSourceItem>(this
-			 ObservableComputations.IReadScalar<System.Collections.Specialized.INotifyCollectionChanged> sourceScalar,
 			 System.Linq.Expressions.Expression<System.Func<TSourceItem, bool>> predicateExpression)
 		{
 			return new ObservableComputations.AnyComputing<TSourceItem>(
 				sourceScalar: sourceScalar,
-				predicateExpression: predicateExpression,
-				defaultValue: false);
-		}
-
-		[ObservableComputationsCall]
-		public static ObservableComputations.AnyComputing<TSourceItem> AnyComputing<TSourceItem>(this
-			 ObservableComputations.IReadScalar<ObservableCollection<TSourceItem>> sourceScalar,
-			 System.Linq.Expressions.Expression<System.Func<TSourceItem, bool>> predicateExpression,
-			 bool defaultValue)
-		{
-			return new ObservableComputations.AnyComputing<TSourceItem>(
-				sourceScalar: sourceScalar,
-				predicateExpression: predicateExpression,
-				defaultValue: defaultValue);
+				predicateExpression: predicateExpression);
 		}
 
 		[ObservableComputationsCall]
@@ -374,20 +181,7 @@ namespace ObservableComputations
 		{
 			return new ObservableComputations.AnyComputing<TSourceItem>(
 				sourceScalar: sourceScalar,
-				predicateExpression: predicateExpression,
-				defaultValue: false);
-		}
-
-		[ObservableComputationsCall]
-		public static ObservableComputations.AnyComputing<TSourceItem> AnyComputing<TSourceItem>(this
-			 Expression<Func<System.Collections.Specialized.INotifyCollectionChanged>> sourceExpression,
-			 System.Linq.Expressions.Expression<System.Func<TSourceItem, bool>> predicateExpression,
-			 bool defaultValue)
-		{
-			return new ObservableComputations.AnyComputing<TSourceItem>(
-				sourceScalar: new Computing<System.Collections.Specialized.INotifyCollectionChanged>(sourceExpression),
-				predicateExpression: predicateExpression,
-				defaultValue: defaultValue);
+				predicateExpression: predicateExpression);
 		}
 
 		[ObservableComputationsCall]
@@ -397,20 +191,7 @@ namespace ObservableComputations
 		{
 			return new ObservableComputations.AnyComputing<TSourceItem>(
 				sourceScalar: new Computing<System.Collections.Specialized.INotifyCollectionChanged>(sourceExpression),
-				predicateExpression: predicateExpression,
-				defaultValue: false);
-		}
-
-		[ObservableComputationsCall]
-		public static ObservableComputations.AnyComputing<TSourceItem> AnyComputing<TSourceItem>(this
-			 Expression<Func<ObservableCollection<TSourceItem>>> sourceExpression,
-			 System.Linq.Expressions.Expression<System.Func<TSourceItem, bool>> predicateExpression,
-			 bool defaultValue)
-		{
-			return new ObservableComputations.AnyComputing<TSourceItem>(
-				sourceScalar: new Computing<ObservableCollection<TSourceItem>>(sourceExpression),
-				predicateExpression: predicateExpression,
-				defaultValue: defaultValue);
+				predicateExpression: predicateExpression);
 		}
 
 		[ObservableComputationsCall]
@@ -420,20 +201,7 @@ namespace ObservableComputations
 		{
 			return new ObservableComputations.AnyComputing<TSourceItem>(
 				sourceScalar: new Computing<ObservableCollection<TSourceItem>>(sourceExpression),
-				predicateExpression: predicateExpression,
-				defaultValue: false);
-		}
-
-		[ObservableComputationsCall]
-		public static ObservableComputations.AnyComputing<TSourceItem> AnyComputing<TSourceItem>(this
-			 System.Collections.Specialized.INotifyCollectionChanged source,
-			 System.Linq.Expressions.Expression<System.Func<TSourceItem, bool>> predicateExpression,
-			 bool defaultValue)
-		{
-			return new ObservableComputations.AnyComputing<TSourceItem>(
-				source: source,
-				predicateExpression: predicateExpression,
-				defaultValue: defaultValue);
+				predicateExpression: predicateExpression);
 		}
 
 		[ObservableComputationsCall]
@@ -443,20 +211,7 @@ namespace ObservableComputations
 		{
 			return new ObservableComputations.AnyComputing<TSourceItem>(
 				source: source,
-				predicateExpression: predicateExpression,
-				defaultValue: false);
-		}
-
-		[ObservableComputationsCall]
-		public static ObservableComputations.AnyComputing<TSourceItem> AnyComputing<TSourceItem>(this
-			 ObservableCollection<TSourceItem> source,
-			 System.Linq.Expressions.Expression<System.Func<TSourceItem, bool>> predicateExpression,
-			 bool defaultValue)
-		{
-			return new ObservableComputations.AnyComputing<TSourceItem>(
-				source: source,
-				predicateExpression: predicateExpression,
-				defaultValue: defaultValue);
+				predicateExpression: predicateExpression);
 		}
 
 		[ObservableComputationsCall]
@@ -466,8 +221,7 @@ namespace ObservableComputations
 		{
 			return new ObservableComputations.AnyComputing<TSourceItem>(
 				source: source,
-				predicateExpression: predicateExpression,
-				defaultValue: false);
+				predicateExpression: predicateExpression);
 		}
 
 		#endregion
@@ -658,31 +412,10 @@ namespace ObservableComputations
 
 		[ObservableComputationsCall]
 		public static ObservableComputations.Averaging<TSourceItem, TResult> Averaging<TSourceItem, TResult>(this
-			 ObservableComputations.IReadScalar<System.Collections.Specialized.INotifyCollectionChanged> sourceScalar,
-			 TResult defaultValue)
-		{
-			return new ObservableComputations.Averaging<TSourceItem, TResult>(
-				sourceScalar: sourceScalar,
-				defaultValue: defaultValue);
-		}
-
-		[ObservableComputationsCall]
-		public static ObservableComputations.Averaging<TSourceItem, TResult> Averaging<TSourceItem, TResult>(this
 			 ObservableComputations.IReadScalar<System.Collections.Specialized.INotifyCollectionChanged> sourceScalar)
 		{
 			return new ObservableComputations.Averaging<TSourceItem, TResult>(
-				sourceScalar: sourceScalar,
-				defaultValue: default);
-		}
-
-		[ObservableComputationsCall]
-		public static ObservableComputations.Averaging<TSourceItem, TResult> Averaging<TSourceItem, TResult>(this
-			 ObservableComputations.IReadScalar<ObservableCollection<TSourceItem>> sourceScalar,
-			 TResult defaultValue)
-		{
-			return new ObservableComputations.Averaging<TSourceItem, TResult>(
-				sourceScalar: sourceScalar,
-				defaultValue: defaultValue);
+				sourceScalar: sourceScalar);
 		}
 
 		[ObservableComputationsCall]
@@ -690,18 +423,7 @@ namespace ObservableComputations
 			 ObservableComputations.IReadScalar<ObservableCollection<TSourceItem>> sourceScalar)
 		{
 			return new ObservableComputations.Averaging<TSourceItem, TResult>(
-				sourceScalar: sourceScalar,
-				defaultValue: default);
-		}
-
-		[ObservableComputationsCall]
-		public static ObservableComputations.Averaging<TSourceItem, TResult> Averaging<TSourceItem, TResult>(this
-			 Expression<Func<System.Collections.Specialized.INotifyCollectionChanged>> sourceExpression,
-			 TResult defaultValue)
-		{
-			return new ObservableComputations.Averaging<TSourceItem, TResult>(
-				sourceScalar: new Computing<System.Collections.Specialized.INotifyCollectionChanged>(sourceExpression),
-				defaultValue: defaultValue);
+				sourceScalar: sourceScalar);
 		}
 
 		[ObservableComputationsCall]
@@ -709,18 +431,7 @@ namespace ObservableComputations
 			 Expression<Func<System.Collections.Specialized.INotifyCollectionChanged>> sourceExpression)
 		{
 			return new ObservableComputations.Averaging<TSourceItem, TResult>(
-				sourceScalar: new Computing<System.Collections.Specialized.INotifyCollectionChanged>(sourceExpression),
-				defaultValue: default);
-		}
-
-		[ObservableComputationsCall]
-		public static ObservableComputations.Averaging<TSourceItem, TResult> Averaging<TSourceItem, TResult>(this
-			 Expression<Func<ObservableCollection<TSourceItem>>> sourceExpression,
-			 TResult defaultValue)
-		{
-			return new ObservableComputations.Averaging<TSourceItem, TResult>(
-				sourceScalar: new Computing<ObservableCollection<TSourceItem>>(sourceExpression),
-				defaultValue: defaultValue);
+				sourceScalar: new Computing<System.Collections.Specialized.INotifyCollectionChanged>(sourceExpression));
 		}
 
 		[ObservableComputationsCall]
@@ -728,18 +439,7 @@ namespace ObservableComputations
 			 Expression<Func<ObservableCollection<TSourceItem>>> sourceExpression)
 		{
 			return new ObservableComputations.Averaging<TSourceItem, TResult>(
-				sourceScalar: new Computing<ObservableCollection<TSourceItem>>(sourceExpression),
-				defaultValue: default);
-		}
-
-		[ObservableComputationsCall]
-		public static ObservableComputations.Averaging<TSourceItem, TResult> Averaging<TSourceItem, TResult>(this
-			 System.Collections.Specialized.INotifyCollectionChanged source,
-			 TResult defaultValue)
-		{
-			return new ObservableComputations.Averaging<TSourceItem, TResult>(
-				source: source,
-				defaultValue: defaultValue);
+				sourceScalar: new Computing<ObservableCollection<TSourceItem>>(sourceExpression));
 		}
 
 		[ObservableComputationsCall]
@@ -747,18 +447,7 @@ namespace ObservableComputations
 			 System.Collections.Specialized.INotifyCollectionChanged source)
 		{
 			return new ObservableComputations.Averaging<TSourceItem, TResult>(
-				source: source,
-				defaultValue: default);
-		}
-
-		[ObservableComputationsCall]
-		public static ObservableComputations.Averaging<TSourceItem, TResult> Averaging<TSourceItem, TResult>(this
-			 ObservableCollection<TSourceItem> source,
-			 TResult defaultValue)
-		{
-			return new ObservableComputations.Averaging<TSourceItem, TResult>(
-				source: source,
-				defaultValue: defaultValue);
+				source: source);
 		}
 
 		[ObservableComputationsCall]
@@ -766,8 +455,7 @@ namespace ObservableComputations
 			 ObservableCollection<TSourceItem> source)
 		{
 			return new ObservableComputations.Averaging<TSourceItem, TResult>(
-				source: source,
-				defaultValue: default);
+				source: source);
 		}
 
 		#endregion
@@ -3287,16 +2975,6 @@ namespace ObservableComputations
 
 		[ObservableComputationsCall]
 		public static ObservableComputations.Computing<TResult> Computing<TResult>(this
-			 System.Linq.Expressions.Expression<System.Func<TResult>> getValueExpression,
-			 TResult defaultValue)
-		{
-			return new ObservableComputations.Computing<TResult>(
-				getValueExpression: getValueExpression,
-				defaultValue: defaultValue);
-		}
-
-		[ObservableComputationsCall]
-		public static ObservableComputations.Computing<TResult> Computing<TResult>(this
 			 System.Linq.Expressions.Expression<System.Func<TResult>> getValueExpression)
 		{
 			return new ObservableComputations.Computing<TResult>(
@@ -4054,41 +3732,12 @@ namespace ObservableComputations
 		public static ObservableComputations.ContainsComputing<TSourceItem> ContainsComputing<TSourceItem>(this
 			 ObservableComputations.IReadScalar<System.Collections.Specialized.INotifyCollectionChanged> sourceScalar,
 			 ObservableComputations.IReadScalar<TSourceItem> itemScalar,
-			 ObservableComputations.IReadScalar<System.Collections.Generic.IEqualityComparer<TSourceItem>> equalityComparerScalar,
-			 bool defaultValue)
-		{
-			return new ObservableComputations.ContainsComputing<TSourceItem>(
-				sourceScalar: sourceScalar,
-				itemScalar: itemScalar,
-				equalityComparerScalar: equalityComparerScalar,
-				defaultValue: defaultValue);
-		}
-
-		[ObservableComputationsCall]
-		public static ObservableComputations.ContainsComputing<TSourceItem> ContainsComputing<TSourceItem>(this
-			 ObservableComputations.IReadScalar<System.Collections.Specialized.INotifyCollectionChanged> sourceScalar,
-			 ObservableComputations.IReadScalar<TSourceItem> itemScalar,
 			 ObservableComputations.IReadScalar<System.Collections.Generic.IEqualityComparer<TSourceItem>> equalityComparerScalar)
 		{
 			return new ObservableComputations.ContainsComputing<TSourceItem>(
 				sourceScalar: sourceScalar,
 				itemScalar: itemScalar,
-				equalityComparerScalar: equalityComparerScalar,
-				defaultValue: false);
-		}
-
-		[ObservableComputationsCall]
-		public static ObservableComputations.ContainsComputing<TSourceItem> ContainsComputing<TSourceItem>(this
-			 ObservableComputations.IReadScalar<System.Collections.Specialized.INotifyCollectionChanged> sourceScalar,
-			 ObservableComputations.IReadScalar<TSourceItem> itemScalar,
-			 Expression<Func<System.Collections.Generic.IEqualityComparer<TSourceItem>>> equalityComparerExpression,
-			 bool defaultValue)
-		{
-			return new ObservableComputations.ContainsComputing<TSourceItem>(
-				sourceScalar: sourceScalar,
-				itemScalar: itemScalar,
-				equalityComparerScalar: new Computing<System.Collections.Generic.IEqualityComparer<TSourceItem>>(equalityComparerExpression),
-				defaultValue: defaultValue);
+				equalityComparerScalar: equalityComparerScalar);
 		}
 
 		[ObservableComputationsCall]
@@ -4100,22 +3749,7 @@ namespace ObservableComputations
 			return new ObservableComputations.ContainsComputing<TSourceItem>(
 				sourceScalar: sourceScalar,
 				itemScalar: itemScalar,
-				equalityComparerScalar: new Computing<System.Collections.Generic.IEqualityComparer<TSourceItem>>(equalityComparerExpression),
-				defaultValue: false);
-		}
-
-		[ObservableComputationsCall]
-		public static ObservableComputations.ContainsComputing<TSourceItem> ContainsComputing<TSourceItem>(this
-			 ObservableComputations.IReadScalar<System.Collections.Specialized.INotifyCollectionChanged> sourceScalar,
-			 Expression<Func<TSourceItem>> itemExpression,
-			 ObservableComputations.IReadScalar<System.Collections.Generic.IEqualityComparer<TSourceItem>> equalityComparerScalar,
-			 bool defaultValue)
-		{
-			return new ObservableComputations.ContainsComputing<TSourceItem>(
-				sourceScalar: sourceScalar,
-				itemScalar: new Computing<TSourceItem>(itemExpression),
-				equalityComparerScalar: equalityComparerScalar,
-				defaultValue: defaultValue);
+				equalityComparerScalar: new Computing<System.Collections.Generic.IEqualityComparer<TSourceItem>>(equalityComparerExpression));
 		}
 
 		[ObservableComputationsCall]
@@ -4127,22 +3761,7 @@ namespace ObservableComputations
 			return new ObservableComputations.ContainsComputing<TSourceItem>(
 				sourceScalar: sourceScalar,
 				itemScalar: new Computing<TSourceItem>(itemExpression),
-				equalityComparerScalar: equalityComparerScalar,
-				defaultValue: false);
-		}
-
-		[ObservableComputationsCall]
-		public static ObservableComputations.ContainsComputing<TSourceItem> ContainsComputing<TSourceItem>(this
-			 ObservableComputations.IReadScalar<System.Collections.Specialized.INotifyCollectionChanged> sourceScalar,
-			 Expression<Func<TSourceItem>> itemExpression,
-			 Expression<Func<System.Collections.Generic.IEqualityComparer<TSourceItem>>> equalityComparerExpression,
-			 bool defaultValue)
-		{
-			return new ObservableComputations.ContainsComputing<TSourceItem>(
-				sourceScalar: sourceScalar,
-				itemScalar: new Computing<TSourceItem>(itemExpression),
-				equalityComparerScalar: new Computing<System.Collections.Generic.IEqualityComparer<TSourceItem>>(equalityComparerExpression),
-				defaultValue: defaultValue);
+				equalityComparerScalar: equalityComparerScalar);
 		}
 
 		[ObservableComputationsCall]
@@ -4154,22 +3773,7 @@ namespace ObservableComputations
 			return new ObservableComputations.ContainsComputing<TSourceItem>(
 				sourceScalar: sourceScalar,
 				itemScalar: new Computing<TSourceItem>(itemExpression),
-				equalityComparerScalar: new Computing<System.Collections.Generic.IEqualityComparer<TSourceItem>>(equalityComparerExpression),
-				defaultValue: false);
-		}
-
-		[ObservableComputationsCall]
-		public static ObservableComputations.ContainsComputing<TSourceItem> ContainsComputing<TSourceItem>(this
-			 ObservableComputations.IReadScalar<ObservableCollection<TSourceItem>> sourceScalar,
-			 ObservableComputations.IReadScalar<TSourceItem> itemScalar,
-			 ObservableComputations.IReadScalar<System.Collections.Generic.IEqualityComparer<TSourceItem>> equalityComparerScalar,
-			 bool defaultValue)
-		{
-			return new ObservableComputations.ContainsComputing<TSourceItem>(
-				sourceScalar: sourceScalar,
-				itemScalar: itemScalar,
-				equalityComparerScalar: equalityComparerScalar,
-				defaultValue: defaultValue);
+				equalityComparerScalar: new Computing<System.Collections.Generic.IEqualityComparer<TSourceItem>>(equalityComparerExpression));
 		}
 
 		[ObservableComputationsCall]
@@ -4181,22 +3785,7 @@ namespace ObservableComputations
 			return new ObservableComputations.ContainsComputing<TSourceItem>(
 				sourceScalar: sourceScalar,
 				itemScalar: itemScalar,
-				equalityComparerScalar: equalityComparerScalar,
-				defaultValue: false);
-		}
-
-		[ObservableComputationsCall]
-		public static ObservableComputations.ContainsComputing<TSourceItem> ContainsComputing<TSourceItem>(this
-			 ObservableComputations.IReadScalar<ObservableCollection<TSourceItem>> sourceScalar,
-			 ObservableComputations.IReadScalar<TSourceItem> itemScalar,
-			 Expression<Func<System.Collections.Generic.IEqualityComparer<TSourceItem>>> equalityComparerExpression,
-			 bool defaultValue)
-		{
-			return new ObservableComputations.ContainsComputing<TSourceItem>(
-				sourceScalar: sourceScalar,
-				itemScalar: itemScalar,
-				equalityComparerScalar: new Computing<System.Collections.Generic.IEqualityComparer<TSourceItem>>(equalityComparerExpression),
-				defaultValue: defaultValue);
+				equalityComparerScalar: equalityComparerScalar);
 		}
 
 		[ObservableComputationsCall]
@@ -4208,22 +3797,7 @@ namespace ObservableComputations
 			return new ObservableComputations.ContainsComputing<TSourceItem>(
 				sourceScalar: sourceScalar,
 				itemScalar: itemScalar,
-				equalityComparerScalar: new Computing<System.Collections.Generic.IEqualityComparer<TSourceItem>>(equalityComparerExpression),
-				defaultValue: false);
-		}
-
-		[ObservableComputationsCall]
-		public static ObservableComputations.ContainsComputing<TSourceItem> ContainsComputing<TSourceItem>(this
-			 ObservableComputations.IReadScalar<ObservableCollection<TSourceItem>> sourceScalar,
-			 Expression<Func<TSourceItem>> itemExpression,
-			 ObservableComputations.IReadScalar<System.Collections.Generic.IEqualityComparer<TSourceItem>> equalityComparerScalar,
-			 bool defaultValue)
-		{
-			return new ObservableComputations.ContainsComputing<TSourceItem>(
-				sourceScalar: sourceScalar,
-				itemScalar: new Computing<TSourceItem>(itemExpression),
-				equalityComparerScalar: equalityComparerScalar,
-				defaultValue: defaultValue);
+				equalityComparerScalar: new Computing<System.Collections.Generic.IEqualityComparer<TSourceItem>>(equalityComparerExpression));
 		}
 
 		[ObservableComputationsCall]
@@ -4235,22 +3809,7 @@ namespace ObservableComputations
 			return new ObservableComputations.ContainsComputing<TSourceItem>(
 				sourceScalar: sourceScalar,
 				itemScalar: new Computing<TSourceItem>(itemExpression),
-				equalityComparerScalar: equalityComparerScalar,
-				defaultValue: false);
-		}
-
-		[ObservableComputationsCall]
-		public static ObservableComputations.ContainsComputing<TSourceItem> ContainsComputing<TSourceItem>(this
-			 ObservableComputations.IReadScalar<ObservableCollection<TSourceItem>> sourceScalar,
-			 Expression<Func<TSourceItem>> itemExpression,
-			 Expression<Func<System.Collections.Generic.IEqualityComparer<TSourceItem>>> equalityComparerExpression,
-			 bool defaultValue)
-		{
-			return new ObservableComputations.ContainsComputing<TSourceItem>(
-				sourceScalar: sourceScalar,
-				itemScalar: new Computing<TSourceItem>(itemExpression),
-				equalityComparerScalar: new Computing<System.Collections.Generic.IEqualityComparer<TSourceItem>>(equalityComparerExpression),
-				defaultValue: defaultValue);
+				equalityComparerScalar: equalityComparerScalar);
 		}
 
 		[ObservableComputationsCall]
@@ -4262,22 +3821,7 @@ namespace ObservableComputations
 			return new ObservableComputations.ContainsComputing<TSourceItem>(
 				sourceScalar: sourceScalar,
 				itemScalar: new Computing<TSourceItem>(itemExpression),
-				equalityComparerScalar: new Computing<System.Collections.Generic.IEqualityComparer<TSourceItem>>(equalityComparerExpression),
-				defaultValue: false);
-		}
-
-		[ObservableComputationsCall]
-		public static ObservableComputations.ContainsComputing<TSourceItem> ContainsComputing<TSourceItem>(this
-			 Expression<Func<System.Collections.Specialized.INotifyCollectionChanged>> sourceExpression,
-			 ObservableComputations.IReadScalar<TSourceItem> itemScalar,
-			 ObservableComputations.IReadScalar<System.Collections.Generic.IEqualityComparer<TSourceItem>> equalityComparerScalar,
-			 bool defaultValue)
-		{
-			return new ObservableComputations.ContainsComputing<TSourceItem>(
-				sourceScalar: new Computing<System.Collections.Specialized.INotifyCollectionChanged>(sourceExpression),
-				itemScalar: itemScalar,
-				equalityComparerScalar: equalityComparerScalar,
-				defaultValue: defaultValue);
+				equalityComparerScalar: new Computing<System.Collections.Generic.IEqualityComparer<TSourceItem>>(equalityComparerExpression));
 		}
 
 		[ObservableComputationsCall]
@@ -4289,22 +3833,7 @@ namespace ObservableComputations
 			return new ObservableComputations.ContainsComputing<TSourceItem>(
 				sourceScalar: new Computing<System.Collections.Specialized.INotifyCollectionChanged>(sourceExpression),
 				itemScalar: itemScalar,
-				equalityComparerScalar: equalityComparerScalar,
-				defaultValue: false);
-		}
-
-		[ObservableComputationsCall]
-		public static ObservableComputations.ContainsComputing<TSourceItem> ContainsComputing<TSourceItem>(this
-			 Expression<Func<System.Collections.Specialized.INotifyCollectionChanged>> sourceExpression,
-			 ObservableComputations.IReadScalar<TSourceItem> itemScalar,
-			 Expression<Func<System.Collections.Generic.IEqualityComparer<TSourceItem>>> equalityComparerExpression,
-			 bool defaultValue)
-		{
-			return new ObservableComputations.ContainsComputing<TSourceItem>(
-				sourceScalar: new Computing<System.Collections.Specialized.INotifyCollectionChanged>(sourceExpression),
-				itemScalar: itemScalar,
-				equalityComparerScalar: new Computing<System.Collections.Generic.IEqualityComparer<TSourceItem>>(equalityComparerExpression),
-				defaultValue: defaultValue);
+				equalityComparerScalar: equalityComparerScalar);
 		}
 
 		[ObservableComputationsCall]
@@ -4316,22 +3845,7 @@ namespace ObservableComputations
 			return new ObservableComputations.ContainsComputing<TSourceItem>(
 				sourceScalar: new Computing<System.Collections.Specialized.INotifyCollectionChanged>(sourceExpression),
 				itemScalar: itemScalar,
-				equalityComparerScalar: new Computing<System.Collections.Generic.IEqualityComparer<TSourceItem>>(equalityComparerExpression),
-				defaultValue: false);
-		}
-
-		[ObservableComputationsCall]
-		public static ObservableComputations.ContainsComputing<TSourceItem> ContainsComputing<TSourceItem>(this
-			 Expression<Func<System.Collections.Specialized.INotifyCollectionChanged>> sourceExpression,
-			 Expression<Func<TSourceItem>> itemExpression,
-			 ObservableComputations.IReadScalar<System.Collections.Generic.IEqualityComparer<TSourceItem>> equalityComparerScalar,
-			 bool defaultValue)
-		{
-			return new ObservableComputations.ContainsComputing<TSourceItem>(
-				sourceScalar: new Computing<System.Collections.Specialized.INotifyCollectionChanged>(sourceExpression),
-				itemScalar: new Computing<TSourceItem>(itemExpression),
-				equalityComparerScalar: equalityComparerScalar,
-				defaultValue: defaultValue);
+				equalityComparerScalar: new Computing<System.Collections.Generic.IEqualityComparer<TSourceItem>>(equalityComparerExpression));
 		}
 
 		[ObservableComputationsCall]
@@ -4343,22 +3857,7 @@ namespace ObservableComputations
 			return new ObservableComputations.ContainsComputing<TSourceItem>(
 				sourceScalar: new Computing<System.Collections.Specialized.INotifyCollectionChanged>(sourceExpression),
 				itemScalar: new Computing<TSourceItem>(itemExpression),
-				equalityComparerScalar: equalityComparerScalar,
-				defaultValue: false);
-		}
-
-		[ObservableComputationsCall]
-		public static ObservableComputations.ContainsComputing<TSourceItem> ContainsComputing<TSourceItem>(this
-			 Expression<Func<System.Collections.Specialized.INotifyCollectionChanged>> sourceExpression,
-			 Expression<Func<TSourceItem>> itemExpression,
-			 Expression<Func<System.Collections.Generic.IEqualityComparer<TSourceItem>>> equalityComparerExpression,
-			 bool defaultValue)
-		{
-			return new ObservableComputations.ContainsComputing<TSourceItem>(
-				sourceScalar: new Computing<System.Collections.Specialized.INotifyCollectionChanged>(sourceExpression),
-				itemScalar: new Computing<TSourceItem>(itemExpression),
-				equalityComparerScalar: new Computing<System.Collections.Generic.IEqualityComparer<TSourceItem>>(equalityComparerExpression),
-				defaultValue: defaultValue);
+				equalityComparerScalar: equalityComparerScalar);
 		}
 
 		[ObservableComputationsCall]
@@ -4370,22 +3869,7 @@ namespace ObservableComputations
 			return new ObservableComputations.ContainsComputing<TSourceItem>(
 				sourceScalar: new Computing<System.Collections.Specialized.INotifyCollectionChanged>(sourceExpression),
 				itemScalar: new Computing<TSourceItem>(itemExpression),
-				equalityComparerScalar: new Computing<System.Collections.Generic.IEqualityComparer<TSourceItem>>(equalityComparerExpression),
-				defaultValue: false);
-		}
-
-		[ObservableComputationsCall]
-		public static ObservableComputations.ContainsComputing<TSourceItem> ContainsComputing<TSourceItem>(this
-			 Expression<Func<ObservableCollection<TSourceItem>>> sourceExpression,
-			 ObservableComputations.IReadScalar<TSourceItem> itemScalar,
-			 ObservableComputations.IReadScalar<System.Collections.Generic.IEqualityComparer<TSourceItem>> equalityComparerScalar,
-			 bool defaultValue)
-		{
-			return new ObservableComputations.ContainsComputing<TSourceItem>(
-				sourceScalar: new Computing<ObservableCollection<TSourceItem>>(sourceExpression),
-				itemScalar: itemScalar,
-				equalityComparerScalar: equalityComparerScalar,
-				defaultValue: defaultValue);
+				equalityComparerScalar: new Computing<System.Collections.Generic.IEqualityComparer<TSourceItem>>(equalityComparerExpression));
 		}
 
 		[ObservableComputationsCall]
@@ -4397,22 +3881,7 @@ namespace ObservableComputations
 			return new ObservableComputations.ContainsComputing<TSourceItem>(
 				sourceScalar: new Computing<ObservableCollection<TSourceItem>>(sourceExpression),
 				itemScalar: itemScalar,
-				equalityComparerScalar: equalityComparerScalar,
-				defaultValue: false);
-		}
-
-		[ObservableComputationsCall]
-		public static ObservableComputations.ContainsComputing<TSourceItem> ContainsComputing<TSourceItem>(this
-			 Expression<Func<ObservableCollection<TSourceItem>>> sourceExpression,
-			 ObservableComputations.IReadScalar<TSourceItem> itemScalar,
-			 Expression<Func<System.Collections.Generic.IEqualityComparer<TSourceItem>>> equalityComparerExpression,
-			 bool defaultValue)
-		{
-			return new ObservableComputations.ContainsComputing<TSourceItem>(
-				sourceScalar: new Computing<ObservableCollection<TSourceItem>>(sourceExpression),
-				itemScalar: itemScalar,
-				equalityComparerScalar: new Computing<System.Collections.Generic.IEqualityComparer<TSourceItem>>(equalityComparerExpression),
-				defaultValue: defaultValue);
+				equalityComparerScalar: equalityComparerScalar);
 		}
 
 		[ObservableComputationsCall]
@@ -4424,22 +3893,7 @@ namespace ObservableComputations
 			return new ObservableComputations.ContainsComputing<TSourceItem>(
 				sourceScalar: new Computing<ObservableCollection<TSourceItem>>(sourceExpression),
 				itemScalar: itemScalar,
-				equalityComparerScalar: new Computing<System.Collections.Generic.IEqualityComparer<TSourceItem>>(equalityComparerExpression),
-				defaultValue: false);
-		}
-
-		[ObservableComputationsCall]
-		public static ObservableComputations.ContainsComputing<TSourceItem> ContainsComputing<TSourceItem>(this
-			 Expression<Func<ObservableCollection<TSourceItem>>> sourceExpression,
-			 Expression<Func<TSourceItem>> itemExpression,
-			 ObservableComputations.IReadScalar<System.Collections.Generic.IEqualityComparer<TSourceItem>> equalityComparerScalar,
-			 bool defaultValue)
-		{
-			return new ObservableComputations.ContainsComputing<TSourceItem>(
-				sourceScalar: new Computing<ObservableCollection<TSourceItem>>(sourceExpression),
-				itemScalar: new Computing<TSourceItem>(itemExpression),
-				equalityComparerScalar: equalityComparerScalar,
-				defaultValue: defaultValue);
+				equalityComparerScalar: new Computing<System.Collections.Generic.IEqualityComparer<TSourceItem>>(equalityComparerExpression));
 		}
 
 		[ObservableComputationsCall]
@@ -4451,22 +3905,7 @@ namespace ObservableComputations
 			return new ObservableComputations.ContainsComputing<TSourceItem>(
 				sourceScalar: new Computing<ObservableCollection<TSourceItem>>(sourceExpression),
 				itemScalar: new Computing<TSourceItem>(itemExpression),
-				equalityComparerScalar: equalityComparerScalar,
-				defaultValue: false);
-		}
-
-		[ObservableComputationsCall]
-		public static ObservableComputations.ContainsComputing<TSourceItem> ContainsComputing<TSourceItem>(this
-			 Expression<Func<ObservableCollection<TSourceItem>>> sourceExpression,
-			 Expression<Func<TSourceItem>> itemExpression,
-			 Expression<Func<System.Collections.Generic.IEqualityComparer<TSourceItem>>> equalityComparerExpression,
-			 bool defaultValue)
-		{
-			return new ObservableComputations.ContainsComputing<TSourceItem>(
-				sourceScalar: new Computing<ObservableCollection<TSourceItem>>(sourceExpression),
-				itemScalar: new Computing<TSourceItem>(itemExpression),
-				equalityComparerScalar: new Computing<System.Collections.Generic.IEqualityComparer<TSourceItem>>(equalityComparerExpression),
-				defaultValue: defaultValue);
+				equalityComparerScalar: equalityComparerScalar);
 		}
 
 		[ObservableComputationsCall]
@@ -4478,22 +3917,7 @@ namespace ObservableComputations
 			return new ObservableComputations.ContainsComputing<TSourceItem>(
 				sourceScalar: new Computing<ObservableCollection<TSourceItem>>(sourceExpression),
 				itemScalar: new Computing<TSourceItem>(itemExpression),
-				equalityComparerScalar: new Computing<System.Collections.Generic.IEqualityComparer<TSourceItem>>(equalityComparerExpression),
-				defaultValue: false);
-		}
-
-		[ObservableComputationsCall]
-		public static ObservableComputations.ContainsComputing<TSourceItem> ContainsComputing<TSourceItem>(this
-			 ObservableComputations.IReadScalar<System.Collections.Specialized.INotifyCollectionChanged> sourceScalar,
-			 TSourceItem item,
-			 ObservableComputations.IReadScalar<System.Collections.Generic.IEqualityComparer<TSourceItem>> equalityComparerScalar,
-			 bool defaultValue)
-		{
-			return new ObservableComputations.ContainsComputing<TSourceItem>(
-				sourceScalar: sourceScalar,
-				item: item,
-				equalityComparerScalar: equalityComparerScalar,
-				defaultValue: defaultValue);
+				equalityComparerScalar: new Computing<System.Collections.Generic.IEqualityComparer<TSourceItem>>(equalityComparerExpression));
 		}
 
 		[ObservableComputationsCall]
@@ -4505,22 +3929,7 @@ namespace ObservableComputations
 			return new ObservableComputations.ContainsComputing<TSourceItem>(
 				sourceScalar: sourceScalar,
 				item: item,
-				equalityComparerScalar: equalityComparerScalar,
-				defaultValue: false);
-		}
-
-		[ObservableComputationsCall]
-		public static ObservableComputations.ContainsComputing<TSourceItem> ContainsComputing<TSourceItem>(this
-			 ObservableComputations.IReadScalar<System.Collections.Specialized.INotifyCollectionChanged> sourceScalar,
-			 TSourceItem item,
-			 Expression<Func<System.Collections.Generic.IEqualityComparer<TSourceItem>>> equalityComparerExpression,
-			 bool defaultValue)
-		{
-			return new ObservableComputations.ContainsComputing<TSourceItem>(
-				sourceScalar: sourceScalar,
-				item: item,
-				equalityComparerScalar: new Computing<System.Collections.Generic.IEqualityComparer<TSourceItem>>(equalityComparerExpression),
-				defaultValue: defaultValue);
+				equalityComparerScalar: equalityComparerScalar);
 		}
 
 		[ObservableComputationsCall]
@@ -4532,22 +3941,7 @@ namespace ObservableComputations
 			return new ObservableComputations.ContainsComputing<TSourceItem>(
 				sourceScalar: sourceScalar,
 				item: item,
-				equalityComparerScalar: new Computing<System.Collections.Generic.IEqualityComparer<TSourceItem>>(equalityComparerExpression),
-				defaultValue: false);
-		}
-
-		[ObservableComputationsCall]
-		public static ObservableComputations.ContainsComputing<TSourceItem> ContainsComputing<TSourceItem>(this
-			 ObservableComputations.IReadScalar<ObservableCollection<TSourceItem>> sourceScalar,
-			 TSourceItem item,
-			 ObservableComputations.IReadScalar<System.Collections.Generic.IEqualityComparer<TSourceItem>> equalityComparerScalar,
-			 bool defaultValue)
-		{
-			return new ObservableComputations.ContainsComputing<TSourceItem>(
-				sourceScalar: sourceScalar,
-				item: item,
-				equalityComparerScalar: equalityComparerScalar,
-				defaultValue: defaultValue);
+				equalityComparerScalar: new Computing<System.Collections.Generic.IEqualityComparer<TSourceItem>>(equalityComparerExpression));
 		}
 
 		[ObservableComputationsCall]
@@ -4559,22 +3953,7 @@ namespace ObservableComputations
 			return new ObservableComputations.ContainsComputing<TSourceItem>(
 				sourceScalar: sourceScalar,
 				item: item,
-				equalityComparerScalar: equalityComparerScalar,
-				defaultValue: false);
-		}
-
-		[ObservableComputationsCall]
-		public static ObservableComputations.ContainsComputing<TSourceItem> ContainsComputing<TSourceItem>(this
-			 ObservableComputations.IReadScalar<ObservableCollection<TSourceItem>> sourceScalar,
-			 TSourceItem item,
-			 Expression<Func<System.Collections.Generic.IEqualityComparer<TSourceItem>>> equalityComparerExpression,
-			 bool defaultValue)
-		{
-			return new ObservableComputations.ContainsComputing<TSourceItem>(
-				sourceScalar: sourceScalar,
-				item: item,
-				equalityComparerScalar: new Computing<System.Collections.Generic.IEqualityComparer<TSourceItem>>(equalityComparerExpression),
-				defaultValue: defaultValue);
+				equalityComparerScalar: equalityComparerScalar);
 		}
 
 		[ObservableComputationsCall]
@@ -4586,22 +3965,7 @@ namespace ObservableComputations
 			return new ObservableComputations.ContainsComputing<TSourceItem>(
 				sourceScalar: sourceScalar,
 				item: item,
-				equalityComparerScalar: new Computing<System.Collections.Generic.IEqualityComparer<TSourceItem>>(equalityComparerExpression),
-				defaultValue: false);
-		}
-
-		[ObservableComputationsCall]
-		public static ObservableComputations.ContainsComputing<TSourceItem> ContainsComputing<TSourceItem>(this
-			 Expression<Func<System.Collections.Specialized.INotifyCollectionChanged>> sourceExpression,
-			 TSourceItem item,
-			 ObservableComputations.IReadScalar<System.Collections.Generic.IEqualityComparer<TSourceItem>> equalityComparerScalar,
-			 bool defaultValue)
-		{
-			return new ObservableComputations.ContainsComputing<TSourceItem>(
-				sourceScalar: new Computing<System.Collections.Specialized.INotifyCollectionChanged>(sourceExpression),
-				item: item,
-				equalityComparerScalar: equalityComparerScalar,
-				defaultValue: defaultValue);
+				equalityComparerScalar: new Computing<System.Collections.Generic.IEqualityComparer<TSourceItem>>(equalityComparerExpression));
 		}
 
 		[ObservableComputationsCall]
@@ -4613,22 +3977,7 @@ namespace ObservableComputations
 			return new ObservableComputations.ContainsComputing<TSourceItem>(
 				sourceScalar: new Computing<System.Collections.Specialized.INotifyCollectionChanged>(sourceExpression),
 				item: item,
-				equalityComparerScalar: equalityComparerScalar,
-				defaultValue: false);
-		}
-
-		[ObservableComputationsCall]
-		public static ObservableComputations.ContainsComputing<TSourceItem> ContainsComputing<TSourceItem>(this
-			 Expression<Func<System.Collections.Specialized.INotifyCollectionChanged>> sourceExpression,
-			 TSourceItem item,
-			 Expression<Func<System.Collections.Generic.IEqualityComparer<TSourceItem>>> equalityComparerExpression,
-			 bool defaultValue)
-		{
-			return new ObservableComputations.ContainsComputing<TSourceItem>(
-				sourceScalar: new Computing<System.Collections.Specialized.INotifyCollectionChanged>(sourceExpression),
-				item: item,
-				equalityComparerScalar: new Computing<System.Collections.Generic.IEqualityComparer<TSourceItem>>(equalityComparerExpression),
-				defaultValue: defaultValue);
+				equalityComparerScalar: equalityComparerScalar);
 		}
 
 		[ObservableComputationsCall]
@@ -4640,22 +3989,7 @@ namespace ObservableComputations
 			return new ObservableComputations.ContainsComputing<TSourceItem>(
 				sourceScalar: new Computing<System.Collections.Specialized.INotifyCollectionChanged>(sourceExpression),
 				item: item,
-				equalityComparerScalar: new Computing<System.Collections.Generic.IEqualityComparer<TSourceItem>>(equalityComparerExpression),
-				defaultValue: false);
-		}
-
-		[ObservableComputationsCall]
-		public static ObservableComputations.ContainsComputing<TSourceItem> ContainsComputing<TSourceItem>(this
-			 Expression<Func<ObservableCollection<TSourceItem>>> sourceExpression,
-			 TSourceItem item,
-			 ObservableComputations.IReadScalar<System.Collections.Generic.IEqualityComparer<TSourceItem>> equalityComparerScalar,
-			 bool defaultValue)
-		{
-			return new ObservableComputations.ContainsComputing<TSourceItem>(
-				sourceScalar: new Computing<ObservableCollection<TSourceItem>>(sourceExpression),
-				item: item,
-				equalityComparerScalar: equalityComparerScalar,
-				defaultValue: defaultValue);
+				equalityComparerScalar: new Computing<System.Collections.Generic.IEqualityComparer<TSourceItem>>(equalityComparerExpression));
 		}
 
 		[ObservableComputationsCall]
@@ -4667,22 +4001,7 @@ namespace ObservableComputations
 			return new ObservableComputations.ContainsComputing<TSourceItem>(
 				sourceScalar: new Computing<ObservableCollection<TSourceItem>>(sourceExpression),
 				item: item,
-				equalityComparerScalar: equalityComparerScalar,
-				defaultValue: false);
-		}
-
-		[ObservableComputationsCall]
-		public static ObservableComputations.ContainsComputing<TSourceItem> ContainsComputing<TSourceItem>(this
-			 Expression<Func<ObservableCollection<TSourceItem>>> sourceExpression,
-			 TSourceItem item,
-			 Expression<Func<System.Collections.Generic.IEqualityComparer<TSourceItem>>> equalityComparerExpression,
-			 bool defaultValue)
-		{
-			return new ObservableComputations.ContainsComputing<TSourceItem>(
-				sourceScalar: new Computing<ObservableCollection<TSourceItem>>(sourceExpression),
-				item: item,
-				equalityComparerScalar: new Computing<System.Collections.Generic.IEqualityComparer<TSourceItem>>(equalityComparerExpression),
-				defaultValue: defaultValue);
+				equalityComparerScalar: equalityComparerScalar);
 		}
 
 		[ObservableComputationsCall]
@@ -4694,22 +4013,7 @@ namespace ObservableComputations
 			return new ObservableComputations.ContainsComputing<TSourceItem>(
 				sourceScalar: new Computing<ObservableCollection<TSourceItem>>(sourceExpression),
 				item: item,
-				equalityComparerScalar: new Computing<System.Collections.Generic.IEqualityComparer<TSourceItem>>(equalityComparerExpression),
-				defaultValue: false);
-		}
-
-		[ObservableComputationsCall]
-		public static ObservableComputations.ContainsComputing<TSourceItem> ContainsComputing<TSourceItem>(this
-			 ObservableComputations.IReadScalar<System.Collections.Specialized.INotifyCollectionChanged> sourceScalar,
-			 ObservableComputations.IReadScalar<TSourceItem> itemScalar,
-			 System.Collections.Generic.IEqualityComparer<TSourceItem> equalityComparer,
-			 bool defaultValue)
-		{
-			return new ObservableComputations.ContainsComputing<TSourceItem>(
-				sourceScalar: sourceScalar,
-				itemScalar: itemScalar,
-				equalityComparer: equalityComparer,
-				defaultValue: defaultValue);
+				equalityComparerScalar: new Computing<System.Collections.Generic.IEqualityComparer<TSourceItem>>(equalityComparerExpression));
 		}
 
 		[ObservableComputationsCall]
@@ -4721,21 +4025,7 @@ namespace ObservableComputations
 			return new ObservableComputations.ContainsComputing<TSourceItem>(
 				sourceScalar: sourceScalar,
 				itemScalar: itemScalar,
-				equalityComparer: equalityComparer,
-				defaultValue: false);
-		}
-
-		[ObservableComputationsCall]
-		public static ObservableComputations.ContainsComputing<TSourceItem> ContainsComputing<TSourceItem>(this
-			 ObservableComputations.IReadScalar<System.Collections.Specialized.INotifyCollectionChanged> sourceScalar,
-			 ObservableComputations.IReadScalar<TSourceItem> itemScalar,
-			 bool defaultValue)
-		{
-			return new ObservableComputations.ContainsComputing<TSourceItem>(
-				sourceScalar: sourceScalar,
-				itemScalar: itemScalar,
-				equalityComparer: null,
-				defaultValue: defaultValue);
+				equalityComparer: equalityComparer);
 		}
 
 		[ObservableComputationsCall]
@@ -4746,22 +4036,7 @@ namespace ObservableComputations
 			return new ObservableComputations.ContainsComputing<TSourceItem>(
 				sourceScalar: sourceScalar,
 				itemScalar: itemScalar,
-				equalityComparer: null,
-				defaultValue: false);
-		}
-
-		[ObservableComputationsCall]
-		public static ObservableComputations.ContainsComputing<TSourceItem> ContainsComputing<TSourceItem>(this
-			 ObservableComputations.IReadScalar<System.Collections.Specialized.INotifyCollectionChanged> sourceScalar,
-			 Expression<Func<TSourceItem>> itemExpression,
-			 System.Collections.Generic.IEqualityComparer<TSourceItem> equalityComparer,
-			 bool defaultValue)
-		{
-			return new ObservableComputations.ContainsComputing<TSourceItem>(
-				sourceScalar: sourceScalar,
-				itemScalar: new Computing<TSourceItem>(itemExpression),
-				equalityComparer: equalityComparer,
-				defaultValue: defaultValue);
+				equalityComparer: null);
 		}
 
 		[ObservableComputationsCall]
@@ -4773,21 +4048,7 @@ namespace ObservableComputations
 			return new ObservableComputations.ContainsComputing<TSourceItem>(
 				sourceScalar: sourceScalar,
 				itemScalar: new Computing<TSourceItem>(itemExpression),
-				equalityComparer: equalityComparer,
-				defaultValue: false);
-		}
-
-		[ObservableComputationsCall]
-		public static ObservableComputations.ContainsComputing<TSourceItem> ContainsComputing<TSourceItem>(this
-			 ObservableComputations.IReadScalar<System.Collections.Specialized.INotifyCollectionChanged> sourceScalar,
-			 Expression<Func<TSourceItem>> itemExpression,
-			 bool defaultValue)
-		{
-			return new ObservableComputations.ContainsComputing<TSourceItem>(
-				sourceScalar: sourceScalar,
-				itemScalar: new Computing<TSourceItem>(itemExpression),
-				equalityComparer: null,
-				defaultValue: defaultValue);
+				equalityComparer: equalityComparer);
 		}
 
 		[ObservableComputationsCall]
@@ -4798,22 +4059,7 @@ namespace ObservableComputations
 			return new ObservableComputations.ContainsComputing<TSourceItem>(
 				sourceScalar: sourceScalar,
 				itemScalar: new Computing<TSourceItem>(itemExpression),
-				equalityComparer: null,
-				defaultValue: false);
-		}
-
-		[ObservableComputationsCall]
-		public static ObservableComputations.ContainsComputing<TSourceItem> ContainsComputing<TSourceItem>(this
-			 ObservableComputations.IReadScalar<ObservableCollection<TSourceItem>> sourceScalar,
-			 ObservableComputations.IReadScalar<TSourceItem> itemScalar,
-			 System.Collections.Generic.IEqualityComparer<TSourceItem> equalityComparer,
-			 bool defaultValue)
-		{
-			return new ObservableComputations.ContainsComputing<TSourceItem>(
-				sourceScalar: sourceScalar,
-				itemScalar: itemScalar,
-				equalityComparer: equalityComparer,
-				defaultValue: defaultValue);
+				equalityComparer: null);
 		}
 
 		[ObservableComputationsCall]
@@ -4825,21 +4071,7 @@ namespace ObservableComputations
 			return new ObservableComputations.ContainsComputing<TSourceItem>(
 				sourceScalar: sourceScalar,
 				itemScalar: itemScalar,
-				equalityComparer: equalityComparer,
-				defaultValue: false);
-		}
-
-		[ObservableComputationsCall]
-		public static ObservableComputations.ContainsComputing<TSourceItem> ContainsComputing<TSourceItem>(this
-			 ObservableComputations.IReadScalar<ObservableCollection<TSourceItem>> sourceScalar,
-			 ObservableComputations.IReadScalar<TSourceItem> itemScalar,
-			 bool defaultValue)
-		{
-			return new ObservableComputations.ContainsComputing<TSourceItem>(
-				sourceScalar: sourceScalar,
-				itemScalar: itemScalar,
-				equalityComparer: null,
-				defaultValue: defaultValue);
+				equalityComparer: equalityComparer);
 		}
 
 		[ObservableComputationsCall]
@@ -4850,22 +4082,7 @@ namespace ObservableComputations
 			return new ObservableComputations.ContainsComputing<TSourceItem>(
 				sourceScalar: sourceScalar,
 				itemScalar: itemScalar,
-				equalityComparer: null,
-				defaultValue: false);
-		}
-
-		[ObservableComputationsCall]
-		public static ObservableComputations.ContainsComputing<TSourceItem> ContainsComputing<TSourceItem>(this
-			 ObservableComputations.IReadScalar<ObservableCollection<TSourceItem>> sourceScalar,
-			 Expression<Func<TSourceItem>> itemExpression,
-			 System.Collections.Generic.IEqualityComparer<TSourceItem> equalityComparer,
-			 bool defaultValue)
-		{
-			return new ObservableComputations.ContainsComputing<TSourceItem>(
-				sourceScalar: sourceScalar,
-				itemScalar: new Computing<TSourceItem>(itemExpression),
-				equalityComparer: equalityComparer,
-				defaultValue: defaultValue);
+				equalityComparer: null);
 		}
 
 		[ObservableComputationsCall]
@@ -4877,21 +4094,7 @@ namespace ObservableComputations
 			return new ObservableComputations.ContainsComputing<TSourceItem>(
 				sourceScalar: sourceScalar,
 				itemScalar: new Computing<TSourceItem>(itemExpression),
-				equalityComparer: equalityComparer,
-				defaultValue: false);
-		}
-
-		[ObservableComputationsCall]
-		public static ObservableComputations.ContainsComputing<TSourceItem> ContainsComputing<TSourceItem>(this
-			 ObservableComputations.IReadScalar<ObservableCollection<TSourceItem>> sourceScalar,
-			 Expression<Func<TSourceItem>> itemExpression,
-			 bool defaultValue)
-		{
-			return new ObservableComputations.ContainsComputing<TSourceItem>(
-				sourceScalar: sourceScalar,
-				itemScalar: new Computing<TSourceItem>(itemExpression),
-				equalityComparer: null,
-				defaultValue: defaultValue);
+				equalityComparer: equalityComparer);
 		}
 
 		[ObservableComputationsCall]
@@ -4902,22 +4105,7 @@ namespace ObservableComputations
 			return new ObservableComputations.ContainsComputing<TSourceItem>(
 				sourceScalar: sourceScalar,
 				itemScalar: new Computing<TSourceItem>(itemExpression),
-				equalityComparer: null,
-				defaultValue: false);
-		}
-
-		[ObservableComputationsCall]
-		public static ObservableComputations.ContainsComputing<TSourceItem> ContainsComputing<TSourceItem>(this
-			 Expression<Func<System.Collections.Specialized.INotifyCollectionChanged>> sourceExpression,
-			 ObservableComputations.IReadScalar<TSourceItem> itemScalar,
-			 System.Collections.Generic.IEqualityComparer<TSourceItem> equalityComparer,
-			 bool defaultValue)
-		{
-			return new ObservableComputations.ContainsComputing<TSourceItem>(
-				sourceScalar: new Computing<System.Collections.Specialized.INotifyCollectionChanged>(sourceExpression),
-				itemScalar: itemScalar,
-				equalityComparer: equalityComparer,
-				defaultValue: defaultValue);
+				equalityComparer: null);
 		}
 
 		[ObservableComputationsCall]
@@ -4929,21 +4117,7 @@ namespace ObservableComputations
 			return new ObservableComputations.ContainsComputing<TSourceItem>(
 				sourceScalar: new Computing<System.Collections.Specialized.INotifyCollectionChanged>(sourceExpression),
 				itemScalar: itemScalar,
-				equalityComparer: equalityComparer,
-				defaultValue: false);
-		}
-
-		[ObservableComputationsCall]
-		public static ObservableComputations.ContainsComputing<TSourceItem> ContainsComputing<TSourceItem>(this
-			 Expression<Func<System.Collections.Specialized.INotifyCollectionChanged>> sourceExpression,
-			 ObservableComputations.IReadScalar<TSourceItem> itemScalar,
-			 bool defaultValue)
-		{
-			return new ObservableComputations.ContainsComputing<TSourceItem>(
-				sourceScalar: new Computing<System.Collections.Specialized.INotifyCollectionChanged>(sourceExpression),
-				itemScalar: itemScalar,
-				equalityComparer: null,
-				defaultValue: defaultValue);
+				equalityComparer: equalityComparer);
 		}
 
 		[ObservableComputationsCall]
@@ -4954,22 +4128,7 @@ namespace ObservableComputations
 			return new ObservableComputations.ContainsComputing<TSourceItem>(
 				sourceScalar: new Computing<System.Collections.Specialized.INotifyCollectionChanged>(sourceExpression),
 				itemScalar: itemScalar,
-				equalityComparer: null,
-				defaultValue: false);
-		}
-
-		[ObservableComputationsCall]
-		public static ObservableComputations.ContainsComputing<TSourceItem> ContainsComputing<TSourceItem>(this
-			 Expression<Func<System.Collections.Specialized.INotifyCollectionChanged>> sourceExpression,
-			 Expression<Func<TSourceItem>> itemExpression,
-			 System.Collections.Generic.IEqualityComparer<TSourceItem> equalityComparer,
-			 bool defaultValue)
-		{
-			return new ObservableComputations.ContainsComputing<TSourceItem>(
-				sourceScalar: new Computing<System.Collections.Specialized.INotifyCollectionChanged>(sourceExpression),
-				itemScalar: new Computing<TSourceItem>(itemExpression),
-				equalityComparer: equalityComparer,
-				defaultValue: defaultValue);
+				equalityComparer: null);
 		}
 
 		[ObservableComputationsCall]
@@ -4981,21 +4140,7 @@ namespace ObservableComputations
 			return new ObservableComputations.ContainsComputing<TSourceItem>(
 				sourceScalar: new Computing<System.Collections.Specialized.INotifyCollectionChanged>(sourceExpression),
 				itemScalar: new Computing<TSourceItem>(itemExpression),
-				equalityComparer: equalityComparer,
-				defaultValue: false);
-		}
-
-		[ObservableComputationsCall]
-		public static ObservableComputations.ContainsComputing<TSourceItem> ContainsComputing<TSourceItem>(this
-			 Expression<Func<System.Collections.Specialized.INotifyCollectionChanged>> sourceExpression,
-			 Expression<Func<TSourceItem>> itemExpression,
-			 bool defaultValue)
-		{
-			return new ObservableComputations.ContainsComputing<TSourceItem>(
-				sourceScalar: new Computing<System.Collections.Specialized.INotifyCollectionChanged>(sourceExpression),
-				itemScalar: new Computing<TSourceItem>(itemExpression),
-				equalityComparer: null,
-				defaultValue: defaultValue);
+				equalityComparer: equalityComparer);
 		}
 
 		[ObservableComputationsCall]
@@ -5006,22 +4151,7 @@ namespace ObservableComputations
 			return new ObservableComputations.ContainsComputing<TSourceItem>(
 				sourceScalar: new Computing<System.Collections.Specialized.INotifyCollectionChanged>(sourceExpression),
 				itemScalar: new Computing<TSourceItem>(itemExpression),
-				equalityComparer: null,
-				defaultValue: false);
-		}
-
-		[ObservableComputationsCall]
-		public static ObservableComputations.ContainsComputing<TSourceItem> ContainsComputing<TSourceItem>(this
-			 Expression<Func<ObservableCollection<TSourceItem>>> sourceExpression,
-			 ObservableComputations.IReadScalar<TSourceItem> itemScalar,
-			 System.Collections.Generic.IEqualityComparer<TSourceItem> equalityComparer,
-			 bool defaultValue)
-		{
-			return new ObservableComputations.ContainsComputing<TSourceItem>(
-				sourceScalar: new Computing<ObservableCollection<TSourceItem>>(sourceExpression),
-				itemScalar: itemScalar,
-				equalityComparer: equalityComparer,
-				defaultValue: defaultValue);
+				equalityComparer: null);
 		}
 
 		[ObservableComputationsCall]
@@ -5033,21 +4163,7 @@ namespace ObservableComputations
 			return new ObservableComputations.ContainsComputing<TSourceItem>(
 				sourceScalar: new Computing<ObservableCollection<TSourceItem>>(sourceExpression),
 				itemScalar: itemScalar,
-				equalityComparer: equalityComparer,
-				defaultValue: false);
-		}
-
-		[ObservableComputationsCall]
-		public static ObservableComputations.ContainsComputing<TSourceItem> ContainsComputing<TSourceItem>(this
-			 Expression<Func<ObservableCollection<TSourceItem>>> sourceExpression,
-			 ObservableComputations.IReadScalar<TSourceItem> itemScalar,
-			 bool defaultValue)
-		{
-			return new ObservableComputations.ContainsComputing<TSourceItem>(
-				sourceScalar: new Computing<ObservableCollection<TSourceItem>>(sourceExpression),
-				itemScalar: itemScalar,
-				equalityComparer: null,
-				defaultValue: defaultValue);
+				equalityComparer: equalityComparer);
 		}
 
 		[ObservableComputationsCall]
@@ -5058,22 +4174,7 @@ namespace ObservableComputations
 			return new ObservableComputations.ContainsComputing<TSourceItem>(
 				sourceScalar: new Computing<ObservableCollection<TSourceItem>>(sourceExpression),
 				itemScalar: itemScalar,
-				equalityComparer: null,
-				defaultValue: false);
-		}
-
-		[ObservableComputationsCall]
-		public static ObservableComputations.ContainsComputing<TSourceItem> ContainsComputing<TSourceItem>(this
-			 Expression<Func<ObservableCollection<TSourceItem>>> sourceExpression,
-			 Expression<Func<TSourceItem>> itemExpression,
-			 System.Collections.Generic.IEqualityComparer<TSourceItem> equalityComparer,
-			 bool defaultValue)
-		{
-			return new ObservableComputations.ContainsComputing<TSourceItem>(
-				sourceScalar: new Computing<ObservableCollection<TSourceItem>>(sourceExpression),
-				itemScalar: new Computing<TSourceItem>(itemExpression),
-				equalityComparer: equalityComparer,
-				defaultValue: defaultValue);
+				equalityComparer: null);
 		}
 
 		[ObservableComputationsCall]
@@ -5085,21 +4186,7 @@ namespace ObservableComputations
 			return new ObservableComputations.ContainsComputing<TSourceItem>(
 				sourceScalar: new Computing<ObservableCollection<TSourceItem>>(sourceExpression),
 				itemScalar: new Computing<TSourceItem>(itemExpression),
-				equalityComparer: equalityComparer,
-				defaultValue: false);
-		}
-
-		[ObservableComputationsCall]
-		public static ObservableComputations.ContainsComputing<TSourceItem> ContainsComputing<TSourceItem>(this
-			 Expression<Func<ObservableCollection<TSourceItem>>> sourceExpression,
-			 Expression<Func<TSourceItem>> itemExpression,
-			 bool defaultValue)
-		{
-			return new ObservableComputations.ContainsComputing<TSourceItem>(
-				sourceScalar: new Computing<ObservableCollection<TSourceItem>>(sourceExpression),
-				itemScalar: new Computing<TSourceItem>(itemExpression),
-				equalityComparer: null,
-				defaultValue: defaultValue);
+				equalityComparer: equalityComparer);
 		}
 
 		[ObservableComputationsCall]
@@ -5110,22 +4197,7 @@ namespace ObservableComputations
 			return new ObservableComputations.ContainsComputing<TSourceItem>(
 				sourceScalar: new Computing<ObservableCollection<TSourceItem>>(sourceExpression),
 				itemScalar: new Computing<TSourceItem>(itemExpression),
-				equalityComparer: null,
-				defaultValue: false);
-		}
-
-		[ObservableComputationsCall]
-		public static ObservableComputations.ContainsComputing<TSourceItem> ContainsComputing<TSourceItem>(this
-			 ObservableComputations.IReadScalar<System.Collections.Specialized.INotifyCollectionChanged> sourceScalar,
-			 TSourceItem item,
-			 System.Collections.Generic.IEqualityComparer<TSourceItem> equalityComparer,
-			 bool defaultValue)
-		{
-			return new ObservableComputations.ContainsComputing<TSourceItem>(
-				sourceScalar: sourceScalar,
-				item: item,
-				equalityComparer: equalityComparer,
-				defaultValue: defaultValue);
+				equalityComparer: null);
 		}
 
 		[ObservableComputationsCall]
@@ -5137,21 +4209,7 @@ namespace ObservableComputations
 			return new ObservableComputations.ContainsComputing<TSourceItem>(
 				sourceScalar: sourceScalar,
 				item: item,
-				equalityComparer: equalityComparer,
-				defaultValue: false);
-		}
-
-		[ObservableComputationsCall]
-		public static ObservableComputations.ContainsComputing<TSourceItem> ContainsComputing<TSourceItem>(this
-			 ObservableComputations.IReadScalar<System.Collections.Specialized.INotifyCollectionChanged> sourceScalar,
-			 TSourceItem item,
-			 bool defaultValue)
-		{
-			return new ObservableComputations.ContainsComputing<TSourceItem>(
-				sourceScalar: sourceScalar,
-				item: item,
-				equalityComparer: null,
-				defaultValue: defaultValue);
+				equalityComparer: equalityComparer);
 		}
 
 		[ObservableComputationsCall]
@@ -5162,22 +4220,7 @@ namespace ObservableComputations
 			return new ObservableComputations.ContainsComputing<TSourceItem>(
 				sourceScalar: sourceScalar,
 				item: item,
-				equalityComparer: null,
-				defaultValue: false);
-		}
-
-		[ObservableComputationsCall]
-		public static ObservableComputations.ContainsComputing<TSourceItem> ContainsComputing<TSourceItem>(this
-			 ObservableComputations.IReadScalar<ObservableCollection<TSourceItem>> sourceScalar,
-			 TSourceItem item,
-			 System.Collections.Generic.IEqualityComparer<TSourceItem> equalityComparer,
-			 bool defaultValue)
-		{
-			return new ObservableComputations.ContainsComputing<TSourceItem>(
-				sourceScalar: sourceScalar,
-				item: item,
-				equalityComparer: equalityComparer,
-				defaultValue: defaultValue);
+				equalityComparer: null);
 		}
 
 		[ObservableComputationsCall]
@@ -5189,21 +4232,7 @@ namespace ObservableComputations
 			return new ObservableComputations.ContainsComputing<TSourceItem>(
 				sourceScalar: sourceScalar,
 				item: item,
-				equalityComparer: equalityComparer,
-				defaultValue: false);
-		}
-
-		[ObservableComputationsCall]
-		public static ObservableComputations.ContainsComputing<TSourceItem> ContainsComputing<TSourceItem>(this
-			 ObservableComputations.IReadScalar<ObservableCollection<TSourceItem>> sourceScalar,
-			 TSourceItem item,
-			 bool defaultValue)
-		{
-			return new ObservableComputations.ContainsComputing<TSourceItem>(
-				sourceScalar: sourceScalar,
-				item: item,
-				equalityComparer: null,
-				defaultValue: defaultValue);
+				equalityComparer: equalityComparer);
 		}
 
 		[ObservableComputationsCall]
@@ -5214,22 +4243,7 @@ namespace ObservableComputations
 			return new ObservableComputations.ContainsComputing<TSourceItem>(
 				sourceScalar: sourceScalar,
 				item: item,
-				equalityComparer: null,
-				defaultValue: false);
-		}
-
-		[ObservableComputationsCall]
-		public static ObservableComputations.ContainsComputing<TSourceItem> ContainsComputing<TSourceItem>(this
-			 Expression<Func<System.Collections.Specialized.INotifyCollectionChanged>> sourceExpression,
-			 TSourceItem item,
-			 System.Collections.Generic.IEqualityComparer<TSourceItem> equalityComparer,
-			 bool defaultValue)
-		{
-			return new ObservableComputations.ContainsComputing<TSourceItem>(
-				sourceScalar: new Computing<System.Collections.Specialized.INotifyCollectionChanged>(sourceExpression),
-				item: item,
-				equalityComparer: equalityComparer,
-				defaultValue: defaultValue);
+				equalityComparer: null);
 		}
 
 		[ObservableComputationsCall]
@@ -5241,21 +4255,7 @@ namespace ObservableComputations
 			return new ObservableComputations.ContainsComputing<TSourceItem>(
 				sourceScalar: new Computing<System.Collections.Specialized.INotifyCollectionChanged>(sourceExpression),
 				item: item,
-				equalityComparer: equalityComparer,
-				defaultValue: false);
-		}
-
-		[ObservableComputationsCall]
-		public static ObservableComputations.ContainsComputing<TSourceItem> ContainsComputing<TSourceItem>(this
-			 Expression<Func<System.Collections.Specialized.INotifyCollectionChanged>> sourceExpression,
-			 TSourceItem item,
-			 bool defaultValue)
-		{
-			return new ObservableComputations.ContainsComputing<TSourceItem>(
-				sourceScalar: new Computing<System.Collections.Specialized.INotifyCollectionChanged>(sourceExpression),
-				item: item,
-				equalityComparer: null,
-				defaultValue: defaultValue);
+				equalityComparer: equalityComparer);
 		}
 
 		[ObservableComputationsCall]
@@ -5266,22 +4266,7 @@ namespace ObservableComputations
 			return new ObservableComputations.ContainsComputing<TSourceItem>(
 				sourceScalar: new Computing<System.Collections.Specialized.INotifyCollectionChanged>(sourceExpression),
 				item: item,
-				equalityComparer: null,
-				defaultValue: false);
-		}
-
-		[ObservableComputationsCall]
-		public static ObservableComputations.ContainsComputing<TSourceItem> ContainsComputing<TSourceItem>(this
-			 Expression<Func<ObservableCollection<TSourceItem>>> sourceExpression,
-			 TSourceItem item,
-			 System.Collections.Generic.IEqualityComparer<TSourceItem> equalityComparer,
-			 bool defaultValue)
-		{
-			return new ObservableComputations.ContainsComputing<TSourceItem>(
-				sourceScalar: new Computing<ObservableCollection<TSourceItem>>(sourceExpression),
-				item: item,
-				equalityComparer: equalityComparer,
-				defaultValue: defaultValue);
+				equalityComparer: null);
 		}
 
 		[ObservableComputationsCall]
@@ -5293,21 +4278,7 @@ namespace ObservableComputations
 			return new ObservableComputations.ContainsComputing<TSourceItem>(
 				sourceScalar: new Computing<ObservableCollection<TSourceItem>>(sourceExpression),
 				item: item,
-				equalityComparer: equalityComparer,
-				defaultValue: false);
-		}
-
-		[ObservableComputationsCall]
-		public static ObservableComputations.ContainsComputing<TSourceItem> ContainsComputing<TSourceItem>(this
-			 Expression<Func<ObservableCollection<TSourceItem>>> sourceExpression,
-			 TSourceItem item,
-			 bool defaultValue)
-		{
-			return new ObservableComputations.ContainsComputing<TSourceItem>(
-				sourceScalar: new Computing<ObservableCollection<TSourceItem>>(sourceExpression),
-				item: item,
-				equalityComparer: null,
-				defaultValue: defaultValue);
+				equalityComparer: equalityComparer);
 		}
 
 		[ObservableComputationsCall]
@@ -5318,8 +4289,7 @@ namespace ObservableComputations
 			return new ObservableComputations.ContainsComputing<TSourceItem>(
 				sourceScalar: new Computing<ObservableCollection<TSourceItem>>(sourceExpression),
 				item: item,
-				equalityComparer: null,
-				defaultValue: false);
+				equalityComparer: null);
 		}
 
 		[ObservableComputationsCall]
@@ -5943,35 +4913,11 @@ namespace ObservableComputations
 		[ObservableComputationsCall]
 		public static ObservableComputations.Differing<TResult> Differing<TResult>(this
 			 ObservableComputations.IReadScalar<TResult> source,
-			 System.Collections.Generic.IEqualityComparer<TResult> equalityComparer,
-			 TResult defaultValue)
-		{
-			return new ObservableComputations.Differing<TResult>(
-				source: source,
-				equalityComparer: equalityComparer,
-				defaultValue: defaultValue);
-		}
-
-		[ObservableComputationsCall]
-		public static ObservableComputations.Differing<TResult> Differing<TResult>(this
-			 ObservableComputations.IReadScalar<TResult> source,
 			 System.Collections.Generic.IEqualityComparer<TResult> equalityComparer)
 		{
 			return new ObservableComputations.Differing<TResult>(
 				source: source,
-				equalityComparer: equalityComparer,
-				defaultValue: default);
-		}
-
-		[ObservableComputationsCall]
-		public static ObservableComputations.Differing<TResult> Differing<TResult>(this
-			 ObservableComputations.IReadScalar<TResult> source,
-			 TResult defaultValue)
-		{
-			return new ObservableComputations.Differing<TResult>(
-				source: source,
-				equalityComparer: null,
-				defaultValue: defaultValue);
+				equalityComparer: equalityComparer);
 		}
 
 		[ObservableComputationsCall]
@@ -5980,20 +4926,7 @@ namespace ObservableComputations
 		{
 			return new ObservableComputations.Differing<TResult>(
 				source: source,
-				equalityComparer: null,
-				defaultValue: default);
-		}
-
-		[ObservableComputationsCall]
-		public static ObservableComputations.Differing<TResult> Differing<TResult>(this
-			 Expression<Func<TResult>> source,
-			 System.Collections.Generic.IEqualityComparer<TResult> equalityComparer,
-			 TResult defaultValue)
-		{
-			return new ObservableComputations.Differing<TResult>(
-				source: new Computing<TResult>(source),
-				equalityComparer: equalityComparer,
-				defaultValue: defaultValue);
+				equalityComparer: null);
 		}
 
 		[ObservableComputationsCall]
@@ -6003,19 +4936,7 @@ namespace ObservableComputations
 		{
 			return new ObservableComputations.Differing<TResult>(
 				source: new Computing<TResult>(source),
-				equalityComparer: equalityComparer,
-				defaultValue: default);
-		}
-
-		[ObservableComputationsCall]
-		public static ObservableComputations.Differing<TResult> Differing<TResult>(this
-			 Expression<Func<TResult>> source,
-			 TResult defaultValue)
-		{
-			return new ObservableComputations.Differing<TResult>(
-				source: new Computing<TResult>(source),
-				equalityComparer: null,
-				defaultValue: defaultValue);
+				equalityComparer: equalityComparer);
 		}
 
 		[ObservableComputationsCall]
@@ -6024,20 +4945,7 @@ namespace ObservableComputations
 		{
 			return new ObservableComputations.Differing<TResult>(
 				source: new Computing<TResult>(source),
-				equalityComparer: null,
-				defaultValue: default);
-		}
-
-		[ObservableComputationsCall]
-		public static ObservableComputations.Differing<TResult> Differing<TResult>(this
-			 ObservableComputations.IReadScalar<TResult> source,
-			 ObservableComputations.IReadScalar<System.Collections.Generic.IEqualityComparer<TResult>> equalityComparerScalar,
-			 TResult defaultValue)
-		{
-			return new ObservableComputations.Differing<TResult>(
-				source: source,
-				equalityComparerScalar: equalityComparerScalar,
-				defaultValue: defaultValue);
+				equalityComparer: null);
 		}
 
 		[ObservableComputationsCall]
@@ -6047,20 +4955,7 @@ namespace ObservableComputations
 		{
 			return new ObservableComputations.Differing<TResult>(
 				source: source,
-				equalityComparerScalar: equalityComparerScalar,
-				defaultValue: default);
-		}
-
-		[ObservableComputationsCall]
-		public static ObservableComputations.Differing<TResult> Differing<TResult>(this
-			 ObservableComputations.IReadScalar<TResult> source,
-			 Expression<Func<System.Collections.Generic.IEqualityComparer<TResult>>> equalityComparerExpression,
-			 TResult defaultValue)
-		{
-			return new ObservableComputations.Differing<TResult>(
-				source: source,
-				equalityComparerScalar: new Computing<System.Collections.Generic.IEqualityComparer<TResult>>(equalityComparerExpression),
-				defaultValue: defaultValue);
+				equalityComparerScalar: equalityComparerScalar);
 		}
 
 		[ObservableComputationsCall]
@@ -6070,20 +4965,7 @@ namespace ObservableComputations
 		{
 			return new ObservableComputations.Differing<TResult>(
 				source: source,
-				equalityComparerScalar: new Computing<System.Collections.Generic.IEqualityComparer<TResult>>(equalityComparerExpression),
-				defaultValue: default);
-		}
-
-		[ObservableComputationsCall]
-		public static ObservableComputations.Differing<TResult> Differing<TResult>(this
-			 Expression<Func<TResult>> source,
-			 ObservableComputations.IReadScalar<System.Collections.Generic.IEqualityComparer<TResult>> equalityComparerScalar,
-			 TResult defaultValue)
-		{
-			return new ObservableComputations.Differing<TResult>(
-				source: new Computing<TResult>(source),
-				equalityComparerScalar: equalityComparerScalar,
-				defaultValue: defaultValue);
+				equalityComparerScalar: new Computing<System.Collections.Generic.IEqualityComparer<TResult>>(equalityComparerExpression));
 		}
 
 		[ObservableComputationsCall]
@@ -6093,20 +4975,7 @@ namespace ObservableComputations
 		{
 			return new ObservableComputations.Differing<TResult>(
 				source: new Computing<TResult>(source),
-				equalityComparerScalar: equalityComparerScalar,
-				defaultValue: default);
-		}
-
-		[ObservableComputationsCall]
-		public static ObservableComputations.Differing<TResult> Differing<TResult>(this
-			 Expression<Func<TResult>> source,
-			 Expression<Func<System.Collections.Generic.IEqualityComparer<TResult>>> equalityComparerExpression,
-			 TResult defaultValue)
-		{
-			return new ObservableComputations.Differing<TResult>(
-				source: new Computing<TResult>(source),
-				equalityComparerScalar: new Computing<System.Collections.Generic.IEqualityComparer<TResult>>(equalityComparerExpression),
-				defaultValue: defaultValue);
+				equalityComparerScalar: equalityComparerScalar);
 		}
 
 		[ObservableComputationsCall]
@@ -6116,8 +4985,7 @@ namespace ObservableComputations
 		{
 			return new ObservableComputations.Differing<TResult>(
 				source: new Computing<TResult>(source),
-				equalityComparerScalar: new Computing<System.Collections.Generic.IEqualityComparer<TResult>>(equalityComparerExpression),
-				defaultValue: default);
+				equalityComparerScalar: new Computing<System.Collections.Generic.IEqualityComparer<TResult>>(equalityComparerExpression));
 		}
 
 		#endregion
@@ -10679,31 +9547,10 @@ namespace ObservableComputations
 
 		[ObservableComputationsCall]
 		public static ObservableComputations.FirstComputing<TSourceItem> FirstComputing<TSourceItem>(this
-			 ObservableComputations.IReadScalar<System.Collections.Specialized.INotifyCollectionChanged> sourceScalar,
-			 TSourceItem defaultValue)
-		{
-			return new ObservableComputations.FirstComputing<TSourceItem>(
-				sourceScalar: sourceScalar,
-				defaultValue: defaultValue);
-		}
-
-		[ObservableComputationsCall]
-		public static ObservableComputations.FirstComputing<TSourceItem> FirstComputing<TSourceItem>(this
 			 ObservableComputations.IReadScalar<System.Collections.Specialized.INotifyCollectionChanged> sourceScalar)
 		{
 			return new ObservableComputations.FirstComputing<TSourceItem>(
-				sourceScalar: sourceScalar,
-				defaultValue: default);
-		}
-
-		[ObservableComputationsCall]
-		public static ObservableComputations.FirstComputing<TSourceItem> FirstComputing<TSourceItem>(this
-			 ObservableComputations.IReadScalar<ObservableCollection<TSourceItem>> sourceScalar,
-			 TSourceItem defaultValue)
-		{
-			return new ObservableComputations.FirstComputing<TSourceItem>(
-				sourceScalar: sourceScalar,
-				defaultValue: defaultValue);
+				sourceScalar: sourceScalar);
 		}
 
 		[ObservableComputationsCall]
@@ -10711,18 +9558,7 @@ namespace ObservableComputations
 			 ObservableComputations.IReadScalar<ObservableCollection<TSourceItem>> sourceScalar)
 		{
 			return new ObservableComputations.FirstComputing<TSourceItem>(
-				sourceScalar: sourceScalar,
-				defaultValue: default);
-		}
-
-		[ObservableComputationsCall]
-		public static ObservableComputations.FirstComputing<TSourceItem> FirstComputing<TSourceItem>(this
-			 Expression<Func<System.Collections.Specialized.INotifyCollectionChanged>> sourceExpression,
-			 TSourceItem defaultValue)
-		{
-			return new ObservableComputations.FirstComputing<TSourceItem>(
-				sourceScalar: new Computing<System.Collections.Specialized.INotifyCollectionChanged>(sourceExpression),
-				defaultValue: defaultValue);
+				sourceScalar: sourceScalar);
 		}
 
 		[ObservableComputationsCall]
@@ -10730,18 +9566,7 @@ namespace ObservableComputations
 			 Expression<Func<System.Collections.Specialized.INotifyCollectionChanged>> sourceExpression)
 		{
 			return new ObservableComputations.FirstComputing<TSourceItem>(
-				sourceScalar: new Computing<System.Collections.Specialized.INotifyCollectionChanged>(sourceExpression),
-				defaultValue: default);
-		}
-
-		[ObservableComputationsCall]
-		public static ObservableComputations.FirstComputing<TSourceItem> FirstComputing<TSourceItem>(this
-			 Expression<Func<ObservableCollection<TSourceItem>>> sourceExpression,
-			 TSourceItem defaultValue)
-		{
-			return new ObservableComputations.FirstComputing<TSourceItem>(
-				sourceScalar: new Computing<ObservableCollection<TSourceItem>>(sourceExpression),
-				defaultValue: defaultValue);
+				sourceScalar: new Computing<System.Collections.Specialized.INotifyCollectionChanged>(sourceExpression));
 		}
 
 		[ObservableComputationsCall]
@@ -10749,18 +9574,7 @@ namespace ObservableComputations
 			 Expression<Func<ObservableCollection<TSourceItem>>> sourceExpression)
 		{
 			return new ObservableComputations.FirstComputing<TSourceItem>(
-				sourceScalar: new Computing<ObservableCollection<TSourceItem>>(sourceExpression),
-				defaultValue: default);
-		}
-
-		[ObservableComputationsCall]
-		public static ObservableComputations.FirstComputing<TSourceItem> FirstComputing<TSourceItem>(this
-			 System.Collections.Specialized.INotifyCollectionChanged source,
-			 TSourceItem defaultValue)
-		{
-			return new ObservableComputations.FirstComputing<TSourceItem>(
-				source: source,
-				defaultValue: defaultValue);
+				sourceScalar: new Computing<ObservableCollection<TSourceItem>>(sourceExpression));
 		}
 
 		[ObservableComputationsCall]
@@ -10768,18 +9582,7 @@ namespace ObservableComputations
 			 System.Collections.Specialized.INotifyCollectionChanged source)
 		{
 			return new ObservableComputations.FirstComputing<TSourceItem>(
-				source: source,
-				defaultValue: default);
-		}
-
-		[ObservableComputationsCall]
-		public static ObservableComputations.FirstComputing<TSourceItem> FirstComputing<TSourceItem>(this
-			 ObservableCollection<TSourceItem> source,
-			 TSourceItem defaultValue)
-		{
-			return new ObservableComputations.FirstComputing<TSourceItem>(
-				source: source,
-				defaultValue: defaultValue);
+				source: source);
 		}
 
 		[ObservableComputationsCall]
@@ -10787,8 +9590,7 @@ namespace ObservableComputations
 			 ObservableCollection<TSourceItem> source)
 		{
 			return new ObservableComputations.FirstComputing<TSourceItem>(
-				source: source,
-				defaultValue: default);
+				source: source);
 		}
 
 		#endregion
@@ -17952,36 +16754,11 @@ namespace ObservableComputations
 		[ObservableComputationsCall]
 		public static ObservableComputations.ItemComputing<TSourceItem> ItemComputing<TSourceItem>(this
 			 ObservableComputations.IReadScalar<System.Collections.Specialized.INotifyCollectionChanged> sourceScalar,
-			 int index,
-			 TSourceItem defaultValue)
-		{
-			return new ObservableComputations.ItemComputing<TSourceItem>(
-				sourceScalar: sourceScalar,
-				index: index,
-				defaultValue: defaultValue);
-		}
-
-		[ObservableComputationsCall]
-		public static ObservableComputations.ItemComputing<TSourceItem> ItemComputing<TSourceItem>(this
-			 ObservableComputations.IReadScalar<System.Collections.Specialized.INotifyCollectionChanged> sourceScalar,
 			 int index)
 		{
 			return new ObservableComputations.ItemComputing<TSourceItem>(
 				sourceScalar: sourceScalar,
-				index: index,
-				defaultValue: default);
-		}
-
-		[ObservableComputationsCall]
-		public static ObservableComputations.ItemComputing<TSourceItem> ItemComputing<TSourceItem>(this
-			 ObservableComputations.IReadScalar<ObservableCollection<TSourceItem>> sourceScalar,
-			 int index,
-			 TSourceItem defaultValue)
-		{
-			return new ObservableComputations.ItemComputing<TSourceItem>(
-				sourceScalar: sourceScalar,
-				index: index,
-				defaultValue: defaultValue);
+				index: index);
 		}
 
 		[ObservableComputationsCall]
@@ -17991,20 +16768,7 @@ namespace ObservableComputations
 		{
 			return new ObservableComputations.ItemComputing<TSourceItem>(
 				sourceScalar: sourceScalar,
-				index: index,
-				defaultValue: default);
-		}
-
-		[ObservableComputationsCall]
-		public static ObservableComputations.ItemComputing<TSourceItem> ItemComputing<TSourceItem>(this
-			 Expression<Func<System.Collections.Specialized.INotifyCollectionChanged>> sourceExpression,
-			 int index,
-			 TSourceItem defaultValue)
-		{
-			return new ObservableComputations.ItemComputing<TSourceItem>(
-				sourceScalar: new Computing<System.Collections.Specialized.INotifyCollectionChanged>(sourceExpression),
-				index: index,
-				defaultValue: defaultValue);
+				index: index);
 		}
 
 		[ObservableComputationsCall]
@@ -18014,20 +16778,7 @@ namespace ObservableComputations
 		{
 			return new ObservableComputations.ItemComputing<TSourceItem>(
 				sourceScalar: new Computing<System.Collections.Specialized.INotifyCollectionChanged>(sourceExpression),
-				index: index,
-				defaultValue: default);
-		}
-
-		[ObservableComputationsCall]
-		public static ObservableComputations.ItemComputing<TSourceItem> ItemComputing<TSourceItem>(this
-			 Expression<Func<ObservableCollection<TSourceItem>>> sourceExpression,
-			 int index,
-			 TSourceItem defaultValue)
-		{
-			return new ObservableComputations.ItemComputing<TSourceItem>(
-				sourceScalar: new Computing<ObservableCollection<TSourceItem>>(sourceExpression),
-				index: index,
-				defaultValue: defaultValue);
+				index: index);
 		}
 
 		[ObservableComputationsCall]
@@ -18037,20 +16788,7 @@ namespace ObservableComputations
 		{
 			return new ObservableComputations.ItemComputing<TSourceItem>(
 				sourceScalar: new Computing<ObservableCollection<TSourceItem>>(sourceExpression),
-				index: index,
-				defaultValue: default);
-		}
-
-		[ObservableComputationsCall]
-		public static ObservableComputations.ItemComputing<TSourceItem> ItemComputing<TSourceItem>(this
-			 ObservableComputations.IReadScalar<System.Collections.Specialized.INotifyCollectionChanged> sourceScalar,
-			 ObservableComputations.IReadScalar<int> indexScalar,
-			 TSourceItem defaultValue)
-		{
-			return new ObservableComputations.ItemComputing<TSourceItem>(
-				sourceScalar: sourceScalar,
-				indexScalar: indexScalar,
-				defaultValue: defaultValue);
+				index: index);
 		}
 
 		[ObservableComputationsCall]
@@ -18060,20 +16798,7 @@ namespace ObservableComputations
 		{
 			return new ObservableComputations.ItemComputing<TSourceItem>(
 				sourceScalar: sourceScalar,
-				indexScalar: indexScalar,
-				defaultValue: default);
-		}
-
-		[ObservableComputationsCall]
-		public static ObservableComputations.ItemComputing<TSourceItem> ItemComputing<TSourceItem>(this
-			 ObservableComputations.IReadScalar<System.Collections.Specialized.INotifyCollectionChanged> sourceScalar,
-			 Expression<Func<int>> indexExpression,
-			 TSourceItem defaultValue)
-		{
-			return new ObservableComputations.ItemComputing<TSourceItem>(
-				sourceScalar: sourceScalar,
-				indexScalar: new Computing<int>(indexExpression),
-				defaultValue: defaultValue);
+				indexScalar: indexScalar);
 		}
 
 		[ObservableComputationsCall]
@@ -18083,20 +16808,7 @@ namespace ObservableComputations
 		{
 			return new ObservableComputations.ItemComputing<TSourceItem>(
 				sourceScalar: sourceScalar,
-				indexScalar: new Computing<int>(indexExpression),
-				defaultValue: default);
-		}
-
-		[ObservableComputationsCall]
-		public static ObservableComputations.ItemComputing<TSourceItem> ItemComputing<TSourceItem>(this
-			 ObservableComputations.IReadScalar<ObservableCollection<TSourceItem>> sourceScalar,
-			 ObservableComputations.IReadScalar<int> indexScalar,
-			 TSourceItem defaultValue)
-		{
-			return new ObservableComputations.ItemComputing<TSourceItem>(
-				sourceScalar: sourceScalar,
-				indexScalar: indexScalar,
-				defaultValue: defaultValue);
+				indexScalar: new Computing<int>(indexExpression));
 		}
 
 		[ObservableComputationsCall]
@@ -18106,20 +16818,7 @@ namespace ObservableComputations
 		{
 			return new ObservableComputations.ItemComputing<TSourceItem>(
 				sourceScalar: sourceScalar,
-				indexScalar: indexScalar,
-				defaultValue: default);
-		}
-
-		[ObservableComputationsCall]
-		public static ObservableComputations.ItemComputing<TSourceItem> ItemComputing<TSourceItem>(this
-			 ObservableComputations.IReadScalar<ObservableCollection<TSourceItem>> sourceScalar,
-			 Expression<Func<int>> indexExpression,
-			 TSourceItem defaultValue)
-		{
-			return new ObservableComputations.ItemComputing<TSourceItem>(
-				sourceScalar: sourceScalar,
-				indexScalar: new Computing<int>(indexExpression),
-				defaultValue: defaultValue);
+				indexScalar: indexScalar);
 		}
 
 		[ObservableComputationsCall]
@@ -18129,20 +16828,7 @@ namespace ObservableComputations
 		{
 			return new ObservableComputations.ItemComputing<TSourceItem>(
 				sourceScalar: sourceScalar,
-				indexScalar: new Computing<int>(indexExpression),
-				defaultValue: default);
-		}
-
-		[ObservableComputationsCall]
-		public static ObservableComputations.ItemComputing<TSourceItem> ItemComputing<TSourceItem>(this
-			 Expression<Func<System.Collections.Specialized.INotifyCollectionChanged>> sourceExpression,
-			 ObservableComputations.IReadScalar<int> indexScalar,
-			 TSourceItem defaultValue)
-		{
-			return new ObservableComputations.ItemComputing<TSourceItem>(
-				sourceScalar: new Computing<System.Collections.Specialized.INotifyCollectionChanged>(sourceExpression),
-				indexScalar: indexScalar,
-				defaultValue: defaultValue);
+				indexScalar: new Computing<int>(indexExpression));
 		}
 
 		[ObservableComputationsCall]
@@ -18152,20 +16838,7 @@ namespace ObservableComputations
 		{
 			return new ObservableComputations.ItemComputing<TSourceItem>(
 				sourceScalar: new Computing<System.Collections.Specialized.INotifyCollectionChanged>(sourceExpression),
-				indexScalar: indexScalar,
-				defaultValue: default);
-		}
-
-		[ObservableComputationsCall]
-		public static ObservableComputations.ItemComputing<TSourceItem> ItemComputing<TSourceItem>(this
-			 Expression<Func<System.Collections.Specialized.INotifyCollectionChanged>> sourceExpression,
-			 Expression<Func<int>> indexExpression,
-			 TSourceItem defaultValue)
-		{
-			return new ObservableComputations.ItemComputing<TSourceItem>(
-				sourceScalar: new Computing<System.Collections.Specialized.INotifyCollectionChanged>(sourceExpression),
-				indexScalar: new Computing<int>(indexExpression),
-				defaultValue: defaultValue);
+				indexScalar: indexScalar);
 		}
 
 		[ObservableComputationsCall]
@@ -18175,20 +16848,7 @@ namespace ObservableComputations
 		{
 			return new ObservableComputations.ItemComputing<TSourceItem>(
 				sourceScalar: new Computing<System.Collections.Specialized.INotifyCollectionChanged>(sourceExpression),
-				indexScalar: new Computing<int>(indexExpression),
-				defaultValue: default);
-		}
-
-		[ObservableComputationsCall]
-		public static ObservableComputations.ItemComputing<TSourceItem> ItemComputing<TSourceItem>(this
-			 Expression<Func<ObservableCollection<TSourceItem>>> sourceExpression,
-			 ObservableComputations.IReadScalar<int> indexScalar,
-			 TSourceItem defaultValue)
-		{
-			return new ObservableComputations.ItemComputing<TSourceItem>(
-				sourceScalar: new Computing<ObservableCollection<TSourceItem>>(sourceExpression),
-				indexScalar: indexScalar,
-				defaultValue: defaultValue);
+				indexScalar: new Computing<int>(indexExpression));
 		}
 
 		[ObservableComputationsCall]
@@ -18198,20 +16858,7 @@ namespace ObservableComputations
 		{
 			return new ObservableComputations.ItemComputing<TSourceItem>(
 				sourceScalar: new Computing<ObservableCollection<TSourceItem>>(sourceExpression),
-				indexScalar: indexScalar,
-				defaultValue: default);
-		}
-
-		[ObservableComputationsCall]
-		public static ObservableComputations.ItemComputing<TSourceItem> ItemComputing<TSourceItem>(this
-			 Expression<Func<ObservableCollection<TSourceItem>>> sourceExpression,
-			 Expression<Func<int>> indexExpression,
-			 TSourceItem defaultValue)
-		{
-			return new ObservableComputations.ItemComputing<TSourceItem>(
-				sourceScalar: new Computing<ObservableCollection<TSourceItem>>(sourceExpression),
-				indexScalar: new Computing<int>(indexExpression),
-				defaultValue: defaultValue);
+				indexScalar: indexScalar);
 		}
 
 		[ObservableComputationsCall]
@@ -18221,20 +16868,7 @@ namespace ObservableComputations
 		{
 			return new ObservableComputations.ItemComputing<TSourceItem>(
 				sourceScalar: new Computing<ObservableCollection<TSourceItem>>(sourceExpression),
-				indexScalar: new Computing<int>(indexExpression),
-				defaultValue: default);
-		}
-
-		[ObservableComputationsCall]
-		public static ObservableComputations.ItemComputing<TSourceItem> ItemComputing<TSourceItem>(this
-			 System.Collections.Specialized.INotifyCollectionChanged source,
-			 int index,
-			 TSourceItem defaultValue)
-		{
-			return new ObservableComputations.ItemComputing<TSourceItem>(
-				source: source,
-				index: index,
-				defaultValue: defaultValue);
+				indexScalar: new Computing<int>(indexExpression));
 		}
 
 		[ObservableComputationsCall]
@@ -18244,20 +16878,7 @@ namespace ObservableComputations
 		{
 			return new ObservableComputations.ItemComputing<TSourceItem>(
 				source: source,
-				index: index,
-				defaultValue: default);
-		}
-
-		[ObservableComputationsCall]
-		public static ObservableComputations.ItemComputing<TSourceItem> ItemComputing<TSourceItem>(this
-			 ObservableCollection<TSourceItem> source,
-			 int index,
-			 TSourceItem defaultValue)
-		{
-			return new ObservableComputations.ItemComputing<TSourceItem>(
-				source: source,
-				index: index,
-				defaultValue: defaultValue);
+				index: index);
 		}
 
 		[ObservableComputationsCall]
@@ -18267,20 +16888,7 @@ namespace ObservableComputations
 		{
 			return new ObservableComputations.ItemComputing<TSourceItem>(
 				source: source,
-				index: index,
-				defaultValue: default);
-		}
-
-		[ObservableComputationsCall]
-		public static ObservableComputations.ItemComputing<TSourceItem> ItemComputing<TSourceItem>(this
-			 System.Collections.Specialized.INotifyCollectionChanged source,
-			 ObservableComputations.IReadScalar<int> indexScalar,
-			 TSourceItem defaultValue)
-		{
-			return new ObservableComputations.ItemComputing<TSourceItem>(
-				source: source,
-				indexScalar: indexScalar,
-				defaultValue: defaultValue);
+				index: index);
 		}
 
 		[ObservableComputationsCall]
@@ -18290,20 +16898,7 @@ namespace ObservableComputations
 		{
 			return new ObservableComputations.ItemComputing<TSourceItem>(
 				source: source,
-				indexScalar: indexScalar,
-				defaultValue: default);
-		}
-
-		[ObservableComputationsCall]
-		public static ObservableComputations.ItemComputing<TSourceItem> ItemComputing<TSourceItem>(this
-			 System.Collections.Specialized.INotifyCollectionChanged source,
-			 Expression<Func<int>> indexExpression,
-			 TSourceItem defaultValue)
-		{
-			return new ObservableComputations.ItemComputing<TSourceItem>(
-				source: source,
-				indexScalar: new Computing<int>(indexExpression),
-				defaultValue: defaultValue);
+				indexScalar: indexScalar);
 		}
 
 		[ObservableComputationsCall]
@@ -18313,20 +16908,7 @@ namespace ObservableComputations
 		{
 			return new ObservableComputations.ItemComputing<TSourceItem>(
 				source: source,
-				indexScalar: new Computing<int>(indexExpression),
-				defaultValue: default);
-		}
-
-		[ObservableComputationsCall]
-		public static ObservableComputations.ItemComputing<TSourceItem> ItemComputing<TSourceItem>(this
-			 ObservableCollection<TSourceItem> source,
-			 ObservableComputations.IReadScalar<int> indexScalar,
-			 TSourceItem defaultValue)
-		{
-			return new ObservableComputations.ItemComputing<TSourceItem>(
-				source: source,
-				indexScalar: indexScalar,
-				defaultValue: defaultValue);
+				indexScalar: new Computing<int>(indexExpression));
 		}
 
 		[ObservableComputationsCall]
@@ -18336,20 +16918,7 @@ namespace ObservableComputations
 		{
 			return new ObservableComputations.ItemComputing<TSourceItem>(
 				source: source,
-				indexScalar: indexScalar,
-				defaultValue: default);
-		}
-
-		[ObservableComputationsCall]
-		public static ObservableComputations.ItemComputing<TSourceItem> ItemComputing<TSourceItem>(this
-			 ObservableCollection<TSourceItem> source,
-			 Expression<Func<int>> indexExpression,
-			 TSourceItem defaultValue)
-		{
-			return new ObservableComputations.ItemComputing<TSourceItem>(
-				source: source,
-				indexScalar: new Computing<int>(indexExpression),
-				defaultValue: defaultValue);
+				indexScalar: indexScalar);
 		}
 
 		[ObservableComputationsCall]
@@ -18359,8 +16928,7 @@ namespace ObservableComputations
 		{
 			return new ObservableComputations.ItemComputing<TSourceItem>(
 				source: source,
-				indexScalar: new Computing<int>(indexExpression),
-				defaultValue: default);
+				indexScalar: new Computing<int>(indexExpression));
 		}
 
 		#endregion
@@ -19343,31 +17911,10 @@ namespace ObservableComputations
 
 		[ObservableComputationsCall]
 		public static ObservableComputations.LastComputing<TSourceItem> LastComputing<TSourceItem>(this
-			 ObservableComputations.IReadScalar<System.Collections.Specialized.INotifyCollectionChanged> sourceScalar,
-			 TSourceItem defaultValue)
-		{
-			return new ObservableComputations.LastComputing<TSourceItem>(
-				sourceScalar: sourceScalar,
-				defaultValue: defaultValue);
-		}
-
-		[ObservableComputationsCall]
-		public static ObservableComputations.LastComputing<TSourceItem> LastComputing<TSourceItem>(this
 			 ObservableComputations.IReadScalar<System.Collections.Specialized.INotifyCollectionChanged> sourceScalar)
 		{
 			return new ObservableComputations.LastComputing<TSourceItem>(
-				sourceScalar: sourceScalar,
-				defaultValue: default);
-		}
-
-		[ObservableComputationsCall]
-		public static ObservableComputations.LastComputing<TSourceItem> LastComputing<TSourceItem>(this
-			 ObservableComputations.IReadScalar<ObservableCollection<TSourceItem>> sourceScalar,
-			 TSourceItem defaultValue)
-		{
-			return new ObservableComputations.LastComputing<TSourceItem>(
-				sourceScalar: sourceScalar,
-				defaultValue: defaultValue);
+				sourceScalar: sourceScalar);
 		}
 
 		[ObservableComputationsCall]
@@ -19375,18 +17922,7 @@ namespace ObservableComputations
 			 ObservableComputations.IReadScalar<ObservableCollection<TSourceItem>> sourceScalar)
 		{
 			return new ObservableComputations.LastComputing<TSourceItem>(
-				sourceScalar: sourceScalar,
-				defaultValue: default);
-		}
-
-		[ObservableComputationsCall]
-		public static ObservableComputations.LastComputing<TSourceItem> LastComputing<TSourceItem>(this
-			 Expression<Func<System.Collections.Specialized.INotifyCollectionChanged>> sourceExpression,
-			 TSourceItem defaultValue)
-		{
-			return new ObservableComputations.LastComputing<TSourceItem>(
-				sourceScalar: new Computing<System.Collections.Specialized.INotifyCollectionChanged>(sourceExpression),
-				defaultValue: defaultValue);
+				sourceScalar: sourceScalar);
 		}
 
 		[ObservableComputationsCall]
@@ -19394,18 +17930,7 @@ namespace ObservableComputations
 			 Expression<Func<System.Collections.Specialized.INotifyCollectionChanged>> sourceExpression)
 		{
 			return new ObservableComputations.LastComputing<TSourceItem>(
-				sourceScalar: new Computing<System.Collections.Specialized.INotifyCollectionChanged>(sourceExpression),
-				defaultValue: default);
-		}
-
-		[ObservableComputationsCall]
-		public static ObservableComputations.LastComputing<TSourceItem> LastComputing<TSourceItem>(this
-			 Expression<Func<ObservableCollection<TSourceItem>>> sourceExpression,
-			 TSourceItem defaultValue)
-		{
-			return new ObservableComputations.LastComputing<TSourceItem>(
-				sourceScalar: new Computing<ObservableCollection<TSourceItem>>(sourceExpression),
-				defaultValue: defaultValue);
+				sourceScalar: new Computing<System.Collections.Specialized.INotifyCollectionChanged>(sourceExpression));
 		}
 
 		[ObservableComputationsCall]
@@ -19413,18 +17938,7 @@ namespace ObservableComputations
 			 Expression<Func<ObservableCollection<TSourceItem>>> sourceExpression)
 		{
 			return new ObservableComputations.LastComputing<TSourceItem>(
-				sourceScalar: new Computing<ObservableCollection<TSourceItem>>(sourceExpression),
-				defaultValue: default);
-		}
-
-		[ObservableComputationsCall]
-		public static ObservableComputations.LastComputing<TSourceItem> LastComputing<TSourceItem>(this
-			 System.Collections.Specialized.INotifyCollectionChanged source,
-			 TSourceItem defaultValue)
-		{
-			return new ObservableComputations.LastComputing<TSourceItem>(
-				source: source,
-				defaultValue: defaultValue);
+				sourceScalar: new Computing<ObservableCollection<TSourceItem>>(sourceExpression));
 		}
 
 		[ObservableComputationsCall]
@@ -19432,18 +17946,7 @@ namespace ObservableComputations
 			 System.Collections.Specialized.INotifyCollectionChanged source)
 		{
 			return new ObservableComputations.LastComputing<TSourceItem>(
-				source: source,
-				defaultValue: default);
-		}
-
-		[ObservableComputationsCall]
-		public static ObservableComputations.LastComputing<TSourceItem> LastComputing<TSourceItem>(this
-			 ObservableCollection<TSourceItem> source,
-			 TSourceItem defaultValue)
-		{
-			return new ObservableComputations.LastComputing<TSourceItem>(
-				source: source,
-				defaultValue: defaultValue);
+				source: source);
 		}
 
 		[ObservableComputationsCall]
@@ -19451,8 +17954,7 @@ namespace ObservableComputations
 			 ObservableCollection<TSourceItem> source)
 		{
 			return new ObservableComputations.LastComputing<TSourceItem>(
-				source: source,
-				defaultValue: default);
+				source: source);
 		}
 
 		#endregion
@@ -19461,38 +17963,12 @@ namespace ObservableComputations
 		[ObservableComputationsCall]
 		public static ObservableComputations.MinimazingOrMaximazing<TSourceItem> Maximazing<TSourceItem>(this
 			 ObservableComputations.IReadScalar<System.Collections.Specialized.INotifyCollectionChanged> sourceScalar,
-			 System.Collections.Generic.IComparer<TSourceItem> comparer,
-			 TSourceItem defaultValue)
-		{
-			return new ObservableComputations.MinimazingOrMaximazing<TSourceItem>(
-				sourceScalar: sourceScalar,
-				mode: MinimazingOrMaximazingMode.Maximazing,
-				comparer: comparer,
-				defaultValue: defaultValue);
-		}
-
-		[ObservableComputationsCall]
-		public static ObservableComputations.MinimazingOrMaximazing<TSourceItem> Maximazing<TSourceItem>(this
-			 ObservableComputations.IReadScalar<System.Collections.Specialized.INotifyCollectionChanged> sourceScalar,
 			 System.Collections.Generic.IComparer<TSourceItem> comparer)
 		{
 			return new ObservableComputations.MinimazingOrMaximazing<TSourceItem>(
 				sourceScalar: sourceScalar,
 				mode: MinimazingOrMaximazingMode.Maximazing,
-				comparer: comparer,
-				defaultValue: default);
-		}
-
-		[ObservableComputationsCall]
-		public static ObservableComputations.MinimazingOrMaximazing<TSourceItem> Maximazing<TSourceItem>(this
-			 ObservableComputations.IReadScalar<System.Collections.Specialized.INotifyCollectionChanged> sourceScalar,
-			 TSourceItem defaultValue)
-		{
-			return new ObservableComputations.MinimazingOrMaximazing<TSourceItem>(
-				sourceScalar: sourceScalar,
-				mode: MinimazingOrMaximazingMode.Maximazing,
-				comparer: null,
-				defaultValue: defaultValue);
+				comparer: comparer);
 		}
 
 		[ObservableComputationsCall]
@@ -19502,21 +17978,7 @@ namespace ObservableComputations
 			return new ObservableComputations.MinimazingOrMaximazing<TSourceItem>(
 				sourceScalar: sourceScalar,
 				mode: MinimazingOrMaximazingMode.Maximazing,
-				comparer: null,
-				defaultValue: default);
-		}
-
-		[ObservableComputationsCall]
-		public static ObservableComputations.MinimazingOrMaximazing<TSourceItem> Maximazing<TSourceItem>(this
-			 ObservableComputations.IReadScalar<ObservableCollection<TSourceItem>> sourceScalar,
-			 System.Collections.Generic.IComparer<TSourceItem> comparer,
-			 TSourceItem defaultValue)
-		{
-			return new ObservableComputations.MinimazingOrMaximazing<TSourceItem>(
-				sourceScalar: sourceScalar,
-				mode: MinimazingOrMaximazingMode.Maximazing,
-				comparer: comparer,
-				defaultValue: defaultValue);
+				comparer: null);
 		}
 
 		[ObservableComputationsCall]
@@ -19527,20 +17989,7 @@ namespace ObservableComputations
 			return new ObservableComputations.MinimazingOrMaximazing<TSourceItem>(
 				sourceScalar: sourceScalar,
 				mode: MinimazingOrMaximazingMode.Maximazing,
-				comparer: comparer,
-				defaultValue: default);
-		}
-
-		[ObservableComputationsCall]
-		public static ObservableComputations.MinimazingOrMaximazing<TSourceItem> Maximazing<TSourceItem>(this
-			 ObservableComputations.IReadScalar<ObservableCollection<TSourceItem>> sourceScalar,
-			 TSourceItem defaultValue)
-		{
-			return new ObservableComputations.MinimazingOrMaximazing<TSourceItem>(
-				sourceScalar: sourceScalar,
-				mode: MinimazingOrMaximazingMode.Maximazing,
-				comparer: null,
-				defaultValue: defaultValue);
+				comparer: comparer);
 		}
 
 		[ObservableComputationsCall]
@@ -19550,21 +17999,7 @@ namespace ObservableComputations
 			return new ObservableComputations.MinimazingOrMaximazing<TSourceItem>(
 				sourceScalar: sourceScalar,
 				mode: MinimazingOrMaximazingMode.Maximazing,
-				comparer: null,
-				defaultValue: default);
-		}
-
-		[ObservableComputationsCall]
-		public static ObservableComputations.MinimazingOrMaximazing<TSourceItem> Maximazing<TSourceItem>(this
-			 Expression<Func<System.Collections.Specialized.INotifyCollectionChanged>> sourceExpression,
-			 System.Collections.Generic.IComparer<TSourceItem> comparer,
-			 TSourceItem defaultValue)
-		{
-			return new ObservableComputations.MinimazingOrMaximazing<TSourceItem>(
-				sourceScalar: new Computing<System.Collections.Specialized.INotifyCollectionChanged>(sourceExpression),
-				mode: MinimazingOrMaximazingMode.Maximazing,
-				comparer: comparer,
-				defaultValue: defaultValue);
+				comparer: null);
 		}
 
 		[ObservableComputationsCall]
@@ -19575,20 +18010,7 @@ namespace ObservableComputations
 			return new ObservableComputations.MinimazingOrMaximazing<TSourceItem>(
 				sourceScalar: new Computing<System.Collections.Specialized.INotifyCollectionChanged>(sourceExpression),
 				mode: MinimazingOrMaximazingMode.Maximazing,
-				comparer: comparer,
-				defaultValue: default);
-		}
-
-		[ObservableComputationsCall]
-		public static ObservableComputations.MinimazingOrMaximazing<TSourceItem> Maximazing<TSourceItem>(this
-			 Expression<Func<System.Collections.Specialized.INotifyCollectionChanged>> sourceExpression,
-			 TSourceItem defaultValue)
-		{
-			return new ObservableComputations.MinimazingOrMaximazing<TSourceItem>(
-				sourceScalar: new Computing<System.Collections.Specialized.INotifyCollectionChanged>(sourceExpression),
-				mode: MinimazingOrMaximazingMode.Maximazing,
-				comparer: null,
-				defaultValue: defaultValue);
+				comparer: comparer);
 		}
 
 		[ObservableComputationsCall]
@@ -19598,21 +18020,7 @@ namespace ObservableComputations
 			return new ObservableComputations.MinimazingOrMaximazing<TSourceItem>(
 				sourceScalar: new Computing<System.Collections.Specialized.INotifyCollectionChanged>(sourceExpression),
 				mode: MinimazingOrMaximazingMode.Maximazing,
-				comparer: null,
-				defaultValue: default);
-		}
-
-		[ObservableComputationsCall]
-		public static ObservableComputations.MinimazingOrMaximazing<TSourceItem> Maximazing<TSourceItem>(this
-			 Expression<Func<ObservableCollection<TSourceItem>>> sourceExpression,
-			 System.Collections.Generic.IComparer<TSourceItem> comparer,
-			 TSourceItem defaultValue)
-		{
-			return new ObservableComputations.MinimazingOrMaximazing<TSourceItem>(
-				sourceScalar: new Computing<ObservableCollection<TSourceItem>>(sourceExpression),
-				mode: MinimazingOrMaximazingMode.Maximazing,
-				comparer: comparer,
-				defaultValue: defaultValue);
+				comparer: null);
 		}
 
 		[ObservableComputationsCall]
@@ -19623,20 +18031,7 @@ namespace ObservableComputations
 			return new ObservableComputations.MinimazingOrMaximazing<TSourceItem>(
 				sourceScalar: new Computing<ObservableCollection<TSourceItem>>(sourceExpression),
 				mode: MinimazingOrMaximazingMode.Maximazing,
-				comparer: comparer,
-				defaultValue: default);
-		}
-
-		[ObservableComputationsCall]
-		public static ObservableComputations.MinimazingOrMaximazing<TSourceItem> Maximazing<TSourceItem>(this
-			 Expression<Func<ObservableCollection<TSourceItem>>> sourceExpression,
-			 TSourceItem defaultValue)
-		{
-			return new ObservableComputations.MinimazingOrMaximazing<TSourceItem>(
-				sourceScalar: new Computing<ObservableCollection<TSourceItem>>(sourceExpression),
-				mode: MinimazingOrMaximazingMode.Maximazing,
-				comparer: null,
-				defaultValue: defaultValue);
+				comparer: comparer);
 		}
 
 		[ObservableComputationsCall]
@@ -19646,21 +18041,7 @@ namespace ObservableComputations
 			return new ObservableComputations.MinimazingOrMaximazing<TSourceItem>(
 				sourceScalar: new Computing<ObservableCollection<TSourceItem>>(sourceExpression),
 				mode: MinimazingOrMaximazingMode.Maximazing,
-				comparer: null,
-				defaultValue: default);
-		}
-
-		[ObservableComputationsCall]
-		public static ObservableComputations.MinimazingOrMaximazing<TSourceItem> Maximazing<TSourceItem>(this
-			 ObservableComputations.IReadScalar<System.Collections.Specialized.INotifyCollectionChanged> sourceScalar,
-			 ObservableComputations.IReadScalar<System.Collections.Generic.IComparer<TSourceItem>> comparerScalar,
-			 TSourceItem defaultValue)
-		{
-			return new ObservableComputations.MinimazingOrMaximazing<TSourceItem>(
-				sourceScalar: sourceScalar,
-				mode: MinimazingOrMaximazingMode.Maximazing,
-				comparerScalar: comparerScalar,
-				defaultValue: defaultValue);
+				comparer: null);
 		}
 
 		[ObservableComputationsCall]
@@ -19671,21 +18052,7 @@ namespace ObservableComputations
 			return new ObservableComputations.MinimazingOrMaximazing<TSourceItem>(
 				sourceScalar: sourceScalar,
 				mode: MinimazingOrMaximazingMode.Maximazing,
-				comparerScalar: comparerScalar,
-				defaultValue: default);
-		}
-
-		[ObservableComputationsCall]
-		public static ObservableComputations.MinimazingOrMaximazing<TSourceItem> Maximazing<TSourceItem>(this
-			 ObservableComputations.IReadScalar<System.Collections.Specialized.INotifyCollectionChanged> sourceScalar,
-			 Expression<Func<System.Collections.Generic.IComparer<TSourceItem>>> comparerExpression,
-			 TSourceItem defaultValue)
-		{
-			return new ObservableComputations.MinimazingOrMaximazing<TSourceItem>(
-				sourceScalar: sourceScalar,
-				mode: MinimazingOrMaximazingMode.Maximazing,
-				comparerScalar: new Computing<System.Collections.Generic.IComparer<TSourceItem>>(comparerExpression),
-				defaultValue: defaultValue);
+				comparerScalar: comparerScalar);
 		}
 
 		[ObservableComputationsCall]
@@ -19696,21 +18063,7 @@ namespace ObservableComputations
 			return new ObservableComputations.MinimazingOrMaximazing<TSourceItem>(
 				sourceScalar: sourceScalar,
 				mode: MinimazingOrMaximazingMode.Maximazing,
-				comparerScalar: new Computing<System.Collections.Generic.IComparer<TSourceItem>>(comparerExpression),
-				defaultValue: default);
-		}
-
-		[ObservableComputationsCall]
-		public static ObservableComputations.MinimazingOrMaximazing<TSourceItem> Maximazing<TSourceItem>(this
-			 ObservableComputations.IReadScalar<ObservableCollection<TSourceItem>> sourceScalar,
-			 ObservableComputations.IReadScalar<System.Collections.Generic.IComparer<TSourceItem>> comparerScalar,
-			 TSourceItem defaultValue)
-		{
-			return new ObservableComputations.MinimazingOrMaximazing<TSourceItem>(
-				sourceScalar: sourceScalar,
-				mode: MinimazingOrMaximazingMode.Maximazing,
-				comparerScalar: comparerScalar,
-				defaultValue: defaultValue);
+				comparerScalar: new Computing<System.Collections.Generic.IComparer<TSourceItem>>(comparerExpression));
 		}
 
 		[ObservableComputationsCall]
@@ -19721,21 +18074,7 @@ namespace ObservableComputations
 			return new ObservableComputations.MinimazingOrMaximazing<TSourceItem>(
 				sourceScalar: sourceScalar,
 				mode: MinimazingOrMaximazingMode.Maximazing,
-				comparerScalar: comparerScalar,
-				defaultValue: default);
-		}
-
-		[ObservableComputationsCall]
-		public static ObservableComputations.MinimazingOrMaximazing<TSourceItem> Maximazing<TSourceItem>(this
-			 ObservableComputations.IReadScalar<ObservableCollection<TSourceItem>> sourceScalar,
-			 Expression<Func<System.Collections.Generic.IComparer<TSourceItem>>> comparerExpression,
-			 TSourceItem defaultValue)
-		{
-			return new ObservableComputations.MinimazingOrMaximazing<TSourceItem>(
-				sourceScalar: sourceScalar,
-				mode: MinimazingOrMaximazingMode.Maximazing,
-				comparerScalar: new Computing<System.Collections.Generic.IComparer<TSourceItem>>(comparerExpression),
-				defaultValue: defaultValue);
+				comparerScalar: comparerScalar);
 		}
 
 		[ObservableComputationsCall]
@@ -19746,21 +18085,7 @@ namespace ObservableComputations
 			return new ObservableComputations.MinimazingOrMaximazing<TSourceItem>(
 				sourceScalar: sourceScalar,
 				mode: MinimazingOrMaximazingMode.Maximazing,
-				comparerScalar: new Computing<System.Collections.Generic.IComparer<TSourceItem>>(comparerExpression),
-				defaultValue: default);
-		}
-
-		[ObservableComputationsCall]
-		public static ObservableComputations.MinimazingOrMaximazing<TSourceItem> Maximazing<TSourceItem>(this
-			 Expression<Func<System.Collections.Specialized.INotifyCollectionChanged>> sourceExpression,
-			 ObservableComputations.IReadScalar<System.Collections.Generic.IComparer<TSourceItem>> comparerScalar,
-			 TSourceItem defaultValue)
-		{
-			return new ObservableComputations.MinimazingOrMaximazing<TSourceItem>(
-				sourceScalar: new Computing<System.Collections.Specialized.INotifyCollectionChanged>(sourceExpression),
-				mode: MinimazingOrMaximazingMode.Maximazing,
-				comparerScalar: comparerScalar,
-				defaultValue: defaultValue);
+				comparerScalar: new Computing<System.Collections.Generic.IComparer<TSourceItem>>(comparerExpression));
 		}
 
 		[ObservableComputationsCall]
@@ -19771,21 +18096,7 @@ namespace ObservableComputations
 			return new ObservableComputations.MinimazingOrMaximazing<TSourceItem>(
 				sourceScalar: new Computing<System.Collections.Specialized.INotifyCollectionChanged>(sourceExpression),
 				mode: MinimazingOrMaximazingMode.Maximazing,
-				comparerScalar: comparerScalar,
-				defaultValue: default);
-		}
-
-		[ObservableComputationsCall]
-		public static ObservableComputations.MinimazingOrMaximazing<TSourceItem> Maximazing<TSourceItem>(this
-			 Expression<Func<System.Collections.Specialized.INotifyCollectionChanged>> sourceExpression,
-			 Expression<Func<System.Collections.Generic.IComparer<TSourceItem>>> comparerExpression,
-			 TSourceItem defaultValue)
-		{
-			return new ObservableComputations.MinimazingOrMaximazing<TSourceItem>(
-				sourceScalar: new Computing<System.Collections.Specialized.INotifyCollectionChanged>(sourceExpression),
-				mode: MinimazingOrMaximazingMode.Maximazing,
-				comparerScalar: new Computing<System.Collections.Generic.IComparer<TSourceItem>>(comparerExpression),
-				defaultValue: defaultValue);
+				comparerScalar: comparerScalar);
 		}
 
 		[ObservableComputationsCall]
@@ -19796,21 +18107,7 @@ namespace ObservableComputations
 			return new ObservableComputations.MinimazingOrMaximazing<TSourceItem>(
 				sourceScalar: new Computing<System.Collections.Specialized.INotifyCollectionChanged>(sourceExpression),
 				mode: MinimazingOrMaximazingMode.Maximazing,
-				comparerScalar: new Computing<System.Collections.Generic.IComparer<TSourceItem>>(comparerExpression),
-				defaultValue: default);
-		}
-
-		[ObservableComputationsCall]
-		public static ObservableComputations.MinimazingOrMaximazing<TSourceItem> Maximazing<TSourceItem>(this
-			 Expression<Func<ObservableCollection<TSourceItem>>> sourceExpression,
-			 ObservableComputations.IReadScalar<System.Collections.Generic.IComparer<TSourceItem>> comparerScalar,
-			 TSourceItem defaultValue)
-		{
-			return new ObservableComputations.MinimazingOrMaximazing<TSourceItem>(
-				sourceScalar: new Computing<ObservableCollection<TSourceItem>>(sourceExpression),
-				mode: MinimazingOrMaximazingMode.Maximazing,
-				comparerScalar: comparerScalar,
-				defaultValue: defaultValue);
+				comparerScalar: new Computing<System.Collections.Generic.IComparer<TSourceItem>>(comparerExpression));
 		}
 
 		[ObservableComputationsCall]
@@ -19821,21 +18118,7 @@ namespace ObservableComputations
 			return new ObservableComputations.MinimazingOrMaximazing<TSourceItem>(
 				sourceScalar: new Computing<ObservableCollection<TSourceItem>>(sourceExpression),
 				mode: MinimazingOrMaximazingMode.Maximazing,
-				comparerScalar: comparerScalar,
-				defaultValue: default);
-		}
-
-		[ObservableComputationsCall]
-		public static ObservableComputations.MinimazingOrMaximazing<TSourceItem> Maximazing<TSourceItem>(this
-			 Expression<Func<ObservableCollection<TSourceItem>>> sourceExpression,
-			 Expression<Func<System.Collections.Generic.IComparer<TSourceItem>>> comparerExpression,
-			 TSourceItem defaultValue)
-		{
-			return new ObservableComputations.MinimazingOrMaximazing<TSourceItem>(
-				sourceScalar: new Computing<ObservableCollection<TSourceItem>>(sourceExpression),
-				mode: MinimazingOrMaximazingMode.Maximazing,
-				comparerScalar: new Computing<System.Collections.Generic.IComparer<TSourceItem>>(comparerExpression),
-				defaultValue: defaultValue);
+				comparerScalar: comparerScalar);
 		}
 
 		[ObservableComputationsCall]
@@ -19846,21 +18129,7 @@ namespace ObservableComputations
 			return new ObservableComputations.MinimazingOrMaximazing<TSourceItem>(
 				sourceScalar: new Computing<ObservableCollection<TSourceItem>>(sourceExpression),
 				mode: MinimazingOrMaximazingMode.Maximazing,
-				comparerScalar: new Computing<System.Collections.Generic.IComparer<TSourceItem>>(comparerExpression),
-				defaultValue: default);
-		}
-
-		[ObservableComputationsCall]
-		public static ObservableComputations.MinimazingOrMaximazing<TSourceItem> Maximazing<TSourceItem>(this
-			 System.Collections.Specialized.INotifyCollectionChanged source,
-			 System.Collections.Generic.IComparer<TSourceItem> comparer,
-			 TSourceItem defaultValue)
-		{
-			return new ObservableComputations.MinimazingOrMaximazing<TSourceItem>(
-				source: source,
-				mode: MinimazingOrMaximazingMode.Maximazing,
-				comparer: comparer,
-				defaultValue: defaultValue);
+				comparerScalar: new Computing<System.Collections.Generic.IComparer<TSourceItem>>(comparerExpression));
 		}
 
 		[ObservableComputationsCall]
@@ -19871,20 +18140,7 @@ namespace ObservableComputations
 			return new ObservableComputations.MinimazingOrMaximazing<TSourceItem>(
 				source: source,
 				mode: MinimazingOrMaximazingMode.Maximazing,
-				comparer: comparer,
-				defaultValue: default);
-		}
-
-		[ObservableComputationsCall]
-		public static ObservableComputations.MinimazingOrMaximazing<TSourceItem> Maximazing<TSourceItem>(this
-			 System.Collections.Specialized.INotifyCollectionChanged source,
-			 TSourceItem defaultValue)
-		{
-			return new ObservableComputations.MinimazingOrMaximazing<TSourceItem>(
-				source: source,
-				mode: MinimazingOrMaximazingMode.Maximazing,
-				comparer: null,
-				defaultValue: defaultValue);
+				comparer: comparer);
 		}
 
 		[ObservableComputationsCall]
@@ -19894,21 +18150,7 @@ namespace ObservableComputations
 			return new ObservableComputations.MinimazingOrMaximazing<TSourceItem>(
 				source: source,
 				mode: MinimazingOrMaximazingMode.Maximazing,
-				comparer: null,
-				defaultValue: default);
-		}
-
-		[ObservableComputationsCall]
-		public static ObservableComputations.MinimazingOrMaximazing<TSourceItem> Maximazing<TSourceItem>(this
-			 ObservableCollection<TSourceItem> source,
-			 System.Collections.Generic.IComparer<TSourceItem> comparer,
-			 TSourceItem defaultValue)
-		{
-			return new ObservableComputations.MinimazingOrMaximazing<TSourceItem>(
-				source: source,
-				mode: MinimazingOrMaximazingMode.Maximazing,
-				comparer: comparer,
-				defaultValue: defaultValue);
+				comparer: null);
 		}
 
 		[ObservableComputationsCall]
@@ -19919,20 +18161,7 @@ namespace ObservableComputations
 			return new ObservableComputations.MinimazingOrMaximazing<TSourceItem>(
 				source: source,
 				mode: MinimazingOrMaximazingMode.Maximazing,
-				comparer: comparer,
-				defaultValue: default);
-		}
-
-		[ObservableComputationsCall]
-		public static ObservableComputations.MinimazingOrMaximazing<TSourceItem> Maximazing<TSourceItem>(this
-			 ObservableCollection<TSourceItem> source,
-			 TSourceItem defaultValue)
-		{
-			return new ObservableComputations.MinimazingOrMaximazing<TSourceItem>(
-				source: source,
-				mode: MinimazingOrMaximazingMode.Maximazing,
-				comparer: null,
-				defaultValue: defaultValue);
+				comparer: comparer);
 		}
 
 		[ObservableComputationsCall]
@@ -19942,21 +18171,7 @@ namespace ObservableComputations
 			return new ObservableComputations.MinimazingOrMaximazing<TSourceItem>(
 				source: source,
 				mode: MinimazingOrMaximazingMode.Maximazing,
-				comparer: null,
-				defaultValue: default);
-		}
-
-		[ObservableComputationsCall]
-		public static ObservableComputations.MinimazingOrMaximazing<TSourceItem> Maximazing<TSourceItem>(this
-			 System.Collections.Specialized.INotifyCollectionChanged source,
-			 ObservableComputations.IReadScalar<System.Collections.Generic.IComparer<TSourceItem>> comparerScalar,
-			 TSourceItem defaultValue)
-		{
-			return new ObservableComputations.MinimazingOrMaximazing<TSourceItem>(
-				source: source,
-				mode: MinimazingOrMaximazingMode.Maximazing,
-				comparerScalar: comparerScalar,
-				defaultValue: defaultValue);
+				comparer: null);
 		}
 
 		[ObservableComputationsCall]
@@ -19967,21 +18182,7 @@ namespace ObservableComputations
 			return new ObservableComputations.MinimazingOrMaximazing<TSourceItem>(
 				source: source,
 				mode: MinimazingOrMaximazingMode.Maximazing,
-				comparerScalar: comparerScalar,
-				defaultValue: default);
-		}
-
-		[ObservableComputationsCall]
-		public static ObservableComputations.MinimazingOrMaximazing<TSourceItem> Maximazing<TSourceItem>(this
-			 System.Collections.Specialized.INotifyCollectionChanged source,
-			 Expression<Func<System.Collections.Generic.IComparer<TSourceItem>>> comparerExpression,
-			 TSourceItem defaultValue)
-		{
-			return new ObservableComputations.MinimazingOrMaximazing<TSourceItem>(
-				source: source,
-				mode: MinimazingOrMaximazingMode.Maximazing,
-				comparerScalar: new Computing<System.Collections.Generic.IComparer<TSourceItem>>(comparerExpression),
-				defaultValue: defaultValue);
+				comparerScalar: comparerScalar);
 		}
 
 		[ObservableComputationsCall]
@@ -19992,21 +18193,7 @@ namespace ObservableComputations
 			return new ObservableComputations.MinimazingOrMaximazing<TSourceItem>(
 				source: source,
 				mode: MinimazingOrMaximazingMode.Maximazing,
-				comparerScalar: new Computing<System.Collections.Generic.IComparer<TSourceItem>>(comparerExpression),
-				defaultValue: default);
-		}
-
-		[ObservableComputationsCall]
-		public static ObservableComputations.MinimazingOrMaximazing<TSourceItem> Maximazing<TSourceItem>(this
-			 ObservableCollection<TSourceItem> source,
-			 ObservableComputations.IReadScalar<System.Collections.Generic.IComparer<TSourceItem>> comparerScalar,
-			 TSourceItem defaultValue)
-		{
-			return new ObservableComputations.MinimazingOrMaximazing<TSourceItem>(
-				source: source,
-				mode: MinimazingOrMaximazingMode.Maximazing,
-				comparerScalar: comparerScalar,
-				defaultValue: defaultValue);
+				comparerScalar: new Computing<System.Collections.Generic.IComparer<TSourceItem>>(comparerExpression));
 		}
 
 		[ObservableComputationsCall]
@@ -20017,21 +18204,7 @@ namespace ObservableComputations
 			return new ObservableComputations.MinimazingOrMaximazing<TSourceItem>(
 				source: source,
 				mode: MinimazingOrMaximazingMode.Maximazing,
-				comparerScalar: comparerScalar,
-				defaultValue: default);
-		}
-
-		[ObservableComputationsCall]
-		public static ObservableComputations.MinimazingOrMaximazing<TSourceItem> Maximazing<TSourceItem>(this
-			 ObservableCollection<TSourceItem> source,
-			 Expression<Func<System.Collections.Generic.IComparer<TSourceItem>>> comparerExpression,
-			 TSourceItem defaultValue)
-		{
-			return new ObservableComputations.MinimazingOrMaximazing<TSourceItem>(
-				source: source,
-				mode: MinimazingOrMaximazingMode.Maximazing,
-				comparerScalar: new Computing<System.Collections.Generic.IComparer<TSourceItem>>(comparerExpression),
-				defaultValue: defaultValue);
+				comparerScalar: comparerScalar);
 		}
 
 		[ObservableComputationsCall]
@@ -20042,8 +18215,7 @@ namespace ObservableComputations
 			return new ObservableComputations.MinimazingOrMaximazing<TSourceItem>(
 				source: source,
 				mode: MinimazingOrMaximazingMode.Maximazing,
-				comparerScalar: new Computing<System.Collections.Generic.IComparer<TSourceItem>>(comparerExpression),
-				defaultValue: default);
+				comparerScalar: new Computing<System.Collections.Generic.IComparer<TSourceItem>>(comparerExpression));
 		}
 
 		#endregion
@@ -20052,38 +18224,12 @@ namespace ObservableComputations
 		[ObservableComputationsCall]
 		public static ObservableComputations.MinimazingOrMaximazing<TSourceItem> Minimazing<TSourceItem>(this
 			 ObservableComputations.IReadScalar<System.Collections.Specialized.INotifyCollectionChanged> sourceScalar,
-			 System.Collections.Generic.IComparer<TSourceItem> comparer,
-			 TSourceItem defaultValue)
-		{
-			return new ObservableComputations.MinimazingOrMaximazing<TSourceItem>(
-				sourceScalar: sourceScalar,
-				mode: MinimazingOrMaximazingMode.Minimazing,
-				comparer: comparer,
-				defaultValue: defaultValue);
-		}
-
-		[ObservableComputationsCall]
-		public static ObservableComputations.MinimazingOrMaximazing<TSourceItem> Minimazing<TSourceItem>(this
-			 ObservableComputations.IReadScalar<System.Collections.Specialized.INotifyCollectionChanged> sourceScalar,
 			 System.Collections.Generic.IComparer<TSourceItem> comparer)
 		{
 			return new ObservableComputations.MinimazingOrMaximazing<TSourceItem>(
 				sourceScalar: sourceScalar,
 				mode: MinimazingOrMaximazingMode.Minimazing,
-				comparer: comparer,
-				defaultValue: default);
-		}
-
-		[ObservableComputationsCall]
-		public static ObservableComputations.MinimazingOrMaximazing<TSourceItem> Minimazing<TSourceItem>(this
-			 ObservableComputations.IReadScalar<System.Collections.Specialized.INotifyCollectionChanged> sourceScalar,
-			 TSourceItem defaultValue)
-		{
-			return new ObservableComputations.MinimazingOrMaximazing<TSourceItem>(
-				sourceScalar: sourceScalar,
-				mode: MinimazingOrMaximazingMode.Minimazing,
-				comparer: null,
-				defaultValue: defaultValue);
+				comparer: comparer);
 		}
 
 		[ObservableComputationsCall]
@@ -20093,21 +18239,7 @@ namespace ObservableComputations
 			return new ObservableComputations.MinimazingOrMaximazing<TSourceItem>(
 				sourceScalar: sourceScalar,
 				mode: MinimazingOrMaximazingMode.Minimazing,
-				comparer: null,
-				defaultValue: default);
-		}
-
-		[ObservableComputationsCall]
-		public static ObservableComputations.MinimazingOrMaximazing<TSourceItem> Minimazing<TSourceItem>(this
-			 ObservableComputations.IReadScalar<ObservableCollection<TSourceItem>> sourceScalar,
-			 System.Collections.Generic.IComparer<TSourceItem> comparer,
-			 TSourceItem defaultValue)
-		{
-			return new ObservableComputations.MinimazingOrMaximazing<TSourceItem>(
-				sourceScalar: sourceScalar,
-				mode: MinimazingOrMaximazingMode.Minimazing,
-				comparer: comparer,
-				defaultValue: defaultValue);
+				comparer: null);
 		}
 
 		[ObservableComputationsCall]
@@ -20118,20 +18250,7 @@ namespace ObservableComputations
 			return new ObservableComputations.MinimazingOrMaximazing<TSourceItem>(
 				sourceScalar: sourceScalar,
 				mode: MinimazingOrMaximazingMode.Minimazing,
-				comparer: comparer,
-				defaultValue: default);
-		}
-
-		[ObservableComputationsCall]
-		public static ObservableComputations.MinimazingOrMaximazing<TSourceItem> Minimazing<TSourceItem>(this
-			 ObservableComputations.IReadScalar<ObservableCollection<TSourceItem>> sourceScalar,
-			 TSourceItem defaultValue)
-		{
-			return new ObservableComputations.MinimazingOrMaximazing<TSourceItem>(
-				sourceScalar: sourceScalar,
-				mode: MinimazingOrMaximazingMode.Minimazing,
-				comparer: null,
-				defaultValue: defaultValue);
+				comparer: comparer);
 		}
 
 		[ObservableComputationsCall]
@@ -20141,21 +18260,7 @@ namespace ObservableComputations
 			return new ObservableComputations.MinimazingOrMaximazing<TSourceItem>(
 				sourceScalar: sourceScalar,
 				mode: MinimazingOrMaximazingMode.Minimazing,
-				comparer: null,
-				defaultValue: default);
-		}
-
-		[ObservableComputationsCall]
-		public static ObservableComputations.MinimazingOrMaximazing<TSourceItem> Minimazing<TSourceItem>(this
-			 Expression<Func<System.Collections.Specialized.INotifyCollectionChanged>> sourceExpression,
-			 System.Collections.Generic.IComparer<TSourceItem> comparer,
-			 TSourceItem defaultValue)
-		{
-			return new ObservableComputations.MinimazingOrMaximazing<TSourceItem>(
-				sourceScalar: new Computing<System.Collections.Specialized.INotifyCollectionChanged>(sourceExpression),
-				mode: MinimazingOrMaximazingMode.Minimazing,
-				comparer: comparer,
-				defaultValue: defaultValue);
+				comparer: null);
 		}
 
 		[ObservableComputationsCall]
@@ -20166,20 +18271,7 @@ namespace ObservableComputations
 			return new ObservableComputations.MinimazingOrMaximazing<TSourceItem>(
 				sourceScalar: new Computing<System.Collections.Specialized.INotifyCollectionChanged>(sourceExpression),
 				mode: MinimazingOrMaximazingMode.Minimazing,
-				comparer: comparer,
-				defaultValue: default);
-		}
-
-		[ObservableComputationsCall]
-		public static ObservableComputations.MinimazingOrMaximazing<TSourceItem> Minimazing<TSourceItem>(this
-			 Expression<Func<System.Collections.Specialized.INotifyCollectionChanged>> sourceExpression,
-			 TSourceItem defaultValue)
-		{
-			return new ObservableComputations.MinimazingOrMaximazing<TSourceItem>(
-				sourceScalar: new Computing<System.Collections.Specialized.INotifyCollectionChanged>(sourceExpression),
-				mode: MinimazingOrMaximazingMode.Minimazing,
-				comparer: null,
-				defaultValue: defaultValue);
+				comparer: comparer);
 		}
 
 		[ObservableComputationsCall]
@@ -20189,21 +18281,7 @@ namespace ObservableComputations
 			return new ObservableComputations.MinimazingOrMaximazing<TSourceItem>(
 				sourceScalar: new Computing<System.Collections.Specialized.INotifyCollectionChanged>(sourceExpression),
 				mode: MinimazingOrMaximazingMode.Minimazing,
-				comparer: null,
-				defaultValue: default);
-		}
-
-		[ObservableComputationsCall]
-		public static ObservableComputations.MinimazingOrMaximazing<TSourceItem> Minimazing<TSourceItem>(this
-			 Expression<Func<ObservableCollection<TSourceItem>>> sourceExpression,
-			 System.Collections.Generic.IComparer<TSourceItem> comparer,
-			 TSourceItem defaultValue)
-		{
-			return new ObservableComputations.MinimazingOrMaximazing<TSourceItem>(
-				sourceScalar: new Computing<ObservableCollection<TSourceItem>>(sourceExpression),
-				mode: MinimazingOrMaximazingMode.Minimazing,
-				comparer: comparer,
-				defaultValue: defaultValue);
+				comparer: null);
 		}
 
 		[ObservableComputationsCall]
@@ -20214,20 +18292,7 @@ namespace ObservableComputations
 			return new ObservableComputations.MinimazingOrMaximazing<TSourceItem>(
 				sourceScalar: new Computing<ObservableCollection<TSourceItem>>(sourceExpression),
 				mode: MinimazingOrMaximazingMode.Minimazing,
-				comparer: comparer,
-				defaultValue: default);
-		}
-
-		[ObservableComputationsCall]
-		public static ObservableComputations.MinimazingOrMaximazing<TSourceItem> Minimazing<TSourceItem>(this
-			 Expression<Func<ObservableCollection<TSourceItem>>> sourceExpression,
-			 TSourceItem defaultValue)
-		{
-			return new ObservableComputations.MinimazingOrMaximazing<TSourceItem>(
-				sourceScalar: new Computing<ObservableCollection<TSourceItem>>(sourceExpression),
-				mode: MinimazingOrMaximazingMode.Minimazing,
-				comparer: null,
-				defaultValue: defaultValue);
+				comparer: comparer);
 		}
 
 		[ObservableComputationsCall]
@@ -20237,21 +18302,7 @@ namespace ObservableComputations
 			return new ObservableComputations.MinimazingOrMaximazing<TSourceItem>(
 				sourceScalar: new Computing<ObservableCollection<TSourceItem>>(sourceExpression),
 				mode: MinimazingOrMaximazingMode.Minimazing,
-				comparer: null,
-				defaultValue: default);
-		}
-
-		[ObservableComputationsCall]
-		public static ObservableComputations.MinimazingOrMaximazing<TSourceItem> Minimazing<TSourceItem>(this
-			 ObservableComputations.IReadScalar<System.Collections.Specialized.INotifyCollectionChanged> sourceScalar,
-			 ObservableComputations.IReadScalar<System.Collections.Generic.IComparer<TSourceItem>> comparerScalar,
-			 TSourceItem defaultValue)
-		{
-			return new ObservableComputations.MinimazingOrMaximazing<TSourceItem>(
-				sourceScalar: sourceScalar,
-				mode: MinimazingOrMaximazingMode.Minimazing,
-				comparerScalar: comparerScalar,
-				defaultValue: defaultValue);
+				comparer: null);
 		}
 
 		[ObservableComputationsCall]
@@ -20262,21 +18313,7 @@ namespace ObservableComputations
 			return new ObservableComputations.MinimazingOrMaximazing<TSourceItem>(
 				sourceScalar: sourceScalar,
 				mode: MinimazingOrMaximazingMode.Minimazing,
-				comparerScalar: comparerScalar,
-				defaultValue: default);
-		}
-
-		[ObservableComputationsCall]
-		public static ObservableComputations.MinimazingOrMaximazing<TSourceItem> Minimazing<TSourceItem>(this
-			 ObservableComputations.IReadScalar<System.Collections.Specialized.INotifyCollectionChanged> sourceScalar,
-			 Expression<Func<System.Collections.Generic.IComparer<TSourceItem>>> comparerExpression,
-			 TSourceItem defaultValue)
-		{
-			return new ObservableComputations.MinimazingOrMaximazing<TSourceItem>(
-				sourceScalar: sourceScalar,
-				mode: MinimazingOrMaximazingMode.Minimazing,
-				comparerScalar: new Computing<System.Collections.Generic.IComparer<TSourceItem>>(comparerExpression),
-				defaultValue: defaultValue);
+				comparerScalar: comparerScalar);
 		}
 
 		[ObservableComputationsCall]
@@ -20287,21 +18324,7 @@ namespace ObservableComputations
 			return new ObservableComputations.MinimazingOrMaximazing<TSourceItem>(
 				sourceScalar: sourceScalar,
 				mode: MinimazingOrMaximazingMode.Minimazing,
-				comparerScalar: new Computing<System.Collections.Generic.IComparer<TSourceItem>>(comparerExpression),
-				defaultValue: default);
-		}
-
-		[ObservableComputationsCall]
-		public static ObservableComputations.MinimazingOrMaximazing<TSourceItem> Minimazing<TSourceItem>(this
-			 ObservableComputations.IReadScalar<ObservableCollection<TSourceItem>> sourceScalar,
-			 ObservableComputations.IReadScalar<System.Collections.Generic.IComparer<TSourceItem>> comparerScalar,
-			 TSourceItem defaultValue)
-		{
-			return new ObservableComputations.MinimazingOrMaximazing<TSourceItem>(
-				sourceScalar: sourceScalar,
-				mode: MinimazingOrMaximazingMode.Minimazing,
-				comparerScalar: comparerScalar,
-				defaultValue: defaultValue);
+				comparerScalar: new Computing<System.Collections.Generic.IComparer<TSourceItem>>(comparerExpression));
 		}
 
 		[ObservableComputationsCall]
@@ -20312,21 +18335,7 @@ namespace ObservableComputations
 			return new ObservableComputations.MinimazingOrMaximazing<TSourceItem>(
 				sourceScalar: sourceScalar,
 				mode: MinimazingOrMaximazingMode.Minimazing,
-				comparerScalar: comparerScalar,
-				defaultValue: default);
-		}
-
-		[ObservableComputationsCall]
-		public static ObservableComputations.MinimazingOrMaximazing<TSourceItem> Minimazing<TSourceItem>(this
-			 ObservableComputations.IReadScalar<ObservableCollection<TSourceItem>> sourceScalar,
-			 Expression<Func<System.Collections.Generic.IComparer<TSourceItem>>> comparerExpression,
-			 TSourceItem defaultValue)
-		{
-			return new ObservableComputations.MinimazingOrMaximazing<TSourceItem>(
-				sourceScalar: sourceScalar,
-				mode: MinimazingOrMaximazingMode.Minimazing,
-				comparerScalar: new Computing<System.Collections.Generic.IComparer<TSourceItem>>(comparerExpression),
-				defaultValue: defaultValue);
+				comparerScalar: comparerScalar);
 		}
 
 		[ObservableComputationsCall]
@@ -20337,21 +18346,7 @@ namespace ObservableComputations
 			return new ObservableComputations.MinimazingOrMaximazing<TSourceItem>(
 				sourceScalar: sourceScalar,
 				mode: MinimazingOrMaximazingMode.Minimazing,
-				comparerScalar: new Computing<System.Collections.Generic.IComparer<TSourceItem>>(comparerExpression),
-				defaultValue: default);
-		}
-
-		[ObservableComputationsCall]
-		public static ObservableComputations.MinimazingOrMaximazing<TSourceItem> Minimazing<TSourceItem>(this
-			 Expression<Func<System.Collections.Specialized.INotifyCollectionChanged>> sourceExpression,
-			 ObservableComputations.IReadScalar<System.Collections.Generic.IComparer<TSourceItem>> comparerScalar,
-			 TSourceItem defaultValue)
-		{
-			return new ObservableComputations.MinimazingOrMaximazing<TSourceItem>(
-				sourceScalar: new Computing<System.Collections.Specialized.INotifyCollectionChanged>(sourceExpression),
-				mode: MinimazingOrMaximazingMode.Minimazing,
-				comparerScalar: comparerScalar,
-				defaultValue: defaultValue);
+				comparerScalar: new Computing<System.Collections.Generic.IComparer<TSourceItem>>(comparerExpression));
 		}
 
 		[ObservableComputationsCall]
@@ -20362,21 +18357,7 @@ namespace ObservableComputations
 			return new ObservableComputations.MinimazingOrMaximazing<TSourceItem>(
 				sourceScalar: new Computing<System.Collections.Specialized.INotifyCollectionChanged>(sourceExpression),
 				mode: MinimazingOrMaximazingMode.Minimazing,
-				comparerScalar: comparerScalar,
-				defaultValue: default);
-		}
-
-		[ObservableComputationsCall]
-		public static ObservableComputations.MinimazingOrMaximazing<TSourceItem> Minimazing<TSourceItem>(this
-			 Expression<Func<System.Collections.Specialized.INotifyCollectionChanged>> sourceExpression,
-			 Expression<Func<System.Collections.Generic.IComparer<TSourceItem>>> comparerExpression,
-			 TSourceItem defaultValue)
-		{
-			return new ObservableComputations.MinimazingOrMaximazing<TSourceItem>(
-				sourceScalar: new Computing<System.Collections.Specialized.INotifyCollectionChanged>(sourceExpression),
-				mode: MinimazingOrMaximazingMode.Minimazing,
-				comparerScalar: new Computing<System.Collections.Generic.IComparer<TSourceItem>>(comparerExpression),
-				defaultValue: defaultValue);
+				comparerScalar: comparerScalar);
 		}
 
 		[ObservableComputationsCall]
@@ -20387,21 +18368,7 @@ namespace ObservableComputations
 			return new ObservableComputations.MinimazingOrMaximazing<TSourceItem>(
 				sourceScalar: new Computing<System.Collections.Specialized.INotifyCollectionChanged>(sourceExpression),
 				mode: MinimazingOrMaximazingMode.Minimazing,
-				comparerScalar: new Computing<System.Collections.Generic.IComparer<TSourceItem>>(comparerExpression),
-				defaultValue: default);
-		}
-
-		[ObservableComputationsCall]
-		public static ObservableComputations.MinimazingOrMaximazing<TSourceItem> Minimazing<TSourceItem>(this
-			 Expression<Func<ObservableCollection<TSourceItem>>> sourceExpression,
-			 ObservableComputations.IReadScalar<System.Collections.Generic.IComparer<TSourceItem>> comparerScalar,
-			 TSourceItem defaultValue)
-		{
-			return new ObservableComputations.MinimazingOrMaximazing<TSourceItem>(
-				sourceScalar: new Computing<ObservableCollection<TSourceItem>>(sourceExpression),
-				mode: MinimazingOrMaximazingMode.Minimazing,
-				comparerScalar: comparerScalar,
-				defaultValue: defaultValue);
+				comparerScalar: new Computing<System.Collections.Generic.IComparer<TSourceItem>>(comparerExpression));
 		}
 
 		[ObservableComputationsCall]
@@ -20412,21 +18379,7 @@ namespace ObservableComputations
 			return new ObservableComputations.MinimazingOrMaximazing<TSourceItem>(
 				sourceScalar: new Computing<ObservableCollection<TSourceItem>>(sourceExpression),
 				mode: MinimazingOrMaximazingMode.Minimazing,
-				comparerScalar: comparerScalar,
-				defaultValue: default);
-		}
-
-		[ObservableComputationsCall]
-		public static ObservableComputations.MinimazingOrMaximazing<TSourceItem> Minimazing<TSourceItem>(this
-			 Expression<Func<ObservableCollection<TSourceItem>>> sourceExpression,
-			 Expression<Func<System.Collections.Generic.IComparer<TSourceItem>>> comparerExpression,
-			 TSourceItem defaultValue)
-		{
-			return new ObservableComputations.MinimazingOrMaximazing<TSourceItem>(
-				sourceScalar: new Computing<ObservableCollection<TSourceItem>>(sourceExpression),
-				mode: MinimazingOrMaximazingMode.Minimazing,
-				comparerScalar: new Computing<System.Collections.Generic.IComparer<TSourceItem>>(comparerExpression),
-				defaultValue: defaultValue);
+				comparerScalar: comparerScalar);
 		}
 
 		[ObservableComputationsCall]
@@ -20437,21 +18390,7 @@ namespace ObservableComputations
 			return new ObservableComputations.MinimazingOrMaximazing<TSourceItem>(
 				sourceScalar: new Computing<ObservableCollection<TSourceItem>>(sourceExpression),
 				mode: MinimazingOrMaximazingMode.Minimazing,
-				comparerScalar: new Computing<System.Collections.Generic.IComparer<TSourceItem>>(comparerExpression),
-				defaultValue: default);
-		}
-
-		[ObservableComputationsCall]
-		public static ObservableComputations.MinimazingOrMaximazing<TSourceItem> Minimazing<TSourceItem>(this
-			 System.Collections.Specialized.INotifyCollectionChanged source,
-			 System.Collections.Generic.IComparer<TSourceItem> comparer,
-			 TSourceItem defaultValue)
-		{
-			return new ObservableComputations.MinimazingOrMaximazing<TSourceItem>(
-				source: source,
-				mode: MinimazingOrMaximazingMode.Minimazing,
-				comparer: comparer,
-				defaultValue: defaultValue);
+				comparerScalar: new Computing<System.Collections.Generic.IComparer<TSourceItem>>(comparerExpression));
 		}
 
 		[ObservableComputationsCall]
@@ -20462,20 +18401,7 @@ namespace ObservableComputations
 			return new ObservableComputations.MinimazingOrMaximazing<TSourceItem>(
 				source: source,
 				mode: MinimazingOrMaximazingMode.Minimazing,
-				comparer: comparer,
-				defaultValue: default);
-		}
-
-		[ObservableComputationsCall]
-		public static ObservableComputations.MinimazingOrMaximazing<TSourceItem> Minimazing<TSourceItem>(this
-			 System.Collections.Specialized.INotifyCollectionChanged source,
-			 TSourceItem defaultValue)
-		{
-			return new ObservableComputations.MinimazingOrMaximazing<TSourceItem>(
-				source: source,
-				mode: MinimazingOrMaximazingMode.Minimazing,
-				comparer: null,
-				defaultValue: defaultValue);
+				comparer: comparer);
 		}
 
 		[ObservableComputationsCall]
@@ -20485,21 +18411,7 @@ namespace ObservableComputations
 			return new ObservableComputations.MinimazingOrMaximazing<TSourceItem>(
 				source: source,
 				mode: MinimazingOrMaximazingMode.Minimazing,
-				comparer: null,
-				defaultValue: default);
-		}
-
-		[ObservableComputationsCall]
-		public static ObservableComputations.MinimazingOrMaximazing<TSourceItem> Minimazing<TSourceItem>(this
-			 ObservableCollection<TSourceItem> source,
-			 System.Collections.Generic.IComparer<TSourceItem> comparer,
-			 TSourceItem defaultValue)
-		{
-			return new ObservableComputations.MinimazingOrMaximazing<TSourceItem>(
-				source: source,
-				mode: MinimazingOrMaximazingMode.Minimazing,
-				comparer: comparer,
-				defaultValue: defaultValue);
+				comparer: null);
 		}
 
 		[ObservableComputationsCall]
@@ -20510,20 +18422,7 @@ namespace ObservableComputations
 			return new ObservableComputations.MinimazingOrMaximazing<TSourceItem>(
 				source: source,
 				mode: MinimazingOrMaximazingMode.Minimazing,
-				comparer: comparer,
-				defaultValue: default);
-		}
-
-		[ObservableComputationsCall]
-		public static ObservableComputations.MinimazingOrMaximazing<TSourceItem> Minimazing<TSourceItem>(this
-			 ObservableCollection<TSourceItem> source,
-			 TSourceItem defaultValue)
-		{
-			return new ObservableComputations.MinimazingOrMaximazing<TSourceItem>(
-				source: source,
-				mode: MinimazingOrMaximazingMode.Minimazing,
-				comparer: null,
-				defaultValue: defaultValue);
+				comparer: comparer);
 		}
 
 		[ObservableComputationsCall]
@@ -20533,21 +18432,7 @@ namespace ObservableComputations
 			return new ObservableComputations.MinimazingOrMaximazing<TSourceItem>(
 				source: source,
 				mode: MinimazingOrMaximazingMode.Minimazing,
-				comparer: null,
-				defaultValue: default);
-		}
-
-		[ObservableComputationsCall]
-		public static ObservableComputations.MinimazingOrMaximazing<TSourceItem> Minimazing<TSourceItem>(this
-			 System.Collections.Specialized.INotifyCollectionChanged source,
-			 ObservableComputations.IReadScalar<System.Collections.Generic.IComparer<TSourceItem>> comparerScalar,
-			 TSourceItem defaultValue)
-		{
-			return new ObservableComputations.MinimazingOrMaximazing<TSourceItem>(
-				source: source,
-				mode: MinimazingOrMaximazingMode.Minimazing,
-				comparerScalar: comparerScalar,
-				defaultValue: defaultValue);
+				comparer: null);
 		}
 
 		[ObservableComputationsCall]
@@ -20558,21 +18443,7 @@ namespace ObservableComputations
 			return new ObservableComputations.MinimazingOrMaximazing<TSourceItem>(
 				source: source,
 				mode: MinimazingOrMaximazingMode.Minimazing,
-				comparerScalar: comparerScalar,
-				defaultValue: default);
-		}
-
-		[ObservableComputationsCall]
-		public static ObservableComputations.MinimazingOrMaximazing<TSourceItem> Minimazing<TSourceItem>(this
-			 System.Collections.Specialized.INotifyCollectionChanged source,
-			 Expression<Func<System.Collections.Generic.IComparer<TSourceItem>>> comparerExpression,
-			 TSourceItem defaultValue)
-		{
-			return new ObservableComputations.MinimazingOrMaximazing<TSourceItem>(
-				source: source,
-				mode: MinimazingOrMaximazingMode.Minimazing,
-				comparerScalar: new Computing<System.Collections.Generic.IComparer<TSourceItem>>(comparerExpression),
-				defaultValue: defaultValue);
+				comparerScalar: comparerScalar);
 		}
 
 		[ObservableComputationsCall]
@@ -20583,21 +18454,7 @@ namespace ObservableComputations
 			return new ObservableComputations.MinimazingOrMaximazing<TSourceItem>(
 				source: source,
 				mode: MinimazingOrMaximazingMode.Minimazing,
-				comparerScalar: new Computing<System.Collections.Generic.IComparer<TSourceItem>>(comparerExpression),
-				defaultValue: default);
-		}
-
-		[ObservableComputationsCall]
-		public static ObservableComputations.MinimazingOrMaximazing<TSourceItem> Minimazing<TSourceItem>(this
-			 ObservableCollection<TSourceItem> source,
-			 ObservableComputations.IReadScalar<System.Collections.Generic.IComparer<TSourceItem>> comparerScalar,
-			 TSourceItem defaultValue)
-		{
-			return new ObservableComputations.MinimazingOrMaximazing<TSourceItem>(
-				source: source,
-				mode: MinimazingOrMaximazingMode.Minimazing,
-				comparerScalar: comparerScalar,
-				defaultValue: defaultValue);
+				comparerScalar: new Computing<System.Collections.Generic.IComparer<TSourceItem>>(comparerExpression));
 		}
 
 		[ObservableComputationsCall]
@@ -20608,21 +18465,7 @@ namespace ObservableComputations
 			return new ObservableComputations.MinimazingOrMaximazing<TSourceItem>(
 				source: source,
 				mode: MinimazingOrMaximazingMode.Minimazing,
-				comparerScalar: comparerScalar,
-				defaultValue: default);
-		}
-
-		[ObservableComputationsCall]
-		public static ObservableComputations.MinimazingOrMaximazing<TSourceItem> Minimazing<TSourceItem>(this
-			 ObservableCollection<TSourceItem> source,
-			 Expression<Func<System.Collections.Generic.IComparer<TSourceItem>>> comparerExpression,
-			 TSourceItem defaultValue)
-		{
-			return new ObservableComputations.MinimazingOrMaximazing<TSourceItem>(
-				source: source,
-				mode: MinimazingOrMaximazingMode.Minimazing,
-				comparerScalar: new Computing<System.Collections.Generic.IComparer<TSourceItem>>(comparerExpression),
-				defaultValue: defaultValue);
+				comparerScalar: comparerScalar);
 		}
 
 		[ObservableComputationsCall]
@@ -20633,8 +18476,7 @@ namespace ObservableComputations
 			return new ObservableComputations.MinimazingOrMaximazing<TSourceItem>(
 				source: source,
 				mode: MinimazingOrMaximazingMode.Minimazing,
-				comparerScalar: new Computing<System.Collections.Generic.IComparer<TSourceItem>>(comparerExpression),
-				defaultValue: default);
+				comparerScalar: new Computing<System.Collections.Generic.IComparer<TSourceItem>>(comparerExpression));
 		}
 
 		#endregion
@@ -23435,31 +21277,10 @@ namespace ObservableComputations
 
 		[ObservableComputationsCall]
 		public static ObservableComputations.PreviousTracking<TResult> PreviousTracking<TResult>(this
-			 ObservableComputations.IReadScalar<TResult> source,
-			 TResult defaultValue)
-		{
-			return new ObservableComputations.PreviousTracking<TResult>(
-				source: source,
-				defaultValue: defaultValue);
-		}
-
-		[ObservableComputationsCall]
-		public static ObservableComputations.PreviousTracking<TResult> PreviousTracking<TResult>(this
 			 ObservableComputations.IReadScalar<TResult> source)
 		{
 			return new ObservableComputations.PreviousTracking<TResult>(
-				source: source,
-				defaultValue: default);
-		}
-
-		[ObservableComputationsCall]
-		public static ObservableComputations.PreviousTracking<TResult> PreviousTracking<TResult>(this
-			 Expression<Func<TResult>> source,
-			 TResult defaultValue)
-		{
-			return new ObservableComputations.PreviousTracking<TResult>(
-				source: new Computing<TResult>(source),
-				defaultValue: defaultValue);
+				source: source);
 		}
 
 		[ObservableComputationsCall]
@@ -23467,8 +21288,7 @@ namespace ObservableComputations
 			 Expression<Func<TResult>> source)
 		{
 			return new ObservableComputations.PreviousTracking<TResult>(
-				source: new Computing<TResult>(source),
-				defaultValue: default);
+				source: new Computing<TResult>(source));
 		}
 
 		#endregion
@@ -23477,36 +21297,11 @@ namespace ObservableComputations
 		[ObservableComputationsCall]
 		public static ObservableComputations.PropertyAccessing<TResult> PropertyAccessing<TResult>(this
 			 ObservableComputations.IReadScalar<System.ComponentModel.INotifyPropertyChanged> sourceScalar,
-			 string propertyName,
-			 TResult defaultValue)
-		{
-			return new ObservableComputations.PropertyAccessing<TResult>(
-				sourceScalar: sourceScalar,
-				propertyName: propertyName,
-				defaultValue: defaultValue);
-		}
-
-		[ObservableComputationsCall]
-		public static ObservableComputations.PropertyAccessing<TResult> PropertyAccessing<TResult>(this
-			 ObservableComputations.IReadScalar<System.ComponentModel.INotifyPropertyChanged> sourceScalar,
 			 string propertyName)
 		{
 			return new ObservableComputations.PropertyAccessing<TResult>(
 				sourceScalar: sourceScalar,
-				propertyName: propertyName,
-				defaultValue: default);
-		}
-
-		[ObservableComputationsCall]
-		public static ObservableComputations.PropertyAccessing<TResult> PropertyAccessing<TResult>(this
-			 Expression<Func<System.ComponentModel.INotifyPropertyChanged>> sourceExpression,
-			 string propertyName,
-			 TResult defaultValue)
-		{
-			return new ObservableComputations.PropertyAccessing<TResult>(
-				sourceScalar: new Computing<System.ComponentModel.INotifyPropertyChanged>(sourceExpression),
-				propertyName: propertyName,
-				defaultValue: defaultValue);
+				propertyName: propertyName);
 		}
 
 		[ObservableComputationsCall]
@@ -23516,22 +21311,7 @@ namespace ObservableComputations
 		{
 			return new ObservableComputations.PropertyAccessing<TResult>(
 				sourceScalar: new Computing<System.ComponentModel.INotifyPropertyChanged>(sourceExpression),
-				propertyName: propertyName,
-				defaultValue: default);
-		}
-
-		[ObservableComputationsCall]
-		public static ObservableComputations.PropertyAccessing<TResult> PropertyAccessing<TResult>(this
-			 ObservableComputations.IReadScalar<System.ComponentModel.INotifyPropertyChanged> sourceScalar,
-			 string propertyName,
-			 System.Reflection.BindingFlags bindingAttr,
-			 TResult defaultValue)
-		{
-			return new ObservableComputations.PropertyAccessing<TResult>(
-				sourceScalar: sourceScalar,
-				propertyName: propertyName,
-				bindingAttr: bindingAttr,
-				defaultValue: defaultValue);
+				propertyName: propertyName);
 		}
 
 		[ObservableComputationsCall]
@@ -23543,22 +21323,7 @@ namespace ObservableComputations
 			return new ObservableComputations.PropertyAccessing<TResult>(
 				sourceScalar: sourceScalar,
 				propertyName: propertyName,
-				bindingAttr: bindingAttr,
-				defaultValue: default);
-		}
-
-		[ObservableComputationsCall]
-		public static ObservableComputations.PropertyAccessing<TResult> PropertyAccessing<TResult>(this
-			 Expression<Func<System.ComponentModel.INotifyPropertyChanged>> sourceExpression,
-			 string propertyName,
-			 System.Reflection.BindingFlags bindingAttr,
-			 TResult defaultValue)
-		{
-			return new ObservableComputations.PropertyAccessing<TResult>(
-				sourceScalar: new Computing<System.ComponentModel.INotifyPropertyChanged>(sourceExpression),
-				propertyName: propertyName,
-				bindingAttr: bindingAttr,
-				defaultValue: defaultValue);
+				bindingAttr: bindingAttr);
 		}
 
 		[ObservableComputationsCall]
@@ -23570,22 +21335,7 @@ namespace ObservableComputations
 			return new ObservableComputations.PropertyAccessing<TResult>(
 				sourceScalar: new Computing<System.ComponentModel.INotifyPropertyChanged>(sourceExpression),
 				propertyName: propertyName,
-				bindingAttr: bindingAttr,
-				defaultValue: default);
-		}
-
-		[ObservableComputationsCall]
-		public static ObservableComputations.PropertyAccessing<TResult> PropertyAccessing<TResult>(this
-			 ObservableComputations.IReadScalar<System.ComponentModel.INotifyPropertyChanged> sourceScalar,
-			 string propertyName,
-			 System.Type returnType,
-			 TResult defaultValue)
-		{
-			return new ObservableComputations.PropertyAccessing<TResult>(
-				sourceScalar: sourceScalar,
-				propertyName: propertyName,
-				returnType: returnType,
-				defaultValue: defaultValue);
+				bindingAttr: bindingAttr);
 		}
 
 		[ObservableComputationsCall]
@@ -23597,22 +21347,7 @@ namespace ObservableComputations
 			return new ObservableComputations.PropertyAccessing<TResult>(
 				sourceScalar: sourceScalar,
 				propertyName: propertyName,
-				returnType: returnType,
-				defaultValue: default);
-		}
-
-		[ObservableComputationsCall]
-		public static ObservableComputations.PropertyAccessing<TResult> PropertyAccessing<TResult>(this
-			 Expression<Func<System.ComponentModel.INotifyPropertyChanged>> sourceExpression,
-			 string propertyName,
-			 System.Type returnType,
-			 TResult defaultValue)
-		{
-			return new ObservableComputations.PropertyAccessing<TResult>(
-				sourceScalar: new Computing<System.ComponentModel.INotifyPropertyChanged>(sourceExpression),
-				propertyName: propertyName,
-				returnType: returnType,
-				defaultValue: defaultValue);
+				returnType: returnType);
 		}
 
 		[ObservableComputationsCall]
@@ -23624,24 +21359,7 @@ namespace ObservableComputations
 			return new ObservableComputations.PropertyAccessing<TResult>(
 				sourceScalar: new Computing<System.ComponentModel.INotifyPropertyChanged>(sourceExpression),
 				propertyName: propertyName,
-				returnType: returnType,
-				defaultValue: default);
-		}
-
-		[ObservableComputationsCall]
-		public static ObservableComputations.PropertyAccessing<TResult> PropertyAccessing<TResult>(this
-			 ObservableComputations.IReadScalar<System.ComponentModel.INotifyPropertyChanged> sourceScalar,
-			 string propertyName,
-			 System.Type returnType,
-			 System.Type[] types,
-			 TResult defaultValue)
-		{
-			return new ObservableComputations.PropertyAccessing<TResult>(
-				sourceScalar: sourceScalar,
-				propertyName: propertyName,
-				returnType: returnType,
-				types: types,
-				defaultValue: defaultValue);
+				returnType: returnType);
 		}
 
 		[ObservableComputationsCall]
@@ -23655,24 +21373,7 @@ namespace ObservableComputations
 				sourceScalar: sourceScalar,
 				propertyName: propertyName,
 				returnType: returnType,
-				types: types,
-				defaultValue: default);
-		}
-
-		[ObservableComputationsCall]
-		public static ObservableComputations.PropertyAccessing<TResult> PropertyAccessing<TResult>(this
-			 Expression<Func<System.ComponentModel.INotifyPropertyChanged>> sourceExpression,
-			 string propertyName,
-			 System.Type returnType,
-			 System.Type[] types,
-			 TResult defaultValue)
-		{
-			return new ObservableComputations.PropertyAccessing<TResult>(
-				sourceScalar: new Computing<System.ComponentModel.INotifyPropertyChanged>(sourceExpression),
-				propertyName: propertyName,
-				returnType: returnType,
-				types: types,
-				defaultValue: defaultValue);
+				types: types);
 		}
 
 		[ObservableComputationsCall]
@@ -23686,26 +21387,7 @@ namespace ObservableComputations
 				sourceScalar: new Computing<System.ComponentModel.INotifyPropertyChanged>(sourceExpression),
 				propertyName: propertyName,
 				returnType: returnType,
-				types: types,
-				defaultValue: default);
-		}
-
-		[ObservableComputationsCall]
-		public static ObservableComputations.PropertyAccessing<TResult> PropertyAccessing<TResult>(this
-			 ObservableComputations.IReadScalar<System.ComponentModel.INotifyPropertyChanged> sourceScalar,
-			 string propertyName,
-			 System.Type returnType,
-			 System.Type[] types,
-			 System.Reflection.ParameterModifier[] modifiers,
-			 TResult defaultValue)
-		{
-			return new ObservableComputations.PropertyAccessing<TResult>(
-				sourceScalar: sourceScalar,
-				propertyName: propertyName,
-				returnType: returnType,
-				types: types,
-				modifiers: modifiers,
-				defaultValue: defaultValue);
+				types: types);
 		}
 
 		[ObservableComputationsCall]
@@ -23721,26 +21403,7 @@ namespace ObservableComputations
 				propertyName: propertyName,
 				returnType: returnType,
 				types: types,
-				modifiers: modifiers,
-				defaultValue: default);
-		}
-
-		[ObservableComputationsCall]
-		public static ObservableComputations.PropertyAccessing<TResult> PropertyAccessing<TResult>(this
-			 Expression<Func<System.ComponentModel.INotifyPropertyChanged>> sourceExpression,
-			 string propertyName,
-			 System.Type returnType,
-			 System.Type[] types,
-			 System.Reflection.ParameterModifier[] modifiers,
-			 TResult defaultValue)
-		{
-			return new ObservableComputations.PropertyAccessing<TResult>(
-				sourceScalar: new Computing<System.ComponentModel.INotifyPropertyChanged>(sourceExpression),
-				propertyName: propertyName,
-				returnType: returnType,
-				types: types,
-				modifiers: modifiers,
-				defaultValue: defaultValue);
+				modifiers: modifiers);
 		}
 
 		[ObservableComputationsCall]
@@ -23756,30 +21419,7 @@ namespace ObservableComputations
 				propertyName: propertyName,
 				returnType: returnType,
 				types: types,
-				modifiers: modifiers,
-				defaultValue: default);
-		}
-
-		[ObservableComputationsCall]
-		public static ObservableComputations.PropertyAccessing<TResult> PropertyAccessing<TResult>(this
-			 ObservableComputations.IReadScalar<System.ComponentModel.INotifyPropertyChanged> sourceScalar,
-			 string propertyName,
-			 System.Reflection.BindingFlags bindingAttr,
-			 System.Reflection.Binder binder,
-			 System.Type returnType,
-			 System.Type[] types,
-			 System.Reflection.ParameterModifier[] modifiers,
-			 TResult defaultValue)
-		{
-			return new ObservableComputations.PropertyAccessing<TResult>(
-				sourceScalar: sourceScalar,
-				propertyName: propertyName,
-				bindingAttr: bindingAttr,
-				binder: binder,
-				returnType: returnType,
-				types: types,
-				modifiers: modifiers,
-				defaultValue: defaultValue);
+				modifiers: modifiers);
 		}
 
 		[ObservableComputationsCall]
@@ -23799,30 +21439,7 @@ namespace ObservableComputations
 				binder: binder,
 				returnType: returnType,
 				types: types,
-				modifiers: modifiers,
-				defaultValue: default);
-		}
-
-		[ObservableComputationsCall]
-		public static ObservableComputations.PropertyAccessing<TResult> PropertyAccessing<TResult>(this
-			 Expression<Func<System.ComponentModel.INotifyPropertyChanged>> sourceExpression,
-			 string propertyName,
-			 System.Reflection.BindingFlags bindingAttr,
-			 System.Reflection.Binder binder,
-			 System.Type returnType,
-			 System.Type[] types,
-			 System.Reflection.ParameterModifier[] modifiers,
-			 TResult defaultValue)
-		{
-			return new ObservableComputations.PropertyAccessing<TResult>(
-				sourceScalar: new Computing<System.ComponentModel.INotifyPropertyChanged>(sourceExpression),
-				propertyName: propertyName,
-				bindingAttr: bindingAttr,
-				binder: binder,
-				returnType: returnType,
-				types: types,
-				modifiers: modifiers,
-				defaultValue: defaultValue);
+				modifiers: modifiers);
 		}
 
 		[ObservableComputationsCall]
@@ -23842,20 +21459,7 @@ namespace ObservableComputations
 				binder: binder,
 				returnType: returnType,
 				types: types,
-				modifiers: modifiers,
-				defaultValue: default);
-		}
-
-		[ObservableComputationsCall]
-		public static ObservableComputations.PropertyAccessing<TResult> PropertyAccessing<TResult>(this
-			 ObservableComputations.IReadScalar<System.ComponentModel.INotifyPropertyChanged> sourceScalar,
-			 System.Func<System.Reflection.PropertyInfo, bool> propertyInfoPredicate,
-			 TResult defaultValue)
-		{
-			return new ObservableComputations.PropertyAccessing<TResult>(
-				sourceScalar: sourceScalar,
-				propertyInfoPredicate: propertyInfoPredicate,
-				defaultValue: defaultValue);
+				modifiers: modifiers);
 		}
 
 		[ObservableComputationsCall]
@@ -23865,20 +21469,7 @@ namespace ObservableComputations
 		{
 			return new ObservableComputations.PropertyAccessing<TResult>(
 				sourceScalar: sourceScalar,
-				propertyInfoPredicate: propertyInfoPredicate,
-				defaultValue: default);
-		}
-
-		[ObservableComputationsCall]
-		public static ObservableComputations.PropertyAccessing<TResult> PropertyAccessing<TResult>(this
-			 Expression<Func<System.ComponentModel.INotifyPropertyChanged>> sourceExpression,
-			 System.Func<System.Reflection.PropertyInfo, bool> propertyInfoPredicate,
-			 TResult defaultValue)
-		{
-			return new ObservableComputations.PropertyAccessing<TResult>(
-				sourceScalar: new Computing<System.ComponentModel.INotifyPropertyChanged>(sourceExpression),
-				propertyInfoPredicate: propertyInfoPredicate,
-				defaultValue: defaultValue);
+				propertyInfoPredicate: propertyInfoPredicate);
 		}
 
 		[ObservableComputationsCall]
@@ -23888,22 +21479,7 @@ namespace ObservableComputations
 		{
 			return new ObservableComputations.PropertyAccessing<TResult>(
 				sourceScalar: new Computing<System.ComponentModel.INotifyPropertyChanged>(sourceExpression),
-				propertyInfoPredicate: propertyInfoPredicate,
-				defaultValue: default);
-		}
-
-		[ObservableComputationsCall]
-		public static ObservableComputations.PropertyAccessing<TResult> PropertyAccessing<TResult>(this
-			 ObservableComputations.IReadScalar<System.ComponentModel.INotifyPropertyChanged> sourceScalar,
-			 System.Func<System.Reflection.PropertyInfo, bool> propertyInfoPredicate,
-			 System.Reflection.BindingFlags bindingAttr,
-			 TResult defaultValue)
-		{
-			return new ObservableComputations.PropertyAccessing<TResult>(
-				sourceScalar: sourceScalar,
-				propertyInfoPredicate: propertyInfoPredicate,
-				bindingAttr: bindingAttr,
-				defaultValue: defaultValue);
+				propertyInfoPredicate: propertyInfoPredicate);
 		}
 
 		[ObservableComputationsCall]
@@ -23915,22 +21491,7 @@ namespace ObservableComputations
 			return new ObservableComputations.PropertyAccessing<TResult>(
 				sourceScalar: sourceScalar,
 				propertyInfoPredicate: propertyInfoPredicate,
-				bindingAttr: bindingAttr,
-				defaultValue: default);
-		}
-
-		[ObservableComputationsCall]
-		public static ObservableComputations.PropertyAccessing<TResult> PropertyAccessing<TResult>(this
-			 Expression<Func<System.ComponentModel.INotifyPropertyChanged>> sourceExpression,
-			 System.Func<System.Reflection.PropertyInfo, bool> propertyInfoPredicate,
-			 System.Reflection.BindingFlags bindingAttr,
-			 TResult defaultValue)
-		{
-			return new ObservableComputations.PropertyAccessing<TResult>(
-				sourceScalar: new Computing<System.ComponentModel.INotifyPropertyChanged>(sourceExpression),
-				propertyInfoPredicate: propertyInfoPredicate,
-				bindingAttr: bindingAttr,
-				defaultValue: defaultValue);
+				bindingAttr: bindingAttr);
 		}
 
 		[ObservableComputationsCall]
@@ -23942,20 +21503,7 @@ namespace ObservableComputations
 			return new ObservableComputations.PropertyAccessing<TResult>(
 				sourceScalar: new Computing<System.ComponentModel.INotifyPropertyChanged>(sourceExpression),
 				propertyInfoPredicate: propertyInfoPredicate,
-				bindingAttr: bindingAttr,
-				defaultValue: default);
-		}
-
-		[ObservableComputationsCall]
-		public static ObservableComputations.PropertyAccessing<TResult> PropertyAccessing<TResult>(this
-			 System.ComponentModel.INotifyPropertyChanged source,
-			 string propertyName,
-			 TResult defaultValue)
-		{
-			return new ObservableComputations.PropertyAccessing<TResult>(
-				source: source,
-				propertyName: propertyName,
-				defaultValue: defaultValue);
+				bindingAttr: bindingAttr);
 		}
 
 		[ObservableComputationsCall]
@@ -23965,22 +21513,7 @@ namespace ObservableComputations
 		{
 			return new ObservableComputations.PropertyAccessing<TResult>(
 				source: source,
-				propertyName: propertyName,
-				defaultValue: default);
-		}
-
-		[ObservableComputationsCall]
-		public static ObservableComputations.PropertyAccessing<TResult> PropertyAccessing<TResult>(this
-			 System.ComponentModel.INotifyPropertyChanged source,
-			 string propertyName,
-			 System.Reflection.BindingFlags bindingAttr,
-			 TResult defaultValue)
-		{
-			return new ObservableComputations.PropertyAccessing<TResult>(
-				source: source,
-				propertyName: propertyName,
-				bindingAttr: bindingAttr,
-				defaultValue: defaultValue);
+				propertyName: propertyName);
 		}
 
 		[ObservableComputationsCall]
@@ -23992,22 +21525,7 @@ namespace ObservableComputations
 			return new ObservableComputations.PropertyAccessing<TResult>(
 				source: source,
 				propertyName: propertyName,
-				bindingAttr: bindingAttr,
-				defaultValue: default);
-		}
-
-		[ObservableComputationsCall]
-		public static ObservableComputations.PropertyAccessing<TResult> PropertyAccessing<TResult>(this
-			 System.ComponentModel.INotifyPropertyChanged source,
-			 string propertyName,
-			 System.Type returnType,
-			 TResult defaultValue)
-		{
-			return new ObservableComputations.PropertyAccessing<TResult>(
-				source: source,
-				propertyName: propertyName,
-				returnType: returnType,
-				defaultValue: defaultValue);
+				bindingAttr: bindingAttr);
 		}
 
 		[ObservableComputationsCall]
@@ -24019,24 +21537,7 @@ namespace ObservableComputations
 			return new ObservableComputations.PropertyAccessing<TResult>(
 				source: source,
 				propertyName: propertyName,
-				returnType: returnType,
-				defaultValue: default);
-		}
-
-		[ObservableComputationsCall]
-		public static ObservableComputations.PropertyAccessing<TResult> PropertyAccessing<TResult>(this
-			 System.ComponentModel.INotifyPropertyChanged source,
-			 string propertyName,
-			 System.Type returnType,
-			 System.Type[] types,
-			 TResult defaultValue)
-		{
-			return new ObservableComputations.PropertyAccessing<TResult>(
-				source: source,
-				propertyName: propertyName,
-				returnType: returnType,
-				types: types,
-				defaultValue: defaultValue);
+				returnType: returnType);
 		}
 
 		[ObservableComputationsCall]
@@ -24050,26 +21551,7 @@ namespace ObservableComputations
 				source: source,
 				propertyName: propertyName,
 				returnType: returnType,
-				types: types,
-				defaultValue: default);
-		}
-
-		[ObservableComputationsCall]
-		public static ObservableComputations.PropertyAccessing<TResult> PropertyAccessing<TResult>(this
-			 System.ComponentModel.INotifyPropertyChanged source,
-			 string propertyName,
-			 System.Type returnType,
-			 System.Type[] types,
-			 System.Reflection.ParameterModifier[] modifiers,
-			 TResult defaultValue)
-		{
-			return new ObservableComputations.PropertyAccessing<TResult>(
-				source: source,
-				propertyName: propertyName,
-				returnType: returnType,
-				types: types,
-				modifiers: modifiers,
-				defaultValue: defaultValue);
+				types: types);
 		}
 
 		[ObservableComputationsCall]
@@ -24085,30 +21567,7 @@ namespace ObservableComputations
 				propertyName: propertyName,
 				returnType: returnType,
 				types: types,
-				modifiers: modifiers,
-				defaultValue: default);
-		}
-
-		[ObservableComputationsCall]
-		public static ObservableComputations.PropertyAccessing<TResult> PropertyAccessing<TResult>(this
-			 System.ComponentModel.INotifyPropertyChanged source,
-			 string propertyName,
-			 System.Reflection.BindingFlags bindingAttr,
-			 System.Reflection.Binder binder,
-			 System.Type returnType,
-			 System.Type[] types,
-			 System.Reflection.ParameterModifier[] modifiers,
-			 TResult defaultValue)
-		{
-			return new ObservableComputations.PropertyAccessing<TResult>(
-				source: source,
-				propertyName: propertyName,
-				bindingAttr: bindingAttr,
-				binder: binder,
-				returnType: returnType,
-				types: types,
-				modifiers: modifiers,
-				defaultValue: defaultValue);
+				modifiers: modifiers);
 		}
 
 		[ObservableComputationsCall]
@@ -24128,20 +21587,7 @@ namespace ObservableComputations
 				binder: binder,
 				returnType: returnType,
 				types: types,
-				modifiers: modifiers,
-				defaultValue: default);
-		}
-
-		[ObservableComputationsCall]
-		public static ObservableComputations.PropertyAccessing<TResult> PropertyAccessing<TResult>(this
-			 System.ComponentModel.INotifyPropertyChanged source,
-			 System.Func<System.Reflection.PropertyInfo, bool> propertyInfoPredicate,
-			 TResult defaultValue)
-		{
-			return new ObservableComputations.PropertyAccessing<TResult>(
-				source: source,
-				propertyInfoPredicate: propertyInfoPredicate,
-				defaultValue: defaultValue);
+				modifiers: modifiers);
 		}
 
 		[ObservableComputationsCall]
@@ -24151,22 +21597,7 @@ namespace ObservableComputations
 		{
 			return new ObservableComputations.PropertyAccessing<TResult>(
 				source: source,
-				propertyInfoPredicate: propertyInfoPredicate,
-				defaultValue: default);
-		}
-
-		[ObservableComputationsCall]
-		public static ObservableComputations.PropertyAccessing<TResult> PropertyAccessing<TResult>(this
-			 System.ComponentModel.INotifyPropertyChanged source,
-			 System.Func<System.Reflection.PropertyInfo, bool> propertyInfoPredicate,
-			 System.Reflection.BindingFlags bindingAttr,
-			 TResult defaultValue)
-		{
-			return new ObservableComputations.PropertyAccessing<TResult>(
-				source: source,
-				propertyInfoPredicate: propertyInfoPredicate,
-				bindingAttr: bindingAttr,
-				defaultValue: defaultValue);
+				propertyInfoPredicate: propertyInfoPredicate);
 		}
 
 		[ObservableComputationsCall]
@@ -24178,8 +21609,7 @@ namespace ObservableComputations
 			return new ObservableComputations.PropertyAccessing<TResult>(
 				source: source,
 				propertyInfoPredicate: propertyInfoPredicate,
-				bindingAttr: bindingAttr,
-				defaultValue: default);
+				bindingAttr: bindingAttr);
 		}
 
 		#endregion
@@ -24244,28 +21674,6 @@ namespace ObservableComputations
 			 int destinationOcDispatcherPriority,
 			 int sourceOcDispatcherPriority,
 			 object destinationOcDispatcherParameter,
-			 object sourceOcDispatcherParameter,
-			 TResult defaultValue)
-		{
-			return new ObservableComputations.ScalarDispatching<TResult>(
-				source: source,
-				destinationOcDispatcher: destinationOcDispatcher,
-				sourceOcDispatcher: sourceOcDispatcher,
-				destinationOcDispatcherPriority: destinationOcDispatcherPriority,
-				sourceOcDispatcherPriority: sourceOcDispatcherPriority,
-				destinationOcDispatcherParameter: destinationOcDispatcherParameter,
-				sourceOcDispatcherParameter: sourceOcDispatcherParameter,
-				defaultValue: defaultValue);
-		}
-
-		[ObservableComputationsCall]
-		public static ObservableComputations.ScalarDispatching<TResult> ScalarDispatching<TResult>(this
-			 ObservableComputations.IReadScalar<TResult> source,
-			 ObservableComputations.IOcDispatcher destinationOcDispatcher,
-			 ObservableComputations.IOcDispatcher sourceOcDispatcher,
-			 int destinationOcDispatcherPriority,
-			 int sourceOcDispatcherPriority,
-			 object destinationOcDispatcherParameter,
 			 object sourceOcDispatcherParameter)
 		{
 			return new ObservableComputations.ScalarDispatching<TResult>(
@@ -24275,29 +21683,7 @@ namespace ObservableComputations
 				destinationOcDispatcherPriority: destinationOcDispatcherPriority,
 				sourceOcDispatcherPriority: sourceOcDispatcherPriority,
 				destinationOcDispatcherParameter: destinationOcDispatcherParameter,
-				sourceOcDispatcherParameter: sourceOcDispatcherParameter,
-				defaultValue: default);
-		}
-
-		[ObservableComputationsCall]
-		public static ObservableComputations.ScalarDispatching<TResult> ScalarDispatching<TResult>(this
-			 ObservableComputations.IReadScalar<TResult> source,
-			 ObservableComputations.IOcDispatcher destinationOcDispatcher,
-			 ObservableComputations.IOcDispatcher sourceOcDispatcher,
-			 int destinationOcDispatcherPriority,
-			 int sourceOcDispatcherPriority,
-			 object destinationOcDispatcherParameter,
-			 TResult defaultValue)
-		{
-			return new ObservableComputations.ScalarDispatching<TResult>(
-				source: source,
-				destinationOcDispatcher: destinationOcDispatcher,
-				sourceOcDispatcher: sourceOcDispatcher,
-				destinationOcDispatcherPriority: destinationOcDispatcherPriority,
-				sourceOcDispatcherPriority: sourceOcDispatcherPriority,
-				destinationOcDispatcherParameter: destinationOcDispatcherParameter,
-				sourceOcDispatcherParameter: null,
-				defaultValue: defaultValue);
+				sourceOcDispatcherParameter: sourceOcDispatcherParameter);
 		}
 
 		[ObservableComputationsCall]
@@ -24316,28 +21702,7 @@ namespace ObservableComputations
 				destinationOcDispatcherPriority: destinationOcDispatcherPriority,
 				sourceOcDispatcherPriority: sourceOcDispatcherPriority,
 				destinationOcDispatcherParameter: destinationOcDispatcherParameter,
-				sourceOcDispatcherParameter: null,
-				defaultValue: default);
-		}
-
-		[ObservableComputationsCall]
-		public static ObservableComputations.ScalarDispatching<TResult> ScalarDispatching<TResult>(this
-			 ObservableComputations.IReadScalar<TResult> source,
-			 ObservableComputations.IOcDispatcher destinationOcDispatcher,
-			 ObservableComputations.IOcDispatcher sourceOcDispatcher,
-			 int destinationOcDispatcherPriority,
-			 int sourceOcDispatcherPriority,
-			 TResult defaultValue)
-		{
-			return new ObservableComputations.ScalarDispatching<TResult>(
-				source: source,
-				destinationOcDispatcher: destinationOcDispatcher,
-				sourceOcDispatcher: sourceOcDispatcher,
-				destinationOcDispatcherPriority: destinationOcDispatcherPriority,
-				sourceOcDispatcherPriority: sourceOcDispatcherPriority,
-				destinationOcDispatcherParameter: null,
-				sourceOcDispatcherParameter: null,
-				defaultValue: defaultValue);
+				sourceOcDispatcherParameter: null);
 		}
 
 		[ObservableComputationsCall]
@@ -24355,29 +21720,7 @@ namespace ObservableComputations
 				destinationOcDispatcherPriority: destinationOcDispatcherPriority,
 				sourceOcDispatcherPriority: sourceOcDispatcherPriority,
 				destinationOcDispatcherParameter: null,
-				sourceOcDispatcherParameter: null,
-				defaultValue: default);
-		}
-
-		[ObservableComputationsCall]
-		public static ObservableComputations.ScalarDispatching<TResult> ScalarDispatching<TResult>(this
-			 ObservableComputations.IReadScalar<TResult> source,
-			 ObservableComputations.IOcDispatcher destinationOcDispatcher,
-			 ObservableComputations.IOcDispatcher sourceOcDispatcher,
-			 int destinationOcDispatcherPriority,
-			 object destinationOcDispatcherParameter,
-			 object sourceOcDispatcherParameter,
-			 TResult defaultValue)
-		{
-			return new ObservableComputations.ScalarDispatching<TResult>(
-				source: source,
-				destinationOcDispatcher: destinationOcDispatcher,
-				sourceOcDispatcher: sourceOcDispatcher,
-				destinationOcDispatcherPriority: destinationOcDispatcherPriority,
-				sourceOcDispatcherPriority: 0,
-				destinationOcDispatcherParameter: destinationOcDispatcherParameter,
-				sourceOcDispatcherParameter: sourceOcDispatcherParameter,
-				defaultValue: defaultValue);
+				sourceOcDispatcherParameter: null);
 		}
 
 		[ObservableComputationsCall]
@@ -24396,28 +21739,7 @@ namespace ObservableComputations
 				destinationOcDispatcherPriority: destinationOcDispatcherPriority,
 				sourceOcDispatcherPriority: 0,
 				destinationOcDispatcherParameter: destinationOcDispatcherParameter,
-				sourceOcDispatcherParameter: sourceOcDispatcherParameter,
-				defaultValue: default);
-		}
-
-		[ObservableComputationsCall]
-		public static ObservableComputations.ScalarDispatching<TResult> ScalarDispatching<TResult>(this
-			 ObservableComputations.IReadScalar<TResult> source,
-			 ObservableComputations.IOcDispatcher destinationOcDispatcher,
-			 ObservableComputations.IOcDispatcher sourceOcDispatcher,
-			 int destinationOcDispatcherPriority,
-			 object destinationOcDispatcherParameter,
-			 TResult defaultValue)
-		{
-			return new ObservableComputations.ScalarDispatching<TResult>(
-				source: source,
-				destinationOcDispatcher: destinationOcDispatcher,
-				sourceOcDispatcher: sourceOcDispatcher,
-				destinationOcDispatcherPriority: destinationOcDispatcherPriority,
-				sourceOcDispatcherPriority: 0,
-				destinationOcDispatcherParameter: destinationOcDispatcherParameter,
-				sourceOcDispatcherParameter: null,
-				defaultValue: defaultValue);
+				sourceOcDispatcherParameter: sourceOcDispatcherParameter);
 		}
 
 		[ObservableComputationsCall]
@@ -24435,27 +21757,7 @@ namespace ObservableComputations
 				destinationOcDispatcherPriority: destinationOcDispatcherPriority,
 				sourceOcDispatcherPriority: 0,
 				destinationOcDispatcherParameter: destinationOcDispatcherParameter,
-				sourceOcDispatcherParameter: null,
-				defaultValue: default);
-		}
-
-		[ObservableComputationsCall]
-		public static ObservableComputations.ScalarDispatching<TResult> ScalarDispatching<TResult>(this
-			 ObservableComputations.IReadScalar<TResult> source,
-			 ObservableComputations.IOcDispatcher destinationOcDispatcher,
-			 ObservableComputations.IOcDispatcher sourceOcDispatcher,
-			 int destinationOcDispatcherPriority,
-			 TResult defaultValue)
-		{
-			return new ObservableComputations.ScalarDispatching<TResult>(
-				source: source,
-				destinationOcDispatcher: destinationOcDispatcher,
-				sourceOcDispatcher: sourceOcDispatcher,
-				destinationOcDispatcherPriority: destinationOcDispatcherPriority,
-				sourceOcDispatcherPriority: 0,
-				destinationOcDispatcherParameter: null,
-				sourceOcDispatcherParameter: null,
-				defaultValue: defaultValue);
+				sourceOcDispatcherParameter: null);
 		}
 
 		[ObservableComputationsCall]
@@ -24472,28 +21774,7 @@ namespace ObservableComputations
 				destinationOcDispatcherPriority: destinationOcDispatcherPriority,
 				sourceOcDispatcherPriority: 0,
 				destinationOcDispatcherParameter: null,
-				sourceOcDispatcherParameter: null,
-				defaultValue: default);
-		}
-
-		[ObservableComputationsCall]
-		public static ObservableComputations.ScalarDispatching<TResult> ScalarDispatching<TResult>(this
-			 ObservableComputations.IReadScalar<TResult> source,
-			 ObservableComputations.IOcDispatcher destinationOcDispatcher,
-			 ObservableComputations.IOcDispatcher sourceOcDispatcher,
-			 object destinationOcDispatcherParameter,
-			 object sourceOcDispatcherParameter,
-			 TResult defaultValue)
-		{
-			return new ObservableComputations.ScalarDispatching<TResult>(
-				source: source,
-				destinationOcDispatcher: destinationOcDispatcher,
-				sourceOcDispatcher: sourceOcDispatcher,
-				destinationOcDispatcherPriority: 0,
-				sourceOcDispatcherPriority: 0,
-				destinationOcDispatcherParameter: destinationOcDispatcherParameter,
-				sourceOcDispatcherParameter: sourceOcDispatcherParameter,
-				defaultValue: defaultValue);
+				sourceOcDispatcherParameter: null);
 		}
 
 		[ObservableComputationsCall]
@@ -24511,27 +21792,7 @@ namespace ObservableComputations
 				destinationOcDispatcherPriority: 0,
 				sourceOcDispatcherPriority: 0,
 				destinationOcDispatcherParameter: destinationOcDispatcherParameter,
-				sourceOcDispatcherParameter: sourceOcDispatcherParameter,
-				defaultValue: default);
-		}
-
-		[ObservableComputationsCall]
-		public static ObservableComputations.ScalarDispatching<TResult> ScalarDispatching<TResult>(this
-			 ObservableComputations.IReadScalar<TResult> source,
-			 ObservableComputations.IOcDispatcher destinationOcDispatcher,
-			 ObservableComputations.IOcDispatcher sourceOcDispatcher,
-			 object destinationOcDispatcherParameter,
-			 TResult defaultValue)
-		{
-			return new ObservableComputations.ScalarDispatching<TResult>(
-				source: source,
-				destinationOcDispatcher: destinationOcDispatcher,
-				sourceOcDispatcher: sourceOcDispatcher,
-				destinationOcDispatcherPriority: 0,
-				sourceOcDispatcherPriority: 0,
-				destinationOcDispatcherParameter: destinationOcDispatcherParameter,
-				sourceOcDispatcherParameter: null,
-				defaultValue: defaultValue);
+				sourceOcDispatcherParameter: sourceOcDispatcherParameter);
 		}
 
 		[ObservableComputationsCall]
@@ -24548,26 +21809,7 @@ namespace ObservableComputations
 				destinationOcDispatcherPriority: 0,
 				sourceOcDispatcherPriority: 0,
 				destinationOcDispatcherParameter: destinationOcDispatcherParameter,
-				sourceOcDispatcherParameter: null,
-				defaultValue: default);
-		}
-
-		[ObservableComputationsCall]
-		public static ObservableComputations.ScalarDispatching<TResult> ScalarDispatching<TResult>(this
-			 ObservableComputations.IReadScalar<TResult> source,
-			 ObservableComputations.IOcDispatcher destinationOcDispatcher,
-			 ObservableComputations.IOcDispatcher sourceOcDispatcher,
-			 TResult defaultValue)
-		{
-			return new ObservableComputations.ScalarDispatching<TResult>(
-				source: source,
-				destinationOcDispatcher: destinationOcDispatcher,
-				sourceOcDispatcher: sourceOcDispatcher,
-				destinationOcDispatcherPriority: 0,
-				sourceOcDispatcherPriority: 0,
-				destinationOcDispatcherParameter: null,
-				sourceOcDispatcherParameter: null,
-				defaultValue: defaultValue);
+				sourceOcDispatcherParameter: null);
 		}
 
 		[ObservableComputationsCall]
@@ -24583,29 +21825,7 @@ namespace ObservableComputations
 				destinationOcDispatcherPriority: 0,
 				sourceOcDispatcherPriority: 0,
 				destinationOcDispatcherParameter: null,
-				sourceOcDispatcherParameter: null,
-				defaultValue: default);
-		}
-
-		[ObservableComputationsCall]
-		public static ObservableComputations.ScalarDispatching<TResult> ScalarDispatching<TResult>(this
-			 ObservableComputations.IReadScalar<TResult> source,
-			 ObservableComputations.IOcDispatcher destinationOcDispatcher,
-			 int destinationOcDispatcherPriority,
-			 int sourceOcDispatcherPriority,
-			 object destinationOcDispatcherParameter,
-			 object sourceOcDispatcherParameter,
-			 TResult defaultValue)
-		{
-			return new ObservableComputations.ScalarDispatching<TResult>(
-				source: source,
-				destinationOcDispatcher: destinationOcDispatcher,
-				sourceOcDispatcher: null,
-				destinationOcDispatcherPriority: destinationOcDispatcherPriority,
-				sourceOcDispatcherPriority: sourceOcDispatcherPriority,
-				destinationOcDispatcherParameter: destinationOcDispatcherParameter,
-				sourceOcDispatcherParameter: sourceOcDispatcherParameter,
-				defaultValue: defaultValue);
+				sourceOcDispatcherParameter: null);
 		}
 
 		[ObservableComputationsCall]
@@ -24624,28 +21844,7 @@ namespace ObservableComputations
 				destinationOcDispatcherPriority: destinationOcDispatcherPriority,
 				sourceOcDispatcherPriority: sourceOcDispatcherPriority,
 				destinationOcDispatcherParameter: destinationOcDispatcherParameter,
-				sourceOcDispatcherParameter: sourceOcDispatcherParameter,
-				defaultValue: default);
-		}
-
-		[ObservableComputationsCall]
-		public static ObservableComputations.ScalarDispatching<TResult> ScalarDispatching<TResult>(this
-			 ObservableComputations.IReadScalar<TResult> source,
-			 ObservableComputations.IOcDispatcher destinationOcDispatcher,
-			 int destinationOcDispatcherPriority,
-			 int sourceOcDispatcherPriority,
-			 object destinationOcDispatcherParameter,
-			 TResult defaultValue)
-		{
-			return new ObservableComputations.ScalarDispatching<TResult>(
-				source: source,
-				destinationOcDispatcher: destinationOcDispatcher,
-				sourceOcDispatcher: null,
-				destinationOcDispatcherPriority: destinationOcDispatcherPriority,
-				sourceOcDispatcherPriority: sourceOcDispatcherPriority,
-				destinationOcDispatcherParameter: destinationOcDispatcherParameter,
-				sourceOcDispatcherParameter: null,
-				defaultValue: defaultValue);
+				sourceOcDispatcherParameter: sourceOcDispatcherParameter);
 		}
 
 		[ObservableComputationsCall]
@@ -24663,27 +21862,7 @@ namespace ObservableComputations
 				destinationOcDispatcherPriority: destinationOcDispatcherPriority,
 				sourceOcDispatcherPriority: sourceOcDispatcherPriority,
 				destinationOcDispatcherParameter: destinationOcDispatcherParameter,
-				sourceOcDispatcherParameter: null,
-				defaultValue: default);
-		}
-
-		[ObservableComputationsCall]
-		public static ObservableComputations.ScalarDispatching<TResult> ScalarDispatching<TResult>(this
-			 ObservableComputations.IReadScalar<TResult> source,
-			 ObservableComputations.IOcDispatcher destinationOcDispatcher,
-			 int destinationOcDispatcherPriority,
-			 int sourceOcDispatcherPriority,
-			 TResult defaultValue)
-		{
-			return new ObservableComputations.ScalarDispatching<TResult>(
-				source: source,
-				destinationOcDispatcher: destinationOcDispatcher,
-				sourceOcDispatcher: null,
-				destinationOcDispatcherPriority: destinationOcDispatcherPriority,
-				sourceOcDispatcherPriority: sourceOcDispatcherPriority,
-				destinationOcDispatcherParameter: null,
-				sourceOcDispatcherParameter: null,
-				defaultValue: defaultValue);
+				sourceOcDispatcherParameter: null);
 		}
 
 		[ObservableComputationsCall]
@@ -24700,28 +21879,7 @@ namespace ObservableComputations
 				destinationOcDispatcherPriority: destinationOcDispatcherPriority,
 				sourceOcDispatcherPriority: sourceOcDispatcherPriority,
 				destinationOcDispatcherParameter: null,
-				sourceOcDispatcherParameter: null,
-				defaultValue: default);
-		}
-
-		[ObservableComputationsCall]
-		public static ObservableComputations.ScalarDispatching<TResult> ScalarDispatching<TResult>(this
-			 ObservableComputations.IReadScalar<TResult> source,
-			 ObservableComputations.IOcDispatcher destinationOcDispatcher,
-			 int destinationOcDispatcherPriority,
-			 object destinationOcDispatcherParameter,
-			 object sourceOcDispatcherParameter,
-			 TResult defaultValue)
-		{
-			return new ObservableComputations.ScalarDispatching<TResult>(
-				source: source,
-				destinationOcDispatcher: destinationOcDispatcher,
-				sourceOcDispatcher: null,
-				destinationOcDispatcherPriority: destinationOcDispatcherPriority,
-				sourceOcDispatcherPriority: 0,
-				destinationOcDispatcherParameter: destinationOcDispatcherParameter,
-				sourceOcDispatcherParameter: sourceOcDispatcherParameter,
-				defaultValue: defaultValue);
+				sourceOcDispatcherParameter: null);
 		}
 
 		[ObservableComputationsCall]
@@ -24739,27 +21897,7 @@ namespace ObservableComputations
 				destinationOcDispatcherPriority: destinationOcDispatcherPriority,
 				sourceOcDispatcherPriority: 0,
 				destinationOcDispatcherParameter: destinationOcDispatcherParameter,
-				sourceOcDispatcherParameter: sourceOcDispatcherParameter,
-				defaultValue: default);
-		}
-
-		[ObservableComputationsCall]
-		public static ObservableComputations.ScalarDispatching<TResult> ScalarDispatching<TResult>(this
-			 ObservableComputations.IReadScalar<TResult> source,
-			 ObservableComputations.IOcDispatcher destinationOcDispatcher,
-			 int destinationOcDispatcherPriority,
-			 object destinationOcDispatcherParameter,
-			 TResult defaultValue)
-		{
-			return new ObservableComputations.ScalarDispatching<TResult>(
-				source: source,
-				destinationOcDispatcher: destinationOcDispatcher,
-				sourceOcDispatcher: null,
-				destinationOcDispatcherPriority: destinationOcDispatcherPriority,
-				sourceOcDispatcherPriority: 0,
-				destinationOcDispatcherParameter: destinationOcDispatcherParameter,
-				sourceOcDispatcherParameter: null,
-				defaultValue: defaultValue);
+				sourceOcDispatcherParameter: sourceOcDispatcherParameter);
 		}
 
 		[ObservableComputationsCall]
@@ -24776,26 +21914,7 @@ namespace ObservableComputations
 				destinationOcDispatcherPriority: destinationOcDispatcherPriority,
 				sourceOcDispatcherPriority: 0,
 				destinationOcDispatcherParameter: destinationOcDispatcherParameter,
-				sourceOcDispatcherParameter: null,
-				defaultValue: default);
-		}
-
-		[ObservableComputationsCall]
-		public static ObservableComputations.ScalarDispatching<TResult> ScalarDispatching<TResult>(this
-			 ObservableComputations.IReadScalar<TResult> source,
-			 ObservableComputations.IOcDispatcher destinationOcDispatcher,
-			 int destinationOcDispatcherPriority,
-			 TResult defaultValue)
-		{
-			return new ObservableComputations.ScalarDispatching<TResult>(
-				source: source,
-				destinationOcDispatcher: destinationOcDispatcher,
-				sourceOcDispatcher: null,
-				destinationOcDispatcherPriority: destinationOcDispatcherPriority,
-				sourceOcDispatcherPriority: 0,
-				destinationOcDispatcherParameter: null,
-				sourceOcDispatcherParameter: null,
-				defaultValue: defaultValue);
+				sourceOcDispatcherParameter: null);
 		}
 
 		[ObservableComputationsCall]
@@ -24811,27 +21930,7 @@ namespace ObservableComputations
 				destinationOcDispatcherPriority: destinationOcDispatcherPriority,
 				sourceOcDispatcherPriority: 0,
 				destinationOcDispatcherParameter: null,
-				sourceOcDispatcherParameter: null,
-				defaultValue: default);
-		}
-
-		[ObservableComputationsCall]
-		public static ObservableComputations.ScalarDispatching<TResult> ScalarDispatching<TResult>(this
-			 ObservableComputations.IReadScalar<TResult> source,
-			 ObservableComputations.IOcDispatcher destinationOcDispatcher,
-			 object destinationOcDispatcherParameter,
-			 object sourceOcDispatcherParameter,
-			 TResult defaultValue)
-		{
-			return new ObservableComputations.ScalarDispatching<TResult>(
-				source: source,
-				destinationOcDispatcher: destinationOcDispatcher,
-				sourceOcDispatcher: null,
-				destinationOcDispatcherPriority: 0,
-				sourceOcDispatcherPriority: 0,
-				destinationOcDispatcherParameter: destinationOcDispatcherParameter,
-				sourceOcDispatcherParameter: sourceOcDispatcherParameter,
-				defaultValue: defaultValue);
+				sourceOcDispatcherParameter: null);
 		}
 
 		[ObservableComputationsCall]
@@ -24848,26 +21947,7 @@ namespace ObservableComputations
 				destinationOcDispatcherPriority: 0,
 				sourceOcDispatcherPriority: 0,
 				destinationOcDispatcherParameter: destinationOcDispatcherParameter,
-				sourceOcDispatcherParameter: sourceOcDispatcherParameter,
-				defaultValue: default);
-		}
-
-		[ObservableComputationsCall]
-		public static ObservableComputations.ScalarDispatching<TResult> ScalarDispatching<TResult>(this
-			 ObservableComputations.IReadScalar<TResult> source,
-			 ObservableComputations.IOcDispatcher destinationOcDispatcher,
-			 object destinationOcDispatcherParameter,
-			 TResult defaultValue)
-		{
-			return new ObservableComputations.ScalarDispatching<TResult>(
-				source: source,
-				destinationOcDispatcher: destinationOcDispatcher,
-				sourceOcDispatcher: null,
-				destinationOcDispatcherPriority: 0,
-				sourceOcDispatcherPriority: 0,
-				destinationOcDispatcherParameter: destinationOcDispatcherParameter,
-				sourceOcDispatcherParameter: null,
-				defaultValue: defaultValue);
+				sourceOcDispatcherParameter: sourceOcDispatcherParameter);
 		}
 
 		[ObservableComputationsCall]
@@ -24883,25 +21963,7 @@ namespace ObservableComputations
 				destinationOcDispatcherPriority: 0,
 				sourceOcDispatcherPriority: 0,
 				destinationOcDispatcherParameter: destinationOcDispatcherParameter,
-				sourceOcDispatcherParameter: null,
-				defaultValue: default);
-		}
-
-		[ObservableComputationsCall]
-		public static ObservableComputations.ScalarDispatching<TResult> ScalarDispatching<TResult>(this
-			 ObservableComputations.IReadScalar<TResult> source,
-			 ObservableComputations.IOcDispatcher destinationOcDispatcher,
-			 TResult defaultValue)
-		{
-			return new ObservableComputations.ScalarDispatching<TResult>(
-				source: source,
-				destinationOcDispatcher: destinationOcDispatcher,
-				sourceOcDispatcher: null,
-				destinationOcDispatcherPriority: 0,
-				sourceOcDispatcherPriority: 0,
-				destinationOcDispatcherParameter: null,
-				sourceOcDispatcherParameter: null,
-				defaultValue: defaultValue);
+				sourceOcDispatcherParameter: null);
 		}
 
 		[ObservableComputationsCall]
@@ -24916,30 +21978,7 @@ namespace ObservableComputations
 				destinationOcDispatcherPriority: 0,
 				sourceOcDispatcherPriority: 0,
 				destinationOcDispatcherParameter: null,
-				sourceOcDispatcherParameter: null,
-				defaultValue: default);
-		}
-
-		[ObservableComputationsCall]
-		public static ObservableComputations.ScalarDispatching<TResult> ScalarDispatching<TResult>(this
-			 Expression<Func<TResult>> source,
-			 ObservableComputations.IOcDispatcher destinationOcDispatcher,
-			 ObservableComputations.IOcDispatcher sourceOcDispatcher,
-			 int destinationOcDispatcherPriority,
-			 int sourceOcDispatcherPriority,
-			 object destinationOcDispatcherParameter,
-			 object sourceOcDispatcherParameter,
-			 TResult defaultValue)
-		{
-			return new ObservableComputations.ScalarDispatching<TResult>(
-				source: new Computing<TResult>(source),
-				destinationOcDispatcher: destinationOcDispatcher,
-				sourceOcDispatcher: sourceOcDispatcher,
-				destinationOcDispatcherPriority: destinationOcDispatcherPriority,
-				sourceOcDispatcherPriority: sourceOcDispatcherPriority,
-				destinationOcDispatcherParameter: destinationOcDispatcherParameter,
-				sourceOcDispatcherParameter: sourceOcDispatcherParameter,
-				defaultValue: defaultValue);
+				sourceOcDispatcherParameter: null);
 		}
 
 		[ObservableComputationsCall]
@@ -24959,29 +21998,7 @@ namespace ObservableComputations
 				destinationOcDispatcherPriority: destinationOcDispatcherPriority,
 				sourceOcDispatcherPriority: sourceOcDispatcherPriority,
 				destinationOcDispatcherParameter: destinationOcDispatcherParameter,
-				sourceOcDispatcherParameter: sourceOcDispatcherParameter,
-				defaultValue: default);
-		}
-
-		[ObservableComputationsCall]
-		public static ObservableComputations.ScalarDispatching<TResult> ScalarDispatching<TResult>(this
-			 Expression<Func<TResult>> source,
-			 ObservableComputations.IOcDispatcher destinationOcDispatcher,
-			 ObservableComputations.IOcDispatcher sourceOcDispatcher,
-			 int destinationOcDispatcherPriority,
-			 int sourceOcDispatcherPriority,
-			 object destinationOcDispatcherParameter,
-			 TResult defaultValue)
-		{
-			return new ObservableComputations.ScalarDispatching<TResult>(
-				source: new Computing<TResult>(source),
-				destinationOcDispatcher: destinationOcDispatcher,
-				sourceOcDispatcher: sourceOcDispatcher,
-				destinationOcDispatcherPriority: destinationOcDispatcherPriority,
-				sourceOcDispatcherPriority: sourceOcDispatcherPriority,
-				destinationOcDispatcherParameter: destinationOcDispatcherParameter,
-				sourceOcDispatcherParameter: null,
-				defaultValue: defaultValue);
+				sourceOcDispatcherParameter: sourceOcDispatcherParameter);
 		}
 
 		[ObservableComputationsCall]
@@ -25000,28 +22017,7 @@ namespace ObservableComputations
 				destinationOcDispatcherPriority: destinationOcDispatcherPriority,
 				sourceOcDispatcherPriority: sourceOcDispatcherPriority,
 				destinationOcDispatcherParameter: destinationOcDispatcherParameter,
-				sourceOcDispatcherParameter: null,
-				defaultValue: default);
-		}
-
-		[ObservableComputationsCall]
-		public static ObservableComputations.ScalarDispatching<TResult> ScalarDispatching<TResult>(this
-			 Expression<Func<TResult>> source,
-			 ObservableComputations.IOcDispatcher destinationOcDispatcher,
-			 ObservableComputations.IOcDispatcher sourceOcDispatcher,
-			 int destinationOcDispatcherPriority,
-			 int sourceOcDispatcherPriority,
-			 TResult defaultValue)
-		{
-			return new ObservableComputations.ScalarDispatching<TResult>(
-				source: new Computing<TResult>(source),
-				destinationOcDispatcher: destinationOcDispatcher,
-				sourceOcDispatcher: sourceOcDispatcher,
-				destinationOcDispatcherPriority: destinationOcDispatcherPriority,
-				sourceOcDispatcherPriority: sourceOcDispatcherPriority,
-				destinationOcDispatcherParameter: null,
-				sourceOcDispatcherParameter: null,
-				defaultValue: defaultValue);
+				sourceOcDispatcherParameter: null);
 		}
 
 		[ObservableComputationsCall]
@@ -25039,29 +22035,7 @@ namespace ObservableComputations
 				destinationOcDispatcherPriority: destinationOcDispatcherPriority,
 				sourceOcDispatcherPriority: sourceOcDispatcherPriority,
 				destinationOcDispatcherParameter: null,
-				sourceOcDispatcherParameter: null,
-				defaultValue: default);
-		}
-
-		[ObservableComputationsCall]
-		public static ObservableComputations.ScalarDispatching<TResult> ScalarDispatching<TResult>(this
-			 Expression<Func<TResult>> source,
-			 ObservableComputations.IOcDispatcher destinationOcDispatcher,
-			 ObservableComputations.IOcDispatcher sourceOcDispatcher,
-			 int destinationOcDispatcherPriority,
-			 object destinationOcDispatcherParameter,
-			 object sourceOcDispatcherParameter,
-			 TResult defaultValue)
-		{
-			return new ObservableComputations.ScalarDispatching<TResult>(
-				source: new Computing<TResult>(source),
-				destinationOcDispatcher: destinationOcDispatcher,
-				sourceOcDispatcher: sourceOcDispatcher,
-				destinationOcDispatcherPriority: destinationOcDispatcherPriority,
-				sourceOcDispatcherPriority: 0,
-				destinationOcDispatcherParameter: destinationOcDispatcherParameter,
-				sourceOcDispatcherParameter: sourceOcDispatcherParameter,
-				defaultValue: defaultValue);
+				sourceOcDispatcherParameter: null);
 		}
 
 		[ObservableComputationsCall]
@@ -25080,28 +22054,7 @@ namespace ObservableComputations
 				destinationOcDispatcherPriority: destinationOcDispatcherPriority,
 				sourceOcDispatcherPriority: 0,
 				destinationOcDispatcherParameter: destinationOcDispatcherParameter,
-				sourceOcDispatcherParameter: sourceOcDispatcherParameter,
-				defaultValue: default);
-		}
-
-		[ObservableComputationsCall]
-		public static ObservableComputations.ScalarDispatching<TResult> ScalarDispatching<TResult>(this
-			 Expression<Func<TResult>> source,
-			 ObservableComputations.IOcDispatcher destinationOcDispatcher,
-			 ObservableComputations.IOcDispatcher sourceOcDispatcher,
-			 int destinationOcDispatcherPriority,
-			 object destinationOcDispatcherParameter,
-			 TResult defaultValue)
-		{
-			return new ObservableComputations.ScalarDispatching<TResult>(
-				source: new Computing<TResult>(source),
-				destinationOcDispatcher: destinationOcDispatcher,
-				sourceOcDispatcher: sourceOcDispatcher,
-				destinationOcDispatcherPriority: destinationOcDispatcherPriority,
-				sourceOcDispatcherPriority: 0,
-				destinationOcDispatcherParameter: destinationOcDispatcherParameter,
-				sourceOcDispatcherParameter: null,
-				defaultValue: defaultValue);
+				sourceOcDispatcherParameter: sourceOcDispatcherParameter);
 		}
 
 		[ObservableComputationsCall]
@@ -25119,27 +22072,7 @@ namespace ObservableComputations
 				destinationOcDispatcherPriority: destinationOcDispatcherPriority,
 				sourceOcDispatcherPriority: 0,
 				destinationOcDispatcherParameter: destinationOcDispatcherParameter,
-				sourceOcDispatcherParameter: null,
-				defaultValue: default);
-		}
-
-		[ObservableComputationsCall]
-		public static ObservableComputations.ScalarDispatching<TResult> ScalarDispatching<TResult>(this
-			 Expression<Func<TResult>> source,
-			 ObservableComputations.IOcDispatcher destinationOcDispatcher,
-			 ObservableComputations.IOcDispatcher sourceOcDispatcher,
-			 int destinationOcDispatcherPriority,
-			 TResult defaultValue)
-		{
-			return new ObservableComputations.ScalarDispatching<TResult>(
-				source: new Computing<TResult>(source),
-				destinationOcDispatcher: destinationOcDispatcher,
-				sourceOcDispatcher: sourceOcDispatcher,
-				destinationOcDispatcherPriority: destinationOcDispatcherPriority,
-				sourceOcDispatcherPriority: 0,
-				destinationOcDispatcherParameter: null,
-				sourceOcDispatcherParameter: null,
-				defaultValue: defaultValue);
+				sourceOcDispatcherParameter: null);
 		}
 
 		[ObservableComputationsCall]
@@ -25156,28 +22089,7 @@ namespace ObservableComputations
 				destinationOcDispatcherPriority: destinationOcDispatcherPriority,
 				sourceOcDispatcherPriority: 0,
 				destinationOcDispatcherParameter: null,
-				sourceOcDispatcherParameter: null,
-				defaultValue: default);
-		}
-
-		[ObservableComputationsCall]
-		public static ObservableComputations.ScalarDispatching<TResult> ScalarDispatching<TResult>(this
-			 Expression<Func<TResult>> source,
-			 ObservableComputations.IOcDispatcher destinationOcDispatcher,
-			 ObservableComputations.IOcDispatcher sourceOcDispatcher,
-			 object destinationOcDispatcherParameter,
-			 object sourceOcDispatcherParameter,
-			 TResult defaultValue)
-		{
-			return new ObservableComputations.ScalarDispatching<TResult>(
-				source: new Computing<TResult>(source),
-				destinationOcDispatcher: destinationOcDispatcher,
-				sourceOcDispatcher: sourceOcDispatcher,
-				destinationOcDispatcherPriority: 0,
-				sourceOcDispatcherPriority: 0,
-				destinationOcDispatcherParameter: destinationOcDispatcherParameter,
-				sourceOcDispatcherParameter: sourceOcDispatcherParameter,
-				defaultValue: defaultValue);
+				sourceOcDispatcherParameter: null);
 		}
 
 		[ObservableComputationsCall]
@@ -25195,27 +22107,7 @@ namespace ObservableComputations
 				destinationOcDispatcherPriority: 0,
 				sourceOcDispatcherPriority: 0,
 				destinationOcDispatcherParameter: destinationOcDispatcherParameter,
-				sourceOcDispatcherParameter: sourceOcDispatcherParameter,
-				defaultValue: default);
-		}
-
-		[ObservableComputationsCall]
-		public static ObservableComputations.ScalarDispatching<TResult> ScalarDispatching<TResult>(this
-			 Expression<Func<TResult>> source,
-			 ObservableComputations.IOcDispatcher destinationOcDispatcher,
-			 ObservableComputations.IOcDispatcher sourceOcDispatcher,
-			 object destinationOcDispatcherParameter,
-			 TResult defaultValue)
-		{
-			return new ObservableComputations.ScalarDispatching<TResult>(
-				source: new Computing<TResult>(source),
-				destinationOcDispatcher: destinationOcDispatcher,
-				sourceOcDispatcher: sourceOcDispatcher,
-				destinationOcDispatcherPriority: 0,
-				sourceOcDispatcherPriority: 0,
-				destinationOcDispatcherParameter: destinationOcDispatcherParameter,
-				sourceOcDispatcherParameter: null,
-				defaultValue: defaultValue);
+				sourceOcDispatcherParameter: sourceOcDispatcherParameter);
 		}
 
 		[ObservableComputationsCall]
@@ -25232,26 +22124,7 @@ namespace ObservableComputations
 				destinationOcDispatcherPriority: 0,
 				sourceOcDispatcherPriority: 0,
 				destinationOcDispatcherParameter: destinationOcDispatcherParameter,
-				sourceOcDispatcherParameter: null,
-				defaultValue: default);
-		}
-
-		[ObservableComputationsCall]
-		public static ObservableComputations.ScalarDispatching<TResult> ScalarDispatching<TResult>(this
-			 Expression<Func<TResult>> source,
-			 ObservableComputations.IOcDispatcher destinationOcDispatcher,
-			 ObservableComputations.IOcDispatcher sourceOcDispatcher,
-			 TResult defaultValue)
-		{
-			return new ObservableComputations.ScalarDispatching<TResult>(
-				source: new Computing<TResult>(source),
-				destinationOcDispatcher: destinationOcDispatcher,
-				sourceOcDispatcher: sourceOcDispatcher,
-				destinationOcDispatcherPriority: 0,
-				sourceOcDispatcherPriority: 0,
-				destinationOcDispatcherParameter: null,
-				sourceOcDispatcherParameter: null,
-				defaultValue: defaultValue);
+				sourceOcDispatcherParameter: null);
 		}
 
 		[ObservableComputationsCall]
@@ -25267,29 +22140,7 @@ namespace ObservableComputations
 				destinationOcDispatcherPriority: 0,
 				sourceOcDispatcherPriority: 0,
 				destinationOcDispatcherParameter: null,
-				sourceOcDispatcherParameter: null,
-				defaultValue: default);
-		}
-
-		[ObservableComputationsCall]
-		public static ObservableComputations.ScalarDispatching<TResult> ScalarDispatching<TResult>(this
-			 Expression<Func<TResult>> source,
-			 ObservableComputations.IOcDispatcher destinationOcDispatcher,
-			 int destinationOcDispatcherPriority,
-			 int sourceOcDispatcherPriority,
-			 object destinationOcDispatcherParameter,
-			 object sourceOcDispatcherParameter,
-			 TResult defaultValue)
-		{
-			return new ObservableComputations.ScalarDispatching<TResult>(
-				source: new Computing<TResult>(source),
-				destinationOcDispatcher: destinationOcDispatcher,
-				sourceOcDispatcher: null,
-				destinationOcDispatcherPriority: destinationOcDispatcherPriority,
-				sourceOcDispatcherPriority: sourceOcDispatcherPriority,
-				destinationOcDispatcherParameter: destinationOcDispatcherParameter,
-				sourceOcDispatcherParameter: sourceOcDispatcherParameter,
-				defaultValue: defaultValue);
+				sourceOcDispatcherParameter: null);
 		}
 
 		[ObservableComputationsCall]
@@ -25308,28 +22159,7 @@ namespace ObservableComputations
 				destinationOcDispatcherPriority: destinationOcDispatcherPriority,
 				sourceOcDispatcherPriority: sourceOcDispatcherPriority,
 				destinationOcDispatcherParameter: destinationOcDispatcherParameter,
-				sourceOcDispatcherParameter: sourceOcDispatcherParameter,
-				defaultValue: default);
-		}
-
-		[ObservableComputationsCall]
-		public static ObservableComputations.ScalarDispatching<TResult> ScalarDispatching<TResult>(this
-			 Expression<Func<TResult>> source,
-			 ObservableComputations.IOcDispatcher destinationOcDispatcher,
-			 int destinationOcDispatcherPriority,
-			 int sourceOcDispatcherPriority,
-			 object destinationOcDispatcherParameter,
-			 TResult defaultValue)
-		{
-			return new ObservableComputations.ScalarDispatching<TResult>(
-				source: new Computing<TResult>(source),
-				destinationOcDispatcher: destinationOcDispatcher,
-				sourceOcDispatcher: null,
-				destinationOcDispatcherPriority: destinationOcDispatcherPriority,
-				sourceOcDispatcherPriority: sourceOcDispatcherPriority,
-				destinationOcDispatcherParameter: destinationOcDispatcherParameter,
-				sourceOcDispatcherParameter: null,
-				defaultValue: defaultValue);
+				sourceOcDispatcherParameter: sourceOcDispatcherParameter);
 		}
 
 		[ObservableComputationsCall]
@@ -25347,27 +22177,7 @@ namespace ObservableComputations
 				destinationOcDispatcherPriority: destinationOcDispatcherPriority,
 				sourceOcDispatcherPriority: sourceOcDispatcherPriority,
 				destinationOcDispatcherParameter: destinationOcDispatcherParameter,
-				sourceOcDispatcherParameter: null,
-				defaultValue: default);
-		}
-
-		[ObservableComputationsCall]
-		public static ObservableComputations.ScalarDispatching<TResult> ScalarDispatching<TResult>(this
-			 Expression<Func<TResult>> source,
-			 ObservableComputations.IOcDispatcher destinationOcDispatcher,
-			 int destinationOcDispatcherPriority,
-			 int sourceOcDispatcherPriority,
-			 TResult defaultValue)
-		{
-			return new ObservableComputations.ScalarDispatching<TResult>(
-				source: new Computing<TResult>(source),
-				destinationOcDispatcher: destinationOcDispatcher,
-				sourceOcDispatcher: null,
-				destinationOcDispatcherPriority: destinationOcDispatcherPriority,
-				sourceOcDispatcherPriority: sourceOcDispatcherPriority,
-				destinationOcDispatcherParameter: null,
-				sourceOcDispatcherParameter: null,
-				defaultValue: defaultValue);
+				sourceOcDispatcherParameter: null);
 		}
 
 		[ObservableComputationsCall]
@@ -25384,28 +22194,7 @@ namespace ObservableComputations
 				destinationOcDispatcherPriority: destinationOcDispatcherPriority,
 				sourceOcDispatcherPriority: sourceOcDispatcherPriority,
 				destinationOcDispatcherParameter: null,
-				sourceOcDispatcherParameter: null,
-				defaultValue: default);
-		}
-
-		[ObservableComputationsCall]
-		public static ObservableComputations.ScalarDispatching<TResult> ScalarDispatching<TResult>(this
-			 Expression<Func<TResult>> source,
-			 ObservableComputations.IOcDispatcher destinationOcDispatcher,
-			 int destinationOcDispatcherPriority,
-			 object destinationOcDispatcherParameter,
-			 object sourceOcDispatcherParameter,
-			 TResult defaultValue)
-		{
-			return new ObservableComputations.ScalarDispatching<TResult>(
-				source: new Computing<TResult>(source),
-				destinationOcDispatcher: destinationOcDispatcher,
-				sourceOcDispatcher: null,
-				destinationOcDispatcherPriority: destinationOcDispatcherPriority,
-				sourceOcDispatcherPriority: 0,
-				destinationOcDispatcherParameter: destinationOcDispatcherParameter,
-				sourceOcDispatcherParameter: sourceOcDispatcherParameter,
-				defaultValue: defaultValue);
+				sourceOcDispatcherParameter: null);
 		}
 
 		[ObservableComputationsCall]
@@ -25423,27 +22212,7 @@ namespace ObservableComputations
 				destinationOcDispatcherPriority: destinationOcDispatcherPriority,
 				sourceOcDispatcherPriority: 0,
 				destinationOcDispatcherParameter: destinationOcDispatcherParameter,
-				sourceOcDispatcherParameter: sourceOcDispatcherParameter,
-				defaultValue: default);
-		}
-
-		[ObservableComputationsCall]
-		public static ObservableComputations.ScalarDispatching<TResult> ScalarDispatching<TResult>(this
-			 Expression<Func<TResult>> source,
-			 ObservableComputations.IOcDispatcher destinationOcDispatcher,
-			 int destinationOcDispatcherPriority,
-			 object destinationOcDispatcherParameter,
-			 TResult defaultValue)
-		{
-			return new ObservableComputations.ScalarDispatching<TResult>(
-				source: new Computing<TResult>(source),
-				destinationOcDispatcher: destinationOcDispatcher,
-				sourceOcDispatcher: null,
-				destinationOcDispatcherPriority: destinationOcDispatcherPriority,
-				sourceOcDispatcherPriority: 0,
-				destinationOcDispatcherParameter: destinationOcDispatcherParameter,
-				sourceOcDispatcherParameter: null,
-				defaultValue: defaultValue);
+				sourceOcDispatcherParameter: sourceOcDispatcherParameter);
 		}
 
 		[ObservableComputationsCall]
@@ -25460,26 +22229,7 @@ namespace ObservableComputations
 				destinationOcDispatcherPriority: destinationOcDispatcherPriority,
 				sourceOcDispatcherPriority: 0,
 				destinationOcDispatcherParameter: destinationOcDispatcherParameter,
-				sourceOcDispatcherParameter: null,
-				defaultValue: default);
-		}
-
-		[ObservableComputationsCall]
-		public static ObservableComputations.ScalarDispatching<TResult> ScalarDispatching<TResult>(this
-			 Expression<Func<TResult>> source,
-			 ObservableComputations.IOcDispatcher destinationOcDispatcher,
-			 int destinationOcDispatcherPriority,
-			 TResult defaultValue)
-		{
-			return new ObservableComputations.ScalarDispatching<TResult>(
-				source: new Computing<TResult>(source),
-				destinationOcDispatcher: destinationOcDispatcher,
-				sourceOcDispatcher: null,
-				destinationOcDispatcherPriority: destinationOcDispatcherPriority,
-				sourceOcDispatcherPriority: 0,
-				destinationOcDispatcherParameter: null,
-				sourceOcDispatcherParameter: null,
-				defaultValue: defaultValue);
+				sourceOcDispatcherParameter: null);
 		}
 
 		[ObservableComputationsCall]
@@ -25495,27 +22245,7 @@ namespace ObservableComputations
 				destinationOcDispatcherPriority: destinationOcDispatcherPriority,
 				sourceOcDispatcherPriority: 0,
 				destinationOcDispatcherParameter: null,
-				sourceOcDispatcherParameter: null,
-				defaultValue: default);
-		}
-
-		[ObservableComputationsCall]
-		public static ObservableComputations.ScalarDispatching<TResult> ScalarDispatching<TResult>(this
-			 Expression<Func<TResult>> source,
-			 ObservableComputations.IOcDispatcher destinationOcDispatcher,
-			 object destinationOcDispatcherParameter,
-			 object sourceOcDispatcherParameter,
-			 TResult defaultValue)
-		{
-			return new ObservableComputations.ScalarDispatching<TResult>(
-				source: new Computing<TResult>(source),
-				destinationOcDispatcher: destinationOcDispatcher,
-				sourceOcDispatcher: null,
-				destinationOcDispatcherPriority: 0,
-				sourceOcDispatcherPriority: 0,
-				destinationOcDispatcherParameter: destinationOcDispatcherParameter,
-				sourceOcDispatcherParameter: sourceOcDispatcherParameter,
-				defaultValue: defaultValue);
+				sourceOcDispatcherParameter: null);
 		}
 
 		[ObservableComputationsCall]
@@ -25532,26 +22262,7 @@ namespace ObservableComputations
 				destinationOcDispatcherPriority: 0,
 				sourceOcDispatcherPriority: 0,
 				destinationOcDispatcherParameter: destinationOcDispatcherParameter,
-				sourceOcDispatcherParameter: sourceOcDispatcherParameter,
-				defaultValue: default);
-		}
-
-		[ObservableComputationsCall]
-		public static ObservableComputations.ScalarDispatching<TResult> ScalarDispatching<TResult>(this
-			 Expression<Func<TResult>> source,
-			 ObservableComputations.IOcDispatcher destinationOcDispatcher,
-			 object destinationOcDispatcherParameter,
-			 TResult defaultValue)
-		{
-			return new ObservableComputations.ScalarDispatching<TResult>(
-				source: new Computing<TResult>(source),
-				destinationOcDispatcher: destinationOcDispatcher,
-				sourceOcDispatcher: null,
-				destinationOcDispatcherPriority: 0,
-				sourceOcDispatcherPriority: 0,
-				destinationOcDispatcherParameter: destinationOcDispatcherParameter,
-				sourceOcDispatcherParameter: null,
-				defaultValue: defaultValue);
+				sourceOcDispatcherParameter: sourceOcDispatcherParameter);
 		}
 
 		[ObservableComputationsCall]
@@ -25567,25 +22278,7 @@ namespace ObservableComputations
 				destinationOcDispatcherPriority: 0,
 				sourceOcDispatcherPriority: 0,
 				destinationOcDispatcherParameter: destinationOcDispatcherParameter,
-				sourceOcDispatcherParameter: null,
-				defaultValue: default);
-		}
-
-		[ObservableComputationsCall]
-		public static ObservableComputations.ScalarDispatching<TResult> ScalarDispatching<TResult>(this
-			 Expression<Func<TResult>> source,
-			 ObservableComputations.IOcDispatcher destinationOcDispatcher,
-			 TResult defaultValue)
-		{
-			return new ObservableComputations.ScalarDispatching<TResult>(
-				source: new Computing<TResult>(source),
-				destinationOcDispatcher: destinationOcDispatcher,
-				sourceOcDispatcher: null,
-				destinationOcDispatcherPriority: 0,
-				sourceOcDispatcherPriority: 0,
-				destinationOcDispatcherParameter: null,
-				sourceOcDispatcherParameter: null,
-				defaultValue: defaultValue);
+				sourceOcDispatcherParameter: null);
 		}
 
 		[ObservableComputationsCall]
@@ -25600,8 +22293,7 @@ namespace ObservableComputations
 				destinationOcDispatcherPriority: 0,
 				sourceOcDispatcherPriority: 0,
 				destinationOcDispatcherParameter: null,
-				sourceOcDispatcherParameter: null,
-				defaultValue: default);
+				sourceOcDispatcherParameter: null);
 		}
 
 		#endregion
@@ -25611,40 +22303,12 @@ namespace ObservableComputations
 		public static ObservableComputations.ScalarPausing<TResult> ScalarPausing<TResult>(this
 			 ObservableComputations.IReadScalar<TResult> source,
 			 bool initialIsPaused,
-			 int? lastChangesToApplyOnResumeCount,
-			 TResult defaultValue)
-		{
-			return new ObservableComputations.ScalarPausing<TResult>(
-				source: source,
-				initialIsPaused: initialIsPaused,
-				lastChangesToApplyOnResumeCount: lastChangesToApplyOnResumeCount,
-				defaultValue: defaultValue);
-		}
-
-		[ObservableComputationsCall]
-		public static ObservableComputations.ScalarPausing<TResult> ScalarPausing<TResult>(this
-			 ObservableComputations.IReadScalar<TResult> source,
-			 bool initialIsPaused,
 			 int? lastChangesToApplyOnResumeCount)
 		{
 			return new ObservableComputations.ScalarPausing<TResult>(
 				source: source,
 				initialIsPaused: initialIsPaused,
-				lastChangesToApplyOnResumeCount: lastChangesToApplyOnResumeCount,
-				defaultValue: default);
-		}
-
-		[ObservableComputationsCall]
-		public static ObservableComputations.ScalarPausing<TResult> ScalarPausing<TResult>(this
-			 ObservableComputations.IReadScalar<TResult> source,
-			 bool initialIsPaused,
-			 TResult defaultValue)
-		{
-			return new ObservableComputations.ScalarPausing<TResult>(
-				source: source,
-				initialIsPaused: initialIsPaused,
-				lastChangesToApplyOnResumeCount: 1,
-				defaultValue: defaultValue);
+				lastChangesToApplyOnResumeCount: lastChangesToApplyOnResumeCount);
 		}
 
 		[ObservableComputationsCall]
@@ -25655,21 +22319,7 @@ namespace ObservableComputations
 			return new ObservableComputations.ScalarPausing<TResult>(
 				source: source,
 				initialIsPaused: initialIsPaused,
-				lastChangesToApplyOnResumeCount: 1,
-				defaultValue: default);
-		}
-
-		[ObservableComputationsCall]
-		public static ObservableComputations.ScalarPausing<TResult> ScalarPausing<TResult>(this
-			 ObservableComputations.IReadScalar<TResult> source,
-			 int? lastChangesToApplyOnResumeCount,
-			 TResult defaultValue)
-		{
-			return new ObservableComputations.ScalarPausing<TResult>(
-				source: source,
-				initialIsPaused: false,
-				lastChangesToApplyOnResumeCount: lastChangesToApplyOnResumeCount,
-				defaultValue: defaultValue);
+				lastChangesToApplyOnResumeCount: 1);
 		}
 
 		[ObservableComputationsCall]
@@ -25680,20 +22330,7 @@ namespace ObservableComputations
 			return new ObservableComputations.ScalarPausing<TResult>(
 				source: source,
 				initialIsPaused: false,
-				lastChangesToApplyOnResumeCount: lastChangesToApplyOnResumeCount,
-				defaultValue: default);
-		}
-
-		[ObservableComputationsCall]
-		public static ObservableComputations.ScalarPausing<TResult> ScalarPausing<TResult>(this
-			 ObservableComputations.IReadScalar<TResult> source,
-			 TResult defaultValue)
-		{
-			return new ObservableComputations.ScalarPausing<TResult>(
-				source: source,
-				initialIsPaused: false,
-				lastChangesToApplyOnResumeCount: 1,
-				defaultValue: defaultValue);
+				lastChangesToApplyOnResumeCount: lastChangesToApplyOnResumeCount);
 		}
 
 		[ObservableComputationsCall]
@@ -25703,22 +22340,7 @@ namespace ObservableComputations
 			return new ObservableComputations.ScalarPausing<TResult>(
 				source: source,
 				initialIsPaused: false,
-				lastChangesToApplyOnResumeCount: 1,
-				defaultValue: default);
-		}
-
-		[ObservableComputationsCall]
-		public static ObservableComputations.ScalarPausing<TResult> ScalarPausing<TResult>(this
-			 Expression<Func<TResult>> source,
-			 bool initialIsPaused,
-			 int? lastChangesToApplyOnResumeCount,
-			 TResult defaultValue)
-		{
-			return new ObservableComputations.ScalarPausing<TResult>(
-				source: new Computing<TResult>(source),
-				initialIsPaused: initialIsPaused,
-				lastChangesToApplyOnResumeCount: lastChangesToApplyOnResumeCount,
-				defaultValue: defaultValue);
+				lastChangesToApplyOnResumeCount: 1);
 		}
 
 		[ObservableComputationsCall]
@@ -25730,21 +22352,7 @@ namespace ObservableComputations
 			return new ObservableComputations.ScalarPausing<TResult>(
 				source: new Computing<TResult>(source),
 				initialIsPaused: initialIsPaused,
-				lastChangesToApplyOnResumeCount: lastChangesToApplyOnResumeCount,
-				defaultValue: default);
-		}
-
-		[ObservableComputationsCall]
-		public static ObservableComputations.ScalarPausing<TResult> ScalarPausing<TResult>(this
-			 Expression<Func<TResult>> source,
-			 bool initialIsPaused,
-			 TResult defaultValue)
-		{
-			return new ObservableComputations.ScalarPausing<TResult>(
-				source: new Computing<TResult>(source),
-				initialIsPaused: initialIsPaused,
-				lastChangesToApplyOnResumeCount: 1,
-				defaultValue: defaultValue);
+				lastChangesToApplyOnResumeCount: lastChangesToApplyOnResumeCount);
 		}
 
 		[ObservableComputationsCall]
@@ -25755,21 +22363,7 @@ namespace ObservableComputations
 			return new ObservableComputations.ScalarPausing<TResult>(
 				source: new Computing<TResult>(source),
 				initialIsPaused: initialIsPaused,
-				lastChangesToApplyOnResumeCount: 1,
-				defaultValue: default);
-		}
-
-		[ObservableComputationsCall]
-		public static ObservableComputations.ScalarPausing<TResult> ScalarPausing<TResult>(this
-			 Expression<Func<TResult>> source,
-			 int? lastChangesToApplyOnResumeCount,
-			 TResult defaultValue)
-		{
-			return new ObservableComputations.ScalarPausing<TResult>(
-				source: new Computing<TResult>(source),
-				initialIsPaused: false,
-				lastChangesToApplyOnResumeCount: lastChangesToApplyOnResumeCount,
-				defaultValue: defaultValue);
+				lastChangesToApplyOnResumeCount: 1);
 		}
 
 		[ObservableComputationsCall]
@@ -25780,20 +22374,7 @@ namespace ObservableComputations
 			return new ObservableComputations.ScalarPausing<TResult>(
 				source: new Computing<TResult>(source),
 				initialIsPaused: false,
-				lastChangesToApplyOnResumeCount: lastChangesToApplyOnResumeCount,
-				defaultValue: default);
-		}
-
-		[ObservableComputationsCall]
-		public static ObservableComputations.ScalarPausing<TResult> ScalarPausing<TResult>(this
-			 Expression<Func<TResult>> source,
-			 TResult defaultValue)
-		{
-			return new ObservableComputations.ScalarPausing<TResult>(
-				source: new Computing<TResult>(source),
-				initialIsPaused: false,
-				lastChangesToApplyOnResumeCount: 1,
-				defaultValue: defaultValue);
+				lastChangesToApplyOnResumeCount: lastChangesToApplyOnResumeCount);
 		}
 
 		[ObservableComputationsCall]
@@ -25803,22 +22384,7 @@ namespace ObservableComputations
 			return new ObservableComputations.ScalarPausing<TResult>(
 				source: new Computing<TResult>(source),
 				initialIsPaused: false,
-				lastChangesToApplyOnResumeCount: 1,
-				defaultValue: default);
-		}
-
-		[ObservableComputationsCall]
-		public static ObservableComputations.ScalarPausing<TResult> ScalarPausing<TResult>(this
-			 ObservableComputations.IReadScalar<TResult> source,
-			 ObservableComputations.IReadScalar<bool> isPausedScalar,
-			 int? lastChangesToApplyOnResumeCount,
-			 TResult defaultValue)
-		{
-			return new ObservableComputations.ScalarPausing<TResult>(
-				source: source,
-				isPausedScalar: isPausedScalar,
-				lastChangesToApplyOnResumeCount: lastChangesToApplyOnResumeCount,
-				defaultValue: defaultValue);
+				lastChangesToApplyOnResumeCount: 1);
 		}
 
 		[ObservableComputationsCall]
@@ -25830,21 +22396,7 @@ namespace ObservableComputations
 			return new ObservableComputations.ScalarPausing<TResult>(
 				source: source,
 				isPausedScalar: isPausedScalar,
-				lastChangesToApplyOnResumeCount: lastChangesToApplyOnResumeCount,
-				defaultValue: default);
-		}
-
-		[ObservableComputationsCall]
-		public static ObservableComputations.ScalarPausing<TResult> ScalarPausing<TResult>(this
-			 ObservableComputations.IReadScalar<TResult> source,
-			 ObservableComputations.IReadScalar<bool> isPausedScalar,
-			 TResult defaultValue)
-		{
-			return new ObservableComputations.ScalarPausing<TResult>(
-				source: source,
-				isPausedScalar: isPausedScalar,
-				lastChangesToApplyOnResumeCount: null,
-				defaultValue: defaultValue);
+				lastChangesToApplyOnResumeCount: lastChangesToApplyOnResumeCount);
 		}
 
 		[ObservableComputationsCall]
@@ -25855,22 +22407,7 @@ namespace ObservableComputations
 			return new ObservableComputations.ScalarPausing<TResult>(
 				source: source,
 				isPausedScalar: isPausedScalar,
-				lastChangesToApplyOnResumeCount: null,
-				defaultValue: default);
-		}
-
-		[ObservableComputationsCall]
-		public static ObservableComputations.ScalarPausing<TResult> ScalarPausing<TResult>(this
-			 ObservableComputations.IReadScalar<TResult> source,
-			 Expression<Func<bool>> isPausedExpression,
-			 int? lastChangesToApplyOnResumeCount,
-			 TResult defaultValue)
-		{
-			return new ObservableComputations.ScalarPausing<TResult>(
-				source: source,
-				isPausedScalar: new Computing<bool>(isPausedExpression),
-				lastChangesToApplyOnResumeCount: lastChangesToApplyOnResumeCount,
-				defaultValue: defaultValue);
+				lastChangesToApplyOnResumeCount: null);
 		}
 
 		[ObservableComputationsCall]
@@ -25882,21 +22419,7 @@ namespace ObservableComputations
 			return new ObservableComputations.ScalarPausing<TResult>(
 				source: source,
 				isPausedScalar: new Computing<bool>(isPausedExpression),
-				lastChangesToApplyOnResumeCount: lastChangesToApplyOnResumeCount,
-				defaultValue: default);
-		}
-
-		[ObservableComputationsCall]
-		public static ObservableComputations.ScalarPausing<TResult> ScalarPausing<TResult>(this
-			 ObservableComputations.IReadScalar<TResult> source,
-			 Expression<Func<bool>> isPausedExpression,
-			 TResult defaultValue)
-		{
-			return new ObservableComputations.ScalarPausing<TResult>(
-				source: source,
-				isPausedScalar: new Computing<bool>(isPausedExpression),
-				lastChangesToApplyOnResumeCount: null,
-				defaultValue: defaultValue);
+				lastChangesToApplyOnResumeCount: lastChangesToApplyOnResumeCount);
 		}
 
 		[ObservableComputationsCall]
@@ -25907,22 +22430,7 @@ namespace ObservableComputations
 			return new ObservableComputations.ScalarPausing<TResult>(
 				source: source,
 				isPausedScalar: new Computing<bool>(isPausedExpression),
-				lastChangesToApplyOnResumeCount: null,
-				defaultValue: default);
-		}
-
-		[ObservableComputationsCall]
-		public static ObservableComputations.ScalarPausing<TResult> ScalarPausing<TResult>(this
-			 Expression<Func<TResult>> source,
-			 ObservableComputations.IReadScalar<bool> isPausedScalar,
-			 int? lastChangesToApplyOnResumeCount,
-			 TResult defaultValue)
-		{
-			return new ObservableComputations.ScalarPausing<TResult>(
-				source: new Computing<TResult>(source),
-				isPausedScalar: isPausedScalar,
-				lastChangesToApplyOnResumeCount: lastChangesToApplyOnResumeCount,
-				defaultValue: defaultValue);
+				lastChangesToApplyOnResumeCount: null);
 		}
 
 		[ObservableComputationsCall]
@@ -25934,21 +22442,7 @@ namespace ObservableComputations
 			return new ObservableComputations.ScalarPausing<TResult>(
 				source: new Computing<TResult>(source),
 				isPausedScalar: isPausedScalar,
-				lastChangesToApplyOnResumeCount: lastChangesToApplyOnResumeCount,
-				defaultValue: default);
-		}
-
-		[ObservableComputationsCall]
-		public static ObservableComputations.ScalarPausing<TResult> ScalarPausing<TResult>(this
-			 Expression<Func<TResult>> source,
-			 ObservableComputations.IReadScalar<bool> isPausedScalar,
-			 TResult defaultValue)
-		{
-			return new ObservableComputations.ScalarPausing<TResult>(
-				source: new Computing<TResult>(source),
-				isPausedScalar: isPausedScalar,
-				lastChangesToApplyOnResumeCount: null,
-				defaultValue: defaultValue);
+				lastChangesToApplyOnResumeCount: lastChangesToApplyOnResumeCount);
 		}
 
 		[ObservableComputationsCall]
@@ -25959,22 +22453,7 @@ namespace ObservableComputations
 			return new ObservableComputations.ScalarPausing<TResult>(
 				source: new Computing<TResult>(source),
 				isPausedScalar: isPausedScalar,
-				lastChangesToApplyOnResumeCount: null,
-				defaultValue: default);
-		}
-
-		[ObservableComputationsCall]
-		public static ObservableComputations.ScalarPausing<TResult> ScalarPausing<TResult>(this
-			 Expression<Func<TResult>> source,
-			 Expression<Func<bool>> isPausedExpression,
-			 int? lastChangesToApplyOnResumeCount,
-			 TResult defaultValue)
-		{
-			return new ObservableComputations.ScalarPausing<TResult>(
-				source: new Computing<TResult>(source),
-				isPausedScalar: new Computing<bool>(isPausedExpression),
-				lastChangesToApplyOnResumeCount: lastChangesToApplyOnResumeCount,
-				defaultValue: defaultValue);
+				lastChangesToApplyOnResumeCount: null);
 		}
 
 		[ObservableComputationsCall]
@@ -25986,21 +22465,7 @@ namespace ObservableComputations
 			return new ObservableComputations.ScalarPausing<TResult>(
 				source: new Computing<TResult>(source),
 				isPausedScalar: new Computing<bool>(isPausedExpression),
-				lastChangesToApplyOnResumeCount: lastChangesToApplyOnResumeCount,
-				defaultValue: default);
-		}
-
-		[ObservableComputationsCall]
-		public static ObservableComputations.ScalarPausing<TResult> ScalarPausing<TResult>(this
-			 Expression<Func<TResult>> source,
-			 Expression<Func<bool>> isPausedExpression,
-			 TResult defaultValue)
-		{
-			return new ObservableComputations.ScalarPausing<TResult>(
-				source: new Computing<TResult>(source),
-				isPausedScalar: new Computing<bool>(isPausedExpression),
-				lastChangesToApplyOnResumeCount: null,
-				defaultValue: defaultValue);
+				lastChangesToApplyOnResumeCount: lastChangesToApplyOnResumeCount);
 		}
 
 		[ObservableComputationsCall]
@@ -26011,22 +22476,7 @@ namespace ObservableComputations
 			return new ObservableComputations.ScalarPausing<TResult>(
 				source: new Computing<TResult>(source),
 				isPausedScalar: new Computing<bool>(isPausedExpression),
-				lastChangesToApplyOnResumeCount: null,
-				defaultValue: default);
-		}
-
-		[ObservableComputationsCall]
-		public static ObservableComputations.ScalarPausing<TResult> ScalarPausing<TResult>(this
-			 ObservableComputations.IReadScalar<TResult> source,
-			 ObservableComputations.IReadScalar<bool> isPausedScalar,
-			 ObservableComputations.IReadScalar<int?> lastChangesToApplyOnResumeCountScalar,
-			 TResult defaultValue)
-		{
-			return new ObservableComputations.ScalarPausing<TResult>(
-				source: source,
-				isPausedScalar: isPausedScalar,
-				lastChangesToApplyOnResumeCountScalar: lastChangesToApplyOnResumeCountScalar,
-				defaultValue: defaultValue);
+				lastChangesToApplyOnResumeCount: null);
 		}
 
 		[ObservableComputationsCall]
@@ -26038,22 +22488,7 @@ namespace ObservableComputations
 			return new ObservableComputations.ScalarPausing<TResult>(
 				source: source,
 				isPausedScalar: isPausedScalar,
-				lastChangesToApplyOnResumeCountScalar: lastChangesToApplyOnResumeCountScalar,
-				defaultValue: default);
-		}
-
-		[ObservableComputationsCall]
-		public static ObservableComputations.ScalarPausing<TResult> ScalarPausing<TResult>(this
-			 ObservableComputations.IReadScalar<TResult> source,
-			 ObservableComputations.IReadScalar<bool> isPausedScalar,
-			 Expression<Func<int?>> lastChangesToApplyOnResumeCountExpression,
-			 TResult defaultValue)
-		{
-			return new ObservableComputations.ScalarPausing<TResult>(
-				source: source,
-				isPausedScalar: isPausedScalar,
-				lastChangesToApplyOnResumeCountScalar: new Computing<int?>(lastChangesToApplyOnResumeCountExpression),
-				defaultValue: defaultValue);
+				lastChangesToApplyOnResumeCountScalar: lastChangesToApplyOnResumeCountScalar);
 		}
 
 		[ObservableComputationsCall]
@@ -26065,22 +22500,7 @@ namespace ObservableComputations
 			return new ObservableComputations.ScalarPausing<TResult>(
 				source: source,
 				isPausedScalar: isPausedScalar,
-				lastChangesToApplyOnResumeCountScalar: new Computing<int?>(lastChangesToApplyOnResumeCountExpression),
-				defaultValue: default);
-		}
-
-		[ObservableComputationsCall]
-		public static ObservableComputations.ScalarPausing<TResult> ScalarPausing<TResult>(this
-			 ObservableComputations.IReadScalar<TResult> source,
-			 Expression<Func<bool>> isPausedExpression,
-			 ObservableComputations.IReadScalar<int?> lastChangesToApplyOnResumeCountScalar,
-			 TResult defaultValue)
-		{
-			return new ObservableComputations.ScalarPausing<TResult>(
-				source: source,
-				isPausedScalar: new Computing<bool>(isPausedExpression),
-				lastChangesToApplyOnResumeCountScalar: lastChangesToApplyOnResumeCountScalar,
-				defaultValue: defaultValue);
+				lastChangesToApplyOnResumeCountScalar: new Computing<int?>(lastChangesToApplyOnResumeCountExpression));
 		}
 
 		[ObservableComputationsCall]
@@ -26092,22 +22512,7 @@ namespace ObservableComputations
 			return new ObservableComputations.ScalarPausing<TResult>(
 				source: source,
 				isPausedScalar: new Computing<bool>(isPausedExpression),
-				lastChangesToApplyOnResumeCountScalar: lastChangesToApplyOnResumeCountScalar,
-				defaultValue: default);
-		}
-
-		[ObservableComputationsCall]
-		public static ObservableComputations.ScalarPausing<TResult> ScalarPausing<TResult>(this
-			 ObservableComputations.IReadScalar<TResult> source,
-			 Expression<Func<bool>> isPausedExpression,
-			 Expression<Func<int?>> lastChangesToApplyOnResumeCountExpression,
-			 TResult defaultValue)
-		{
-			return new ObservableComputations.ScalarPausing<TResult>(
-				source: source,
-				isPausedScalar: new Computing<bool>(isPausedExpression),
-				lastChangesToApplyOnResumeCountScalar: new Computing<int?>(lastChangesToApplyOnResumeCountExpression),
-				defaultValue: defaultValue);
+				lastChangesToApplyOnResumeCountScalar: lastChangesToApplyOnResumeCountScalar);
 		}
 
 		[ObservableComputationsCall]
@@ -26119,22 +22524,7 @@ namespace ObservableComputations
 			return new ObservableComputations.ScalarPausing<TResult>(
 				source: source,
 				isPausedScalar: new Computing<bool>(isPausedExpression),
-				lastChangesToApplyOnResumeCountScalar: new Computing<int?>(lastChangesToApplyOnResumeCountExpression),
-				defaultValue: default);
-		}
-
-		[ObservableComputationsCall]
-		public static ObservableComputations.ScalarPausing<TResult> ScalarPausing<TResult>(this
-			 Expression<Func<TResult>> source,
-			 ObservableComputations.IReadScalar<bool> isPausedScalar,
-			 ObservableComputations.IReadScalar<int?> lastChangesToApplyOnResumeCountScalar,
-			 TResult defaultValue)
-		{
-			return new ObservableComputations.ScalarPausing<TResult>(
-				source: new Computing<TResult>(source),
-				isPausedScalar: isPausedScalar,
-				lastChangesToApplyOnResumeCountScalar: lastChangesToApplyOnResumeCountScalar,
-				defaultValue: defaultValue);
+				lastChangesToApplyOnResumeCountScalar: new Computing<int?>(lastChangesToApplyOnResumeCountExpression));
 		}
 
 		[ObservableComputationsCall]
@@ -26146,22 +22536,7 @@ namespace ObservableComputations
 			return new ObservableComputations.ScalarPausing<TResult>(
 				source: new Computing<TResult>(source),
 				isPausedScalar: isPausedScalar,
-				lastChangesToApplyOnResumeCountScalar: lastChangesToApplyOnResumeCountScalar,
-				defaultValue: default);
-		}
-
-		[ObservableComputationsCall]
-		public static ObservableComputations.ScalarPausing<TResult> ScalarPausing<TResult>(this
-			 Expression<Func<TResult>> source,
-			 ObservableComputations.IReadScalar<bool> isPausedScalar,
-			 Expression<Func<int?>> lastChangesToApplyOnResumeCountExpression,
-			 TResult defaultValue)
-		{
-			return new ObservableComputations.ScalarPausing<TResult>(
-				source: new Computing<TResult>(source),
-				isPausedScalar: isPausedScalar,
-				lastChangesToApplyOnResumeCountScalar: new Computing<int?>(lastChangesToApplyOnResumeCountExpression),
-				defaultValue: defaultValue);
+				lastChangesToApplyOnResumeCountScalar: lastChangesToApplyOnResumeCountScalar);
 		}
 
 		[ObservableComputationsCall]
@@ -26173,22 +22548,7 @@ namespace ObservableComputations
 			return new ObservableComputations.ScalarPausing<TResult>(
 				source: new Computing<TResult>(source),
 				isPausedScalar: isPausedScalar,
-				lastChangesToApplyOnResumeCountScalar: new Computing<int?>(lastChangesToApplyOnResumeCountExpression),
-				defaultValue: default);
-		}
-
-		[ObservableComputationsCall]
-		public static ObservableComputations.ScalarPausing<TResult> ScalarPausing<TResult>(this
-			 Expression<Func<TResult>> source,
-			 Expression<Func<bool>> isPausedExpression,
-			 ObservableComputations.IReadScalar<int?> lastChangesToApplyOnResumeCountScalar,
-			 TResult defaultValue)
-		{
-			return new ObservableComputations.ScalarPausing<TResult>(
-				source: new Computing<TResult>(source),
-				isPausedScalar: new Computing<bool>(isPausedExpression),
-				lastChangesToApplyOnResumeCountScalar: lastChangesToApplyOnResumeCountScalar,
-				defaultValue: defaultValue);
+				lastChangesToApplyOnResumeCountScalar: new Computing<int?>(lastChangesToApplyOnResumeCountExpression));
 		}
 
 		[ObservableComputationsCall]
@@ -26200,22 +22560,7 @@ namespace ObservableComputations
 			return new ObservableComputations.ScalarPausing<TResult>(
 				source: new Computing<TResult>(source),
 				isPausedScalar: new Computing<bool>(isPausedExpression),
-				lastChangesToApplyOnResumeCountScalar: lastChangesToApplyOnResumeCountScalar,
-				defaultValue: default);
-		}
-
-		[ObservableComputationsCall]
-		public static ObservableComputations.ScalarPausing<TResult> ScalarPausing<TResult>(this
-			 Expression<Func<TResult>> source,
-			 Expression<Func<bool>> isPausedExpression,
-			 Expression<Func<int?>> lastChangesToApplyOnResumeCountExpression,
-			 TResult defaultValue)
-		{
-			return new ObservableComputations.ScalarPausing<TResult>(
-				source: new Computing<TResult>(source),
-				isPausedScalar: new Computing<bool>(isPausedExpression),
-				lastChangesToApplyOnResumeCountScalar: new Computing<int?>(lastChangesToApplyOnResumeCountExpression),
-				defaultValue: defaultValue);
+				lastChangesToApplyOnResumeCountScalar: lastChangesToApplyOnResumeCountScalar);
 		}
 
 		[ObservableComputationsCall]
@@ -26227,22 +22572,7 @@ namespace ObservableComputations
 			return new ObservableComputations.ScalarPausing<TResult>(
 				source: new Computing<TResult>(source),
 				isPausedScalar: new Computing<bool>(isPausedExpression),
-				lastChangesToApplyOnResumeCountScalar: new Computing<int?>(lastChangesToApplyOnResumeCountExpression),
-				defaultValue: default);
-		}
-
-		[ObservableComputationsCall]
-		public static ObservableComputations.ScalarPausing<TResult> ScalarPausing<TResult>(this
-			 ObservableComputations.IReadScalar<TResult> source,
-			 bool initialIsPaused,
-			 ObservableComputations.IReadScalar<int?> lastChangesToApplyOnResumeCountScalar,
-			 TResult defaultValue)
-		{
-			return new ObservableComputations.ScalarPausing<TResult>(
-				source: source,
-				initialIsPaused: initialIsPaused,
-				lastChangesToApplyOnResumeCountScalar: lastChangesToApplyOnResumeCountScalar,
-				defaultValue: defaultValue);
+				lastChangesToApplyOnResumeCountScalar: new Computing<int?>(lastChangesToApplyOnResumeCountExpression));
 		}
 
 		[ObservableComputationsCall]
@@ -26254,22 +22584,7 @@ namespace ObservableComputations
 			return new ObservableComputations.ScalarPausing<TResult>(
 				source: source,
 				initialIsPaused: initialIsPaused,
-				lastChangesToApplyOnResumeCountScalar: lastChangesToApplyOnResumeCountScalar,
-				defaultValue: default);
-		}
-
-		[ObservableComputationsCall]
-		public static ObservableComputations.ScalarPausing<TResult> ScalarPausing<TResult>(this
-			 ObservableComputations.IReadScalar<TResult> source,
-			 bool initialIsPaused,
-			 Expression<Func<int?>> lastChangesToApplyOnResumeCountExpression,
-			 TResult defaultValue)
-		{
-			return new ObservableComputations.ScalarPausing<TResult>(
-				source: source,
-				initialIsPaused: initialIsPaused,
-				lastChangesToApplyOnResumeCountScalar: new Computing<int?>(lastChangesToApplyOnResumeCountExpression),
-				defaultValue: defaultValue);
+				lastChangesToApplyOnResumeCountScalar: lastChangesToApplyOnResumeCountScalar);
 		}
 
 		[ObservableComputationsCall]
@@ -26281,22 +22596,7 @@ namespace ObservableComputations
 			return new ObservableComputations.ScalarPausing<TResult>(
 				source: source,
 				initialIsPaused: initialIsPaused,
-				lastChangesToApplyOnResumeCountScalar: new Computing<int?>(lastChangesToApplyOnResumeCountExpression),
-				defaultValue: default);
-		}
-
-		[ObservableComputationsCall]
-		public static ObservableComputations.ScalarPausing<TResult> ScalarPausing<TResult>(this
-			 Expression<Func<TResult>> source,
-			 bool initialIsPaused,
-			 ObservableComputations.IReadScalar<int?> lastChangesToApplyOnResumeCountScalar,
-			 TResult defaultValue)
-		{
-			return new ObservableComputations.ScalarPausing<TResult>(
-				source: new Computing<TResult>(source),
-				initialIsPaused: initialIsPaused,
-				lastChangesToApplyOnResumeCountScalar: lastChangesToApplyOnResumeCountScalar,
-				defaultValue: defaultValue);
+				lastChangesToApplyOnResumeCountScalar: new Computing<int?>(lastChangesToApplyOnResumeCountExpression));
 		}
 
 		[ObservableComputationsCall]
@@ -26308,22 +22608,7 @@ namespace ObservableComputations
 			return new ObservableComputations.ScalarPausing<TResult>(
 				source: new Computing<TResult>(source),
 				initialIsPaused: initialIsPaused,
-				lastChangesToApplyOnResumeCountScalar: lastChangesToApplyOnResumeCountScalar,
-				defaultValue: default);
-		}
-
-		[ObservableComputationsCall]
-		public static ObservableComputations.ScalarPausing<TResult> ScalarPausing<TResult>(this
-			 Expression<Func<TResult>> source,
-			 bool initialIsPaused,
-			 Expression<Func<int?>> lastChangesToApplyOnResumeCountExpression,
-			 TResult defaultValue)
-		{
-			return new ObservableComputations.ScalarPausing<TResult>(
-				source: new Computing<TResult>(source),
-				initialIsPaused: initialIsPaused,
-				lastChangesToApplyOnResumeCountScalar: new Computing<int?>(lastChangesToApplyOnResumeCountExpression),
-				defaultValue: defaultValue);
+				lastChangesToApplyOnResumeCountScalar: lastChangesToApplyOnResumeCountScalar);
 		}
 
 		[ObservableComputationsCall]
@@ -26335,8 +22620,7 @@ namespace ObservableComputations
 			return new ObservableComputations.ScalarPausing<TResult>(
 				source: new Computing<TResult>(source),
 				initialIsPaused: initialIsPaused,
-				lastChangesToApplyOnResumeCountScalar: new Computing<int?>(lastChangesToApplyOnResumeCountExpression),
-				defaultValue: default);
+				lastChangesToApplyOnResumeCountScalar: new Computing<int?>(lastChangesToApplyOnResumeCountExpression));
 		}
 
 		#endregion
@@ -27246,36 +23530,11 @@ namespace ObservableComputations
 		[ObservableComputationsCall]
 		public static ObservableComputations.StringsConcatenating StringsConcatenating(this
 			 ObservableComputations.IReadScalar<System.Collections.Specialized.INotifyCollectionChanged> sourceScalar,
-			 ObservableComputations.IReadScalar<string> separatorScalar,
-			 string defaultValue)
-		{
-			return new ObservableComputations.StringsConcatenating(
-				sourceScalar: sourceScalar,
-				separatorScalar: separatorScalar,
-				defaultValue: defaultValue);
-		}
-
-		[ObservableComputationsCall]
-		public static ObservableComputations.StringsConcatenating StringsConcatenating(this
-			 ObservableComputations.IReadScalar<System.Collections.Specialized.INotifyCollectionChanged> sourceScalar,
 			 ObservableComputations.IReadScalar<string> separatorScalar)
 		{
 			return new ObservableComputations.StringsConcatenating(
 				sourceScalar: sourceScalar,
-				separatorScalar: separatorScalar,
-				defaultValue: null);
-		}
-
-		[ObservableComputationsCall]
-		public static ObservableComputations.StringsConcatenating StringsConcatenating(this
-			 ObservableComputations.IReadScalar<System.Collections.Specialized.INotifyCollectionChanged> sourceScalar,
-			 Expression<Func<string>> separatorExpression,
-			 string defaultValue)
-		{
-			return new ObservableComputations.StringsConcatenating(
-				sourceScalar: sourceScalar,
-				separatorScalar: new Computing<string>(separatorExpression),
-				defaultValue: defaultValue);
+				separatorScalar: separatorScalar);
 		}
 
 		[ObservableComputationsCall]
@@ -27285,20 +23544,7 @@ namespace ObservableComputations
 		{
 			return new ObservableComputations.StringsConcatenating(
 				sourceScalar: sourceScalar,
-				separatorScalar: new Computing<string>(separatorExpression),
-				defaultValue: null);
-		}
-
-		[ObservableComputationsCall]
-		public static ObservableComputations.StringsConcatenating StringsConcatenating(this
-			 Expression<Func<System.Collections.Specialized.INotifyCollectionChanged>> sourceExpression,
-			 ObservableComputations.IReadScalar<string> separatorScalar,
-			 string defaultValue)
-		{
-			return new ObservableComputations.StringsConcatenating(
-				sourceScalar: new Computing<System.Collections.Specialized.INotifyCollectionChanged>(sourceExpression),
-				separatorScalar: separatorScalar,
-				defaultValue: defaultValue);
+				separatorScalar: new Computing<string>(separatorExpression));
 		}
 
 		[ObservableComputationsCall]
@@ -27308,20 +23554,7 @@ namespace ObservableComputations
 		{
 			return new ObservableComputations.StringsConcatenating(
 				sourceScalar: new Computing<System.Collections.Specialized.INotifyCollectionChanged>(sourceExpression),
-				separatorScalar: separatorScalar,
-				defaultValue: null);
-		}
-
-		[ObservableComputationsCall]
-		public static ObservableComputations.StringsConcatenating StringsConcatenating(this
-			 Expression<Func<System.Collections.Specialized.INotifyCollectionChanged>> sourceExpression,
-			 Expression<Func<string>> separatorExpression,
-			 string defaultValue)
-		{
-			return new ObservableComputations.StringsConcatenating(
-				sourceScalar: new Computing<System.Collections.Specialized.INotifyCollectionChanged>(sourceExpression),
-				separatorScalar: new Computing<string>(separatorExpression),
-				defaultValue: defaultValue);
+				separatorScalar: separatorScalar);
 		}
 
 		[ObservableComputationsCall]
@@ -27331,20 +23564,7 @@ namespace ObservableComputations
 		{
 			return new ObservableComputations.StringsConcatenating(
 				sourceScalar: new Computing<System.Collections.Specialized.INotifyCollectionChanged>(sourceExpression),
-				separatorScalar: new Computing<string>(separatorExpression),
-				defaultValue: null);
-		}
-
-		[ObservableComputationsCall]
-		public static ObservableComputations.StringsConcatenating StringsConcatenating(this
-			 System.Collections.Specialized.INotifyCollectionChanged source,
-			 ObservableComputations.IReadScalar<string> separatorScalar,
-			 string defaultValue)
-		{
-			return new ObservableComputations.StringsConcatenating(
-				source: source,
-				separatorScalar: separatorScalar,
-				defaultValue: defaultValue);
+				separatorScalar: new Computing<string>(separatorExpression));
 		}
 
 		[ObservableComputationsCall]
@@ -27354,20 +23574,7 @@ namespace ObservableComputations
 		{
 			return new ObservableComputations.StringsConcatenating(
 				source: source,
-				separatorScalar: separatorScalar,
-				defaultValue: null);
-		}
-
-		[ObservableComputationsCall]
-		public static ObservableComputations.StringsConcatenating StringsConcatenating(this
-			 System.Collections.Specialized.INotifyCollectionChanged source,
-			 Expression<Func<string>> separatorExpression,
-			 string defaultValue)
-		{
-			return new ObservableComputations.StringsConcatenating(
-				source: source,
-				separatorScalar: new Computing<string>(separatorExpression),
-				defaultValue: defaultValue);
+				separatorScalar: separatorScalar);
 		}
 
 		[ObservableComputationsCall]
@@ -27377,20 +23584,7 @@ namespace ObservableComputations
 		{
 			return new ObservableComputations.StringsConcatenating(
 				source: source,
-				separatorScalar: new Computing<string>(separatorExpression),
-				defaultValue: null);
-		}
-
-		[ObservableComputationsCall]
-		public static ObservableComputations.StringsConcatenating StringsConcatenating(this
-			 System.Collections.Specialized.INotifyCollectionChanged source,
-			 string separator,
-			 string defaultValue)
-		{
-			return new ObservableComputations.StringsConcatenating(
-				source: source,
-				separator: separator,
-				defaultValue: defaultValue);
+				separatorScalar: new Computing<string>(separatorExpression));
 		}
 
 		[ObservableComputationsCall]
@@ -27400,20 +23594,16 @@ namespace ObservableComputations
 		{
 			return new ObservableComputations.StringsConcatenating(
 				source: source,
-				separator: separator,
-				defaultValue: null);
+				separator: separator);
 		}
 
 		[ObservableComputationsCall]
 		public static ObservableComputations.StringsConcatenating StringsConcatenating(this
-			 ObservableComputations.IReadScalar<System.Collections.Specialized.INotifyCollectionChanged> sourceScalar,
-			 string separator,
-			 string defaultValue)
+			 System.Collections.Specialized.INotifyCollectionChanged source)
 		{
 			return new ObservableComputations.StringsConcatenating(
-				sourceScalar: sourceScalar,
-				separator: separator,
-				defaultValue: defaultValue);
+				source: source,
+				separator: "");
 		}
 
 		[ObservableComputationsCall]
@@ -27423,20 +23613,16 @@ namespace ObservableComputations
 		{
 			return new ObservableComputations.StringsConcatenating(
 				sourceScalar: sourceScalar,
-				separator: separator,
-				defaultValue: null);
+				separator: separator);
 		}
 
 		[ObservableComputationsCall]
 		public static ObservableComputations.StringsConcatenating StringsConcatenating(this
-			 Expression<Func<System.Collections.Specialized.INotifyCollectionChanged>> sourceExpression,
-			 string separator,
-			 string defaultValue)
+			 ObservableComputations.IReadScalar<System.Collections.Specialized.INotifyCollectionChanged> sourceScalar)
 		{
 			return new ObservableComputations.StringsConcatenating(
-				sourceScalar: new Computing<System.Collections.Specialized.INotifyCollectionChanged>(sourceExpression),
-				separator: separator,
-				defaultValue: defaultValue);
+				sourceScalar: sourceScalar,
+				separator: "");
 		}
 
 		[ObservableComputationsCall]
@@ -27446,8 +23632,16 @@ namespace ObservableComputations
 		{
 			return new ObservableComputations.StringsConcatenating(
 				sourceScalar: new Computing<System.Collections.Specialized.INotifyCollectionChanged>(sourceExpression),
-				separator: separator,
-				defaultValue: null);
+				separator: separator);
+		}
+
+		[ObservableComputationsCall]
+		public static ObservableComputations.StringsConcatenating StringsConcatenating(this
+			 Expression<Func<System.Collections.Specialized.INotifyCollectionChanged>> sourceExpression)
+		{
+			return new ObservableComputations.StringsConcatenating(
+				sourceScalar: new Computing<System.Collections.Specialized.INotifyCollectionChanged>(sourceExpression),
+				separator: "");
 		}
 
 		#endregion
@@ -27455,31 +23649,10 @@ namespace ObservableComputations
 
 		[ObservableComputationsCall]
 		public static ObservableComputations.Summarizing<TSourceItem> Summarizing<TSourceItem>(this
-			 ObservableComputations.IReadScalar<System.Collections.Specialized.INotifyCollectionChanged> sourceScalar,
-			 TSourceItem defaultValue)
-		{
-			return new ObservableComputations.Summarizing<TSourceItem>(
-				sourceScalar: sourceScalar,
-				defaultValue: defaultValue);
-		}
-
-		[ObservableComputationsCall]
-		public static ObservableComputations.Summarizing<TSourceItem> Summarizing<TSourceItem>(this
 			 ObservableComputations.IReadScalar<System.Collections.Specialized.INotifyCollectionChanged> sourceScalar)
 		{
 			return new ObservableComputations.Summarizing<TSourceItem>(
-				sourceScalar: sourceScalar,
-				defaultValue: default);
-		}
-
-		[ObservableComputationsCall]
-		public static ObservableComputations.Summarizing<TSourceItem> Summarizing<TSourceItem>(this
-			 ObservableComputations.IReadScalar<ObservableCollection<TSourceItem>> sourceScalar,
-			 TSourceItem defaultValue)
-		{
-			return new ObservableComputations.Summarizing<TSourceItem>(
-				sourceScalar: sourceScalar,
-				defaultValue: defaultValue);
+				sourceScalar: sourceScalar);
 		}
 
 		[ObservableComputationsCall]
@@ -27487,18 +23660,7 @@ namespace ObservableComputations
 			 ObservableComputations.IReadScalar<ObservableCollection<TSourceItem>> sourceScalar)
 		{
 			return new ObservableComputations.Summarizing<TSourceItem>(
-				sourceScalar: sourceScalar,
-				defaultValue: default);
-		}
-
-		[ObservableComputationsCall]
-		public static ObservableComputations.Summarizing<TSourceItem> Summarizing<TSourceItem>(this
-			 Expression<Func<System.Collections.Specialized.INotifyCollectionChanged>> sourceExpression,
-			 TSourceItem defaultValue)
-		{
-			return new ObservableComputations.Summarizing<TSourceItem>(
-				sourceScalar: new Computing<System.Collections.Specialized.INotifyCollectionChanged>(sourceExpression),
-				defaultValue: defaultValue);
+				sourceScalar: sourceScalar);
 		}
 
 		[ObservableComputationsCall]
@@ -27506,18 +23668,7 @@ namespace ObservableComputations
 			 Expression<Func<System.Collections.Specialized.INotifyCollectionChanged>> sourceExpression)
 		{
 			return new ObservableComputations.Summarizing<TSourceItem>(
-				sourceScalar: new Computing<System.Collections.Specialized.INotifyCollectionChanged>(sourceExpression),
-				defaultValue: default);
-		}
-
-		[ObservableComputationsCall]
-		public static ObservableComputations.Summarizing<TSourceItem> Summarizing<TSourceItem>(this
-			 Expression<Func<ObservableCollection<TSourceItem>>> sourceExpression,
-			 TSourceItem defaultValue)
-		{
-			return new ObservableComputations.Summarizing<TSourceItem>(
-				sourceScalar: new Computing<ObservableCollection<TSourceItem>>(sourceExpression),
-				defaultValue: defaultValue);
+				sourceScalar: new Computing<System.Collections.Specialized.INotifyCollectionChanged>(sourceExpression));
 		}
 
 		[ObservableComputationsCall]
@@ -27525,18 +23676,7 @@ namespace ObservableComputations
 			 Expression<Func<ObservableCollection<TSourceItem>>> sourceExpression)
 		{
 			return new ObservableComputations.Summarizing<TSourceItem>(
-				sourceScalar: new Computing<ObservableCollection<TSourceItem>>(sourceExpression),
-				defaultValue: default);
-		}
-
-		[ObservableComputationsCall]
-		public static ObservableComputations.Summarizing<TSourceItem> Summarizing<TSourceItem>(this
-			 System.Collections.Specialized.INotifyCollectionChanged source,
-			 TSourceItem defaultValue)
-		{
-			return new ObservableComputations.Summarizing<TSourceItem>(
-				source: source,
-				defaultValue: defaultValue);
+				sourceScalar: new Computing<ObservableCollection<TSourceItem>>(sourceExpression));
 		}
 
 		[ObservableComputationsCall]
@@ -27544,18 +23684,7 @@ namespace ObservableComputations
 			 System.Collections.Specialized.INotifyCollectionChanged source)
 		{
 			return new ObservableComputations.Summarizing<TSourceItem>(
-				source: source,
-				defaultValue: default);
-		}
-
-		[ObservableComputationsCall]
-		public static ObservableComputations.Summarizing<TSourceItem> Summarizing<TSourceItem>(this
-			 ObservableCollection<TSourceItem> source,
-			 TSourceItem defaultValue)
-		{
-			return new ObservableComputations.Summarizing<TSourceItem>(
-				source: source,
-				defaultValue: defaultValue);
+				source: source);
 		}
 
 		[ObservableComputationsCall]
@@ -27563,8 +23692,7 @@ namespace ObservableComputations
 			 ObservableCollection<TSourceItem> source)
 		{
 			return new ObservableComputations.Summarizing<TSourceItem>(
-				source: source,
-				defaultValue: default);
+				source: source);
 		}
 
 		#endregion
@@ -34053,24 +30181,11 @@ namespace ObservableComputations
 		[ObservableComputationsCall]
 		public static ObservableComputations.Using<TArgument, TResult> Using<TArgument, TResult>(this
 			 TArgument argument,
-			 System.Linq.Expressions.Expression<System.Func<TArgument, TResult>> getValueExpression,
-			 TResult defaultValue)
-		{
-			return new ObservableComputations.Using<TArgument, TResult>(
-				argument: argument,
-				getValueExpression: getValueExpression,
-				defaultValue: defaultValue);
-		}
-
-		[ObservableComputationsCall]
-		public static ObservableComputations.Using<TArgument, TResult> Using<TArgument, TResult>(this
-			 TArgument argument,
 			 System.Linq.Expressions.Expression<System.Func<TArgument, TResult>> getValueExpression)
 		{
 			return new ObservableComputations.Using<TArgument, TResult>(
 				argument: argument,
-				getValueExpression: getValueExpression,
-				defaultValue: default);
+				getValueExpression: getValueExpression);
 		}
 
 		#endregion
@@ -34078,31 +30193,10 @@ namespace ObservableComputations
 
 		[ObservableComputationsCall]
 		public static ObservableComputations.WeakPreviousTracking<TResult> WeakPreviousTracking<TResult>(this
-			 ObservableComputations.IReadScalar<TResult> source,
-			 TResult defaultValue)
-where TResult : class		{
-			return new ObservableComputations.WeakPreviousTracking<TResult>(
-				source: source,
-				defaultValue: defaultValue);
-		}
-
-		[ObservableComputationsCall]
-		public static ObservableComputations.WeakPreviousTracking<TResult> WeakPreviousTracking<TResult>(this
 			 ObservableComputations.IReadScalar<TResult> source)
 where TResult : class		{
 			return new ObservableComputations.WeakPreviousTracking<TResult>(
-				source: source,
-				defaultValue: default);
-		}
-
-		[ObservableComputationsCall]
-		public static ObservableComputations.WeakPreviousTracking<TResult> WeakPreviousTracking<TResult>(this
-			 Expression<Func<TResult>> source,
-			 TResult defaultValue)
-where TResult : class		{
-			return new ObservableComputations.WeakPreviousTracking<TResult>(
-				source: new Computing<TResult>(source),
-				defaultValue: defaultValue);
+				source: source);
 		}
 
 		[ObservableComputationsCall]
@@ -34110,8 +30204,7 @@ where TResult : class		{
 			 Expression<Func<TResult>> source)
 where TResult : class		{
 			return new ObservableComputations.WeakPreviousTracking<TResult>(
-				source: new Computing<TResult>(source),
-				defaultValue: default);
+				source: new Computing<TResult>(source));
 		}
 
 		#endregion

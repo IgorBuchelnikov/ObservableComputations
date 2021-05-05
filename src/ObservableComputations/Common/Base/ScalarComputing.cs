@@ -14,18 +14,14 @@ namespace ObservableComputations
 	{
 		public string DebugTag {get; set;}
 		public object Tag {get; set;}
-		public TValue DefaultValue => _defaultValue;
 
 		internal Queue<IProcessable>[] _deferredProcessings;
 		protected int _deferredQueuesCount = 1;
 		protected bool _sourceReadAndSubscribed;
-		private readonly TValue _defaultValue;
+		private TValue _defaultValue;
 
-		public ScalarComputing(TValue defaultValue)
+		public ScalarComputing()
 		{
-			_defaultValue = defaultValue;
-			_value = defaultValue;
-
 			if (OcConfiguration.SaveInstantiationStackTrace)
 			{
 				_instantiationStackTrace = Environment.StackTrace;
@@ -82,6 +78,25 @@ namespace ObservableComputations
 					_setValueRequestHandler = value;
 					PropertyChanged?.Invoke(this, Utils.SetValueRequestHandlerPropertyChangedEventArgs);
 				}
+			}
+		}
+
+		public TValue DefaultValue
+		{
+			get => _defaultValue;
+			set
+			{
+				_defaultValue = value;
+				
+				Utils.processChange(
+					null, 
+					null,
+					() => { if (_isDefaulted) setValue(_defaultValue, false); },
+					ref _isConsistent, 
+					ref _handledEventSender, 
+					ref _handledEventArgs, 
+					0, _deferredQueuesCount,
+					ref _deferredProcessings, this, false);
 			}
 		}
 

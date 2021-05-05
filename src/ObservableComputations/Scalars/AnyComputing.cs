@@ -61,8 +61,8 @@ namespace ObservableComputations
 		[ObservableComputationsCall]
 		public AnyComputing(
 			IReadScalar<INotifyCollectionChanged> sourceScalar, 
-			Expression<Func<TSourceItem, bool>> predicateExpression,
-			bool defaultValue = false) : this(predicateExpression, Utils.getCapacity(sourceScalar), defaultValue)
+			Expression<Func<TSourceItem, bool>> predicateExpression) 
+			: this(predicateExpression, Utils.getCapacity(sourceScalar))
 		{
 			_sourceScalar = sourceScalar;
 		}
@@ -70,16 +70,15 @@ namespace ObservableComputations
 		[ObservableComputationsCall]
 		public AnyComputing(
 			INotifyCollectionChanged source, 
-			Expression<Func<TSourceItem, bool>> predicateExpression,
-			bool defaultValue = false) : this(predicateExpression, Utils.getCapacity(source), defaultValue)
+			Expression<Func<TSourceItem, bool>> predicateExpression) 
+			: this(predicateExpression, Utils.getCapacity(source))
 		{
 			_source = source;
 		}
 
 		private AnyComputing(
 			Expression<Func<TSourceItem, bool>> predicateExpression, 
-			int capacity,
-			bool defaultValue) : base(defaultValue)
+			int capacity)
 		{
 			Utils.construct(
 				predicateExpression, 

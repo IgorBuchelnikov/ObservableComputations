@@ -65,6 +65,7 @@ namespace ObservableComputations.Test
 		{
 			OcConsumer consumer = new OcConsumer("Tag");
 			Assert.AreEqual(consumer.Tag, "Tag");
+
 			Scalar<int> scalar = new Scalar<int>(0);
 			ScalarPausing<int> scalarPausing = scalar.ScalarPausing(3).For(consumer);
 			Assert.AreEqual(scalarPausing.IsPaused, false);
@@ -270,6 +271,25 @@ namespace ObservableComputations.Test
 			Assert.AreEqual(groupJoining[0].Key, 1);
 
 			consumer.Dispose();
+		}
+
+		[Test]
+		public void TestScalarDefaultValue()
+		{
+			Computing<int> computing = new Computing<int>(() => 1).SetDefaultValue(3);
+			Assert.IsTrue(computing.IsDefaulted);
+			Assert.AreEqual(computing.Value, 3);
+
+			OcConsumer consumer = new OcConsumer();
+			computing.For(consumer);
+			Assert.IsFalse(computing.IsDefaulted);
+			Assert.AreEqual(computing.Value, 1);
+
+			consumer.Dispose();
+			Assert.IsTrue(computing.IsDefaulted);
+			Assert.AreEqual(computing.Value, 3);
+			computing.SetDefaultValue(5);
+			Assert.AreEqual(computing.Value, 5);
 		}
 
 	}

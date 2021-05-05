@@ -39,8 +39,7 @@ namespace ObservableComputations
 
 		[ObservableComputationsCall]
 		public WeakPreviousTracking(
-			IReadScalar<TResult> source,
-			TResult defaultValue = default) : base(defaultValue)
+			IReadScalar<TResult> source)
 		{
 			_source = source;
 			_changeValueAction = () =>

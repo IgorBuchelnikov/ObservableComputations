@@ -28,16 +28,16 @@ namespace ObservableComputations
 
 		[ObservableComputationsCall]
 		public Averaging(
-			IReadScalar<INotifyCollectionChanged> sourceScalar,
-			TResult defaultValue = default) : base(getValueExpression(sourceScalar), defaultValue)
+			IReadScalar<INotifyCollectionChanged> sourceScalar) 
+			: base(getValueExpression(sourceScalar))
 		{
 			_sourceScalar = sourceScalar;
 		}
 
 		[ObservableComputationsCall]
 		public Averaging(
-			INotifyCollectionChanged source,
-			TResult defaultValue = default) : base(getValueExpression(source), defaultValue)
+			INotifyCollectionChanged source) 
+			: base(getValueExpression(source))
 		{
 			_source = source;
 		}

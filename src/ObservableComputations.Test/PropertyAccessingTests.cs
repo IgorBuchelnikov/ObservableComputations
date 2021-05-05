@@ -154,14 +154,6 @@ namespace ObservableComputations.Test
 			propertyAccessings.Add(order.PropertyAccessing<string>("Num", BindingFlags.Instance | BindingFlags.GetProperty, null, typeof(string), new Type[0], new ParameterModifier[0]));
 			propertyAccessings.Add(order.PropertyAccessing<string>(pi => pi.Name == "Num"));
 			propertyAccessings.Add(order.PropertyAccessing<string>(pi => pi.Name == "Num", BindingFlags.Instance | BindingFlags.GetProperty));
-			propertyAccessings.Add(order.PropertyAccessing<string>("Num", (string)null));
-			propertyAccessings.Add(order.PropertyAccessing<string>("Num", typeof(string), (string)null));
-			propertyAccessings.Add(order.PropertyAccessing<string>("Num", typeof(string), new Type[0], (string)null));
-			propertyAccessings.Add(order.PropertyAccessing<string>("Num", typeof(string), new Type[0], new ParameterModifier[0], (string)null));
-			propertyAccessings.Add(order.PropertyAccessing<string>("Num", BindingFlags.Instance | BindingFlags.GetProperty, (string)null));
-			propertyAccessings.Add(order.PropertyAccessing<string>("Num", BindingFlags.Instance | BindingFlags.GetProperty, null, typeof(string), new Type[0], new ParameterModifier[0], (string)null));
-			propertyAccessings.Add(order.PropertyAccessing<string>(pi => pi.Name == "Num", (string)null));
-			propertyAccessings.Add(order.PropertyAccessing<string>(pi => pi.Name == "Num", BindingFlags.Instance | BindingFlags.GetProperty, (string)null));
 
 			return propertyAccessings.ToArray();
 		}

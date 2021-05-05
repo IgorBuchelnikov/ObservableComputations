@@ -511,6 +511,15 @@ namespace ObservableComputations
 		#endregion
 
 		[ObservableComputationsCall]
+		public static TScalarComputing SetDefaultValue<TScalarComputing, TValue>(
+			this TScalarComputing scalarComputing, TValue defaultValue)
+			where TScalarComputing : ScalarComputing<TValue>
+		{
+			scalarComputing.DefaultValue = defaultValue;
+			return scalarComputing;
+		}
+
+		[ObservableComputationsCall]
 		public static TObject Do<TObject>(
 			this TObject @object, Action<TObject> action)
 		{

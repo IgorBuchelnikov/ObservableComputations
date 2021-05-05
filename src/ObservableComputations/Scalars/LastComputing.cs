@@ -17,15 +17,13 @@ namespace ObservableComputations
 	{
 		[ObservableComputationsCall]
 		public LastComputing(
-			IReadScalar<INotifyCollectionChanged> sourceScalar,
-			TSourceItem defaultValue = default) : base(sourceScalar, getIndex(sourceScalar), defaultValue)
+			IReadScalar<INotifyCollectionChanged> sourceScalar) : base(sourceScalar, getIndex(sourceScalar))
 		{
 		}
 
 		[ObservableComputationsCall]
 		public LastComputing(
-			INotifyCollectionChanged source,
-			TSourceItem defaultValue = default) : base(source, getIndex(source), defaultValue)
+			INotifyCollectionChanged source) : base(source, getIndex(source))
 		{
 		}
 

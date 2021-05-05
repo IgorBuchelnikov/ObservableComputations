@@ -81,8 +81,7 @@ namespace ObservableComputations
 		public MinimazingOrMaximazing(
 			IReadScalar<INotifyCollectionChanged> sourceScalar,
 			MinimazingOrMaximazingMode mode,
-			IComparer<TSourceItem> comparer = null,
-			TSourceItem defaultValue = default) : this(mode, Utils.getCapacity(sourceScalar), defaultValue)
+			IComparer<TSourceItem> comparer = null) : this(mode, Utils.getCapacity(sourceScalar))
 		{
 			_sourceScalar = sourceScalar;
 			_comparer = comparer;
@@ -92,8 +91,7 @@ namespace ObservableComputations
 		public MinimazingOrMaximazing(
 			IReadScalar<INotifyCollectionChanged> sourceScalar,
 			MinimazingOrMaximazingMode mode,
-			IReadScalar<IComparer<TSourceItem>> comparerScalar = null,
-			TSourceItem defaultValue = default) : this(mode, Utils.getCapacity(sourceScalar), defaultValue)
+			IReadScalar<IComparer<TSourceItem>> comparerScalar = null) : this(mode, Utils.getCapacity(sourceScalar))
 		{
 			_sourceScalar = sourceScalar;
 			_comparerScalar = comparerScalar;
@@ -103,8 +101,7 @@ namespace ObservableComputations
 		public MinimazingOrMaximazing(
 			INotifyCollectionChanged source,
 			MinimazingOrMaximazingMode mode,
-			IComparer<TSourceItem> comparer = null,
-			TSourceItem defaultValue = default) : this(mode, Utils.getCapacity(source), defaultValue)
+			IComparer<TSourceItem> comparer = null) : this(mode, Utils.getCapacity(source))
 		{
 			_source = source;	   
 			_comparer = comparer;
@@ -114,14 +111,13 @@ namespace ObservableComputations
 		public MinimazingOrMaximazing(
 			INotifyCollectionChanged source,
 			MinimazingOrMaximazingMode mode,
-			IReadScalar<IComparer<TSourceItem>> comparerScalar = null,
-			TSourceItem defaultValue = default) : this(mode, Utils.getCapacity(source), defaultValue)
+			IReadScalar<IComparer<TSourceItem>> comparerScalar = null) : this(mode, Utils.getCapacity(source))
 		{
 			_source = source;
 			_comparerScalar = comparerScalar;
 		}
 
-		private MinimazingOrMaximazing(MinimazingOrMaximazingMode mode, int capacity, TSourceItem defaultValue) : base(defaultValue)
+		private MinimazingOrMaximazing(MinimazingOrMaximazingMode mode, int capacity)
 		{
 			_sourceCopy = new List<TSourceItem>(capacity);
 			_mode = mode;

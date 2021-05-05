@@ -58,8 +58,7 @@ namespace ObservableComputations
 		[ObservableComputationsCall]
 		public ItemComputing(
 			IReadScalar<INotifyCollectionChanged> sourceScalar,
-			int index, 
-			TSourceItem defaultValue = default) : this(defaultValue)
+			int index) : this()
 		{
 			_sourceScalar = sourceScalar;
 			_index = index;
@@ -68,8 +67,7 @@ namespace ObservableComputations
 		[ObservableComputationsCall]
 		public ItemComputing(
 			IReadScalar<INotifyCollectionChanged> sourceScalar,
-			IReadScalar<int> indexScalar, 
-			TSourceItem defaultValue = default) : this(defaultValue)
+			IReadScalar<int> indexScalar) : this()
 		{
 			_sourceScalar = sourceScalar;
 			_indexScalar = indexScalar;
@@ -78,8 +76,7 @@ namespace ObservableComputations
 		[ObservableComputationsCall]
 		public ItemComputing(
 			INotifyCollectionChanged source,
-			int index, 
-			TSourceItem defaultValue = default) : this(defaultValue)
+			int index) : this()
 		{
 			_source = source;
 			_index = index;
@@ -88,8 +85,7 @@ namespace ObservableComputations
 		[ObservableComputationsCall]
 		public ItemComputing(
 			INotifyCollectionChanged source,
-			IReadScalar<int> indexScalar, 
-			TSourceItem defaultValue = default) : this(defaultValue)
+			IReadScalar<int> indexScalar) : this()
 		{
 			_source = source;
 			_indexScalar = indexScalar;
@@ -98,7 +94,7 @@ namespace ObservableComputations
 			//initializeFromSource();
 		}
 
-		private ItemComputing(TSourceItem defaultValue) : base(defaultValue)
+		private ItemComputing()
 		{
 			_thisAsSourceCollectionChangeProcessor = this;
 			_changeIndexAction = () =>

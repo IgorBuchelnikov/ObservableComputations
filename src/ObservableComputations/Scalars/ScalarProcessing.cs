@@ -34,7 +34,7 @@ namespace ObservableComputations
 		}
 
 		private ScalarProcessing(
-			IReadScalar<TValue> source) : base(default)
+			IReadScalar<TValue> source)
 		{
 			_source = source;
 		}

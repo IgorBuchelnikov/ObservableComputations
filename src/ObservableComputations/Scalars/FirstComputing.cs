@@ -14,15 +14,13 @@ namespace ObservableComputations
 	{
 		[ObservableComputationsCall]
 		public FirstComputing(
-			IReadScalar<INotifyCollectionChanged> sourceScalar,
-			TSourceItem defaultValue = default) : base(sourceScalar, 0, defaultValue)
+			IReadScalar<INotifyCollectionChanged> sourceScalar) : base(sourceScalar, 0)
 		{
 		}
 
 		[ObservableComputationsCall]
 		public FirstComputing(
-			INotifyCollectionChanged source,
-			TSourceItem defaultValue = default) : base(source, 0, defaultValue)
+			INotifyCollectionChanged source) : base(source, 0)
 		{
 		}
 

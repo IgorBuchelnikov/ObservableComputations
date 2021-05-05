@@ -21,9 +21,8 @@ namespace ObservableComputations
 
 		[ObservableComputationsCall]
 		public Using(
-			TArgument argument, Expression<Func<TArgument, TResult>> getValueExpression,
-			TResult defaultValue = default)
-			: base(getValueExpression.ApplyParameter(argument), defaultValue)
+			TArgument argument, Expression<Func<TArgument, TResult>> getValueExpression)
+			: base(getValueExpression.ApplyParameter(argument))
 		{
 			_argument = argument;
 			_getValueExpressionUsing = getValueExpression;

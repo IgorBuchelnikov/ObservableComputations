@@ -2294,7 +2294,7 @@ namespace ObservableComputationsExample
 	}
 }
 ```
-In this example, we show the user the form without waiting for the data to load from the database to finish. While loading, the form is rendered and the user gets acquainted with its contents. Note that the source code loading code is abstracted from computations over them (*PaidOrders* and *UnpaidOrders*).
+In this example, we show the user form without waiting for the data to load from the database to finish. While loading, the form is rendered and the user gets acquainted with its contents. Note that the source code loading code is abstracted from computations over them (*PaidOrders* and *UnpaidOrders*).
 
 ### Performing computations in a background thread
 In the previous example, only data from the database was loaded in the background thread. The computations (*PaidOrders* and *UnpaidOrders*) were performed in the main thread (UI thread). Sometimes it is necessary to perform computations in a background thread, and in the main thread to get only the final computation results  (XAML is the same as in the previous example):
@@ -2579,7 +2579,7 @@ namespace ObservableComputationsExample
 			Thread thread = new Thread(() =>
 			{
 				Thread.Sleep(1000); // accessing DB
-				Random random = new Random();
+				Random random = new Random();in
 				for (int i = 0; i < 5000; i++)
 				{
 					Order order = new Order(i);

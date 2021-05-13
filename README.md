@@ -2579,7 +2579,7 @@ namespace ObservableComputationsExample
 			Thread thread = new Thread(() =>
 			{
 				Thread.Sleep(1000); // accessing DB
-				Random random = new Random();in
+				Random random = new Random();
 				for (int i = 0; i < 5000; i++)
 				{
 					Order order = new Order(i);

@@ -2,8 +2,8 @@
 
 # ObservableComputations
 
-## Что нужно знать для чтения этой статьи?
-Для того чтобы понимать написанное здесь, Вы должны знать: базовые сведения о программировании и ООП, синтаксис C# (включая события, [методы расширения](https://docs.microsoft.com/en-us/dotnet/csharp/programming-guide/classes-and-structs/extension-methods), лямбда-выражения), [LINQ](https://docs.microsoft.com/en-us/dotnet/csharp/programming-guide/concepts/linq/), интерфейсы: [INotifyPropertyChanged](https://docs.microsoft.com/en-us/dotnet/api/system.componentmodel.inotifypropertychanged?view=netframework-4.8) и [INotifyCollectionChanged](https://docs.microsoft.com/en-us/dotnet/api/system.collections.specialized.inotifycollectionchanged?view=netframework-4.8).  
+## Что нужно знать для чтения этого руководства?
+Для того чтобы понимать написанное здесь, Вы должны знать: базовые сведения о программировании и ООП, синтаксис C# (включая события, [методы расширения](https://docs.microsoft.com/en-us/dotnet/csharp/programming-guide/classes-and-structs/extension-methods), лямбда-выражения), [LINQ](https://docs.microsoft.com/en-us/dotnet/csharp/programming-guide/concepts/linq/), интерфейсы: [INotifyPropertyChanged](https://docs.microsoft.com/en-us/dotnet/api/system.componentmodel.inotifypropertychanged?view=netframework-4.8) и [INotifyCollectionChanged](https://docs.microsoft.com/en-us/dotnet/api/system.collections.specialized.inotifycollectionchanged?view=netframework-4.8), [IDosposable](https://docs.microsoft.com/en-us/dotnet/api/system.idisposable?view=net-5.0).  
 Желательно знать отличия [делегатов](https://docs.microsoft.com/en-us/dotnet/api/system.delegate?view=netframework-4.8) от [деревьев выражений](https://docs.microsoft.com/en-us/dotnet/csharp/programming-guide/concepts/expression-trees/).
 
 Для того чтобы представить себе какие [преимущества можно получить при использовании ObservableComputations](#области-применения-и-преимущества), Вы должны знать: о [привязке данных (binding) в WPF](https://docs.microsoft.com/en-us/dotnet/desktop-wpf/data/data-binding-overview) (или в другой UI платформе: [Xamarin](https://docs.microsoft.com/en-us/xamarin/xamarin-forms/app-fundamentals/data-binding/basic-bindings), [Blazor](https://demos.telerik.com/blazor-ui/grid/observable-data)), особенно её связь с интерфейсами [INotifyPropertyChanged](https://docs.microsoft.com/en-us/dotnet/api/system.componentmodel.inotifypropertychanged?view=netframework-4.8) и [INotifyCollectionChanged](https://docs.microsoft.com/en-us/dotnet/api/system.collections.specialized.inotifycollectionchanged?view=netframework-4.8), свойство [DbSet.Local](https://docs.microsoft.com/en-us/dotnet/api/system.data.entity.dbset.local?view=entity-framework-6.2.0) ([local data](https://docs.microsoft.com/en-us/ef/ef6/querying/local-data)) из Entity framework, [асинхронные запросы Entity framewok](https://www.entityframeworktutorial.net/entityframework6/async-query-and-save.aspx).
@@ -21,7 +21,6 @@ ObservableComputations это простая в использовании и м
 ### [Reactive Extensions](https://github.com/dotnet/reactive)
 <details>
   <summary>Подробности</summary>
-  
 ObservableComputations не является аналогом [Reactive Extensions](https://github.com/dotnet/reactive). Вот главные отличия ObservableComputations от  [Reactive Extensions](https://github.com/dotnet/reactive):
 
 * [Reactive Extensions](https://github.com/dotnet/reactive) абстрагирован от конкретного события и от семантики событий: это библиотека для обработки всех возможных событий. Reactive Extensions обрабатывает все события одинаковым образом, а вся специфика только в пользовательском коде. ObservableComputations сфокусирован только на двух событиях:  [CollectionChanged](https://docs.microsoft.com/en-us/dotnet/api/system.collections.specialized.inotifycollectionchanged.collectionchanged?view=netframework-4.8) и [PropertyChanged](https://docs.microsoft.com/en-us/dotnet/api/system.componentmodel.inotifypropertychanged.propertychanged?view=netframework-4.8) и приносит большую пользу обрабатывая их
@@ -32,24 +31,11 @@ ObservableComputations не является аналогом [Reactive Extensio
 * при обработке событий связанной со временем (Throttle, Buffer). ObservableComputation позволяет реализовать связанную со временем обработку событий [CollectionChanged](https://docs.microsoft.com/en-us/dotnet/api/system.collections.specialized.inotifycollectionchanged.collectionchanged?view=netframework-4.8) и [PropertyChanged](https://docs.microsoft.com/en-us/dotnet/api/system.componentmodel.inotifypropertychanged.propertychanged?view=netframework-4.8) путем взаимодействия с [Reactive Extensions](https://github.com/dotnet/reactive) (смотрите пример [здесь](#варианты-реализации-интерфейса-iocdispatcher))
 * при обработке событий не связанных с данными (например, нажатие клавиш), особенно при необходимости комбинировать эти события
 * при работе с асинхронными операциями ([метод Observable.FromAsyncPattern](https://docs.microsoft.com/en-us/previous-versions/dotnet/reactive-extensions/hh229052(v%3Dvs.103)))
-  
 </details>
 
 ### [ReactiveUI](https://github.com/reactiveui/ReactiveUI) и [DynamicData](https://github.com/reactiveui/DynamicData)
-
 <details>
-  <summary>Spoiler warning</summary>
-  
-  Spoiler text. Note that it's important to have a space after the summary tag. You should be able to write any markdown you want inside the `<details>` tag... just make sure you close `<details>` afterward.
-  
-  ```javascript
-  console.log("I'm a code block!");
-  ```
-  
-</details>
-
-
-
+  <summary>Подробности</summary>
 Библиотека [ReactiveUI](https://github.com/reactiveui/ReactiveUI) (и её подбиблиотека [DynamicData](https://github.com/reactiveui/DynamicData)) не абстрагированы от интерфейсов [INotifyPropertyChanged](https://docs.microsoft.com/en-us/dotnet/api/system.componentmodel.inotifypropertychanged?view=netframework-4.8) и [INotifyCollectionChanged](https://docs.microsoft.com/en-us/dotnet/api/system.collections.specialized.inotifycollectionchanged?view=netframework-4.8) и при работе с этими интерфейсами позволяет делать примерно тоже самое что и ObservableComputations, но ObservableComputations менее многословна, проще в использовании, более декларативна, меньше дергает исходные данные. Почему?
 
 * Реактивность ObservableComputations основана только на двух событиях: [CollectionChanged](https://docs.microsoft.com/en-us/dotnet/api/system.collections.specialized.inotifycollectionchanged.collectionchanged?view=netframework-4.8) и [PropertyChanged](https://docs.microsoft.com/en-us/dotnet/api/system.componentmodel.inotifypropertychanged.propertychanged?view=netframework-4.8). Такая реактивность является "родной" для ObservableComputations. Реактивность [ReactiveUI](https://github.com/reactiveui/ReactiveUI) основана на интерфейсах унаследованных от [Reactive Extensions](https://github.com/dotnet/reactive): [IObserver&lt;T&gt;](https://docs.microsoft.com/en-us/dotnet/api/system.iobserver-1?view=netframework-4.8), [IObservable&lt;T&gt;](https://docs.microsoft.com/en-us/dotnet/api/system.iobservable-1?view=netframework-4.8,), а также дополнительных интерфейсах для работы с коллекциями (содержащиеся в [DynamicData](https://github.com/reactiveui/DynamicData)): [IChangeSet](https://github.com/reactiveui/DynamicData/blob/master/src/DynamicData/IChangeSet.cs) и [IChangeSet&lt;TObject&gt;](https://github.com/reactiveui/DynamicData/blob/master/src/DynamicData/List/IChangeSet.cs). [ReactiveUI](https://github.com/reactiveui/ReactiveUI) осуществляет двунаправленное преобразование между этими интерфейсами и интерфейсами [INotifyPropertyChanged](https://docs.microsoft.com/en-us/dotnet/api/system.componentmodel.inotifypropertychanged?view=netframework-4.8) и [INotifyCollectionChanged](https://docs.microsoft.com/en-us/dotnet/api/system.collections.specialized.inotifycollectionchanged?view=netframework-4.8). Даже с учётом этого преобразования интерфейсы [INotifyPropertyChanged](https://docs.microsoft.com/en-us/dotnet/api/system.componentmodel.inotifypropertychanged?view=netframework-4.8) и [INotifyCollectionChanged](https://docs.microsoft.com/en-us/dotnet/api/system.collections.specialized.inotifycollectionchanged?view=netframework-4.8) выглядят чужеродными для [ReactiveUI](https://github.com/reactiveui/ReactiveUI)
@@ -67,6 +53,7 @@ ObservableComputations не является аналогом [Reactive Extensio
 * [Dynamic Trader](https://github.com/IgorBuchelnikov/Dynamic.Trader)
 
 * [Samples](https://github.com/IgorBuchelnikov/ObservableComputations.Samples)
+</details>
 
 ## Статус
 
@@ -91,10 +78,13 @@ ObservableComputations не является аналогом [Reactive Extensio
 * Создайте юнит-тест
 * Нужна красивая иконка
 
-##  Быстрый старт
-### Демонстрационные приложения
+## Демонстрационные приложения
 * [Samples](https://github.com/IgorBuchelnikov/ObservableComputations.Samples)
 * [Dynamic Trader](https://github.com/IgorBuchelnikov/Dynamic.Trader)
+
+##  Быстрый старт
+
+Изучив данные примеры, Вы сможете начать использовать ObservableComputations. Остальную часть данного руководства можно читать по мере необходимости.
 
 ### Аналоги [LINQ](https://docs.microsoft.com/en-us/dotnet/csharp/programming-guide/concepts/linq/) методов
 ```csharp

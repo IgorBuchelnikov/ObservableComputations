@@ -2,8 +2,8 @@
 
 # ObservableComputations
 
-## What I should  know to read this readme?
-To understand written here you should know basic programming and OOP concepts, C# syntax (including events, extension methods, lambda expressions), [LINQ](https://docs.microsoft.com/en-us/dotnet/csharp/programming-guide/concepts/linq/), [INotifyPropertyChanged](https://docs.microsoft.com/en-us/dotnet/api/system.componentmodel.inotifypropertychanged?view=netframework-4.8) and [INotifyCollectionChanged](https://docs.microsoft.com/en-us/dotnet/api/system.collections.specialized.inotifycollectionchanged?view=netframework-4.8) interfaces. 
+## What I should  know to read this guide?
+To understand written here you should know basic programming and OOP concepts, C# syntax (including events, extension methods, lambda expressions), [LINQ](https://docs.microsoft.com/en-us/dotnet/csharp/programming-guide/concepts/linq/), [INotifyPropertyChanged](https://docs.microsoft.com/en-us/dotnet/api/system.componentmodel.inotifypropertychanged?view=netframework-4.8) and [INotifyCollectionChanged](https://docs.microsoft.com/en-us/dotnet/api/system.collections.specialized.inotifycollectionchanged?view=netframework-4.8), [IDosposable](https://docs.microsoft.com/en-us/dotnet/api/system.idisposable?view=net-5.0) interfaces. 
 
 It is advisable to know the differences between [delegates](https://docs.microsoft.com/en-us/dotnet/api/system.delegate?view=netframework-4.8) and [expression trees](https://docs.microsoft.com/en-us/dotnet/csharp/programming-guide/concepts/expression-trees/).
 
@@ -21,6 +21,8 @@ ObservableComputations is easy to use and powerful implementation of [reactive p
 The closest analogs of ObservableComputations are the following libraries: [Obtics](https://archive.codeplex.com/?p=obtics), [OLinq](https://github.com/wasabii/OLinq), [NFM.Expressions](https://github.com/NMFCode/NMF), [BindableLinq](https://github.com/svn2github/bindablelinq), [ContinuousLinq](https://github.com/ismell/Continuous-LINQ).
 
 ### [Reactive Extensions](https://github.com/dotnet/reactive)
+<details>
+  <summary>Details</summary>
 ObservableComputations is not analog of [Reactive Extensions](https://github.com/dotnet/reactive). The main distinguish ObservableComputations from [Reactive Extensions](https://github.com/dotnet/reactive) is the following: 
 * [Reactive Extensions](https://github.com/dotnet/reactive) is abstracted from event specific and event semantics: it is a framework for processing all possible events. Reactive Extensions handles all events in the same way and all specifics are only in user code. ObservableComputations is focused on [CollectionChanged](https://docs.microsoft.com/en-us/dotnet/api/system.collections.specialized.inotifycollectionchanged.collectionchanged?view=netframework-4.8) and [PropertyChanged](https://docs.microsoft.com/en-us/dotnet/api/system.componentmodel.inotifypropertychanged.propertychanged?view=netframework-4.8) events only and brings great benefit processing these events. 
 * [Reactive Extensions](https://github.com/dotnet/reactive) library provides a stream of events. ObservableComputations library provides not only the stream of data change events but a currently computed data.
@@ -29,10 +31,11 @@ Some of the tasks that you solved using [Reactive Extensions](https://github.com
 * when time-related processing of events (Throttle, Buffer) needed. ObservableComputations allow you to implement time-related handling of [CollectionChanged](https://docs.microsoft.com/en-us/dotnet/api/system.collections.specialized.inotifycollectionchanged.collectionchanged?view=netframework-4.8) and [PropertyChanged](https://docs.microsoft.com/en-us/dotnet/api/system.componentmodel.inotifypropertychanged.propertychanged?view=netframework-4.8) events by cooperation with [Reactive Extensions](https://github.com/dotnet/reactive) (see the example [here](#variants-of-implementation-of-iocdispatcher-interface));
 * when processing events not related to data (for example, keystrokes), especially when combining these events.
 * when working with asynchronous operations ([Observable.FromAsyncPattern method](https://docs.microsoft.com/en-us/previous-versions/dotnet/reactive-extensions/hh229052(v%3Dvs.103))).
-
-
+</details>
 
 ### [ReactiveUI](https://github.com/reactiveui/ReactiveUI) and [DynamicData](https://github.com/reactiveui/DynamicData)
+<details>
+  <summary>Details</summary>
 The [ReactiveUI](https://github.com/reactiveui/ReactiveUI) library (and its [DynamicData](https://github.com/reactiveui/DynamicData) sub-library) are not abstracted from the [INotifyPropertyChanged](https://docs.microsoft.com/en-us/dotnet/api/system.componentmodel.inotifypropertychanged?view=netframework-4.8) and [INotifyCollectionChanged](https://docs.microsoft.com/en-us/dotnet/api/system.collections.specialized.inotifycollectionchanged?view=netframework-4.8) interfaces and when working with these interfaces allows you to do much the same things as ObservableComputations, but ObservableComputations are less verbose, easier to use, more declarative, less touches the source data. Why?
 
 * Reactivity of ObservableComputations is based on two events only: [CollectionChanged](https://docs.microsoft.com/en-us/dotnet/api/system.collections.specialized.inotifycollectionchanged.collectionchanged?view=netframework-4.8) and [PropertyChanged](https://docs.microsoft.com/en-us/dotnet/api/system.componentmodel.inotifypropertychanged.propertychanged?view=netframework-4.8). This reactivity is native to ObservableComputations. Reactivity of [ReactiveUI](https://github.com/reactiveui/ReactiveUI) is based on interfaces inherited from [Reactive Extensions](https://github.com/dotnet/reactive): [IObserver&lt;T&gt;](https://docs.microsoft.com/en-us/dotnet/api/system.iobserver-1?view=netframework-4.8), [IObservable&lt;T&gt;](https://docs.microsoft.com/en-us/dotnet/api/system.iobservable-1?view=netframework-4.8,), as well as additional interfaces for working with collections (included in [DynamicData](https://github.com/reactiveui/DynamicData)): [IChangeSet](https://github.com/reactiveui/DynamicData/blob/master/src/DynamicData/IChangeSet.cs) and [IChangeSet&lt;TObject&gt;](https://github.com/reactiveui/DynamicData/blob/master/src/DynamicData/List/IChangeSet.cs). [ReactiveUI](https://github.com/reactiveui/ReactiveUI) performs bidirectional conversion between these interfaces and  [INotifyPropertyChanged](https://docs.microsoft.com/en-us/dotnet/api/system.componentmodel.inotifypropertychanged?view=netframework-4.8) and [INotifyCollectionChanged](https://docs.microsoft.com/en-us/dotnet/api/system.collections.specialized.inotifycollectionchanged?view=netframework-4.8) interfaces. Even with this conversion, [INotifyPropertyChanged](https://docs.microsoft.com/en-us/dotnet/api/system.componentmodel.inotifypropertychanged?view=netframework-4.8) and [INotifyCollectionChanged](https://docs.microsoft.com/en-us/dotnet/api/system.collections.specialized.inotifycollectionchanged?view=netframework-4.8) interfaces look alien in [ReactiveUI](https://github.com/reactiveui/ReactiveUI)
@@ -46,6 +49,7 @@ You can compare these libraries and ObservableComputations in action, see
 * [Dynamic Trader](https://github.com/IgorBuchelnikov/Dynamic.Trader)
 
 * [Samples](https://github.com/IgorBuchelnikov/ObservableComputations.Samples)
+</details>
 
 ## Status
 All functions and operators needed to develop real applications have been implemented.
@@ -68,10 +72,12 @@ All ObservableComputations releases are available at [NuGet](https://www.nuget.o
 * Create a unit test
 * A pretty icon is needed
 
-## Quick start
-### Demo applications 
+## Demo applications 
 * [Samples](https://github.com/IgorBuchelnikov/ObservableComputations.Samples)
 * [Dynamic Trader](https://github.com/IgorBuchelnikov/Dynamic.Trader)
+
+## Quick start
+After reviewing these examples, you can start using ObservableComputations. The rest of this guide can be read as needed. 
 
 ### [LINQ](https://docs.microsoft.com/en-us/dotnet/csharp/programming-guide/concepts/linq/) methods analogs
 ```csharp

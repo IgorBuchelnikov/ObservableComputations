@@ -19,7 +19,7 @@ ObservableComputations это простая в использовании и м
 Ближайшими аналогами ObservableComputations являются следующие библиотеки: [Obtics](https://archive.codeplex.com/?p=obtics), [OLinq](https://github.com/wasabii/OLinq), [NFM.Expressions](https://github.com/NMFCode/NMF), [BindableLinq](https://github.com/svn2github/bindablelinq), [ContinuousLinq](https://github.com/ismell/Continuous-LINQ).
 
 ### [Reactive Extensions](https://github.com/dotnet/reactive)
-```
+```html
 <details>
   <summary>Подробности</summary>
   
@@ -38,6 +38,19 @@ ObservableComputations не является аналогом [Reactive Extensio
 ```
 
 ### [ReactiveUI](https://github.com/reactiveui/ReactiveUI) и [DynamicData](https://github.com/reactiveui/DynamicData)
+
+~~~html
+<details>
+  <summary>Spoiler warning</summary>
+  
+  Spoiler text. Note that it's important to have a space after the summary tag. You should be able to write any markdown you want inside the `<details>` tag... just make sure you close `<details>` afterward.
+  
+  ```javascript
+  console.log("I'm a code block!");
+  ```
+  
+</details>
+~~~
 
 Библиотека [ReactiveUI](https://github.com/reactiveui/ReactiveUI) (и её подбиблиотека [DynamicData](https://github.com/reactiveui/DynamicData)) не абстрагированы от интерфейсов [INotifyPropertyChanged](https://docs.microsoft.com/en-us/dotnet/api/system.componentmodel.inotifypropertychanged?view=netframework-4.8) и [INotifyCollectionChanged](https://docs.microsoft.com/en-us/dotnet/api/system.collections.specialized.inotifycollectionchanged?view=netframework-4.8) и при работе с этими интерфейсами позволяет делать примерно тоже самое что и ObservableComputations, но ObservableComputations менее многословна, проще в использовании, более декларативна, меньше дергает исходные данные. Почему?
 

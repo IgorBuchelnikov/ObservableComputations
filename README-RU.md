@@ -19,7 +19,6 @@ ObservableComputations это простая в использовании и м
 Ближайшими аналогами ObservableComputations являются следующие библиотеки: [Obtics](https://archive.codeplex.com/?p=obtics), [OLinq](https://github.com/wasabii/OLinq), [NFM.Expressions](https://github.com/NMFCode/NMF), [BindableLinq](https://github.com/svn2github/bindablelinq), [ContinuousLinq](https://github.com/ismell/Continuous-LINQ).
 
 ### [Reactive Extensions](https://github.com/dotnet/reactive)
-```html
 <details>
   <summary>Подробности</summary>
   
@@ -35,11 +34,9 @@ ObservableComputations не является аналогом [Reactive Extensio
 * при работе с асинхронными операциями ([метод Observable.FromAsyncPattern](https://docs.microsoft.com/en-us/previous-versions/dotnet/reactive-extensions/hh229052(v%3Dvs.103)))
   
 </details>
-```
 
 ### [ReactiveUI](https://github.com/reactiveui/ReactiveUI) и [DynamicData](https://github.com/reactiveui/DynamicData)
 
-~~~html
 <details>
   <summary>Spoiler warning</summary>
   
@@ -50,7 +47,8 @@ ObservableComputations не является аналогом [Reactive Extensio
   ```
   
 </details>
-~~~
+
+
 
 Библиотека [ReactiveUI](https://github.com/reactiveui/ReactiveUI) (и её подбиблиотека [DynamicData](https://github.com/reactiveui/DynamicData)) не абстрагированы от интерфейсов [INotifyPropertyChanged](https://docs.microsoft.com/en-us/dotnet/api/system.componentmodel.inotifypropertychanged?view=netframework-4.8) и [INotifyCollectionChanged](https://docs.microsoft.com/en-us/dotnet/api/system.collections.specialized.inotifycollectionchanged?view=netframework-4.8) и при работе с этими интерфейсами позволяет делать примерно тоже самое что и ObservableComputations, но ObservableComputations менее многословна, проще в использовании, более декларативна, меньше дергает исходные данные. Почему?
 

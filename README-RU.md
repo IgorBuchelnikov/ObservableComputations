@@ -31,7 +31,7 @@ ObservableComputations не является аналогом <a href="https://g
 
 * при обработке событий связанной со временем (Throttle, Buffer). ObservableComputation позволяет реализовать связанную со временем обработку событий <a href="https://docs.microsoft.com/en-us/dotnet/api/system.collections.specialized.inotifycollectionchanged.collectionchanged?view=netframework-4.8">CollectionChanged</a> и <a href="https://docs.microsoft.com/en-us/dotnet/api/system.componentmodel.inotifypropertychanged.propertychanged?view=netframework-4.8">PropertyChanged</a> путем взаимодействия с <a href="https://github.com/dotnet/reactive">Reactive Extensions</a> (смотрите пример <a href="#варианты-реализации-интерфейса-iocdispatcher">здесь</a>)
 * при обработке событий не связанных с данными (например, нажатие клавиш), особенно при необходимости комбинировать эти события
-* при работе с асинхронными операциями (<a href="https://docs.microsoft.com/en-us/previous-versions/dotnet/reactive-extensions/hh229052(v%3Dvs.103">метод Observable.FromAsyncPattern</a>))
+* при работе с асинхронными операциями (<a href="https://docs.microsoft.com/en-us/previous-versions/dotnet/reactive-extensions/hh229052(v%3Dvs.103)">метод Observable.FromAsyncPattern</a>)
 </details>
 
 ### [ReactiveUI](https://github.com/reactiveui/ReactiveUI) и [DynamicData](https://github.com/reactiveui/DynamicData)

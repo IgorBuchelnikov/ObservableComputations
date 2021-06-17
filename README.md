@@ -2,7 +2,7 @@
 
 [![chat](https://img.shields.io/discord/854998812749332511?style=plastic)](https://discord.com/channels/854998812749332511/854998813180821515)
 
-![Nuget](https://img.shields.io/nuget/v/ObservableComputations)[![Nuget package downloads](https://img.shields.io/nuget/dt/ObservableComputations)](https://www.nuget.org/packages/ObservableComputations/)
+![Nuget](https://img.shields.io/nuget/v/ObservableComputations) [![Nuget package downloads](https://img.shields.io/nuget/dt/ObservableComputations)](https://www.nuget.org/packages/ObservableComputations/)
 
 # ObservableComputations
 

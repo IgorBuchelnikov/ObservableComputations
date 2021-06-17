@@ -1,5 +1,7 @@
 [![Coverage Status](https://coveralls.io/repos/github/IgorBuchelnikov/ObservableComputations/badge.svg)](https://coveralls.io/github/IgorBuchelnikov/ObservableComputations)
 
+[![chat](https://img.shields.io/discord/854998812749332511?style=plastic)](https://discord.com/channels/854998812749332511/854998813180821515)
+
 # ObservableComputations
 
 <details>
@@ -18,6 +20,11 @@ This is a cross-platform .NET library for computations whose arguments and resul
 
 ObservableComputations is easy to use and powerful implementation of [reactive programming paradigm](https://en.wikipedia.org/wiki/Reactive_programming). With ObservableComputations, your code will fit more to the functional (declarative) style than with [standard LINQ](https://docs.microsoft.com/en-us/dotnet/csharp/programming-guide/concepts/linq/). Reactive programming in the functional style makes your code clearer, shorter, more reliable, and more performant. With reactive programming, you can develop rich UI faster. See details in  [Use cases and benefits section](#use-cases-and-benefits).
 
+## Demo applications 
+
+* [Samples](https://github.com/IgorBuchelnikov/ObservableComputations.Samples)
+* [Dynamic Trader](https://github.com/IgorBuchelnikov/Dynamic.Trader)
+
 ## Analogs
 
 The closest analogs of ObservableComputations are the following libraries: [Obtics](https://archive.codeplex.com/?p=obtics), [OLinq](https://github.com/wasabii/OLinq), [NFM.Expressions](https://github.com/NMFCode/NMF), [BindableLinq](https://github.com/svn2github/bindablelinq), [ContinuousLinq](https://github.com/ismell/Continuous-LINQ).
@@ -26,7 +33,7 @@ The closest analogs of ObservableComputations are the following libraries: [Obti
 <details>
   <summary>Details</summary>
 ObservableComputations is not analog of <a href="https://github.com/dotnet/reactive">Reactive Extensions</a>. The main distinguish ObservableComputations from <a href="https://github.com/dotnet/reactive">Reactive Extensions</a> is the following:
- 
+
 * <a href="https://github.com/dotnet/reactive">Reactive Extensions</a> is abstracted from event specific and event semantics: it is a framework for processing all possible events. <a href="https://github.com/dotnet/reactive">Reactive Extensions</a> handles all events in the same way and all specifics are only in user code. ObservableComputations is focused on <a href="https://docs.microsoft.com/en-us/dotnet/api/system.collections.specialized.inotifycollectionchanged.collectionchanged?view=netframework-4.8">CollectionChanged</a> and <a href="https://docs.microsoft.com/en-us/dotnet/api/system.componentmodel.inotifypropertychanged.propertychanged?view=netframework-4.8">PropertyChanged</a> events only and brings great benefit processing these events. 
 * <a href="https://github.com/dotnet/reactive">Reactive Extensions</a> library provides a stream of events. ObservableComputations library provides not only the stream of data change events but a currently computed data.
 
@@ -75,10 +82,6 @@ All ObservableComputations releases are available at [NuGet](https://www.nuget.o
 * Create xml documentation in the code
 * Create a unit test
 * A pretty icon is needed
-
-## Demo applications 
-* [Samples](https://github.com/IgorBuchelnikov/ObservableComputations.Samples)
-* [Dynamic Trader](https://github.com/IgorBuchelnikov/Dynamic.Trader)
 
 ## Quick start
 After reviewing these examples, you can start using ObservableComputations. The rest of this guide can be read as needed. 

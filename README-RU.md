@@ -1,5 +1,7 @@
 [![Coverage Status](https://coveralls.io/repos/github/IgorBuchelnikov/ObservableComputations/badge.svg)](https://coveralls.io/github/IgorBuchelnikov/ObservableComputations)
 
+[![chat](https://img.shields.io/discord/854998812749332511?style=plastic)](https://discord.com/channels/854998812749332511/854998813180821515)
+
 # ObservableComputations
 
 <details>
@@ -16,6 +18,11 @@
 
 ## Зачем ObservableComputations? 
 ObservableComputations это простая в использовании и мощная реализация [парадигмы реактивного программирования](https://en.wikipedia.org/wiki/Reactive_programming). С ObservableComputations, Ваш код будет более соответствовать функциональному (декларативному) стилю, чем при использовании стандартного [LINQ](https://docs.microsoft.com/en-us/dotnet/csharp/programming-guide/concepts/linq/). Реактивное программирование в функциональном стиле делает Ваш код понятнее, короче, надёжнее и производительнее. С реактивным программирование Вы можете быстрее создавать богатый пользовательский интерфейс. Смотрите подробнее в  разделе [Области применения и преимущества](#области-применения-и-преимущества).
+
+## Демонстрационные приложения
+
+* [Samples](https://github.com/IgorBuchelnikov/ObservableComputations.Samples)
+* [Dynamic Trader](https://github.com/IgorBuchelnikov/Dynamic.Trader)
 
 ## Аналоги
 
@@ -80,10 +87,6 @@ ObservableComputations не является аналогом <a href="https://g
 * Создайте xml документацию в коде
 * Создайте юнит-тест
 * Нужна красивая иконка
-
-## Демонстрационные приложения
-* [Samples](https://github.com/IgorBuchelnikov/ObservableComputations.Samples)
-* [Dynamic Trader](https://github.com/IgorBuchelnikov/Dynamic.Trader)
 
 ##  Быстрый старт
 

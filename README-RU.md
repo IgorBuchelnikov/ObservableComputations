@@ -73,8 +73,9 @@ ObservableComputations не является аналогом <a href="https://g
 
 Все релизы ObservableComputations доступны на [NuGet](https://www.nuget.org/packages/ObservableComputations/). Там же можно посмотреть историю изменений в разделе Release Notes.
 
-## Как получить помощь?
+## Как получить помощь или оставить отзыв?
 
+* [написать в чат Discord](https://discord.com/channels/854998812749332511/854998813180821515)
 * [создать GitHub issue](https://github.com/IgorBuchelnikov/ObservableComputations/issues/new) 
 * [создать GitHub discussion](https://github.com/IgorBuchelnikov/ObservableComputations/discussions/new)
 * [связаться со мной по электронной почте](mailto:igor_buchelnikov_github@mail.ru)

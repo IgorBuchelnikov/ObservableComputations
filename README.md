@@ -69,11 +69,11 @@ All functions and operators needed to develop real applications have been implem
 
 All ObservableComputations releases are available at [NuGet](https://www.nuget.org/packages/ObservableComputations/). There you can also see the history of changes in the Release Notes section.
 
-## How can I get help?
-* [create GitHub issue](https://github.com/IgorBuchelnikov/ObservableComputations/issues/new)
-* [create GitHub discussion](https://github.com/IgorBuchelnikov/ObservableComputations/discussions/new)
-
-* [contact me via e-mail](mailto:igor_buchelnikov_github@mail.ru)
+## How can I get help or leave feedback?
+* [post message to the Discord *chat*](https://discord.com/channels/854998812749332511/854998813180821515)
+* [create a *GitHub issue*](https://github.com/IgorBuchelnikov/ObservableComputations/issues/new)
+* [create a *GitHub discussion*](https://github.com/IgorBuchelnikov/ObservableComputations/discussions/new)
+* [contact me via *e-mail*](mailto:igor_buchelnikov_github@mail.ru)
 
 ## How can I contribute?
 * Presentations, blog posts, tutorials, feedbacks are needed

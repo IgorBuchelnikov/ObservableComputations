@@ -1828,7 +1828,7 @@ Use code includes:
 
 * Arbitrary expressions are expressions that are passed as an argument to *Computing* and *Using* [extension methods](https://docs.microsoft.com/en-us/dotnet/csharp/programming-guide/classes-and-structs/extension-methods). 
 
-* Computation result change request handlers was described in the [here](#computation-result-change-request-handlers). 
+* Computation result change request handlers was described [here](#computation-result-change-request-handlers). 
 
 * Code called using the methods [*OcDispatcher.Invoke\**](#using-the-ocDispatcher-class).
 

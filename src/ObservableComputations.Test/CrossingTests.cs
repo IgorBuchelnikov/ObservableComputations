@@ -1,4 +1,8 @@
-﻿//using System;
+﻿// Copyright (c) 2019-2021 Buchelnikov Igor Vladimirovich. All rights reserved
+// Buchelnikov Igor Vladimirovich licenses this file to you under the MIT license.
+// The LICENSE file is located at https://github.com/IgorBuchelnikov/ObservableComputations/blob/master/LICENSE
+
+//using System;
 //using System.Collections.Generic;
 //using System.Collections.ObjectModel;
 //using System.ComponentModel;
@@ -9,7 +13,7 @@
 
 //namespace ObservableComputations.Test
 //{
-//	[TestFixture]
+//	[TestFixture(false)]
 //	public class CrossingTests
 //	{
 //		public class Item : INotifyPropertyChanged
@@ -81,7 +85,7 @@
 //				items1 = getObservableCollection(count1);
 //				items2 = getObservableCollection(count2);
 //				crossing = new Crossing<Item, Item>(items1, items2);
-//				crossing.ValidateConsistency();
+//				crossing.ValidateInternalConsistency();
 
 //				for (index = 0; index < count1; index++)
 //				{
@@ -90,7 +94,7 @@
 //					items2 = getObservableCollection(count2);
 //					crossing = new Crossing<Item, Item>(items1, items2);
 //					items1.RemoveAt(index);
-//					crossing.ValidateConsistency();
+//					crossing.ValidateInternalConsistency();
 //				}
 
 //				for (index = 0; index < count2; index++)
@@ -100,7 +104,7 @@
 //					items2 = getObservableCollection(count2);
 //					crossing = new Crossing<Item, Item>(items1, items2);
 //					items2.RemoveAt(index);
-//					crossing.ValidateConsistency();
+//					crossing.ValidateInternalConsistency();
 //				}
 
 //				for (index = 0; index <= count1; index++)
@@ -110,7 +114,7 @@
 //					items2 = getObservableCollection(count2);
 //					crossing = new Crossing<Item, Item>(items1, items2);
 //					items1.Insert(index, new Item());
-//					crossing.ValidateConsistency();
+//					crossing.ValidateInternalConsistency();
 //				}
 
 //				for (index = 0; index <= count2; index++)
@@ -120,7 +124,7 @@
 //					items2 = getObservableCollection(count2);
 //					crossing = new Crossing<Item, Item>(items1, items2);
 //					items2.Insert(index, new Item());
-//					crossing.ValidateConsistency();
+//					crossing.ValidateInternalConsistency();
 //				}
 
 //				for (index = 0; index < count1; index++)
@@ -130,7 +134,7 @@
 //					items2 = getObservableCollection(count2);
 //					crossing = new Crossing<Item, Item>(items1, items2);
 //					items1[index] = new Item();
-//					crossing.ValidateConsistency();
+//					crossing.ValidateInternalConsistency();
 //				}
 
 //				for (index = 0; index < count2; index++)
@@ -140,7 +144,7 @@
 //					items2 = getObservableCollection(count2);
 //					crossing = new Crossing<Item, Item>(items1, items2);
 //					items2[index] = new Item();
-//					crossing.ValidateConsistency();
+//					crossing.ValidateInternalConsistency();
 //				}
 
 //				for (indexOld = 0; indexOld < count1; indexOld++)
@@ -152,7 +156,7 @@
 //						items2 = getObservableCollection(count2);
 //						crossing = new Crossing<Item, Item>(items1, items2);
 //						items1.Move(indexOld, indexNew);
-//						crossing.ValidateConsistency();
+//						crossing.ValidateInternalConsistency();
 //					}
 //				}
 
@@ -165,7 +169,7 @@
 //						items2 = getObservableCollection(count2);
 //						crossing = new Crossing<Item, Item>(items1, items2);
 //						items2.Move(indexOld, indexNew);
-//						crossing.ValidateConsistency();
+//						crossing.ValidateInternalConsistency();
 //					}
 //				}
 

@@ -1,21 +1,25 @@
-﻿using System;
+﻿// Copyright (c) 2019-2021 Buchelnikov Igor Vladimirovich. All rights reserved
+// Buchelnikov Igor Vladimirovich licenses this file to you under the MIT license.
+// The LICENSE file is located at https://github.com/IgorBuchelnikov/ObservableComputations/blob/master/LICENSE
+
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Collections.Specialized;
+using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Linq.Expressions;
 
 namespace ObservableComputations
 {
-	public class ContainsComputing<TSourceItem> : AnyComputing<TSourceItem>, IHasSourceCollections
+	public class ContainsComputing<TSourceItem> : AnyComputing<TSourceItem>, IHasSources
 	{
-		public IReadScalar<INotifyCollectionChanged> SourceScalar => _sourceScalarContainsComputing;
+		public override IReadScalar<INotifyCollectionChanged> SourceScalar => _sourceScalarContainsComputing;
 
 		// ReSharper disable once MemberCanBePrivate.Global
-		public INotifyCollectionChanged Source => _sourceContainsComputing;
+		public override INotifyCollectionChanged Source => _sourceContainsComputing;
 
-		public ReadOnlyCollection<INotifyCollectionChanged> SourceCollections => new ReadOnlyCollection<INotifyCollectionChanged>(new []{Source});
-		public ReadOnlyCollection<IReadScalar<INotifyCollectionChanged>> SourceCollectionScalars => new ReadOnlyCollection<IReadScalar<INotifyCollectionChanged>>(new []{SourceScalar});
+		public override ReadOnlyCollection<object> Sources => new ReadOnlyCollection<object>(new object[]{Source, SourceScalar});
 
 		// ReSharper disable once MemberCanBePrivate.Global
 		public IReadScalar<TSourceItem> ItemScalar => _itemScalar;
@@ -24,10 +28,10 @@ namespace ObservableComputations
 		public TSourceItem Item => _item;
 
 		// ReSharper disable once MemberCanBePrivate.Global
-		public IReadScalar<IEqualityComparer<TSourceItem>> EqualityComparerScalar => _equalityComparerScalar;
+		public virtual IReadScalar<IEqualityComparer<TSourceItem>> EqualityComparerScalar => _equalityComparerScalar;
 
 		// ReSharper disable once MemberCanBePrivate.Global
-		public IEqualityComparer<TSourceItem> EqualityComparer => _equalityComparer;
+		public virtual IEqualityComparer<TSourceItem> EqualityComparer => _equalityComparer;
 		private readonly IReadScalar<INotifyCollectionChanged> _sourceScalarContainsComputing;
 		private readonly INotifyCollectionChanged _sourceContainsComputing;
 		private readonly IReadScalar<TSourceItem> _itemScalar;
@@ -42,7 +46,7 @@ namespace ObservableComputations
 		public ContainsComputing(
 			IReadScalar<INotifyCollectionChanged> sourceScalar,
 			IReadScalar<TSourceItem> itemScalar,
-			IReadScalar<IEqualityComparer<TSourceItem>> equalityComparerScalar = null) 
+			IReadScalar<IEqualityComparer<TSourceItem>> equalityComparerScalar) 
 			: base(sourceScalar, getPredicateExpression(itemScalar, equalityComparerScalar))
 		{
 			_sourceScalarContainsComputing = sourceScalar;
@@ -54,7 +58,7 @@ namespace ObservableComputations
 		public ContainsComputing(
 			IReadScalar<INotifyCollectionChanged> sourceScalar,
 			TSourceItem item,
-			IReadScalar<IEqualityComparer<TSourceItem>> equalityComparerScalar = null) 
+			IReadScalar<IEqualityComparer<TSourceItem>> equalityComparerScalar) 
 			: base(sourceScalar, getPredicateExpression(item, equalityComparerScalar))
 		{
 			_sourceScalarContainsComputing = sourceScalar;
@@ -92,7 +96,7 @@ namespace ObservableComputations
 		public ContainsComputing(
 			INotifyCollectionChanged source,
 			IReadScalar<TSourceItem> itemScalar,
-			IReadScalar<IEqualityComparer<TSourceItem>> equalityComparerScalar = null) 
+			IReadScalar<IEqualityComparer<TSourceItem>> equalityComparerScalar) 
 			: base(source, getPredicateExpression(itemScalar, equalityComparerScalar))
 		{
 			_sourceContainsComputing = source;
@@ -104,7 +108,7 @@ namespace ObservableComputations
 		public ContainsComputing(
 			INotifyCollectionChanged source,
 			TSourceItem item,
-			IReadScalar<IEqualityComparer<TSourceItem>> equalityComparerScalar = null) 
+			IReadScalar<IEqualityComparer<TSourceItem>> equalityComparerScalar) 
 			: base(source, getPredicateExpression(item, equalityComparerScalar))
 		{
 			_sourceContainsComputing = source;
@@ -177,14 +181,15 @@ namespace ObservableComputations
 					equalityComparer.Equals(sourceItem, item);
 		}
 
-		public new void ValidateConsistency()
+		[ExcludeFromCodeCoverage]
+		internal new void ValidateInternalConsistency()
 		{
 			IList<TSourceItem> source = (IList<TSourceItem>) _sourceScalarContainsComputing.getValue(_sourceContainsComputing, new ObservableCollection<TSourceItem>());
 			TSourceItem sourceItem = _itemScalar.getValue(_item);
 			IEqualityComparer<TSourceItem> equalityComparer =  _equalityComparerScalar.getValue(_equalityComparer);
 
 			if (_value != source.Contains(sourceItem, equalityComparer))
-				throw new ObservableComputationsException(this, "Consistency violation: ContainsComputing.1");
+				throw new ValidateInternalConsistencyException("Consistency violation: ContainsComputing.1");
 		}
 	}
 }

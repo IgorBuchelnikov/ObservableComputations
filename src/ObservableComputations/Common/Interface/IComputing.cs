@@ -1,36 +1,49 @@
-﻿using System;
+﻿// Copyright (c) 2019-2021 Buchelnikov Igor Vladimirovich. All rights reserved
+// Buchelnikov Igor Vladimirovich licenses this file to you under the MIT license.
+// The LICENSE file is located at https://github.com/IgorBuchelnikov/ObservableComputations/blob/master/LICENSE
+
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 
 namespace ObservableComputations
 {
-	public interface IComputing : IHasTags, IConsistent
+	public interface IComputing : IHasTags, IConsistent, IEventHandler
 	{
-		string InstantiatingStackTrace { get; }
+		string InstantiationStackTrace { get; }
 		IComputing UserCodeIsCalledFrom { get; }
-		object HandledEventSender { get;  }
-		EventArgs HandledEventArgs { get;  }
-        bool IsActive { get; }
+		bool IsActive { get; }
+		bool ActivationInProgress {get; }
+		bool InactivationInProgress {get; }
 	}
 
-    internal interface IComputingInternal : IComputing, ICanInitializeFromSource
-    {
-        void AddConsumer(Consumer addingConsumer);
-        void RemoveConsumer(Consumer removingConsumer);
-        void AddDownstreamConsumedComputing(IComputingInternal computing);
-        void RemoveDownstreamConsumedComputing(IComputingInternal computing);
-        IEnumerable<Consumer> Consumers { get; }
-        void RaiseConsistencyRestored();
-        void AddToUpstreamComputings(IComputingInternal computing);
-        void RemoveFromUpstreamComputings(IComputingInternal computing);
-        void Initialize();
-        void Uninitialize();
-        void OnPropertyChanged(PropertyChangedEventArgs propertyChangedEventArgs);
-        void SetIsActive(bool value);
-    }
+	public interface IEventHandler
+	{
+		object HandledEventSender { get; }
+		EventArgs HandledEventArgs { get; }   
+	}
 
-    internal interface ICanInitializeFromSource
-    {
-        void InitializeFromSource();
-    }
+	internal interface IComputingInternal : IComputing, ICanInitializeFromSource
+	{
+		void AddConsumer(OcConsumer addingOcConsumer);
+		void RemoveConsumer(OcConsumer removingOcConsumer);
+		void AddDownstreamConsumedComputing(IComputingInternal computing);
+		void RemoveDownstreamConsumedComputing(IComputingInternal computing);
+		IEnumerable<OcConsumer> Consumers { get; }
+		void RaiseConsistencyRestored();
+		void AddToUpstreamComputings(IComputingInternal computing);
+		void RemoveFromUpstreamComputings(IComputingInternal computing);
+		void Initialize();
+		void Uninitialize();
+		void ClearCachedScalarArgumentValues();
+		void OnPropertyChanged(PropertyChangedEventArgs propertyChangedEventArgs);
+		void SetIsActive(bool value);
+		void SetInactivationInProgress(bool value);
+		void SetActivationInProgress(bool value);
+	}
+
+	internal interface ICanInitializeFromSource
+	{
+		void ProcessSource();
+	}
 }

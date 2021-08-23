@@ -1,4 +1,8 @@
-﻿using System.Collections.Generic;
+﻿// Copyright (c) 2019-2021 Buchelnikov Igor Vladimirovich. All rights reserved
+// Buchelnikov Igor Vladimirovich licenses this file to you under the MIT license.
+// The LICENSE file is located at https://github.com/IgorBuchelnikov/ObservableComputations/blob/master/LICENSE
+
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
@@ -6,10 +10,10 @@ using NUnit.Framework;
 
 namespace ObservableComputations.Test
 {
-	[TestFixture]
-	public class FirstComputingTests
+	[TestFixture(false)]
+	public partial class FirstComputingTests : TestBase
 	{
-        Consumer consumer = new Consumer();
+		OcConsumer consumer = new OcConsumer();
 
 		public class Item : INotifyPropertyChanged
 		{
@@ -48,8 +52,8 @@ namespace ObservableComputations.Test
 		{
 			ObservableCollection<Item> items = new ObservableCollection<Item>();
 
-			FirstComputing<Item> first = items.FirstComputing().IsNeededFor(consumer);
-			first.ValidateConsistency();			
+			FirstComputing<Item> first = items.FirstComputing().For(consumer);
+			first.ValidateInternalConsistency();			
 			consumer.Dispose();
 		}
 
@@ -69,10 +73,10 @@ namespace ObservableComputations.Test
 				}
 			);
 
-			FirstComputing<Item> first = items.FirstComputing().IsNeededFor(consumer);
-			first.ValidateConsistency();
+			FirstComputing<Item> first = items.FirstComputing().For(consumer);
+			first.ValidateInternalConsistency();
 			items.RemoveAt(index);
-			first.ValidateConsistency();			
+			first.ValidateInternalConsistency();			
 			consumer.Dispose();
 		}
 
@@ -86,10 +90,10 @@ namespace ObservableComputations.Test
 				}
 			);
 
-			FirstComputing<Item> first = items.FirstComputing().IsNeededFor(consumer);
-			first.ValidateConsistency();
+			FirstComputing<Item> first = items.FirstComputing().For(consumer);
+			first.ValidateInternalConsistency();
 			items.RemoveAt(0);
-			first.ValidateConsistency();			
+			first.ValidateInternalConsistency();			
 			consumer.Dispose();
 		}
 
@@ -108,10 +112,10 @@ namespace ObservableComputations.Test
 				}
 			);
 
-			FirstComputing<Item> first = items.FirstComputing().IsNeededFor(consumer);
-			first.ValidateConsistency();
+			FirstComputing<Item> first = items.FirstComputing().For(consumer);
+			first.ValidateInternalConsistency();
 			items.Insert(index, new Item());
-			first.ValidateConsistency();			
+			first.ValidateInternalConsistency();			
 			consumer.Dispose();
 		}
 
@@ -120,10 +124,10 @@ namespace ObservableComputations.Test
 		{
 			ObservableCollection<Item> items = new ObservableCollection<Item>();
 
-			FirstComputing<Item> first = items.FirstComputing().IsNeededFor(consumer);
-			first.ValidateConsistency();
+			FirstComputing<Item> first = items.FirstComputing().For(consumer);
+			first.ValidateInternalConsistency();
 			items.Insert(0, new Item());
-			first.ValidateConsistency();			
+			first.ValidateInternalConsistency();			
 			consumer.Dispose();
 		}
 
@@ -143,10 +147,10 @@ namespace ObservableComputations.Test
 				}
 			);
 
-			FirstComputing<Item> first = items.FirstComputing().IsNeededFor(consumer);
-			first.ValidateConsistency();
+			FirstComputing<Item> first = items.FirstComputing().For(consumer);
+			first.ValidateInternalConsistency();
 			items.Move(oldIndex, newIndex);
-			first.ValidateConsistency();			
+			first.ValidateInternalConsistency();			
 			consumer.Dispose();
 		}
 
@@ -166,11 +170,15 @@ namespace ObservableComputations.Test
 				}
 			);
 
-			FirstComputing<Item> first = items.FirstComputing().IsNeededFor(consumer);
-			first.ValidateConsistency();
+			FirstComputing<Item> first = items.FirstComputing().For(consumer);
+			first.ValidateInternalConsistency();
 			items[index] = new Item();
-			first.ValidateConsistency();			
+			first.ValidateInternalConsistency();			
 			consumer.Dispose();
-		}		
+		}
+
+		public FirstComputingTests(bool debug) : base(debug)
+		{
+		}
 	}
 }

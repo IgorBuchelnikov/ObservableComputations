@@ -1,8 +1,13 @@
-﻿using System;
+﻿// Copyright (c) 2019-2021 Buchelnikov Igor Vladimirovich. All rights reserved
+// Buchelnikov Igor Vladimirovich licenses this file to you under the MIT license.
+// The LICENSE file is located at https://github.com/IgorBuchelnikov/ObservableComputations/blob/master/LICENSE
+
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Collections.Specialized;
+using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Linq.Expressions;
 
@@ -10,17 +15,15 @@ namespace ObservableComputations
 {
 	public class LastComputing<TSourceItem> : ItemComputing<TSourceItem>
 	{
-        [ObservableComputationsCall]
+		[ObservableComputationsCall]
 		public LastComputing(
-			IReadScalar<INotifyCollectionChanged> sourceScalar,
-			TSourceItem defaultValue = default(TSourceItem)) : base(sourceScalar, getIndex(sourceScalar), defaultValue)
+			IReadScalar<INotifyCollectionChanged> sourceScalar) : base(sourceScalar, getIndex(sourceScalar))
 		{
 		}
 
 		[ObservableComputationsCall]
 		public LastComputing(
-			INotifyCollectionChanged source,
-			TSourceItem defaultValue = default(TSourceItem)) : base(source, getIndex(source), defaultValue)
+			INotifyCollectionChanged source) : base(source, getIndex(source))
 		{
 		}
 
@@ -37,13 +40,14 @@ namespace ObservableComputations
 			return indexExpression.Computing();
 		}
 
-		public new void ValidateConsistency()
+		[ExcludeFromCodeCoverage]
+		internal new void ValidateInternalConsistency()
 		{
 			IList<TSourceItem> source = (IList<TSourceItem>) _sourceScalar.getValue(_source, new ObservableCollection<TSourceItem>());
-			TSourceItem defaultValue = _defaultValue;
+			TSourceItem defaultValue = DefaultValue;
 
 			if (!EqualityComparer<TSourceItem>.Default.Equals(_value, source.Count > 0 ? source.Last() : defaultValue))
-				throw new ObservableComputationsException(this, "Consistency violation: LastComputing.1");
+				throw new ValidateInternalConsistencyException("Consistency violation: LastComputing.1");
 		}
 
 	}

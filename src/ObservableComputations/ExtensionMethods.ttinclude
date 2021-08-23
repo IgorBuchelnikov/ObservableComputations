@@ -1,3 +1,7 @@
+// Copyright (c) 2019-2021 Buchelnikov Igor Vladimirovich. All rights reserved
+// Buchelnikov Igor Vladimirovich licenses this file to you under the MIT license.
+// The LICENSE file is located at https://github.com/IgorBuchelnikov/ObservableComputations/blob/master/LICENSE
+
 <#@ Assembly Name="System.Core" #>
 <#@ Assembly Name="System.Windows.Forms" #>
 <#@ assembly name="EnvDTE80" #>
@@ -11,11 +15,11 @@
 <#+
 	public string[] ExpressionArgumentNames = new []{"PREDICATE", "SELECTOR", "GETVALUEEXPRESSION"};
 
-	public IEnumerable<ExtentionMethod> GetExtentionMethods()
+	public IEnumerable<ExtensionMethod> GetExtensionMethods()
 	{
 		try
 		{
-			List<ExtentionMethod> result = new List<ExtentionMethod>();
+			List<ExtensionMethod> result = new List<ExtensionMethod>();
 
 			VisualStudioHelper = new AutomationHelper(this.Host);
 			string rootPath = VisualStudioHelper.SolutionDirectory + @"\ObservableComputations";
@@ -34,14 +38,20 @@
 
 					string name = classInFile.Name;
 
-                    if (name.Contains("CollectionProcessing")
-                        || name.Contains("ScalarProcessing")
-                        || name.Contains("PropertyDispatching")
-                        || name.Contains("Crossing"))
-                        continue;
+					if (name.Contains("CollectionProcessing")
+						|| name.Contains("ScalarProcessing")
+						|| name.Contains("PropertyDispatching")
+						|| name.Contains("CollectionDisposing")
+						|| name.Contains("ScalarDisposing")
+						|| name.Contains("Crossing"))
+						continue;
+
+					if (name.Contains("CollectionDispatching"))
+					{
+					}
 
 					string genericParameters = string.Empty;
-                    string genericConstraints = string.Empty;
+					string genericConstraints = string.Empty;
 					if (classInFile.FullName.Contains("<"))
 					{
 						genericParameters = "<" + classInFile.FullName.Split('<', '>')[1] + ">";
@@ -49,10 +59,10 @@
 
 					if (classInFile.FullName.Contains("WeakPreviousTracking"))
 					{
-                        genericConstraints = "where TResult : class";
+						genericConstraints = "where TResult : class";
 					}
 
-					List<ExtentionMethod> classExtentionMethods = new List<ExtentionMethod>();
+					List<ExtensionMethod> classExtensionMethods = new List<ExtensionMethod>();
 
 					foreach (CodeElement elem in classInFile.Children)
 					{
@@ -62,24 +72,24 @@
 						if (constructor.FunctionKind != EnvDTE.vsCMFunction.vsCMFunctionConstructor) continue;
 						if (constructor.Access == EnvDTE.vsCMAccess.vsCMAccessPrivate) continue;
 
-						List<ExtentionMethodArgumentVariants> variantsList = new List<ExtentionMethodArgumentVariants>();
-						if (constructor.Parameters.Count >= 7) continue;
+						List<ExtensionMethodArgumentVariants> variantsList = new List<ExtensionMethodArgumentVariants>();
+						//if (constructor.Parameters.Count >= 7) continue;
 
 						foreach (CodeElement parameterCodeElement in constructor.Parameters)
 						{
 							CodeParameter2 parameter = (CodeParameter2)parameterCodeElement;
 
-							ExtentionMethodArgumentVariants variants = new ExtentionMethodArgumentVariants();
+							ExtensionMethodArgumentVariants variants = new ExtensionMethodArgumentVariants();
 
 							variants.Name = parameter.Name;
 							variants.Type = parameter.Type.AsString;	
 
-							if (parameter.Name.Contains("sources") || parameter.Name.Contains("Sources"))
+							if (IsCollectionOfCollectionsArgument(name, parameter.Name))
 							{
 								variants.Types.Add(parameter.Type.AsString);
 								variants.Types.Add(parameter.Type.AsString.Replace("System.Collections.Specialized.INotifyCollectionChanged", "ObservableCollection<ObservableCollection<TSourceItem>>"));
 							}
-							else if ((parameter.Name.Contains("source") || parameter.Name.Contains("Source")) && !parameter.Name.Contains("Dispatcher"))
+							else if ((parameter.Name.Contains("source") || parameter.Name.Contains("Source")) && !parameter.Name.Contains("OcDispatcher"))
 							{
 								string sourceGenericTypeName;
 
@@ -113,7 +123,7 @@
 							variantsList.Add(variants);
 						}
 
-						foreach (ExtentionMethodArgumentVariants argumentVariants in variantsList)
+						foreach (ExtensionMethodArgumentVariants argumentVariants in variantsList)
 						{
 							if (ExpressionArgumentNames.Any(an => argumentVariants.Name.ToUpper().Contains(an))) continue;
 
@@ -144,13 +154,13 @@
 							}
 						}
 
-						List<ExtentionMethod> constructorExtentionMethods = new List<ExtentionMethod>();
+						List<ExtensionMethod> constructorExtensionMethods = new List<ExtensionMethod>();
 
-						foreach (ExtentionMethodArgumentVariants argumentVariants in variantsList)
+						foreach (ExtensionMethodArgumentVariants argumentVariants in variantsList)
 						{
-							List<ExtentionMethod> newExtentionMethods = new List<ExtentionMethod>();
+							List<ExtensionMethod> newExtensionMethods = new List<ExtensionMethod>();
 
-							if (constructorExtentionMethods.Count == 0)
+							if (constructorExtensionMethods.Count == 0)
 							{
 								if (argumentVariants.Types.Count > 0)
 								{
@@ -158,19 +168,19 @@
 									{
 										if (name != "MinimazingOrMaximazing")
 										{
-											newExtentionMethods.Add(new ExtentionMethod(
-												name, classInFile.FullName, genericParameters, genericConstraints, new ExtentionMethodArgument(
+											newExtensionMethods.Add(new ExtensionMethod(
+												name, classInFile.FullName, genericParameters, genericConstraints, new ExtensionMethodArgument(
 													argumentVariants.Name, type)));
 										}
 
 										if (name == "MinimazingOrMaximazing")
 										{
-											newExtentionMethods.Add(new ExtentionMethod(
-												"Minimazing", classInFile.FullName, genericParameters, genericConstraints, new ExtentionMethodArgument(
+											newExtensionMethods.Add(new ExtensionMethod(
+												"Minimazing", classInFile.FullName, genericParameters, genericConstraints, new ExtensionMethodArgument(
 													argumentVariants.Name, type)));
 
-											newExtentionMethods.Add(new ExtentionMethod(
-												"Maximazing", classInFile.FullName, genericParameters, genericConstraints, new ExtentionMethodArgument(
+											newExtensionMethods.Add(new ExtensionMethod(
+												"Maximazing", classInFile.FullName, genericParameters, genericConstraints, new ExtensionMethodArgument(
 													argumentVariants.Name, type)));
 										}
 
@@ -178,86 +188,104 @@
 								}
 								else
 								{
-									newExtentionMethods.Add(new ExtentionMethod(
-										name, classInFile.FullName, genericParameters, genericConstraints, new ExtentionMethodArgument(
+									newExtensionMethods.Add(new ExtensionMethod(
+										name, classInFile.FullName, genericParameters, genericConstraints, new ExtensionMethodArgument(
 											argumentVariants.Name, argumentVariants.Type)));							
 								}
 							}
 							else
 							{
-								foreach (ExtentionMethod creatingExtentionMethod in constructorExtentionMethods)
+								foreach (ExtensionMethod creatingExtensionMethod in constructorExtensionMethods)
 								{
 									if (!argumentVariants.Type.Contains("MinimazingOrMaximazingMode"))
 									{
 										if (argumentVariants.Types.Count > 0)
 										{
-											ExtentionMethod extentionMethod;
+											ExtensionMethod extensionMethod;
 											foreach (string type in argumentVariants.Types)
 											{
-												extentionMethod = new ExtentionMethod(
-													creatingExtentionMethod.Name, classInFile.FullName, creatingExtentionMethod.GenericParameters, creatingExtentionMethod.GenericConstraints, creatingExtentionMethod.Arguments.ToArray());
-												extentionMethod.Arguments.Add(
-													new ExtentionMethodArgument(
+												extensionMethod = new ExtensionMethod(
+													creatingExtensionMethod.Name, classInFile.FullName, creatingExtensionMethod.GenericParameters, creatingExtensionMethod.GenericConstraints, creatingExtensionMethod.Arguments.ToArray());
+												extensionMethod.Arguments.Add(
+													new ExtensionMethodArgument(
 														argumentVariants.Name, type));
-												newExtentionMethods.Add(extentionMethod);
+												newExtensionMethods.Add(extensionMethod);
 
 												if (argumentVariants.DefaultValue != null) 
 												{
-													extentionMethod = new ExtentionMethod(
-														creatingExtentionMethod.Name, classInFile.FullName, creatingExtentionMethod.GenericParameters, creatingExtentionMethod.GenericConstraints, creatingExtentionMethod.Arguments.ToArray());
-													extentionMethod.Arguments.Add(
-														new ExtentionMethodArgument(
+													extensionMethod = new ExtensionMethod(
+														creatingExtensionMethod.Name, classInFile.FullName, creatingExtensionMethod.GenericParameters, creatingExtensionMethod.GenericConstraints, creatingExtensionMethod.Arguments.ToArray());
+													extensionMethod.Arguments.Add(
+														new ExtensionMethodArgument(
 															argumentVariants.Name, type, argumentVariants.DefaultValue));
-													newExtentionMethods.Add(extentionMethod);
+													newExtensionMethods.Add(extensionMethod);
 												}
 											}
 										}
 										else if (argumentVariants.DefaultValue != null) 
 										{
-											ExtentionMethod extentionMethod = new ExtentionMethod(
-												creatingExtentionMethod.Name, classInFile.FullName, creatingExtentionMethod.GenericParameters, creatingExtentionMethod.GenericConstraints, creatingExtentionMethod.Arguments.ToArray());
-											extentionMethod.Arguments.Add(
-												new ExtentionMethodArgument(argumentVariants.Name, argumentVariants.Type));
-											newExtentionMethods.Add(extentionMethod);
+											ExtensionMethod extensionMethod = new ExtensionMethod(
+												creatingExtensionMethod.Name, classInFile.FullName, creatingExtensionMethod.GenericParameters, creatingExtensionMethod.GenericConstraints, creatingExtensionMethod.Arguments.ToArray());
+											extensionMethod.Arguments.Add(
+												new ExtensionMethodArgument(argumentVariants.Name, argumentVariants.Type));
+											newExtensionMethods.Add(extensionMethod);
 
-											extentionMethod = new ExtentionMethod(
-												creatingExtentionMethod.Name, classInFile.FullName, creatingExtentionMethod.GenericParameters, creatingExtentionMethod.GenericConstraints, creatingExtentionMethod.Arguments.ToArray());
-											extentionMethod.Arguments.Add(
-												new ExtentionMethodArgument(
+											extensionMethod = new ExtensionMethod(
+												creatingExtensionMethod.Name, classInFile.FullName, creatingExtensionMethod.GenericParameters, creatingExtensionMethod.GenericConstraints, creatingExtensionMethod.Arguments.ToArray());
+											extensionMethod.Arguments.Add(
+												new ExtensionMethodArgument(
 													argumentVariants.Name, argumentVariants.Type, argumentVariants.DefaultValue));
-											newExtentionMethods.Add(extentionMethod);
+											newExtensionMethods.Add(extensionMethod);
 										}
 										else
 										{
-											ExtentionMethod extentionMethod = new ExtentionMethod(
-												creatingExtentionMethod.Name, classInFile.FullName, creatingExtentionMethod.GenericParameters, creatingExtentionMethod.GenericConstraints, creatingExtentionMethod.Arguments.ToArray());
-											extentionMethod.Arguments.Add(
-												new ExtentionMethodArgument(
+											ExtensionMethod extensionMethod = new ExtensionMethod(
+												creatingExtensionMethod.Name, classInFile.FullName, creatingExtensionMethod.GenericParameters, creatingExtensionMethod.GenericConstraints, creatingExtensionMethod.Arguments.ToArray());
+											extensionMethod.Arguments.Add(
+												new ExtensionMethodArgument(
 													argumentVariants.Name, argumentVariants.Type));
-											newExtentionMethods.Add(extentionMethod);
+											newExtensionMethods.Add(extensionMethod);
 										}
 									}
 
 									if (argumentVariants.Type.Contains("MinimazingOrMaximazingMode"))
 									{
-										ExtentionMethod extentionMethod = new ExtentionMethod(
-											creatingExtentionMethod.Name, classInFile.FullName, creatingExtentionMethod.GenericParameters, creatingExtentionMethod.GenericConstraints, creatingExtentionMethod.Arguments.ToArray());
-										extentionMethod.Arguments.Add(
-											new ExtentionMethodArgument(
-												argumentVariants.Name, argumentVariants.Type, creatingExtentionMethod.Name == "Minimazing" ? "MinimazingOrMaximazingMode.Minimazing" : "MinimazingOrMaximazingMode.Maximazing"));
-										newExtentionMethods.Add(extentionMethod);
+										ExtensionMethod extensionMethod = new ExtensionMethod(
+											creatingExtensionMethod.Name, classInFile.FullName, creatingExtensionMethod.GenericParameters, creatingExtensionMethod.GenericConstraints, creatingExtensionMethod.Arguments.ToArray());
+										extensionMethod.Arguments.Add(
+											new ExtensionMethodArgument(
+												argumentVariants.Name, argumentVariants.Type, creatingExtensionMethod.Name == "Minimazing" ? "MinimazingOrMaximazingMode.Minimazing" : "MinimazingOrMaximazingMode.Maximazing"));
+										newExtensionMethods.Add(extensionMethod);
 									}
 
 								}
 							}
 
-							constructorExtentionMethods = newExtentionMethods;
+							constructorExtensionMethods = newExtensionMethods;
 						}
 
-						classExtentionMethods.AddRange(constructorExtentionMethods);
+						classExtensionMethods.AddRange(constructorExtensionMethods);
 					}
 
-					result.AddRange(classExtentionMethods.Distinct());
+					var filtered = classExtensionMethods
+						.Distinct()
+						.Where(em => 
+						!(
+							!em.ArgumentsWithoutDefaultValue.Any(ema => ema.Name == "destinationOcDispatcher")
+							&& em.ArgumentsWithoutDefaultValue.Any(ema => ema.Name == "sourceOcDispatcher"))
+						&& !(
+							!em.ArgumentsWithoutDefaultValue.Any(ema => ema.Name == "destinationOcDispatcherPriority")
+							&& em.ArgumentsWithoutDefaultValue.Any(ema => ema.Name == "sourceOcDispatcherPriority"))
+						&& !(
+							!em.ArgumentsWithoutDefaultValue.Any(ema => ema.Name == "destinationOcDispatcherParameter")
+							&& em.ArgumentsWithoutDefaultValue.Any(ema => ema.Name == "sourceOcDispatcherParameter")))
+						.ToArray();
+
+					if (filtered.Length != classExtensionMethods.Count)
+					{
+					}
+
+					result.AddRange(filtered);
 				}
 			}
 
@@ -269,26 +297,27 @@
 		}
 	}
 
-	public class ExtentionMethod
+	public class ExtensionMethod
 	{
 		public string TypeName;
 		public string GenericParameters;
 		public string Name;
-        public string GenericConstraints;
-		public List<ExtentionMethodArgument> Arguments = new List<ExtentionMethodArgument>();
+		public string GenericConstraints;
+		public List<ExtensionMethodArgument> Arguments = new List<ExtensionMethodArgument>();
+		public IEnumerable<ExtensionMethodArgument> ArgumentsWithoutDefaultValue => Arguments.Where(a => a.DefaultValue == null);
 
 		public override bool Equals(object obj)
 		{
-			ExtentionMethod other = (ExtentionMethod)obj;
-			return other.Name == Name && Arguments.Where(a => a.DefaultValue == null).SequenceEqual(other.Arguments.Where(a => a.DefaultValue == null));
+			ExtensionMethod other = (ExtensionMethod)obj;
+			return other.Name == Name && ArgumentsWithoutDefaultValue.SequenceEqual(other.ArgumentsWithoutDefaultValue);
 		}
 
-		public ExtentionMethod(string name, string typeName, string genericParameters, string genericConstraints, params ExtentionMethodArgument[] arguments)
+		public ExtensionMethod(string name, string typeName, string genericParameters, string genericConstraints, params ExtensionMethodArgument[] arguments)
 		{
 			Name = name;
 			TypeName = typeName;
 			GenericParameters = genericParameters;
-            GenericConstraints = genericConstraints;
+			GenericConstraints = genericConstraints;
 			Arguments = arguments.ToList();
 		}
 
@@ -297,7 +326,7 @@
 			unchecked {
 				int result = Name.GetHashCode();
 				
-				foreach (ExtentionMethodArgument argument in Arguments.Where(a => a.DefaultValue == null))
+				foreach (ExtensionMethodArgument argument in Arguments.Where(a => a.DefaultValue == null))
 				{
 					result = result + argument.GetHashCode();
 				}
@@ -305,13 +334,13 @@
 		}
 	}
 
-	public class ExtentionMethodArgument
+	public class ExtensionMethodArgument
 	{
 		public string Type;
 		public string Name;
 		public string DefaultValue;
 
-		public ExtentionMethodArgument(string name, string type, string defaultValue = null)
+		public ExtensionMethodArgument(string name, string type, string defaultValue = null)
 		{
 			Name = name;
 			Type = type;
@@ -321,7 +350,7 @@
 
 		public override bool Equals(object obj)
 		{
-			ExtentionMethodArgument other = (ExtentionMethodArgument)obj;
+			ExtensionMethodArgument other = (ExtensionMethodArgument)obj;
 			return other.Name == Name && other.Type == Type;
 		}
 
@@ -332,7 +361,7 @@
 		}
 	}
 
-	public class ExtentionMethodArgumentVariants
+	public class ExtensionMethodArgumentVariants
 	{
 		public string Name;
 
@@ -342,8 +371,27 @@
 		public string DefaultValue;
 	}
 
-    public bool IsComputingArgument(ExtentionMethodArgument argument)
+	public bool IsComputingArgument(ExtensionMethodArgument argument)
 	{
 		return argument.Type.Contains("Func") && argument.Type.Contains("Expression") && !ExpressionArgumentNames.Any(an => argument.Name.ToUpper().Contains(an));
+	}
+
+	public bool IsCollectionOfCollectionsArgument(string extensionMethodName, string argumentName)
+	{
+		return (extensionMethodName == "Concatenating" || extensionMethodName == "Uniting") && (argumentName == "source" || argumentName == "sourceScalar" || argumentName == "sourceExpression");
+	}
+
+	public bool IsCollectionArgument(string extensionMethodName, string argumentName, string type)
+	{
+		return 
+			(type.Contains("INotifyCollectionChanged") 
+				|| type.Contains("ObservableCollection") 
+				|| type.Contains("IOrdering")) 
+			&& (argumentName.Contains("source") 
+				|| argumentName.Contains("innerSource") 
+				|| argumentName.Contains("outerSource") 
+				|| argumentName.Contains("leftSource") 
+				|| argumentName.Contains("rightSource")) 
+			&& !IsCollectionOfCollectionsArgument(extensionMethodName, argumentName);
 	}
 #>

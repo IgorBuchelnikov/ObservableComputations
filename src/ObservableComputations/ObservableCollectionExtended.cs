@@ -1,9 +1,14 @@
-﻿using System;
+﻿// Copyright (c) 2019-2021 Buchelnikov Igor Vladimirovich. All rights reserved
+// Buchelnikov Igor Vladimirovich licenses this file to you under the MIT license.
+// The LICENSE file is located at https://github.com/IgorBuchelnikov/ObservableComputations/blob/master/LICENSE
+
+using System;
+using System.Collections.Generic;
 using System.Collections.Specialized;
 
 namespace ObservableComputations
 {
-	public class ObservableCollectionExtended<TItem> : ObservableCollectionWithChangeMarker<TItem>, INotifyCollectionChangedExtended, IHasItemType
+	public class ObservableCollectionExtended<TItem> : ObservableCollectionWithTickTackVersion<TItem>, INotifyCollectionChangedExtended, IHasItemType
 	{
 		public event EventHandler PreCollectionChanged;
 		public event EventHandler PostCollectionChanged;
@@ -18,9 +23,24 @@ namespace ObservableComputations
 		public int OldIndex => _oldIndex;
 		public int NewIndex => _newIndex;
 
+		public ObservableCollectionExtended() : base()
+		{
+
+		}
+
+		public ObservableCollectionExtended(List<TItem> list) : base(list)
+		{
+
+		}
+
+		public ObservableCollectionExtended(IEnumerable<TItem> collection) : base(collection)
+		{
+
+		}
+
 		protected override void InsertItem(int index, TItem item)
 		{
-			ChangeMarkerField = !ChangeMarkerField;
+			TickTackVersion = !TickTackVersion;
 
 			_currentChange = NotifyCollectionChangedAction.Add;
 			_newIndex = index;
@@ -38,7 +58,7 @@ namespace ObservableComputations
 		
 		protected override void MoveItem(int oldIndex, int newIndex)
 		{
-			ChangeMarkerField = !ChangeMarkerField;
+			TickTackVersion = !TickTackVersion;
 
 			_currentChange = NotifyCollectionChangedAction.Move;
 			_oldIndex = oldIndex;
@@ -55,7 +75,7 @@ namespace ObservableComputations
 	
 		protected override void RemoveItem(int index)
 		{
-			ChangeMarkerField = !ChangeMarkerField;
+			TickTackVersion = !TickTackVersion;
 
 			_currentChange = NotifyCollectionChangedAction.Remove;
 			_oldIndex = index;
@@ -70,11 +90,12 @@ namespace ObservableComputations
 
 		protected override void SetItem(int index, TItem item)
 		{
-			ChangeMarkerField = !ChangeMarkerField;
+			TickTackVersion = !TickTackVersion;
 			
 			_currentChange = NotifyCollectionChangedAction.Replace;
 			_newItem = item;
 			_newIndex = index;
+			_oldIndex = index;
 
 			PreCollectionChanged?.Invoke(this, null);
 			base.SetItem(index, item);
@@ -83,11 +104,12 @@ namespace ObservableComputations
 			_currentChange = null;
 			_newItem = default;
 			_newIndex = -1;
+			_oldIndex = -1;
 		}
 
 		protected override void ClearItems()
 		{
-			ChangeMarkerField = !ChangeMarkerField;
+			TickTackVersion = !TickTackVersion;
 
 			_currentChange = NotifyCollectionChangedAction.Reset;
 

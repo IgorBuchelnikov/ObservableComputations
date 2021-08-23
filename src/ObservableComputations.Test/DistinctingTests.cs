@@ -1,20 +1,24 @@
-﻿using System.Collections.ObjectModel;
+﻿// Copyright (c) 2019-2021 Buchelnikov Igor Vladimirovich. All rights reserved
+// Buchelnikov Igor Vladimirovich licenses this file to you under the MIT license.
+// The LICENSE file is located at https://github.com/IgorBuchelnikov/ObservableComputations/blob/master/LICENSE
+
+using System.Collections.ObjectModel;
 using NUnit.Framework;
 
 namespace ObservableComputations.Test
 {
-	[TestFixture]
-	public class DistinctingTests
+	[TestFixture(false)]
+	public partial class DistinctingTests : TestBase
 	{
-        Consumer consumer = new Consumer();
+		OcConsumer consumer = new OcConsumer();
 
 		[Test]
 		public void Distincting_Initialization_01()
 		{
 			ObservableCollection<int> items = new ObservableCollection<int>();
 
-			Distincting<int> distincting = items.Distincting().IsNeededFor(consumer);
-			distincting.ValidateConsistency();			
+			Distincting<int> distincting = items.Distincting().For(consumer);
+			distincting.ValidateInternalConsistency();			
 			consumer.Dispose();
 		}
 
@@ -39,10 +43,10 @@ namespace ObservableComputations.Test
 
 			);
 
-			Distincting<int> distincting = items.Distincting().IsNeededFor(consumer);
-			distincting.ValidateConsistency();
+			Distincting<int> distincting = items.Distincting().For(consumer);
+			distincting.ValidateInternalConsistency();
 			items.RemoveAt(index);
-			distincting.ValidateConsistency();			
+			distincting.ValidateInternalConsistency();			
 			consumer.Dispose();
 		}
 
@@ -58,10 +62,10 @@ namespace ObservableComputations.Test
 
 			);
 
-			Distincting<int> distincting = items.Distincting().IsNeededFor(consumer);
-			distincting.ValidateConsistency();
+			Distincting<int> distincting = items.Distincting().For(consumer);
+			distincting.ValidateInternalConsistency();
 			items.RemoveAt(0);
-			distincting.ValidateConsistency();			
+			distincting.ValidateInternalConsistency();			
 			consumer.Dispose();
 		}
 
@@ -87,10 +91,10 @@ namespace ObservableComputations.Test
 
 			);
 
-			Distincting<int> distincting = items.Distincting().IsNeededFor(consumer);
-			distincting.ValidateConsistency();
+			Distincting<int> distincting = items.Distincting().For(consumer);
+			distincting.ValidateInternalConsistency();
 			items.Insert(index, newValue);
-			distincting.ValidateConsistency();			
+			distincting.ValidateInternalConsistency();			
 			consumer.Dispose();
 		}
 
@@ -100,10 +104,10 @@ namespace ObservableComputations.Test
 		{
 			ObservableCollection<int> items = new ObservableCollection<int>();
 
-			Distincting<int> distincting = items.Distincting().IsNeededFor(consumer);
-			distincting.ValidateConsistency();
+			Distincting<int> distincting = items.Distincting().For(consumer);
+			distincting.ValidateInternalConsistency();
 			items.Insert(0, newValue);
-			distincting.ValidateConsistency();			
+			distincting.ValidateInternalConsistency();			
 			consumer.Dispose();
 		}
 
@@ -129,10 +133,10 @@ namespace ObservableComputations.Test
 
 			);
 
-			Distincting<int> distincting = items.Distincting().IsNeededFor(consumer);
-			distincting.ValidateConsistency();
+			Distincting<int> distincting = items.Distincting().For(consumer);
+			distincting.ValidateInternalConsistency();
 			items.Move(oldIndex, newIndex);
-			distincting.ValidateConsistency();			
+			distincting.ValidateInternalConsistency();			
 			consumer.Dispose();
 		}
 
@@ -158,11 +162,15 @@ namespace ObservableComputations.Test
 
 			);
 
-			Distincting<int> distincting = items.Distincting().IsNeededFor(consumer);
-			distincting.ValidateConsistency();
+			Distincting<int> distincting = items.Distincting().For(consumer);
+			distincting.ValidateInternalConsistency();
 			items[index] = itemNew;
-			distincting.ValidateConsistency();			
+			distincting.ValidateInternalConsistency();			
 			consumer.Dispose();
-		}		
+		}
+
+		public DistinctingTests(bool debug) : base(debug)
+		{
+		}
 	}
 }

@@ -1,46 +1,51 @@
-﻿using System;
+﻿// Copyright (c) 2019-2021 Buchelnikov Igor Vladimirovich. All rights reserved
+// Buchelnikov Igor Vladimirovich licenses this file to you under the MIT license.
+// The LICENSE file is located at https://github.com/IgorBuchelnikov/ObservableComputations/blob/master/LICENSE
+
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Collections.Specialized;
 using System.ComponentModel;
+using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 
 namespace ObservableComputations
 {
-	public class Paging<TSourceItem> : CollectionComputing<TSourceItem>, IHasSourceCollections, ISourceIndexerPropertyTracker, ISourceCollectionChangeProcessor
+	public class Paging<TSourceItem> : CollectionComputing<TSourceItem>, IHasSources, ISourceIndexerPropertyTracker, ISourceCollectionChangeProcessor
 	{
-		public INotifyCollectionChanged Source => _source;
-		public IReadScalar<INotifyCollectionChanged> SourceScalar => _sourceScalar;
+		public virtual INotifyCollectionChanged Source => _source;
+		public virtual IReadScalar<INotifyCollectionChanged> SourceScalar => _sourceScalar;
 		public IReadScalar<int> PageSizeScalar => _pageSizeScalar;
 		public IReadScalar<int> CurrentPageScalar => _currentPageScalar;
 
-		public ReadOnlyCollection<INotifyCollectionChanged> SourceCollections => new ReadOnlyCollection<INotifyCollectionChanged>(new []{Source});
-		public ReadOnlyCollection<IReadScalar<INotifyCollectionChanged>> SourceCollectionScalars => new ReadOnlyCollection<IReadScalar<INotifyCollectionChanged>>(new []{SourceScalar});
+		public virtual ReadOnlyCollection<object> Sources => new ReadOnlyCollection<object>(new object[]{Source, SourceScalar});
 
 		public int PageSize
 		{
 			get => _pageSize;
 			set
 			{
-				if (_pageSizeScalar != null) throw new ObservableComputationsException("Modifying of PageSize property is controlled by PageSizeScalar");
+				if (_pageSizeScalar != null) throw new ObservableComputationsException(this, "Modifying of PageSize property is controlled by PageSizeScalar");
 
-                int newPageSize = value;
+				int newPageSize = value;
 
-                Action action = () => {
-                    int originalPageSize = _pageSize;
-                    _pageSize = newPageSize;
-                    processPageSizeChanged(originalPageSize);
-                };
+				void action()
+				{
+					int originalPageSize = _pageSize;
+					_pageSize = newPageSize;
+					processPageSizeChanged(originalPageSize);
+				}
 
-                Utils.processChange(
-                    null, 
-                    null, 
-                    action,
-                    ref _isConsistent, 
-                    ref _handledEventSender, 
-                    ref _handledEventArgs, 
-                    0, 2,
-                    ref _deferredProcessings, this);
+				Utils.processChange(
+					null, 
+					null, 
+					action,
+					ref _isConsistent, 
+					ref _handledEventSender, 
+					ref _handledEventArgs, 
+					0, _deferredQueuesCount,
+					ref _deferredProcessings, this);
 			}
 		}
 
@@ -50,40 +55,38 @@ namespace ObservableComputations
 			int sourceCount = _sourceCopy.Count;
 
 			_pageCount = (int) Math.Ceiling(sourceCount / (double) _pageSize);
-			bool currentPageChanged = false;
+
 			if (_currentPage > _pageCount)
 			{
 				_currentPage = _pageCount;
-				currentPageChanged = true;
+				processCurrentPageChanged();
 			}
-
-			_lowerIndex = _pageSize * (_currentPage - 1);
-			_upperIndex = _lowerIndex + _pageSize;
-
-			if (originalPageSize < _pageSize)
+			else
 			{
-				int index = originalPageSize;
-				for (var sourceIndex = originalUpperIndex;
-					sourceIndex < sourceCount && sourceIndex < _upperIndex;
-					sourceIndex++)
-				{
-					TSourceItem sourceItem = _sourceCopy[sourceIndex];
-					baseInsertItem(index++, sourceItem);
-				}
-			}
-			else if (originalPageSize > _pageSize)
-			{
-				int index = originalPageSize - 1;
-				index = index < Count ? index : Count - 1;
+				_lowerIndex = _pageSize * (_currentPage - 1);
+				_upperIndex = _lowerIndex + _pageSize;
 
-				for (; index >= _pageSize; index--)
+				if (originalPageSize < _pageSize)
 				{
-					baseRemoveItem(index);
+					int index = originalPageSize;
+					for (int sourceIndex = originalUpperIndex;
+						sourceIndex < sourceCount && sourceIndex < _upperIndex;
+						sourceIndex++)
+						baseInsertItem(index++, _sourceCopy[sourceIndex]);
 				}
+				else if (originalPageSize > _pageSize)
+				{
+					int index = originalPageSize - 1;
+					index = index < Count ? index : Count - 1;
+
+					for (; index >= _pageSize; index--)
+					{
+						baseRemoveItem(index);
+					}
+				}				
 			}
 
 			OnPropertyChanged(Utils.PageSizePropertyChangedEventArgs);
-			if (currentPageChanged) OnPropertyChanged(Utils.CurrentPagePropertyChangedEventArgs);
 		}
 
 		public int CurrentPage
@@ -91,29 +94,29 @@ namespace ObservableComputations
 			get => _currentPage;
 			set
 			{
-				if (_currentPageScalar != null) throw new ObservableComputationsException("Modifying of CurrentPage property is controlled by CurrentPagecalar");
+				if (_currentPageScalar != null) throw new ObservableComputationsException(this, "Modifying of CurrentPage property is controlled by CurrentPageScalar");
 
-                var newCurrentPage = value;
+				int newCurrentPage = value;
 
-                Action action = () =>
-                {
-                    _currentPage = newCurrentPage;
-                    processCurentPageChanged();
-                };
+				void action()
+				{
+					_currentPage = newCurrentPage;
+					processCurrentPageChanged();
+				}
 
-                Utils.processChange(
-                    null, 
-                    null, 
-                    action,
-                    ref _isConsistent, 
-                    ref _handledEventSender, 
-                    ref _handledEventArgs, 
-                    0, 2,
-                    ref _deferredProcessings, this);
-            }
+				Utils.processChange(
+					null, 
+					null, 
+					action,
+					ref _isConsistent, 
+					ref _handledEventSender, 
+					ref _handledEventArgs, 
+					0, _deferredQueuesCount,
+					ref _deferredProcessings, this);
+			}
 		}
 
-		private void processCurentPageChanged()
+		private void processCurrentPageChanged()
 		{
 			if (_currentPage < 1) _currentPage = 1;
 			if (_currentPage > _pageCount) _currentPage = _pageCount;
@@ -123,40 +126,47 @@ namespace ObservableComputations
 
 			int sourceCount = _sourceCopy.Count;
 			int index = 0;
-			for (var sourceIndex = _lowerIndex; sourceIndex < sourceCount && sourceIndex < _upperIndex; sourceIndex++)
+			int thisCount = Count;
+
+			for (int sourceIndex = _lowerIndex; sourceIndex < sourceCount && sourceIndex < _upperIndex; sourceIndex++)
 			{
-				TSourceItem sourceItem = _sourceCopy[sourceIndex];
-				baseSetItem(index++, sourceItem);
+				if (thisCount > index)
+					_items[index] = _sourceCopy[sourceIndex];
+					//baseSetItem(index, _sourceCopy[sourceIndex]);
+				else
+					_items.Insert(index, _sourceCopy[sourceIndex]);
+					//baseInsertItem(index, _sourceCopy[sourceIndex]);
+
+				index++;
 			}
 
 			int count = Count;
 			int removingIndex = index;
 
 			for (; index < count; index++)
-			{
-				baseRemoveItem(removingIndex);
-			}
+				_items.RemoveAt(removingIndex);
+				//baseRemoveItem(removingIndex);
 
+			reset();
 			OnPropertyChanged(Utils.CurrentPagePropertyChangedEventArgs);
 		}
 
-		public int PageCount => _pageCount;
+		public int PageCount => _pageCount > 0 ? _pageCount : 1;
 		private INotifyCollectionChanged _source;
 		private IList<TSourceItem> _sourceAsList;
-        private List<TSourceItem> _sourceCopy;
+		private List<TSourceItem> _sourceCopy;
 		private readonly IReadScalar<INotifyCollectionChanged> _sourceScalar;
 
-		private bool _sourceInitialized;
-
+		private bool _countPropertyChangedEventRaised;
 		private bool _indexerPropertyChangedEventRaised;
 		private INotifyPropertyChanged _sourceAsINotifyPropertyChanged;
 
-		private IReadScalar<int> _pageSizeScalar;
+		private readonly IReadScalar<int> _pageSizeScalar;
 
-		private IReadScalar<int> _currentPageScalar;
+		private readonly IReadScalar<int> _currentPageScalar;
 
-		private IHasChangeMarker _sourceAsIHasChangeMarker;
-		private bool _lastProcessedSourceChangeMarker;
+		private IHasTickTackVersion _sourceAsIHasTickTackVersion;
+		private bool _lastProcessedSourceTickTackVersion;
 
 		private int _pageSize;
 		private int _currentPage;
@@ -165,7 +175,7 @@ namespace ObservableComputations
 		private int _lowerIndex;
 		private int _upperIndex;
 
-        private ISourceCollectionChangeProcessor _thisAsSourceCollectionChangeProcessor;
+		private readonly ISourceCollectionChangeProcessor _thisAsSourceCollectionChangeProcessor;
 
 
 		[ObservableComputationsCall]
@@ -177,10 +187,10 @@ namespace ObservableComputations
 			_pageSize = pageSize;
 			_currentPage = initialPage;
 			_source = source;
-            _thisAsSourceCollectionChangeProcessor = this;
-            checkPageSize();
-            checkCurrentPage();
-        }
+			_thisAsSourceCollectionChangeProcessor = this;
+			checkPageSize();
+			checkCurrentPage();
+		}
 
 		[ObservableComputationsCall]
 		public Paging(
@@ -191,9 +201,9 @@ namespace ObservableComputations
 			_pageSize = pageSize;
 			_currentPage = initialPage;
 			_sourceScalar = sourceScalar;
-            _thisAsSourceCollectionChangeProcessor = this;
-            checkPageSize();
-            checkCurrentPage();
+			_thisAsSourceCollectionChangeProcessor = this;
+			checkPageSize();
+			checkCurrentPage();
 		}
 
 		[ObservableComputationsCall]
@@ -205,8 +215,8 @@ namespace ObservableComputations
 			_pageSizeScalar = pageSizeScalar;
 			_currentPage = initialPage;
 			_source = source;
-            _thisAsSourceCollectionChangeProcessor = this;
-        }
+			_thisAsSourceCollectionChangeProcessor = this;
+		}
 
 		[ObservableComputationsCall]
 		public Paging(
@@ -217,8 +227,8 @@ namespace ObservableComputations
 			_pageSizeScalar = pageSizeScalar;
 			_currentPage = initialPage;
 			_sourceScalar = sourceScalar;
-            _thisAsSourceCollectionChangeProcessor = this;
-            checkCurrentPage();
+			_thisAsSourceCollectionChangeProcessor = this;
+			checkCurrentPage();
 		}
 
 		[ObservableComputationsCall]
@@ -230,7 +240,7 @@ namespace ObservableComputations
 			_pageSizeScalar = pageSizeScalar;
 			_currentPageScalar = currentPageScalar;
 			_source = source;
-            _thisAsSourceCollectionChangeProcessor = this;
+			_thisAsSourceCollectionChangeProcessor = this;
 		}
 
 		[ObservableComputationsCall]
@@ -242,7 +252,7 @@ namespace ObservableComputations
 			_pageSizeScalar = pageSizeScalar;
 			_currentPageScalar = currentPageScalar;
 			_sourceScalar = sourceScalar;
-            _thisAsSourceCollectionChangeProcessor = this;
+			_thisAsSourceCollectionChangeProcessor = this;
 		}
 
 		[ObservableComputationsCall]
@@ -254,8 +264,8 @@ namespace ObservableComputations
 			_pageSize = pageSize;
 			_currentPageScalar = currentPageScalar;
 			_source = source;
-            _thisAsSourceCollectionChangeProcessor = this;
-            checkPageSize();
+			_thisAsSourceCollectionChangeProcessor = this;
+			checkPageSize();
 		}
 
 		[ObservableComputationsCall]
@@ -267,126 +277,132 @@ namespace ObservableComputations
 			_pageSize = pageSize;
 			_currentPageScalar = currentPageScalar;
 			_sourceScalar = sourceScalar;
-            _thisAsSourceCollectionChangeProcessor = this;
-            checkPageSize();
+			_thisAsSourceCollectionChangeProcessor = this;
+			checkPageSize();
 		}
 
-        private void checkPageSize()
-        {
-            if (_pageSize <= 0)
-                throw new ObservableComputationsException($"Invalid PageSize value '{_pageSize}' for Paging computation");
-        }
+		private void checkPageSize()
+		{
+			if (_pageSize <= 0)
+				throw new ObservableComputationsException(this, $"Invalid PageSize value '{_pageSize}' for Paging computation");
+		}
 
-        private void checkCurrentPage()
-        {
-            if (_currentPage <= 0)
-                throw new ObservableComputationsException($"Invalid CurrentPage value '{_currentPage}' for Paging computation");
-        }
+		private void checkCurrentPage()
+		{
+			if (_currentPage <= 0)
+				throw new ObservableComputationsException(this, $"Invalid CurrentPage value '{_currentPage}' for Paging computation");
+		}
 
-        private void initializePageSizeScalar()
-        {
-            if (_pageSizeScalar != null)
-            {
-                _pageSizeScalar.PropertyChanged += handlePageSizeScalarValueChanged;
-                _pageSize = _pageSizeScalar.Value;
-                checkPageSize();
-            }
-        }
+		private void initializePageSizeScalar()
+		{
+			if (_pageSizeScalar != null)
+			{
+				_pageSizeScalar.PropertyChanged += handlePageSizeScalarValueChanged;
+				_pageSize = _pageSizeScalar.Value;
+				checkPageSize();
+			}
+		}
 
 		private void handlePageSizeScalarValueChanged(object sender, PropertyChangedEventArgs e)
-        {
-            int pageSize = _pageSizeScalar.Value;
-            Action action = () =>
-            {
-                int originalPageSize = _pageSize;
-                _pageSize = pageSize;
-                checkPageSize();
-                processPageSizeChanged(originalPageSize);
-            };
+		{
+			int pageSize = _pageSizeScalar.Value;
 
-            Utils.processChange(
-                sender, 
-                e, 
-                action,
-                ref _isConsistent, 
-                ref _handledEventSender, 
-                ref _handledEventArgs, 
-                0, 2,
-                ref _deferredProcessings, this);
-        }
+			void action()
+			{
+				int originalPageSize = _pageSize;
+				_pageSize = pageSize;
+				checkPageSize();
+				processPageSizeChanged(originalPageSize);
+			}
+
+			Utils.processChange(
+				sender, 
+				e, 
+				action,
+				ref _isConsistent, 
+				ref _handledEventSender, 
+				ref _handledEventArgs, 
+				0, _deferredQueuesCount,
+				ref _deferredProcessings, this);
+		}
 
 
-        private void initializeCurrentPageScalar()
-        {
-            if (_currentPageScalar != null)
-            {
-                _currentPageScalar.PropertyChanged += handleCurrentPageScalarValueChanged;
-                _currentPage = _currentPageScalar.Value;
-                checkCurrentPage();
-            }
-        }
+		private void initializeCurrentPageScalar()
+		{
+			if (_currentPageScalar != null)
+			{
+				_currentPageScalar.PropertyChanged += handleCurrentPageScalarValueChanged;
+				_currentPage = _currentPageScalar.Value;
+				checkCurrentPage();
+			}
+		}
 
 		private void handleCurrentPageScalarValueChanged(object sender, PropertyChangedEventArgs e)
 		{
-            int currentPage = _currentPageScalar.Value;
-            Action action = () =>
-            {
+			int currentPage = _currentPageScalar.Value;
 
-                _currentPage = currentPage;
-                checkCurrentPage();
-                processCurentPageChanged();
-            };
+			void action()
+			{
+				_currentPage = currentPage;
+				checkCurrentPage();
+				processCurrentPageChanged();
+			}
 
-            Utils.processChange(
-                sender, 
-                e, 
-                action,
-                ref _isConsistent, 
-                ref _handledEventSender, 
-                ref _handledEventArgs, 
-                0, 2,
-                ref _deferredProcessings, this);
+			Utils.processChange(
+				sender, 
+				e, 
+				action,
+				ref _isConsistent, 
+				ref _handledEventSender, 
+				ref _handledEventArgs, 
+				0, _deferredQueuesCount,
+				ref _deferredProcessings, this);
 		}
 
-		protected override void initializeFromSource()
+		protected override void processSource()
+		{
+			processSource(true);
+		}
+
+		private void processSource(bool replaceSource)
 		{
 			int originalCount = _items.Count;
 
-			if (_sourceInitialized)
+			if (_sourceReadAndSubscribed)
 			{
-				_source.CollectionChanged -= handleSourceCollectionChanged;
+				if (replaceSource)
+					Utils.unsubscribeSource(
+						_source, 
+						ref _sourceAsINotifyPropertyChanged, 
+						this, 
+						handleSourceCollectionChanged);
 
-                if (_sourceAsINotifyPropertyChanged != null)
-                {
-                    _sourceAsINotifyPropertyChanged.PropertyChanged -=
-                        ((ISourceIndexerPropertyTracker) this).HandleSourcePropertyChanged;
-                    _sourceAsINotifyPropertyChanged = null;
-                }
+				_sourceCopy = null;
+				_sourceReadAndSubscribed = false;
+			}
 
-                _sourceCopy = null;
-                _sourceInitialized = false;
-            }
+			if (replaceSource)
+				Utils.replaceSource(ref _source, _sourceScalar, _downstreamConsumedComputings, _consumers, this,
+					out _sourceAsList, true);
 
-            Utils.changeSource(ref _source, _sourceScalar, _downstreamConsumedComputings, _consumers, this,
-                ref _sourceAsList, true);
-
-            int originalPageCount = _pageCount;
-            int originalCurrentPage = _currentPage;
+			int originalPageCount = _pageCount;
+			int originalCurrentPage = _currentPage;
 
 			if (_sourceAsList != null && _isActive)
 			{
-				Utils.initializeFromHasChangeMarker(
-                    out _sourceAsIHasChangeMarker, 
-                    _sourceAsList, 
-                    ref _lastProcessedSourceChangeMarker, 
-                    ref _sourceAsINotifyPropertyChanged,
-                    (ISourceIndexerPropertyTracker)this);
+				if (replaceSource)
+					Utils.subscribeSource(
+						out _sourceAsIHasTickTackVersion, 
+						_sourceAsList, 
+						ref _lastProcessedSourceTickTackVersion, 
+						ref _sourceAsINotifyPropertyChanged,
+						(ISourceIndexerPropertyTracker)this,
+						_source,
+						handleSourceCollectionChanged);
 
-                int newIndex = 0;
+				int newIndex = 0;
 				int count = _sourceAsList.Count;
-                _sourceCopy = new List<TSourceItem>(_sourceAsList);
-
-                _source.CollectionChanged += handleSourceCollectionChanged;
+				_sourceCopy = new List<TSourceItem>(_sourceAsList);
 
 				_pageCount = (int) Math.Ceiling(count  / (double) _pageSize);
 				if (_currentPage > _pageCount)
@@ -397,7 +413,7 @@ namespace ObservableComputations
 				_lowerIndex = _pageSize * (_currentPage - 1);
 				_upperIndex = _lowerIndex + _pageSize;
 	
-				for (var sourceIndex = _lowerIndex; sourceIndex < count && sourceIndex < _upperIndex; sourceIndex++)
+				for (int sourceIndex = _lowerIndex; sourceIndex < count && sourceIndex < _upperIndex; sourceIndex++)
 				{
 					if (originalCount > sourceIndex)
 						_items[newIndex++] = _sourceCopy[sourceIndex];
@@ -410,20 +426,20 @@ namespace ObservableComputations
 					_items.RemoveAt(index1);
 				}
 
-                _sourceInitialized = true;
+				_sourceReadAndSubscribed = true;
 			}
 			else
 			{
 				_items.Clear();
 
-                // ReSharper disable once RedundantCheckBeforeAssignment
-                if (_pageCount != 0)
+				// ReSharper disable once RedundantCheckBeforeAssignment
+				if (_pageCount != 0)
 				{
 					_pageCount = 0;
 				}
 
-                // ReSharper disable once RedundantCheckBeforeAssignment
-                if (_currentPage != 1)
+				// ReSharper disable once RedundantCheckBeforeAssignment
+				if (_currentPage != 1)
 				{
 					_currentPage = 1;
 				}				
@@ -431,268 +447,270 @@ namespace ObservableComputations
 
 			reset();
 
-            if (_pageCount != originalPageCount)
-                OnPropertyChanged(Utils.PageCountPropertyChangedEventArgs);
+			if (_pageCount != originalPageCount)
+				OnPropertyChanged(Utils.PageCountPropertyChangedEventArgs);
 
-            if (_currentPage != originalCurrentPage)
-                OnPropertyChanged(Utils.CurrentPagePropertyChangedEventArgs);
+			if (_currentPage != originalCurrentPage)
+				OnPropertyChanged(Utils.CurrentPagePropertyChangedEventArgs);
 		}
 
-        private void handleSourceCollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
+		private void handleSourceCollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
 		{
-            if (!Utils.preHandleSourceCollectionChanged(
-                sender, 
-                e, 
-                ref _isConsistent, 
-                ref _indexerPropertyChangedEventRaised, 
-                ref _lastProcessedSourceChangeMarker, 
-                _sourceAsIHasChangeMarker, 
-                ref _handledEventSender, 
-                ref _handledEventArgs,
-                ref _deferredProcessings,
-                1, _deferredQueuesCount, this)) return;
+			if (!Utils.preHandleSourceCollectionChanged(
+				sender, 
+				e, 
+				ref _isConsistent, 
+				ref _countPropertyChangedEventRaised,
+				ref _indexerPropertyChangedEventRaised, 
+				ref _lastProcessedSourceTickTackVersion, 
+				_sourceAsIHasTickTackVersion, 
+				ref _handledEventSender, 
+				ref _handledEventArgs,
+				ref _deferredProcessings,
+				1, _deferredQueuesCount, this)) return;
 
-            _thisAsSourceCollectionChangeProcessor.processSourceCollectionChanged(sender, e);
+			_thisAsSourceCollectionChangeProcessor.processSourceCollectionChanged(sender, e);
 
-            Utils.postHandleChange(
-                ref _handledEventSender,
-                ref _handledEventArgs,
-                _deferredProcessings,
-                ref _isConsistent,
-                this);
+			Utils.postHandleChange(
+				ref _handledEventSender,
+				ref _handledEventArgs,
+				_deferredProcessings,
+				ref _isConsistent,
+				this);
 		}
 
-        void ISourceCollectionChangeProcessor.processSourceCollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
-        {
-            switch (e.Action)
-            {
-                case NotifyCollectionChangedAction.Add:
-                    //if (e.NewItems.Count > 1) throw new ObservableComputationsException("Adding of multiple items is not supported");
+		void ISourceCollectionChangeProcessor.processSourceCollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
+		{
+			switch (e.Action)
+			{
+				case NotifyCollectionChangedAction.Add:
+					//if (e.NewItems.Count > 1) throw new ObservableComputationsException("Adding of multiple items is not supported");
 
-                    int newStartingIndex = e.NewStartingIndex;
-                    TSourceItem newItem = (TSourceItem) e.NewItems[0];
-                    _sourceCopy.Insert(newStartingIndex, newItem);
+					int newStartingIndex = e.NewStartingIndex;
+					TSourceItem newItem = (TSourceItem) e.NewItems[0];
+					_sourceCopy.Insert(newStartingIndex, newItem);
 
-                    int originalPageCount2 = _pageCount;
-                    int sourceCount2 = _sourceCopy.Count;
-                    _pageCount = (int) Math.Ceiling(sourceCount2 / (double) _pageSize);
+					int originalPageCount2 = _pageCount;
+					int sourceCount2 = _sourceCopy.Count;
+					_pageCount = (int) Math.Ceiling(sourceCount2 / (double) _pageSize);
 
-                    if (newStartingIndex < _lowerIndex)
-                    {
-                        baseInsertItem(0, _sourceCopy[_lowerIndex]);
-                    }
-                    else if (newStartingIndex < _upperIndex)
-                    {
+					if (newStartingIndex < _lowerIndex)
+					{
+						baseInsertItem(0, _sourceCopy[_lowerIndex]);
+					}
+					else if (newStartingIndex < _upperIndex)
+					{
 
-                        baseInsertItem(newStartingIndex - _lowerIndex, newItem);
-                    }
-                    else
-                    {
-                        if (_pageCount != originalPageCount2)
-                            OnPropertyChanged(Utils.PageCountPropertyChangedEventArgs);
-                    }
+						baseInsertItem(newStartingIndex - _lowerIndex, newItem);
+					}
+					else
+					{
+						if (_pageCount != originalPageCount2)
+							OnPropertyChanged(Utils.PageCountPropertyChangedEventArgs);
+					}
 
-                    if (Count > _pageSize) baseRemoveItem(_pageSize);
+					if (Count > _pageSize) baseRemoveItem(_pageSize);
 
-                    if (_pageCount != originalPageCount2)
-                        OnPropertyChanged(Utils.PageCountPropertyChangedEventArgs);
-                    break;
-                case NotifyCollectionChangedAction.Remove:
-                    // (e.OldItems.Count > 1) throw new ObservableComputationsException("Removing of multiple items is not supported");
-                    var oldStartingIndex = e.OldStartingIndex;
-                    _sourceCopy.RemoveAt(oldStartingIndex);
-                    int originalPageCount1 = _pageCount;
-                    int originalCurrentPage1 = _currentPage;
+					if (_pageCount != originalPageCount2)
+						OnPropertyChanged(Utils.PageCountPropertyChangedEventArgs);
+					break;
+				case NotifyCollectionChangedAction.Remove:
+					// (e.OldItems.Count > 1) throw new ObservableComputationsException("Removing of multiple items is not supported");
+					int oldStartingIndex = e.OldStartingIndex;
+					_sourceCopy.RemoveAt(oldStartingIndex);
+					int originalPageCount1 = _pageCount;
+					int originalCurrentPage1 = _currentPage;
 
-                    int sourceCount = _sourceCopy.Count;
-                    _pageCount = (int) Math.Ceiling(sourceCount / (double) _pageSize);
+					int sourceCount = _sourceCopy.Count;
+					_pageCount = (int) Math.Ceiling(sourceCount / (double) _pageSize);
 
-                    if (oldStartingIndex < _lowerIndex)
-                    {
-                        baseRemoveItem(0);
-                    }
-                    else if (oldStartingIndex < _upperIndex)
-                    {
-                        baseRemoveItem(oldStartingIndex - _lowerIndex);
-                    }
-                    else
-                    {
-                        if (_pageCount != originalPageCount1)
-                            OnPropertyChanged(Utils.PageCountPropertyChangedEventArgs);
+					if (oldStartingIndex < _lowerIndex)
+					{
+						baseRemoveItem(0);
+					}
+					else if (oldStartingIndex < _upperIndex)
+					{
+						baseRemoveItem(oldStartingIndex - _lowerIndex);
+					}
+					else
+					{
+						if (_pageCount != originalPageCount1)
+							OnPropertyChanged(Utils.PageCountPropertyChangedEventArgs);
 
-                        return;
-                    }
+						return;
+					}
 
-                    int count = Count;
+					int count = Count;
 
-                    if (count < _pageSize && sourceCount > _upperIndex - 1)
-                        baseInsertItem(_pageSize - 1, _sourceCopy[_upperIndex - 1]);
-                    else if (count == 0 && _currentPage > 1)
-                    {
-                        _currentPage = _currentPage - 1;
-                        _lowerIndex = _pageSize * (_currentPage - 1);
-                        _upperIndex = _lowerIndex + _pageSize;
+					if (count < _pageSize && sourceCount > _upperIndex - 1)
+						baseInsertItem(_pageSize - 1, _sourceCopy[_upperIndex - 1]);
+					else if (count == 0 && _currentPage > 1)
+					{
+						_currentPage = _currentPage - 1;
+						_lowerIndex = _pageSize * (_currentPage - 1);
+						_upperIndex = _lowerIndex + _pageSize;
 
-                        int index = 0;
+						int index = 0;
 
-                        for (var sourceIndex = _lowerIndex;
-                            sourceIndex < sourceCount && sourceIndex < _upperIndex;
-                            sourceIndex++)
-                        {
-                            TSourceItem sourceItem = _sourceCopy[sourceIndex];
-                            baseInsertItem(index++, sourceItem);
-                        }
-                    }
+						for (int sourceIndex = _lowerIndex;
+							sourceIndex < sourceCount && sourceIndex < _upperIndex;
+							sourceIndex++)
+						{
+							baseInsertItem(index++, _sourceCopy[sourceIndex]);
+						}
+					}
 
-                    if (_pageCount != originalPageCount1)
-                        OnPropertyChanged(Utils.PageCountPropertyChangedEventArgs);
+					if (_pageCount != originalPageCount1)
+						OnPropertyChanged(Utils.PageCountPropertyChangedEventArgs);
 
-                    if (_currentPage != originalCurrentPage1)
-                        OnPropertyChanged(Utils.CurrentPagePropertyChangedEventArgs);
-                    break;
-                case NotifyCollectionChangedAction.Replace:
-                    int newStartingIndex2 = e.NewStartingIndex;
-                    TSourceItem newItem1 = (TSourceItem) e.NewItems[0];
+					if (_currentPage != originalCurrentPage1)
+						OnPropertyChanged(Utils.CurrentPagePropertyChangedEventArgs);
+					break;
+				case NotifyCollectionChangedAction.Replace:
+					int newStartingIndex2 = e.NewStartingIndex;
+					TSourceItem newItem1 = (TSourceItem) e.NewItems[0];
 
-                    _sourceCopy[newStartingIndex2] = newItem1;
+					_sourceCopy[newStartingIndex2] = newItem1;
 
-                    if (newStartingIndex2 >= _lowerIndex && newStartingIndex2 < _upperIndex
-                                                         && (newStartingIndex2 >= _lowerIndex &&
-                                                             newStartingIndex2 < _upperIndex))
-                    {
-                        
-                        baseSetItem(newStartingIndex2 - _lowerIndex, newItem1);
-                    }
+					if (newStartingIndex2 >= _lowerIndex && newStartingIndex2 < _upperIndex
+														 && (newStartingIndex2 >= _lowerIndex &&
+															 newStartingIndex2 < _upperIndex))
+					{
+						
+						baseSetItem(newStartingIndex2 - _lowerIndex, newItem1);
+					}
 
-                    break;
-                case NotifyCollectionChangedAction.Move:
-                    int oldStartingIndex1 = e.OldStartingIndex;
-                    int newStartingIndex1 = e.NewStartingIndex;
+					break;
+				case NotifyCollectionChangedAction.Move:
+					int oldStartingIndex1 = e.OldStartingIndex;
+					int newStartingIndex1 = e.NewStartingIndex;
 
-                    TSourceItem sourceItem1 = (TSourceItem) e.NewItems[0];
-                    _sourceCopy.RemoveAt(oldStartingIndex1);
-                    _sourceCopy.Insert(newStartingIndex1, sourceItem1);
+					TSourceItem sourceItem1 = (TSourceItem) e.NewItems[0];
+					_sourceCopy.RemoveAt(oldStartingIndex1);
+					_sourceCopy.Insert(newStartingIndex1, sourceItem1);
 
-                    if (oldStartingIndex1 == newStartingIndex1) return;
+					if (oldStartingIndex1 == newStartingIndex1) return;
 
-                    if ((oldStartingIndex1 >= _lowerIndex && oldStartingIndex1 < _upperIndex)
-                        && (newStartingIndex1 >= _lowerIndex && newStartingIndex1 < _upperIndex))
-                    {
-                        baseMoveItem(oldStartingIndex1 - _lowerIndex, newStartingIndex1 - _lowerIndex);
-                    }
-                    else if ((oldStartingIndex1 < _lowerIndex || oldStartingIndex1 >= _upperIndex)
-                             && (newStartingIndex1 >= _lowerIndex && newStartingIndex1 < _upperIndex))
-                    {
-                        if (oldStartingIndex1 < _lowerIndex)
-                        {
-                            baseRemoveItem(0);
-                            baseInsertItem(newStartingIndex1 - _lowerIndex, (TSourceItem) e.NewItems[0]);
-                        }
-                        else
-                        {
-                            baseInsertItem(newStartingIndex1 - _lowerIndex, (TSourceItem) e.NewItems[0]);
-                            baseRemoveItem(Count - 1);
-                        }
-                    }
-                    else if ((newStartingIndex1 < _lowerIndex || newStartingIndex1 >= _upperIndex)
-                             && (oldStartingIndex1 >= _lowerIndex && oldStartingIndex1 < _upperIndex))
-                    {
-                        baseRemoveItem(oldStartingIndex1 - _lowerIndex);
+					if ((oldStartingIndex1 >= _lowerIndex && oldStartingIndex1 < _upperIndex)
+						&& (newStartingIndex1 >= _lowerIndex && newStartingIndex1 < _upperIndex))
+					{
+						baseMoveItem(oldStartingIndex1 - _lowerIndex, newStartingIndex1 - _lowerIndex);
+					}
+					else if ((oldStartingIndex1 < _lowerIndex || oldStartingIndex1 >= _upperIndex)
+							 && (newStartingIndex1 >= _lowerIndex && newStartingIndex1 < _upperIndex))
+					{
+						if (oldStartingIndex1 < _lowerIndex)
+						{
+							baseRemoveItem(0);
+							baseInsertItem(newStartingIndex1 - _lowerIndex, (TSourceItem) e.NewItems[0]);
+						}
+						else
+						{
+							baseInsertItem(newStartingIndex1 - _lowerIndex, (TSourceItem) e.NewItems[0]);
+							baseRemoveItem(Count - 1);
+						}
+					}
+					else if ((newStartingIndex1 < _lowerIndex || newStartingIndex1 >= _upperIndex)
+							 && (oldStartingIndex1 >= _lowerIndex && oldStartingIndex1 < _upperIndex))
+					{
+						baseRemoveItem(oldStartingIndex1 - _lowerIndex);
 
-                        if (newStartingIndex1 < _lowerIndex)
-                            baseInsertItem(0, _sourceCopy[_lowerIndex]);
-                        else
-                            baseInsertItem(_pageSize - 1, _sourceCopy[_upperIndex - 1]);
-                    }
-                    else if ((newStartingIndex1 < _lowerIndex && oldStartingIndex1 >= _upperIndex)
-                             || (oldStartingIndex1 < _lowerIndex && newStartingIndex1 >= _upperIndex))
-                    {
-                        if (oldStartingIndex1 < _lowerIndex)
-                        {
-                            baseRemoveItem(0);
-                            baseInsertItem(_pageSize - 1, _sourceCopy[_upperIndex - 1]);
-                        }
-                        else
-                        {
-                            baseInsertItem(0, _sourceCopy[_lowerIndex]);
-                            baseRemoveItem(_pageSize);
-                        }
-                    }
+						if (newStartingIndex1 < _lowerIndex)
+							baseInsertItem(0, _sourceCopy[_lowerIndex]);
+						else
+							baseInsertItem(_pageSize - 1, _sourceCopy[_upperIndex - 1]);
+					}
+					else if ((newStartingIndex1 < _lowerIndex && oldStartingIndex1 >= _upperIndex)
+							 || (oldStartingIndex1 < _lowerIndex && newStartingIndex1 >= _upperIndex))
+					{
+						if (oldStartingIndex1 < _lowerIndex)
+						{
+							baseRemoveItem(0);
+							baseInsertItem(_pageSize - 1, _sourceCopy[_upperIndex - 1]);
+						}
+						else
+						{
+							baseInsertItem(0, _sourceCopy[_lowerIndex]);
+							baseRemoveItem(_pageSize);
+						}
+					}
 
-                    break;
-                case NotifyCollectionChangedAction.Reset:
-                    initializeFromSource();
-                    break;
-            }
-        }
+					break;
+				case NotifyCollectionChangedAction.Reset:
+					processSource(false);
+					break;
+			}
+		}
 
-        internal override void addToUpstreamComputings(IComputingInternal computing)
-        {
-            (_source as IComputingInternal)?.AddDownstreamConsumedComputing(computing);
-            (_sourceScalar as IComputingInternal)?.AddDownstreamConsumedComputing(computing);
-            (_pageSizeScalar as IComputingInternal)?.AddDownstreamConsumedComputing(computing);
-            (_currentPageScalar as IComputingInternal)?.AddDownstreamConsumedComputing(computing);
-        }
+		internal override void addToUpstreamComputings(IComputingInternal computing)
+		{
+			Utils.AddDownstreamConsumedComputing(computing, _sourceScalar, _source);
+			(_pageSizeScalar as IComputingInternal)?.AddDownstreamConsumedComputing(computing);
+			(_currentPageScalar as IComputingInternal)?.AddDownstreamConsumedComputing(computing);
+		}
 
-        internal override void removeFromUpstreamComputings(IComputingInternal computing)        
-        {
-            (_source as IComputingInternal)?.RemoveDownstreamConsumedComputing(computing);
-            (_sourceScalar as IComputingInternal)?.RemoveDownstreamConsumedComputing(computing);
-            (_pageSizeScalar as IComputingInternal)?.RemoveDownstreamConsumedComputing(computing);
-            (_currentPageScalar as IComputingInternal)?.RemoveDownstreamConsumedComputing(computing);
-        }
+		internal override void removeFromUpstreamComputings(IComputingInternal computing)		
+		{
+			Utils.RemoveDownstreamConsumedComputing(computing, _sourceScalar, _source);
+			(_pageSizeScalar as IComputingInternal)?.RemoveDownstreamConsumedComputing(computing);
+			(_currentPageScalar as IComputingInternal)?.RemoveDownstreamConsumedComputing(computing);
+		}
 
-        protected override void initialize()
-        {
-            Utils.initializeSourceScalar(_sourceScalar, ref _source, scalarValueChangedHandler);
-            initializePageSizeScalar();
-            initializeCurrentPageScalar();
-        }
+		protected override void initialize()
+		{
+			Utils.initializeSourceScalar(_sourceScalar, ref _source, scalarValueChangedHandler);
+			initializePageSizeScalar();
+			initializeCurrentPageScalar();
+		}
 
-        protected override void uninitialize()
-        {
-            Utils.uninitializeSourceScalar(_sourceScalar, scalarValueChangedHandler, ref _source);
-            if (_pageSizeScalar != null) _pageSizeScalar.PropertyChanged -= handlePageSizeScalarValueChanged;
-            if (_currentPageScalar != null) _currentPageScalar.PropertyChanged -= handleCurrentPageScalarValueChanged;
-            if (_sourceAsINotifyPropertyChanged != null)
-                _sourceAsINotifyPropertyChanged.PropertyChanged -= ((ISourceIndexerPropertyTracker) this).HandleSourcePropertyChanged;
-        }
+		protected override void uninitialize()
+		{
+			Utils.unsubscribeSourceScalar(_sourceScalar, scalarValueChangedHandler);
+			if (_pageSizeScalar != null) _pageSizeScalar.PropertyChanged -= handlePageSizeScalarValueChanged;
+			if (_currentPageScalar != null) _currentPageScalar.PropertyChanged -= handleCurrentPageScalarValueChanged;
+		}
 
-        #region Implementation of ISourceIndexerPropertyTracker
+		protected override void clearCachedScalarArgumentValues()
+		{
+			Utils.clearCachcedSourceScalarValue(_sourceScalar, ref _source);
+		}
 
-        void ISourceIndexerPropertyTracker.HandleSourcePropertyChanged(object sender, PropertyChangedEventArgs propertyChangedEventArgs)
-        {
-            Utils.HandleSourcePropertyChanged(propertyChangedEventArgs, ref _indexerPropertyChangedEventRaised);
-        }
+		#region Implementation of ISourceIndexerPropertyTracker
 
-        #endregion
+		void ISourceIndexerPropertyTracker.HandleSourcePropertyChanged(object sender, PropertyChangedEventArgs propertyChangedEventArgs)
+		{
+			Utils.handleSourcePropertyChanged(propertyChangedEventArgs, ref _countPropertyChangedEventRaised, ref _indexerPropertyChangedEventRaised);
+		}
 
-		public void ValidateConsistency()
+		#endregion
+
+		[ExcludeFromCodeCoverage]
+		internal void ValidateInternalConsistency()
 		{
 			IList<TSourceItem> source = _sourceScalar.getValue(_source, new ObservableCollection<TSourceItem>()) as IList<TSourceItem>;
 			int pageSize = PageSize;
 			int startIndex =  (CurrentPage - 1) * pageSize;
 
-            if (_source != null || (_sourceScalar != null && _sourceScalar.Value != null))
-            {
-			    if (_lowerIndex != PageSize * (CurrentPage - 1))
-				    throw new ObservableComputationsException(this, "Consistency violation: Paging.2");
+			if (_source != null || (_sourceScalar?.Value != null))
+			{
+				if (_lowerIndex != PageSize * (CurrentPage - 1))
+					throw new ValidateInternalConsistencyException("Consistency violation: Paging.2");
 
-			    if (_upperIndex != _lowerIndex + PageSize)
-				    throw new ObservableComputationsException(this, "Consistency violation: Paging.3");
+				if (_upperIndex != _lowerIndex + PageSize)
+					throw new ValidateInternalConsistencyException("Consistency violation: Paging.3");
 
-                // ReSharper disable once PossibleNullReferenceException
-                if (_pageCount != (int) Math.Ceiling(source.Count  / (double) _pageSize))
-				    throw new ObservableComputationsException(this, "Consistency violation: Paging.4");
-            }
+				// ReSharper disable once PossibleNullReferenceException
+				if (_pageCount != (int) Math.Ceiling(source.Count  / (double) _pageSize))
+					throw new ValidateInternalConsistencyException("Consistency violation: Paging.4");
+			}
 
 			// ReSharper disable once AssignNullToNotNullAttribute
 			if (!this.SequenceEqual(source.Skip(startIndex).Take(pageSize)))
 			{
-				throw new ObservableComputationsException(this, "Consistency violation: Paging.1");
+				throw new ValidateInternalConsistencyException("Consistency violation: Paging.1");
 			}
 		}
 
 
-    }
+	}
 }

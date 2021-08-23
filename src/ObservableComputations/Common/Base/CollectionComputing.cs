@@ -1,28 +1,32 @@
-﻿using System;
+﻿// Copyright (c) 2019-2021 Buchelnikov Igor Vladimirovich. All rights reserved
+// Buchelnikov Igor Vladimirovich licenses this file to you under the MIT license.
+// The LICENSE file is located at https://github.com/IgorBuchelnikov/ObservableComputations/blob/master/LICENSE
+
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Collections.Specialized;
 using System.ComponentModel;
 using System.Linq;
-using System.Threading;
 
 namespace ObservableComputations
 {
-	public abstract class CollectionComputing<TItem> : ObservableCollectionWithChangeMarker<TItem>, ICollectionComputing, IComputingInternal
+	public abstract class CollectionComputing<TItem> : ObservableCollectionWithTickTackVersion<TItem>, ICollectionComputing, IComputingInternal
 	{
 		public string DebugTag {get; set;}
 		public object Tag {get; set;}
-		internal IList<TItem> _items;
-        internal Queue<IProcessable>[] _deferredProcessings;
-        protected int _deferredQueuesCount = 2; 
+		internal readonly IList<TItem> _items;
+		internal Queue<IProcessable>[] _deferredProcessings;
+		protected int _deferredQueuesCount = 2;
+		protected bool _sourceReadAndSubscribed;
 
-		public CollectionComputing(int capacity = 0) : base(new List<TItem>(capacity))
+		public CollectionComputing(int initialCapacity = 0) : base(new List<TItem>(initialCapacity))
 		{
-			_initialCapacity = capacity;
+			_initialCapacity = initialCapacity;
 
-			if (Configuration.SaveInstantiatingStackTrace)
+			if (OcConfiguration.SaveInstantiationStackTrace)
 			{
-				_instantiatingStackTrace = Environment.StackTrace;
+				_instantiationStackTrace = Environment.StackTrace;
 			}
 
 			_items = Items;
@@ -32,79 +36,79 @@ namespace ObservableComputations
 		public event EventHandler PostCollectionChanged;
 
 
-		private Action<int, TItem> _insertItemAction;
-		public Action<int, TItem> InsertItemAction
+		private Action<int, TItem> _insertItemRequestHandler;
+		public Action<int, TItem> InsertItemRequestHandler
 		{
 			// ReSharper disable once MemberCanBePrivate.Global
-			get => _insertItemAction;
+			get => _insertItemRequestHandler;
 			set
 			{
-				if (_insertItemAction != value)
+				if (_insertItemRequestHandler != value)
 				{
-					_insertItemAction = value;
-					OnPropertyChanged(Utils.InsertItemActionPropertyChangedEventArgs);
+					_insertItemRequestHandler = value;
+					OnPropertyChanged(Utils.InsertItemRequestHandlerPropertyChangedEventArgs);
 				}
 
 			}
 		}
 
-		private Action<int> _removeItemAction;
-		public Action<int> RemoveItemAction
+
+		public Action<int> RemoveItemRequestHandler
 		{
 			// ReSharper disable once MemberCanBePrivate.Global
-			get => _removeItemAction;
+			get => _removeItemRequestHandler;
 			set
 			{
-				if (_removeItemAction != value)
+				if (_removeItemRequestHandler != value)
 				{
-					_removeItemAction = value;
-					OnPropertyChanged(Utils.RemoveItemActionPropertyChangedEventArgs);
+					_removeItemRequestHandler = value;
+					OnPropertyChanged(Utils.RemoveItemRequestHandlerPropertyChangedEventArgs);
 				}
 			}
 		}
 
-		private Action<int, TItem> _setItemAction;
+		private Action<int, TItem> _setItemRequestHandler;
 		// ReSharper disable once MemberCanBePrivate.Global
-		public Action<int, TItem> SetItemAction
+		public Action<int, TItem> SetItemRequestHandler
 		{
-			get => _setItemAction;
+			get => _setItemRequestHandler;
 			set
 			{
-				if (_setItemAction != value)
+				if (_setItemRequestHandler != value)
 				{
-					_setItemAction = value;
-					OnPropertyChanged(Utils.SetItemActionPropertyChangedEventArgs);
+					_setItemRequestHandler = value;
+					OnPropertyChanged(Utils.SetItemRequestHandlerPropertyChangedEventArgs);
 				}
 			}
 		}
 
-		private Action<int, int> _moveItemAction;
+		private Action<int, int> _moveItemRequestHandler;
 		// ReSharper disable once MemberCanBePrivate.Global
-		public Action<int, int> MoveItemAction
+		public Action<int, int> MoveItemRequestHandler
 		{
-			get => _moveItemAction;
+			get => _moveItemRequestHandler;
 			set
 			{
-				if (_moveItemAction != value)
+				if (_moveItemRequestHandler != value)
 				{
-					_moveItemAction = value;
-					OnPropertyChanged(Utils.MoveItemActionPropertyChangedEventArgs);
+					_moveItemRequestHandler = value;
+					OnPropertyChanged(Utils.MoveItemRequestHandlerPropertyChangedEventArgs);
 				}
 			}
 		}
 
-		private Action _clearItemsAction;
+		private Action _clearItemsRequestHandler;
 
 		// ReSharper disable once MemberCanBePrivate.Global
-		public Action ClearItemsAction
+		public Action ClearItemsRequestHandler
 		{
-			get => _clearItemsAction;
+			get => _clearItemsRequestHandler;
 			set
 			{
-				if (_clearItemsAction != value)
+				if (_clearItemsRequestHandler != value)
 				{
-					_clearItemsAction = value;
-					OnPropertyChanged(Utils.ClearItemsActionPropertyChangedEventArgs);
+					_clearItemsRequestHandler = value;
+					OnPropertyChanged(Utils.ClearItemsRequestHandlerPropertyChangedEventArgs);
 				}
 			}
 		}
@@ -112,105 +116,71 @@ namespace ObservableComputations
 		#region Overrides of ObservableCollection<TResult>
 		protected override void InsertItem(int index, TItem item)
 		{
-			if (Configuration.TrackComputingsExecutingUserCode)
+			if (OcConfiguration.TrackComputingsExecutingUserCode)
 			{
-				Thread currentThread = Thread.CurrentThread;
-				DebugInfo._computingsExecutingUserCode.TryGetValue(currentThread, out IComputing computing);
-				DebugInfo._computingsExecutingUserCode[currentThread] = this;	
-				_userCodeIsCalledFrom = computing;
-				
-				_insertItemAction(index, item);
-
-				if (computing == null) DebugInfo._computingsExecutingUserCode.TryRemove(currentThread, out IComputing _);
-				else DebugInfo._computingsExecutingUserCode[currentThread] = computing;
-				_userCodeIsCalledFrom = null;
+				int currentThreadId = Utils.startComputingExecutingUserCode(out IComputing computing, out _userCodeIsCalledFrom, this);
+				_insertItemRequestHandler(index, item);
+				Utils.endComputingExecutingUserCode(computing, currentThreadId, out _userCodeIsCalledFrom);
 				return;
 			}
 
-			_insertItemAction(index, item);
+			_insertItemRequestHandler(index, item);
 		}
 
 		protected override void MoveItem(int oldIndex, int newIndex)
 		{
-			if (Configuration.TrackComputingsExecutingUserCode)
+			if (OcConfiguration.TrackComputingsExecutingUserCode)
 			{
-				Thread currentThread = Thread.CurrentThread;
-				DebugInfo._computingsExecutingUserCode.TryGetValue(currentThread, out IComputing computing);
-				DebugInfo._computingsExecutingUserCode[currentThread] = this;	
-				_userCodeIsCalledFrom = computing;
-
-				_moveItemAction(oldIndex, newIndex);
-
-				if (computing == null) DebugInfo._computingsExecutingUserCode.TryRemove(currentThread, out IComputing _);
-				else DebugInfo._computingsExecutingUserCode[currentThread] = computing;
-				_userCodeIsCalledFrom = null;
+				int currentThreadId = Utils.startComputingExecutingUserCode(out IComputing computing, out _userCodeIsCalledFrom, this);
+				_moveItemRequestHandler(oldIndex, newIndex);
+				Utils.endComputingExecutingUserCode(computing, currentThreadId, out _userCodeIsCalledFrom);
 				return;
 			}
 
-			_moveItemAction(oldIndex, newIndex);
+			_moveItemRequestHandler(oldIndex, newIndex);
 		}
 
 		protected override void RemoveItem(int index)
 		{
-			if (Configuration.TrackComputingsExecutingUserCode)
+			if (OcConfiguration.TrackComputingsExecutingUserCode)
 			{
-				Thread currentThread = Thread.CurrentThread;
-				DebugInfo._computingsExecutingUserCode.TryGetValue(currentThread, out IComputing computing);
-				DebugInfo._computingsExecutingUserCode[currentThread] = this;	
-				_userCodeIsCalledFrom = computing;
-
-				_removeItemAction(index);
-
-				if (computing == null) DebugInfo._computingsExecutingUserCode.TryRemove(currentThread, out IComputing _);
-				else DebugInfo._computingsExecutingUserCode[currentThread] = computing;
-				_userCodeIsCalledFrom = null;
+				int currentThreadId = Utils.startComputingExecutingUserCode(out IComputing computing, out _userCodeIsCalledFrom, this);
+				_removeItemRequestHandler(index);
+				Utils.endComputingExecutingUserCode(computing, currentThreadId, out _userCodeIsCalledFrom);
 				return;
 			}
 
-			_removeItemAction(index);
+			_removeItemRequestHandler(index);
 		}
 
 		protected override void SetItem(int index, TItem item)
 		{
-			if (Configuration.TrackComputingsExecutingUserCode)
+			if (OcConfiguration.TrackComputingsExecutingUserCode)
 			{
-				Thread currentThread = Thread.CurrentThread;
-				DebugInfo._computingsExecutingUserCode.TryGetValue(currentThread, out IComputing computing);
-				DebugInfo._computingsExecutingUserCode[currentThread] = this;	
-				_userCodeIsCalledFrom = computing;
-
-				_setItemAction(index, item);
-
-				if (computing == null) DebugInfo._computingsExecutingUserCode.TryRemove(currentThread, out IComputing _);
-				else DebugInfo._computingsExecutingUserCode[currentThread] = computing;
-				_userCodeIsCalledFrom = null;
+				int currentThreadId = Utils.startComputingExecutingUserCode(out IComputing computing, out _userCodeIsCalledFrom, this);
+				_setItemRequestHandler(index, item);
+				Utils.endComputingExecutingUserCode(computing, currentThreadId, out _userCodeIsCalledFrom);
 				return;
 			}
 
-			_setItemAction(index, item);
+			_setItemRequestHandler(index, item);
 		}
 
 		protected override void ClearItems()
 		{
-			if (Configuration.TrackComputingsExecutingUserCode)
+			if (OcConfiguration.TrackComputingsExecutingUserCode)
 			{
-				Thread currentThread = Thread.CurrentThread;
-				DebugInfo._computingsExecutingUserCode.TryGetValue(currentThread, out IComputing computing);
-				DebugInfo._computingsExecutingUserCode[currentThread] = this;	
-				_userCodeIsCalledFrom = computing;
-
-				_clearItemsAction();
-
-				if (computing == null) DebugInfo._computingsExecutingUserCode.TryRemove(currentThread, out IComputing _);
-				else DebugInfo._computingsExecutingUserCode[currentThread] = computing;
-				_userCodeIsCalledFrom = null;
+				int currentThreadId = Utils.startComputingExecutingUserCode(out IComputing computing, out _userCodeIsCalledFrom, this);
+				_clearItemsRequestHandler();
+				Utils.endComputingExecutingUserCode(computing, currentThreadId, out _userCodeIsCalledFrom);
 				return;
 			}
 
-			_clearItemsAction();
+			_clearItemsRequestHandler();
 		}
 		#endregion
 
+		private Action<int> _removeItemRequestHandler;
 		NotifyCollectionChangedAction? _currentChange;
 		TItem _newItem;
 		int _oldIndex = -1;
@@ -224,31 +194,31 @@ namespace ObservableComputations
 	
 		protected internal void baseInsertItem(int index, TItem item)
 		{
-            void perform()
-            {
-                PreCollectionChanged?.Invoke(this, null);
-                base.InsertItem(index, item);
-                PostCollectionChanged?.Invoke(this, null);
-            }
+			void perform()
+			{
+				PreCollectionChanged?.Invoke(this, null);
+				base.InsertItem(index, item);
+				PostCollectionChanged?.Invoke(this, null);
+			}
 
-            ChangeMarkerField = !ChangeMarkerField;
+			TickTackVersion = !TickTackVersion;
 
 			_currentChange = NotifyCollectionChangedAction.Add;
 			_newIndex = index;
 			_newItem = item;
 
-			if (Configuration.TrackComputingsExecutingUserCode)
+			if (OcConfiguration.TrackComputingsExecutingUserCode)
 			{
-                var currentThread = Utils.startComputingExecutingUserCode(out var computing, out _userCodeIsCalledFrom, this);
+				int currentThreadId = Utils.startComputingExecutingUserCode(out IComputing computing, out _userCodeIsCalledFrom, this);
 
 				perform();
 
-                Utils.endComputingExecutingUserCode(computing, currentThread, out _userCodeIsCalledFrom);
+				Utils.endComputingExecutingUserCode(computing, currentThreadId, out _userCodeIsCalledFrom);
 			}
 			else
-            {
-                perform();
-            }
+			{
+				perform();
+			}
 
 			_currentChange = null;
 			_newIndex = -1;
@@ -257,30 +227,30 @@ namespace ObservableComputations
 
 		protected internal void baseMoveItem(int oldIndex, int newIndex)
 		{
-            void perform()
-            {
-                PreCollectionChanged?.Invoke(this, null);
-                base.MoveItem(oldIndex, newIndex);
-                PostCollectionChanged?.Invoke(this, null);
-            }
+			void perform()
+			{
+				PreCollectionChanged?.Invoke(this, null);
+				base.MoveItem(oldIndex, newIndex);
+				PostCollectionChanged?.Invoke(this, null);
+			}
 
-            ChangeMarkerField = !ChangeMarkerField;
+			TickTackVersion = !TickTackVersion;
 
 			_currentChange = NotifyCollectionChangedAction.Move;
 			_oldIndex = oldIndex;
 			_newIndex = newIndex;
 
-			if (Configuration.TrackComputingsExecutingUserCode)
+			if (OcConfiguration.TrackComputingsExecutingUserCode)
 			{
-                var currentThread = Utils.startComputingExecutingUserCode(out var computing, out _userCodeIsCalledFrom, this);
+				int currentThreadId = Utils.startComputingExecutingUserCode(out IComputing computing, out _userCodeIsCalledFrom, this);
 
 				perform();
 
-                Utils.endComputingExecutingUserCode(computing, currentThread, out _userCodeIsCalledFrom);
+				Utils.endComputingExecutingUserCode(computing, currentThreadId, out _userCodeIsCalledFrom);
 			}
 			else
 			{
-                perform();
+				perform();
 			}
 
 			_currentChange = null;
@@ -291,25 +261,23 @@ namespace ObservableComputations
 		
 		protected internal void baseRemoveItem(int index)
 		{
-            void perform()
-            {
-                PreCollectionChanged?.Invoke(this, null);
-                base.RemoveItem(index);
-                PostCollectionChanged?.Invoke(this, null);
-            }
+			void perform()
+			{
+				PreCollectionChanged?.Invoke(this, null);
+				base.RemoveItem(index);
+				PostCollectionChanged?.Invoke(this, null);
+			}
 
-            ChangeMarkerField = !ChangeMarkerField;
+			TickTackVersion = !TickTackVersion;
 
 			_currentChange = NotifyCollectionChangedAction.Remove;
 			_oldIndex = index;
 
-			if (Configuration.TrackComputingsExecutingUserCode)
+			if (OcConfiguration.TrackComputingsExecutingUserCode)
 			{
-                var currentThread = Utils.startComputingExecutingUserCode(out var computing, out _userCodeIsCalledFrom, this);
-
-				perform();
-
-                Utils.endComputingExecutingUserCode(computing, currentThread, out _userCodeIsCalledFrom);
+				int currentThreadId = Utils.startComputingExecutingUserCode(out IComputing computing, out _userCodeIsCalledFrom, this);
+				perform();			
+				Utils.endComputingExecutingUserCode(computing, currentThreadId, out _userCodeIsCalledFrom);
 			}
 			else
 			{
@@ -323,58 +291,60 @@ namespace ObservableComputations
 		
 		protected internal void baseSetItem(int index, TItem item)
 		{
-            void perform()
-            {
-                PreCollectionChanged?.Invoke(this, null);
-                base.SetItem(index, item);
-                PostCollectionChanged?.Invoke(this, null);
-            }
+			void perform()
+			{
+				PreCollectionChanged?.Invoke(this, null);
+				base.SetItem(index, item);
+				PostCollectionChanged?.Invoke(this, null);
+			}
 
-            ChangeMarkerField = !ChangeMarkerField;
+			TickTackVersion = !TickTackVersion;
 			
 			_currentChange = NotifyCollectionChangedAction.Replace;
 			_newItem = item;
 			_newIndex = index;
+			_oldIndex = index;
 
-			if (Configuration.TrackComputingsExecutingUserCode)
+			if (OcConfiguration.TrackComputingsExecutingUserCode)
 			{
-                var currentThread = Utils.startComputingExecutingUserCode(out var computing, out _userCodeIsCalledFrom, this);
+				int currentThreadId = Utils.startComputingExecutingUserCode(out IComputing computing, out _userCodeIsCalledFrom, this);
 
 				perform();
 
-                Utils.endComputingExecutingUserCode(computing, currentThread, out _userCodeIsCalledFrom);
+				Utils.endComputingExecutingUserCode(computing, currentThreadId, out _userCodeIsCalledFrom);
 			}
 			else
-            {
-                perform();
-            }
+			{
+				perform();
+			}
 
 			_currentChange = null;
 			_newItem = default;
 			_newIndex = -1;
+			_oldIndex = -1;
 		}
 
 		
 		protected internal void baseClearItems()
 		{
-            void perform()
-            {
-                PreCollectionChanged?.Invoke(this, null);
-                base.ClearItems();
-                PostCollectionChanged?.Invoke(this, null);
-            }
+			void perform()
+			{
+				PreCollectionChanged?.Invoke(this, null);
+				base.ClearItems();
+				PostCollectionChanged?.Invoke(this, null);
+			}
 
-            ChangeMarkerField = !ChangeMarkerField;
+			TickTackVersion = !TickTackVersion;
 
 			_currentChange = NotifyCollectionChangedAction.Reset;
 
-			if (Configuration.TrackComputingsExecutingUserCode)
+			if (OcConfiguration.TrackComputingsExecutingUserCode)
 			{
-                var currentThread = Utils.startComputingExecutingUserCode(out var computing, out _userCodeIsCalledFrom, this);
+				int currentThreadId = Utils.startComputingExecutingUserCode(out IComputing computing, out _userCodeIsCalledFrom, this);
 
 				perform();
 
-                Utils.endComputingExecutingUserCode(computing, currentThread, out _userCodeIsCalledFrom);
+				Utils.endComputingExecutingUserCode(computing, currentThreadId, out _userCodeIsCalledFrom);
 			}
 			else
 			{
@@ -386,49 +356,56 @@ namespace ObservableComputations
 
 		protected void reset()
 		{
-			ChangeMarkerField = !ChangeMarkerField;
+			TickTackVersion = !TickTackVersion;
 			CheckReentrancy();
 			OnPropertyChanged(Utils.CountPropertyChangedEventArgs);
 			OnPropertyChanged(Utils.IndexerPropertyChangedEventArgs);
 			OnCollectionChanged(Utils.ResetNotifyCollectionChangedEventArgs);
 		}
 
-        private Action _scalarValueChangedHandlerAction;
+		private Action _scalarValueChangedHandlerAction;
+		private Action _scalarValueChangedHandlerResetAction;
 
-        protected PropertyChangedEventHandler getScalarValueChangedHandler(Action action = null)
-        {
-            return (sender, args) =>
-            {
-                _scalarValueChangedHandlerAction = action;
-                scalarValueChangedHandler(sender, args);
-                _scalarValueChangedHandlerAction = null;
-            };
-        }
+		protected PropertyChangedEventHandler getScalarValueChangedHandler(Action action = null, Action resetAction = null )
+		{
+			return (sender, args) =>
+			{
+				_scalarValueChangedHandlerAction = action;
+				_scalarValueChangedHandlerResetAction = resetAction;
+				scalarValueChangedHandler(sender, args);
+				_scalarValueChangedHandlerAction = null;
+				_scalarValueChangedHandlerResetAction = null;
+			};
+		}
 
-        protected void scalarValueChangedHandler(object sender, PropertyChangedEventArgs args)
-        {
-            Utils.processResetChange(
-                sender, 
-                args, 
-                ref _isConsistent, 
-                ref _handledEventSender, 
-                ref _handledEventArgs, 
-                _scalarValueChangedHandlerAction, 
-                _deferredQueuesCount,
-                ref _deferredProcessings, this);
-        }
+		protected void scalarValueChangedHandler(object sender, PropertyChangedEventArgs args)
+		{
+			Utils.processResetChange(
+				sender, 
+				args, 
+				ref _isConsistent, 
+				ref _handledEventSender, 
+				ref _handledEventArgs, 
+				_scalarValueChangedHandlerAction, 
+				_deferredQueuesCount,
+				ref _deferredProcessings, 
+				this,
+				_scalarValueChangedHandlerResetAction);
+		}
 
-        protected abstract void initializeFromSource();
-        protected abstract void initialize();
-        protected abstract void uninitialize();
+		protected abstract void processSource();
+		protected abstract void initialize();
+		protected abstract void uninitialize();
+		protected abstract void clearCachedScalarArgumentValues();
 
 
 		public Type ItemType => typeof(TItem);
 
-		protected int _initialCapacity;
+		public virtual int InitialCapacity => _initialCapacity;
+		internal int _initialCapacity;
 
 		// ReSharper disable once MemberCanBePrivate.Global
-		public string InstantiatingStackTrace => _instantiatingStackTrace;
+		public string InstantiationStackTrace => _instantiationStackTrace;
 
 		internal IComputing _userCodeIsCalledFrom;
 		public IComputing UserCodeIsCalledFrom => _userCodeIsCalledFrom;
@@ -439,7 +416,7 @@ namespace ObservableComputations
 		public EventArgs HandledEventArgs => _handledEventArgs;
 
 		protected bool _isConsistent = true;
-		private readonly string _instantiatingStackTrace;
+		private readonly string _instantiationStackTrace;
 
 
 		public bool IsConsistent => _isConsistent;
@@ -450,125 +427,165 @@ namespace ObservableComputations
 			ConsistencyRestored?.Invoke(this, null);
 		}
 
-        protected List<Consumer> _consumers = new List<Consumer>();
-        internal  List<IComputingInternal> _downstreamConsumedComputings = new List<IComputingInternal>();
-        protected bool _isActive;
-        public bool IsActive => _isActive;
+		protected readonly List<OcConsumer> _consumers = new List<OcConsumer>();
+		internal readonly List<IComputingInternal> _downstreamConsumedComputings = new List<IComputingInternal>();
+		protected bool _isActive;
+		public bool IsActive => _isActive;
 
-        public ReadOnlyCollection<object> ConsumerTags =>
-            new ReadOnlyCollection<object>(_consumers.Union(_downstreamConsumedComputings.SelectMany(c => c.Consumers.Select(cons => cons.Tag))).ToList());
+		bool _activationInProgress;
+		bool _inactivationInProgress;
+		public bool ActivationInProgress => _activationInProgress;
+		public bool InactivationInProgress => _inactivationInProgress;
 
-        #region Implementation of IComputingInternal
-        IEnumerable<Consumer> IComputingInternal.Consumers => _consumers;
+		void IComputingInternal.SetInactivationInProgress(bool value)
+		{
+			_inactivationInProgress = value;
+		}
 
-        void IComputingInternal.AddToUpstreamComputings(IComputingInternal computing)
-        {
-            addToUpstreamComputings(computing);
-        }
+		void IComputingInternal.SetActivationInProgress(bool value)
+		{
+			_activationInProgress = value;
+		}
 
-        void IComputingInternal.RemoveFromUpstreamComputings(IComputingInternal computing)
-        {
-            removeFromUpstreamComputings(computing);
-        }
-
-        void IComputingInternal.Initialize()
-        {
-            initialize();
-        }
-
-        void IComputingInternal.Uninitialize()
-        {
-            uninitialize();
-        }
-
-        void ICanInitializeFromSource.InitializeFromSource()
-        {
-            initializeFromSource();
-        }
-
-        void IComputingInternal.OnPropertyChanged(PropertyChangedEventArgs propertyChangedEventArgs)
-        {
-            OnPropertyChanged(propertyChangedEventArgs);
-        }
-
-        public void SetIsActive(bool value)
-        {
-            _isActive = value;
-        }
-
-        void IComputingInternal.AddConsumer(Consumer addingConsumer)
-        {
-            Utils.AddComsumer(
-                addingConsumer, 
-                _consumers,
-                _downstreamConsumedComputings, 
-                this, 
-                ref _isConsistent,
-                ref _handledEventSender,
-                ref _handledEventArgs,
-                ref _deferredProcessings,
-                _deferredQueuesCount);
-        }
+		public ReadOnlyCollection<OcConsumer> Consumers =>
+			new ReadOnlyCollection<OcConsumer>(_consumers.Union(_downstreamConsumedComputings.SelectMany(c => c.Consumers)).ToList());
 
 
-        void IComputingInternal.RemoveConsumer(Consumer removingConsumer)
-        {
-            Utils.RemoveConsumer(
-                removingConsumer, 
-                _consumers, 
-                _downstreamConsumedComputings, 
-                this,
-                ref _isConsistent, 
-                ref _handledEventSender,
-                ref _handledEventArgs,
-                _deferredProcessings,
-                _deferredQueuesCount);
-        }
+		#region Implementation of IComputingInternal
+		IEnumerable<OcConsumer> IComputingInternal.Consumers => _consumers;
 
-        void IComputingInternal.AddDownstreamConsumedComputing(IComputingInternal computing)
-        {
-            Utils.AddDownstreamConsumedComputing(
-                computing, 
-                _downstreamConsumedComputings, 
-                _consumers, 
-                this,
-                ref _isConsistent,
-                ref _handledEventSender,
-                ref _handledEventArgs,
-                ref _deferredProcessings,
-                _deferredQueuesCount);
-        }
+		void IComputingInternal.AddToUpstreamComputings(IComputingInternal computing)
+		{
+			addToUpstreamComputings(computing);
+		}
 
-        void IComputingInternal.RemoveDownstreamConsumedComputing(IComputingInternal computing)
-        {
-            Utils.RemoveDownstreamConsumedComputing(
-                computing, 
-                _downstreamConsumedComputings, 
-                this, 
-                ref _isConsistent,
-                _consumers,
-                ref _handledEventSender,
-                ref _handledEventArgs,
-                _deferredProcessings,
-                _deferredQueuesCount);
-        }
+		void IComputingInternal.RemoveFromUpstreamComputings(IComputingInternal computing)
+		{
+			removeFromUpstreamComputings(computing);
+		}
 
-        void IComputingInternal.RaiseConsistencyRestored()
-        {
-            raiseConsistencyRestored();
-        }
+		void IComputingInternal.Initialize()
+		{
+			initialize();
+		}
 
-        protected void checkConsistent(object sender, EventArgs eventArgs)
-        {
-            if (!_isConsistent)
-                throw new ObservableComputationsInconsistencyException(this,
-                    $"It is not possible to process this change (event sender = {sender.ToStringSafe(e => $"{e.ToString()} in sender.ToString()")}, event args = {eventArgs.ToStringAlt()}), as the processing of the previous change is not completed. Make the change on ConsistencyRestored event raising (after IsConsistent property becomes true). This exception is fatal and cannot be handled as the inner state is damaged.", sender, eventArgs);
-        }
+		void IComputingInternal.Uninitialize()
+		{
+			uninitialize();
+		}
 
-        #endregion
+		void IComputingInternal.ClearCachedScalarArgumentValues()
+		{
+			clearCachedScalarArgumentValues();
+		}
 
-        internal abstract void addToUpstreamComputings(IComputingInternal computing);
-        internal abstract void removeFromUpstreamComputings(IComputingInternal computing);
-    }
+		void ICanInitializeFromSource.ProcessSource()
+		{
+			processSource();
+		}
+
+		void IComputingInternal.OnPropertyChanged(PropertyChangedEventArgs propertyChangedEventArgs)
+		{
+			raisePropertyChanged(propertyChangedEventArgs);
+		}
+
+		protected virtual void raisePropertyChanged(PropertyChangedEventArgs eventArgs)
+		{
+			OnPropertyChanged(eventArgs);
+		}
+
+		void IComputingInternal.SetIsActive(bool value)
+		{
+			_isActive = value;
+		}
+
+
+		void IComputingInternal.AddConsumer(OcConsumer addingOcConsumer)
+		{
+			Utils.addConsumer(
+				addingOcConsumer, 
+				_consumers,
+				_downstreamConsumedComputings, 
+				this, 
+				ref _isConsistent,
+				ref _handledEventSender,
+				ref _handledEventArgs,
+				ref _deferredProcessings,
+				_deferredQueuesCount);
+		}
+
+
+		void IComputingInternal.RemoveConsumer(OcConsumer removingOcConsumer)
+		{
+			Utils.removeConsumer(
+				removingOcConsumer, 
+				_consumers, 
+				_downstreamConsumedComputings, 
+				this,
+				ref _isConsistent, 
+				ref _handledEventSender,
+				ref _handledEventArgs,
+				_deferredProcessings,
+				_deferredQueuesCount);
+		}
+
+		void IComputingInternal.AddDownstreamConsumedComputing(IComputingInternal computing)
+		{
+			Utils.addDownstreamConsumedComputing(
+				computing, 
+				_downstreamConsumedComputings, 
+				_consumers, 
+				this,
+				ref _isConsistent,
+				ref _handledEventSender,
+				ref _handledEventArgs,
+				ref _deferredProcessings,
+				_deferredQueuesCount);
+		}
+
+		void IComputingInternal.RemoveDownstreamConsumedComputing(IComputingInternal computing)
+		{
+			Utils.removeDownstreamConsumedComputing(
+				computing, 
+				_downstreamConsumedComputings, 
+				this, 
+				ref _isConsistent,
+				_consumers,
+				ref _handledEventSender,
+				ref _handledEventArgs,
+				_deferredProcessings,
+				_deferredQueuesCount);
+		}
+
+		void IComputingInternal.RaiseConsistencyRestored()
+		{
+			raiseConsistencyRestored();
+		}
+
+		protected void checkConsistent(object sender, EventArgs eventArgs)
+		{
+			if (!_isConsistent)
+				throw new ObservableComputationsInconsistencyException(this,
+					$"It is not possible to process this change (event sender = {sender.ToStringSafe(e => $"{e.ToString()} in sender.ToString()")}, event args = {eventArgs.ToStringAlt()}), as the processing of the previous change is not completed. Make the change on ConsistencyRestored event raising (after IsConsistent property becomes true). This exception is fatal and cannot be handled as the inner state is damaged.", sender, eventArgs);
+		}
+
+
+		#endregion
+
+		internal abstract void addToUpstreamComputings(IComputingInternal computing);
+		internal abstract void removeFromUpstreamComputings(IComputingInternal computing);
+
+		#region Overrides of Object
+
+		public override string ToString()
+		{
+			if (!string.IsNullOrEmpty(DebugTag))
+				return $"{DebugTag} ({base.ToString()})";
+
+			return base.ToString();
+		}
+
+		#endregion
+	}
 
 }

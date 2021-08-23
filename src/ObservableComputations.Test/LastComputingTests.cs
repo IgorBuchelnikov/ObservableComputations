@@ -1,4 +1,8 @@
-﻿using System.Collections.Generic;
+﻿// Copyright (c) 2019-2021 Buchelnikov Igor Vladimirovich. All rights reserved
+// Buchelnikov Igor Vladimirovich licenses this file to you under the MIT license.
+// The LICENSE file is located at https://github.com/IgorBuchelnikov/ObservableComputations/blob/master/LICENSE
+
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
@@ -6,10 +10,10 @@ using NUnit.Framework;
 
 namespace ObservableComputations.Test
 {
-	[TestFixture]
-	public class LastComputingTests
+	[TestFixture(false)]
+	public partial class LastComputingTests : TestBase
 	{
-        Consumer consumer = new Consumer();
+		OcConsumer consumer = new OcConsumer();
 
 		public class Item : INotifyPropertyChanged
 		{
@@ -48,8 +52,8 @@ namespace ObservableComputations.Test
 		{
 			ObservableCollection<Item> items = new ObservableCollection<Item>();
 
-			LastComputing<Item> last = items.LastComputing().IsNeededFor(consumer);
-			last.ValidateConsistency();			
+			LastComputing<Item> last = items.LastComputing().For(consumer);
+			last.ValidateInternalConsistency();			
 			consumer.Dispose();
 		}
 
@@ -69,10 +73,10 @@ namespace ObservableComputations.Test
 				}
 			);
 
-			LastComputing<Item> last = items.LastComputing().IsNeededFor(consumer);
-			last.ValidateConsistency();
+			LastComputing<Item> last = items.LastComputing().For(consumer);
+			last.ValidateInternalConsistency();
 			items.RemoveAt(index);
-			last.ValidateConsistency();			
+			last.ValidateInternalConsistency();			
 			consumer.Dispose();
 		}
 
@@ -86,10 +90,10 @@ namespace ObservableComputations.Test
 				}
 			);
 
-			LastComputing<Item> last = items.LastComputing().IsNeededFor(consumer);
-			last.ValidateConsistency();
+			LastComputing<Item> last = items.LastComputing().For(consumer);
+			last.ValidateInternalConsistency();
 			items.RemoveAt(0);
-			last.ValidateConsistency();			
+			last.ValidateInternalConsistency();			
 			consumer.Dispose();
 		}
 
@@ -108,10 +112,10 @@ namespace ObservableComputations.Test
 				}
 			);
 
-			LastComputing<Item> last = items.LastComputing().IsNeededFor(consumer);
-			last.ValidateConsistency();
+			LastComputing<Item> last = items.LastComputing().For(consumer);
+			last.ValidateInternalConsistency();
 			items.Insert(index, new Item());
-			last.ValidateConsistency();			
+			last.ValidateInternalConsistency();			
 			consumer.Dispose();
 		}
 
@@ -120,10 +124,10 @@ namespace ObservableComputations.Test
 		{
 			ObservableCollection<Item> items = new ObservableCollection<Item>();
 
-			LastComputing<Item> last = items.LastComputing().IsNeededFor(consumer);
-			last.ValidateConsistency();
+			LastComputing<Item> last = items.LastComputing().For(consumer);
+			last.ValidateInternalConsistency();
 			items.Insert(0, new Item());
-			last.ValidateConsistency();			
+			last.ValidateInternalConsistency();			
 			consumer.Dispose();
 		}
 
@@ -143,10 +147,10 @@ namespace ObservableComputations.Test
 				}
 			);
 
-			LastComputing<Item> last = items.LastComputing().IsNeededFor(consumer);
-			last.ValidateConsistency();
+			LastComputing<Item> last = items.LastComputing().For(consumer);
+			last.ValidateInternalConsistency();
 			items.Move(oldIndex, newIndex);
-			last.ValidateConsistency();			
+			last.ValidateInternalConsistency();			
 			consumer.Dispose();
 		}
 
@@ -166,11 +170,15 @@ namespace ObservableComputations.Test
 				}
 			);
 
-			LastComputing<Item> last = items.LastComputing().IsNeededFor(consumer);
-			last.ValidateConsistency();
+			LastComputing<Item> last = items.LastComputing().For(consumer);
+			last.ValidateInternalConsistency();
 			items[index] = new Item();
-			last.ValidateConsistency();			
+			last.ValidateInternalConsistency();			
 			consumer.Dispose();
-		}		
+		}
+
+		public LastComputingTests(bool debug) : base(debug)
+		{
+		}
 	}
 }

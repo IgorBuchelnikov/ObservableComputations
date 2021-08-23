@@ -1,46 +1,50 @@
-﻿//using System;
+﻿// Copyright (c) 2019-2021 Buchelnikov Igor Vladimirovich. All rights reserved
+// Buchelnikov Igor Vladimirovich licenses this file to you under the MIT license.
+// The LICENSE file is located at https://github.com/IgorBuchelnikov/ObservableComputations/blob/master/LICENSE
+
+//using System;
 //using System.Reactive.Linq;
 //using System.Reactive.Subjects;
 
 //namespace ObservableComputations.Common
 //{
-//	public class DelayingDispatcher : IDispatcher, IDisposable
+//	public class DelayingOcDispatcher : IOcDispatcher, IDisposable
 //	{
-//		public IDispatcher DestinationDispatcher => _destinationDispatcher;
+//		public IOcDispatcher DestinationOcDispatcher => _destinationOcDispatcher;
 //		public TimeSpan DueTimeSpan => _dueTimeSpan;
 //		public DateTimeOffset DueDateTimeOffset => _dueDateTimeOffset;
 
 //		Subject<Action> _actions;
 //		private IDisposable _cleanUp;
-//		private readonly IDispatcher _destinationDispatcher;
+//		private readonly IOcDispatcher _destinationOcDispatcher;
 //		private readonly TimeSpan _dueTimeSpan;
 //		private readonly DateTimeOffset _dueDateTimeOffset;
 
-//		public DelayingDispatcher(TimeSpan dueTime, IDispatcher destinationDispatcher)
+//		public DelayingOcDispatcher(TimeSpan dueTime, IOcDispatcher destinationOcDispatcher)
 //		{
 //			_dueTimeSpan = dueTime;
-//			_destinationDispatcher = destinationDispatcher;
+//			_destinationOcDispatcher = destinationOcDispatcher;
 
 //			_actions = new Subject<Action>();
 //			_cleanUp = _actions.Delay(_dueTimeSpan).Subscribe(action =>
 //			{
-//				_destinationDispatcher.Invoke(action, this);
+//				_destinationOcDispatcher.Invoke(action, this);
 //			});
 //		}
 
-//		public DelayingDispatcher(DateTimeOffset dueTime, IDispatcher destinationDispatcher)
+//		public DelayingOcDispatcher(DateTimeOffset dueTime, IOcDispatcher destinationOcDispatcher)
 //		{
 //			_dueDateTimeOffset = dueTime;
-//			_destinationDispatcher = destinationDispatcher;
+//			_destinationOcDispatcher = destinationOcDispatcher;
 
 //			_actions = new Subject<Action>();
 //			_cleanUp = _actions.Delay(_dueDateTimeOffset).Subscribe(action =>
 //			{
-//				_destinationDispatcher.Invoke(action, this);
+//				_destinationOcDispatcher.Invoke(action, this);
 //			});
 //		}
 
-//		#region Implementation of IDispatcher
+//		#region Implementation of IOcDispatcher
 
 //		public void Invoke(Action action, object context)
 //		{

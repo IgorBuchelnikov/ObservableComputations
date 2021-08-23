@@ -1,15 +1,19 @@
-﻿using System;
+﻿// Copyright (c) 2019-2021 Buchelnikov Igor Vladimirovich. All rights reserved
+// Buchelnikov Igor Vladimirovich licenses this file to you under the MIT license.
+// The LICENSE file is located at https://github.com/IgorBuchelnikov/ObservableComputations/blob/master/LICENSE
+
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Collections.Specialized;
+using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Linq.Expressions;
-using ObservableComputations.ExtentionMethods;
 
 namespace ObservableComputations
 {
-	public class SelectingMany<TSourceItem, TResultItem> : Concatenating<TResultItem>, IHasSourceCollections
+	public class SelectingMany<TSourceItem, TResultItem> : Concatenating<TResultItem>, IHasSources
 	{
 		private readonly IReadScalar<INotifyCollectionChanged> _sourceScalar;
 		private readonly INotifyCollectionChanged _source;
@@ -17,10 +21,10 @@ namespace ObservableComputations
 		private readonly Expression<Func<TSourceItem, int, INotifyCollectionChanged>> _selectorWithIndexExpression;
 
 		// ReSharper disable once MemberCanBePrivate.Global
-		public IReadScalar<INotifyCollectionChanged> SourceScalar => _sourceScalar;
+		public override IReadScalar<INotifyCollectionChanged> SourceScalar => _sourceScalar;
 
 		// ReSharper disable once MemberCanBePrivate.Global
-		public INotifyCollectionChanged Source => _source;
+		public override INotifyCollectionChanged Source => _source;
 
 		// ReSharper disable once MemberCanBePrivate.Global
 		public Expression<Func<TSourceItem, INotifyCollectionChanged>> SelectorExpression => _selectorExpression;
@@ -28,8 +32,7 @@ namespace ObservableComputations
 		// ReSharper disable once MemberCanBePrivate.Global
 		public Expression<Func<TSourceItem, int, INotifyCollectionChanged>> SelectorWithIndexExpression => _selectorWithIndexExpression;
 
-		public new ReadOnlyCollection<INotifyCollectionChanged> SourceCollections => new ReadOnlyCollection<INotifyCollectionChanged>(new []{Source});
-		public new ReadOnlyCollection<IReadScalar<INotifyCollectionChanged>> SourceCollectionScalars => new ReadOnlyCollection<IReadScalar<INotifyCollectionChanged>>(new []{SourceScalar});
+		public override ReadOnlyCollection<object> Sources => new ReadOnlyCollection<object>(new object[]{Source, SourceScalar});
 
 		[ObservableComputationsCall]
 		public SelectingMany(			
@@ -56,23 +59,23 @@ namespace ObservableComputations
 		[ObservableComputationsCall]
 		public SelectingMany(			
 			IReadScalar<INotifyCollectionChanged> sourceScalar, 
-			Expression<Func<TSourceItem, int, INotifyCollectionChanged>> selectorExpression)
+			Expression<Func<TSourceItem, int, INotifyCollectionChanged>> selectorWithIndexExpression)
 			: base(
-				getSource(sourceScalar, selectorExpression))
+				getSource(sourceScalar, selectorWithIndexExpression))
 		{
 			_sourceScalar = sourceScalar;
-			_selectorWithIndexExpression = selectorExpression;
+			_selectorWithIndexExpression = selectorWithIndexExpression;
 		}
 
 		[ObservableComputationsCall]
 		public SelectingMany(			
 			INotifyCollectionChanged source, 
-			Expression<Func<TSourceItem, int, INotifyCollectionChanged>> selectorExpression)
+			Expression<Func<TSourceItem, int, INotifyCollectionChanged>> selectorWithIndexExpression)
 			: base(
-				getSource(source, selectorExpression))
+				getSource(source, selectorWithIndexExpression))
 		{
 			_source = source;
-			_selectorWithIndexExpression = selectorExpression;
+			_selectorWithIndexExpression = selectorWithIndexExpression;
 		}
 
 		private static INotifyCollectionChanged getSource(
@@ -133,7 +136,8 @@ namespace ObservableComputations
 			return zipPairSelectorExpression;
 		}
 
-		public new void ValidateConsistency()
+		[ExcludeFromCodeCoverage]
+		internal new void ValidateInternalConsistency()
 		{
 			IList<TSourceItem> source = _sourceScalar.getValue(_source, new ObservableCollection<TSourceItem>()) as IList<TSourceItem>;
 			Func<TSourceItem, INotifyCollectionChanged> selector = _selectorExpression?.Compile();
@@ -141,7 +145,7 @@ namespace ObservableComputations
 
 			List<TResultItem> result = new List<TResultItem>();
 			// ReSharper disable once PossibleNullReferenceException
-			for (var index = 0; index < source.Count; index++)
+			for (int index = 0; index < source.Count; index++)
 			{
 				TSourceItem sourceItem = source[index];
 				// ReSharper disable once PossibleNullReferenceException
@@ -151,7 +155,7 @@ namespace ObservableComputations
 			// ReSharper disable once AssignNullToNotNullAttribute
 			if (!this.SequenceEqual(result))
 			{
-				throw new ObservableComputationsException(this, "Consistency violation: SelectingMany.1");
+				throw new ValidateInternalConsistencyException("Consistency violation: SelectingMany.1");
 			}
 		}
 	}

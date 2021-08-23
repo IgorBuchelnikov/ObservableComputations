@@ -1,3 +1,7 @@
+// Copyright (c) 2019-2021 Buchelnikov Igor Vladimirovich. All rights reserved
+// Buchelnikov Igor Vladimirovich licenses this file to you under the MIT license.
+// The LICENSE file is located at https://github.com/IgorBuchelnikov/ObservableComputations/blob/master/LICENSE
+
 <#@ template  debug="true" hostSpecific="true" #>
 <#@ output extension="generated.cs" #>
 <#@ Assembly Name="System.Core" #>
@@ -21,37 +25,34 @@ namespace ObservableComputations
 <#
 
 
-	IEnumerable<IGrouping<string, ExtentionMethod>> extentionMethodGroups = null;
+	IEnumerable<IGrouping<string, ExtensionMethod>> extensionMethodGroups = null;
 	try
 	{
-		extentionMethodGroups = GetExtentionMethods().GroupBy(em => em.Name).OrderBy(emg => emg.Key).ToArray();
+		extensionMethodGroups = GetExtensionMethods().GroupBy(em => em.Name).OrderBy(emg => emg.Key).ToArray();
 	}
 	catch(Exception ex)
 	{
 
 	}
 
-	foreach (var extentionMethodGroup in extentionMethodGroups)
+	foreach (var extensionMethodGroup in extensionMethodGroups)
 	{
-		if (extentionMethodGroup.Key == "Grouping")
-		{
-		}
 #>
-		#region <#=extentionMethodGroup.Key#>
+		#region <#=extensionMethodGroup.Key#>
 
 <#
 
 
-		foreach (ExtentionMethod extentionMethod in extentionMethodGroup)
+		foreach (ExtensionMethod extensionMethod in extensionMethodGroup)
 		{
 
 #>
 		[ObservableComputationsCall]
-		public static <#=extentionMethod.TypeName#> <#=extentionMethod.Name#><#=extentionMethod.GenericParameters#>(this
+		public static <#=extensionMethod.TypeName#> <#=extensionMethod.Name#><#=extensionMethod.GenericParameters#>(this
 <#
 			int index = 0;
-			var signatureArguments = extentionMethod.Arguments.Where(a => a.DefaultValue == null);
-			foreach (ExtentionMethodArgument argument in signatureArguments )
+			var signatureArguments = extensionMethod.ArgumentsWithoutDefaultValue;
+			foreach (ExtensionMethodArgument argument in signatureArguments )
 			{
 #>
 			 <#=argument.Type#> <#=GetAdjustedArgumentName(argument)#><#=index == signatureArguments.Count() - 1 ? ")" : ","#>
@@ -59,15 +60,14 @@ namespace ObservableComputations
 				index++;
 			}
 
-#>			<#=extentionMethod.GenericConstraints#>
-		{
-			return new <#=extentionMethod.TypeName#>(
+#><#=extensionMethod.GenericConstraints#>		{
+			return new <#=extensionMethod.TypeName#>(
 <#
 			index = 0;
-			foreach (ExtentionMethodArgument argument in extentionMethod.Arguments)
+			foreach (ExtensionMethodArgument argument in extensionMethod.Arguments)
 			{
 #>
-				<#=argument.Name#>: <#=GetAdjustedArgumentValue(argument)#><#=index == extentionMethod.Arguments.Count - 1 ? ");" : ","#>
+				<#=argument.Name#>: <#=GetAdjustedArgumentValue(argument)#><#=index == extensionMethod.Arguments.Count - 1 ? ");" : ","#>
 <#
 				index++;
 			}
@@ -79,12 +79,12 @@ namespace ObservableComputations
 #>
 		#endregion
 <#
-    }
+	}
 #>
 	}
 }
 <#+
-	public string GetAdjustedArgumentName(ExtentionMethodArgument argument)
+	public string GetAdjustedArgumentName(ExtensionMethodArgument argument)
 	{
 		if (IsComputingArgument(argument))
 		{
@@ -96,7 +96,7 @@ namespace ObservableComputations
 		}
 	}
 
-	public string GetAdjustedArgumentValue(ExtentionMethodArgument argument)
+	public string GetAdjustedArgumentValue(ExtensionMethodArgument argument)
 	{
 		if  (argument.DefaultValue == null)
 		{

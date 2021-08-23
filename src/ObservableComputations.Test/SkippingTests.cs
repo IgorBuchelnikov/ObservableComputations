@@ -1,12 +1,16 @@
-﻿using System.Collections.ObjectModel;
+﻿// Copyright (c) 2019-2021 Buchelnikov Igor Vladimirovich. All rights reserved
+// Buchelnikov Igor Vladimirovich licenses this file to you under the MIT license.
+// The LICENSE file is located at https://github.com/IgorBuchelnikov/ObservableComputations/blob/master/LICENSE
+
+using System.Collections.ObjectModel;
 using NUnit.Framework;
 
 namespace ObservableComputations.Test
 {
-	[TestFixture]
-	public class SkippingTests
+	[TestFixture(false)]
+	public partial class SkippingTests : TestBase
 	{
-        Consumer consumer = new Consumer();
+		OcConsumer consumer = new OcConsumer();
 
 		public class Item
 		{
@@ -25,9 +29,9 @@ namespace ObservableComputations.Test
 		{
 			ObservableCollection<Item> items = new ObservableCollection<Item>();
 
-			Skipping<Item> itemComputing = items.Skipping(0).IsNeededFor(consumer);
-			itemComputing.ValidateConsistency();
-            consumer.Dispose();
+			Skipping<Item> itemComputing = items.Skipping(0).For(consumer);
+			itemComputing.ValidateInternalConsistency();
+			consumer.Dispose();
 		}
 
 
@@ -47,11 +51,11 @@ namespace ObservableComputations.Test
 				}
 			);
 
-			Skipping<Item> itemComputing = items.Skipping(count).IsNeededFor(consumer);
-			itemComputing.ValidateConsistency();
+			Skipping<Item> itemComputing = items.Skipping(count).For(consumer);
+			itemComputing.ValidateInternalConsistency();
 			items.RemoveAt(index);
-			itemComputing.ValidateConsistency();
-            consumer.Dispose();
+			itemComputing.ValidateInternalConsistency();
+			consumer.Dispose();
 		}
 
 		[Test, Combinatorial]
@@ -65,11 +69,11 @@ namespace ObservableComputations.Test
 				}
 			);
 
-			Skipping<Item> itemComputing = items.Skipping(count).IsNeededFor(consumer);
-			itemComputing.ValidateConsistency();
+			Skipping<Item> itemComputing = items.Skipping(count).For(consumer);
+			itemComputing.ValidateInternalConsistency();
 			items.RemoveAt(0);
-			itemComputing.ValidateConsistency();
-            consumer.Dispose();
+			itemComputing.ValidateInternalConsistency();
+			consumer.Dispose();
 		}
 
 		[Test, Combinatorial]
@@ -88,11 +92,11 @@ namespace ObservableComputations.Test
 				}
 			);
 
-			Skipping<Item> itemComputing = items.Skipping( count).IsNeededFor(consumer);
-			itemComputing.ValidateConsistency();
+			Skipping<Item> itemComputing = items.Skipping( count).For(consumer);
+			itemComputing.ValidateInternalConsistency();
 			items.Insert(index, new Item());
-			itemComputing.ValidateConsistency();
-            consumer.Dispose();
+			itemComputing.ValidateInternalConsistency();
+			consumer.Dispose();
 		}
 
 		[Test, Combinatorial]
@@ -101,11 +105,11 @@ namespace ObservableComputations.Test
 		{
 			ObservableCollection<Item> items = new ObservableCollection<Item>();
 
-			Skipping<Item> itemComputing = items.Skipping(count).IsNeededFor(consumer);
-			itemComputing.ValidateConsistency();
+			Skipping<Item> itemComputing = items.Skipping(count).For(consumer);
+			itemComputing.ValidateInternalConsistency();
 			items.Insert(0, new Item());
-			itemComputing.ValidateConsistency();
-            consumer.Dispose();
+			itemComputing.ValidateInternalConsistency();
+			consumer.Dispose();
 		}
 
 		[Test, Combinatorial]
@@ -125,11 +129,11 @@ namespace ObservableComputations.Test
 				}
 			);
 
-			Skipping<Item> itemComputing = items.Skipping(count).IsNeededFor(consumer);
-			itemComputing.ValidateConsistency();
+			Skipping<Item> itemComputing = items.Skipping(count).For(consumer);
+			itemComputing.ValidateInternalConsistency();
 			items.Move(oldIndex, newIndex);
-			itemComputing.ValidateConsistency();
-            consumer.Dispose();
+			itemComputing.ValidateInternalConsistency();
+			consumer.Dispose();
 		}
 
 		[Test, Combinatorial]
@@ -148,11 +152,15 @@ namespace ObservableComputations.Test
 				}
 			);
 
-			Skipping<Item> itemComputing = items.Skipping(count).IsNeededFor(consumer);
-			itemComputing.ValidateConsistency();
+			Skipping<Item> itemComputing = items.Skipping(count).For(consumer);
+			itemComputing.ValidateInternalConsistency();
 			items[index] = new Item();
-			itemComputing.ValidateConsistency();
-            consumer.Dispose();
-		}		
+			itemComputing.ValidateInternalConsistency();
+			consumer.Dispose();
+		}
+
+		public SkippingTests(bool debug) : base(debug)
+		{
+		}
 	}
 }

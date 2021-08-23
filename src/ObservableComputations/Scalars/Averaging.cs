@@ -1,37 +1,43 @@
-﻿using System;
+﻿// Copyright (c) 2019-2021 Buchelnikov Igor Vladimirovich. All rights reserved
+// Buchelnikov Igor Vladimirovich licenses this file to you under the MIT license.
+// The LICENSE file is located at https://github.com/IgorBuchelnikov/ObservableComputations/blob/master/LICENSE
+
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Collections.Specialized;
+using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Linq.Expressions;
 
 namespace ObservableComputations
 {
-	public class Averaging<TSourceItem, TResult> : Computing<TResult>, IHasSourceCollections
+	public class Averaging<TSourceItem, TResult> : Computing<TResult>, IHasSources
 	{
 		// ReSharper disable once MemberCanBePrivate.Global
-		public IReadScalar<INotifyCollectionChanged> SourceScalar => _sourceScalar;
+		public virtual IReadScalar<INotifyCollectionChanged> SourceScalar => _sourceScalar;
 
 		// ReSharper disable once MemberCanBePrivate.Global
-		public INotifyCollectionChanged Source => _source;
+		public virtual INotifyCollectionChanged Source => _source;
 
-		public ReadOnlyCollection<INotifyCollectionChanged> SourceCollections => new ReadOnlyCollection<INotifyCollectionChanged>(new []{Source});
-		public ReadOnlyCollection<IReadScalar<INotifyCollectionChanged>> SourceCollectionScalars => new ReadOnlyCollection<IReadScalar<INotifyCollectionChanged>>(new []{SourceScalar});
+		public virtual ReadOnlyCollection<object> Sources => new ReadOnlyCollection<object>(new object[]{Source, SourceScalar});
 
 		private readonly IReadScalar<INotifyCollectionChanged> _sourceScalar;
 		private readonly INotifyCollectionChanged _source;
 
 		[ObservableComputationsCall]
 		public Averaging(
-			IReadScalar<INotifyCollectionChanged> sourceScalar) : base(getValueExpression(sourceScalar))
+			IReadScalar<INotifyCollectionChanged> sourceScalar) 
+			: base(getValueExpression(sourceScalar))
 		{
 			_sourceScalar = sourceScalar;
 		}
 
 		[ObservableComputationsCall]
 		public Averaging(
-			INotifyCollectionChanged source) : base(getValueExpression(source))
+			INotifyCollectionChanged source) 
+			: base(getValueExpression(source))
 		{
 			_source = source;
 		}
@@ -62,7 +68,8 @@ namespace ObservableComputations
 					Expression.Convert(countExpression.Body, typeof(TResult))));
 		}
 
-		public void ValidateConsistency()
+		[ExcludeFromCodeCoverage]
+		internal void ValidateInternalConsistency()
 		{
 			IList<int> source = _sourceScalar.getValue(_source, new ObservableCollection<int>()) as IList<int>;
 			Averaging<int, double> @this = this as Averaging<int, double>;
@@ -72,12 +79,12 @@ namespace ObservableComputations
 			{
 				// ReSharper disable once PossibleNullReferenceException
 				// ReSharper disable once CompareOfFloatsByEqualityOperator
-				if (source.Average() != @this.Value) throw new ObservableComputationsException(this, "Consistency violation: Averaging.1");
+				if (source.Average() != @this.Value) throw new ValidateInternalConsistencyException("Consistency violation: Averaging.1");
 			}
 			else
 			{
 				// ReSharper disable once PossibleNullReferenceException
-				if (!double.IsNaN(@this.Value)) throw new ObservableComputationsException(this, "Consistency violation: Averaging.2");
+				if (!double.IsNaN(@this.Value)) throw new ValidateInternalConsistencyException("Consistency violation: Averaging.2");
 			}
 		}
 	}

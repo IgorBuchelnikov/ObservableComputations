@@ -1,109 +1,177 @@
-﻿using System;
+﻿// Copyright (c) 2019-2021 Buchelnikov Igor Vladimirovich. All rights reserved
+// Buchelnikov Igor Vladimirovich licenses this file to you under the MIT license.
+// The LICENSE file is located at https://github.com/IgorBuchelnikov/ObservableComputations/blob/master/LICENSE
+
+using System;
+using System.Collections.ObjectModel;
 using System.ComponentModel;
+using System.Diagnostics.CodeAnalysis;
 
 namespace ObservableComputations
 {
-	public class ScalarDispatching<TResult> : ScalarComputing<TResult>
+	public class ScalarDispatching<TResult> : ScalarComputing<TResult>, IHasSources
 	{
-		public IReadScalar<TResult> Scalar => _scalar;
-		public IDispatcher DestinationDispatcher => _destinationDispatcher;
-		public IDispatcher SourceDispatcher => _sourceDispatcher;
+		public IReadScalar<TResult> Source => _source;
+		public IOcDispatcher DestinationOcDispatcher => _destinationOcDispatcher;
+		public IOcDispatcher SourceOcDispatcher => _sourceOcDispatcher;
 
-		private IDispatcher _destinationDispatcher;
-		private IDispatcher _sourceDispatcher;
+		public int DestinationOcDispatcherPriority => _destinationOcDispatcherPriority;
+		public int SourceOcDispatcherPriority => _sourceOcDispatcherPriority;
+		public object DestinationOcDispatcherParameter => _destinationOcDispatcherParameter;
+		public object SourceOcDispatcherParameter => _sourceOcDispatcherParameter;
 
-		private IReadScalar<TResult> _scalar;
-        private Action _changeValueAction;
+		public virtual ReadOnlyCollection<object> Sources => new ReadOnlyCollection<object>(new object[]{Source});
+
+		private readonly IOcDispatcher _destinationOcDispatcher;
+		private readonly IOcDispatcher _sourceOcDispatcher;
+
+		private readonly IReadScalar<TResult> _source;
+		private readonly Action _changeValueAction;
+
+		private readonly int _destinationOcDispatcherPriority;
+		private readonly int _sourceOcDispatcherPriority;
+		private readonly object _destinationOcDispatcherParameter;
+		private readonly object _sourceOcDispatcherParameter;
 
 		[ObservableComputationsCall]
 		public ScalarDispatching(
-			IReadScalar<TResult> scalar, 
-			IDispatcher destinationDispatcher,
-			IDispatcher sourceDispatcher = null)
+			IReadScalar<TResult> source, 
+			IOcDispatcher destinationOcDispatcher,
+			IOcDispatcher sourceOcDispatcher = null,
+			int destinationOcDispatcherPriority = 0,
+			int sourceOcDispatcherPriority = 0,
+			object destinationOcDispatcherParameter = null,
+			object sourceOcDispatcherParameter = null)
 		{
-			_destinationDispatcher = destinationDispatcher;
-            _scalar = scalar;
-            _sourceDispatcher = sourceDispatcher;
-            _changeValueAction = () =>
-            {
-                TResult newValue = _scalar.Value;
-                void setNewValue() => setValue(newValue);
+			_destinationOcDispatcher = destinationOcDispatcher;
+			_source = source;
+			_sourceOcDispatcher = sourceOcDispatcher;
+			_changeValueAction = () =>
+			{
+				TResult newValue = _source.Value;
+				void setNewValue() => setValue(newValue);
 
-                _destinationDispatcher.Invoke(setNewValue, this);
-            };
-        }
+				_destinationOcDispatcher.Invoke(
+					setNewValue, 
+					_destinationOcDispatcherPriority,
+					_destinationOcDispatcherParameter,
+					this);
+			};
 
-		private void handleScalarPropertyChanged(object sender, PropertyChangedEventArgs e)
-		{
-            Utils.processChange(
-                sender, 
-                e, 
-                _changeValueAction,
-                ref _isConsistent, 
-                ref _handledEventSender, 
-                ref _handledEventArgs, 
-                0, 1,
-                ref _deferredProcessings, this);
+			_destinationOcDispatcherPriority = destinationOcDispatcherPriority;
+			_sourceOcDispatcherPriority = sourceOcDispatcherPriority;
+			_destinationOcDispatcherParameter = destinationOcDispatcherParameter;
+			_sourceOcDispatcherParameter = sourceOcDispatcherParameter;
 		}
 
-        private bool _initializedFromSource;
-        #region Overrides of ScalarComputing<TResult>
+		private void handleSourceScalarPropertyChanged(object sender, PropertyChangedEventArgs e)
+		{
+			Utils.processChange(
+				sender, 
+				e, 
+				_changeValueAction,
+				ref _isConsistent, 
+				ref _handledEventSender, 
+				ref _handledEventArgs, 
+				0, _deferredQueuesCount,
+				ref _deferredProcessings, this);
+		}
 
-        protected override void initializeFromSource()
-        {
-            if (_initializedFromSource)
-            {
-                _scalar.PropertyChanged -= handleScalarPropertyChanged;
-                _initializedFromSource = true;
-            }
+		#region Overrides of ScalarComputing<TResult>
 
-            if (_isActive)
-            {
-                void readAndSubscribe()
-                {
-                    TResult newValue = _scalar.Value;
-                    void setNewValue() => setValue(newValue);
+		protected override void processSource()
+		{
+			if (_sourceReadAndSubscribed)
+			{
+				_source.PropertyChanged -= handleSourceScalarPropertyChanged;
+				_sourceReadAndSubscribed = false;
+			}
 
-                    _destinationDispatcher.Invoke(setNewValue, this);
-                    _scalar.PropertyChanged += handleScalarPropertyChanged;
-                }
+			if (_isActive)
+			{
+				void readAndSubscribe()
+				{
+					TResult newValue = _source.Value;
+					void setNewValue() => setValue(newValue);
 
-                if (_sourceDispatcher != null)
-                {
-                    _sourceDispatcher.Invoke(readAndSubscribe, this);
-                }
-                else
-                {
-                    readAndSubscribe();
-                }
-            }
-            else
-            {
-                void setNewValue() => setValue(default);
-                _destinationDispatcher.Invoke(setNewValue, this);
-            }
-        }
+					_source.PropertyChanged += handleSourceScalarPropertyChanged;
+					_destinationOcDispatcher.Invoke(
+						setNewValue, 
+						_destinationOcDispatcherPriority,
+						_destinationOcDispatcherParameter, 
+						this);
+				}
 
-        protected override void initialize()
-        {
+				if (_sourceOcDispatcher != null)
+					_sourceOcDispatcher.Invoke(
+						readAndSubscribe, 
+						_sourceOcDispatcherPriority,
+						_sourceOcDispatcherParameter, 
+						this);
+				else
+					readAndSubscribe();
 
-        }
+				_sourceReadAndSubscribed = true;
+			}
+			else
+			{
+				void setNewValue() => setDefaultValue();
+				_destinationOcDispatcher.Invoke(
+					setNewValue, 
+					_destinationOcDispatcherPriority,
+					_destinationOcDispatcherParameter,  
+					this);
+			}
+		}
 
-        protected override void uninitialize()
-        {
+		protected override void initialize()
+		{
 
-        }
+		}
 
-        internal override void addToUpstreamComputings(IComputingInternal computing)
-        {
-            (_scalar as IComputingInternal)?.AddDownstreamConsumedComputing(computing);
-        }
+		protected override void uninitialize()
+		{
 
-        internal override void removeFromUpstreamComputings(IComputingInternal computing)
-        {
-            (_scalar as IComputingInternal)?.RemoveDownstreamConsumedComputing(computing);
-        }
+		}
 
-        #endregion
-    }
+		protected override void clearCachedScalarArgumentValues()
+		{
+
+		}
+
+		internal override void addToUpstreamComputings(IComputingInternal computing)
+		{
+			(_source as IComputingInternal)?.AddDownstreamConsumedComputing(computing);
+		}
+
+		internal override void removeFromUpstreamComputings(IComputingInternal computing)
+		{
+			(_source as IComputingInternal)?.RemoveDownstreamConsumedComputing(computing);
+		}
+
+		#endregion
+
+		protected override void raisePropertyChanged(PropertyChangedEventArgs eventArgs)
+		{
+			_destinationOcDispatcher.Invoke(
+				() => base.raisePropertyChanged(eventArgs), 
+				_destinationOcDispatcherPriority,
+				_destinationOcDispatcherParameter,
+				this);
+		}
+
+		[ExcludeFromCodeCoverage]
+		internal void ValidateInternalConsistency()
+		{
+			bool conststent = true;
+
+			_destinationOcDispatcher.Invoke(() =>
+			{
+				conststent = _value.Equals(_source.Value);
+			});
+
+			if (!conststent)
+				throw new ValidateInternalConsistencyException("Consistency violation: ScalarDispatching.1");
+		}
+	}
 }

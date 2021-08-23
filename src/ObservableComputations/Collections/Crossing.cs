@@ -1,11 +1,15 @@
-﻿//using System.Collections.Generic;
+﻿// Copyright (c) 2019-2021 Buchelnikov Igor Vladimirovich. All rights reserved
+// Buchelnikov Igor Vladimirovich licenses this file to you under the MIT license.
+// The LICENSE file is located at https://github.com/IgorBuchelnikov/ObservableComputations/blob/master/LICENSE
+
+//using System.Collections.Generic;
 //using System.Collections.ObjectModel;
 //using System.Collections.Specialized;
 //using System.ComponentModel;
 
 //namespace ObservableComputations
 //{
-//	internal class Crossing<TOuterSourceItem, TInnerSourceItem> : CollectionComputing<JoinPair<TOuterSourceItem, TInnerSourceItem>>, IHasSourceCollections
+//	internal class Crossing<TOuterSourceItem, TInnerSourceItem> : CollectionComputing<JoinPair<TOuterSourceItem, TInnerSourceItem>>, IHasSources
 //	{
 //		// ReSharper disable once MemberCanBePrivate.Global
 //		// ReSharper disable once UnusedMember.Global
@@ -53,11 +57,11 @@
 //		private bool _outerSourceIndexerPropertyChangedEventRaised;
 //		private INotifyPropertyChanged _outerSourceAsINotifyPropertyChanged;
 
-//		private ObservableCollectionWithChangeMarker<TOuterSourceItem> _outerSourceAsObservableCollectionWithChangeMarker;
-//		private bool _lastProcessedOuterSourceChangeMarker;
+//		private ObservableCollectionWithTickTackVersion<TOuterSourceItem> _outerSourceAsObservableCollectionWithTickTackVersion;
+//		private bool _lastProcessedOuterSourceTickTackVersion;
 
-//		private ObservableCollectionWithChangeMarker<TInnerSourceItem> _innerSourceAsObservableCollectionWithChangeMarker;
-//		private bool _lastProcessedInnerSourceChangeMarker;
+//		private ObservableCollectionWithTickTackVersion<TInnerSourceItem> _innerSourceAsObservableCollectionWithTickTackVersion;
+//		private bool _lastProcessedInnerSourceTickTackVersion;
 
 
 //		[ObservableComputationsCall]
@@ -175,11 +179,11 @@
 
 //			if (_outerSource != null && _innerSource != null)
 //			{
-//				_outerSourceAsObservableCollectionWithChangeMarker = _outerSourceAsList as ObservableCollectionWithChangeMarker<TOuterSourceItem>;
+//				_outerSourceAsObservableCollectionWithTickTackVersion = _outerSourceAsList as ObservableCollectionWithTickTackVersion<TOuterSourceItem>;
 
-//				if (_outerSourceAsObservableCollectionWithChangeMarker != null)
+//				if (_outerSourceAsObservableCollectionWithTickTackVersion != null)
 //				{
-//					_lastProcessedOuterSourceChangeMarker = _outerSourceAsObservableCollectionWithChangeMarker.ChangeMarkerField;
+//					_lastProcessedOuterSourceTickTackVersion = _outerSourceAsObservableCollectionWithTickTackVersion.TickTackVersion;
 //				}
 //				else
 //				{
@@ -198,11 +202,11 @@
 //				}
 
 
-//				_innerSourceAsObservableCollectionWithChangeMarker = _innerSourceAsList as ObservableCollectionWithChangeMarker<TInnerSourceItem>;
+//				_innerSourceAsObservableCollectionWithTickTackVersion = _innerSourceAsList as ObservableCollectionWithTickTackVersion<TInnerSourceItem>;
 
-//				if (_innerSourceAsObservableCollectionWithChangeMarker != null)
+//				if (_innerSourceAsObservableCollectionWithTickTackVersion != null)
 //				{
-//					_lastProcessedInnerSourceChangeMarker = _innerSourceAsObservableCollectionWithChangeMarker.ChangeMarkerField;
+//					_lastProcessedInnerSourceTickTackVersion = _innerSourceAsObservableCollectionWithTickTackVersion.TickTackVersion;
 //				}
 //				else
 //				{
@@ -281,10 +285,10 @@
 //			_handledEventSender = sender;
 //			_handledEventArgs = e;
 
-//			if (_outerSourceIndexerPropertyChangedEventRaised || _outerSourceAsObservableCollectionWithChangeMarker != null && _lastProcessedOuterSourceChangeMarker != _outerSourceAsObservableCollectionWithChangeMarker.ChangeMarkerField)
+//			if (_outerSourceIndexerPropertyChangedEventRaised || _outerSourceAsObservableCollectionWithTickTackVersion != null && _lastProcessedOuterSourceTickTackVersion != _outerSourceAsObservableCollectionWithTickTackVersion.TickTackVersion)
 //			{
 //				_outerSourceIndexerPropertyChangedEventRaised = false;
-//				_lastProcessedOuterSourceChangeMarker = !_lastProcessedOuterSourceChangeMarker;
+//				_lastProcessedOuterSourceTickTackVersion = !_lastProcessedOuterSourceTickTackVersion;
 
 //				_isConsistent = false;
 
@@ -378,10 +382,10 @@
 //			_handledEventSender = sender;
 //			_handledEventArgs = e;
 
-//			if (_innerSourceIndexerPropertyChangedEventRaised || _lastProcessedInnerSourceChangeMarker != _innerSourceAsObservableCollectionWithChangeMarker.ChangeMarkerField)
+//			if (_innerSourceIndexerPropertyChangedEventRaised || _lastProcessedInnerSourceTickTackVersion != _innerSourceAsObservableCollectionWithTickTackVersion.TickTackVersion)
 //			{
 //				_innerSourceIndexerPropertyChangedEventRaised = false;
-//				_lastProcessedInnerSourceChangeMarker = !_lastProcessedInnerSourceChangeMarker;
+//				_lastProcessedInnerSourceTickTackVersion = !_lastProcessedInnerSourceTickTackVersion;
 
 //				_isConsistent = false;
 
@@ -497,7 +501,7 @@
 //					_innerSourceWeakPropertyChangedEventHandler.Handle;
 //		} 
 
-//		public void ValidateConsistency()
+//		public void ValidateInternalConsistency()
 //		{
 //			IList<TOuterSourceItem> outerSource = _outerSourceScalar.getValue(_outerSource, new ObservableCollection<TOuterSourceItem>()) as IList<TOuterSourceItem>;
 //			IList<TInnerSourceItem> innerSource = _innerSourceScalar.getValue(_innerSource, new ObservableCollection<TInnerSourceItem>()) as IList<TInnerSourceItem>;
@@ -516,10 +520,10 @@
 //					JoinPair<TOuterSourceItem, TInnerSourceItem> joinPair = this[index];
 
 //					if (!EqualityComparer<TOuterSourceItem>.Default.Equals(joinPair.OuterItem, sourceOuterItem))
-//						throw new ObservableComputationsException(this, "Consistency violation: Crossing.1");
+//						throw new ValidateInternalConsistencyException("Consistency violation: Crossing.1");
 
 //					if (!EqualityComparer<TInnerSourceItem>.Default.Equals(joinPair.InnerItem, sourceInnerItem))
-//						throw new ObservableComputationsException(this, "Consistency violation: Crossing.2");
+//						throw new ValidateInternalConsistencyException("Consistency violation: Crossing.2");
 
 //					index++;
 //				}
@@ -527,7 +531,7 @@
 
 //			// ReSharper disable once PossibleNullReferenceException
 //			if (Count != outerSource.Count * innerSource.Count)
-//				throw new ObservableComputationsException(this, "Consistency violation: Crossing.3");
+//				throw new ValidateInternalConsistencyException("Consistency violation: Crossing.3");
 //		}
 
 //	}

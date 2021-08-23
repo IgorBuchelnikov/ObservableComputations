@@ -1,12 +1,16 @@
-﻿using System.Collections.ObjectModel;
+﻿// Copyright (c) 2019-2021 Buchelnikov Igor Vladimirovich. All rights reserved
+// Buchelnikov Igor Vladimirovich licenses this file to you under the MIT license.
+// The LICENSE file is located at https://github.com/IgorBuchelnikov/ObservableComputations/blob/master/LICENSE
+
+using System.Collections.ObjectModel;
 using NUnit.Framework;
 
 namespace ObservableComputations.Test
 {
-	[TestFixture]
-	public class OfTypeComputingTests
+	[TestFixture(false)]
+	public partial class OfTypeComputingTests : TestBase
 	{
-        Consumer consumer = new Consumer();
+		OcConsumer consumer = new OcConsumer();
 
 		class BaseItem{}
 		class DerivedItem : BaseItem{}
@@ -17,7 +21,7 @@ namespace ObservableComputations.Test
 			ObservableCollection<DerivedItem> items = new ObservableCollection<DerivedItem>();
 
 			OfTypeComputing<BaseItem> ofTypeComputing = items.OfTypeComputing<BaseItem>();
-			ofTypeComputing.ValidateConsistency();			
+			ofTypeComputing.ValidateInternalConsistency();			
 			consumer.Dispose();
 		}
 
@@ -34,10 +38,10 @@ namespace ObservableComputations.Test
 
 			if (index >= items.Count) return;
 
-			OfTypeComputing<DerivedItem> ofTypeComputing = items.OfTypeComputing<DerivedItem>().IsNeededFor(consumer);
-			ofTypeComputing.ValidateConsistency();
+			OfTypeComputing<DerivedItem> ofTypeComputing = items.OfTypeComputing<DerivedItem>().For(consumer);
+			ofTypeComputing.ValidateInternalConsistency();
 			if (index < items.Count) items[index] = newItem >= 0 ? (newItem == 1 ? new DerivedItem() : new BaseItem()) : null;
-			ofTypeComputing.ValidateConsistency();			
+			ofTypeComputing.ValidateInternalConsistency();			
 			consumer.Dispose();
 		}
 
@@ -53,10 +57,10 @@ namespace ObservableComputations.Test
 
 			if (index >= items.Count) return;
 
-			OfTypeComputing<DerivedItem> ofTypeComputing = items.OfTypeComputing<DerivedItem>().IsNeededFor(consumer);
-			ofTypeComputing.ValidateConsistency();
+			OfTypeComputing<DerivedItem> ofTypeComputing = items.OfTypeComputing<DerivedItem>().For(consumer);
+			ofTypeComputing.ValidateInternalConsistency();
 			items.RemoveAt(index);
-			ofTypeComputing.ValidateConsistency();			
+			ofTypeComputing.ValidateInternalConsistency();			
 			consumer.Dispose();
 		}
 
@@ -73,10 +77,10 @@ namespace ObservableComputations.Test
 
 			if (index > items.Count) return;
 
-			OfTypeComputing<DerivedItem> ofTypeComputing = items.OfTypeComputing<DerivedItem>().IsNeededFor(consumer);
-			ofTypeComputing.ValidateConsistency();
+			OfTypeComputing<DerivedItem> ofTypeComputing = items.OfTypeComputing<DerivedItem>().For(consumer);
+			ofTypeComputing.ValidateInternalConsistency();
 			items.Insert(index, newItem >= 0 ? (newItem == 1 ? new DerivedItem() : new BaseItem()) : null);
-			ofTypeComputing.ValidateConsistency();			
+			ofTypeComputing.ValidateInternalConsistency();			
 			consumer.Dispose();
 		}
 
@@ -93,11 +97,15 @@ namespace ObservableComputations.Test
 
 			if (oldIndex >= items.Count || newIndex >= items.Count) return;
 
-			OfTypeComputing<DerivedItem> ofTypeComputing = items.OfTypeComputing<DerivedItem>().IsNeededFor(consumer);
-			ofTypeComputing.ValidateConsistency();
+			OfTypeComputing<DerivedItem> ofTypeComputing = items.OfTypeComputing<DerivedItem>().For(consumer);
+			ofTypeComputing.ValidateInternalConsistency();
 			items.Move(oldIndex, newIndex);
-			ofTypeComputing.ValidateConsistency();			
+			ofTypeComputing.ValidateInternalConsistency();			
 			consumer.Dispose();
-		}	
+		}
+
+		public OfTypeComputingTests(bool debug) : base(debug)
+		{
+		}
 	}
 }

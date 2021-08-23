@@ -1,14 +1,18 @@
-﻿using System.Collections.Generic;
+﻿// Copyright (c) 2019-2021 Buchelnikov Igor Vladimirovich. All rights reserved
+// Buchelnikov Igor Vladimirovich licenses this file to you under the MIT license.
+// The LICENSE file is located at https://github.com/IgorBuchelnikov/ObservableComputations/blob/master/LICENSE
+
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using NUnit.Framework;
 
 namespace ObservableComputations.Test
 {
-	[TestFixture]
-	public class DifferingTests
+	[TestFixture(false)]
+	public partial class DifferingTests : TestBase
 	{
-        Consumer consumer = new Consumer();
+		OcConsumer consumer = new OcConsumer();
 
 		public class Order : INotifyPropertyChanged
 		{
@@ -44,7 +48,7 @@ namespace ObservableComputations.Test
 		{
 			bool raised = false;
 			Order order = new Order();
-			Differing<string> computing = new Differing<string>(new Computing<string>(() => order.Num)).IsNeededFor(consumer);
+			Differing<string> computing = new Differing<string>(new Computing<string>(() => order.Num)).For(consumer);
 			computing.PropertyChanged += (sender, args) => { if (args.PropertyName == "Value") raised = true; };
 
 			order.Num = "1";
@@ -57,7 +61,32 @@ namespace ObservableComputations.Test
 			order.Num = "2";
 			Assert.IsTrue(raised);
 
-            consumer.Dispose();
+			consumer.Dispose();
+		}
+
+		[Test]
+		public void TestRaiseValueChanged2()
+		{
+			bool raised = false;
+			Order order = new Order();
+			Differing<string> computing = new Differing<string>(new Computing<string>(() => order.Num), EqualityComparer<string>.Default).For(consumer);
+			computing.PropertyChanged += (sender, args) => { if (args.PropertyName == "Value") raised = true; };
+
+			order.Num = "1";
+			Assert.IsTrue(raised);
+			raised = false;
+
+			order.Num = "1";
+			Assert.IsFalse(raised);
+
+			order.Num = "2";
+			Assert.IsTrue(raised);
+
+			consumer.Dispose();
+		}
+
+		public DifferingTests(bool debug) : base(debug)
+		{
 		}
 	}
 }

@@ -1,4 +1,8 @@
-﻿using System;
+﻿// Copyright (c) 2019-2021 Buchelnikov Igor Vladimirovich. All rights reserved
+// Buchelnikov Igor Vladimirovich licenses this file to you under the MIT license.
+// The LICENSE file is located at https://github.com/IgorBuchelnikov/ObservableComputations/blob/master/LICENSE
+
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
@@ -8,10 +12,10 @@ using NUnit.Framework;
 
 namespace ObservableComputations.Test
 {
-	[TestFixture]
-	public class FilteringTests
+	[TestFixture(false)]
+	public partial class FilteringTests : TestBase
 	{
-        Consumer consumer = new Consumer();
+		OcConsumer consumer = new OcConsumer();
 
 		public class Item : INotifyPropertyChanged
 		{
@@ -59,8 +63,8 @@ namespace ObservableComputations.Test
 		{
 			ObservableCollection<Item> items = new ObservableCollection<Item>();
 
-			Filtering<Item> filtering = items.Filtering(item => item.IsActive).IsNeededFor(consumer);
-			filtering.ValidateConsistency();			
+			Filtering<Item> filtering = items.Filtering(item => item.IsActive).For(consumer);
+			filtering.ValidateInternalConsistency();			
 			consumer.Dispose();
 		}
 
@@ -86,10 +90,10 @@ namespace ObservableComputations.Test
 
 			);
 
-			Filtering<Item> filtering = items.Filtering(item => item.IsActive).IsNeededFor(consumer);
-			filtering.ValidateConsistency();
+			Filtering<Item> filtering = items.Filtering(item => item.IsActive).For(consumer);
+			filtering.ValidateInternalConsistency();
 			items[index].IsActive = newValue;
-			filtering.ValidateConsistency();			
+			filtering.ValidateInternalConsistency();			
 			consumer.Dispose();
 		}
 
@@ -105,10 +109,10 @@ namespace ObservableComputations.Test
 
 			);
 
-			Filtering<Item> filtering = items.Filtering(item => item.IsActive).IsNeededFor(consumer);
-			filtering.ValidateConsistency();
+			Filtering<Item> filtering = items.Filtering(item => item.IsActive).For(consumer);
+			filtering.ValidateInternalConsistency();
 			items[0].IsActive = !items[0].IsActive;
-			filtering.ValidateConsistency();			
+			filtering.ValidateInternalConsistency();			
 			consumer.Dispose();
 		}
 
@@ -133,10 +137,10 @@ namespace ObservableComputations.Test
 
 			);
 
-			Filtering<Item> filtering = items.Filtering(item => item.IsActive).IsNeededFor(consumer);
-			filtering.ValidateConsistency();
+			Filtering<Item> filtering = items.Filtering(item => item.IsActive).For(consumer);
+			filtering.ValidateInternalConsistency();
 			items.RemoveAt(index);
-			filtering.ValidateConsistency();			
+			filtering.ValidateInternalConsistency();			
 			consumer.Dispose();
 		}
 
@@ -152,10 +156,10 @@ namespace ObservableComputations.Test
 
 			);
 
-			Filtering<Item> filtering = items.Filtering(item => item.IsActive).IsNeededFor(consumer);
-			filtering.ValidateConsistency();
+			Filtering<Item> filtering = items.Filtering(item => item.IsActive).For(consumer);
+			filtering.ValidateInternalConsistency();
 			items.RemoveAt(0);
-			filtering.ValidateConsistency();			
+			filtering.ValidateInternalConsistency();			
 			consumer.Dispose();
 		}
 
@@ -181,10 +185,10 @@ namespace ObservableComputations.Test
 
 			);
 
-			Filtering<Item> filtering = items.Filtering(item => item.IsActive).IsNeededFor(consumer);
-			filtering.ValidateConsistency();
+			Filtering<Item> filtering = items.Filtering(item => item.IsActive).For(consumer);
+			filtering.ValidateInternalConsistency();
 			items.Insert(index, new Item(newValue));
-			filtering.ValidateConsistency();			
+			filtering.ValidateInternalConsistency();			
 			consumer.Dispose();
 		}
 
@@ -196,10 +200,10 @@ namespace ObservableComputations.Test
 
 			);
 
-			Filtering<Item> filtering = items.Filtering(item => item.IsActive).IsNeededFor(consumer);
-			filtering.ValidateConsistency();
+			Filtering<Item> filtering = items.Filtering(item => item.IsActive).For(consumer);
+			filtering.ValidateInternalConsistency();
 			items.Insert(0, new Item(newValue));
-			filtering.ValidateConsistency();			
+			filtering.ValidateInternalConsistency();			
 			consumer.Dispose();
 		}
 
@@ -225,10 +229,10 @@ namespace ObservableComputations.Test
 
 			);
 
-			Filtering<Item> filtering = items.Filtering(item => item.IsActive).IsNeededFor(consumer);
-			filtering.ValidateConsistency();
+			Filtering<Item> filtering = items.Filtering(item => item.IsActive).For(consumer);
+			filtering.ValidateInternalConsistency();
 			items.Move(oldIndex, newIndex);
-			filtering.ValidateConsistency();			
+			filtering.ValidateInternalConsistency();			
 			consumer.Dispose();
 		}
 
@@ -254,55 +258,55 @@ namespace ObservableComputations.Test
 
 			);
 
-			Filtering<Item> filtering = items.Filtering(item => item.IsActive).IsNeededFor(consumer);
-			filtering.ValidateConsistency();
+			Filtering<Item> filtering = items.Filtering(item => item.IsActive).For(consumer);
+			filtering.ValidateInternalConsistency();
 			items[index] = new Item(itemNew);
-			filtering.ValidateConsistency();			
+			filtering.ValidateInternalConsistency();			
 			consumer.Dispose();
 		}
 
-        [Test]
-        public void SubExpessing()
-        {
-            Param param = new Param();
-            ObservableCollection<Item> items = new ObservableCollection<Item>(
-                new[]
-                {
-                    new Item(true),
-                    new Item(false),
-                    new Item(true),
-                    new Item(false),
-                    new Item(true)
-                }
-            );
+		[Test]
+		public void SubExpessing()
+		{
+			Param param = new Param();
+			ObservableCollection<Item> items = new ObservableCollection<Item>(
+				new[]
+				{
+					new Item(true),
+					new Item(false),
+					new Item(true),
+					new Item(false),
+					new Item(true)
+				}
+			);
 
-            Filtering<Item> filtering = Expr.Is(() => items).Computing().Filtering(item =>
-                Expr.Is(() => param.Value
-                    ? (ObservableCollection<Item>)items.Filtering(item1 => true)
-                    : items.Filtering(item1 => item1.IsActive == item.IsActive)).Computing().Value.Count == 3).IsNeededFor(consumer);
+			Filtering<Item> filtering = Expr.Is(() => items).Computing().Filtering(item =>
+				Expr.Is(() => param.Value
+					? (ObservableCollection<Item>)items.Filtering(item1 => true)
+					: items.Filtering(item1 => item1.IsActive == item.IsActive)).Computing().Value.Count == 3).For(consumer);
 
-            Filtering<Item> filtering2 = items.Filtering(item =>
-                (param.Value
-                    ? items.Filtering(item1 => true)
-                    : items.Filtering(item1 => item1.IsActive == item.IsActive)).Count == 3).IsNeededFor(consumer);
+			Filtering<Item> filtering2 = items.Filtering(item =>
+				(param.Value
+					? items.Filtering(item1 => true)
+					: items.Filtering(item1 => item1.IsActive == item.IsActive)).Count == 3).For(consumer);
 
-            Expression<Func<ObservableCollection<Item>>> expression = () => param.Value
-                ? (ObservableCollection<Item>)items.Filtering(item1 => true)
-                : items.Filtering(item1 => item1.IsActive == false);
+			Expression<Func<ObservableCollection<Item>>> expression = () => param.Value
+				? (ObservableCollection<Item>)items.Filtering(item1 => true)
+				: items.Filtering(item1 => item1.IsActive == false);
 
-            Selecting<Item, bool> selecting = expression.Computing().Selecting(item => item.IsActive).IsNeededFor(consumer);
+			Selecting<Item, bool> selecting = expression.Computing().Selecting(item => item.IsActive).For(consumer);
 
-            filtering.ValidateConsistency();
-            filtering2.ValidateConsistency();
+			filtering.ValidateInternalConsistency();
+			filtering2.ValidateInternalConsistency();
 
-            param.Value = true;
+			param.Value = true;
 
-            filtering.ValidateConsistency();
-            filtering2.ValidateConsistency();
-            consumer.Dispose();
-        }
+			filtering.ValidateInternalConsistency();
+			filtering2.ValidateInternalConsistency();
+			consumer.Dispose();
+		}
 
-        public class Param : INotifyPropertyChanged
+		public class Param : INotifyPropertyChanged
 		{
 			private bool _value;
 
@@ -320,5 +324,8 @@ namespace ObservableComputations.Test
 
 		}
 
+		public FilteringTests(bool debug) : base(debug)
+		{
+		}
 	}
 }

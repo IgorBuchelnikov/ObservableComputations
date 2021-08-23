@@ -1,4 +1,8 @@
-﻿using System.Collections.Generic;
+﻿// Copyright (c) 2019-2021 Buchelnikov Igor Vladimirovich. All rights reserved
+// Buchelnikov Igor Vladimirovich licenses this file to you under the MIT license.
+// The LICENSE file is located at https://github.com/IgorBuchelnikov/ObservableComputations/blob/master/LICENSE
+
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
@@ -6,10 +10,10 @@ using NUnit.Framework;
 
 namespace ObservableComputations.Test
 {
-	[TestFixture]
-	public class PrependingTests
+	[TestFixture(false)]
+	public partial class PrependingTests : TestBase
 	{
-        Consumer consumer = new Consumer();
+		OcConsumer consumer = new OcConsumer();
 
 		public class Item : INotifyPropertyChanged
 		{
@@ -48,8 +52,8 @@ namespace ObservableComputations.Test
 		{
 			ObservableCollection<Item> items = new ObservableCollection<Item>();
 
-			Prepending<Item> prepending = items.Prepending(new Item()).IsNeededFor(consumer);
-			prepending.ValidateConsistency();			
+			Prepending<Item> prepending = items.Prepending(new Item()).For(consumer);
+			prepending.ValidateInternalConsistency();			
 			consumer.Dispose();
 		}
 
@@ -69,10 +73,10 @@ namespace ObservableComputations.Test
 				}
 			);
 
-			Prepending<Item> prepending = items.Prepending(new Item()).IsNeededFor(consumer);
-			prepending.ValidateConsistency();
+			Prepending<Item> prepending = items.Prepending(new Item()).For(consumer);
+			prepending.ValidateInternalConsistency();
 			items.RemoveAt(index);
-			prepending.ValidateConsistency();			
+			prepending.ValidateInternalConsistency();			
 			consumer.Dispose();
 		}
 
@@ -87,10 +91,10 @@ namespace ObservableComputations.Test
 
 			);
 
-			Prepending<Item> prepending = items.Prepending(new Item()).IsNeededFor(consumer);
-			prepending.ValidateConsistency();
+			Prepending<Item> prepending = items.Prepending(new Item()).For(consumer);
+			prepending.ValidateInternalConsistency();
 			items.RemoveAt(0);
-			prepending.ValidateConsistency();			
+			prepending.ValidateInternalConsistency();			
 			consumer.Dispose();
 		}
 
@@ -109,10 +113,10 @@ namespace ObservableComputations.Test
 				}
 			);
 
-			Prepending<Item> prepending = items.Prepending(new Item()).IsNeededFor(consumer);
-			prepending.ValidateConsistency();
+			Prepending<Item> prepending = items.Prepending(new Item()).For(consumer);
+			prepending.ValidateInternalConsistency();
 			items.Insert(index, new Item());
-			prepending.ValidateConsistency();			
+			prepending.ValidateInternalConsistency();			
 			consumer.Dispose();
 		}
 
@@ -121,10 +125,10 @@ namespace ObservableComputations.Test
 		{
 			ObservableCollection<Item> items = new ObservableCollection<Item>();
 
-			Prepending<Item> prepending = items.Prepending(new Item()).IsNeededFor(consumer);
-			prepending.ValidateConsistency();
+			Prepending<Item> prepending = items.Prepending(new Item()).For(consumer);
+			prepending.ValidateInternalConsistency();
 			items.Insert(0, new Item());
-			prepending.ValidateConsistency();			
+			prepending.ValidateInternalConsistency();			
 			consumer.Dispose();
 		}
 
@@ -144,10 +148,10 @@ namespace ObservableComputations.Test
 				}
 			);
 
-			Prepending<Item> prepending = items.Prepending(new Item()).IsNeededFor(consumer);
-			prepending.ValidateConsistency();
+			Prepending<Item> prepending = items.Prepending(new Item()).For(consumer);
+			prepending.ValidateInternalConsistency();
 			items.Move(oldIndex, newIndex);
-			prepending.ValidateConsistency();			
+			prepending.ValidateInternalConsistency();			
 			consumer.Dispose();
 		}
 
@@ -166,11 +170,15 @@ namespace ObservableComputations.Test
 				}
 			);
 
-			Prepending<Item> prepending = items.Prepending(new Item()).IsNeededFor(consumer);
-			prepending.ValidateConsistency();
+			Prepending<Item> prepending = items.Prepending(new Item()).For(consumer);
+			prepending.ValidateInternalConsistency();
 			items[index] = new Item();
-			prepending.ValidateConsistency();			
+			prepending.ValidateInternalConsistency();			
 			consumer.Dispose();
+		}
+
+		public PrependingTests(bool debug) : base(debug)
+		{
 		}
 	}
 }

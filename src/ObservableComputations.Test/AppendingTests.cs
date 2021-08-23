@@ -1,4 +1,8 @@
-﻿using System.Collections.Generic;
+﻿// Copyright (c) 2019-2021 Buchelnikov Igor Vladimirovich. All rights reserved
+// Buchelnikov Igor Vladimirovich licenses this file to you under the MIT license.
+// The LICENSE file is located at https://github.com/IgorBuchelnikov/ObservableComputations/blob/master/LICENSE
+
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
@@ -6,10 +10,10 @@ using NUnit.Framework;
 
 namespace ObservableComputations.Test
 {
-	[TestFixture]
-	public class AppendingTests
+	[TestFixture(false)]
+	public partial class AppendingTests : TestBase
 	{
-        Consumer consumer = new Consumer();
+		OcConsumer consumer = new OcConsumer();
 
 		public class Item : INotifyPropertyChanged
 		{
@@ -48,8 +52,8 @@ namespace ObservableComputations.Test
 		{
 			ObservableCollection<Item> items = new ObservableCollection<Item>();
 
-			Appending<Item> appending = items.Appending(new Item()).IsNeededFor(consumer);
-			appending.ValidateConsistency();			
+			Appending<Item> appending = items.Appending(new Item()).For(consumer);
+			appending.ValidateInternalConsistency();			
 			consumer.Dispose();
 		}
 
@@ -69,10 +73,10 @@ namespace ObservableComputations.Test
 				}
 			);
 
-			Appending<Item> appending = items.Appending(new Item()).IsNeededFor(consumer);
-			appending.ValidateConsistency();
+			Appending<Item> appending = items.Appending(new Item()).For(consumer);
+			appending.ValidateInternalConsistency();
 			items.RemoveAt(index);
-			appending.ValidateConsistency();			
+			appending.ValidateInternalConsistency();			
 			consumer.Dispose();			
 		}
 
@@ -87,10 +91,10 @@ namespace ObservableComputations.Test
 
 			);
 
-			Appending<Item> appending = items.Appending(new Item()).IsNeededFor(consumer);
-			appending.ValidateConsistency();
+			Appending<Item> appending = items.Appending(new Item()).For(consumer);
+			appending.ValidateInternalConsistency();
 			items.RemoveAt(0);
-			appending.ValidateConsistency();			
+			appending.ValidateInternalConsistency();			
 			consumer.Dispose();
 		}
 
@@ -109,10 +113,10 @@ namespace ObservableComputations.Test
 				}
 			);
 
-			Appending<Item> appending = items.Appending(new Item()).IsNeededFor(consumer);
-			appending.ValidateConsistency();
+			Appending<Item> appending = items.Appending(new Item()).For(consumer);
+			appending.ValidateInternalConsistency();
 			items.Insert(index, new Item());
-			appending.ValidateConsistency();			
+			appending.ValidateInternalConsistency();			
 			consumer.Dispose();
 		}
 
@@ -121,10 +125,10 @@ namespace ObservableComputations.Test
 		{
 			ObservableCollection<Item> items = new ObservableCollection<Item>();
 
-			Appending<Item> appending = items.Appending(new Item()).IsNeededFor(consumer);
-			appending.ValidateConsistency();
+			Appending<Item> appending = items.Appending(new Item()).For(consumer);
+			appending.ValidateInternalConsistency();
 			items.Insert(0, new Item());
-			appending.ValidateConsistency();			
+			appending.ValidateInternalConsistency();			
 			consumer.Dispose();
 		}
 
@@ -144,11 +148,11 @@ namespace ObservableComputations.Test
 				}
 			);
 
-			Appending<Item> appending = items.Appending(new Item()).IsNeededFor(consumer);
-			appending.ValidateConsistency();
+			Appending<Item> appending = items.Appending(new Item()).For(consumer);
+			appending.ValidateInternalConsistency();
 			items.Move(oldIndex, newIndex);
-			appending.ValidateConsistency();		
-		    consumer.Dispose();
+			appending.ValidateInternalConsistency();		
+			consumer.Dispose();
 		}
 
 		[Test, Combinatorial]
@@ -166,11 +170,15 @@ namespace ObservableComputations.Test
 				}
 			);
 
-			Appending<Item> appending = items.Appending(new Item()).IsNeededFor(consumer);
-			appending.ValidateConsistency();
+			Appending<Item> appending = items.Appending(new Item()).For(consumer);
+			appending.ValidateInternalConsistency();
 			items[index] = new Item();
-			appending.ValidateConsistency();			
+			appending.ValidateInternalConsistency();			
 			consumer.Dispose();
+		}
+
+		public AppendingTests(bool debug) : base(debug)
+		{
 		}
 	}
 }

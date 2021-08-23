@@ -1,105 +1,122 @@
-﻿using System.Collections.Generic;
-using System.Collections.ObjectModel;
+﻿// Copyright (c) 2019-2021 Buchelnikov Igor Vladimirovich. All rights reserved
+// Buchelnikov Igor Vladimirovich licenses this file to you under the MIT license.
+// The LICENSE file is located at https://github.com/IgorBuchelnikov/ObservableComputations/blob/master/LICENSE
+
+using System;
+using System.Collections.Specialized;
 using System.ComponentModel;
-using System.Runtime.CompilerServices;
+using System.Text.RegularExpressions;
 using NUnit.Framework;
 
 namespace ObservableComputations.Test
 {
-	//[TestFixture]
-	//public class ToStringTests
-	//{
-	//	public class Item : INotifyPropertyChanged
-	//	{
-	//		public Item()
-	//		{
-	//			Num = LastNum;
-	//			LastNum++;
-	//		}
+	public class ToStringTests
+	{
+		public class Item
+		{
+			#region Overrides of Object
 
-	//		public Item(int num)
-	//		{
-	//			_num = num;
-	//		}
+			public override string ToString()
+			{
+				throw new Exception("Exception");
+			}
 
-	//		public static int LastNum;
-	//		private int _num;
-	//		public int Num
-	//		{
-	//			get => _num;
-	//			set => updatePropertyValue(ref _num, value);
-	//		}
+			#endregion
+		}
 
-	//		#region INotifyPropertyChanged imlementation
+		[Test]
+		public void ToStringSafe()
+		{
+			Item item = new Item();
+			string str = item.ToStringSafe(e => e.Message);
+			Assert.AreEqual(str, "Exception");
 
-	//		public event PropertyChangedEventHandler PropertyChanged;
+			str = item.ToStringSafe();
+			Assert.AreEqual(str, "exception");
+		}
 
-	//		protected virtual void onPropertyChanged([CallerMemberName] string propertyName = null)
-	//		{
-	//			PropertyChangedEventHandler onPropertyChanged = PropertyChanged;
-	//			if (onPropertyChanged != null)
-	//				onPropertyChanged(this, new PropertyChangedEventArgs(propertyName));
-	//		}
+		[Test]
+		public void PropertyChangedEventArgs()
+		{
+			EventArgs args = new PropertyChangedEventArgs("SomePropety");
+			string str = args.ToStringAlt();
+			Assert.AreEqual(str, "(PropertyChangedEventArgs (PropertyName = 'SomePropety'))");
+		}
 
-	//		protected bool updatePropertyValue<T>(ref T field, T value, [CallerMemberName] string propertyName = null)
-	//		{
-	//			if (EqualityComparer<T>.Default.Equals(field, value))
-	//				return false;
-	//			field = value;
-	//			this.onPropertyChanged(propertyName);
-	//			return true;
-	//		}
+		[Test]
+		public void EventArgsNull()
+		{
+			EventArgs args = null;
+			string str = args.ToStringAlt();
+			Assert.AreEqual(str, "(null)");
+		}
 
-	//		#endregion
-	//	}
+		[Test]
+		public void PropertyChangedEventArgsNull()
+		{
+			PropertyChangedEventArgs args = null;
+			string str = args.ToStringAlt();
+			Assert.AreEqual(str, "(null)");
+		}
 
-	//	[Test]
-	//	public void Selecting_Change()
-	//	{
-	//		ObservableCollection<Item> items1 = new ObservableCollection<Item>(
-	//			new[]
-	//			{
-	//				new Item(),
-	//				new Item(),
-	//				new Item(),
-	//				new Item()
-	//			}
-	//		);
+		[Test]
+		public void NotifyCollectionChangedEventArgs()
+		{
+			EventArgs args = new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Reset);
+			string str = args.ToStringAlt();
+			Assert.AreEqual(str, "(NotifyCollectionChangedEventArgs (Action = 'Reset'))");
 
-	//		FreezedObservableCollection<Item> items = new FreezedObservableCollection<Item>(new ObservableCollection<Item>(
-	//			new[]
-	//			{
-	//				new Item(),
-	//				new Item(),
-	//				new Item(),
-	//				new Item(),
-	//				new Item()
-	//			}
-	//		));
+			args = new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Add, new []{new Item()}, 1);
+			str = args.ToStringAlt();
+			Assert.AreEqual(str, "(NotifyCollectionChangedEventArgs (Action = 'Add' NewItems[0] = 'Exception: Exception', NewStartingIndex = 1))");
 
-	//		//var calc = items.Using(
-	//		//	itemsUsing => items1.Selecting(i => i.Num + items1[i.Num].Num));
-	//		//var calc = items.Zipping(Expr.Is(() => items.Count).Computing().SequenceComputing()).Using(
-	//		//	z => z.Selecting(zp => zp.ItemLeft));
+			args = new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Remove, new []{new Item()}, 1);
+			str = args.ToStringAlt();
+			Assert.AreEqual(str, "(NotifyCollectionChangedEventArgs (Action = 'Remove' OldItems[0] = 'Exception: Exception', OldStartingIndex = 1))");
 
-	//		//var calc = items.Zipping(Expr.Is(() => items.Count).Computing().SequenceComputing());
-	//		//var calc = items.Selecting(i => i.Num);
+			args = new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Replace, new []{new Item()}, new []{new Item()}, 1);
+			str = args.ToStringAlt();
+			Assert.AreEqual(str, "(NotifyCollectionChangedEventArgs (Action = 'Replace' NewItems[0] = 'Exception: Exception', NewStartingIndex = 1, OldItems[0] = 'Exception: Exception', OldStartingIndex = 1))");
 
-	//		//string test = calc.ToString();
+			args = new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Move, new []{new Item()}, 2, 1);
+			str = args.ToStringAlt();
+			Assert.AreEqual(str, "(NotifyCollectionChangedEventArgs (Action = 'Move' OldStartingIndex = 1, NewStartingIndex = 2))");
+		}
 
-	//		var using1 =
-	//			items1.Zipping(
-	//				Expr.Is(() => items.Count).Computing().SequenceComputing()
-	//			).Using(
-	//				z =>
-	//					z.Filtering(
-	//						zp => zp.RightItem >
-	//							  z.Filtering(zp1 => zp1.LeftItem.Num > 1)
-	//							  .Selecting(zp3 => zp3.RightItem).Maximazing().Value
-	//					).Selecting(zp4 => zp4.LeftItem)
-	//			);
+		[Test]
+		public void NotifyCollectionChangedEventArgsNull()
+		{
+			NotifyCollectionChangedEventArgs args = null;
+			string str = args.ToStringAlt();
+			Assert.AreEqual(str, "(null)");
+		}
 
-	//		string test = using1.ToString();
-	//	}
-	//}
+
+		[Test]
+		public void MethodChangedEventArgs()
+		{
+			EventArgs args = new MethodChangedEventArgs("SomeMethod", objects => true);
+			string str = args.ToStringAlt();
+			Regex regex = new Regex(@"\(MethodChangedEventArgs \(MethodName = 'SomeMethod', ArgumentsPredicate.GetHashCode\(\) = \d+\)");
+			Assert.IsTrue(regex.Match(str).Success);
+		}
+
+		[Test]
+		public void MethodChangedEventArgsNull()
+		{
+			MethodChangedEventArgs args = null;
+			string str = args.ToStringAlt();
+			Assert.AreEqual(str, "(null)");
+		}
+
+		[Test]
+		public void Null()
+		{
+			EventArgs args = null;
+			string str = args.ToStringAlt();
+			Assert.AreEqual(str, "(null)");
+		}
+
+
+	}
 }

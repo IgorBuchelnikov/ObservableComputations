@@ -1,6 +1,11 @@
-﻿using System.Collections.Generic;
+﻿// Copyright (c) 2019-2021 Buchelnikov Igor Vladimirovich. All rights reserved
+// Buchelnikov Igor Vladimirovich licenses this file to you under the MIT license.
+// The LICENSE file is located at https://github.com/IgorBuchelnikov/ObservableComputations/blob/master/LICENSE
+
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Collections.Specialized;
+using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 
 namespace ObservableComputations
@@ -9,25 +14,24 @@ namespace ObservableComputations
 	{
 		[ObservableComputationsCall]
 		public FirstComputing(
-			IReadScalar<INotifyCollectionChanged> sourceScalar,
-			TSourceItem defaultValue = default(TSourceItem)) : base(sourceScalar, 0, defaultValue)
+			IReadScalar<INotifyCollectionChanged> sourceScalar) : base(sourceScalar, 0)
 		{
 		}
 
 		[ObservableComputationsCall]
 		public FirstComputing(
-			INotifyCollectionChanged source,
-			TSourceItem defaultValue = default(TSourceItem)) : base(source, 0, defaultValue)
+			INotifyCollectionChanged source) : base(source, 0)
 		{
 		}
 
-		public new void ValidateConsistency()
+		[ExcludeFromCodeCoverage]
+		internal new void ValidateInternalConsistency()
 		{
 			IList<TSourceItem> source = (IList<TSourceItem>) _sourceScalar.getValue(_source, new ObservableCollection<TSourceItem>());
-			TSourceItem defaultValue = _defaultValue;
+			TSourceItem defaultValue = DefaultValue;
 
 			if (!EqualityComparer<TSourceItem>.Default.Equals(_value, source.Count > 0 ? source.First() : defaultValue))
-				throw new ObservableComputationsException(this, "Consistency violation: FirstComputing.1");
+				throw new ValidateInternalConsistencyException("Consistency violation: FirstComputing.1");
 		}
 
 	}

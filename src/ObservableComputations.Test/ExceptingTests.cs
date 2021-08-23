@@ -1,4 +1,8 @@
-﻿using System;
+﻿// Copyright (c) 2019-2021 Buchelnikov Igor Vladimirovich. All rights reserved
+// Buchelnikov Igor Vladimirovich licenses this file to you under the MIT license.
+// The LICENSE file is located at https://github.com/IgorBuchelnikov/ObservableComputations/blob/master/LICENSE
+
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
@@ -10,10 +14,10 @@ using NUnit.Framework;
 namespace ObservableComputations.Test
 {
 
-	[TestFixture]
-	public class ExceptingTests
+	[TestFixture(false)]
+	public partial class ExceptingTests : TestBase
 	{
-        Consumer consumer = new Consumer();
+		OcConsumer consumer = new OcConsumer();
 
 		public class Item : INotifyPropertyChanged
 		{
@@ -60,21 +64,25 @@ namespace ObservableComputations.Test
 		TextFileOutput _textFileOutputLog = new TextFileOutput(@"D:\Projects\NevaPolimer\Excepting_Deep.log");
 		TextFileOutput _textFileOutputTime = new TextFileOutput(@"D:\Projects\NevaPolimer\Excepting_Deep_Time.log");
 
+#if !RunOnlyMinimalTestsToCover
 		[Test]
 		public void Excepting_Deep()
 		{			
 			test(new int[0], new int[0]);
 
-			for (int v1 = -1; v1 <= 3; v1++)
+			int from = -1;
+			int to = 3;
+
+			for (int v1 = from; v1 <= to; v1++)
 			{
 				test(new []{v1}, new int[0]);
-				for (int v2 = -1; v2 <= 3; v2++)
+				for (int v2 = from; v2 <= to; v2++)
 				{
 					test(new []{v1}, new []{v2});
-					for (int v3 = -1; v3 <= 3; v3++)
+					for (int v3 = from; v3 <= to; v3++)
 					{
 						test(new []{v1, v3}, new []{v2});
-						for (int v4 = -1; v4 <= 3; v4++)
+						for (int v4 = from; v4 <= to; v4++)
 						{
 							test(new []{v1, v3}, new []{v2, v4});
 						}
@@ -82,6 +90,7 @@ namespace ObservableComputations.Test
 				}
 			}
 		}
+#endif
 
 		private void test(int[] ids1, int[] ids2)
 		{
@@ -99,8 +108,8 @@ namespace ObservableComputations.Test
 				trace(testNum = "1", ids1, ids2, newItemId, index, indexOld, indexNew);
 				items1 = getObservableCollection(ids1);
 				items2 = getObservableCollection(ids2);
-				excepting = items1.Excepting(items2).IsNeededFor(consumer);
-				excepting.ValidateConsistency();				
+				excepting = items1.Excepting(items2).For(consumer);
+				excepting.ValidateInternalConsistency();				
 				consumer.Dispose();
 
 				for (index = 0; index < ids1.Length; index++)
@@ -108,9 +117,9 @@ namespace ObservableComputations.Test
 					trace(testNum = "2", ids1, ids2, newItemId, index, indexOld, indexNew);
 					items1 = getObservableCollection(ids1);
 					items2 = getObservableCollection(ids2);
-					excepting = items1.Excepting(items2).IsNeededFor(consumer);
+					excepting = items1.Excepting(items2).For(consumer);
 					items1.RemoveAt(index);
-					excepting.ValidateConsistency();					
+					excepting.ValidateInternalConsistency();					
 					consumer.Dispose();
 				}
 
@@ -119,9 +128,9 @@ namespace ObservableComputations.Test
 					trace(testNum = "3", ids1, ids2, newItemId, index, indexOld, indexNew);
 					items1 = getObservableCollection(ids1);
 					items2 = getObservableCollection(ids2);
-					excepting = items1.Excepting(items2).IsNeededFor(consumer);
+					excepting = items1.Excepting(items2).For(consumer);
 					items2.RemoveAt(index);
-					excepting.ValidateConsistency();					
+					excepting.ValidateInternalConsistency();					
 					consumer.Dispose();
 				}
 
@@ -132,9 +141,9 @@ namespace ObservableComputations.Test
 						trace(testNum = "4", ids1, ids2, newItemId, index, indexOld, indexNew);
 						items1 = getObservableCollection(ids1);
 						items2 = getObservableCollection(ids2);
-						excepting = items1.Excepting(items2).IsNeededFor(consumer);
+						excepting = items1.Excepting(items2).For(consumer);
 						items1.Insert(index, new Item(newItemId));
-						excepting.ValidateConsistency();						
+						excepting.ValidateInternalConsistency();						
 						consumer.Dispose();
 					}
 
@@ -147,9 +156,9 @@ namespace ObservableComputations.Test
 						trace(testNum = "5", ids1, ids2, newItemId, index, indexOld, indexNew);
 						items1 = getObservableCollection(ids1);
 						items2 = getObservableCollection(ids2);
-						excepting = items1.Excepting(items2).IsNeededFor(consumer);
+						excepting = items1.Excepting(items2).For(consumer);
 						items2.Insert(index, new Item(newItemId));
-						excepting.ValidateConsistency();						
+						excepting.ValidateInternalConsistency();						
 						consumer.Dispose();
 					}
 				}
@@ -161,9 +170,9 @@ namespace ObservableComputations.Test
 						trace(testNum = "6", ids1, ids2, newItemId, index, indexOld, indexNew);
 						items1 = getObservableCollection(ids1);
 						items2 = getObservableCollection(ids2);
-						excepting = items1.Excepting(items2).IsNeededFor(consumer);
+						excepting = items1.Excepting(items2).For(consumer);
 						items1[index] = new Item(newItemId);
-						excepting.ValidateConsistency();						
+						excepting.ValidateInternalConsistency();						
 						consumer.Dispose();
 					}
 				}
@@ -175,9 +184,9 @@ namespace ObservableComputations.Test
 						trace(testNum = "7", ids1, ids2, newItemId, index, indexOld, indexNew);
 						items1 = getObservableCollection(ids1);
 						items2 = getObservableCollection(ids2);
-						excepting = items1.Excepting(items2).IsNeededFor(consumer);
+						excepting = items1.Excepting(items2).For(consumer);
 						items2[index] = new Item(newItemId);
-						excepting.ValidateConsistency();						
+						excepting.ValidateInternalConsistency();						
 						consumer.Dispose();
 					}
 				}
@@ -189,9 +198,9 @@ namespace ObservableComputations.Test
 						trace(testNum = "8", ids1, ids2, newItemId, index, indexOld, indexNew);
 						items1 = getObservableCollection(ids1);
 						items2 = getObservableCollection(ids2);
-						excepting = items1.Excepting(items2).IsNeededFor(consumer);
+						excepting = items1.Excepting(items2).For(consumer);
 						items1.Move(indexOld, indexNew);
-						excepting.ValidateConsistency();						
+						excepting.ValidateInternalConsistency();						
 						consumer.Dispose();
 					}
 				}
@@ -203,9 +212,9 @@ namespace ObservableComputations.Test
 						trace(testNum = "9", ids1, ids2, newItemId, index, indexOld, indexNew);
 						items1 = getObservableCollection(ids1);
 						items2 = getObservableCollection(ids2);
-						excepting = items1.Excepting(items2).IsNeededFor(consumer);
+						excepting = items1.Excepting(items2).For(consumer);
 						items2.Move(indexOld, indexNew);
-						excepting.ValidateConsistency();						
+						excepting.ValidateInternalConsistency();						
 						consumer.Dispose();
 					}
 				}
@@ -221,13 +230,15 @@ namespace ObservableComputations.Test
 				throw new Exception(traceString, e);
 			}
 
+			writeUsefulTest(getTestString(ids1, ids2));
+
 		}
 
 		private void trace(string num, int[] ids1, int[] ids2, int newId, int index, int indexOld, int indexNew)
 		{
 			string traceString = getTraceString(num, ids1, ids2, newId, index, indexOld, indexNew);
 			if (traceString == "#9. ItemsCounts1=1   ItemsCounts2=2 " +
-			    "index=2  indexOld=0   indexNew=1")
+				"index=2  indexOld=0   indexNew=1")
 			{
 				Debugger.Break();
 			}
@@ -253,5 +264,8 @@ namespace ObservableComputations.Test
 		}
 
 
+		public ExceptingTests(bool debug) : base(debug)
+		{
+		}
 	}
 }

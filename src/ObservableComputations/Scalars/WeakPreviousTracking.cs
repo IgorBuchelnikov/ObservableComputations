@@ -1,13 +1,22 @@
-﻿using System;
+﻿// Copyright (c) 2019-2021 Buchelnikov Igor Vladimirovich. All rights reserved
+// Buchelnikov Igor Vladimirovich licenses this file to you under the MIT license.
+// The LICENSE file is located at https://github.com/IgorBuchelnikov/ObservableComputations/blob/master/LICENSE
+
+using System;
+using System.Collections.ObjectModel;
 using System.ComponentModel;
+using System.Diagnostics.CodeAnalysis;
 
 namespace ObservableComputations
 {
-	public class WeakPreviousTracking<TResult> : ScalarComputing<TResult>
+	public class WeakPreviousTracking<TResult> : ScalarComputing<TResult>, IHasSources
 		where TResult : class
 	{
-		public IReadScalar<TResult> Scalar => _scalar;
+		public IReadScalar<TResult> Source => _source;
 		public bool IsEverChanged => _isEverChanged;
+
+		public virtual ReadOnlyCollection<object> Sources => new ReadOnlyCollection<object>(new object[]{Source});
+
 
 		public bool TryGetPreviousValue(out TResult result)
 		{
@@ -24,101 +33,108 @@ namespace ObservableComputations
 		private TResult _previousValue;
 		private bool _isEverChanged;
 
-		private IReadScalar<TResult> _scalar;
-        private Action _changeValueAction;
+		private readonly IReadScalar<TResult> _source;
+		private readonly Action _changeValueAction;
 
 
 		[ObservableComputationsCall]
 		public WeakPreviousTracking(
-			IReadScalar<TResult> scalar)
+			IReadScalar<TResult> source)
 		{
-			_scalar = scalar;
-            _changeValueAction = () =>
-            {
-                TResult newValue = _scalar.Value;
-                _previousValue = _value;
-                _previousValueWeakReference = new WeakReference<TResult>(_previousValue);
+			_source = source;
+			_changeValueAction = () =>
+			{
+				TResult newValue = _source.Value;
+				_previousValue = _value;
+				_previousValueWeakReference = new WeakReference<TResult>(_previousValue);
 
-                if (!_isEverChanged)
-                {
-                    _isEverChanged = true;
-                    raisePropertyChanged(Utils.IsEverChangedPropertyChangedEventArgs);
-                }
+				if (!_isEverChanged)
+				{
+					_isEverChanged = true;
+					raisePropertyChanged(Utils.IsEverChangedPropertyChangedEventArgs);
+				}
 
-                setValue(newValue);
-                _previousValue = null;
-            };
-        }
-
-		private void handleScalarPropertyChanged(object sender, PropertyChangedEventArgs e)
-		{
-            Utils.processChange(
-                sender, 
-                e, 
-                _changeValueAction,
-                ref _isConsistent, 
-                ref _handledEventSender, 
-                ref _handledEventArgs, 
-                0, 1,
-                ref _deferredProcessings, this);
+				setValue(newValue);
+				_previousValue = null;
+			};
 		}
 
-        private bool _initializedFromSource;
-        #region Overrides of ScalarComputing<TResult>
-
-        protected override void initializeFromSource()
-        {
-            if (_initializedFromSource)
-            {
-                _scalar.PropertyChanged -= handleScalarPropertyChanged;
-                _initializedFromSource = true;
-            }
-
-            if (_isActive)
-            {
-                _scalar.PropertyChanged += handleScalarPropertyChanged;
-                setValue(_scalar.Value);
-            }
-            else
-            {
-                if (_isEverChanged)
-                {
-                    _isEverChanged = false;
-                    raisePropertyChanged(Utils.IsEverChangedPropertyChangedEventArgs);
-                }
-
-                setValue(default);
-
-                _previousValue = default;
-                raisePropertyChanged(Utils.PreviousValuePropertyChangedEventArgs);
-            }
-        }
-
-        protected override void initialize()
-        {
-
-        }
-
-        protected override void uninitialize()
-        {
-
-        }
-
-        internal override void addToUpstreamComputings(IComputingInternal computing)
-        {
-            (_scalar as IComputingInternal)?.AddDownstreamConsumedComputing(computing);
-        }
-
-        internal override void removeFromUpstreamComputings(IComputingInternal computing)
-        {
-            (_scalar as IComputingInternal)?.RemoveDownstreamConsumedComputing(computing);
-        }
-
-        #endregion
-
-		~WeakPreviousTracking()
+		private void handleSourceScalarPropertyChanged(object sender, PropertyChangedEventArgs e)
 		{
-			_scalar.PropertyChanged -= handleScalarPropertyChanged;
+			Utils.processChange(
+				sender, 
+				e, 
+				_changeValueAction,
+				ref _isConsistent, 
+				ref _handledEventSender, 
+				ref _handledEventArgs, 
+				0, _deferredQueuesCount,
+				ref _deferredProcessings, this);
+		}
+
+		#region Overrides of ScalarComputing<TResult>
+
+		protected override void processSource()
+		{
+			if (_sourceReadAndSubscribed)
+			{
+				_source.PropertyChanged -= handleSourceScalarPropertyChanged;
+				_sourceReadAndSubscribed = false;
+			}
+
+			if (_isActive)
+			{
+				_source.PropertyChanged += handleSourceScalarPropertyChanged;
+				setValue(_source.Value);
+				_sourceReadAndSubscribed = true;
+			}
+			else
+			{
+				if (_isEverChanged)
+				{
+					_isEverChanged = false;
+					raisePropertyChanged(Utils.IsEverChangedPropertyChangedEventArgs);
+				}
+
+				setDefaultValue();
+
+				_previousValue = default;
+				raisePropertyChanged(Utils.PreviousValuePropertyChangedEventArgs);
+			}
+		}
+
+		protected override void initialize()
+		{
+
+		}
+
+		protected override void uninitialize()
+		{
+
+		}
+
+		protected override void clearCachedScalarArgumentValues()
+		{
+
+		}
+
+		internal override void addToUpstreamComputings(IComputingInternal computing)
+		{
+			(_source as IComputingInternal)?.AddDownstreamConsumedComputing(computing);
+		}
+
+		internal override void removeFromUpstreamComputings(IComputingInternal computing)
+		{
+			(_source as IComputingInternal)?.RemoveDownstreamConsumedComputing(computing);
+		}
+
+		#endregion
+
+		[ExcludeFromCodeCoverage]
+		internal void ValidateInternalConsistency()
+		{
+			if (!_value.IsSameAs(_source.Value))
+				throw new ValidateInternalConsistencyException("Consistency violation: WeakPreviousTracking.1");
 		}
 	}
 }

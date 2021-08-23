@@ -1,4 +1,8 @@
-﻿using System.Collections.Generic;
+﻿// Copyright (c) 2019-2021 Buchelnikov Igor Vladimirovich. All rights reserved
+// Buchelnikov Igor Vladimirovich licenses this file to you under the MIT license.
+// The LICENSE file is located at https://github.com/IgorBuchelnikov/ObservableComputations/blob/master/LICENSE
+
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
@@ -6,10 +10,10 @@ using NUnit.Framework;
 
 namespace ObservableComputations.Test
 {
-	[TestFixture]
-	public class ContainsComputingTests
+	[TestFixture(false)]
+	public partial class ContainsComputingTests : TestBase
 	{
-        Consumer consumer = new Consumer();
+		OcConsumer consumer = new OcConsumer();
 
 		public class Item : INotifyPropertyChanged
 		{
@@ -62,8 +66,8 @@ namespace ObservableComputations.Test
 		{
 			ObservableCollection<Item> items = new ObservableCollection<Item>();
 
-			ContainsComputing<Item> anyComputing = items.ContainsComputing(new Item(true)).IsNeededFor(consumer);
-			anyComputing.ValidateConsistency();			
+			ContainsComputing<Item> anyComputing = items.ContainsComputing(new Item(true)).For(consumer);
+			anyComputing.ValidateInternalConsistency();			
 			consumer.Dispose();
 		}
 
@@ -88,10 +92,10 @@ namespace ObservableComputations.Test
 
 			);
 
-			ContainsComputing<Item> anyComputing = items.ContainsComputing(new Item(true)).IsNeededFor(consumer);
-			anyComputing.ValidateConsistency();
+			ContainsComputing<Item> anyComputing = items.ContainsComputing(new Item(true)).For(consumer);
+			anyComputing.ValidateInternalConsistency();
 			items.RemoveAt(index);
-			anyComputing.ValidateConsistency();			
+			anyComputing.ValidateInternalConsistency();			
 			consumer.Dispose();
 		}
 
@@ -107,10 +111,10 @@ namespace ObservableComputations.Test
 
 			);
 
-			ContainsComputing<Item> anyComputing = items.ContainsComputing(new Item(true)).IsNeededFor(consumer);
-			anyComputing.ValidateConsistency();
+			ContainsComputing<Item> anyComputing = items.ContainsComputing(new Item(true)).For(consumer);
+			anyComputing.ValidateInternalConsistency();
 			items.RemoveAt(0);
-			anyComputing.ValidateConsistency();			
+			anyComputing.ValidateInternalConsistency();			
 			consumer.Dispose();
 		}
 
@@ -136,10 +140,10 @@ namespace ObservableComputations.Test
 
 			);
 
-			ContainsComputing<Item> anyComputing = items.ContainsComputing(new Item(true)).IsNeededFor(consumer);
-			anyComputing.ValidateConsistency();
+			ContainsComputing<Item> anyComputing = items.ContainsComputing(new Item(true)).For(consumer);
+			anyComputing.ValidateInternalConsistency();
 			items.Insert(index, new Item(newValue));
-			anyComputing.ValidateConsistency();			
+			anyComputing.ValidateInternalConsistency();			
 			consumer.Dispose();
 		}
 
@@ -150,10 +154,10 @@ namespace ObservableComputations.Test
 			ObservableCollection<Item> items = new ObservableCollection<Item>(
 			);
 
-			ContainsComputing<Item> anyComputing = items.ContainsComputing(new Item(true)).IsNeededFor(consumer);
-			anyComputing.ValidateConsistency();
+			ContainsComputing<Item> anyComputing = items.ContainsComputing(new Item(true)).For(consumer);
+			anyComputing.ValidateInternalConsistency();
 			items.Insert(0, new Item(newValue));
-			anyComputing.ValidateConsistency();			
+			anyComputing.ValidateInternalConsistency();			
 			consumer.Dispose();
 		}
 
@@ -179,10 +183,10 @@ namespace ObservableComputations.Test
 
 			);
 
-			ContainsComputing<Item> anyComputing = items.ContainsComputing(new Item(true)).IsNeededFor(consumer);
-			anyComputing.ValidateConsistency();
+			ContainsComputing<Item> anyComputing = items.ContainsComputing(new Item(true)).For(consumer);
+			anyComputing.ValidateInternalConsistency();
 			items.Move(oldIndex, newIndex);
-			anyComputing.ValidateConsistency();			
+			anyComputing.ValidateInternalConsistency();			
 			consumer.Dispose();
 		}
 
@@ -208,11 +212,15 @@ namespace ObservableComputations.Test
 
 			);
 
-			ContainsComputing<Item> anyComputing = items.ContainsComputing(new Item(true)).IsNeededFor(consumer);
-			anyComputing.ValidateConsistency();
+			ContainsComputing<Item> anyComputing = items.ContainsComputing(new Item(true)).For(consumer);
+			anyComputing.ValidateInternalConsistency();
 			items[index] = new Item(itemNew);
-			anyComputing.ValidateConsistency();			
+			anyComputing.ValidateInternalConsistency();			
 			consumer.Dispose();
-		}		
+		}
+
+		public ContainsComputingTests(bool debug) : base(debug)
+		{
+		}
 	}
 }

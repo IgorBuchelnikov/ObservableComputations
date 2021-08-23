@@ -1,14 +1,18 @@
-﻿using System.Collections.Generic;
+﻿// Copyright (c) 2019-2021 Buchelnikov Igor Vladimirovich. All rights reserved
+// Buchelnikov Igor Vladimirovich licenses this file to you under the MIT license.
+// The LICENSE file is located at https://github.com/IgorBuchelnikov/ObservableComputations/blob/master/LICENSE
+
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using NUnit.Framework;
 
 namespace ObservableComputations.Test
 {
-	[TestFixture]
-	public class WeakPreviousTrackingTests
+	[TestFixture(false)]
+	public partial class WeakPreviousTrackingTests : TestBase
 	{
-        Consumer consumer = new Consumer();
+		OcConsumer consumer = new OcConsumer();
 
 		public class Order : INotifyPropertyChanged
 		{
@@ -44,11 +48,11 @@ namespace ObservableComputations.Test
 		{
 			bool raised = false;
 			Order order = new Order();
-			WeakPreviousTracking<Order> computing = new WeakPreviousTracking<Order>(new Computing<Order>(() => order.ParentOrder)).IsNeededFor(consumer);
+			WeakPreviousTracking<Order> computing = new WeakPreviousTracking<Order>(new Computing<Order>(() => order.ParentOrder)).For(consumer);
 			bool
-                result = true;
+				result = true;
 			Order previousOrder = null;
-            bool isEverchanged = true;
+			bool isEverchanged = true;
 
 			computing.PropertyChanged += (sender, eventArgs) =>
 			{
@@ -79,10 +83,13 @@ namespace ObservableComputations.Test
 			previousOrder = order.ParentOrder;
 			order.ParentOrder = new Order();
 
-            isEverchanged = false;
-            result = true;
-            consumer.Dispose();
+			isEverchanged = false;
+			result = true;
+			consumer.Dispose();
 		}
 
+		public WeakPreviousTrackingTests(bool debug) : base(debug)
+		{
+		}
 	}
 }

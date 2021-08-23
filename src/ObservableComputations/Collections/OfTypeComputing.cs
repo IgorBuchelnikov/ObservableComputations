@@ -1,21 +1,25 @@
-﻿using System.Collections;
+﻿// Copyright (c) 2019-2021 Buchelnikov Igor Vladimirovich. All rights reserved
+// Buchelnikov Igor Vladimirovich licenses this file to you under the MIT license.
+// The LICENSE file is located at https://github.com/IgorBuchelnikov/ObservableComputations/blob/master/LICENSE
+
+using System.Collections;
 using System.Collections.ObjectModel;
 using System.Collections.Specialized;
+using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 
 namespace ObservableComputations
 {
-	public class OfTypeComputing<TResultItem> : Casting<TResultItem>, IHasSourceCollections
+	public class OfTypeComputing<TResultItem> : Casting<TResultItem>, IHasSources
 	{
-		public new IReadScalar<INotifyCollectionChanged> SourceScalar => _sourceScalarOfTypeComputing;
+		public override IReadScalar<INotifyCollectionChanged> SourceScalar => _sourceScalarOfTypeComputing;
 
 		// ReSharper disable once MemberCanBePrivate.Global
-		public new INotifyCollectionChanged Source => _sourceOfTypeComputing;
+		public override INotifyCollectionChanged Source => _sourceOfTypeComputing;
 		private readonly IReadScalar<INotifyCollectionChanged> _sourceScalarOfTypeComputing;
 		private readonly INotifyCollectionChanged _sourceOfTypeComputing;
 
-		public new ReadOnlyCollection<INotifyCollectionChanged> SourceCollections => new ReadOnlyCollection<INotifyCollectionChanged>(new []{Source});
-		public new ReadOnlyCollection<IReadScalar<INotifyCollectionChanged>> SourceCollectionScalars => new ReadOnlyCollection<IReadScalar<INotifyCollectionChanged>>(new []{SourceScalar});
+		public override ReadOnlyCollection<object> Sources => new ReadOnlyCollection<object>(new object[]{Source, SourceScalar});
 
 		// ReSharper disable once MemberCanBePrivate.Global
 
@@ -44,13 +48,14 @@ namespace ObservableComputations
 		}
 
 		// ReSharper disable once InconsistentNaming
-		public new void ValidateConsistency()
+		[ExcludeFromCodeCoverage]
+		internal new void ValidateInternalConsistency()
 		{
 			IList source = _sourceScalarOfTypeComputing.getValue(_sourceOfTypeComputing, new ObservableCollection<object>()) as IList;
 
 			// ReSharper disable once AssignNullToNotNullAttribute
 			if (!this.SequenceEqual(source.OfType<TResultItem>()))
-				 throw new ObservableComputationsException(this, "Consistency violation: OfTypeComputing.1");
+				 throw new ValidateInternalConsistencyException("Consistency violation: OfTypeComputing.1");
 		}
 	}
 }

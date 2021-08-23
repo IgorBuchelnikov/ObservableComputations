@@ -1,14 +1,18 @@
-﻿using System.Collections.Generic;
+﻿// Copyright (c) 2019-2021 Buchelnikov Igor Vladimirovich. All rights reserved
+// Buchelnikov Igor Vladimirovich licenses this file to you under the MIT license.
+// The LICENSE file is located at https://github.com/IgorBuchelnikov/ObservableComputations/blob/master/LICENSE
+
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using NUnit.Framework;
 
 namespace ObservableComputations.Test
 {
-	[TestFixture]
-	public class ComputingTests
+	[TestFixture(false)]
+	public partial class ComputingTests : TestBase
 	{
-        Consumer consumer = new Consumer();
+		OcConsumer consumer = new OcConsumer();
 
 		public class Order : INotifyPropertyChanged
 		{
@@ -44,10 +48,14 @@ namespace ObservableComputations.Test
 		{
 			bool raised = false;
 			Order order = new Order();
-			Computing<string> computing = new Computing<string>(() => order.Num).IsNeededFor(consumer);
+			Computing<string> computing = new Computing<string>(() => order.Num).For(consumer);
 			computing.PropertyChanged += (sender, args) => { if (args.PropertyName == "Value") raised = true; };
 			order.Num = "1";
 			Assert.IsTrue(raised);
+		}
+
+		public ComputingTests(bool debug) : base(debug)
+		{
 		}
 	}
 }

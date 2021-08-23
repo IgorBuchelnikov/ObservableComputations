@@ -1,14 +1,20 @@
-﻿using System.Collections.Generic;
+﻿// Copyright (c) 2019-2021 Buchelnikov Igor Vladimirovich. All rights reserved
+// Buchelnikov Igor Vladimirovich licenses this file to you under the MIT license.
+// The LICENSE file is located at https://github.com/IgorBuchelnikov/ObservableComputations/blob/master/LICENSE
+
+using System;
+using System.Collections.Generic;
 using System.ComponentModel;
+using System.Reflection;
 using System.Runtime.CompilerServices;
 using NUnit.Framework;
 
 namespace ObservableComputations.Test
 {
-	[TestFixture]
-	public class PropertyAccessingTests
+	[TestFixture(false)]
+	public partial class PropertyAccessingTests : TestBase
 	{
-        Consumer consumer = new Consumer();
+		OcConsumer consumer = new OcConsumer();
 
 		public class Order : INotifyPropertyChanged
 		{
@@ -49,12 +55,15 @@ namespace ObservableComputations.Test
 		public void TestRaiseValueChanged()
 		{
 			Order order = new Order();
-			var propertyAccessing = order.PropertyAccessing<string>("Num").IsNeededFor(consumer);
+			PropertyAccessing<string> propertyAccessing = order.PropertyAccessing<string>("Num").For(consumer);
 			string result = null;
 			bool raised = false;
 
+			Assert.IsNotNull(propertyAccessing.PropertyInfo);
+
 			propertyAccessing.PropertyChanged += (sender, eventArgs) =>
 			{
+				if (eventArgs.PropertyName != nameof(PropertyAccessing<string>.Value)) return;
 				string currentResult = propertyAccessing.Value;
 				raised = true;
 				Assert.IsTrue(currentResult == result);
@@ -73,20 +82,21 @@ namespace ObservableComputations.Test
 			Assert.IsTrue(raised);
 			Assert.IsTrue(propertyAccessing.Value == result);
 
-            result = null;
-            consumer.Dispose();
+			result = null;
+			consumer.Dispose();
 		}
 
 		[Test]
 		public void TestRaiseValueChanged2()
 		{
 			Order order = new Order();
-			var propertyAccessing = new Computing<Order>(() => order.ParentOrder).PropertyAccessing<string>("Num").IsNeededFor(consumer);
+			PropertyAccessing<string> propertyAccessing = new Computing<Order>(() => order.ParentOrder).PropertyAccessing<string>("Num").For(consumer);
 			string result = null;
 			bool raised = false;
 
 			propertyAccessing.PropertyChanged += (sender, eventArgs) =>
 			{
+				if (eventArgs.PropertyName != nameof(PropertyAccessing<string>.Value)) return;
 				string currentResult = propertyAccessing.Value;
 				raised = true;
 				Assert.AreEqual(currentResult, result);
@@ -129,9 +139,27 @@ namespace ObservableComputations.Test
 			Assert.AreEqual(propertyAccessing.Value, result);
 			raised = false;
 
-            result = null;
-            consumer.Dispose();
+			result = null;
+			consumer.Dispose();
 		}
 
+		private PropertyAccessing<string>[] getPropertyAccessings(Order order)
+		{
+			List<PropertyAccessing<string>> propertyAccessings = new List<PropertyAccessing<string>>();
+			propertyAccessings.Add(order.PropertyAccessing<string>("Num"));
+			propertyAccessings.Add(order.PropertyAccessing<string>("Num", typeof(string)));
+			propertyAccessings.Add(order.PropertyAccessing<string>("Num", typeof(string), new Type[0]));
+			propertyAccessings.Add(order.PropertyAccessing<string>("Num", typeof(string), new Type[0], new ParameterModifier[0]));
+			propertyAccessings.Add(order.PropertyAccessing<string>("Num", BindingFlags.Instance | BindingFlags.GetProperty));
+			propertyAccessings.Add(order.PropertyAccessing<string>("Num", BindingFlags.Instance | BindingFlags.GetProperty, null, typeof(string), new Type[0], new ParameterModifier[0]));
+			propertyAccessings.Add(order.PropertyAccessing<string>(pi => pi.Name == "Num"));
+			propertyAccessings.Add(order.PropertyAccessing<string>(pi => pi.Name == "Num", BindingFlags.Instance | BindingFlags.GetProperty));
+
+			return propertyAccessings.ToArray();
+		}
+
+		public PropertyAccessingTests(bool debug) : base(debug)
+		{
+		}
 	}
 }

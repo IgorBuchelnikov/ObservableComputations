@@ -1,66 +1,78 @@
-﻿using System;
+﻿// Copyright (c) 2019-2021 Buchelnikov Igor Vladimirovich. All rights reserved
+// Buchelnikov Igor Vladimirovich licenses this file to you under the MIT license.
+// The LICENSE file is located at https://github.com/IgorBuchelnikov/ObservableComputations/blob/master/LICENSE
+
+using System;
+using System.Collections.ObjectModel;
 using System.ComponentModel;
 
 namespace ObservableComputations
 {
-	public class ScalarProcessingVoid<TValue> : ScalarComputing<TValue>
+	public class ScalarProcessingVoid<TValue> : ScalarComputing<TValue>, IHasSources
 	{
-		public IReadScalar<TValue> Scalar => _scalar;
+		public IReadScalar<TValue> Source => _source;
 		public Action<TValue, ScalarProcessingVoid<TValue>> NewValueProcessor => _newValueProcessor;
+		public Action<TValue, ScalarProcessingVoid<TValue>> OldValueProcessor => _oldValueProcessor;
 
-		private IReadScalar<TValue> _scalar;
+		public virtual ReadOnlyCollection<object> Sources => new ReadOnlyCollection<object>(new object[]{Source});
 
-		private Action<TValue, ScalarProcessingVoid<TValue>> _newValueProcessor;
+		private readonly IReadScalar<TValue> _source;
 
-        private Action _changeValueAction;
+		private readonly Action<TValue, ScalarProcessingVoid<TValue>> _newValueProcessor;
+		private readonly Action<TValue, ScalarProcessingVoid<TValue>> _oldValueProcessor;
 
 		[ObservableComputationsCall]
 		public ScalarProcessingVoid(
-			IReadScalar<TValue> scalar,
-			Action<TValue, ScalarProcessingVoid<TValue>> newValueProcessor,
-			bool processNow = true) : this(scalar)
+			IReadScalar<TValue> source,
+			Action<TValue, ScalarProcessingVoid<TValue>> newValueProcessor = null,
+			Action<TValue, ScalarProcessingVoid<TValue>> oldValueProcessor = null) : this(source)
 		{
 			_newValueProcessor = newValueProcessor;
-			TValue scalarValue = scalar.Value;
-			if (processNow) processNewValue(scalarValue);
-			setValue(scalarValue);
+			_oldValueProcessor = oldValueProcessor;
 		}
-
 
 		private ScalarProcessingVoid(
-			IReadScalar<TValue> scalar)
+			IReadScalar<TValue> source)
 		{
-			_scalar = scalar;
-			_scalar.PropertyChanged += handleScalarPropertyChanged;
-
-            _changeValueAction = () =>
-            {
-                TValue newValue = _scalar.Value;
-                processNewValue(newValue);
-                setValue(newValue);
-            };
+			_source = source;
 		}
 
-		private void handleScalarPropertyChanged(object sender, PropertyChangedEventArgs e)
+		private void updateValue()
 		{
-            Utils.processChange(
-                sender, 
-                e, 
-                _changeValueAction,
-                ref _isConsistent, 
-                ref _handledEventSender, 
-                ref _handledEventArgs, 
-                0, 1,
-                ref _deferredProcessings, this);
+			processOldValue(_value);
+			setNewValue();
+		}
+
+		private void setNewValue()
+		{
+			TValue newValue = _source.Value;
+			setValue(newValue);
+			processNewValue(newValue);
+		}
+
+
+		private void handleSourceScalarPropertyChanged(object sender, PropertyChangedEventArgs e)
+		{
+			Utils.processChange(
+				sender, 
+				e, 
+				updateValue,
+				ref _isConsistent, 
+				ref _handledEventSender, 
+				ref _handledEventArgs, 
+				0, _deferredQueuesCount,
+				ref _deferredProcessings, this);
 		}
 
 		private void processNewValue(TValue newValue)
 		{
-			if (Configuration.TrackComputingsExecutingUserCode)
+			if (_newValueProcessor ==  null) return;
+
+			if (OcConfiguration.TrackComputingsExecutingUserCode)
 			{
-                var currentThread = Utils.startComputingExecutingUserCode(out var computing, out _userCodeIsCalledFrom, this);
+				int currentThreadId = Utils.startComputingExecutingUserCode(out IComputing computing, out _userCodeIsCalledFrom, this);
 				_newValueProcessor(newValue, this);
-                Utils.endComputingExecutingUserCode(computing, currentThread, out _userCodeIsCalledFrom);
+				Utils.endComputingExecutingUserCode(computing, currentThreadId, out _userCodeIsCalledFrom);
 			}
 			else
 			{
@@ -68,43 +80,74 @@ namespace ObservableComputations
 			}
 		}
 
-        private bool _initializedFromSource;
-        #region Overrides of ScalarComputing<TResult>
+		private void processOldValue(TValue oldValue)
+		{
+			if (_oldValueProcessor ==  null) return;
 
-        protected override void initializeFromSource()
-        {
-            if (_initializedFromSource)
-            {
-                _scalar.PropertyChanged -= handleScalarPropertyChanged;
-                _initializedFromSource = true;
-            }
+			if (OcConfiguration.TrackComputingsExecutingUserCode)
+			{
+				int currentThreadId = Utils.startComputingExecutingUserCode(out IComputing computing, out _userCodeIsCalledFrom, this);
+				_oldValueProcessor(oldValue, this);
+				Utils.endComputingExecutingUserCode(computing, currentThreadId, out _userCodeIsCalledFrom);
+			}
+			else
+			{
+				_oldValueProcessor(oldValue, this);
+			}
+		}
 
-            if (_isActive)
-            {
-                _scalar.PropertyChanged += handleScalarPropertyChanged;
-            }
-        }
+		#region Overrides of ScalarComputing<TResult>
 
-        protected override void initialize()
-        {
+		protected override void processSource()
+		{
+			if (_sourceReadAndSubscribed)
+			{
+				_source.PropertyChanged -= handleSourceScalarPropertyChanged;
+				processOldValue(_value);
+				_sourceReadAndSubscribed = false;
+			}
 
-        }
+			if (_isActive)
+			{
+				if (_source is IComputing scalarComputing)
+				{
+					if (scalarComputing.IsActive) setNewValue();
+				}
+				else
+					setNewValue();
 
-        protected override void uninitialize()
-        {
+				_source.PropertyChanged += handleSourceScalarPropertyChanged;
+				_sourceReadAndSubscribed = true;
+			}
+			else
+				setDefaultValue();
+		}
 
-        }
+		protected override void initialize()
+		{
 
-        internal override void addToUpstreamComputings(IComputingInternal computing)
-        {
-            (_scalar as IComputingInternal)?.AddDownstreamConsumedComputing(computing);
-        }
+		}
 
-        internal override void removeFromUpstreamComputings(IComputingInternal computing)
-        {
-            (_scalar as IComputingInternal)?.RemoveDownstreamConsumedComputing(computing);
-        }
+		protected override void uninitialize()
+		{
 
-        #endregion
-    }
+		}
+
+		protected override void clearCachedScalarArgumentValues()
+		{
+
+		}
+
+		internal override void addToUpstreamComputings(IComputingInternal computing)
+		{
+			(_source as IComputingInternal)?.AddDownstreamConsumedComputing(computing);
+		}
+
+		internal override void removeFromUpstreamComputings(IComputingInternal computing)
+		{
+			(_source as IComputingInternal)?.RemoveDownstreamConsumedComputing(computing);
+		}
+
+		#endregion
+	}
 }

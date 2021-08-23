@@ -1,10 +1,14 @@
-﻿using System.Collections.ObjectModel;
+﻿// Copyright (c) 2019-2021 Buchelnikov Igor Vladimirovich. All rights reserved
+// Buchelnikov Igor Vladimirovich licenses this file to you under the MIT license.
+// The LICENSE file is located at https://github.com/IgorBuchelnikov/ObservableComputations/blob/master/LICENSE
+
+using System.Collections.ObjectModel;
 using System.ComponentModel;
 using INotifyPropertyChanged = System.ComponentModel.INotifyPropertyChanged;
 
 namespace ObservableComputations.Test
 {
-	public partial class QuickTests
+	public partial class QuickTests : TestBase
 	{
 		public class Item : INotifyPropertyChanged
 		{
@@ -39,14 +43,14 @@ namespace ObservableComputations.Test
 				}
 			}
 
-            public PropertyChangedEventHandler ProgressChangedEventHandler
-            {
-                get
-                {
-                    PropertyChangedEventHandler onPropertyChanged = PropertyChanged;
-                    return onPropertyChanged;
-                }
-            }
+			public PropertyChangedEventHandler ProgressChangedEventHandler
+			{
+				get
+				{
+					PropertyChangedEventHandler onPropertyChanged = PropertyChanged;
+					return onPropertyChanged;
+				}
+			}
 
 
 
@@ -55,14 +59,7 @@ namespace ObservableComputations.Test
 
 			public ObservableCollection<Item> Items
 			{
-				get
-				{
-					if (_items == null)
-					{
-						_items = new ObservableCollection<Item>{_item1, _item3, _item5, _item7};
-					}
-					return _items;
-				}
+				get { return _items ?? (_items = new ObservableCollection<Item> {_item1, _item3, _item5, _item7}); }
 			}
 
 			public event PropertyChangedEventHandler PropertyChanged;
@@ -104,6 +101,10 @@ namespace ObservableComputations.Test
 		public Scalar<TValue> getScalar<TValue>(TValue value)
 		{
 			return new Scalar<TValue>(value);
+		}
+
+		public QuickTests(bool debug) : base(debug)
+		{
 		}
 	}
 }

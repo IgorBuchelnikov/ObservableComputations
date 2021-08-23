@@ -1,4 +1,8 @@
-﻿using System;
+﻿// Copyright (c) 2019-2021 Buchelnikov Igor Vladimirovich. All rights reserved
+// Buchelnikov Igor Vladimirovich licenses this file to you under the MIT license.
+// The LICENSE file is located at https://github.com/IgorBuchelnikov/ObservableComputations/blob/master/LICENSE
+
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
@@ -9,10 +13,10 @@ using NUnit.Framework;
 
 namespace ObservableComputations.Test
 {
-	[TestFixture]
-	public class GroupingTests
+	[TestFixture(false)]
+	public partial class GroupingTests : TestBase
 	{
-        Consumer consumer = new Consumer();
+		OcConsumer consumer = new OcConsumer();
 
 		public class Item : INotifyPropertyChanged
 		{
@@ -58,6 +62,7 @@ namespace ObservableComputations.Test
 		TextFileOutput _textFileOutputLog = new TextFileOutput(@"D:\Grouping_Deep.log");
 		TextFileOutput _textFileOutputTime = new TextFileOutput(@"D:\Grouping_Deep_Time.log");
 
+#if !RunOnlyMinimalTestsToCover
 		[Test]
 		public void Grouping_Deep()
 		{
@@ -66,19 +71,23 @@ namespace ObservableComputations.Test
 					
 			test(new int[0]);
 
-			for (int v1 = -1; v1 <= 5; v1++)
+
+			int from = -1;
+			int to = 5;
+
+			for (int v1 = from; v1 <= to; v1++)
 			{
 				test(new []{v1});
-				for (int v2 = -1; v2 <= 5; v2++)
+				for (int v2 = from; v2 <= to; v2++)
 				{
 					test(new []{v1, v2});
-					for (int v3 = -1; v3 <= 5; v3++)
+					for (int v3 = from; v3 <= to; v3++)
 					{
 						test(new []{v1, v2, v3});
-						for (int v4 = -1; v4 <= 5; v4++)
+						for (int v4 = from; v4 <= to; v4++)
 						{
 							test(new []{v1, v2, v3, v4});
-							for (int v5 = -1; v5 <= 5; v5++)
+							for (int v5 = from; v5 <= to; v5++)
 							{
 								test(new[] {v1, v2, v3, v4, v5});
 								counter++;
@@ -92,8 +101,9 @@ namespace ObservableComputations.Test
 				}
 			}
 		}
+#endif
 
-		private void test(int[] orderNums)
+		private void test(int[] values)
 		{
 			string testNum = string.Empty;
 			int index = 0;
@@ -105,97 +115,99 @@ namespace ObservableComputations.Test
 			Grouping<Item, int?> grouping;
 			try
 			{
-				trace(testNum = "1", orderNums, index, orderNum, indexOld, indexNew);
-				items = getObservableCollection(orderNums);
-				grouping = items.Grouping(i => i.Key).IsNeededFor(consumer);
-				grouping.ValidateConsistency();				
+				trace(testNum = "1", values, index, orderNum, indexOld, indexNew);
+				items = getObservableCollection(values);
+				grouping = items.Grouping(i => i.Key).For(consumer);
+				grouping.ValidateInternalConsistency();				
 				consumer.Dispose();
 
-				for (index = 0; index < orderNums.Length; index++)
+				for (index = 0; index < values.Length; index++)
 				{
-					trace(testNum = "2", orderNums, index, orderNum, indexOld, indexNew);
-					items = getObservableCollection(orderNums);
-					Grouping<Item, int?> grouping1 = items.Grouping(i => i.Key).IsNeededFor(consumer);
+					trace(testNum = "2", values, index, orderNum, indexOld, indexNew);
+					items = getObservableCollection(values);
+					Grouping<Item, int?> grouping1 = items.Grouping(i => i.Key).For(consumer);
 					items.RemoveAt(index);
-					grouping1.ValidateConsistency();					
+					grouping1.ValidateInternalConsistency();					
 					consumer.Dispose();
 				}
 
-				for (index = 0; index <= orderNums.Length; index++)
+				for (index = 0; index <= values.Length; index++)
 				{
-					for (orderNum = 0; orderNum <= orderNums.Length; orderNum++)
+					for (orderNum = 0; orderNum <= values.Length; orderNum++)
 					{
-						trace(testNum = "8", orderNums, index, orderNum, indexOld, indexNew);
-						items = getObservableCollection(orderNums);
-						Grouping<Item, int?> grouping1 = items.Grouping(i => i.Key).IsNeededFor(consumer);
+						trace(testNum = "8", values, index, orderNum, indexOld, indexNew);
+						items = getObservableCollection(values);
+						Grouping<Item, int?> grouping1 = items.Grouping(i => i.Key).For(consumer);
 						items.Insert(index, new Item(orderNum));
-						grouping1.ValidateConsistency();						
+						grouping1.ValidateInternalConsistency();						
 						consumer.Dispose();
 					}
 				}
 
-				for (index = 0; index < orderNums.Length; index++)
+				for (index = 0; index < values.Length; index++)
 				{
-					trace(testNum = "6", orderNums, index, orderNum, indexOld, indexNew);
-					items = getObservableCollection(orderNums);
-					Grouping<Item, int?> grouping3 = items.Grouping(i => i.Key).IsNeededFor(consumer);
+					trace(testNum = "6", values, index, orderNum, indexOld, indexNew);
+					items = getObservableCollection(values);
+					Grouping<Item, int?> grouping3 = items.Grouping(i => i.Key).For(consumer);
 					items[index] = new Item(null);
-					grouping3.ValidateConsistency();					
+					grouping3.ValidateInternalConsistency();					
 					consumer.Dispose();
 
-					for (orderNum = -1; orderNum <= orderNums.Length; orderNum++)
+					for (orderNum = -1; orderNum <= values.Length; orderNum++)
 					{
-						trace(testNum = "3", orderNums, index, orderNum, indexOld, indexNew);
-						items = getObservableCollection(orderNums);
-						Grouping<Item, int?> grouping2 = items.Grouping(i => i.Key).IsNeededFor(consumer);
+						trace(testNum = "3", values, index, orderNum, indexOld, indexNew);
+						items = getObservableCollection(values);
+						Grouping<Item, int?> grouping2 = items.Grouping(i => i.Key).For(consumer);
 						items[index] = new Item(orderNum);
-						grouping2.ValidateConsistency();						
+						grouping2.ValidateInternalConsistency();						
 						consumer.Dispose();
 
 					}
 				}
 
-				for (index = 0; index < orderNums.Length; index++)
+				for (index = 0; index < values.Length; index++)
 				{
-					trace(testNum = "4", orderNums, index, orderNum, indexOld, indexNew);
-					items = getObservableCollection(orderNums);
-					Grouping<Item, int?> grouping1 = items.Grouping(i => i.Key).IsNeededFor(consumer);
+					trace(testNum = "4", values, index, orderNum, indexOld, indexNew);
+					items = getObservableCollection(values);
+					Grouping<Item, int?> grouping1 = items.Grouping(i => i.Key).For(consumer);
 					items[index].Key = null;
-					grouping1.ValidateConsistency();					
+					grouping1.ValidateInternalConsistency();					
 					consumer.Dispose();
 
-					for (orderNum = -1; orderNum <= orderNums.Length; orderNum++)
+					for (orderNum = -1; orderNum <= values.Length; orderNum++)
 					{
-						trace(testNum = "5", orderNums, index, orderNum, indexOld, indexNew);
-						items = getObservableCollection(orderNums);
-						Grouping<Item, int?> grouping2 = items.Grouping(i => i.Key).IsNeededFor(consumer);
+						trace(testNum = "5", values, index, orderNum, indexOld, indexNew);
+						items = getObservableCollection(values);
+						Grouping<Item, int?> grouping2 = items.Grouping(i => i.Key).For(consumer);
 						items[index].Key = orderNum;
-						grouping2.ValidateConsistency();						
+						grouping2.ValidateInternalConsistency();						
 						consumer.Dispose();
 
 					}
 				}
-				for (indexOld = 0; indexOld < orderNums.Length; indexOld++)
+				for (indexOld = 0; indexOld < values.Length; indexOld++)
 				{
-					for (indexNew = 0; indexNew < orderNums.Length; indexNew++)
+					for (indexNew = 0; indexNew < values.Length; indexNew++)
 					{
-						trace(testNum = "7", orderNums, index, orderNum, indexOld, indexNew);
-						items = getObservableCollection(orderNums);
-						Grouping<Item, int?> grouping2 = items.Grouping(i => i.Key).IsNeededFor(consumer);
+						trace(testNum = "7", values, index, orderNum, indexOld, indexNew);
+						items = getObservableCollection(values);
+						Grouping<Item, int?> grouping2 = items.Grouping(i => i.Key).For(consumer);
 						items.Move(indexOld, indexNew);
-						grouping2.ValidateConsistency();						
+						grouping2.ValidateInternalConsistency();						
 						consumer.Dispose();
 					}
 				}
 			}
 			catch (Exception e)
 			{
-				string traceString = getTraceString(testNum, orderNums, index, orderNum, indexOld, indexNew);
+				string traceString = getTraceString(testNum, values, index, orderNum, indexOld, indexNew);
 				_textFileOutputLog.AppentLine(traceString);
 				_textFileOutputLog.AppentLine(e.Message);
 				_textFileOutputLog.AppentLine(e.StackTrace);
 				throw new Exception(traceString, e);
 			}
+
+			writeUsefulTest(getTestString(values));
 
 		}
 
@@ -225,6 +237,10 @@ namespace ObservableComputations.Test
 		private static ObservableCollection<Item> getObservableCollection(int[] orderNums)
 		{
 			return new ObservableCollection<Item>(orderNums.Select(orderNum => new Item(orderNum >= 0 ? orderNum : (int?)null)));
+		}
+
+		public GroupingTests(bool debug) : base(debug)
+		{
 		}
 	}
 }

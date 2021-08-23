@@ -1,4 +1,8 @@
-﻿using System.Collections.Generic;
+﻿// Copyright (c) 2019-2021 Buchelnikov Igor Vladimirovich. All rights reserved
+// Buchelnikov Igor Vladimirovich licenses this file to you under the MIT license.
+// The LICENSE file is located at https://github.com/IgorBuchelnikov/ObservableComputations/blob/master/LICENSE
+
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
@@ -6,10 +10,10 @@ using NUnit.Framework;
 
 namespace ObservableComputations.Test
 {
-	[TestFixture]
-	public class ReversingTests
+	[TestFixture(false)]
+	public partial class ReversingTests : TestBase
 	{
-        Consumer consumer = new Consumer();
+		OcConsumer consumer = new OcConsumer();
 
 		public class Item : INotifyPropertyChanged
 		{
@@ -48,8 +52,8 @@ namespace ObservableComputations.Test
 		{
 			ObservableCollection<Item> items = new ObservableCollection<Item>();
 
-			Reversing<Item> reversing = items.Reversing().IsNeededFor(consumer);
-			reversing.ValidateConsistency();			
+			Reversing<Item> reversing = items.Reversing().For(consumer);
+			reversing.ValidateInternalConsistency();			
 			consumer.Dispose();
 		}
 
@@ -69,10 +73,10 @@ namespace ObservableComputations.Test
 				}
 			);
 
-			Reversing<Item> reversing = items.Reversing().IsNeededFor(consumer);
-			reversing.ValidateConsistency();
+			Reversing<Item> reversing = items.Reversing().For(consumer);
+			reversing.ValidateInternalConsistency();
 			items.RemoveAt(index);
-			reversing.ValidateConsistency();			
+			reversing.ValidateInternalConsistency();			
 			consumer.Dispose();
 		}
 
@@ -87,10 +91,10 @@ namespace ObservableComputations.Test
 				}
 			);
 
-			Reversing<Item> reversing = items.Reversing().IsNeededFor(consumer);
-			reversing.ValidateConsistency();
+			Reversing<Item> reversing = items.Reversing().For(consumer);
+			reversing.ValidateInternalConsistency();
 			items.RemoveAt(0);
-			reversing.ValidateConsistency();			
+			reversing.ValidateInternalConsistency();			
 			consumer.Dispose();
 		}
 
@@ -115,10 +119,10 @@ namespace ObservableComputations.Test
 				}
 			);
 
-			Reversing<Item> reversing = items.Reversing().IsNeededFor(consumer);
-			reversing.ValidateConsistency();
+			Reversing<Item> reversing = items.Reversing().For(consumer);
+			reversing.ValidateInternalConsistency();
 			items.Insert(index, new Item());
-			reversing.ValidateConsistency();			
+			reversing.ValidateInternalConsistency();			
 			consumer.Dispose();
 		}
 
@@ -127,10 +131,10 @@ namespace ObservableComputations.Test
 		{
 			ObservableCollection<Item> items = new ObservableCollection<Item>();
 
-			Reversing<Item> reversing = items.Reversing().IsNeededFor(consumer);
-			reversing.ValidateConsistency();
+			Reversing<Item> reversing = items.Reversing().For(consumer);
+			reversing.ValidateInternalConsistency();
 			items.Insert(0, new Item());
-			reversing.ValidateConsistency();			
+			reversing.ValidateInternalConsistency();			
 			consumer.Dispose();
 		}
 
@@ -150,10 +154,10 @@ namespace ObservableComputations.Test
 				}
 			);
 
-			Reversing<Item> reversing = items.Reversing().IsNeededFor(consumer);
-			reversing.ValidateConsistency();
+			Reversing<Item> reversing = items.Reversing().For(consumer);
+			reversing.ValidateInternalConsistency();
 			items.Move(oldIndex, newIndex);
-			reversing.ValidateConsistency();			
+			reversing.ValidateInternalConsistency();			
 			consumer.Dispose();
 		}
 
@@ -173,14 +177,16 @@ namespace ObservableComputations.Test
 				}
 			);
 
-			Reversing<Item> reversing = items.Reversing().IsNeededFor(consumer);
-			reversing.ValidateConsistency();
+			Reversing<Item> reversing = items.Reversing().For(consumer);
+			reversing.ValidateInternalConsistency();
 			items[index] = new Item();
-			reversing.ValidateConsistency();			
+			reversing.ValidateInternalConsistency();			
 			consumer.Dispose();
-		}		
+		}
 
 
-
+		public ReversingTests(bool debug) : base(debug)
+		{
+		}
 	}
 }

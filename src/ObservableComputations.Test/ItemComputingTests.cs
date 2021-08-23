@@ -1,12 +1,16 @@
-﻿using System.Collections.ObjectModel;
+﻿// Copyright (c) 2019-2021 Buchelnikov Igor Vladimirovich. All rights reserved
+// Buchelnikov Igor Vladimirovich licenses this file to you under the MIT license.
+// The LICENSE file is located at https://github.com/IgorBuchelnikov/ObservableComputations/blob/master/LICENSE
+
+using System.Collections.ObjectModel;
 using NUnit.Framework;
 
 namespace ObservableComputations.Test
 {
-	[TestFixture]
-	public class ItemComputingTests
+	[TestFixture(false)]
+	public partial class ItemComputingTests : TestBase
 	{
-        Consumer consumer = new Consumer();
+		OcConsumer consumer = new OcConsumer();
 
 		public class Item
 		{
@@ -26,7 +30,7 @@ namespace ObservableComputations.Test
 			ObservableCollection<Item> items = new ObservableCollection<Item>();
 
 			ItemComputing<Item> itemComputing = items.ItemComputing(0);
-			itemComputing.ValidateConsistency();			
+			itemComputing.ValidateInternalConsistency();			
 			consumer.Dispose();
 		}
 
@@ -47,10 +51,10 @@ namespace ObservableComputations.Test
 				}
 			);
 
-			ItemComputing<Item> itemComputing = items.ItemComputing(computingIndex).IsNeededFor(consumer);
-			itemComputing.ValidateConsistency();
+			ItemComputing<Item> itemComputing = items.ItemComputing(computingIndex).For(consumer);
+			itemComputing.ValidateInternalConsistency();
 			items.RemoveAt(index);
-			itemComputing.ValidateConsistency();			
+			itemComputing.ValidateInternalConsistency();			
 			consumer.Dispose();
 		}
 
@@ -65,10 +69,10 @@ namespace ObservableComputations.Test
 				}
 			);
 
-			ItemComputing<Item> itemComputing = items.ItemComputing(computingIndex).IsNeededFor(consumer);
-			itemComputing.ValidateConsistency();
+			ItemComputing<Item> itemComputing = items.ItemComputing(computingIndex).For(consumer);
+			itemComputing.ValidateInternalConsistency();
 			items.RemoveAt(0);
-			itemComputing.ValidateConsistency();			
+			itemComputing.ValidateInternalConsistency();			
 			consumer.Dispose();
 		}
 
@@ -88,10 +92,10 @@ namespace ObservableComputations.Test
 				}
 			);
 
-			ItemComputing<Item> itemComputing = items.ItemComputing(computingIndex).IsNeededFor(consumer);
-			itemComputing.ValidateConsistency();
+			ItemComputing<Item> itemComputing = items.ItemComputing(computingIndex).For(consumer);
+			itemComputing.ValidateInternalConsistency();
 			items.Insert(index, new Item());
-			itemComputing.ValidateConsistency();			
+			itemComputing.ValidateInternalConsistency();			
 			consumer.Dispose();
 		}
 
@@ -101,10 +105,10 @@ namespace ObservableComputations.Test
 		{
 			ObservableCollection<Item> items = new ObservableCollection<Item>();
 
-			ItemComputing<Item> itemComputing = items.ItemComputing(computingIndex).IsNeededFor(consumer);
-			itemComputing.ValidateConsistency();
+			ItemComputing<Item> itemComputing = items.ItemComputing(computingIndex).For(consumer);
+			itemComputing.ValidateInternalConsistency();
 			items.Insert(0, new Item());
-			itemComputing.ValidateConsistency();			
+			itemComputing.ValidateInternalConsistency();			
 			consumer.Dispose();
 		}
 
@@ -125,10 +129,10 @@ namespace ObservableComputations.Test
 				}
 			);
 
-			ItemComputing<Item> itemComputing = items.ItemComputing(computingIndex).IsNeededFor(consumer);
-			itemComputing.ValidateConsistency();
+			ItemComputing<Item> itemComputing = items.ItemComputing(computingIndex).For(consumer);
+			itemComputing.ValidateInternalConsistency();
 			items.Move(oldIndex, newIndex);
-			itemComputing.ValidateConsistency();			
+			itemComputing.ValidateInternalConsistency();			
 			consumer.Dispose();
 		}
 
@@ -148,11 +152,15 @@ namespace ObservableComputations.Test
 				}
 			);
 
-			ItemComputing<Item> itemComputing = items.ItemComputing(computingIndex).IsNeededFor(consumer);
-			itemComputing.ValidateConsistency();
+			ItemComputing<Item> itemComputing = items.ItemComputing(computingIndex).For(consumer);
+			itemComputing.ValidateInternalConsistency();
 			items[index] = new Item();
-			itemComputing.ValidateConsistency();			
+			itemComputing.ValidateInternalConsistency();			
 			consumer.Dispose();
-		}		
+		}
+
+		public ItemComputingTests(bool debug) : base(debug)
+		{
+		}
 	}
 }

@@ -1,43 +1,74 @@
-﻿using System;
+﻿// Copyright (c) 2019-2021 Buchelnikov Igor Vladimirovich. All rights reserved
+// Buchelnikov Igor Vladimirovich licenses this file to you under the MIT license.
+// The LICENSE file is located at https://github.com/IgorBuchelnikov/ObservableComputations/blob/master/LICENSE
+
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Collections.Specialized;
 using System.ComponentModel;
+using System.Linq;
 
 namespace ObservableComputations
 {
-	public class CollectionProcessingVoid<TSourceItem> : CollectionComputing<TSourceItem>, IHasSourceCollections, ISourceIndexerPropertyTracker, ISourceCollectionChangeProcessor
+	public class CollectionProcessingVoid<TSourceItem> : CollectionComputing<TSourceItem>, IHasSources, ISourceIndexerPropertyTracker, ISourceCollectionChangeProcessor
 	{
 		// ReSharper disable once MemberCanBePrivate.Global
-		public IReadScalar<INotifyCollectionChanged> SourceScalar => _sourceScalar;
+		public virtual IReadScalar<INotifyCollectionChanged> SourceScalar => _sourceScalar;
 
 		// ReSharper disable once MemberCanBePrivate.Global
-		public INotifyCollectionChanged Source => _source;
+		public virtual INotifyCollectionChanged Source => _source;
 
-		public ReadOnlyCollection<INotifyCollectionChanged> SourceCollections => new ReadOnlyCollection<INotifyCollectionChanged>(new []{Source});
-		public ReadOnlyCollection<IReadScalar<INotifyCollectionChanged>> SourceCollectionScalars => new ReadOnlyCollection<IReadScalar<INotifyCollectionChanged>>(new []{SourceScalar});
+		public virtual ReadOnlyCollection<object> Sources => new ReadOnlyCollection<object>(new object[]{Source, SourceScalar});
+
+		public Action<TSourceItem[], CollectionProcessingVoid<TSourceItem>> NewItemsProcessor => _newItemsProcessor;
+		public Action<TSourceItem[], CollectionProcessingVoid<TSourceItem>> OldItemsProcessor => _oldItemsProcessor;
+		public Action<TSourceItem, CollectionProcessingVoid<TSourceItem>> MoveItemProcessor => _moveItemProcessor;
 
 		public Action<TSourceItem, CollectionProcessingVoid<TSourceItem>> NewItemProcessor => _newItemProcessor;
 		public Action<TSourceItem, CollectionProcessingVoid<TSourceItem>> OldItemProcessor => _oldItemProcessor;
-		public Action<TSourceItem, CollectionProcessingVoid<TSourceItem>> MoveItemProcessor => _moveItemProcessor;
+
+		private readonly Action<TSourceItem[], CollectionProcessingVoid<TSourceItem>> _newItemsProcessor;
+		private readonly Action<TSourceItem[], CollectionProcessingVoid<TSourceItem>> _oldItemsProcessor;
+		private readonly Action<TSourceItem, CollectionProcessingVoid<TSourceItem>> _moveItemProcessor;
 
 		private readonly Action<TSourceItem, CollectionProcessingVoid<TSourceItem>> _newItemProcessor;
 		private readonly Action<TSourceItem, CollectionProcessingVoid<TSourceItem>> _oldItemProcessor;
-		private readonly Action<TSourceItem, CollectionProcessingVoid<TSourceItem>> _moveItemProcessor;
-
 
 		private IList<TSourceItem> _sourceAsList;
-        private IHasChangeMarker _sourceAsIHasChangeMarker;
-		private bool _lastProcessedSourceChangeMarker;
+		private IHasTickTackVersion _sourceAsIHasTickTackVersion;
+		private bool _lastProcessedSourceTickTackVersion;
 
-		private bool _sourceInitialized;
 		private readonly IReadScalar<INotifyCollectionChanged> _sourceScalar;
 		private INotifyCollectionChanged _source;
 
-        private bool _indexerPropertyChangedEventRaised;
-        private INotifyPropertyChanged _sourceAsINotifyPropertyChanged;
+		private bool _countPropertyChangedEventRaised;
+		private bool _indexerPropertyChangedEventRaised;
+		private INotifyPropertyChanged _sourceAsINotifyPropertyChanged;
 
-        private ISourceCollectionChangeProcessor _thisAsSourceCollectionChangeProcessor;
+		private readonly ISourceCollectionChangeProcessor _thisAsSourceCollectionChangeProcessor;
+
+		[ObservableComputationsCall]
+		public CollectionProcessingVoid(
+			IReadScalar<INotifyCollectionChanged> sourceScalar,
+			Action<TSourceItem[], CollectionProcessingVoid<TSourceItem>> newItemsProcessor = null,
+			Action<TSourceItem[], CollectionProcessingVoid<TSourceItem>> oldItemsProcessor = null,
+			Action<TSourceItem, CollectionProcessingVoid<TSourceItem>> moveItemProcessor = null) : this(newItemsProcessor, oldItemsProcessor, moveItemProcessor, Utils.getCapacity(sourceScalar))
+		{
+			_sourceScalar = sourceScalar;
+			_thisAsSourceCollectionChangeProcessor = this;
+		}
+
+		[ObservableComputationsCall]
+		public CollectionProcessingVoid(
+			INotifyCollectionChanged source,
+			Action<TSourceItem[], CollectionProcessingVoid<TSourceItem>> newItemsProcessor = null,
+			Action<TSourceItem[], CollectionProcessingVoid<TSourceItem>> oldItemsProcessor = null,
+			Action<TSourceItem, CollectionProcessingVoid<TSourceItem>> moveItemProcessor = null) : this(newItemsProcessor, oldItemsProcessor, moveItemProcessor, Utils.getCapacity(source))
+		{
+			_source = source;
+			_thisAsSourceCollectionChangeProcessor = this;
+		}
 
 		[ObservableComputationsCall]
 		public CollectionProcessingVoid(
@@ -47,7 +78,7 @@ namespace ObservableComputations
 			Action<TSourceItem, CollectionProcessingVoid<TSourceItem>> moveItemProcessor = null) : this(newItemProcessor, oldItemProcessor, moveItemProcessor, Utils.getCapacity(sourceScalar))
 		{
 			_sourceScalar = sourceScalar;
-            _thisAsSourceCollectionChangeProcessor = this;
+			_thisAsSourceCollectionChangeProcessor = this;
 		}
 
 		[ObservableComputationsCall]
@@ -58,141 +89,233 @@ namespace ObservableComputations
 			Action<TSourceItem, CollectionProcessingVoid<TSourceItem>> moveItemProcessor = null) : this(newItemProcessor, oldItemProcessor, moveItemProcessor, Utils.getCapacity(source))
 		{
 			_source = source;
-            _thisAsSourceCollectionChangeProcessor = this;
+			_thisAsSourceCollectionChangeProcessor = this;
+		}
+
+		private CollectionProcessingVoid(
+			Action<TSourceItem[], CollectionProcessingVoid<TSourceItem>> newItemsProcessor,
+			Action<TSourceItem[], CollectionProcessingVoid<TSourceItem>> oldItemsProcessor,
+			Action<TSourceItem, CollectionProcessingVoid<TSourceItem>> moveItemProcessor, 
+			int initialCapacity) : this(moveItemProcessor, initialCapacity)
+		{
+			_newItemsProcessor = newItemsProcessor;
+			_oldItemsProcessor = oldItemsProcessor;
+
+			if (_newItemsProcessor != null)
+				_newItemProcessor = (newItem, computing) =>
+					_newItemsProcessor(new []{newItem}, computing);
+			
+			if (_oldItemsProcessor != null)
+				_oldItemProcessor = (oldItem, computing) =>
+					_oldItemsProcessor(new []{oldItem}, computing);
 		}
 
 		private CollectionProcessingVoid(
 			Action<TSourceItem, CollectionProcessingVoid<TSourceItem>> newItemProcessor,
 			Action<TSourceItem, CollectionProcessingVoid<TSourceItem>> oldItemProcessor,
 			Action<TSourceItem, CollectionProcessingVoid<TSourceItem>> moveItemProcessor, 
-			int capacity) : base(capacity)
+			int initialCapacity) : this(moveItemProcessor, initialCapacity)
 		{
 			_newItemProcessor = newItemProcessor;
 			_oldItemProcessor = oldItemProcessor;
-			_moveItemProcessor = moveItemProcessor;
-            _thisAsSourceCollectionChangeProcessor = this;
+
+			if (_newItemProcessor != null)
+			{
+				_newItemsProcessor = (newItems, computing) =>
+				{
+					int newItemsLength = newItems.Length;
+					for (int index = 0; index < newItemsLength; index++)
+						newItemProcessor(newItems[index], computing);
+				};
+			}
+
+			if (_oldItemProcessor != null)
+			{
+				_oldItemsProcessor = (oldItems, _) =>
+				{
+					int newItemsLength = oldItems.Length;
+					for (int index = 0; index < newItemsLength; index++)
+						oldItemProcessor(oldItems[index], _);
+				};
+			}
 		}
 
-        protected override void initializeFromSource()
+		private CollectionProcessingVoid(
+			Action<TSourceItem, CollectionProcessingVoid<TSourceItem>> moveItemProcessor, 
+			int initialCapacity) : base(initialCapacity)
 		{
-			if (_sourceInitialized)
+			_moveItemProcessor = moveItemProcessor;
+			_thisAsSourceCollectionChangeProcessor = this;
+		}
+
+		protected override void processSource()
+		{
+			processSource(true);
+		}
+
+		private void processSource(bool replaceSource)
+		{
+			int originalCount = _items.Count;
+
+			if (_sourceReadAndSubscribed)
 			{
-                _source.CollectionChanged -= handleSourceCollectionChanged;
+				if (replaceSource)
+					Utils.unsubscribeSource(
+						_source, 
+						ref _sourceAsINotifyPropertyChanged, 
+						this, 
+						handleSourceCollectionChanged);
 
-				int count = Count;
-				for (int i = 0; i < count; i++)
-				{
-					TSourceItem sourceItem = _sourceAsList[i];
-					baseRemoveItem(0);
-					if (_oldItemProcessor!= null) processOldItem(sourceItem);
-				}
+				if (_oldItemsProcessor != null) processOldItems(this.ToArray());
 
-                _sourceInitialized = false;
-            }
+				_sourceReadAndSubscribed = false;
+			}
 
-            Utils.changeSource(ref _source, _sourceScalar, _downstreamConsumedComputings, _consumers, this,
-                ref _sourceAsList, true);
+			if (replaceSource)
+				Utils.replaceSource(ref _source, _sourceScalar, _downstreamConsumedComputings, _consumers, this,
+					out _sourceAsList, true);
 
-            if (_sourceAsList != null && _isActive)
-            {
-                Utils.initializeFromHasChangeMarker(
-                    out _sourceAsIHasChangeMarker, 
-                    _sourceAsList, 
-                    ref _lastProcessedSourceChangeMarker, 
-                    ref _sourceAsINotifyPropertyChanged,
-                    (ISourceIndexerPropertyTracker)this);
+			if (_sourceAsList != null && _isActive)
+			{
+				if (replaceSource)
+					Utils.subscribeSource(
+						out _sourceAsIHasTickTackVersion, 
+						_sourceAsList, 
+						ref _lastProcessedSourceTickTackVersion, 
+						ref _sourceAsINotifyPropertyChanged,
+						(ISourceIndexerPropertyTracker)this,
+						_source,
+						handleSourceCollectionChanged);
 
 				int count = _sourceAsList.Count;
 
-                TSourceItem[] sourceCopy = new TSourceItem[count];
-                _sourceAsList.CopyTo(sourceCopy, 0);
+				TSourceItem[] sourceCopy = new TSourceItem[count];
+				_sourceAsList.CopyTo(sourceCopy, 0);
 
-                _source.CollectionChanged += handleSourceCollectionChanged;
-
-				for (int index = 0; index < count; index++)
+				int sourceIndex;
+				for (sourceIndex = 0; sourceIndex < count; sourceIndex++)
 				{
-					TSourceItem sourceItem = sourceCopy[index];
-					if (_newItemProcessor != null) processNewItem(sourceItem);
-					baseInsertItem(index, sourceItem);
+					if (originalCount > sourceIndex)
+						_items[sourceIndex] = sourceCopy[sourceIndex];
+					else
+						_items.Insert(sourceIndex, sourceCopy[sourceIndex]);
 				}
-             
-                _sourceInitialized = true;
-            }
+
+				for (int index = originalCount - 1; index >= sourceIndex; index--)
+				{
+					_items.RemoveAt(index);
+				}
+
+				if (_newItemsProcessor != null) processNewItems(sourceCopy);
+			 
+				_sourceReadAndSubscribed = true;
+			}
+			else
+				_items.Clear();
+
+			reset();
 		}
 
 		private void handleSourceCollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
 		{
-            if (!Utils.preHandleSourceCollectionChanged(
-                sender, 
-                e, 
-                ref _isConsistent, 
-                ref _indexerPropertyChangedEventRaised, 
-                ref _lastProcessedSourceChangeMarker, 
-                _sourceAsIHasChangeMarker, 
-                ref _handledEventSender, 
-                ref _handledEventArgs,
-                ref _deferredProcessings,
-                1, _deferredQueuesCount, this)) return;
+			if (!Utils.preHandleSourceCollectionChanged(
+				sender, 
+				e, 
+				ref _isConsistent, 
+				ref _countPropertyChangedEventRaised,
+				ref _indexerPropertyChangedEventRaised, 
+				ref _lastProcessedSourceTickTackVersion, 
+				_sourceAsIHasTickTackVersion, 
+				ref _handledEventSender, 
+				ref _handledEventArgs,
+				ref _deferredProcessings,
+				1, _deferredQueuesCount, this)) return;
 
 			_thisAsSourceCollectionChangeProcessor.processSourceCollectionChanged(sender, e);
 
-            Utils.postHandleChange(
-                ref _handledEventSender,
-                ref _handledEventArgs,
-                _deferredProcessings,
-                ref _isConsistent,
-                this);
+			Utils.postHandleChange(
+				ref _handledEventSender,
+				ref _handledEventArgs,
+				_deferredProcessings,
+				ref _isConsistent,
+				this);
 		}
 
-        void ISourceCollectionChangeProcessor.processSourceCollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
-        {
-            switch (e.Action)
-            {
-                case NotifyCollectionChangedAction.Add:
-
-                    int newStartingIndex = e.NewStartingIndex;
-                    TSourceItem addedItem = (TSourceItem) e.NewItems[0];
-                    if (_newItemProcessor != null) processNewItem(addedItem);
-                    baseInsertItem(newStartingIndex, addedItem);
-                    break;
-                case NotifyCollectionChangedAction.Remove:
-                    int oldStartingIndex = e.OldStartingIndex;
-                    TSourceItem removedItem = (TSourceItem) e.OldItems[0];
-                    baseRemoveItem(oldStartingIndex);
-                    if (_oldItemProcessor != null) processOldItem(removedItem);
-                    break;
-                case NotifyCollectionChangedAction.Replace:
-                    int newStartingIndex1 = e.NewStartingIndex;
-                    TSourceItem oldItem = (TSourceItem) e.OldItems[0];
-                    TSourceItem newItem = _sourceAsList[newStartingIndex1];
-
-                    if (_newItemProcessor != null) processNewItem(newItem);
-                    baseSetItem(newStartingIndex1, newItem);
-                    if (_oldItemProcessor != null) processOldItem(oldItem);
-                    break;
-                case NotifyCollectionChangedAction.Move:
-                    int oldStartingIndex2 = e.OldStartingIndex;
-                    int newStartingIndex2 = e.NewStartingIndex;
-                    if (oldStartingIndex2 != newStartingIndex2)
-                    {
-                        baseMoveItem(oldStartingIndex2, newStartingIndex2);
-                        if (_moveItemProcessor != null) processMovedItem((TSourceItem) e.NewItems[0]);
-                    }
-
-                    break;
-                case NotifyCollectionChangedAction.Reset:
-                    initializeFromSource();
-                    break;
-            }
-        }
-
-        private void processNewItem(TSourceItem sourceItem)
+		void ISourceCollectionChangeProcessor.processSourceCollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
 		{
-			if (Configuration.TrackComputingsExecutingUserCode)
+			switch (e.Action)
 			{
-                var currentThread = Utils.startComputingExecutingUserCode(out var computing, out _userCodeIsCalledFrom, this);
+				case NotifyCollectionChangedAction.Add:
+
+					int newStartingIndex = e.NewStartingIndex;
+					TSourceItem addedItem = (TSourceItem) e.NewItems[0];
+					if (_newItemProcessor != null) processNewItem(addedItem);
+					baseInsertItem(newStartingIndex, addedItem);
+					break;
+				case NotifyCollectionChangedAction.Remove:
+					int oldStartingIndex = e.OldStartingIndex;
+					TSourceItem removedItem = (TSourceItem) e.OldItems[0];
+					baseRemoveItem(oldStartingIndex);
+					if (_oldItemProcessor != null) processOldItem(removedItem);
+					break;
+				case NotifyCollectionChangedAction.Replace:
+					int newStartingIndex1 = e.NewStartingIndex;
+					TSourceItem oldItem = (TSourceItem) e.OldItems[0];
+					TSourceItem newItem = _sourceAsList[newStartingIndex1];
+
+					if (_newItemProcessor != null) processNewItem(newItem);
+					baseSetItem(newStartingIndex1, newItem);
+					if (_oldItemProcessor != null) processOldItem(oldItem);
+					break;
+				case NotifyCollectionChangedAction.Move:
+					int oldStartingIndex2 = e.OldStartingIndex;
+					int newStartingIndex2 = e.NewStartingIndex;
+					if (oldStartingIndex2 != newStartingIndex2)
+					{
+						baseMoveItem(oldStartingIndex2, newStartingIndex2);
+						if (_moveItemProcessor != null) processMovedItem((TSourceItem) e.NewItems[0]);
+					}
+
+					break;
+				case NotifyCollectionChangedAction.Reset:
+					processSource(false);
+					break;
+			}
+		}
+
+		private void processNewItems(TSourceItem[] sourceItems)
+		{
+			if (OcConfiguration.TrackComputingsExecutingUserCode)
+			{
+				int currentThreadId = Utils.startComputingExecutingUserCode(out IComputing computing, out _userCodeIsCalledFrom, this);
+				_newItemsProcessor(sourceItems, this);
+				Utils.endComputingExecutingUserCode(computing, currentThreadId, out _userCodeIsCalledFrom);
+				return;
+			}
+
+			_newItemsProcessor(sourceItems, this);
+		}
+
+		private void processOldItems(TSourceItem[] sourceItems)
+		{
+			if (OcConfiguration.TrackComputingsExecutingUserCode)
+			{
+				int currentThreadId = Utils.startComputingExecutingUserCode(out IComputing computing, out _userCodeIsCalledFrom, this);
+				_oldItemsProcessor(sourceItems, this);
+				Utils.endComputingExecutingUserCode(computing, currentThreadId, out _userCodeIsCalledFrom);
+				return;
+			}
+
+			_oldItemsProcessor(sourceItems, this);
+		}
+
+		private void processNewItem(TSourceItem sourceItem)
+		{
+			if (OcConfiguration.TrackComputingsExecutingUserCode)
+			{
+				int currentThreadId = Utils.startComputingExecutingUserCode(out IComputing computing, out _userCodeIsCalledFrom, this);
 				_newItemProcessor(sourceItem, this);
-                Utils.endComputingExecutingUserCode(computing, currentThread, out _userCodeIsCalledFrom);
+				Utils.endComputingExecutingUserCode(computing, currentThreadId, out _userCodeIsCalledFrom);
 				return;
 			}
 
@@ -201,60 +324,62 @@ namespace ObservableComputations
 
 		private void processOldItem(TSourceItem sourceItem)
 		{
-			if (Configuration.TrackComputingsExecutingUserCode)
+			if (OcConfiguration.TrackComputingsExecutingUserCode)
 			{
-                var currentThread = Utils.startComputingExecutingUserCode(out var computing, out _userCodeIsCalledFrom, this);
+				int currentThreadId = Utils.startComputingExecutingUserCode(out IComputing computing, out _userCodeIsCalledFrom, this);
 				_oldItemProcessor(sourceItem, this);
-                Utils.endComputingExecutingUserCode(computing, currentThread, out _userCodeIsCalledFrom);
+				Utils.endComputingExecutingUserCode(computing, currentThreadId, out _userCodeIsCalledFrom);
 				return;
 			}
 
 			_oldItemProcessor(sourceItem, this);
 		}
 
-
 		private void processMovedItem(TSourceItem sourceItem)
 		{
-			if (Configuration.TrackComputingsExecutingUserCode)
+			if (OcConfiguration.TrackComputingsExecutingUserCode)
 			{
-                var currentThread = Utils.startComputingExecutingUserCode(out var computing, out _userCodeIsCalledFrom, this);
+				int currentThreadId = Utils.startComputingExecutingUserCode(out IComputing computing, out _userCodeIsCalledFrom, this);
 				_moveItemProcessor(sourceItem, this);
-                Utils.endComputingExecutingUserCode(computing, currentThread, out _userCodeIsCalledFrom);
+				Utils.endComputingExecutingUserCode(computing, currentThreadId, out _userCodeIsCalledFrom);
 				return;
 			}
 
 			_moveItemProcessor(sourceItem, this);
 		}
 
-        internal override void addToUpstreamComputings(IComputingInternal computing)
-        {
-            (_source as IComputingInternal)?.AddDownstreamConsumedComputing(computing);
-            (_sourceScalar as IComputingInternal)?.AddDownstreamConsumedComputing(computing);
-        }
+		internal override void addToUpstreamComputings(IComputingInternal computing)
+		{
+			Utils.AddDownstreamConsumedComputing(computing, _sourceScalar, _source);
+		}
 
-        internal override void removeFromUpstreamComputings(IComputingInternal computing)        
-        {
-            (_source as IComputingInternal)?.RemoveDownstreamConsumedComputing(computing);
-            (_sourceScalar as IComputingInternal)?.RemoveDownstreamConsumedComputing(computing);
-        }
+		internal override void removeFromUpstreamComputings(IComputingInternal computing)		
+		{
+			Utils.RemoveDownstreamConsumedComputing(computing, _sourceScalar, _source);
+		}
 
-        protected override void initialize()
-        {
-            Utils.initializeSourceScalar(_sourceScalar, ref _source, scalarValueChangedHandler);
-        }
+		protected override void initialize()
+		{
+			Utils.initializeSourceScalar(_sourceScalar, ref _source, scalarValueChangedHandler);
+		}
 
-        protected override void uninitialize()
-        {
-            Utils.uninitializeSourceScalar(_sourceScalar, scalarValueChangedHandler, ref _source);
-        }
+		protected override void uninitialize()
+		{
+			Utils.unsubscribeSourceScalar(_sourceScalar, scalarValueChangedHandler);
+		}
 
-        #region Implementation of ISourceIndexerPropertyTracker
+		protected override void clearCachedScalarArgumentValues()
+		{
+			Utils.clearCachcedSourceScalarValue(_sourceScalar, ref _source);
+		}
 
-        void ISourceIndexerPropertyTracker.HandleSourcePropertyChanged(object sender, PropertyChangedEventArgs propertyChangedEventArgs)
-        {
-            Utils.HandleSourcePropertyChanged(propertyChangedEventArgs, ref _indexerPropertyChangedEventRaised);
-        }
+		#region Implementation of ISourceIndexerPropertyTracker
 
-        #endregion
+		void ISourceIndexerPropertyTracker.HandleSourcePropertyChanged(object sender, PropertyChangedEventArgs propertyChangedEventArgs)
+		{
+			Utils.handleSourcePropertyChanged(propertyChangedEventArgs, ref _countPropertyChangedEventRaised, ref _indexerPropertyChangedEventRaised);
+		}
+
+		#endregion
 	}
 }

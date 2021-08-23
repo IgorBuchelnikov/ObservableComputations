@@ -1,28 +1,32 @@
-﻿//using System;
+﻿// Copyright (c) 2019-2021 Buchelnikov Igor Vladimirovich. All rights reserved
+// Buchelnikov Igor Vladimirovich licenses this file to you under the MIT license.
+// The LICENSE file is located at https://github.com/IgorBuchelnikov/ObservableComputations/blob/master/LICENSE
+
+//using System;
 //using System.Reactive.Linq;
 //using System.Reactive.Subjects;
 
 //namespace ObservableComputations.Common
 //{
-//	public class BufferingDispatcher : IDispatcher, IDisposable
+//	public class BufferingOcDispatcher : IOcDispatcher, IDisposable
 //	{
-//		public IDispatcher DestinationDispatcher => _destinationDispatcher;
+//		public IOcDispatcher DestinationOcDispatcher => _destinationOcDispatcher;
 //		public TimeSpan TimeSpan => _timeSpan;
 
 //		Subject<Action> _actions;
 //		private IDisposable _cleanUp;
-//		private readonly IDispatcher _destinationDispatcher;
+//		private readonly IOcDispatcher _destinationOcDispatcher;
 //		private readonly TimeSpan _timeSpan;
 
-//		public BufferingDispatcher(TimeSpan timeSpan, IDispatcher destinationDispatcher)
+//		public BufferingOcDispatcher(TimeSpan timeSpan, IOcDispatcher destinationOcDispatcher)
 //		{
 //			_timeSpan = timeSpan;
-//			_destinationDispatcher = destinationDispatcher;
+//			_destinationOcDispatcher = destinationOcDispatcher;
 
 //			_actions = new Subject<Action>();
 //			_cleanUp = _actions.Buffer(timeSpan).Subscribe(actions =>
 //			{
-//				_destinationDispatcher.Invoke(() =>
+//				_destinationOcDispatcher.Invoke(() =>
 //				{
 //					for (var index = 0; index < actions.Count; index++)
 //					{
@@ -33,7 +37,7 @@
 //			});
 //		}
 
-//		#region Implementation of IDispatcher
+//		#region Implementation of IOcDispatcher
 
 //		public void Invoke(Action action, object context)
 //		{

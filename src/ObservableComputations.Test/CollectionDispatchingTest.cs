@@ -1,28 +1,78 @@
-﻿using System;
+﻿// Copyright (c) 2019-2021 Buchelnikov Igor Vladimirovich. All rights reserved
+// Buchelnikov Igor Vladimirovich licenses this file to you under the MIT license.
+// The LICENSE file is located at https://github.com/IgorBuchelnikov/ObservableComputations/blob/master/LICENSE
+
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Collections.Specialized;
 using System.ComponentModel;
-using System.Diagnostics;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Runtime.CompilerServices;
 using System.Threading;
 using NUnit.Framework;
+using ObservableComputations;
+using ObservableComputations.Test;
 
 namespace ObservableComputations.Test
 {
-	[TestFixture]
-	public class CollectionDispatchingTest
+	[TestFixture(false)]
+	[TestFixture(true)]
+	public partial class CollectionDispatchingTest : TestBase
 	{
 		public class Item : INotifyPropertyChanged
 		{
-            public Consumer Consumer = new Consumer();
-			public Item(int num, int num2, IDispatcher consuminingDispatcher, IDispatcher computingDispatcher)
+			public OcConsumer Consumer = new OcConsumer();
+			public Item(int num, int num2, OcDispatcher mainOcDispatcher, OcDispatcher backgroundOcDispatcher)
 			{
 				_num = num;
 				_num2 = num2;
-				_numDispatching = new PropertyDispatching<Item, int>(() => Num, computingDispatcher, consuminingDispatcher).IsNeededFor(Consumer);
-				_num2Dispatching = new PropertyDispatching<Item, int>(() => Num2, consuminingDispatcher, computingDispatcher).IsNeededFor(Consumer);
+				_numBackgroundToMainDispatching = new PropertyDispatching<Item, int>(this, nameof(Num), mainOcDispatcher, backgroundOcDispatcher).For(Consumer);
+				_num2MainToBackgroundDispatching = new PropertyDispatching<Item, int>(this, nameof(Num2), backgroundOcDispatcher, mainOcDispatcher).For(Consumer);
+				_numBackgroundToMainScalarDispatching = new Computing<int>(() => Num).ScalarDispatching(mainOcDispatcher, backgroundOcDispatcher).For(Consumer);				
+				_num2MainToBackgroundScalarDispatching = new Computing<int>(() => Num2).ScalarDispatching(backgroundOcDispatcher, mainOcDispatcher).For(Consumer);
+				
+				_numBackgroundToMainScalarDispatching.SetValueRequestHandler = i =>
+				{
+					backgroundOcDispatcher.Invoke(() => Num = i);
+				};
+
+				_num2MainToBackgroundDispatching.PropertyChanged += (sender, args) =>
+				{
+					if (Thread.CurrentThread != backgroundOcDispatcher._thread)
+					{
+						throw new Exception("Wrong thread");
+					}
+				};
+				
+				_num2MainToBackgroundScalarDispatching.PropertyChanged += (sender, args) =>
+				{
+					if (Thread.CurrentThread != backgroundOcDispatcher._thread)
+					{
+						throw new Exception("Wrong thread");
+					}
+				};
+
+				_numBackgroundToMainDispatching.PropertyChanged += (sender, args) =>
+				{
+					if (Thread.CurrentThread != mainOcDispatcher._thread)
+					{
+						throw new Exception("Wrong thread");
+					}
+				};
+
+				_numBackgroundToMainScalarDispatching.PropertyChanged += (sender, args) =>
+				{
+					if (Thread.CurrentThread != mainOcDispatcher._thread)
+					{
+						throw new Exception("Wrong thread");
+					}
+				};
+			}
+
+			public Item()
+			{
 			}
 
 			private int _num;
@@ -39,11 +89,18 @@ namespace ObservableComputations.Test
 				set => updatePropertyValue(ref _num2, value);
 			}
 
-			private PropertyDispatching<Item,int> _numDispatching;
-			public PropertyDispatching<Item, int> NumDispatching => _numDispatching;
+			private PropertyDispatching<Item,int> _numBackgroundToMainDispatching;
+			public PropertyDispatching<Item, int> NumBackgroundToMainDispatching => _numBackgroundToMainDispatching;
 
-			private PropertyDispatching<Item,int> _num2Dispatching;
-			public PropertyDispatching<Item, int> Num2Dispatching => _num2Dispatching;
+			private PropertyDispatching<Item,int> _num2MainToBackgroundDispatching;
+			public PropertyDispatching<Item, int> Num2MainToBackgroundDispatching => _num2MainToBackgroundDispatching;
+
+			private ScalarDispatching<int> _numBackgroundToMainScalarDispatching;
+			public ScalarDispatching<int> NumBackgroundToMainScalarDispatching => _numBackgroundToMainScalarDispatching;
+
+			private ScalarDispatching<int> _num2MainToBackgroundScalarDispatching;
+			public ScalarDispatching<int> Num2MainToBackgroundScalarDispatching => _num2MainToBackgroundScalarDispatching;
+
 
 			#region INotifyPropertyChanged imlementation
 
@@ -67,209 +124,421 @@ namespace ObservableComputations.Test
 		}
 
 		[Test]
+		public void TestPropertyDispatchingProperties()
+		{
+			Item item = new Item();
+			Expression<Func<int>> propertyExpression = () => item.Num;
+			OcDispatcher mainOcDispatcher = new OcDispatcher(2);
+			OcDispatcher backgroundOcDispatcher = new OcDispatcher(2);
+			OcConsumer consumer = new OcConsumer();
+			object dispatcherParameter = new object();
+			object sourceOcDispatcherParameter = new object();
+			PropertyDispatching<Item, int> propertyDispatching = new PropertyDispatching<Item, int>(item, nameof(Item.Num), mainOcDispatcher, backgroundOcDispatcher, 1, 1, dispatcherParameter, sourceOcDispatcherParameter).For(consumer);
+
+			Assert.AreEqual(propertyDispatching.Source, item);
+			Assert.IsTrue(propertyDispatching.Sources.Contains(item));
+			Assert.AreEqual(propertyDispatching.PropertyName, nameof(Item.Num));
+			Assert.AreEqual(propertyDispatching.SourceOcDispatcher, backgroundOcDispatcher);
+			Assert.AreEqual(propertyDispatching.DestinationOcDispatcher, mainOcDispatcher);
+			Assert.AreEqual(propertyDispatching.DestinationOcDispatcherPriority, 1);
+			Assert.AreEqual(propertyDispatching.SourceOcDispatcherPriority, 1);
+			Assert.AreEqual(propertyDispatching.DestinationOcDispatcherParameter, dispatcherParameter);
+			Assert.AreEqual(propertyDispatching.SourceOcDispatcherParameter, sourceOcDispatcherParameter);
+
+			Assert.Throws<ObservableComputationsException>(() => propertyDispatching.SetValueRequestHandler = null);
+
+			consumer.Dispose();
+			mainOcDispatcher.Dispose();
+			backgroundOcDispatcher.Dispose();
+		}
+
+		byte _initWay = 0;
+
+		[Test]
+		[Repeat(10)]
+		[Timeout(1000 * 60 * 60 * 5)]
 		public void TestCollectionDispatchingTest()
 		{
-			for (int j = 0; j < 1000000; j++)
+
+			OcDispatcher mainOcDispatcher = new OcDispatcher();
+			mainOcDispatcher.ThreadName = "mainOcDispatcher";
+			OcDispatcher backgroundOcDispatcher = new OcDispatcher();
+			backgroundOcDispatcher.ThreadName = "backgroundOcDispatcher";
+			OcConsumer consumer = new OcConsumer();
+
+			ObservableCollection<Item> nums = new ObservableCollection<Item>();
+
+			Filtering<Item> filteredNums = nums.Filtering(i =>
+				i.Num % 3 == 0
+				|| i.Num2MainToBackgroundDispatching.Value % 5 == 0
+				|| i.Num2MainToBackgroundScalarDispatching.Value % 5 == 0);
+
+			CollectionDispatching<Item> dispatchingfilteredNums;
+			ManualResetEvent manualResetEvent = new ManualResetEvent(false);
+
+			Action func = () =>
 			{
-				Dispatcher consuminingDispatcher = new Dispatcher();
-				Dispatcher computingDispatcher = new Dispatcher();
-                Consumer consumer = new Consumer();
+				Thread.Sleep(TimeSpan.FromSeconds(new Random().Next(1, 4)));
+				dispatchingfilteredNums = filteredNums
+					.CollectionDispatching(mainOcDispatcher, backgroundOcDispatcher).For(consumer);
 
-				var nums = new ObservableCollection<Item>();
-				var filteredNums = nums.Filtering(i => i.Num % 3 == 0 || i.Num2Dispatching.Value % 5 == 0);
-				var dispatchingfilteredNums = filteredNums.CollectionDispatching(consuminingDispatcher).IsNeededFor(consumer);
-				bool stop = false;
-
-				Random stopperRandom = new Random();
-				Thread stopper = new Thread(() =>
+				dispatchingfilteredNums.CollectionChanged += (sender, args) =>
 				{
-					Thread.Sleep(TimeSpan.FromSeconds(stopperRandom.Next(2, 20)));
-					stop = true;
-				});
-
-				stopper.Start();
-
-				ThreadStart numsChangerThreadStart = () =>
-				{
-					Random random =  new Random();
-					while (!stop)
+					if (Thread.CurrentThread != mainOcDispatcher._thread)
 					{
-						Thread.Sleep(random.Next(0, 3));
-
-						int nextAction = random.Next(0, 20);
-						if (nextAction > 3) nextAction = nextAction == 4 ? 4 : 0;
-						NotifyCollectionChangedAction action = (NotifyCollectionChangedAction) nextAction;
-						switch (action)
-						{
-							case NotifyCollectionChangedAction.Add:
-								computingDispatcher.Invoke(() =>
-								{
-									int upperIndex = nums.Count > 0 ? nums.Count - 1 : 0;
-									int index = random.Next(0, upperIndex);
-									nums.Insert(index, new Item(random.Next(Int32.MinValue, int.MaxValue), random.Next(Int32.MinValue, int.MaxValue), consuminingDispatcher, computingDispatcher));
-								});
-								break;
-							case NotifyCollectionChangedAction.Remove:
-								computingDispatcher.Invoke(() =>
-								{
-									int upperIndex =  nums.Count - 1;
-									if (upperIndex > 0)
-									{
-										int index = random.Next(0, upperIndex);
-                                        Item item = nums[index];
-										nums.RemoveAt(index);
-                                        item.Consumer.Dispose();
-                                    }
-								});
-								break;
-							case NotifyCollectionChangedAction.Replace:
-								computingDispatcher.Invoke(() =>
-								{
-									int upperIndex =  nums.Count - 1;
-									if (upperIndex > 0)
-									{
-										int index = random.Next(0, upperIndex);
-                                        Item item = nums[index];
-										nums[index] = new Item(random.Next(Int32.MinValue, int.MaxValue), random.Next(Int32.MinValue, int.MaxValue), consuminingDispatcher, computingDispatcher);
-                                        item.Consumer.Dispose();
-                                    }
-
-								});
-								break;
-							case NotifyCollectionChangedAction.Move:
-								computingDispatcher.Invoke(() =>
-								{
-									int upperIndex =  nums.Count - 1;
-									if (upperIndex > 0)
-									{
-										int indexFrom = random.Next(0, upperIndex);
-										int indexTo = random.Next(0, upperIndex);
-										nums.Move(indexFrom, indexTo);
-									}
-								});
-								break;
-							case NotifyCollectionChangedAction.Reset:
-								computingDispatcher.Invoke(() => { nums.Clear(); });
-                                foreach (Item item in nums)
-                                    item.Consumer.Dispose();
-								break;
-							default:
-								throw new ArgumentOutOfRangeException();
-						}
-
+						throw new Exception("Wrong thread");
 					}
 				};
 
-
-				int threadsCount = 10;   
-				Thread[] numsChangerThreads = new Thread[threadsCount];
-				for (int i = 0; i < threadsCount; i++)
+				((INotifyPropertyChanged)dispatchingfilteredNums).PropertyChanged += (sender, args) =>
 				{
-					numsChangerThreads[i] = new Thread(numsChangerThreadStart);
-					numsChangerThreads[i].Start();
-				}
-
-				ThreadStart numValueChangerThreadStart = () =>
-				{
-					Random random =  new Random();
-					while (!stop)
+					if (Thread.CurrentThread != mainOcDispatcher._thread)
 					{
-						Thread.Sleep(random.Next(0, 3));
-
-						consuminingDispatcher.Invoke(() =>
-						{
-							int dispatchingfilteredNumsCount = dispatchingfilteredNums.Count;
-							if (dispatchingfilteredNumsCount > 0)
-								dispatchingfilteredNums[random.Next(0, dispatchingfilteredNumsCount - 1)].NumDispatching.Value =
-									random.Next(Int32.MinValue, int.MaxValue);
-						});
-
+						throw new Exception("Wrong thread");
 					}
 				};
- 
-				Thread[] numValueChangerThreads = new Thread[threadsCount];
-				for (int i = 0; i < threadsCount; i++)
-				{
-					numValueChangerThreads[i] = new Thread(numValueChangerThreadStart);
-					numValueChangerThreads[i].Start();
-				}
 
-				ThreadStart num2ValueChangerThreadStart = () =>
+				filteredNums.CollectionChanged += (sender, args) =>
 				{
-					Random random =  new Random();
-					while (!stop)
+
+					if (Thread.CurrentThread != backgroundOcDispatcher._thread)
 					{
-						Thread.Sleep(random.Next(0, 3));
-
-						consuminingDispatcher.Invoke(() =>
-						{
-							int dispatchingfilteredNumsCount = dispatchingfilteredNums.Count;
-							if (dispatchingfilteredNumsCount > 0)
-								dispatchingfilteredNums[random.Next(0, dispatchingfilteredNumsCount - 1)].Num2 =
-									random.Next(Int32.MinValue, int.MaxValue);
-						});
-
+						throw new Exception("Wrong thread");
 					}
 				};
- 
-				Thread[] num2ValueChangerThreads = new Thread[threadsCount];
-				for (int i = 0; i < threadsCount; i++)
+
+				((INotifyPropertyChanged)filteredNums).PropertyChanged += (sender, args) =>
 				{
-					num2ValueChangerThreads[i] = new Thread(num2ValueChangerThreadStart);
-					num2ValueChangerThreads[i].Start();
-				}
+					if (Thread.CurrentThread != backgroundOcDispatcher._thread)
+					{
+						throw new Exception("Wrong thread");
+					}
+				};
 
+				manualResetEvent.Set();
+			};
 
-				//Thread consuminingDispatcherInvoker = new Thread(() =>
-				//{
-				//	Random random =  new Random();
-				//	while (!stop)
-				//	{
-				//		Thread.Sleep(random.Next(0, 1000));
-				//		consuminingDispatcher.Invoke(() =>
-				//		{
-				//			computingDispatcher.Invoke(() =>
-				//			{
-
-
-				//			});
-				//		});
-				//	}
-				//});
-
-				//consuminingDispatcherInvoker.Start();
-
-				for (int i = 0; i < threadsCount; i++)
-				{
-					numsChangerThreads[i].Join();
-				}
-
-				for (int i = 0; i < threadsCount; i++)
-				{
-					numValueChangerThreads[i].Join();
-				}
-
-				for (int i = 0; i < threadsCount; i++)
-				{
-					num2ValueChangerThreads[i].Join();
-				}
-
-				//consuminingDispatcherInvoker.Join();
-
-				consuminingDispatcher.Invoke(() => {});
-				computingDispatcher.Invoke(() => {});
-				consuminingDispatcher.Invoke(() => {});
-
-				Assert.IsTrue(nums.Where(i => i.Num % 3 == 0 || i.Num2 % 5 == 0).SequenceEqual(dispatchingfilteredNums));
-				Assert.IsTrue(nums.Where(i => i.NumDispatching.Value % 3 == 0 || i.Num2Dispatching.Value % 5 == 0).SequenceEqual(dispatchingfilteredNums));
-				
-                foreach (Item item in nums)
-                    item.Consumer.Dispose();
-
-                consumer.Dispose();
-                
-                Debug.Print("!!!!!");
+			if (_initWay == 0)
+			{
+				mainOcDispatcher.InvokeAsync(func);
 			}
+			else if (_initWay == 1)
+			{
+				Thread thread = new Thread(() => func());
+				thread.Start();
+			}
+			else if (_initWay == 2)
+			{
+				func();
+			}
+			else 
+			{
+				backgroundOcDispatcher.InvokeAsync(func);
+			}
+
+			_initWay++;
+			if (_initWay == 4) _initWay = 0;
+
+			dispatchingfilteredNums = filteredNums
+				.CollectionDispatching(mainOcDispatcher, backgroundOcDispatcher).For(consumer);
+
+			dispatchingfilteredNums.CollectionChanged += (sender, args) =>
+			{
+				if (Thread.CurrentThread != mainOcDispatcher._thread)
+				{
+					throw new Exception("Wrong thread");
+				}
+			};
+
+			((INotifyPropertyChanged)dispatchingfilteredNums).PropertyChanged += (sender, args) =>
+			{
+				if (Thread.CurrentThread != mainOcDispatcher._thread)
+				{
+					throw new Exception("Wrong thread");
+				}
+			};
+
+			filteredNums.CollectionChanged += (sender, args) =>
+			{
+
+				if (Thread.CurrentThread != backgroundOcDispatcher._thread)
+				{
+					throw new Exception("Wrong thread");
+				}
+			};
+
+			((INotifyPropertyChanged)filteredNums).PropertyChanged += (sender, args) =>
+			{
+				if (Thread.CurrentThread != backgroundOcDispatcher._thread)
+				{
+					throw new Exception("Wrong thread");
+				}
+			};
+
+			bool stop = false;
+
+			Random stopperRandom = new Random();
+			Thread stopper = new Thread(() =>
+			{
+				Thread.Sleep(TimeSpan.FromSeconds(stopperRandom.Next(5, 20)));
+				stop = true;
+			});
+
+			stopper.Start();
+
+			ThreadStart numsChangerThreadStart = () =>
+			{
+				Random random = new Random();
+				while (!stop)
+				{
+					Thread.Sleep(random.Next(0, 3));
+
+					int nextAction = random.Next(0, 20);
+					if (nextAction > 3) nextAction = nextAction == 4 ? 4 : 0;
+					NotifyCollectionChangedAction action = (NotifyCollectionChangedAction)nextAction;
+					switch (action)
+					{
+						case NotifyCollectionChangedAction.Add:
+							backgroundOcDispatcher.Invoke(() =>
+							{
+								int upperIndex = nums.Count > 0 ? nums.Count - 1 : 0;
+								int index = random.Next(0, upperIndex);
+								nums.Insert(index,
+									new Item(random.Next(Int32.MinValue, int.MaxValue),
+										random.Next(Int32.MinValue, int.MaxValue), mainOcDispatcher,
+										backgroundOcDispatcher));
+							}, 0);
+							break;
+						case NotifyCollectionChangedAction.Remove:
+							backgroundOcDispatcher.Invoke(() =>
+							{
+								int upperIndex = nums.Count - 1;
+								if (upperIndex > 0)
+								{
+									int index = random.Next(0, upperIndex);
+									Item item = nums[index];
+									nums.RemoveAt(index);
+									item.Consumer.Dispose();
+								}
+							}, 0);
+							break;
+						case NotifyCollectionChangedAction.Replace:
+							backgroundOcDispatcher.Invoke(() =>
+							{
+								int upperIndex = nums.Count - 1;
+								if (upperIndex > 0)
+								{
+									int index = random.Next(0, upperIndex);
+									Item item = nums[index];
+									nums[index] = new Item(random.Next(Int32.MinValue, int.MaxValue),
+										random.Next(Int32.MinValue, int.MaxValue), mainOcDispatcher,
+										backgroundOcDispatcher);
+									item.Consumer.Dispose();
+								}
+
+							}, 0);
+							break;
+						case NotifyCollectionChangedAction.Move:
+							backgroundOcDispatcher.Invoke(() =>
+							{
+								int upperIndex = nums.Count - 1;
+								if (upperIndex > 0)
+								{
+									int indexFrom = random.Next(0, upperIndex);
+									int indexTo = random.Next(0, upperIndex);
+									nums.Move(indexFrom, indexTo);
+								}
+							}, 0);
+							break;
+						case NotifyCollectionChangedAction.Reset:
+							backgroundOcDispatcher.Invoke(() =>
+							{
+								Item[] items = nums.ToArray();
+								nums.Clear();
+								foreach (Item item in items)
+								{
+									item.Consumer.Dispose();
+								}
+							}, 0);
+
+							break;
+						default:
+							throw new ArgumentOutOfRangeException();
+					}
+
+				}
+			};
+
+
+			int threadsCount = 10;
+			Thread[] numsChangerThreads = new Thread[threadsCount];
+			for (int i = 0; i < threadsCount; i++)
+			{
+				numsChangerThreads[i] = new Thread(numsChangerThreadStart);
+				numsChangerThreads[i].Start();
+			}
+
+			ThreadStart numValueChangerThreadStart = () =>
+			{
+				manualResetEvent.WaitOne();
+				Random random = new Random();
+				while (!stop)
+				{
+					Thread.Sleep(random.Next(0, 3));
+
+					mainOcDispatcher.Invoke(() =>
+					{
+						int dispatchingfilteredNumsCount = dispatchingfilteredNums.Count;
+						if (dispatchingfilteredNumsCount > 0)
+							dispatchingfilteredNums[random.Next(0, dispatchingfilteredNumsCount - 1)]
+									.NumBackgroundToMainDispatching.Value =
+								random.Next(Int32.MinValue, int.MaxValue);
+					}, 0);
+
+				}
+			};
+
+			Thread[] numValueChangerThreads = new Thread[threadsCount];
+			for (int i = 0; i < threadsCount; i++)
+			{
+				numValueChangerThreads[i] = new Thread(numValueChangerThreadStart);
+				numValueChangerThreads[i].Start();
+			}
+
+			ThreadStart numValueChanger2ThreadStart = () =>
+			{
+				manualResetEvent.WaitOne();
+				Random random = new Random();
+				while (!stop)
+				{
+					Thread.Sleep(random.Next(0, 3));
+
+					mainOcDispatcher.Invoke(() =>
+					{
+						int dispatchingfilteredNumsCount = dispatchingfilteredNums.Count;
+						if (dispatchingfilteredNumsCount > 0)
+							dispatchingfilteredNums[random.Next(0, dispatchingfilteredNumsCount - 1)]
+									.NumBackgroundToMainScalarDispatching.Value =
+								random.Next(Int32.MinValue, int.MaxValue);
+					});
+
+				}
+			};
+
+			Thread[] numValueChanger2Threads = new Thread[threadsCount];
+			for (int i = 0; i < threadsCount; i++)
+			{
+				numValueChanger2Threads[i] = new Thread(numValueChanger2ThreadStart);
+				numValueChanger2Threads[i].Start();
+			}
+
+
+			ThreadStart num2ValueChangerThreadStart = () =>
+			{
+				manualResetEvent.WaitOne();
+				Random random = new Random();
+				while (!stop)
+				{
+					Thread.Sleep(random.Next(0, 3));
+
+					mainOcDispatcher.Invoke(() =>
+					{
+						int dispatchingfilteredNumsCount = dispatchingfilteredNums.Count;
+						if (dispatchingfilteredNumsCount > 0)
+							dispatchingfilteredNums[random.Next(0, dispatchingfilteredNumsCount - 1)].Num2 =
+								random.Next(Int32.MinValue, int.MaxValue);
+					});
+
+				}
+			};
+
+			Thread[] num2ValueChangerThreads = new Thread[threadsCount];
+			for (int i = 0; i < threadsCount; i++)
+			{
+				num2ValueChangerThreads[i] = new Thread(num2ValueChangerThreadStart);
+				num2ValueChangerThreads[i].Start();
+			}
+
+			for (int i = 0; i < threadsCount; i++)
+			{
+				numsChangerThreads[i].Join();
+			}
+
+			for (int i = 0; i < threadsCount; i++)
+			{
+				numValueChangerThreads[i].Join();
+			}
+
+			for (int i = 0; i < threadsCount; i++)
+			{
+				numValueChanger2Threads[i].Join();
+			}
+
+			for (int i = 0; i < threadsCount; i++)
+			{
+				num2ValueChangerThreads[i].Join();
+			}
+
+			manualResetEvent.Dispose();
+
+			//consuminingOcDispatcherInvoker.Join();
+
+			mainOcDispatcher.Invoke(() => { });
+			backgroundOcDispatcher.Invoke(() => { });
+			mainOcDispatcher.Invoke(() => { });
+
+			Assert.IsTrue(nums.Where(i => i.Num % 3 == 0 || i.Num2 % 5 == 0).SequenceEqual(dispatchingfilteredNums));
+			Assert.IsTrue(nums.Where(i =>
+				i.Num % 3 == 0
+				|| i.NumBackgroundToMainDispatching.Value % 3 == 0
+				|| i.NumBackgroundToMainScalarDispatching.Value % 3 == 0
+				|| i.Num2 % 5 == 0
+				|| i.Num2MainToBackgroundDispatching.Value % 5 == 0
+				|| i.Num2MainToBackgroundScalarDispatching.Value % 5 == 0).SequenceEqual(dispatchingfilteredNums));
+
+			foreach (Item item in nums)
+				item.Consumer.Dispose();
+
+			mainOcDispatcher.Invoke(() => consumer.Dispose());
+			
+			ManualResetEventSlim backgroundOcDispatcherDisposedMru = new ManualResetEventSlim(false);
+			ManualResetEventSlim mainOcDispatcherDisposedMru = new ManualResetEventSlim(false);
+
+			backgroundOcDispatcher.PropertyChanged += (sender, args) =>
+			{
+				if (args.PropertyName == nameof(OcDispatcher.Status) 
+					&& backgroundOcDispatcher.Status == OcDispatcherStatus.Disposed)
+					backgroundOcDispatcherDisposedMru.Set();
+			};
+
+			mainOcDispatcher.PropertyChanged += (sender, args) =>
+			{
+				if (args.PropertyName == nameof(OcDispatcher.Status) 
+					&& mainOcDispatcher.Status == OcDispatcherStatus.Disposed)
+					mainOcDispatcherDisposedMru.Set();
+			};
+
+
+			backgroundOcDispatcher.Dispose();
+			mainOcDispatcher.Dispose();
+
+			backgroundOcDispatcherDisposedMru.Wait(30000);
+			mainOcDispatcherDisposedMru.Wait(30000);
+
+			if (backgroundOcDispatcher.Status != OcDispatcherStatus.Disposed 
+				|| mainOcDispatcher.Status != OcDispatcherStatus.Disposed)
+			{
+				backgroundOcDispatcherDisposedMru.Dispose();
+				mainOcDispatcherDisposedMru.Dispose();
+				throw new Exception("dispose failed");
+			}
+
+			backgroundOcDispatcherDisposedMru.Dispose();
+			mainOcDispatcherDisposedMru.Dispose();
+		}
+
+		public CollectionDispatchingTest(bool debug) : base(debug)
+		{
 		}
 	}
 }

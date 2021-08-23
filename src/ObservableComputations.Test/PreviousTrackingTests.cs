@@ -1,14 +1,18 @@
-﻿using System.Collections.Generic;
+﻿// Copyright (c) 2019-2021 Buchelnikov Igor Vladimirovich. All rights reserved
+// Buchelnikov Igor Vladimirovich licenses this file to you under the MIT license.
+// The LICENSE file is located at https://github.com/IgorBuchelnikov/ObservableComputations/blob/master/LICENSE
+
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using NUnit.Framework;
 
 namespace ObservableComputations.Test
 {
-	[TestFixture]
-	public class PreviousTrackingTests
+	[TestFixture(false)]
+	public partial class PreviousTrackingTests : TestBase
 	{
-        Consumer consumer = new Consumer();
+		OcConsumer consumer = new OcConsumer();
 
 		public class Order : INotifyPropertyChanged
 		{
@@ -44,7 +48,7 @@ namespace ObservableComputations.Test
 		{
 			bool raised = false;
 			Order order = new Order();
-			PreviousTracking<string> computing = new PreviousTracking<string>(new Computing<string>(() => order.Num)).IsNeededFor(consumer);
+			PreviousTracking<string> computing = new PreviousTracking<string>(new Computing<string>(() => order.Num)).For(consumer);
 			Assert.IsFalse(computing.IsEverChanged);
 			Assert.IsTrue(computing.PreviousValue == null);
 			Assert.IsTrue(computing.Value == null);
@@ -58,7 +62,11 @@ namespace ObservableComputations.Test
 			Assert.IsTrue(computing.IsEverChanged);
 			Assert.IsTrue(computing.Value == "2");
 
-            consumer.Dispose();
+			consumer.Dispose();
+		}
+
+		public PreviousTrackingTests(bool debug) : base(debug)
+		{
 		}
 	}
 }

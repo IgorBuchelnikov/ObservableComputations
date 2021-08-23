@@ -1,4 +1,8 @@
-﻿using System;
+﻿// Copyright (c) 2019-2021 Buchelnikov Igor Vladimirovich. All rights reserved
+// Buchelnikov Igor Vladimirovich licenses this file to you under the MIT license.
+// The LICENSE file is located at https://github.com/IgorBuchelnikov/ObservableComputations/blob/master/LICENSE
+
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
@@ -9,10 +13,10 @@ using NUnit.Framework;
 
 namespace ObservableComputations.Test
 {
-	[TestFixture]
-	public class IntersectingTests
+	[TestFixture(false)]
+	public partial class IntersectingTests : TestBase
 	{
-        Consumer consumer = new Consumer();
+		OcConsumer consumer = new OcConsumer();
 
 		public class Item : INotifyPropertyChanged
 		{
@@ -59,6 +63,7 @@ namespace ObservableComputations.Test
 		TextFileOutput _textFileOutputLog = new TextFileOutput(@"D:\Projects\NevaPolimer\Intersecting_Deep.log");
 		TextFileOutput _textFileOutputTime = new TextFileOutput(@"D:\Projects\NevaPolimer\Intersecting_Deep_Time.log");
 
+#if !RunOnlyMinimalTestsToCover
 		[Test]
 		public void Intersecting_Deep()
 		{			
@@ -81,6 +86,8 @@ namespace ObservableComputations.Test
 				}
 			}
 		}
+#endif
+
 
 		private void test(int[] ids1, int[] ids2)
 		{
@@ -98,8 +105,8 @@ namespace ObservableComputations.Test
 				trace(testNum = "1", ids1, ids2, newItemId, index, indexOld, indexNew);
 				items1 = getObservableCollection(ids1);
 				items2 = getObservableCollection(ids2);
-				intersecting = items1.Intersecting(items2).IsNeededFor(consumer);
-				intersecting.ValidateConsistency();				
+				intersecting = items1.Intersecting(items2).For(consumer);
+				intersecting.ValidateInternalConsistency();				
 				consumer.Dispose();
 
 				for (index = 0; index < ids1.Length; index++)
@@ -107,9 +114,9 @@ namespace ObservableComputations.Test
 					trace(testNum = "2", ids1, ids2, newItemId, index, indexOld, indexNew);
 					items1 = getObservableCollection(ids1);
 					items2 = getObservableCollection(ids2);
-					intersecting = items1.Intersecting(items2).IsNeededFor(consumer);
+					intersecting = items1.Intersecting(items2).For(consumer);
 					items1.RemoveAt(index);
-					intersecting.ValidateConsistency();					
+					intersecting.ValidateInternalConsistency();					
 					consumer.Dispose();
 				}
 
@@ -118,9 +125,9 @@ namespace ObservableComputations.Test
 					trace(testNum = "3", ids1, ids2, newItemId, index, indexOld, indexNew);
 					items1 = getObservableCollection(ids1);
 					items2 = getObservableCollection(ids2);
-					intersecting = items1.Intersecting(items2).IsNeededFor(consumer);
+					intersecting = items1.Intersecting(items2).For(consumer);
 					items2.RemoveAt(index);
-					intersecting.ValidateConsistency();					
+					intersecting.ValidateInternalConsistency();					
 					consumer.Dispose();
 				}
 
@@ -131,9 +138,9 @@ namespace ObservableComputations.Test
 						trace(testNum = "4", ids1, ids2, newItemId, index, indexOld, indexNew);
 						items1 = getObservableCollection(ids1);
 						items2 = getObservableCollection(ids2);
-						intersecting = items1.Intersecting(items2).IsNeededFor(consumer);
+						intersecting = items1.Intersecting(items2).For(consumer);
 						items1.Insert(index, new Item(newItemId));
-						intersecting.ValidateConsistency();						
+						intersecting.ValidateInternalConsistency();						
 						consumer.Dispose();
 					}
 
@@ -146,9 +153,9 @@ namespace ObservableComputations.Test
 						trace(testNum = "5", ids1, ids2, newItemId, index, indexOld, indexNew);
 						items1 = getObservableCollection(ids1);
 						items2 = getObservableCollection(ids2);
-						intersecting = items1.Intersecting(items2).IsNeededFor(consumer);
+						intersecting = items1.Intersecting(items2).For(consumer);
 						items2.Insert(index, new Item(newItemId));
-						intersecting.ValidateConsistency();						
+						intersecting.ValidateInternalConsistency();						
 						consumer.Dispose();
 					}
 				}
@@ -160,9 +167,9 @@ namespace ObservableComputations.Test
 						trace(testNum = "6", ids1, ids2, newItemId, index, indexOld, indexNew);
 						items1 = getObservableCollection(ids1);
 						items2 = getObservableCollection(ids2);
-						intersecting = items1.Intersecting(items2).IsNeededFor(consumer);
+						intersecting = items1.Intersecting(items2).For(consumer);
 						items1[index] = new Item(newItemId);
-						intersecting.ValidateConsistency();						
+						intersecting.ValidateInternalConsistency();						
 						consumer.Dispose();
 					}
 				}
@@ -174,9 +181,9 @@ namespace ObservableComputations.Test
 						trace(testNum = "7", ids1, ids2, newItemId, index, indexOld, indexNew);
 						items1 = getObservableCollection(ids1);
 						items2 = getObservableCollection(ids2);
-						intersecting = items1.Intersecting(items2).IsNeededFor(consumer);
+						intersecting = items1.Intersecting(items2).For(consumer);
 						items2[index] = new Item(newItemId);
-						intersecting.ValidateConsistency();						
+						intersecting.ValidateInternalConsistency();						
 						consumer.Dispose();
 					}
 				}
@@ -188,9 +195,9 @@ namespace ObservableComputations.Test
 						trace(testNum = "8", ids1, ids2, newItemId, index, indexOld, indexNew);
 						items1 = getObservableCollection(ids1);
 						items2 = getObservableCollection(ids2);
-						intersecting = items1.Intersecting(items2).IsNeededFor(consumer);
+						intersecting = items1.Intersecting(items2).For(consumer);
 						items1.Move(indexOld, indexNew);
-						intersecting.ValidateConsistency();						
+						intersecting.ValidateInternalConsistency();						
 						consumer.Dispose();
 					}
 				}
@@ -202,9 +209,9 @@ namespace ObservableComputations.Test
 						trace(testNum = "9", ids1, ids2, newItemId, index, indexOld, indexNew);
 						items1 = getObservableCollection(ids1);
 						items2 = getObservableCollection(ids2);
-						intersecting = items1.Intersecting(items2).IsNeededFor(consumer);
+						intersecting = items1.Intersecting(items2).For(consumer);
 						items2.Move(indexOld, indexNew);
-						intersecting.ValidateConsistency();						
+						intersecting.ValidateInternalConsistency();						
 						consumer.Dispose();
 					}
 				}
@@ -220,13 +227,14 @@ namespace ObservableComputations.Test
 				throw new Exception(traceString, e);
 			}
 
+			writeUsefulTest(getTestString(ids1, ids2));
 		}
 
 		private void trace(string num, int[] ids1, int[] ids2, int newId, int index, int indexOld, int indexNew)
 		{
 			string traceString = getTraceString(num, ids1, ids2, newId, index, indexOld, indexNew);
 			if (traceString == "#9. ItemsCounts1=1   ItemsCounts2=2 " +
-			    "index=2  indexOld=0   indexNew=1")
+				"index=2  indexOld=0   indexNew=1")
 			{
 				Debugger.Break();
 			}
@@ -248,6 +256,10 @@ namespace ObservableComputations.Test
 		private static ObservableCollection<Item> getObservableCollection(int[] ids)
 		{	
 			return new ObservableCollection<Item>(Enumerable.Range(0, ids.Length).Select(i => ids[i] >= 0 ? new Item(ids[i]) : null));
+		}
+
+		public IntersectingTests(bool debug) : base(debug)
+		{
 		}
 	}
 }

@@ -1,4 +1,8 @@
-﻿using System;
+﻿// Copyright (c) 2019-2021 Buchelnikov Igor Vladimirovich. All rights reserved
+// Buchelnikov Igor Vladimirovich licenses this file to you under the MIT license.
+// The LICENSE file is located at https://github.com/IgorBuchelnikov/ObservableComputations/blob/master/LICENSE
+
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
@@ -9,10 +13,10 @@ using NUnit.Framework;
 
 namespace ObservableComputations.Test
 {
-	[TestFixture]
-	public class ZippingTests
+	[TestFixture(false)]
+	public partial class ZippingTests : TestBase
 	{
-        Consumer consumer = new Consumer();
+		OcConsumer consumer = new OcConsumer();
 
 		public class Item : INotifyPropertyChanged
 		{
@@ -50,6 +54,7 @@ namespace ObservableComputations.Test
 		TextFileOutput _textFileOutputLog = new TextFileOutput(@"D:\Projects\NevaPolimer\Zipping_Deep.log");
 		TextFileOutput _textFileOutputTime = new TextFileOutput(@"D:\Projects\NevaPolimer\Zipping_Deep_Time.log");
 
+#if !RunOnlyMinimalTestsToCover
 		[Test, Combinatorial]
 		public void Zipping_Deep()
 		{			
@@ -61,6 +66,7 @@ namespace ObservableComputations.Test
 				}
 			}
 		}
+#endif
 
 		private void test(int count1, int count2)
 		{
@@ -77,8 +83,8 @@ namespace ObservableComputations.Test
 				trace(testNum = "1", count1, count2, index, indexOld, indexNew);
 				items1 = getObservableCollection(count1);
 				items2 = getObservableCollection(count2);
-				zipping = items1.Zipping(items2).IsNeededFor(consumer);
-				zipping.ValidateConsistency();				
+				zipping = items1.Zipping(items2).For(consumer);
+				zipping.ValidateInternalConsistency();				
 				consumer.Dispose();
 
 				for (index = 0; index < count1; index++)
@@ -86,9 +92,9 @@ namespace ObservableComputations.Test
 					trace(testNum = "2", count1, count2, index, indexOld, indexNew);
 					items1 = getObservableCollection(count1);
 					items2 = getObservableCollection(count2);
-					zipping = items1.Zipping(items2).IsNeededFor(consumer);
+					zipping = items1.Zipping(items2).For(consumer);
 					items1.RemoveAt(index);
-					zipping.ValidateConsistency();					
+					zipping.ValidateInternalConsistency();					
 					consumer.Dispose();
 				}
 
@@ -97,9 +103,9 @@ namespace ObservableComputations.Test
 					trace(testNum = "3", count1, count2, index, indexOld, indexNew);
 					items1 = getObservableCollection(count1);
 					items2 = getObservableCollection(count2);
-					zipping = items1.Zipping(items2).IsNeededFor(consumer);
+					zipping = items1.Zipping(items2).For(consumer);
 					items2.RemoveAt(index);
-					zipping.ValidateConsistency();					
+					zipping.ValidateInternalConsistency();					
 					consumer.Dispose();
 				}
 
@@ -108,9 +114,9 @@ namespace ObservableComputations.Test
 					trace(testNum = "4", count1, count2, index, indexOld, indexNew);
 					items1 = getObservableCollection(count1);
 					items2 = getObservableCollection(count2);
-					zipping = items1.Zipping(items2).IsNeededFor(consumer);
+					zipping = items1.Zipping(items2).For(consumer);
 					items1.Insert(index, new Item());
-					zipping.ValidateConsistency();					
+					zipping.ValidateInternalConsistency();					
 					consumer.Dispose();
 				}
 
@@ -119,9 +125,9 @@ namespace ObservableComputations.Test
 					trace(testNum = "5", count1, count2, index, indexOld, indexNew);
 					items1 = getObservableCollection(count1);
 					items2 = getObservableCollection(count2);
-					zipping = items1.Zipping(items2).IsNeededFor(consumer);
+					zipping = items1.Zipping(items2).For(consumer);
 					items2.Insert(index, new Item());
-					zipping.ValidateConsistency();					
+					zipping.ValidateInternalConsistency();					
 					consumer.Dispose();
 				}
 
@@ -130,9 +136,9 @@ namespace ObservableComputations.Test
 					trace(testNum = "6", count1, count2, index, indexOld, indexNew);
 					items1 = getObservableCollection(count1);
 					items2 = getObservableCollection(count2);
-					zipping = items1.Zipping(items2).IsNeededFor(consumer);
+					zipping = items1.Zipping(items2).For(consumer);
 					items1[index] = new Item();
-					zipping.ValidateConsistency();					
+					zipping.ValidateInternalConsistency();					
 					consumer.Dispose();
 				}
 
@@ -141,9 +147,9 @@ namespace ObservableComputations.Test
 					trace(testNum = "7", count1, count2, index, indexOld, indexNew);
 					items1 = getObservableCollection(count1);
 					items2 = getObservableCollection(count2);
-					zipping = items1.Zipping(items2).IsNeededFor(consumer);
+					zipping = items1.Zipping(items2).For(consumer);
 					items2[index] = new Item();
-					zipping.ValidateConsistency();					
+					zipping.ValidateInternalConsistency();					
 					consumer.Dispose();
 				}
 
@@ -154,9 +160,9 @@ namespace ObservableComputations.Test
 						trace(testNum = "8", count1, count2, index, indexOld, indexNew);
 						items1 = getObservableCollection(count1);
 						items2 = getObservableCollection(count2);
-						zipping = items1.Zipping(items2).IsNeededFor(consumer);
+						zipping = items1.Zipping(items2).For(consumer);
 						items1.Move(indexOld, indexNew);
-						zipping.ValidateConsistency();						
+						zipping.ValidateInternalConsistency();						
 						consumer.Dispose();
 					}
 				}
@@ -168,9 +174,9 @@ namespace ObservableComputations.Test
 						trace(testNum = "9", count1, count2, index, indexOld, indexNew);
 						items1 = getObservableCollection(count1);
 						items2 = getObservableCollection(count2);
-						zipping = items1.Zipping(items2).IsNeededFor(consumer);
+						zipping = items1.Zipping(items2).For(consumer);
 						items2.Move(indexOld, indexNew);
-						zipping.ValidateConsistency();						
+						zipping.ValidateInternalConsistency();						
 						consumer.Dispose();
 					}
 				}
@@ -185,6 +191,8 @@ namespace ObservableComputations.Test
 				_textFileOutputLog.AppentLine(e.StackTrace);
 				throw new Exception(traceString, e);
 			}
+
+			writeUsefulTest(getTestString(count1, count2));
 
 		}
 
@@ -214,6 +222,10 @@ namespace ObservableComputations.Test
 		private static ObservableCollection<Item> getObservableCollection(int itemsCounts)
 		{	
 			return new ObservableCollection<Item>(Enumerable.Range(0, itemsCounts).Select(i => new Item()));
+		}
+
+		public ZippingTests(bool debug) : base(debug)
+		{
 		}
 	}
 }

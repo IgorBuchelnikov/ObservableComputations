@@ -1,9 +1,13 @@
-﻿using System;
+﻿// Copyright (c) 2019-2021 Buchelnikov Igor Vladimirovich. All rights reserved
+// Buchelnikov Igor Vladimirovich licenses this file to you under the MIT license.
+// The LICENSE file is located at https://github.com/IgorBuchelnikov/ObservableComputations/blob/master/LICENSE
+
+using System;
 using System.Collections.Specialized;
 
 namespace ObservableComputations
 {
-	public abstract class CollectionComputingChild<TItem> : ObservableCollectionWithChangeMarker<TItem>, ICollectionComputingChild
+	public abstract class CollectionComputingChild<TItem> : ObservableCollectionWithTickTackVersion<TItem>, ICollectionComputingChild
 	{
 		public string DebugTag {get; set;}
 		public object Tag {get; set;}
@@ -22,40 +26,43 @@ namespace ObservableComputations
 		public int OldIndex => _oldIndex;
 		public int NewIndex => _newIndex;
 
-        public string InstantiatingStackTrace => Parent.InstantiatingStackTrace;
-        internal IComputing _userCodeIsCalledFrom;
-        public IComputing UserCodeIsCalledFrom => _userCodeIsCalledFrom;
-        public object HandledEventSender => Parent.HandledEventSender;
-        public EventArgs HandledEventArgs => Parent.HandledEventArgs;
-        public bool IsActive => Parent.IsActive;
+		public string InstantiationStackTrace => Parent.InstantiationStackTrace;
+		internal IComputing _userCodeIsCalledFrom;
+		public IComputing UserCodeIsCalledFrom => _userCodeIsCalledFrom;
+		public object HandledEventSender => Parent.HandledEventSender;
+		public EventArgs HandledEventArgs => Parent.HandledEventArgs;
+		public bool IsActive => Parent.IsActive;
 
-        protected internal void insertItem(int index, TItem item)
+		public bool ActivationInProgress => Parent.ActivationInProgress;
+		public bool InactivationInProgress => Parent.InactivationInProgress;
+
+		protected internal void insertItem(int index, TItem item)
 		{
-            void perform()
-            {
-                PreCollectionChanged?.Invoke(this, null);
-                base.InsertItem(index, item);
-                PostCollectionChanged?.Invoke(this, null);
-            }
+			void perform()
+			{
+				PreCollectionChanged?.Invoke(this, null);
+				base.InsertItem(index, item);
+				PostCollectionChanged?.Invoke(this, null);
+			}
 
-            ChangeMarkerField = !ChangeMarkerField;
+			TickTackVersion = !TickTackVersion;
 
 			_currentChange = NotifyCollectionChangedAction.Add;
 			_newIndex = index;
 			_newItem = item;
 
-			if (Configuration.TrackComputingsExecutingUserCode)
+			if (OcConfiguration.TrackComputingsExecutingUserCode)
 			{
-                var currentThread = Utils.startComputingExecutingUserCode(out var computing, out _userCodeIsCalledFrom, this);
+				int currentThreadId = Utils.startComputingExecutingUserCode(out IComputing computing, out _userCodeIsCalledFrom, this);
 
 				perform();
 
-                Utils.endComputingExecutingUserCode(computing, currentThread, out _userCodeIsCalledFrom);
+				Utils.endComputingExecutingUserCode(computing, currentThreadId, out _userCodeIsCalledFrom);
 			}
 			else
-            {
-                perform();
-            }
+			{
+				perform();
+			}
 
 			_currentChange = null;
 			_newIndex = -1;
@@ -64,30 +71,30 @@ namespace ObservableComputations
 
 		protected internal void moveItem(int oldIndex, int newIndex)
 		{
-            void perform()
-            {
-                PreCollectionChanged?.Invoke(this, null);
-                base.MoveItem(oldIndex, newIndex);
-                PostCollectionChanged?.Invoke(this, null);
-            }
+			void perform()
+			{
+				PreCollectionChanged?.Invoke(this, null);
+				base.MoveItem(oldIndex, newIndex);
+				PostCollectionChanged?.Invoke(this, null);
+			}
 
-            ChangeMarkerField = !ChangeMarkerField;
+			TickTackVersion = !TickTackVersion;
 
 			_currentChange = NotifyCollectionChangedAction.Move;
 			_oldIndex = oldIndex;
 			_newIndex = newIndex;
 
-			if (Configuration.TrackComputingsExecutingUserCode)
+			if (OcConfiguration.TrackComputingsExecutingUserCode)
 			{
-                var currentThread = Utils.startComputingExecutingUserCode(out var computing, out _userCodeIsCalledFrom, this);
+				int currentThreadId = Utils.startComputingExecutingUserCode(out IComputing computing, out _userCodeIsCalledFrom, this);
 
 				perform();
 
-                Utils.endComputingExecutingUserCode(computing, currentThread, out _userCodeIsCalledFrom);
+				Utils.endComputingExecutingUserCode(computing, currentThreadId, out _userCodeIsCalledFrom);
 			}
 			else
 			{
-                perform();
+				perform();
 			}
 
 			_currentChange = null;
@@ -98,25 +105,25 @@ namespace ObservableComputations
 		
 		protected internal void removeItem(int index)
 		{
-            void perform()
-            {
-                PreCollectionChanged?.Invoke(this, null);
-                base.RemoveItem(index);
-                PostCollectionChanged?.Invoke(this, null);
-            }
+			void perform()
+			{
+				PreCollectionChanged?.Invoke(this, null);
+				base.RemoveItem(index);
+				PostCollectionChanged?.Invoke(this, null);
+			}
 
-            ChangeMarkerField = !ChangeMarkerField;
+			TickTackVersion = !TickTackVersion;
 
 			_currentChange = NotifyCollectionChangedAction.Remove;
 			_oldIndex = index;
 
-			if (Configuration.TrackComputingsExecutingUserCode)
+			if (OcConfiguration.TrackComputingsExecutingUserCode)
 			{
-                var currentThread = Utils.startComputingExecutingUserCode(out var computing, out _userCodeIsCalledFrom, this);
+				int currentThreadId = Utils.startComputingExecutingUserCode(out IComputing computing, out _userCodeIsCalledFrom, this);
 
 				perform();
 
-                Utils.endComputingExecutingUserCode(computing, currentThread, out _userCodeIsCalledFrom);
+				Utils.endComputingExecutingUserCode(computing, currentThreadId, out _userCodeIsCalledFrom);
 			}
 			else
 			{
@@ -130,58 +137,60 @@ namespace ObservableComputations
 		
 		protected internal void setItem(int index, TItem item)
 		{
-            void perform()
-            {
-                PreCollectionChanged?.Invoke(this, null);
-                base.SetItem(index, item);
-                PostCollectionChanged?.Invoke(this, null);
-            }
+			void perform()
+			{
+				PreCollectionChanged?.Invoke(this, null);
+				base.SetItem(index, item);
+				PostCollectionChanged?.Invoke(this, null);
+			}
 
-            ChangeMarkerField = !ChangeMarkerField;
+			TickTackVersion = !TickTackVersion;
 			
 			_currentChange = NotifyCollectionChangedAction.Replace;
 			_newItem = item;
 			_newIndex = index;
+			_oldIndex = index;
 
-			if (Configuration.TrackComputingsExecutingUserCode)
+			if (OcConfiguration.TrackComputingsExecutingUserCode)
 			{
-                var currentThread = Utils.startComputingExecutingUserCode(out var computing, out _userCodeIsCalledFrom, this);
+				int currentThreadId = Utils.startComputingExecutingUserCode(out IComputing computing, out _userCodeIsCalledFrom, this);
 
 				perform();
 
-                Utils.endComputingExecutingUserCode(computing, currentThread, out _userCodeIsCalledFrom);
+				Utils.endComputingExecutingUserCode(computing, currentThreadId, out _userCodeIsCalledFrom);
 			}
 			else
-            {
-                perform();
-            }
+			{
+				perform();
+			}
 
 			_currentChange = null;
 			_newItem = default;
 			_newIndex = -1;
+			_oldIndex = -1;
 		}
 
 		
 		protected internal void clearItems()
 		{
-            void perform()
-            {
-                PreCollectionChanged?.Invoke(this, null);
-                base.ClearItems();
-                PostCollectionChanged?.Invoke(this, null);
-            }
+			void perform()
+			{
+				PreCollectionChanged?.Invoke(this, null);
+				base.ClearItems();
+				PostCollectionChanged?.Invoke(this, null);
+			}
 
-            ChangeMarkerField = !ChangeMarkerField;
+			TickTackVersion = !TickTackVersion;
 
 			_currentChange = NotifyCollectionChangedAction.Reset;
 
-			if (Configuration.TrackComputingsExecutingUserCode)
+			if (OcConfiguration.TrackComputingsExecutingUserCode)
 			{
-                var currentThread = Utils.startComputingExecutingUserCode(out var computing, out _userCodeIsCalledFrom, this);
+				int currentThreadId = Utils.startComputingExecutingUserCode(out IComputing computing, out _userCodeIsCalledFrom, this);
 
 				perform();
 
-                Utils.endComputingExecutingUserCode(computing, currentThread, out _userCodeIsCalledFrom);
+				Utils.endComputingExecutingUserCode(computing, currentThreadId, out _userCodeIsCalledFrom);
 			}
 			else
 			{
@@ -218,12 +227,12 @@ namespace ObservableComputations
 		public Type ItemType => typeof(TItem);
 		public abstract ICollectionComputing Parent { get; }
 
-        #region Implementation of IConsistent
+		#region Implementation of IConsistent
 
-        public bool IsConsistent => Parent.IsConsistent;
-        public event EventHandler ConsistencyRestored;
+		public bool IsConsistent => Parent.IsConsistent;
+		public event EventHandler ConsistencyRestored;
 
-        #endregion
-    }
+		#endregion
+	}
 
 }

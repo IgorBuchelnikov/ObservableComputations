@@ -1,9 +1,14 @@
-﻿using System.Collections.Generic;
+﻿// Copyright (c) 2019-2021 Buchelnikov Igor Vladimirovich. All rights reserved
+// Buchelnikov Igor Vladimirovich licenses this file to you under the MIT license.
+// The LICENSE file is located at https://github.com/IgorBuchelnikov/ObservableComputations/blob/master/LICENSE
+
+using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.Diagnostics.Contracts;
 
 namespace ObservableComputations
 {
-	internal readonly struct Positions<TPosition> where TPosition : Position, new()
+	internal struct Positions<TPosition> where TPosition : Position, new()
 	{
 		public readonly List<TPosition> List;
 
@@ -96,13 +101,14 @@ namespace ObservableComputations
 
 		// ReSharper disable once PureAttributeOnVoidMethod
 		[Pure]
-		public void ValidateConsistency()
+		[ExcludeFromCodeCoverage]
+		internal void ValidateInternalConsistency()
 		{
 			for (int index = 0; index < List.Count; index++)
 			{
 				TPosition position = List[index];
 				if (position.Index != index)
-					throw new ObservableComputationsException("Consistency violation: Positions.1");
+					throw new ValidateInternalConsistencyException("Consistency violation: Positions.1");
 			}
 		}
 	}
@@ -179,18 +185,17 @@ namespace ObservableComputations
 				: currentIndex > 0 
 					? List[currentIndex - 1].PlainIndex + List[currentIndex - 1].Length
 					: 0;
-			var lengthsLength = lengths.Length;
-			for (var index = 0; index < lengthsLength; index++)
+			int lengthsLength = lengths.Length;
+			for (int index = 0; index < lengthsLength; index++)
 			{
 				int length = lengths[index];
-				TRangePosition newRangePosition = new TRangePosition
+
+				List.Insert(currentIndex, new TRangePosition
 				{
 					Index = currentIndex,
 					PlainIndex = startPlainIndex + lengthsSum,
 					Length = length
-				};
-
-				List.Insert(currentIndex, newRangePosition);
+				});
 				lengthsSum = lengthsSum + length;
 				currentIndex++;
 			}
@@ -363,16 +368,17 @@ namespace ObservableComputations
 
 		// ReSharper disable once PureAttributeOnVoidMethod
 		[Pure]
-		public void ValidateConsistency()
+		[ExcludeFromCodeCoverage]
+		internal void ValidateInternalConsistency()
 		{
 			int plainIndex = 0;
 			for (int index = 0; index < List.Count; index++)
 			{
 				TRangePosition rangePosition = List[index];
 				if (rangePosition.Index != index)
-					throw new ObservableComputationsException("Consistency violation: RangePosition.1");
+					throw new ValidateInternalConsistencyException("Consistency violation: RangePosition.1");
 				if (rangePosition.PlainIndex != plainIndex)
-					throw new ObservableComputationsException("Consistency violation: RangePosition.2");
+					throw new ValidateInternalConsistencyException("Consistency violation: RangePosition.2");
 				plainIndex = plainIndex + rangePosition.Length;
 			}
 		}

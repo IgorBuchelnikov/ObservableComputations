@@ -1,4 +1,8 @@
-﻿using System.Collections.Generic;
+﻿// Copyright (c) 2019-2021 Buchelnikov Igor Vladimirovich. All rights reserved
+// Buchelnikov Igor Vladimirovich licenses this file to you under the MIT license.
+// The LICENSE file is located at https://github.com/IgorBuchelnikov/ObservableComputations/blob/master/LICENSE
+
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
@@ -6,10 +10,10 @@ using NUnit.Framework;
 
 namespace ObservableComputations.Test
 {
-	[TestFixture]
-	public class IndicesComputingTests
+	[TestFixture(false)]
+	public partial class IndicesComputingTests : TestBase
 	{
-        Consumer consumer = new Consumer();
+		OcConsumer consumer = new OcConsumer();
 
 		public class Item : INotifyPropertyChanged
 		{
@@ -57,8 +61,8 @@ namespace ObservableComputations.Test
 		{
 			ObservableCollection<Item> items = new ObservableCollection<Item>();
 
-			IndicesComputing<Item> indicesComputing = items.IndicesComputing(item => item.IsActive).IsNeededFor(consumer);
-			indicesComputing.ValidateConsistency();			
+			IndicesComputing<Item> indicesComputing = items.IndicesComputing(item => item.IsActive).For(consumer);
+			indicesComputing.ValidateInternalConsistency();			
 			consumer.Dispose();
 		}
 
@@ -84,10 +88,10 @@ namespace ObservableComputations.Test
 
 			);
 
-			IndicesComputing<Item> indicesComputing = items.IndicesComputing(item => item.IsActive).IsNeededFor(consumer);
-			indicesComputing.ValidateConsistency();
+			IndicesComputing<Item> indicesComputing = items.IndicesComputing(item => item.IsActive).For(consumer);
+			indicesComputing.ValidateInternalConsistency();
 			items[index].IsActive = newValue;
-			indicesComputing.ValidateConsistency();			
+			indicesComputing.ValidateInternalConsistency();			
 			consumer.Dispose();
 		}
 
@@ -112,10 +116,10 @@ namespace ObservableComputations.Test
 
 			);
 
-			IndicesComputing<Item> indicesComputing = items.IndicesComputing(item => item.IsActive).IsNeededFor(consumer);
-			indicesComputing.ValidateConsistency();
+			IndicesComputing<Item> indicesComputing = items.IndicesComputing(item => item.IsActive).For(consumer);
+			indicesComputing.ValidateInternalConsistency();
 			items.RemoveAt(index);
-			indicesComputing.ValidateConsistency();			
+			indicesComputing.ValidateInternalConsistency();			
 			consumer.Dispose();
 		}
 
@@ -131,10 +135,10 @@ namespace ObservableComputations.Test
 
 			);
 
-			IndicesComputing<Item> indicesComputing = items.IndicesComputing(item => item.IsActive).IsNeededFor(consumer);
-			indicesComputing.ValidateConsistency();
+			IndicesComputing<Item> indicesComputing = items.IndicesComputing(item => item.IsActive).For(consumer);
+			indicesComputing.ValidateInternalConsistency();
 			items.RemoveAt(0);
-			indicesComputing.ValidateConsistency();			
+			indicesComputing.ValidateInternalConsistency();			
 			consumer.Dispose();
 		}
 
@@ -160,10 +164,10 @@ namespace ObservableComputations.Test
 
 			);
 
-			IndicesComputing<Item> indicesComputing = items.IndicesComputing(item => item.IsActive).IsNeededFor(consumer);
-			indicesComputing.ValidateConsistency();
+			IndicesComputing<Item> indicesComputing = items.IndicesComputing(item => item.IsActive).For(consumer);
+			indicesComputing.ValidateInternalConsistency();
 			items.Insert(index, new Item(newValue));
-			indicesComputing.ValidateConsistency();			
+			indicesComputing.ValidateInternalConsistency();			
 			consumer.Dispose();
 		}
 
@@ -175,10 +179,10 @@ namespace ObservableComputations.Test
 
 			);
 
-			IndicesComputing<Item> indicesComputing = items.IndicesComputing(item => item.IsActive).IsNeededFor(consumer);
-			indicesComputing.ValidateConsistency();
+			IndicesComputing<Item> indicesComputing = items.IndicesComputing(item => item.IsActive).For(consumer);
+			indicesComputing.ValidateInternalConsistency();
 			items.Insert(0, new Item(newValue));
-			indicesComputing.ValidateConsistency();			
+			indicesComputing.ValidateInternalConsistency();			
 			consumer.Dispose();
 		}
 
@@ -204,10 +208,10 @@ namespace ObservableComputations.Test
 
 			);
 
-			IndicesComputing<Item> indicesComputing = items.IndicesComputing(item => item.IsActive).IsNeededFor(consumer);
-			indicesComputing.ValidateConsistency();
+			IndicesComputing<Item> indicesComputing = items.IndicesComputing(item => item.IsActive).For(consumer);
+			indicesComputing.ValidateInternalConsistency();
 			items.Move(oldIndex, newIndex);
-			indicesComputing.ValidateConsistency();			
+			indicesComputing.ValidateInternalConsistency();			
 			consumer.Dispose();
 		}
 
@@ -233,11 +237,15 @@ namespace ObservableComputations.Test
 
 			);
 
-			IndicesComputing<Item> indicesComputing = items.IndicesComputing(item => item.IsActive).IsNeededFor(consumer);
-			indicesComputing.ValidateConsistency();
+			IndicesComputing<Item> indicesComputing = items.IndicesComputing(item => item.IsActive).For(consumer);
+			indicesComputing.ValidateInternalConsistency();
 			items[index] = new Item(itemNew);
-			indicesComputing.ValidateConsistency();			
+			indicesComputing.ValidateInternalConsistency();			
 			consumer.Dispose();
-		}		
+		}
+
+		public IndicesComputingTests(bool debug) : base(debug)
+		{
+		}
 	}
 }

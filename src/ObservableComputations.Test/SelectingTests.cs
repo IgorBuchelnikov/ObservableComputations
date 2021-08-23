@@ -1,4 +1,8 @@
-﻿using System;
+﻿// Copyright (c) 2019-2021 Buchelnikov Igor Vladimirovich. All rights reserved
+// Buchelnikov Igor Vladimirovich licenses this file to you under the MIT license.
+// The LICENSE file is located at https://github.com/IgorBuchelnikov/ObservableComputations/blob/master/LICENSE
+
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Collections.Specialized;
@@ -10,10 +14,10 @@ using NUnit.Framework;
 
 namespace ObservableComputations.Test
 {
-	[TestFixture]
-	public class SelectingTests
+	[TestFixture(false)]
+	public partial class SelectingTests : TestBase
 	{
-        Consumer consumer = new Consumer();
+		OcConsumer consumer = new OcConsumer();
 
 		public class Item : INotifyPropertyChanged
 		{
@@ -62,10 +66,10 @@ namespace ObservableComputations.Test
 		{
 			ObservableCollection<Item> items = new ObservableCollection<Item>();
 
-            Consumer consumer = new Consumer();
-			Selecting<Item, int> selecting = items.Selecting(item => item.Num).IsNeededFor(consumer);
-			selecting.ValidateConsistency();
-            consumer.Dispose();
+			OcConsumer consumer = new OcConsumer();
+			Selecting<Item, int> selecting = items.Selecting(item => item.Num).For(consumer);
+			selecting.ValidateInternalConsistency();
+			consumer.Dispose();
 		}
 
 		[Test, Combinatorial]
@@ -85,12 +89,12 @@ namespace ObservableComputations.Test
 
 			);
 
-            Consumer consumer = new Consumer();
-			Selecting<Item, int> selecting = items.Selecting(item => item.Num).IsNeededFor(consumer);
-			selecting.ValidateConsistency();
+			OcConsumer consumer = new OcConsumer();
+			Selecting<Item, int> selecting = items.Selecting(item => item.Num).For(consumer);
+			selecting.ValidateInternalConsistency();
 			items[index].Num = newValue;
-			selecting.ValidateConsistency();
-            consumer.Dispose();
+			selecting.ValidateInternalConsistency();
+			consumer.Dispose();
 		}
 
 		[Test, Combinatorial]
@@ -109,12 +113,12 @@ namespace ObservableComputations.Test
 
 			);
 
-            Consumer consumer = new Consumer();
-			Selecting<Item, int> selecting = items.Selecting(item => item.Num).IsNeededFor(consumer);
-			selecting.ValidateConsistency();
+			OcConsumer consumer = new OcConsumer();
+			Selecting<Item, int> selecting = items.Selecting(item => item.Num).For(consumer);
+			selecting.ValidateInternalConsistency();
 			items.RemoveAt(index);
-			selecting.ValidateConsistency();
-            consumer.Dispose();
+			selecting.ValidateInternalConsistency();
+			consumer.Dispose();
 		}
 
 		[Test, Combinatorial]
@@ -128,12 +132,12 @@ namespace ObservableComputations.Test
 
 			);
 
-            Consumer consumer = new Consumer();
-			Selecting<Item, int> selecting = items.Selecting(item => item.Num).IsNeededFor(consumer);
-			selecting.ValidateConsistency();
+			OcConsumer consumer = new OcConsumer();
+			Selecting<Item, int> selecting = items.Selecting(item => item.Num).For(consumer);
+			selecting.ValidateInternalConsistency();
 			items.RemoveAt(0);
-			selecting.ValidateConsistency();
-            consumer.Dispose();
+			selecting.ValidateInternalConsistency();
+			consumer.Dispose();
 		}
 
 		[Test, Combinatorial]
@@ -153,12 +157,12 @@ namespace ObservableComputations.Test
 
 			);
 
-            Consumer consumer = new Consumer();
-			Selecting<Item, int> selecting = items.Selecting(item => item.Num).IsNeededFor(consumer);
-			selecting.ValidateConsistency();
+			OcConsumer consumer = new OcConsumer();
+			Selecting<Item, int> selecting = items.Selecting(item => item.Num).For(consumer);
+			selecting.ValidateInternalConsistency();
 			items.Insert(index, new Item(newValue));
-			selecting.ValidateConsistency();
-            consumer.Dispose();
+			selecting.ValidateInternalConsistency();
+			consumer.Dispose();
 		}
 
 		[Test, Combinatorial]
@@ -168,12 +172,12 @@ namespace ObservableComputations.Test
 			ObservableCollection<Item> items = new ObservableCollection<Item>(
 			);
 
-            Consumer consumer = new Consumer();
-			Selecting<Item, int> selecting = items.Selecting(item => item.Num).IsNeededFor(consumer);
-			selecting.ValidateConsistency();
+			OcConsumer consumer = new OcConsumer();
+			Selecting<Item, int> selecting = items.Selecting(item => item.Num).For(consumer);
+			selecting.ValidateInternalConsistency();
 			items.Insert(0, new Item(newValue));
-			selecting.ValidateConsistency();
-            consumer.Dispose();
+			selecting.ValidateInternalConsistency();
+			consumer.Dispose();
 		}
 
 		[Test, Combinatorial]
@@ -193,12 +197,12 @@ namespace ObservableComputations.Test
 
 			);
 
-            Consumer consumer = new Consumer();
-			Selecting<Item, int> selecting = items.Selecting(item => item.Num).IsNeededFor(consumer);
-			selecting.ValidateConsistency();
+			OcConsumer consumer = new OcConsumer();
+			Selecting<Item, int> selecting = items.Selecting(item => item.Num).For(consumer);
+			selecting.ValidateInternalConsistency();
 			items.Move(oldIndex, newIndex);
-			selecting.ValidateConsistency();
-            consumer.Dispose();
+			selecting.ValidateInternalConsistency();
+			consumer.Dispose();
 		}
 
 		[Test, Combinatorial]
@@ -218,89 +222,146 @@ namespace ObservableComputations.Test
 
 			);
 
-            Consumer consumer = new Consumer();
-			Selecting<Item, int> selecting = items.Selecting(item => item.Num).IsNeededFor(consumer);
-			selecting.ValidateConsistency();
+			OcConsumer consumer = new OcConsumer();
+			Selecting<Item, int> selecting = items.Selecting(item => item.Num).For(consumer);
+			selecting.ValidateInternalConsistency();
 			items[index] = new Item(newValue);
-			selecting.ValidateConsistency();
-            consumer.Dispose();
+			selecting.ValidateInternalConsistency();
+			consumer.Dispose();
 		}	
 
-        [Test]
-        public void Selecting_Nested()
-        {
-            Item.LastNum = 0;
-            ObservableCollection<Item> items = new ObservableCollection<Item>(
-                new[]
-                {
-                    new Item(),
-                    new Item(),
-                    new Item(),
-                    new Item(),
-                    new Item()
-                }
+		[Test]
+		public void Selecting_Nested()
+		{
+			Item.LastNum = 0;
+			ObservableCollection<Item> items = new ObservableCollection<Item>(
+				new[]
+				{
+					new Item(),
+					new Item(),
+					new Item(),
+					new Item(),
+					new Item()
+				}
 
-            );
+			);
 
-            Consumer consumer = new Consumer();
-            Selecting<Item, int> selecting = items.Selecting(item => items.Selecting(i => i).Count + item.Num).IsNeededFor(consumer);
+			OcConsumer consumer = new OcConsumer();
+			Selecting<Item, int> selecting = items.Selecting(item => items.Selecting(i => i).Count + item.Num).For(consumer);
 
-            Assert.IsTrue(new int[]{5, 6, 7, 8, 9}.SequenceEqual(selecting));
-            consumer.Dispose();
+			Assert.IsTrue(new int[]{5, 6, 7, 8, 9}.SequenceEqual(selecting));
+			consumer.Dispose();
 
-        }
+		}
 
-        [Test]
-        public void Selecting_Nested3()
-        {
-            Item.LastNum = 0;
-            ObservableCollection<Item> items = new ObservableCollection<Item>(
-                new[]
-                {
-                    new Item(),
-                    new Item(),
-                    new Item(),
-                    new Item(),
-                    new Item()
-                }
+		[Test]
+		public void Selecting_Nested3()
+		{
+			Item.LastNum = 0;
+			ObservableCollection<Item> items = new ObservableCollection<Item>(
+				new[]
+				{
+					new Item(),
+					new Item(),
+					new Item(),
+					new Item(),
+					new Item()
+				}
 
-            );
+			);
 
-            Consumer consumer = new Consumer();
-            var selecting = items.Selecting(item => items.Selecting(i => i)).IsNeededFor(consumer);
+			OcConsumer consumer = new OcConsumer();
+			Selecting<Item, Selecting<Item, Item>> selecting = items.Selecting(item => items.Selecting(i => i)).For(consumer);
 
-            consumer.Dispose();
+			consumer.Dispose();
 
-        }
+		}
 
-        private int Dummy(object o1, object o2)
-        {
-            return 0;
-        }
+		private int Dummy(object o1, object o2)
+		{
+			return 0;
+		}
 
-        [Test]
-        public void Selecting_Nested2()
-        {
-            Item.LastNum = 0;
+		[Test]
+		public void Selecting_Nested2()
+		{
+			Item.LastNum = 0;
 
-            ObservableCollection<Item> items = new ObservableCollection<Item>(
-                new[]
-                {
-                    new Item(),
-                    new Item(),
-                    new Item(),
-                    new Item(),
-                    new Item()
-                }
+			ObservableCollection<Item> items = new ObservableCollection<Item>(
+				new[]
+				{
+					new Item(),
+					new Item(),
+					new Item(),
+					new Item(),
+					new Item()
+				}
 
-            );
+			);
 
-            Consumer consumer = new Consumer();
-            Selecting<Item, int> selecting = items.Selecting(item => items.Selecting(i => item).Count + item.Num).IsNeededFor(consumer);
+			OcConsumer consumer = new OcConsumer();
+			Selecting<Item, int> selecting = items.Selecting(item => items.Selecting(i => item).Count + item.Num).For(consumer);
 
-            Assert.IsTrue(new int[]{5, 6, 7, 8, 9}.SequenceEqual(selecting));
-            consumer.Dispose();
-        }
+			Assert.IsTrue(new int[]{5, 6, 7, 8, 9}.SequenceEqual(selecting));
+			consumer.Dispose();
+		}
+
+		[Test]
+		public void Selecting_Nested4()
+		{
+			Item.LastNum = 0;
+
+			ObservableCollection<Item> items = new ObservableCollection<Item>(
+				new[]
+				{
+					new Item(),
+					new Item(),
+					new Item(),
+					new Item(),
+					new Item()
+				}
+
+			);
+
+			Computing<int> computing = new Computing<int>(() => 1);
+			Assert.IsFalse(computing.IsActive);
+
+			OcConsumer consumer = new OcConsumer();
+			Selecting<Item, int> selecting = items.Selecting(item => computing.Value).For(consumer);
+			Assert.IsTrue(computing.IsActive);
+
+			Assert.IsTrue(new int[]{1, 1, 1, 1, 1}.SequenceEqual(selecting));
+			consumer.Dispose();
+			Assert.IsFalse(computing.IsActive);
+		}
+
+		[Test]
+		public void Selecting_Nested5()
+		{
+			Item.LastNum = 0;
+
+			ObservableCollection<Item> items = new ObservableCollection<Item>(
+				new[]
+				{
+					new Item(),
+					new Item(),
+					new Item(),
+					new Item()
+				}
+
+			);
+
+			Computing<int> computing = new Computing<int>(() => 1);
+			Assert.IsFalse(computing.IsActive);
+
+			OcConsumer consumer = new OcConsumer();
+			Selecting<Item, int> selecting = items.Selecting(item => computing.Value + items.Selecting(i => item).Count).For(consumer);
+			Assert.IsTrue(computing.IsActive);
+
+			Assert.IsTrue(new int[]{5, 5, 5, 5}.SequenceEqual(selecting));
+			consumer.Dispose();
+			Assert.IsFalse(computing.IsActive);
+		}
 		
 		[Test, Combinatorial]
 		public void Selecting_Dispose(
@@ -323,241 +384,252 @@ namespace ObservableComputations.Test
 
 			Action action = () =>
 			{
-                Consumer consumer = new Consumer();
-				Selecting<Item, int> selecting = items.Selecting(item => item.Num).IsNeededFor(consumer);
-                consumer.Dispose();
+				OcConsumer consumer = new OcConsumer();
+				Selecting<Item, int> selecting = items.Selecting(item => item.Num).For(consumer).For(consumer);
+				consumer.Dispose();
 				selectingWeakReference = new WeakReference<Selecting<Item, int>>(selecting);
 			};
 
 			action();
 
-            GC.AddMemoryPressure(1024 * 1024 * 1024);
-            Thread.Sleep(10);
-            GC.Collect();
-            Thread.Sleep(50);
-            GC.Collect();
-            Thread.Sleep(10);
-            GC.Collect();
-            GC.RemoveMemoryPressure(1024 * 1024 * 1024);
+			GC.AddMemoryPressure(1024 * 1024 * 1024);
+			Thread.Sleep(10);
+			GC.Collect();
+			Thread.Sleep(50);
+			GC.Collect();
+			Thread.Sleep(10);
+			GC.Collect();
+			GC.RemoveMemoryPressure(1024 * 1024 * 1024);
 
 			Assert.IsFalse(selectingWeakReference.TryGetTarget(out Selecting<Item, int> s));
 		}
 
-        [Test, Combinatorial]
-        public void Selecting_Dispose2(
-            [Range(0, 4, 1)] int index,
-            [Range(-1, 5)] int newValue)
-        {
-            ObservableCollection<Item> items = new ObservableCollection<Item>(
-                new[]
-                {
-                    new Item(),
-                    new Item(),
-                    new Item(),
-                    new Item(),
-                    new Item()
-                }
+		[Test, Combinatorial]
+		public void Selecting_Dispose2(
+			[Range(0, 4, 1)] int index,
+			[Range(-1, 5)] int newValue)
+		{
+			ObservableCollection<Item> items = new ObservableCollection<Item>(
+				new[]
+				{
+					new Item(),
+					new Item(),
+					new Item(),
+					new Item(),
+					new Item()
+				}
 
-            );
+			);
 
-            WeakReference<Selecting<Item, int>> selectingWeakReference = null;
+			WeakReference<Selecting<Item, int>> selectingWeakReference = null;
 
-            Action action = () =>
-            {
-                Consumer consumer = new Consumer();
-                Selecting<Item, int> selecting = items.Selecting(item => items.Selecting(i => i).Count + item.Num).IsNeededFor(consumer);
-                consumer.Dispose();
-                selectingWeakReference = new WeakReference<Selecting<Item, int>>(selecting);
-            };
+			Action action = () =>
+			{
+				OcConsumer consumer = new OcConsumer();
+				Selecting<Item, int> selecting = items.Selecting(item => items.Selecting(i => i).Count + item.Num).For(consumer);
+				consumer.Dispose();
+				selectingWeakReference = new WeakReference<Selecting<Item, int>>(selecting);
+			};
 
-            action();
+			action();
 
-            GC.AddMemoryPressure(1024 * 1024 * 1024);
-            Thread.Sleep(10);
-            GC.Collect();
-            Thread.Sleep(50);
-            GC.Collect();
-            Thread.Sleep(10);
-            GC.Collect();
-            GC.RemoveMemoryPressure(1024 * 1024 * 1024);
+			GC.AddMemoryPressure(1024 * 1024 * 1024);
+			Thread.Sleep(10);
+			GC.Collect();
+			Thread.Sleep(50);
+			GC.Collect();
+			Thread.Sleep(10);
+			GC.Collect();
+			GC.RemoveMemoryPressure(1024 * 1024 * 1024);
 
-            Assert.IsFalse(selectingWeakReference.TryGetTarget(out Selecting<Item, int> s));
-        }
+			Assert.IsFalse(selectingWeakReference.TryGetTarget(out Selecting<Item, int> s));
+		}
 
-        [Test, Combinatorial]
-        public void Selecting_Dispose3(
-            [Range(0, 4, 1)] int index,
-            [Range(-1, 5)] int newValue)
-        {
-            ObservableCollection<Item> items = new ObservableCollection<Item>(
-                new[]
-                {
-                    new Item(),
-                    new Item(),
-                    new Item(),
-                    new Item(),
-                    new Item()
-                }
+		[Test, Combinatorial]
+		public void Selecting_Dispose3(
+			[Range(0, 4, 1)] int index,
+			[Range(-1, 5)] int newValue)
+		{
+			ObservableCollection<Item> items = new ObservableCollection<Item>(
+				new[]
+				{
+					new Item(),
+					new Item(),
+					new Item(),
+					new Item(),
+					new Item()
+				}
 
-            );
+			);
 
-            WeakReference<Selecting<Item, int>> selectingWeakReference = null;
+			WeakReference<Selecting<Item, int>> selectingWeakReference = null;
 
-            Action action = () =>
-            {
-                Consumer consumer = new Consumer();
-                Selecting<Item, int> selecting = items.Selecting(item => items.Selecting(i => item).Count + item.Num).IsNeededFor(consumer);
-                consumer.Dispose();
-                selectingWeakReference = new WeakReference<Selecting<Item, int>>(selecting);
-            };
+			Action action = () =>
+			{
+				OcConsumer consumer = new OcConsumer();
+				Selecting<Item, int> selecting = items.Selecting(item => items.Selecting(i => item).Count + item.Num).For(consumer);
+				consumer.Dispose();
+				selectingWeakReference = new WeakReference<Selecting<Item, int>>(selecting);
+			};
 
-            action();
+			action();
 
-            GC.AddMemoryPressure(1024 * 1024 * 1024);
-            Thread.Sleep(10);
-            GC.Collect();
-            Thread.Sleep(50);
-            GC.Collect();
-            Thread.Sleep(10);
-            GC.Collect();
-            GC.RemoveMemoryPressure(1024 * 1024 * 1024);
+			GC.AddMemoryPressure(1024 * 1024 * 1024);
+			Thread.Sleep(10);
+			GC.Collect();
+			Thread.Sleep(50);
+			GC.Collect();
+			Thread.Sleep(10);
+			GC.Collect();
+			GC.RemoveMemoryPressure(1024 * 1024 * 1024);
 
-            Assert.IsFalse(selectingWeakReference.TryGetTarget(out Selecting<Item, int> s));
-        }
+			Assert.IsFalse(selectingWeakReference.TryGetTarget(out Selecting<Item, int> s));
+		}
 
-        [Test, Combinatorial]
-        public void Selecting_InitAndDispose4(
-            [Range(0, 4, 1)] int index,
-            [Range(-1, 5)] int newValue)
-        {
-            Item.LastNum = 0;
-            ObservableCollection<Item> items = new ObservableCollection<Item>(
-                new[]
-                {
-                    new Item(),
-                    new Item(),
-                    new Item(),
-                    new Item(),
-                    new Item()
-                }
-            );
+		[Test, Combinatorial]
+		public void Selecting_InitAndDispose4(
+			[Range(0, 4, 1)] int index,
+			[Range(-1, 5)] int newValue)
+		{
+			Item.LastNum = 0;
+			ObservableCollection<Item> items = new ObservableCollection<Item>(
+				new[]
+				{
+					new Item(),
+					new Item(),
+					new Item(),
+					new Item(),
+					new Item()
+				}
+			);
 
-            WeakReference<Selecting<Item, int>> selectingWeakReference = null;
+			WeakReference<Selecting<Item, int>> selectingWeakReference = null;
 
-            Action action = () =>
-            {
-                Consumer consumer = new Consumer();
-                Selecting<Item, int> selecting = items.Selecting(item => item).Selecting(item => item).Selecting(item => item.Num).IsNeededFor(consumer);
-                Assert.IsTrue(new int[]{0, 1, 2, 3, 4}.SequenceEqual(selecting));
-                consumer.Dispose();
-                selectingWeakReference = new WeakReference<Selecting<Item, int>>(selecting);
-            };
+			Action action = () =>
+			{
+				OcConsumer consumer = new OcConsumer();
+				OcConsumer consumer1 = new OcConsumer();
+				Selecting<Item, Item> selecting1 = items.Selecting(item => item).Selecting(item => item);
+				Selecting<Item, int> selecting = selecting1.Selecting(item => item.Num).For(consumer);
+				selecting1.For(consumer1);
+				Assert.IsTrue(new int[]{0, 1, 2, 3, 4}.SequenceEqual(selecting));
+				consumer.Dispose();
+				consumer1.Dispose();
+				selectingWeakReference = new WeakReference<Selecting<Item, int>>(selecting);
+			};
 
-            action();
+			action();
 
-            GC.AddMemoryPressure(1024 * 1024 * 1024);
-            Thread.Sleep(10);
-            GC.Collect();
-            Thread.Sleep(50);
-            GC.Collect();
-            Thread.Sleep(10);
-            GC.Collect();
-            GC.RemoveMemoryPressure(1024 * 1024 * 1024);
+			GC.AddMemoryPressure(1024 * 1024 * 1024);
+			Thread.Sleep(10);
+			GC.Collect();
+			Thread.Sleep(50);
+			GC.Collect();
+			Thread.Sleep(10);
+			GC.Collect();
+			GC.RemoveMemoryPressure(1024 * 1024 * 1024);
 
-            Assert.IsFalse(selectingWeakReference.TryGetTarget(out Selecting<Item, int> s));
-        }
+			Assert.IsFalse(selectingWeakReference.TryGetTarget(out Selecting<Item, int> s));
+		}
 
-        [Test, Combinatorial]
-        public void Selecting_InitAndDispose5(
-            [Range(0, 4, 1)] int index,
-            [Range(-1, 5)] int newValue)
-        {
-            Item.LastNum = 0;
-            ObservableCollection<Item> items = new ObservableCollection<Item>(
-                new[]
-                {
-                    new Item(),
-                    new Item(),
-                    new Item(),
-                    new Item(),
-                    new Item()
-                }
-            );
+		[Test, Combinatorial]
+		public void Selecting_InitAndDispose5(
+			[Range(0, 4, 1)] int index,
+			[Range(-1, 5)] int newValue)
+		{
+			Item.LastNum = 0;
+			ObservableCollection<Item> items = new ObservableCollection<Item>(
+				new[]
+				{
+					new Item(),
+					new Item(),
+					new Item(),
+					new Item(),
+					new Item()
+				}
+			);
 
-            WeakReference<Selecting<Item, int>> selectingWeakReference = null;
+			WeakReference<Selecting<Item, int>> selectingWeakReference = null;
 
-            Action action = () =>
-            {
-                Consumer consumer = new Consumer();
-                Selecting<Item, Item> selecting1 = items.Selecting(item => item);
-                Selecting<Item, Item> selecting2 = items.Selecting(item => item);
-                Scalar<INotifyCollectionChanged> sourceScalar = new Scalar<INotifyCollectionChanged>(selecting1); 
-                Selecting<Item, int> selecting = sourceScalar.Selecting<Item, int>(item => item.Num).IsNeededFor(consumer);
-                sourceScalar.Change(selecting2);
-                Assert.IsTrue(new int[]{0, 1, 2, 3, 4}.SequenceEqual(selecting));
-                consumer.Dispose();
-                selectingWeakReference = new WeakReference<Selecting<Item, int>>(selecting);
-            };
+			Action action = () =>
+			{
+				OcConsumer consumer = new OcConsumer();
+				Selecting<Item, Item> selecting1 = items.Selecting(item => item);
+				Selecting<Item, Item> selecting2 = items.Selecting(item => item);
+				Scalar<INotifyCollectionChanged> sourceScalar = new Scalar<INotifyCollectionChanged>(selecting1); 
+				Selecting<Item, int> selecting = sourceScalar.Selecting<Item, int>(item => item.Num).For(consumer);
+				sourceScalar.Change(selecting2);
+				Assert.IsTrue(new int[]{0, 1, 2, 3, 4}.SequenceEqual(selecting));
+				consumer.Dispose();
+				selectingWeakReference = new WeakReference<Selecting<Item, int>>(selecting);
+			};
 
-            action();
+			action();
 
-            GC.AddMemoryPressure(1024 * 1024 * 1024);
-            Thread.Sleep(10);
-            GC.Collect();
-            Thread.Sleep(50);
-            GC.Collect();
-            Thread.Sleep(10);
-            GC.Collect();
-            GC.RemoveMemoryPressure(1024 * 1024 * 1024);
+			GC.AddMemoryPressure(1024 * 1024 * 1024);
+			Thread.Sleep(10);
+			GC.Collect();
+			Thread.Sleep(50);
+			GC.Collect();
+			Thread.Sleep(10);
+			GC.Collect();
+			GC.RemoveMemoryPressure(1024 * 1024 * 1024);
 
-            Assert.IsFalse(selectingWeakReference.TryGetTarget(out Selecting<Item, int> s));
-        }
+			Assert.IsFalse(selectingWeakReference.TryGetTarget(out Selecting<Item, int> s));
+		}
 
-        [Test, Combinatorial]
-        public void Selecting_InitAndDispose6(
-            [Range(0, 4, 1)] int index,
-            [Range(-1, 5)] int newValue)
-        {
-            Item.LastNum = 0;
-            ObservableCollection<Item> items = new ObservableCollection<Item>(
-                new[]
-                {
-                    new Item(),
-                    new Item(),
-                    new Item(),
-                    new Item(),
-                    new Item()
-                }
-            );
+		[Test, Combinatorial]
+		public void Selecting_InitAndDispose6(
+			[Range(0, 4, 1)] int index,
+			[Range(-1, 5)] int newValue)
+		{
+			Item.LastNum = 0;
+			ObservableCollection<Item> items = new ObservableCollection<Item>(
+				new[]
+				{
+					new Item(),
+					new Item(),
+					new Item(),
+					new Item(),
+					new Item()
+				}
+			);
 
-            WeakReference<Selecting<Item, int>> selectingWeakReference = null;
+			WeakReference<Selecting<Item, int>> selectingWeakReference = null;
 
-            Action action = () =>
-            {
-                Consumer consumer = new Consumer();
-                Selecting<Item, Item> selecting1 = items.Selecting(item => item);
-                Selecting<Item, Item> selecting2 = items.Selecting(item => item);
-                Scalar<INotifyCollectionChanged> sourceScalar = new Scalar<INotifyCollectionChanged>(null); 
-                Selecting<Item, int> selecting = sourceScalar.Selecting<Item, Item>(item => item).Selecting(item => item.Num).IsNeededFor(consumer);
-                sourceScalar.Change(selecting1);
-                sourceScalar.Change(selecting2);
-                Assert.IsTrue(new int[]{0, 1, 2, 3, 4}.SequenceEqual(selecting));
-                consumer.Dispose();
-                selectingWeakReference = new WeakReference<Selecting<Item, int>>(selecting);
-            };
+			Action action = () =>
+			{
+				OcConsumer consumer = new OcConsumer();
+				Selecting<Item, Item> selecting1 = items.Selecting(item => item);
+				Selecting<Item, Item> selecting2 = items.Selecting(item => item);
+				Scalar<INotifyCollectionChanged> sourceScalar = new Scalar<INotifyCollectionChanged>(null); 
+				Selecting<Item, int> selecting = sourceScalar.Selecting<Item, Item>(item => item).Selecting(item => item.Num).For(consumer);
+				sourceScalar.Change(selecting1);
+				sourceScalar.Change(selecting2);
+				Assert.IsTrue(new int[]{0, 1, 2, 3, 4}.SequenceEqual(selecting));
+				consumer.Dispose();
+				selectingWeakReference = new WeakReference<Selecting<Item, int>>(selecting);
+			};
 
-            action();
+			action();
 
-            GC.AddMemoryPressure(1024 * 1024 * 1024);
-            Thread.Sleep(10);
-            GC.Collect();
-            Thread.Sleep(50);
-            GC.Collect();
-            Thread.Sleep(10);
-            GC.Collect();
-            GC.RemoveMemoryPressure(1024 * 1024 * 1024);
+			GC.AddMemoryPressure(1024 * 1024 * 1024);
+			Thread.Sleep(10);
+			GC.Collect();
+			Thread.Sleep(50);
+			GC.Collect();
+			Thread.Sleep(10);
+			GC.Collect();
+			GC.RemoveMemoryPressure(1024 * 1024 * 1024);
 
-            Assert.IsFalse(selectingWeakReference.TryGetTarget(out Selecting<Item, int> s));
-        }
+			Assert.IsFalse(selectingWeakReference.TryGetTarget(out Selecting<Item, int> s));
+		}
+
+
+		public SelectingTests(bool debug) : base(debug)
+		{
+
+
+		}
 	}
 }

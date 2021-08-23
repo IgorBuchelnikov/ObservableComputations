@@ -1,13 +1,19 @@
-﻿using System;
+﻿// Copyright (c) 2019-2021 Buchelnikov Igor Vladimirovich. All rights reserved
+// Buchelnikov Igor Vladimirovich licenses this file to you under the MIT license.
+// The LICENSE file is located at https://github.com/IgorBuchelnikov/ObservableComputations/blob/master/LICENSE
+
+using System;
+using System.Collections.ObjectModel;
 using System.ComponentModel;
+using System.Diagnostics.CodeAnalysis;
 using System.Reflection;
 
 namespace ObservableComputations
 {
-	public class PropertyAccessing<TResult> : ScalarComputing<TResult>
+	public class PropertyAccessing<TResult> : ScalarComputing<TResult>, IHasSources
 	{
-		public IReadScalar<object> PropertyHolderScalar => _propertyHolderScalar;
-		public object PropertyHolder => _propertyHolder;
+		public IReadScalar<object> SourceScalar => _sourceScalar;
+		public object Source => _source;
 		public string  PropertyName => _propertyName;
 		public BindingFlags  BindingAttr => _bindingAttr;
 		public Binder Binder => _binder;
@@ -17,27 +23,26 @@ namespace ObservableComputations
 		public Func<PropertyInfo, bool>  PropertyInfoPredicate => _propertyInfoPredicate;
 		public PropertyInfo  PropertyInfo => _propertyInfo;
 		// ReSharper disable once MemberCanBeProtected.Global
-		public TResult DefaultValue => _defaultValue;
 
-		private IReadScalar<INotifyPropertyChanged> _propertyHolderScalar;
-		private INotifyPropertyChanged _propertyHolder;
+		public virtual ReadOnlyCollection<object> Sources => new ReadOnlyCollection<object>(new object[]{Source, SourceScalar});
+
+		private readonly IReadScalar<INotifyPropertyChanged> _sourceScalar;
+		private INotifyPropertyChanged _source;
 		private Type _propertyHolderType;
 
-		private PropertyInfoGettingType _propertyInfoGettingType;
+		private readonly PropertyInfoGettingType _propertyInfoGettingType;
 
-		private string _propertyName;
-		private BindingFlags _bindingAttr;
-		private Binder _binder;
-		private Type _returnType;
-		private Type[] _types;
-		private ParameterModifier[] _modifiers;
-		private Func<PropertyInfo, bool> _propertyInfoPredicate;
+		private readonly string _propertyName;
+		private readonly BindingFlags _bindingAttr;
+		private readonly Binder _binder;
+		private readonly Type _returnType;
+		private readonly Type[] _types;
+		private readonly ParameterModifier[] _modifiers;
+		private readonly Func<PropertyInfo, bool> _propertyInfoPredicate;
 		private PropertyInfo _propertyInfo;
 
-		internal TResult _defaultValue;
-
-        private Action _changeValueAction;
-        private Action _changeHolderAction;
+		private readonly Action _changeValueAction;
+		private readonly Action _changeHolderAction;
 
 		private enum PropertyInfoGettingType
 		{
@@ -53,88 +58,77 @@ namespace ObservableComputations
 
 		[ObservableComputationsCall]
 		public PropertyAccessing(
-			IReadScalar<INotifyPropertyChanged> propertyHolderScalar, 
-			string propertyName,
-			TResult defaultValue = default(TResult)) : this(propertyHolderScalar)
+			IReadScalar<INotifyPropertyChanged> sourceScalar, 
+			string propertyName) : this(sourceScalar)
 		{
 			_propertyInfoGettingType = PropertyInfoGettingType.PropertyName;
 			_propertyName = propertyName;
-			_defaultValue = defaultValue;
-            _propertyHolder = _propertyHolderScalar.Value;
+			_source = _sourceScalar.Value;
 		}
 
 		[ObservableComputationsCall]
 		public PropertyAccessing(
-			IReadScalar<INotifyPropertyChanged> propertyHolderScalar, 
+			IReadScalar<INotifyPropertyChanged> sourceScalar, 
 			string propertyName,
-			BindingFlags bindingAttr,
-			TResult defaultValue = default(TResult)) : this(propertyHolderScalar)
+			BindingFlags bindingAttr) : this(sourceScalar)
 		{
 			_propertyInfoGettingType = PropertyInfoGettingType.BindingAttr;
 			_propertyName = propertyName;
 			_bindingAttr = bindingAttr;
-			_defaultValue = defaultValue;
-            _propertyHolder = _propertyHolderScalar.Value;
+			_source = _sourceScalar.Value;
 		}
 
 		[ObservableComputationsCall]
 		public PropertyAccessing(
-			IReadScalar<INotifyPropertyChanged> propertyHolderScalar, 
+			IReadScalar<INotifyPropertyChanged> sourceScalar, 
 			string propertyName,
-			Type returnType,
-			TResult defaultValue = default(TResult)) : this(propertyHolderScalar)
+			Type returnType) : this(sourceScalar)
 		{
 			_propertyInfoGettingType = PropertyInfoGettingType.ReturnType;
 			_propertyName = propertyName;
 			_returnType = returnType;
-			_defaultValue = defaultValue;
-            _propertyHolder = _propertyHolderScalar.Value;
+			_source = _sourceScalar.Value;
 		}
 
 		[ObservableComputationsCall]
 		public PropertyAccessing(
-			IReadScalar<INotifyPropertyChanged> propertyHolderScalar, 
+			IReadScalar<INotifyPropertyChanged> sourceScalar, 
 			string propertyName,
 			Type returnType,
-			Type[] types,
-			TResult defaultValue = default(TResult)) : this(propertyHolderScalar)
+			Type[] types) : this(sourceScalar)
 		{
 			_propertyInfoGettingType = PropertyInfoGettingType.Types;
 			_propertyName = propertyName;
 			_returnType = returnType;
 			_types = types;
-			_defaultValue = defaultValue;
-            _propertyHolder = _propertyHolderScalar.Value;
+			_source = _sourceScalar.Value;
 		}
 
 		[ObservableComputationsCall]
 		public PropertyAccessing(
-			IReadScalar<INotifyPropertyChanged> propertyHolderScalar, 
+			IReadScalar<INotifyPropertyChanged> sourceScalar, 
 			string propertyName,
 			Type returnType,
 			Type[] types,
-			ParameterModifier[] modifiers,
-			TResult defaultValue = default(TResult)) : this(propertyHolderScalar)
+			ParameterModifier[] modifiers) : this(sourceScalar)
 		{
 			_propertyInfoGettingType = PropertyInfoGettingType.Modifiers;
 			_propertyName = propertyName;
 			_returnType = returnType;
 			_modifiers = modifiers;
 			_types = types;
-			_defaultValue = defaultValue;
-            _propertyHolder = _propertyHolderScalar.Value;
+			_source = _sourceScalar.Value;
 		}
 
 		[ObservableComputationsCall]
 		public PropertyAccessing(
-			IReadScalar<INotifyPropertyChanged> propertyHolderScalar, 
+			IReadScalar<INotifyPropertyChanged> sourceScalar, 
 			string propertyName,
 			BindingFlags bindingAttr,
 			Binder binder,
 			Type returnType,
 			Type[] types,
-			ParameterModifier[] modifiers,
-			TResult defaultValue = default(TResult)) : this(propertyHolderScalar)
+			ParameterModifier[] modifiers) : this(sourceScalar)
 		{
 			_propertyInfoGettingType = PropertyInfoGettingType.Binder;
 			_propertyName = propertyName;
@@ -143,126 +137,110 @@ namespace ObservableComputations
 			_returnType = returnType;
 			_modifiers = modifiers;
 			_types = types;
-			_defaultValue = defaultValue;
-            _propertyHolder = _propertyHolderScalar.Value;
+			_source = _sourceScalar.Value;
 		}
 
 		[ObservableComputationsCall]
 		public PropertyAccessing(
-			IReadScalar<INotifyPropertyChanged> propertyHolderScalar, 
-			Func<PropertyInfo, bool> propertyInfoPredicate,
-			TResult defaultValue = default(TResult)) : this(propertyHolderScalar)
+			IReadScalar<INotifyPropertyChanged> sourceScalar, 
+			Func<PropertyInfo, bool> propertyInfoPredicate) : this(sourceScalar)
 		{
 			_propertyInfoGettingType = PropertyInfoGettingType.PropertyInfoPredicate;
 			_propertyInfoPredicate = propertyInfoPredicate;
-			_defaultValue = defaultValue;
-            _propertyHolder = _propertyHolderScalar.Value;
+			_source = _sourceScalar.Value;
 		}
 
 		[ObservableComputationsCall]
 		public PropertyAccessing(
-			IReadScalar<INotifyPropertyChanged> propertyHolderScalar, 
+			IReadScalar<INotifyPropertyChanged> sourceScalar, 
 			Func<PropertyInfo, bool> propertyInfoPredicate,
-			BindingFlags bindingAttr,
-			TResult defaultValue = default(TResult)) : this(propertyHolderScalar)
+			BindingFlags bindingAttr) : this(sourceScalar)
 		{
 			_propertyInfoGettingType = PropertyInfoGettingType.PropertyInfoPredicateBindingAttr;
 			_propertyInfoPredicate = propertyInfoPredicate;
 			_bindingAttr = bindingAttr;
-			_defaultValue = defaultValue;
-            _propertyHolder = _propertyHolderScalar.Value;
+			_source = _sourceScalar.Value;
 		}
 
 		private PropertyAccessing(
-			IReadScalar<INotifyPropertyChanged> propertyHolderScalar) : this()
+			IReadScalar<INotifyPropertyChanged> sourceScalar) : this()
 		{
-			_propertyHolderScalar = propertyHolderScalar;
+			_sourceScalar = sourceScalar;
 		}
 
 		[ObservableComputationsCall]
 		public PropertyAccessing(
-			INotifyPropertyChanged propertyHolder, 
-			string propertyName,
-			TResult defaultValue = default(TResult)) : this()
+			INotifyPropertyChanged source, 
+			string propertyName) : this()
 		{
 			_propertyInfoGettingType = PropertyInfoGettingType.PropertyName;
 			_propertyName = propertyName;
-			_defaultValue = defaultValue;
-            _propertyHolder = propertyHolder;
+			_source = source;
 		}
 
 		[ObservableComputationsCall]
 		public PropertyAccessing(
-			INotifyPropertyChanged propertyHolder, 
+			INotifyPropertyChanged source, 
 			string propertyName,
-			BindingFlags bindingAttr,
-			TResult defaultValue = default(TResult)) : this()
+			BindingFlags bindingAttr) : this()
 		{
 			_propertyInfoGettingType = PropertyInfoGettingType.BindingAttr;
 			_propertyName = propertyName;
 			_bindingAttr = bindingAttr;
-			_defaultValue = defaultValue;
-            _propertyHolder = propertyHolder;
+			_source = source;
 		}
 
 		[ObservableComputationsCall]
 		public PropertyAccessing(
-			INotifyPropertyChanged propertyHolder,  
+			INotifyPropertyChanged source,  
 			string propertyName,
-			Type returnType,
-			TResult defaultValue = default(TResult)) : this()
+			Type returnType) : this()
 		{
 			_propertyInfoGettingType = PropertyInfoGettingType.ReturnType;
 			_propertyName = propertyName;
 			_returnType = returnType;
-			_defaultValue = defaultValue;
-            _propertyHolder = propertyHolder;
+			_source = source;
 		}
 
 		[ObservableComputationsCall]
 		public PropertyAccessing(
-			INotifyPropertyChanged propertyHolder,  
+			INotifyPropertyChanged source,  
 			string propertyName,
 			Type returnType,
-			Type[] types,
-			TResult defaultValue = default(TResult)) : this()
+			Type[] types) : this()
 		{
 			_propertyInfoGettingType = PropertyInfoGettingType.Types;
 			_propertyName = propertyName;
 			_returnType = returnType;
 			_types = types;
-			_defaultValue = defaultValue;
-            _propertyHolder = propertyHolder;
+			_source = source;
 		}
 
 		[ObservableComputationsCall]
 		public PropertyAccessing(
-			INotifyPropertyChanged propertyHolder,  
+			INotifyPropertyChanged source,  
 			string propertyName,
 			Type returnType,
 			Type[] types,
-			ParameterModifier[] modifiers,
-			TResult defaultValue = default(TResult)) : this()
+			ParameterModifier[] modifiers) : this()
 		{
 			_propertyInfoGettingType = PropertyInfoGettingType.Modifiers;
 			_propertyName = propertyName;
 			_returnType = returnType;
 			_modifiers = modifiers;
 			_types = types;
-			_defaultValue = defaultValue;
-            _propertyHolder = propertyHolder;
+			_source = source;
 		}
 
 		[ObservableComputationsCall]
 		public PropertyAccessing(
-			INotifyPropertyChanged propertyHolder,  
+			INotifyPropertyChanged source,  
 			string propertyName,
 			BindingFlags bindingAttr,
 			Binder binder,
 			Type returnType,
 			Type[] types,
-			ParameterModifier[] modifiers,
-			TResult defaultValue = default(TResult)) : this()
+			ParameterModifier[] modifiers) : this()
 		{
 			_propertyInfoGettingType = PropertyInfoGettingType.Binder;
 			_propertyName = propertyName;
@@ -271,46 +249,41 @@ namespace ObservableComputations
 			_returnType = returnType;
 			_modifiers = modifiers;
 			_types = types;
-			_defaultValue = defaultValue;
-            _propertyHolder = propertyHolder;
+			_source = source;
 		}
 
 		[ObservableComputationsCall]
 		public PropertyAccessing(
-			INotifyPropertyChanged propertyHolder,  
-			Func<PropertyInfo, bool> propertyInfoPredicate,
-			TResult defaultValue = default(TResult)) : this()
+			INotifyPropertyChanged source,  
+			Func<PropertyInfo, bool> propertyInfoPredicate) : this()
 		{
 			_propertyInfoGettingType = PropertyInfoGettingType.PropertyInfoPredicate;
 			_propertyInfoPredicate = propertyInfoPredicate;
-			_defaultValue = defaultValue;
-            _propertyHolder = propertyHolder;
+			_source = source;
 		}
 
 		[ObservableComputationsCall]
 		public PropertyAccessing(
-			INotifyPropertyChanged propertyHolder,  
+			INotifyPropertyChanged source,  
 			Func<PropertyInfo, bool> propertyInfoPredicate,
-			BindingFlags bindingAttr,
-			TResult defaultValue = default(TResult)) : this()
+			BindingFlags bindingAttr) : this()
 		{
 			_propertyInfoGettingType = PropertyInfoGettingType.PropertyInfoPredicateBindingAttr;
 			_propertyInfoPredicate = propertyInfoPredicate;
 			_bindingAttr = bindingAttr;
-			_defaultValue = defaultValue;
-            _propertyHolder = propertyHolder;
+			_source = source;
 		}
 
 		private PropertyAccessing()
 		{
-			_setValueAction = result => _propertyInfo.SetValue(_propertyHolder, result);
-            _changeValueAction = () => 	setValue((TResult) _propertyInfo.GetValue(_propertyHolder));
-            _changeHolderAction = () => {            
-                if (_propertyHolder != null)
-                    _propertyHolder.PropertyChanged -= handlePropertyHolderPropertyChanged;
-                _propertyHolder = _propertyHolderScalar.Value;
-                registerPropertyHolder();
-            };
+			_setValueRequestHandler = result => _propertyInfo.SetValue(_source, result);
+			_changeValueAction = () => 	setValue((TResult) _propertyInfo.GetValue(_source));
+			_changeHolderAction = () => {			
+				if (_source != null)
+					_source.PropertyChanged -= handleSourcePropertyChanged;
+				_source = _sourceScalar.Value;
+				registerPropertyHolder();
+			};
 		}
 
 		private void registerPropertyHolder()
@@ -330,13 +303,13 @@ namespace ObservableComputations
 
 			_propertyInfo = null;
 
-			if (_propertyHolder == null)
+			if (_source == null)
 			{
-				setValue(_defaultValue);
+				setDefaultValue();
 				return;
 			}
 
-			_propertyHolderType = _propertyHolder.GetType();
+			_propertyHolderType = _source.GetType();
 
 			switch (_propertyInfoGettingType)
 			{
@@ -370,92 +343,107 @@ namespace ObservableComputations
 			if (_propertyInfo == null)
 				throw new ObservableComputationsException(this, "Cannot obtain propertyInfo");
 
-			_propertyHolder.PropertyChanged += handlePropertyHolderPropertyChanged;
+			_source.PropertyChanged += handleSourcePropertyChanged;
 
-			setValue((TResult) _propertyInfo.GetValue(_propertyHolder));
+			setValue((TResult) _propertyInfo.GetValue(_source));
 		}
 
-		private void handlePropertyHolderPropertyChanged(object sender, PropertyChangedEventArgs e)
+		private void handleSourcePropertyChanged(object sender, PropertyChangedEventArgs e)
 		{
-            Utils.processChange(
-                sender, 
-                e, 
-                _changeValueAction,
-                ref _isConsistent, 
-                ref _handledEventSender, 
-                ref _handledEventArgs, 
-                0, 1,
-                ref _deferredProcessings, 
-                this,
-                false);
+			Utils.processChange(
+				sender, 
+				e, 
+				_changeValueAction,
+				ref _isConsistent, 
+				ref _handledEventSender, 
+				ref _handledEventArgs, 
+				0, _deferredQueuesCount,
+				ref _deferredProcessings, 
+				this,
+				false);
 		}
 
-		private void handlePropertyHolderScalarPropertyChanged(object sender, PropertyChangedEventArgs e)
+		private void handleSourceScalarPropertyChanged(object sender, PropertyChangedEventArgs e)
 		{
-            Utils.processChange(
-                sender, 
-                e, 
-                _changeHolderAction,
-                ref _isConsistent, 
-                ref _handledEventSender, 
-                ref _handledEventArgs, 
-                0, 1,
-                ref _deferredProcessings, this);
+			Utils.processChange(
+				sender, 
+				e, 
+				_changeHolderAction,
+				ref _isConsistent, 
+				ref _handledEventSender, 
+				ref _handledEventArgs, 
+				0, _deferredQueuesCount,
+				ref _deferredProcessings, this);
 		}
 
-        private bool _initializedFromSource;
-        #region Overrides of ScalarComputing<TResult>
+		#region Overrides of ScalarComputing<TResult>
 
-        protected override void initializeFromSource()
-        {
-            if (_initializedFromSource)
-            {
-                if (_propertyHolderScalar != null)
-                {
-                    _propertyHolderScalar.PropertyChanged -= handlePropertyHolderScalarPropertyChanged;
-                    _propertyHolder = null;
-                }
+		protected override void processSource()
+		{
+			if (_sourceReadAndSubscribed)
+			{
+				if (_sourceScalar != null)
+				{
+					_sourceScalar.PropertyChanged -= handleSourceScalarPropertyChanged;
+					_source = null;
+				}
 
-                if (_propertyHolder != null)
-                    _propertyHolder.PropertyChanged -= handlePropertyHolderPropertyChanged;
+				if (_source != null)
+					_source.PropertyChanged -= handleSourcePropertyChanged;
 
-                _initializedFromSource = true;
-            }
+				_sourceReadAndSubscribed = false;
+			}
 
-            if (_isActive)
-            {
-                if (_propertyHolderScalar != null)
-                {
-                    _propertyHolderScalar.PropertyChanged += handlePropertyHolderScalarPropertyChanged;
-                    _propertyHolder = _propertyHolderScalar.Value;
-                }
+			if (_isActive)
+			{
+				if (_sourceScalar != null)
+				{
+					_sourceScalar.PropertyChanged += handleSourceScalarPropertyChanged;
+					_source = _sourceScalar.Value;
+				}
 
-                registerPropertyHolder();
-            }
-            else
-            {
-                setValue(default);
-            }
-        }
+				registerPropertyHolder();
+				_sourceReadAndSubscribed = true;
+			}
+			else
+				setDefaultValue();
+		}
 
-        protected override void initialize()
-        {    
-        }
+		protected override void initialize()
+		{	
+		}
 
-        protected override void uninitialize()
-        {
-        }
+		protected override void uninitialize()
+		{
+		}
 
-        internal override void addToUpstreamComputings(IComputingInternal computing)
-        {
-            (_propertyHolderScalar as IComputingInternal)?.AddDownstreamConsumedComputing(computing);
-        }
+		protected override void clearCachedScalarArgumentValues()
+		{
 
-        internal override void removeFromUpstreamComputings(IComputingInternal computing)
-        {
-            (_propertyHolderScalar as IComputingInternal)?.RemoveDownstreamConsumedComputing(computing);
-        }
+		}
 
-        #endregion
-    }
+		internal override void addToUpstreamComputings(IComputingInternal computing)
+		{
+			(_sourceScalar as IComputingInternal)?.AddDownstreamConsumedComputing(computing);
+		}
+
+		internal override void removeFromUpstreamComputings(IComputingInternal computing)
+		{
+			(_sourceScalar as IComputingInternal)?.RemoveDownstreamConsumedComputing(computing);
+		}
+
+		#endregion
+
+		[ExcludeFromCodeCoverage]
+		internal void ValidateInternalConsistency()
+		{
+			object source = _sourceScalar != null ? _sourceScalar.Value : _source;
+
+			if (_source != null)
+			{
+				if (!_source.GetType().GetProperty("Num").GetValue(_source).Equals(_value))
+					throw new ValidateInternalConsistencyException("Consistency violation: PropertyAccessing.1");
+			}
+		}
+	}
 }

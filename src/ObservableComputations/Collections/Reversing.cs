@@ -1,23 +1,27 @@
-﻿using System.Collections;
+﻿// Copyright (c) 2019-2021 Buchelnikov Igor Vladimirovich. All rights reserved
+// Buchelnikov Igor Vladimirovich licenses this file to you under the MIT license.
+// The LICENSE file is located at https://github.com/IgorBuchelnikov/ObservableComputations/blob/master/LICENSE
+
+using System.Collections;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Collections.Specialized;
 using System.ComponentModel;
+using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 
 namespace ObservableComputations
 {
-	public class Reversing<TSourceItem> : Selecting<ZipPair<int, TSourceItem>, TSourceItem>, IHasSourceCollections
+	public class Reversing<TSourceItem> : Selecting<ZipPair<int, TSourceItem>, TSourceItem>, IHasSources
 	{
-		public new IReadScalar<INotifyCollectionChanged> SourceScalar => _sourceScalar;
+		public override IReadScalar<INotifyCollectionChanged> SourceScalar => _sourceScalar;
 
 		// ReSharper disable once MemberCanBePrivate.Global
-		public new INotifyCollectionChanged Source => _source;
+		public override INotifyCollectionChanged Source => _sourceReversing;
 		private readonly IReadScalar<INotifyCollectionChanged> _sourceScalar;
-		private readonly INotifyCollectionChanged _source;
+		private readonly INotifyCollectionChanged _sourceReversing;
 
-		public new ReadOnlyCollection<INotifyCollectionChanged> SourceCollections => new ReadOnlyCollection<INotifyCollectionChanged>(new []{Source});
-		public new ReadOnlyCollection<IReadScalar<INotifyCollectionChanged>> SourceCollectionScalars => new ReadOnlyCollection<IReadScalar<INotifyCollectionChanged>>(new []{SourceScalar});
+		public override ReadOnlyCollection<object> Sources => new ReadOnlyCollection<object>(new object[]{Source, SourceScalar});
 
 		// ReSharper disable once MemberCanBePrivate.Global
 		[ObservableComputationsCall]
@@ -33,7 +37,7 @@ namespace ObservableComputations
 			INotifyCollectionChanged source)
 			: base(getSource(source), zipPair => zipPair.RightItem)
 		{
-			_source = source;
+			_sourceReversing = source;
 		}
 
 		private static INotifyCollectionChanged getSource(
@@ -54,13 +58,14 @@ namespace ObservableComputations
 				.Ordering(zipPair => zipPair.LeftItem, ListSortDirection.Descending);
 		}
 
-		public new void ValidateConsistency()
+		[ExcludeFromCodeCoverage]
+		internal new void ValidateInternalConsistency()
 		{
-			IList<TSourceItem> source = _sourceScalar.getValue(_source, new ObservableCollection<TSourceItem>()) as IList<TSourceItem>;
+			IList<TSourceItem> source = _sourceScalar.getValue(_sourceReversing, new ObservableCollection<TSourceItem>()) as IList<TSourceItem>;
 
 			// ReSharper disable once AssignNullToNotNullAttribute
 			if (!this.SequenceEqual(source.Reverse()))
-				throw new ObservableComputationsException(this, "Consistency violation: Reversing.1");
+				throw new ValidateInternalConsistencyException("Consistency violation: Reversing.1");
 		}
 	}
 }

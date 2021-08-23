@@ -1,15 +1,19 @@
-﻿using System;
+﻿// Copyright (c) 2019-2021 Buchelnikov Igor Vladimirovich. All rights reserved
+// Buchelnikov Igor Vladimirovich licenses this file to you under the MIT license.
+// The LICENSE file is located at https://github.com/IgorBuchelnikov/ObservableComputations/blob/master/LICENSE
+
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Collections.Specialized;
+using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Linq.Expressions;
-using ObservableComputations.ExtentionMethods;
 
 namespace ObservableComputations
 {
-	public class PredicateGroupJoining<TOuterSourceItem, TInnerSourceItem> : Selecting<TOuterSourceItem, PredicateJoinGroup<TOuterSourceItem, TInnerSourceItem>>, IHasSourceCollections
+	public class PredicateGroupJoining<TOuterSourceItem, TInnerSourceItem> : Selecting<TOuterSourceItem, PredicateJoinGroup<TOuterSourceItem, TInnerSourceItem>>, IHasSources
 	{
 		public IReadScalar<INotifyCollectionChanged> OuterSourceScalar => _outerSourceScalar;
 
@@ -22,8 +26,7 @@ namespace ObservableComputations
 		// ReSharper disable once MemberCanBePrivate.Global
 		public INotifyCollectionChanged InnerSource => _innerSource;
 
-		public new ReadOnlyCollection<INotifyCollectionChanged> SourceCollections => new ReadOnlyCollection<INotifyCollectionChanged>(new []{OuterSource, InnerSource});
-		public new ReadOnlyCollection<IReadScalar<INotifyCollectionChanged>> SourceCollectionScalars => new ReadOnlyCollection<IReadScalar<INotifyCollectionChanged>>(new []{OuterSourceScalar, InnerSourceScalar});
+		public override ReadOnlyCollection<object> Sources => new ReadOnlyCollection<object>(new object[]{OuterSource, InnerSource, OuterSourceScalar, InnerSourceScalar});
 
 		// ReSharper disable once MemberCanBePrivate.Global
 		public Expression<Func<TOuterSourceItem, TInnerSourceItem, bool>> JoinPredicateExpression => _joinPredicateExpression;
@@ -122,21 +125,22 @@ namespace ObservableComputations
 					.Visit(result);
 		}
 
-		public new void ValidateConsistency()
+		[ExcludeFromCodeCoverage]
+		internal new void ValidateInternalConsistency()
 		{
 			IList<TOuterSourceItem> outerSource = (IList<TOuterSourceItem>) _outerSourceScalar.getValue(_outerSource, new ObservableCollection<TOuterSourceItem>());
 			IList<TInnerSourceItem> innerSource = (IList<TInnerSourceItem>) _innerSourceScalar.getValue(_innerSource, new ObservableCollection<TInnerSourceItem>());
 			Func<TOuterSourceItem, TInnerSourceItem, bool> joinPredicate = _joinPredicateExpression.Compile();
 
 			var result = outerSource.Select(outerItem => 
-			new
-			{
-				Key = outerItem,
-				InnerItems = innerSource.Where(innerItem => joinPredicate(outerItem, innerItem)).ToArray()
-			}).ToList();
+				new
+				{
+					Key = outerItem,
+					InnerItems = innerSource.Where(innerItem => joinPredicate(outerItem, innerItem)).ToArray()
+				}).ToList();
 
-			if (Count !=  result.Count())
-				throw new ObservableComputationsException(this, "Consistency violation: PredicateGroupJoining.1");
+			if (Count !=  result.Count)
+				throw new ValidateInternalConsistencyException("Consistency violation: PredicateGroupJoining.1");
 
 			for (int index = 0; index < result.Count; index++)
 			{
@@ -145,7 +149,7 @@ namespace ObservableComputations
 
 				int length = resultItem.InnerItems.Length;
 				if (length !=  thisItem.Count)
-					throw new ObservableComputationsException($"Consistency violation: PredicateGroupJoining.3 {length}");
+					throw new ValidateInternalConsistencyException("Consistency violation: PredicateGroupJoining.3");
 
 				EqualityComparer<TInnerSourceItem> equalityComparer = EqualityComparer<TInnerSourceItem>.Default;
 
@@ -157,7 +161,7 @@ namespace ObservableComputations
 						{
 							enumerator2.MoveNext();
 							if (!equalityComparer.Equals((TInnerSourceItem)enumerator1.Current, enumerator2.Current))
-								throw new ObservableComputationsException(this, "Consistency violation: PredicateGroupJoining.4");
+								throw new ValidateInternalConsistencyException("Consistency violation: PredicateGroupJoining.4");
 						}
 					}
 				}
@@ -168,6 +172,7 @@ namespace ObservableComputations
 	public class PredicateJoinGroup<TOuterSourceItem, TInnerSourceItem> : Filtering<TInnerSourceItem>
 	{
 		// ReSharper disable once MemberCanBePrivate.Global
+		// ReSharper disable once UnusedAutoPropertyAccessor.Global
 		public TOuterSourceItem Key { get; }
 
 		[ObservableComputationsCall]

@@ -1,13 +1,18 @@
-﻿using System;
+﻿// Copyright (c) 2019-2021 Buchelnikov Igor Vladimirovich. All rights reserved
+// Buchelnikov Igor Vladimirovich licenses this file to you under the MIT license.
+// The LICENSE file is located at https://github.com/IgorBuchelnikov/ObservableComputations/blob/master/LICENSE
+
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Collections.Specialized;
+using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Linq.Expressions;
 
 namespace ObservableComputations
 {
-	public class GroupJoining<TOuterSourceItem, TInnerSourceItem, TKey> : CollectionComputing<JoinGroup<TOuterSourceItem, TInnerSourceItem, TKey>>, IHasSourceCollections, ISourceItemChangeProcessor, ISourceCollectionChangeProcessor
+	public class GroupJoining<TOuterSourceItem, TInnerSourceItem, TKey> : CollectionComputing<JoinGroup<TOuterSourceItem, TInnerSourceItem, TKey>>, IHasSources, ISourceItemChangeProcessor, ISourceCollectionChangeProcessor
 	{
 		// ReSharper disable once MemberCanBePrivate.Global
 		public IReadScalar<INotifyCollectionChanged> OuterSourceScalar => _outerSourceScalar;
@@ -27,71 +32,70 @@ namespace ObservableComputations
 
 		public Expression<Func<TOuterSourceItem, TKey>> OuterKeySelector => _outerKeySelectorExpressionOriginal;
 
-		public ReadOnlyCollection<INotifyCollectionChanged> SourceCollections => new ReadOnlyCollection<INotifyCollectionChanged>(new []{OuterSource, InnerSource});
-		public ReadOnlyCollection<IReadScalar<INotifyCollectionChanged>> SourceCollectionScalars => new ReadOnlyCollection<IReadScalar<INotifyCollectionChanged>>(new []{OuterSourceScalar, InnerSourceScalar});
+		public virtual ReadOnlyCollection<object> Sources => new ReadOnlyCollection<object>(new object[]{OuterSource, InnerSource, OuterSourceScalar, InnerSourceScalar});
 
-		public Action<JoinGroup<TOuterSourceItem, TInnerSourceItem, TKey>, int, TInnerSourceItem> InsertItemIntoGroupAction
+		public Action<JoinGroup<TOuterSourceItem, TInnerSourceItem, TKey>, int, TInnerSourceItem> InsertItemIntoGroupRequestHandler
 		{
-			get => _insertItemIntoGroupAction;
+			get => _insertItemIntoGroupRequestHandler;
 			set
 			{
-				if (_insertItemIntoGroupAction != value)
+				if (_insertItemIntoGroupRequestHandler != value)
 				{
-					_insertItemIntoGroupAction = value;
-					OnPropertyChanged(Utils.InsertItemIntoGroupActionPropertyChangedEventArgs);
+					_insertItemIntoGroupRequestHandler = value;
+					OnPropertyChanged(Utils.InsertItemIntoGroupRequestHandlerPropertyChangedEventArgs);
 				}
 
 			}
 		}
 
-		public Action<JoinGroup<TOuterSourceItem, TInnerSourceItem, TKey>, int> RemoveItemFromGroupAction
+		public Action<JoinGroup<TOuterSourceItem, TInnerSourceItem, TKey>, int> RemoveItemFromGroupRequestHandler
 		{
-			get => _removeItemFromGroupAction;
+			get => _removeItemFromGroupRequestHandler;
 			set
 			{
-				if (_removeItemFromGroupAction != value)
+				if (_removeItemFromGroupRequestHandler != value)
 				{
-					_removeItemFromGroupAction = value;
-					OnPropertyChanged(Utils.RemoveItemFromGroupActionPropertyChangedEventArgs);
+					_removeItemFromGroupRequestHandler = value;
+					OnPropertyChanged(Utils.RemoveItemFromGroupRequestHandlerPropertyChangedEventArgs);
 				}
 			}
 		}
 
-		public Action<JoinGroup<TOuterSourceItem, TInnerSourceItem, TKey>, int, int> MoveItemInGroupAction
+		public Action<JoinGroup<TOuterSourceItem, TInnerSourceItem, TKey>, int, int> MoveItemInGroupRequestHandler
 		{
-			get => _moveItemInGroupAction;
+			get => _moveItemInGroupRequestHandler;
 			set
 			{
-				if (_moveItemInGroupAction != value)
+				if (_moveItemInGroupRequestHandler != value)
 				{
-					_moveItemInGroupAction = value;
-					OnPropertyChanged(Utils.MoveItemInGroupActionPropertyChangedEventArgs);
+					_moveItemInGroupRequestHandler = value;
+					OnPropertyChanged(Utils.MoveItemInGroupRequestHandlerPropertyChangedEventArgs);
 				}
 			}
 		}
 
-		public Action<JoinGroup<TOuterSourceItem, TInnerSourceItem, TKey>> ClearGroupItemsAction
+		public Action<JoinGroup<TOuterSourceItem, TInnerSourceItem, TKey>> ClearGroupItemsRequestHandler
 		{
-			get => _clearGroupItemsAction;
+			get => _clearGroupItemsRequestHandler;
 			set
 			{
-				if (_clearGroupItemsAction != value)
+				if (_clearGroupItemsRequestHandler != value)
 				{
-					_clearGroupItemsAction = value;
-					OnPropertyChanged(Utils.ClearGroupItemsActionPropertyChangedEventArgs);
+					_clearGroupItemsRequestHandler = value;
+					OnPropertyChanged(Utils.ClearGroupItemsRequestHandlerPropertyChangedEventArgs);
 				}
 			}
 		}
 
-		public Action<JoinGroup<TOuterSourceItem, TInnerSourceItem, TKey>, int, TInnerSourceItem> SetGroupItemAction
+		public Action<JoinGroup<TOuterSourceItem, TInnerSourceItem, TKey>, int, TInnerSourceItem> SetGroupItemRequestHandler
 		{
-			get => _setGroupItemAction;
+			get => _setGroupItemRequestHandler;
 			set
 			{
-				if (_setGroupItemAction != value)
+				if (_setGroupItemRequestHandler != value)
 				{
-					_setGroupItemAction = value;
-					OnPropertyChanged(Utils.SetGroupItemActionPropertyChangedEventArgs);
+					_setGroupItemRequestHandler = value;
+					OnPropertyChanged(Utils.SetGroupItemRequestHandlerPropertyChangedEventArgs);
 				}
 			}
 		}
@@ -104,47 +108,45 @@ namespace ObservableComputations
 		private readonly ExpressionWatcher.ExpressionInfo _outerKeySelectorExpressionInfo;
 		private readonly bool _outerKeySelectorExpressionContainsParametrizedObservableComputationsCalls;
 
-		internal Action<JoinGroup<TOuterSourceItem, TInnerSourceItem, TKey>, int, TInnerSourceItem> _insertItemIntoGroupAction;
-		internal Action<JoinGroup<TOuterSourceItem, TInnerSourceItem, TKey>, int> _removeItemFromGroupAction;
-		internal Action<JoinGroup<TOuterSourceItem, TInnerSourceItem, TKey>, int, TInnerSourceItem> _setGroupItemAction;
-		internal Action<JoinGroup<TOuterSourceItem, TInnerSourceItem, TKey>, int, int> _moveItemInGroupAction;
-		internal Action<JoinGroup<TOuterSourceItem, TInnerSourceItem, TKey>> _clearGroupItemsAction;
+		internal Action<JoinGroup<TOuterSourceItem, TInnerSourceItem, TKey>, int, TInnerSourceItem> _insertItemIntoGroupRequestHandler;
+		internal Action<JoinGroup<TOuterSourceItem, TInnerSourceItem, TKey>, int> _removeItemFromGroupRequestHandler;
+		internal Action<JoinGroup<TOuterSourceItem, TInnerSourceItem, TKey>, int, TInnerSourceItem> _setGroupItemRequestHandler;
+		internal Action<JoinGroup<TOuterSourceItem, TInnerSourceItem, TKey>, int, int> _moveItemInGroupRequestHandler;
+		internal Action<JoinGroup<TOuterSourceItem, TInnerSourceItem, TKey>> _clearGroupItemsRequestHandler;
 
 		Grouping<TInnerSourceItem, TKey> _grouping;
 
-		private ObservableCollectionWithChangeMarker<TOuterSourceItem> _outerSourceAsList;
+		private ObservableCollectionWithTickTackVersion<TOuterSourceItem> _outerSourceAsList;
 		bool _outerRootSourceWrapper;
-
-		private bool _sourceInitialized;
 
 		private NotifyCollectionChangedEventHandler _groupingNotifyCollectionChangedEventHandler;
 
 		Positions<OuterItemInfo> _outerSourceItemPositions;
-        private List<OuterItemInfo> _itemInfos;
+		private List<OuterItemInfo> _itemInfos;
 		Dictionary<TKey, List<OuterItemInfo>> _keyPositions;
 		readonly List<OuterItemInfo> _nullKeyPositions = new List<OuterItemInfo>();
 
-		private bool _lastProcessedSourceChangeMarker;
-        private ISourceCollectionChangeProcessor _thisAsSourceCollectionChangeProcessor;
+		private bool _lastProcessedSourceTickTackVersion;
+		private readonly ISourceCollectionChangeProcessor _thisAsSourceCollectionChangeProcessor;
 		private readonly IReadScalar<INotifyCollectionChanged> _outerSourceScalar;
 		private INotifyCollectionChanged _outerSource;
 		private readonly Expression<Func<TOuterSourceItem, TKey>> _outerKeySelectorExpressionOriginal;
 
-        private IReadScalar<INotifyCollectionChanged> _innerSourceScalar;
-        private INotifyCollectionChanged _innerSource;
-        private Expression<Func<TInnerSourceItem, TKey>> _innerKeySelector;
-        IReadScalar<IEqualityComparer<TKey>> _equalityComparerScalar;
-        private IEqualityComparer<TKey> _equalityComparer;
+		private readonly IReadScalar<INotifyCollectionChanged> _innerSourceScalar;
+		private readonly INotifyCollectionChanged _innerSource;
+		private readonly Expression<Func<TInnerSourceItem, TKey>> _innerKeySelector;
+		readonly IReadScalar<IEqualityComparer<TKey>> _equalityComparerScalar;
+		private readonly IEqualityComparer<TKey> _equalityComparer;
 
-        private List<IComputingInternal> _nestedComputings;
-        private int _outerKeySelectorExpressionСallCount;
+		private readonly List<IComputingInternal> _nestedComputings;
+		private int _outerKeySelectorExpressionCallCount;
 
-        private ISourceItemChangeProcessor _thisAsSourceItemChangeProcessor;
+		private readonly ISourceItemChangeProcessor _thisAsSourceItemChangeProcessor;
 
-        private sealed class OuterItemInfo : ExpressionItemInfo
-        {
-            public Func<TKey> SelectorFunc;
-        }
+		private sealed class OuterItemInfo : ExpressionItemInfo
+		{
+			public Func<TKey> SelectorFunc;
+		}
 
 		[ObservableComputationsCall]
 		public GroupJoining(
@@ -152,13 +154,13 @@ namespace ObservableComputations
 			IReadScalar<INotifyCollectionChanged> innerSourceScalar,
 			Expression<Func<TOuterSourceItem, TKey>> outerKeySelector,
 			Expression<Func<TInnerSourceItem, TKey>> innerKeySelector,
-			IReadScalar<IEqualityComparer<TKey>> equalityComparerScalar = null) : this(outerKeySelector, Utils.getCapacity(outerSourceScalar))
+			IReadScalar<IEqualityComparer<TKey>> equalityComparerScalar) : this(outerKeySelector, Utils.getCapacity(outerSourceScalar))
 		{
 			_outerSourceScalar = outerSourceScalar;
-            _innerSourceScalar = innerSourceScalar;
-            _innerKeySelector = innerKeySelector;
-            _equalityComparerScalar = equalityComparerScalar;
-        }
+			_innerSourceScalar = innerSourceScalar;
+			_innerKeySelector = innerKeySelector;
+			_equalityComparerScalar = equalityComparerScalar;
+		}
 
 		[ObservableComputationsCall]
 		public GroupJoining(
@@ -166,12 +168,12 @@ namespace ObservableComputations
 			INotifyCollectionChanged innerSource,
 			Expression<Func<TOuterSourceItem, TKey>> outerKeySelector,
 			Expression<Func<TInnerSourceItem, TKey>> innerKeySelector,
-			IReadScalar<IEqualityComparer<TKey>> equalityComparerScalar = null) : this(outerKeySelector, Utils.getCapacity(outerSourceScalar))
+			IReadScalar<IEqualityComparer<TKey>> equalityComparerScalar) : this(outerKeySelector, Utils.getCapacity(outerSourceScalar))
 		{
 			_outerSourceScalar = outerSourceScalar;
-            _innerSource = innerSource;
-            _innerKeySelector = innerKeySelector;
-            _equalityComparerScalar = equalityComparerScalar;
+			_innerSource = innerSource;
+			_innerKeySelector = innerKeySelector;
+			_equalityComparerScalar = equalityComparerScalar;
 		}
 
 		[ObservableComputationsCall]
@@ -183,10 +185,10 @@ namespace ObservableComputations
 			IEqualityComparer<TKey> equalityComparer = null) : this(outerKeySelector, Utils.getCapacity(outerSourceScalar))
 		{
 			_outerSourceScalar = outerSourceScalar;
-            _innerSource = innerSource;
-            _innerKeySelector = innerKeySelector;
-            _equalityComparer = equalityComparer;
-        }
+			_innerSource = innerSource;
+			_innerKeySelector = innerKeySelector;
+			_equalityComparer = equalityComparer;
+		}
 
 		[ObservableComputationsCall]
 		public GroupJoining(
@@ -197,9 +199,9 @@ namespace ObservableComputations
 			IEqualityComparer<TKey> equalityComparer = null) : this(outerKeySelector, Utils.getCapacity(outerSourceScalar))
 		{
 			_outerSourceScalar = outerSourceScalar;
-            _innerSourceScalar = innerSourceScalar;
-            _innerKeySelector = innerKeySelector;
-            _equalityComparer = equalityComparer;
+			_innerSourceScalar = innerSourceScalar;
+			_innerKeySelector = innerKeySelector;
+			_equalityComparer = equalityComparer;
 		}
 
 		[ObservableComputationsCall]
@@ -208,12 +210,12 @@ namespace ObservableComputations
 			IReadScalar<INotifyCollectionChanged> innerSourceScalar,
 			Expression<Func<TOuterSourceItem, TKey>> outerKeySelector,
 			Expression<Func<TInnerSourceItem, TKey>> innerKeySelector,
-			IReadScalar<IEqualityComparer<TKey>> equalityComparerScalar = null) : this(outerKeySelector, Utils.getCapacity(outerSource))
+			IReadScalar<IEqualityComparer<TKey>> equalityComparerScalar) : this(outerKeySelector, Utils.getCapacity(outerSource))
 		{
 			_outerSource = outerSource;
-            _innerSourceScalar = innerSourceScalar;
-            _innerKeySelector = innerKeySelector;
-            _equalityComparerScalar = equalityComparerScalar;
+			_innerSourceScalar = innerSourceScalar;
+			_innerKeySelector = innerKeySelector;
+			_equalityComparerScalar = equalityComparerScalar;
 		}
 
 		[ObservableComputationsCall]
@@ -222,12 +224,12 @@ namespace ObservableComputations
 			INotifyCollectionChanged innerSource,
 			Expression<Func<TOuterSourceItem, TKey>> outerKeySelector,
 			Expression<Func<TInnerSourceItem, TKey>> innerKeySelector,
-			IReadScalar<IEqualityComparer<TKey>> equalityComparerScalar = null) : this(outerKeySelector, Utils.getCapacity(outerSource))
+			IReadScalar<IEqualityComparer<TKey>> equalityComparerScalar) : this(outerKeySelector, Utils.getCapacity(outerSource))
 		{
 			_outerSource = outerSource;
-            _innerSource = innerSource;
-            _innerKeySelector = innerKeySelector;
-            _equalityComparerScalar = equalityComparerScalar;
+			_innerSource = innerSource;
+			_innerKeySelector = innerKeySelector;
+			_equalityComparerScalar = equalityComparerScalar;
 		}
 
 		[ObservableComputationsCall]
@@ -239,9 +241,9 @@ namespace ObservableComputations
 			IEqualityComparer<TKey> equalityComparer = null) : this(outerKeySelector, Utils.getCapacity(outerSource))
 		{
 			_outerSource = outerSource;
-            _innerSource = innerSource;
-            _innerKeySelector = innerKeySelector;
-            _equalityComparer = equalityComparer;
+			_innerSource = innerSource;
+			_innerKeySelector = innerKeySelector;
+			_equalityComparer = equalityComparer;
 		}
 
 		[ObservableComputationsCall]
@@ -253,124 +255,110 @@ namespace ObservableComputations
 			IEqualityComparer<TKey> equalityComparer = null) : this(outerKeySelector, Utils.getCapacity(outerSource))
 		{
 			_outerSource = outerSource;
-            _innerSourceScalar = innerSourceScalar;
-            _innerKeySelector = innerKeySelector;
-            _equalityComparer = equalityComparer;
+			_innerSourceScalar = innerSourceScalar;
+			_innerKeySelector = innerKeySelector;
+			_equalityComparer = equalityComparer;
 		}
 
-
-		private void initializeGrouping(IReadScalar<INotifyCollectionChanged> innerSourceScalar, Expression<Func<TInnerSourceItem, TKey>> innerKeySelector, IReadScalar<IEqualityComparer<TKey>> equalityComparerScalar)
+		protected override void initialize()
 		{
-			_grouping = innerSourceScalar.Grouping(innerKeySelector, equalityComparerScalar);
+			if (_innerSourceScalar != null)
+			{
+				if (_equalityComparerScalar != null)
+					_grouping = _innerSourceScalar.Grouping(_innerKeySelector, _equalityComparerScalar);
+				else
+					_grouping = _innerSourceScalar.Grouping(_innerKeySelector, _equalityComparer);
+			}
+			else
+			{
+				if (_equalityComparerScalar != null)
+					_grouping = _innerSource.Grouping(_innerKeySelector, _equalityComparerScalar);
+				else
+					_grouping = _innerSource.Grouping(_innerKeySelector, _equalityComparer);			   
+			}
+
+			((IComputingInternal) _grouping).AddDownstreamConsumedComputing(this);
 			subscribeToGroupingCollectionChanged();
+
+			_keyPositions = new Dictionary<TKey, List<OuterItemInfo>>(_grouping._equalityComparer);
+
+			Utils.initializeSourceScalar(_outerSourceScalar, ref _outerSource, scalarValueChangedHandler);
+			Utils.initializeNestedComputings(_nestedComputings, this);
 		}
 
-		private void initializeGrouping(IReadScalar<INotifyCollectionChanged> innerSourceScalar, Expression<Func<TInnerSourceItem, TKey>> innerKeySelector, IEqualityComparer<TKey> equalityComparer)
+		protected override void uninitialize()
 		{
-			_grouping = innerSourceScalar.Grouping(innerKeySelector, equalityComparer);
-			subscribeToGroupingCollectionChanged();
+			if (_groupingNotifyCollectionChangedEventHandler != null)
+				_grouping.CollectionChanged -= _groupingNotifyCollectionChangedEventHandler;	
+			((IComputingInternal) _grouping).RemoveDownstreamConsumedComputing(this);
+
+			Utils.unsubscribeSourceScalar(_outerSourceScalar, scalarValueChangedHandler);
+			Utils.uninitializeNestedComputings(_nestedComputings, this);
 		}
 
-		private void initializeGrouping(INotifyCollectionChanged innerSource, Expression<Func<TInnerSourceItem, TKey>> innerKeySelector, IReadScalar<IEqualityComparer<TKey>> equalityComparerScalar)
+		protected override void clearCachedScalarArgumentValues()
 		{
-			_grouping = innerSource.Grouping(innerKeySelector, equalityComparerScalar);
-			subscribeToGroupingCollectionChanged();
+			Utils.clearCachcedSourceScalarValue(_outerSourceScalar, ref _outerSource);
 		}
 
-		private void initializeGrouping(INotifyCollectionChanged innerSource, Expression<Func<TInnerSourceItem, TKey>> innerKeySelector, IEqualityComparer<TKey> equalityComparer)
+		protected override void processSource()
 		{
-			_grouping = innerSource.Grouping(innerKeySelector, equalityComparer);
-			subscribeToGroupingCollectionChanged();
+			processSource(true);
 		}
 
-        protected override void initialize()
-        {
-            if (_innerSourceScalar != null)
-            {
-                if (_equalityComparerScalar != null)
-                    initializeGrouping(_innerSourceScalar, _innerKeySelector, _equalityComparerScalar);
-                else
-                    initializeGrouping(_innerSourceScalar, _innerKeySelector, _equalityComparer);
-            }
-            else
-            {
-                if (_equalityComparerScalar != null)
-                    initializeGrouping(_innerSource, _innerKeySelector, _equalityComparerScalar);
-                else
-                    initializeGrouping(_innerSource, _innerKeySelector, _equalityComparer);               
-            }
-
-            _keyPositions = new Dictionary<TKey, List<OuterItemInfo>>(_grouping._equalityComparer);
-
-            Utils.initializeSourceScalar(_outerSourceScalar, ref _outerSource, scalarValueChangedHandler);
-            Utils.initializeNestedComputings(_nestedComputings, this);
-        }
-
-        protected override void uninitialize()
-        {
-            if (_groupingNotifyCollectionChangedEventHandler != null)
-                _grouping.CollectionChanged -= _groupingNotifyCollectionChangedEventHandler;			
-
-            Utils.uninitializeSourceScalar(_outerSourceScalar, scalarValueChangedHandler, ref _outerSource);
-            Utils.uninitializeNestedComputings(_nestedComputings, this);
-        }
-
-        protected override void initializeFromSource()
+		private void processSource(bool replaceSource)
 		{
 			int originalCount = _items.Count;
 
-			if (_sourceInitialized)
+			if (_sourceReadAndSubscribed)
 			{
-                Utils.disposeExpressionItemInfos(_itemInfos, _outerKeySelectorExpressionСallCount, this);
-                Utils.RemoveDownstreamConsumedComputing(_itemInfos, this);
+				Utils.disposeExpressionItemInfos(_itemInfos, _outerKeySelectorExpressionCallCount, this);
+				Utils.removeDownstreamConsumedComputing(_itemInfos, this);
 
-                Utils.disposeSource(
-                    _outerSourceScalar, 
-                    _outerSource,
-                    out _itemInfos,
-                    out _outerSourceItemPositions, 
-                    _outerSourceAsList, 
-                    handleOuterSourceCollectionChanged);
+				Utils.disposeSource(
+					_outerSourceScalar, 
+					_outerSource,
+					out _itemInfos,
+					out _outerSourceItemPositions, 
+					_outerSourceAsList, 
+					handleOuterSourceCollectionChanged,
+					replaceSource);
 
 				_nullKeyPositions.Clear();
 				_keyPositions = new Dictionary<TKey, List<OuterItemInfo>>(_grouping._equalityComparer);
-                _sourceInitialized = false;
-            }
+				_sourceReadAndSubscribed = false;
+			}
 
-            Utils.changeSource(ref _outerSource, _outerSourceScalar, _downstreamConsumedComputings, _consumers, this, ref _outerSourceAsList, false);
+			if (replaceSource)
+				Utils.replaceSource(ref _outerSource, _outerSourceScalar, _downstreamConsumedComputings, _consumers, this, out _outerSourceAsList, false);
 
 			if (_outerSource != null && _isActive)
 			{
-                Utils.initializeFromObservableCollectionWithChangeMarker(
-                    _outerSource, 
-                    ref _outerSourceAsList, 
-                    ref _outerRootSourceWrapper, 
-                    ref _lastProcessedSourceChangeMarker);
+				if (replaceSource)
+					Utils.subscribeSource(
+						_outerSource, 
+						ref _outerSourceAsList, 
+						ref _outerRootSourceWrapper, 
+						ref _lastProcessedSourceTickTackVersion,
+						handleOuterSourceCollectionChanged);
 
 				int count = _outerSourceAsList.Count;
 
-                TOuterSourceItem[] outerSourceCopy = new TOuterSourceItem[count];
-                _outerSourceAsList.CopyTo(outerSourceCopy, 0);
-
-                _outerSourceAsList.CollectionChanged += handleOuterSourceCollectionChanged;
+				TOuterSourceItem[] outerSourceCopy = new TOuterSourceItem[count];
+				_outerSourceAsList.CopyTo(outerSourceCopy, 0);
 
 				int sourceIndex;
 				for (sourceIndex = 0; sourceIndex < count; sourceIndex++)
-				{
 					registerOuterSourceItem(outerSourceCopy[sourceIndex], sourceIndex, originalCount);
-				}
+				
 
 				for (int index = originalCount - 1; index >= sourceIndex; index--)
-				{
-					_items.RemoveAt(index);
-				}
+					_items.RemoveAt(index);				
 
-                _sourceInitialized = true;
-            }
-			else
-			{
-				_items.Clear();
+				_sourceReadAndSubscribed = true;
 			}
+			else
+				_items.Clear();
 
 			reset();
 		}
@@ -383,23 +371,23 @@ namespace ObservableComputations
 
 		private GroupJoining(Expression<Func<TOuterSourceItem, TKey>> outerKeySelector, int outerSourceCapacity) : base(outerSourceCapacity)
 		{
-            Utils.construct(
-                outerKeySelector, 
-                outerSourceCapacity, 
-                out _itemInfos, 
-                out _outerSourceItemPositions, 
-                out _outerKeySelectorExpressionOriginal, 
-                out _outerKeySelectorExpression, 
-                out _outerKeySelectorExpressionContainsParametrizedObservableComputationsCalls, 
-                ref _outerKeySelectorExpressionInfo, 
-                ref _outerKeySelectorExpressionСallCount, 
-                ref _outerKeySelectorFunc, 
-                ref _nestedComputings);
+			Utils.construct(
+				outerKeySelector, 
+				outerSourceCapacity, 
+				out _itemInfos, 
+				out _outerSourceItemPositions, 
+				out _outerKeySelectorExpressionOriginal, 
+				out _outerKeySelectorExpression, 
+				out _outerKeySelectorExpressionContainsParametrizedObservableComputationsCalls, 
+				ref _outerKeySelectorExpressionInfo, 
+				ref _outerKeySelectorExpressionCallCount, 
+				ref _outerKeySelectorFunc, 
+				ref _nestedComputings);
 
-            _deferredQueuesCount = 3;
-            
-            _thisAsSourceCollectionChangeProcessor = this;
-            _thisAsSourceItemChangeProcessor = this;
+			_deferredQueuesCount = 3;
+			
+			_thisAsSourceCollectionChangeProcessor = this;
+			_thisAsSourceItemChangeProcessor = this;
 		}
 
 		List<OuterItemInfo> getPositionsByKey(TKey key)
@@ -415,188 +403,177 @@ namespace ObservableComputations
 
 		private void handleGroupingCollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
 		{
-            if (!Utils.preHandleSourceCollectionChanged(
-                sender, 
-                e, 
-                ref _isConsistent,
-                ref _handledEventSender,
-                ref _handledEventArgs,
-                ref _deferredProcessings,
-                1, _deferredQueuesCount, 
-                this)) return;
+			if (!Utils.preHandleSourceCollectionChanged(
+				sender, 
+				e, 
+				ref _isConsistent,
+				ref _handledEventSender,
+				ref _handledEventArgs,
+				ref _deferredProcessings,
+				1, _deferredQueuesCount, 
+				this)) return;
 
-            _thisAsSourceCollectionChangeProcessor.processSourceCollectionChanged(sender, e);	
+			_thisAsSourceCollectionChangeProcessor.processSourceCollectionChanged(sender, e);	
 
-            Utils.postHandleChange(
-                ref _handledEventSender,
-                ref _handledEventArgs,
-                _deferredProcessings,
-                ref _isConsistent,
-                this);
+			Utils.postHandleChange(
+				ref _handledEventSender,
+				ref _handledEventArgs,
+				_deferredProcessings,
+				ref _isConsistent,
+				this);
 		}
 
 		private void handleOuterSourceCollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
 		{
-            if (!Utils.preHandleSourceCollectionChanged(
-                sender, 
-                e, 
-                _outerRootSourceWrapper,                 
-                ref _lastProcessedSourceChangeMarker, 
-                _outerSourceAsList, 
-                ref _isConsistent,
-                this,
-                ref _handledEventSender,
-                ref _handledEventArgs,
-                ref _deferredProcessings,
-                1, _deferredQueuesCount, 
-                this)) return;
+			if (!Utils.preHandleSourceCollectionChanged(
+				sender, 
+				e, 
+				_outerRootSourceWrapper,				 
+				ref _lastProcessedSourceTickTackVersion, 
+				_outerSourceAsList, 
+				ref _isConsistent,
+				ref _handledEventSender,
+				ref _handledEventArgs,
+				ref _deferredProcessings,
+				1, _deferredQueuesCount, 
+				this)) return;
 
 			_thisAsSourceCollectionChangeProcessor.processSourceCollectionChanged(sender, e);	
 
-            Utils.postHandleChange(
-                ref _handledEventSender,
-                ref _handledEventArgs,
-                _deferredProcessings,
-                ref _isConsistent,
-                this);
+			Utils.postHandleChange(
+				ref _handledEventSender,
+				ref _handledEventArgs,
+				_deferredProcessings,
+				ref _isConsistent,
+				this);
 		}
 
-        void ISourceCollectionChangeProcessor.processSourceCollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
-        {
-            if (ReferenceEquals(sender, _outerSourceAsList))
-                switch (e.Action)
-                {
-                    case NotifyCollectionChangedAction.Add:
-                        TOuterSourceItem addedItem = (TOuterSourceItem) e.NewItems[0];
-                        registerOuterSourceItem(addedItem, e.NewStartingIndex);
-                        break;
-                    case NotifyCollectionChangedAction.Remove:
-                        unregisterOuterSourceItem(e.OldStartingIndex);
+		void ISourceCollectionChangeProcessor.processSourceCollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
+		{
+			if (ReferenceEquals(sender, _outerSourceAsList))
+				switch (e.Action)
+				{
+					case NotifyCollectionChangedAction.Add:
+						TOuterSourceItem addedItem = (TOuterSourceItem) e.NewItems[0];
+						registerOuterSourceItem(addedItem, e.NewStartingIndex);
+						break;
+					case NotifyCollectionChangedAction.Remove:
+						unregisterOuterSourceItem(e.OldStartingIndex);
 
-                        break;
-                    case NotifyCollectionChangedAction.Replace:
-                        int newIndex1 = e.NewStartingIndex;
-                        TOuterSourceItem newItem = (TOuterSourceItem) e.NewItems[0];
-                        JoinGroup<TOuterSourceItem, TInnerSourceItem, TKey> replacingJoinGroup = this[newIndex1];
-                        OuterItemInfo itemInfo = _itemInfos[newIndex1];
+						break;
+					case NotifyCollectionChangedAction.Replace:
+						int newIndex1 = e.NewStartingIndex;
+						TOuterSourceItem newItem = (TOuterSourceItem) e.NewItems[0];
+						JoinGroup<TOuterSourceItem, TInnerSourceItem, TKey> replacingJoinGroup = this[newIndex1];
+						OuterItemInfo itemInfo = _itemInfos[newIndex1];
 
-                        Utils.disposeExpressionWatcher(itemInfo.ExpressionWatcher, itemInfo.NestedComputings, this,
-                            _outerKeySelectorExpressionContainsParametrizedObservableComputationsCalls);
+						Utils.disposeExpressionWatcher(itemInfo.ExpressionWatcher, itemInfo.NestedComputings, this,
+							_outerKeySelectorExpressionContainsParametrizedObservableComputationsCalls);
 
-                        Utils.getItemInfoContent(
-                            new object[] {newItem},
-                            out ExpressionWatcher watcher,
-                            out Func<TKey> outerKeySelectorFunc,
-                            out List<IComputingInternal> nestedComputings,
-                            _outerKeySelectorExpression,
-                            out _outerKeySelectorExpressionСallCount,
-                            this,
-                            _outerKeySelectorExpressionContainsParametrizedObservableComputationsCalls,
-                            _outerKeySelectorExpressionInfo);
+						Utils.getItemInfoContent(
+							new object[] {newItem},
+							out ExpressionWatcher watcher,
+							out Func<TKey> outerKeySelectorFunc,
+							out List<IComputingInternal> nestedComputings,
+							_outerKeySelectorExpression,
+							out _outerKeySelectorExpressionCallCount,
+							this,
+							_outerKeySelectorExpressionContainsParametrizedObservableComputationsCalls,
+							_outerKeySelectorExpressionInfo);
 
-                        watcher.ValueChanged = expressionWatcher_OnValueChanged;
+						watcher.ValueChanged = expressionWatcher_OnValueChanged;
 
-                        watcher._position = itemInfo;
+						watcher._position = itemInfo;
 
-                        TKey key = applyKeySelector(newItem, outerKeySelectorFunc);
+						TKey key = applyKeySelector(newItem, outerKeySelectorFunc);
 
-                        if (!_grouping._equalityComparer.Equals(key, replacingJoinGroup.Key))
-                        {
-                            unregisterKey(newIndex1, itemInfo);
-                            registerKey(key, itemInfo);
-                            replacingJoinGroup.Key = key;
-                            replacingJoinGroup.setGroup(_grouping.getGroup(key));
-                        }
+						if (!_grouping._equalityComparer.Equals(key, replacingJoinGroup.Key))
+						{
+							unregisterKey(newIndex1, itemInfo);
+							registerKey(key, itemInfo);
+							replacingJoinGroup.Key = key;
+							replacingJoinGroup.setGroup(_grouping.getGroup(key));
+						}
 
-                        replacingJoinGroup.OuterItem = newItem;
-                        itemInfo.ExpressionWatcher = watcher;
-                        itemInfo.SelectorFunc = outerKeySelectorFunc;
-                        itemInfo.NestedComputings = nestedComputings;
-                        break;
-                    case NotifyCollectionChangedAction.Move:
-                        int oldStartingIndex2 = e.OldStartingIndex;
-                        int newStartingIndex2 = e.NewStartingIndex;
-                        if (oldStartingIndex2 != newStartingIndex2)
-                        {
-                            _outerSourceItemPositions.Move(oldStartingIndex2, newStartingIndex2);
-                            baseMoveItem(oldStartingIndex2, newStartingIndex2);
-                        }
+						replacingJoinGroup.OuterItem = newItem;
+						itemInfo.ExpressionWatcher = watcher;
+						itemInfo.SelectorFunc = outerKeySelectorFunc;
+						itemInfo.NestedComputings = nestedComputings;
+						break;
+					case NotifyCollectionChangedAction.Move:
+						int oldStartingIndex2 = e.OldStartingIndex;
+						int newStartingIndex2 = e.NewStartingIndex;
+						if (oldStartingIndex2 != newStartingIndex2)
+						{
+							_outerSourceItemPositions.Move(oldStartingIndex2, newStartingIndex2);
+							baseMoveItem(oldStartingIndex2, newStartingIndex2);
+						}
 
-                        break;
-                    case NotifyCollectionChangedAction.Reset:
-                        initializeFromSource();
-                        break;
-                }
-            else //if (ReferenceEquals(sender, _grouping)
-                switch (e.Action)
-                {
-                    case NotifyCollectionChangedAction.Add:
-                        Group<TInnerSourceItem, TKey> addedGroup 
-                            = (Group<TInnerSourceItem, TKey>) e.NewItems[0];
+						break;
+					case NotifyCollectionChangedAction.Reset:
+						processSource(false);
+						break;
+				}
+			else //if (ReferenceEquals(sender, _grouping)
+				switch (e.Action)
+				{
+					case NotifyCollectionChangedAction.Add:
+						Group<TInnerSourceItem, TKey> addedGroup 
+							= (Group<TInnerSourceItem, TKey>) e.NewItems[0];
 
-                        List<OuterItemInfo> positions = getPositionsByKey(addedGroup._key);
-                        if (positions != null)
-                        {
-                            int positionsCount = positions.Count;
-                            for (int index = 0; index < positionsCount; index++)
-                            {
-                                OuterItemInfo position = positions[index];
-                                this[position.Index].setGroup(addedGroup);
-                            }
-                        }
-                        break;
-                    case NotifyCollectionChangedAction.Remove:
-                        Group<TInnerSourceItem, TKey> removedGroup 
-                            = (Group<TInnerSourceItem, TKey>) e.OldItems[0];
+						List<OuterItemInfo> positions = getPositionsByKey(addedGroup._key);
+						if (positions != null)
+						{
+							int positionsCount = positions.Count;
+							for (int index = 0; index < positionsCount; index++)
+								this[positions[index].Index].setGroup(addedGroup);						
+						}
+						break;
+					case NotifyCollectionChangedAction.Remove:
+						Group<TInnerSourceItem, TKey> removedGroup 
+							= (Group<TInnerSourceItem, TKey>) e.OldItems[0];
 
-                        List<OuterItemInfo> positions1 = getPositionsByKey(removedGroup._key);
-                        if (positions1 != null)
-                        {
-                            int positions1Count = positions1.Count;
-                            for (int index = 0; index < positions1Count; index++)
-                            {
-                                Position position = positions1[index];
-                                this[position.Index].setGroup(null);
-                            }
-                        }
-                        break;
-                    case NotifyCollectionChangedAction.Reset:
-                        initializeFromSource();
-                        break;
-                }
-        }
+						List<OuterItemInfo> positions1 = getPositionsByKey(removedGroup._key);
+						if (positions1 != null)
+						{
+							int positions1Count = positions1.Count;
+							for (int index = 0; index < positions1Count; index++)
+								this[positions1[index].Index].setGroup(null);							
+						}
+						break;
+					case NotifyCollectionChangedAction.Reset:
+						processSource(false);
+						break;
+				}
+		}
 
-        internal override void addToUpstreamComputings(IComputingInternal computing)
-        {
-            (_outerSource as IComputingInternal)?.AddDownstreamConsumedComputing(computing);
-            (_outerSourceScalar as IComputingInternal)?.AddDownstreamConsumedComputing(computing);
-            (_equalityComparerScalar as IComputingInternal)?.AddDownstreamConsumedComputing(computing);
-            ((IComputingInternal) _grouping).AddDownstreamConsumedComputing(computing);
-        }
+		internal override void addToUpstreamComputings(IComputingInternal computing)
+		{
+			Utils.AddDownstreamConsumedComputing(computing, _outerSourceScalar, _outerSource);
+			(_equalityComparerScalar as IComputingInternal)?.AddDownstreamConsumedComputing(computing);
+		}
 
-        internal override void removeFromUpstreamComputings(IComputingInternal computing)        
-        {
-            (_outerSource as IComputingInternal)?.RemoveDownstreamConsumedComputing(computing);
-            (_outerSourceScalar as IComputingInternal)?.RemoveDownstreamConsumedComputing(computing);
-            (_equalityComparerScalar as IComputingInternal)?.RemoveDownstreamConsumedComputing(computing);
-            ((IComputingInternal) _grouping).RemoveDownstreamConsumedComputing(computing);
-        }
+		internal override void removeFromUpstreamComputings(IComputingInternal computing)		
+		{
+			Utils.RemoveDownstreamConsumedComputing(computing, _outerSourceScalar, _outerSource);
+			(_equalityComparerScalar as IComputingInternal)?.RemoveDownstreamConsumedComputing(computing);
+		}
 
 		private void expressionWatcher_OnValueChanged(ExpressionWatcher expressionWatcher, object sender, EventArgs eventArgs)
 		{
-            Utils.ProcessSourceItemChange(
-                expressionWatcher, 
-                sender, 
-                eventArgs, 
-                _outerRootSourceWrapper, 
-                _outerSourceAsList,
-                _lastProcessedSourceChangeMarker, 
-                _thisAsSourceItemChangeProcessor,
-                ref _isConsistent,
-                ref _handledEventSender,
-                ref _handledEventArgs,
-                ref _deferredProcessings, 
-                2, _deferredQueuesCount, this);
+			Utils.processSourceItemChange(
+				expressionWatcher, 
+				sender, 
+				eventArgs, 
+				_outerRootSourceWrapper, 
+				_outerSourceAsList,
+				_lastProcessedSourceTickTackVersion, 
+				_thisAsSourceItemChangeProcessor,
+				ref _isConsistent,
+				ref _handledEventSender,
+				ref _handledEventArgs,
+				ref _deferredProcessings, 
+				2, _deferredQueuesCount, this);
 		}
 
 		private void unregisterOuterSourceItem(int index)
@@ -605,8 +582,8 @@ namespace ObservableComputations
 
 			unregisterKey(index, itemInfo);
 
-            Utils.disposeExpressionWatcher(itemInfo.ExpressionWatcher, itemInfo.NestedComputings, this,
-                _outerKeySelectorExpressionContainsParametrizedObservableComputationsCalls);
+			Utils.disposeExpressionWatcher(itemInfo.ExpressionWatcher, itemInfo.NestedComputings, this,
+				_outerKeySelectorExpressionContainsParametrizedObservableComputationsCalls);
 
 			_outerSourceItemPositions.Remove(index);
 			//this[position.Index].Group.JoinGroupsPositions.Remove(position);
@@ -616,27 +593,27 @@ namespace ObservableComputations
 
 		private void registerOuterSourceItem(TOuterSourceItem outerSourceItem, int index, int? originalCount = null)
 		{
-            Utils.getItemInfoContent(
-                new object[]{outerSourceItem}, 
-                out ExpressionWatcher watcher, 
-                out Func<TKey> outerKeySelectorFunc, 
-                out List<IComputingInternal> nestedComputings,
-                _outerKeySelectorExpression,
-                out _outerKeySelectorExpressionСallCount,
-                this,
-                _outerKeySelectorExpressionContainsParametrizedObservableComputationsCalls,
-                _outerKeySelectorExpressionInfo);
+			Utils.getItemInfoContent(
+				new object[]{outerSourceItem}, 
+				out ExpressionWatcher watcher, 
+				out Func<TKey> outerKeySelectorFunc, 
+				out List<IComputingInternal> nestedComputings,
+				_outerKeySelectorExpression,
+				out _outerKeySelectorExpressionCallCount,
+				this,
+				_outerKeySelectorExpressionContainsParametrizedObservableComputationsCalls,
+				_outerKeySelectorExpressionInfo);
 
 			TKey key = applyKeySelector(outerSourceItem, outerKeySelectorFunc);
 
 			Group<TInnerSourceItem, TKey> group = _grouping.getGroup(key);
 
-            OuterItemInfo outerSourceItemPosition = _outerSourceItemPositions.Insert(index);
-            outerSourceItemPosition.NestedComputings = nestedComputings;
-            outerSourceItemPosition.ExpressionWatcher = watcher;
-            outerSourceItemPosition.SelectorFunc = outerKeySelectorFunc;
-            JoinGroup<TOuterSourceItem, TInnerSourceItem, TKey> joinGroup = new JoinGroup<TOuterSourceItem, TInnerSourceItem, TKey>(
-				outerSourceItem, this, group, outerSourceItemPosition, key);
+			OuterItemInfo outerSourceItemPosition = _outerSourceItemPositions.Insert(index);
+			outerSourceItemPosition.NestedComputings = nestedComputings;
+			outerSourceItemPosition.ExpressionWatcher = watcher;
+			outerSourceItemPosition.SelectorFunc = outerKeySelectorFunc;
+			JoinGroup<TOuterSourceItem, TInnerSourceItem, TKey> joinGroup = new JoinGroup<TOuterSourceItem, TInnerSourceItem, TKey>(
+				outerSourceItem, this, group, key);
 			//group.JoinGroupsPositions.Add(outerSourceItemPosition);
 
 			watcher.ValueChanged = expressionWatcher_OnValueChanged;
@@ -681,63 +658,64 @@ namespace ObservableComputations
 
 		private TKey applyKeySelector(TOuterSourceItem outerSourceItem, Func<TKey> outerSelectorFunc)
 		{
-            TKey getValue() =>
-                _outerKeySelectorExpressionContainsParametrizedObservableComputationsCalls 
-                    ? outerSelectorFunc() 
-                    : _outerKeySelectorFunc(outerSourceItem);
+			TKey getValue() =>
+				_outerKeySelectorExpressionContainsParametrizedObservableComputationsCalls 
+					? outerSelectorFunc() 
+					: _outerKeySelectorFunc(outerSourceItem);
 
-            if (Configuration.TrackComputingsExecutingUserCode)
+			if (OcConfiguration.TrackComputingsExecutingUserCode)
 			{
-                var currentThread = Utils.startComputingExecutingUserCode(out var computing, out _userCodeIsCalledFrom, this);
+				int currentThreadId = Utils.startComputingExecutingUserCode(out IComputing computing, out _userCodeIsCalledFrom, this);
 				TKey result = getValue();
-                Utils.endComputingExecutingUserCode(computing, currentThread, out _userCodeIsCalledFrom);
+				Utils.endComputingExecutingUserCode(computing, currentThreadId, out _userCodeIsCalledFrom);
 				return result;
 			}
 
 			return getValue();
 		}
 
-		private TKey applyKeySelector(int index)
+		// TODO Uncomment and test
+		//private TKey applyKeySelector(int index)
+		//{
+		//	TKey getValue()
+		//	{
+		//		return _outerKeySelectorExpressionContainsParametrizedObservableComputationsCalls 
+		//			? _itemInfos[index].SelectorFunc()
+		//			: _outerKeySelectorFunc(_outerSourceAsList[index]);
+		//	}
+
+		//	if (OcConfiguration.TrackComputingsExecutingUserCode)
+		//	{
+		//		int currentThreadId = Utils.startComputingExecutingUserCode(out IComputing computing, out _userCodeIsCalledFrom, this);
+		//		TKey result = getValue();
+		//		Utils.endComputingExecutingUserCode(computing, currentThreadId, out _userCodeIsCalledFrom);
+		//		return result;
+		//	}
+
+		//	return getValue();
+		//}
+
+		//public TKey ApplyKeySelector(int index)
+		//{
+		//	return applyKeySelector(index);
+		//}
+
+		void ISourceItemChangeProcessor.ProcessSourceItemChange(ExpressionWatcher expressionWatcher)
 		{
-            TKey getValue()
-            {
-                return _outerKeySelectorExpressionContainsParametrizedObservableComputationsCalls 
-                    ? _itemInfos[index].SelectorFunc()
-                    : _outerKeySelectorFunc(_outerSourceAsList[index]);
-            }
-
-            if (Configuration.TrackComputingsExecutingUserCode)
-			{
-                var currentThread = Utils.startComputingExecutingUserCode(out var computing, out _userCodeIsCalledFrom, this);
-				TKey result = getValue();
-                Utils.endComputingExecutingUserCode(computing, currentThread, out _userCodeIsCalledFrom);
-				return result;
-			}
-
-			return getValue();
-		}
-
-		public TKey ApplyKeySelector(int index)
-		{
-			return applyKeySelector(index);
-		}
-
-        void ISourceItemChangeProcessor.ProcessSourceItemChange(ExpressionWatcher expressionWatcher)
-		{
-            if (expressionWatcher._disposed) return;
 			int outerSourceIndex = expressionWatcher._position.Index;
 			JoinGroup<TOuterSourceItem, TInnerSourceItem, TKey> joinGroup = this[outerSourceIndex];
-            OuterItemInfo outerItemInfo = _itemInfos[outerSourceIndex];
-            unregisterKey(outerSourceIndex, outerItemInfo);
-            joinGroup.Key = applyKeySelector(joinGroup._outerItem, outerItemInfo.SelectorFunc);
-            registerKey(joinGroup.Key, outerItemInfo);
+			OuterItemInfo outerItemInfo = _itemInfos[outerSourceIndex];
+			unregisterKey(outerSourceIndex, outerItemInfo);
+			joinGroup.Key = applyKeySelector(joinGroup._outerItem, outerItemInfo.SelectorFunc);
+			registerKey(joinGroup.Key, outerItemInfo);
 			joinGroup.setGroup(_grouping.getGroup(joinGroup.Key));
 		}
 
 		// ReSharper disable once InconsistentNaming
-		internal void ValidateConsistency()
+		[ExcludeFromCodeCoverage]
+		internal void ValidateInternalConsistency()
 		{
-			_outerSourceItemPositions.ValidateConsistency();
+			_outerSourceItemPositions.ValidateInternalConsistency();
 			IList<TOuterSourceItem> outerSource = (IList<TOuterSourceItem>) _outerSourceScalar.getValue(_outerSource, new ObservableCollection<TOuterSourceItem>());
 			IList<TInnerSourceItem> innerSource = (IList<TInnerSourceItem>) _grouping._sourceScalar.getValue(_grouping._source, new ObservableCollection<TInnerSourceItem>());
 
@@ -748,17 +726,17 @@ namespace ObservableComputations
 			Func<TOuterSourceItem, TKey> outerKeySelector = _outerKeySelectorExpressionOriginal.Compile();
 
 			if (_outerSourceItemPositions.List.Count != outerSource.Count)
-				throw new ObservableComputationsException(this, "Consistency violation: GroupJoining.5");
+				throw new ValidateInternalConsistencyException("Consistency violation: GroupJoining.5");
 
 			Func<TInnerSourceItem, TKey> innerKeySelector = _grouping._keySelectorExpression.Compile();
 
 			//result = outerSource.GroupJoin(innerSource, outerKeySelector, innerKeySelector, 
 			//	(outerItem, innerItems) =>
-		 //            new
-		 //            {
-		 //                Key = outerItem,
-		 //                InnerItems = innerItems
-		 //            }
+		 //			new
+		 //			{
+		 //				Key = outerItem,
+		 //				InnerItems = innerItems
+		 //			}
 			//	, equalityComparer).ToList();
 
 			var result = outerSource.Select(oi => 
@@ -768,26 +746,28 @@ namespace ObservableComputations
 					InnerItems = innerSource.Where(ii => equalityComparer.Equals(outerKeySelector(oi), innerKeySelector(ii)))
 				}).ToList();
 
-			if (Count !=  result.Count())
-				throw new ObservableComputationsException(this, "Consistency violation: GroupJoining.1");
+			var groups = innerSource.GroupBy(innerKeySelector, equalityComparer).ToArray();
+
+			if (Count !=  result.Count)
+				throw new ValidateInternalConsistencyException("Consistency violation: GroupJoining.1");
 
 			for (int index = 0; index < result.Count; index++)
 			{
 				var resultItem = result[index];
 				JoinGroup<TOuterSourceItem, TInnerSourceItem, TKey> thisItem = this[index];
-                OuterItemInfo itemInfo = _itemInfos[index];
+				OuterItemInfo itemInfo = _itemInfos[index];
 
 				if (!ReferenceEquals(resultItem.Key, thisItem.OuterItem))
-					throw new ObservableComputationsException(this, "Consistency violation: GroupJoining.2");
+					throw new ValidateInternalConsistencyException("Consistency violation: GroupJoining.2");
 
 				if (resultItem.InnerItems.Count() !=  thisItem.Count)
-					throw new ObservableComputationsException(this, "Consistency violation: GroupJoining.3");
+					throw new ValidateInternalConsistencyException("Consistency violation: GroupJoining.3");
 
 				if (!resultItem.InnerItems.SequenceEqual(thisItem))
-					throw new ObservableComputationsException(this, "Consistency violation: GroupJoining.4");
+					throw new ValidateInternalConsistencyException("Consistency violation: GroupJoining.4");
 
 				if (itemInfo.ExpressionWatcher._position.Index != index)
-					throw new ObservableComputationsException(this, "Consistency violation: GroupJoining.9");
+					throw new ValidateInternalConsistencyException("Consistency violation: GroupJoining.9");
 
 				List<int> indices;
 				TKey key = outerKeySelector(outerSource[index]);
@@ -805,20 +785,32 @@ namespace ObservableComputations
 				}
 
 				indices.Add(index);
+
+				int? groupIndex = null;
+				for (int i = 0; i < groups.Length; i++)
+				{
+					if (equalityComparer.Equals(groups[i].Key, key))
+					{
+						groupIndex = i;
+					}
+				}
+
+				if (groupIndex != thisItem.InnserSourceGroupIndex)
+					throw new ValidateInternalConsistencyException("Consistency violation: GroupJoining.10");
 			}
 
 			if (keyIndices.Count != _keyPositions.Count)
-				throw new ObservableComputationsException(this, "Consistency violation: GroupJoining.6");
+				throw new ValidateInternalConsistencyException("Consistency violation: GroupJoining.6");
 
 			foreach (KeyValuePair<TKey, List<int>> keyValuePair in keyIndices)
 			{
 				List<OuterItemInfo> positions = _keyPositions[keyValuePair.Key];
 				if (!positions.Select(p => p.Index).OrderBy(i => i).SequenceEqual(keyValuePair.Value))
-					throw new ObservableComputationsException(this, "Consistency violation: GroupJoining.7");
+					throw new ValidateInternalConsistencyException("Consistency violation: GroupJoining.7");
 			}
 
 			if (!_nullKeyPositions.Select(p => p.Index).OrderBy(i => i).SequenceEqual(nullKeyIndices))
-				throw new ObservableComputationsException(this, "Consistency violation: GroupJoining.8");
+				throw new ValidateInternalConsistencyException("Consistency violation: GroupJoining.8");
 		}
 	}
 
@@ -852,20 +844,17 @@ namespace ObservableComputations
 		public GroupJoining<TOuterSourceItem, TInnerSourceItem, TKey> GroupJoining => _groupJoining;
 
 		Group<TInnerSourceItem, TKey> _group;
-		internal readonly Position _outerSourceItemPosition;
 
-        internal TOuterSourceItem _outerItem;
+		internal TOuterSourceItem _outerItem;
 
 		internal JoinGroup(
 			TOuterSourceItem outerSourceItem,
 			GroupJoining<TOuterSourceItem, TInnerSourceItem, TKey> groupJoining,
 			Group<TInnerSourceItem, TKey> group,
-			Position outerSourceItemPosition,
 			TKey key)
 		{
 			_outerItem = outerSourceItem;
 			_groupJoining = groupJoining;
-			_outerSourceItemPosition = outerSourceItemPosition;
 			_key = key;
 			_group = group;
 			initializeFromGroup();
@@ -886,10 +875,7 @@ namespace ObservableComputations
 			{
 				int count = _group.Count;
 				for (int index = 0; index < count; index++)
-				{
-					TInnerSourceItem innerSourceItem = _group[index];
-					insertItem(index, innerSourceItem);
-				}
+					insertItem(index, _group[index]);
 
 				if (_group._copies == null) _group._copies = new List<CollectionComputingChild<TInnerSourceItem>>();
 				_group._copies.Add(this);
@@ -900,30 +886,75 @@ namespace ObservableComputations
 
 		protected override void InsertItem(int index, TInnerSourceItem item)
 		{
-			_groupJoining._insertItemIntoGroupAction(this, index, item);
+			if (OcConfiguration.TrackComputingsExecutingUserCode)
+			{
+				int currentThreadId = Utils.startComputingExecutingUserCode(out IComputing computing, out _userCodeIsCalledFrom, this);
+				_groupJoining._insertItemIntoGroupRequestHandler(this, index, item);
+				Utils.endComputingExecutingUserCode(computing, currentThreadId, out _userCodeIsCalledFrom);
+				return;
+			}
+
+			_groupJoining._insertItemIntoGroupRequestHandler(this, index, item);
 		}
 
 		protected override void MoveItem(int oldIndex, int newIndex)
 		{
-			_groupJoining._moveItemInGroupAction(this, oldIndex, newIndex);
+			if (OcConfiguration.TrackComputingsExecutingUserCode)
+			{
+				int currentThreadId = Utils.startComputingExecutingUserCode(out IComputing computing, out _userCodeIsCalledFrom, this);
+				_groupJoining._moveItemInGroupRequestHandler(this, oldIndex, newIndex);
+				Utils.endComputingExecutingUserCode(computing, currentThreadId, out _userCodeIsCalledFrom);
+				return;
+			}
+
+			_groupJoining._moveItemInGroupRequestHandler(this, oldIndex, newIndex);
 		}
 
 		protected override void RemoveItem(int index)
 		{
-			_groupJoining._removeItemFromGroupAction(this, index);
+			if (OcConfiguration.TrackComputingsExecutingUserCode)
+			{
+				int currentThreadId = Utils.startComputingExecutingUserCode(out IComputing computing, out _userCodeIsCalledFrom, this);
+				_groupJoining._removeItemFromGroupRequestHandler(this, index);
+				Utils.endComputingExecutingUserCode(computing, currentThreadId, out _userCodeIsCalledFrom);
+				return;
+			}
+
+			_groupJoining._removeItemFromGroupRequestHandler(this, index);
 		}
 
 		protected override void SetItem(int index, TInnerSourceItem item)
 		{
-			_groupJoining._setGroupItemAction(this, index, item);
+			if (OcConfiguration.TrackComputingsExecutingUserCode)
+			{
+				int currentThreadId = Utils.startComputingExecutingUserCode(out IComputing computing, out _userCodeIsCalledFrom, this);
+				_groupJoining._setGroupItemRequestHandler(this, index, item);
+				Utils.endComputingExecutingUserCode(computing, currentThreadId, out _userCodeIsCalledFrom);
+				return;
+			}
+
+			_groupJoining._setGroupItemRequestHandler(this, index, item);
 		}
 
 		protected override void ClearItems()
 		{
-			_groupJoining._clearGroupItemsAction(this);
+			if (OcConfiguration.TrackComputingsExecutingUserCode)
+			{
+				int currentThreadId = Utils.startComputingExecutingUserCode(out IComputing computing, out _userCodeIsCalledFrom, this);
+				_groupJoining._clearGroupItemsRequestHandler(this);
+				Utils.endComputingExecutingUserCode(computing, currentThreadId, out _userCodeIsCalledFrom);
+				return;
+			}
+
+			_groupJoining._clearGroupItemsRequestHandler(this);
 		}
 		#endregion
 
 		public override ICollectionComputing Parent => _groupJoining;
+
+		public ReadOnlyCollection<int> InnerSourceItemIndices => 
+			_group != null ? _group.SourceItemIndices : new ReadOnlyCollection<int>(new List<int>());
+
+		public int? InnserSourceGroupIndex => _group?.Index;
 	}
 }

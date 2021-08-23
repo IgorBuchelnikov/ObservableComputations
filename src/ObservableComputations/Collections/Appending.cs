@@ -1,13 +1,18 @@
-﻿using System.Collections.Generic;
+﻿// Copyright (c) 2019-2021 Buchelnikov Igor Vladimirovich. All rights reserved
+// Buchelnikov Igor Vladimirovich licenses this file to you under the MIT license.
+// The LICENSE file is located at https://github.com/IgorBuchelnikov/ObservableComputations/blob/master/LICENSE
+
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Collections.Specialized;
+using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 
 namespace ObservableComputations
 {
-	public class Appending<TSourceItem> : Concatenating<TSourceItem>, IHasSourceCollections
+	public class Appending<TSourceItem> : Concatenating<TSourceItem>, IHasSources
 	{
-		public IReadScalar<INotifyCollectionChanged> SourceScalar => _sourceScalar;
+		public override IReadScalar<INotifyCollectionChanged> SourceScalar => _sourceScalar;
 
 		// ReSharper disable once MemberCanBePrivate.Global\
 		// ReSharper disable once ConvertToAutoProperty
@@ -15,14 +20,13 @@ namespace ObservableComputations
 
 		// ReSharper disable once MemberCanBePrivate.Global
 		// ReSharper disable once ConvertToAutoProperty
-		public INotifyCollectionChanged Source => _source;
+		public override INotifyCollectionChanged Source => _source;
 
 		// ReSharper disable once MemberCanBePrivate.Global
 		// ReSharper disable once ConvertToAutoProperty
 		public TSourceItem Item => _item;
 
-		public new ReadOnlyCollection<INotifyCollectionChanged> SourceCollections => new ReadOnlyCollection<INotifyCollectionChanged>(new []{Source});
-		public new ReadOnlyCollection<IReadScalar<INotifyCollectionChanged>> SourceCollectionScalars => new ReadOnlyCollection<IReadScalar<INotifyCollectionChanged>>(new []{SourceScalar});
+		public override ReadOnlyCollection<object> Sources => new ReadOnlyCollection<object>(new object[]{Source, SourceScalar});
 
 		private readonly IReadScalar<INotifyCollectionChanged> _sourceScalar;
 		private readonly IReadScalar<TSourceItem> _itemScalar;
@@ -89,17 +93,17 @@ namespace ObservableComputations
 			IReadScalar<TSourceItem> itemScalar) =>
 				new FreezedObservableCollection<object>(new object[]{sourceScalar, new Computing<FreezedObservableCollection<TSourceItem>>(() => new FreezedObservableCollection<TSourceItem>(itemScalar.Value))});
 
-		public new void ValidateConsistency()
+		[ExcludeFromCodeCoverage]
+		internal new void ValidateInternalConsistency()
 		{
 			IList<TSourceItem> source = _sourceScalar.getValue(_source, new ObservableCollection<TSourceItem>()) as IList<TSourceItem>;
 
 			TSourceItem item = _itemScalar.getValue(Item);
 
-			List<TSourceItem> result = new List<TSourceItem>(source);
-			result.Add(item);
+			List<TSourceItem> result = new List<TSourceItem>(source) {item};
 
 			if (!this.SequenceEqual(result))
-				throw new ObservableComputationsException(this, "Consistency violation: Appending.1");
+				throw new ValidateInternalConsistencyException("Consistency violation: Appending.1");
 		}
 	}
 }

@@ -1,4 +1,8 @@
-﻿//using System;
+﻿// Copyright (c) 2019-2021 Buchelnikov Igor Vladimirovich. All rights reserved
+// Buchelnikov Igor Vladimirovich licenses this file to you under the MIT license.
+// The LICENSE file is located at https://github.com/IgorBuchelnikov/ObservableComputations/blob/master/LICENSE
+
+//using System;
 //using System.Collections;
 //using System.Collections.Generic;
 //using System.Collections.ObjectModel;
@@ -8,10 +12,10 @@
 
 //namespace ObservableComputations
 //{
-//	public class CollectionObserving<TSourceItem> : CollectionComputing<TSourceItem>, IHasSourceCollections
+//	public class CollectionObserving<TSourceItem> : CollectionComputing<TSourceItem>, IHasSources
 //	{
-//		public INotifyCollectionChanged Source => _source;
-//		public IReadScalar<INotifyCollectionChanged> SourceScalar => _sourceScalar;
+//		public virtual INotifyCollectionChanged Source => _source;
+//		public virtual IReadScalar<INotifyCollectionChanged> SourceScalar => _sourceScalar;
 
 //		public ReadOnlyCollection<INotifyCollectionChanged> SourceCollections => new ReadOnlyCollection<INotifyCollectionChanged>(new []{Source});
 //		public ReadOnlyCollection<IReadScalar<INotifyCollectionChanged>> SourceCollectionScalars => new ReadOnlyCollection<IReadScalar<INotifyCollectionChanged>>(new []{SourceScalar});
@@ -32,8 +36,8 @@
 //		private INotifyPropertyChanged _sourceAsINotifyPropertyChanged;
 
 
-//		private IHasChangeMarker _sourceAsIHasChangeMarker;
-//		private bool _lastProcessedSourceChangeMarker;
+//		private IHasTickTackVersion _sourceAsIHasTickTackVersion;
+//		private bool _lastProcessedSourceTickTackVersion;
 
 
 //		[ObservableComputationsCall]
@@ -88,11 +92,11 @@
 
 //			if (_sourceAsList != null)
 //			{
-//				_sourceAsIHasChangeMarker = _sourceAsList as IHasChangeMarker;
+//				_sourceAsIHasTickTackVersion = _sourceAsList as IHasTickTackVersion;
 
-//				if (_sourceAsIHasChangeMarker != null)
+//				if (_sourceAsIHasTickTackVersion != null)
 //				{
-//					_lastProcessedSourceChangeMarker = _sourceAsIHasChangeMarker.ChangeMarker;
+//					_lastProcessedSourceTickTackVersion = _sourceAsIHasTickTackVersion.TickTackVersion;
 //				}
 //				else
 //				{
@@ -145,9 +149,9 @@
 //			_handledEventSender = sender;
 //			_handledEventArgs = e;
 
-//			if (_indexerPropertyChangedEventRaised || _lastProcessedSourceChangeMarker != _sourceAsIHasChangeMarker.ChangeMarker)
+//			if (_indexerPropertyChangedEventRaised || _lastProcessedSourceTickTackVersion != _sourceAsIHasTickTackVersion.TickTackVersion)
 //			{
-//				_lastProcessedSourceChangeMarker = !_lastProcessedSourceChangeMarker;
+//				_lastProcessedSourceTickTackVersion = !_lastProcessedSourceTickTackVersion;
 //				_indexerPropertyChangedEventRaised = false;
 
 //				switch (e.Action)
@@ -212,7 +216,7 @@
 //			}
 //		}
 
-//		public void ValidateConsistency()
+//		public void ValidateInternalConsistency()
 //		{
 
 //		}

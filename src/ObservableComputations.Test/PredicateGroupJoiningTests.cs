@@ -1,4 +1,8 @@
-﻿using System;
+﻿// Copyright (c) 2019-2021 Buchelnikov Igor Vladimirovich. All rights reserved
+// Buchelnikov Igor Vladimirovich licenses this file to you under the MIT license.
+// The LICENSE file is located at https://github.com/IgorBuchelnikov/ObservableComputations/blob/master/LICENSE
+
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
@@ -11,10 +15,10 @@ using NUnit.Framework;
 
 namespace ObservableComputations.Test
 {
-	[TestFixture]
-	public class PredicateGroupJoiningTests
+	[TestFixture(false)]
+	public partial class PredicateGroupJoiningTests : TestBase
 	{
-        Consumer consumer = new Consumer();
+		OcConsumer consumer = new OcConsumer();
 
 		public class Item : INotifyPropertyChanged
 		{
@@ -66,6 +70,7 @@ namespace ObservableComputations.Test
 		TextFileOutput _textFileOutputLog = new TextFileOutput(@"D:\Projects\NevaPolimer\PredicateGroupJoining_Deep.log");
 		TextFileOutput _textFileOutputTime = new TextFileOutput(@"D:\Projects\NevaPolimer\PredicateGroupJoining_Deep_Time.log");
 
+#if !RunOnlyMinimalTestsToCover
 		[Test]
 		public void PredicateGroupJoining_Deep()
 		{		
@@ -74,13 +79,19 @@ namespace ObservableComputations.Test
 
 			for (int v1 = -1; v1 <= 3; v1++)
 			{
+
 				test(new []{v1}, new int[0]);
+
 				for (int v2 = -1; v2 <= 3; v2++)
 				{
+
 					test(new []{v1}, new []{v2});
+
 					for (int v3 = -1; v3 <= 3; v3++)
 					{
+
 						test(new []{v1, v3}, new []{v2});
+
 						for (int v4 = -1; v4 <= 3; v4++)
 						{
 							test(new []{v1, v3}, new []{v2, v4});
@@ -89,6 +100,7 @@ namespace ObservableComputations.Test
 				}
 			}
 		}
+#endif
 
 		private void test(int[] ids1, int[] ids2)
 		{
@@ -106,8 +118,8 @@ namespace ObservableComputations.Test
 				trace(testNum = "1", ids1, ids2, newItemId, index, indexOld, indexNew);
 				items1 = getObservableCollection(ids1);
 				items2 = getObservableCollection(ids2);
-				predicateGroupJoining = items1.PredicateGroupJoining(items2, (item1, item2) => item1 != null && item2 != null && item1.Id == item2.Id).IsNeededFor(consumer);
-				predicateGroupJoining.ValidateConsistency();				
+				predicateGroupJoining = items1.PredicateGroupJoining(items2, (item1, item2) => item1 != null && item2 != null && item1.Id == item2.Id).For(consumer);
+				predicateGroupJoining.ValidateInternalConsistency();				
 				consumer.Dispose();
 
 				for (index = 0; index < ids1.Length; index++)
@@ -115,9 +127,9 @@ namespace ObservableComputations.Test
 					trace(testNum = "2", ids1, ids2, newItemId, index, indexOld, indexNew);
 					items1 = getObservableCollection(ids1);
 					items2 = getObservableCollection(ids2);
-					predicateGroupJoining = items1.PredicateGroupJoining(items2, (item1, item2) => item1 != null && item2 != null && item1.Id == item2.Id).IsNeededFor(consumer);
+					predicateGroupJoining = items1.PredicateGroupJoining(items2, (item1, item2) => item1 != null && item2 != null && item1.Id == item2.Id).For(consumer);
 					items1.RemoveAt(index);
-					predicateGroupJoining.ValidateConsistency();					
+					predicateGroupJoining.ValidateInternalConsistency();					
 					consumer.Dispose();
 				}
 
@@ -126,9 +138,9 @@ namespace ObservableComputations.Test
 					trace(testNum = "3", ids1, ids2, newItemId, index, indexOld, indexNew);
 					items1 = getObservableCollection(ids1);
 					items2 = getObservableCollection(ids2);
-					predicateGroupJoining = items1.PredicateGroupJoining(items2, (item1, item2) => item1 != null && item2 != null && item1.Id == item2.Id).IsNeededFor(consumer);
+					predicateGroupJoining = items1.PredicateGroupJoining(items2, (item1, item2) => item1 != null && item2 != null && item1.Id == item2.Id).For(consumer);
 					items2.RemoveAt(index);
-					predicateGroupJoining.ValidateConsistency();					
+					predicateGroupJoining.ValidateInternalConsistency();					
 					consumer.Dispose();
 				}
 
@@ -139,9 +151,9 @@ namespace ObservableComputations.Test
 						trace(testNum = "4", ids1, ids2, newItemId, index, indexOld, indexNew);
 						items1 = getObservableCollection(ids1);
 						items2 = getObservableCollection(ids2);
-						predicateGroupJoining = items1.PredicateGroupJoining(items2, (item1, item2) => item1 != null && item2 != null && item1.Id == item2.Id).IsNeededFor(consumer);
+						predicateGroupJoining = items1.PredicateGroupJoining(items2, (item1, item2) => item1 != null && item2 != null && item1.Id == item2.Id).For(consumer);
 						items1.Insert(index, new Item(newItemId));
-						predicateGroupJoining.ValidateConsistency();						
+						predicateGroupJoining.ValidateInternalConsistency();						
 						consumer.Dispose();
 					}
 
@@ -154,9 +166,9 @@ namespace ObservableComputations.Test
 						trace(testNum = "5", ids1, ids2, newItemId, index, indexOld, indexNew);
 						items1 = getObservableCollection(ids1);
 						items2 = getObservableCollection(ids2);
-						predicateGroupJoining = items1.PredicateGroupJoining(items2, (item1, item2) => item1 != null && item2 != null && item1.Id == item2.Id).IsNeededFor(consumer);
+						predicateGroupJoining = items1.PredicateGroupJoining(items2, (item1, item2) => item1 != null && item2 != null && item1.Id == item2.Id).For(consumer);
 						items2.Insert(index, new Item(newItemId));
-						predicateGroupJoining.ValidateConsistency();						
+						predicateGroupJoining.ValidateInternalConsistency();						
 						consumer.Dispose();
 					}
 				}
@@ -168,9 +180,9 @@ namespace ObservableComputations.Test
 						trace(testNum = "6", ids1, ids2, newItemId, index, indexOld, indexNew);
 						items1 = getObservableCollection(ids1);
 						items2 = getObservableCollection(ids2);
-						predicateGroupJoining = items1.PredicateGroupJoining(items2, (item1, item2) => item1 != null && item2 != null && item1.Id == item2.Id).IsNeededFor(consumer);
+						predicateGroupJoining = items1.PredicateGroupJoining(items2, (item1, item2) => item1 != null && item2 != null && item1.Id == item2.Id).For(consumer);
 						items1[index] = new Item(newItemId);
-						predicateGroupJoining.ValidateConsistency();						
+						predicateGroupJoining.ValidateInternalConsistency();						
 						consumer.Dispose();
 					}
 				}
@@ -182,9 +194,9 @@ namespace ObservableComputations.Test
 						trace(testNum = "7", ids1, ids2, newItemId, index, indexOld, indexNew);
 						items1 = getObservableCollection(ids1);
 						items2 = getObservableCollection(ids2);
-						predicateGroupJoining = items1.PredicateGroupJoining(items2, (item1, item2) => item1 != null && item2 != null && item1.Id == item2.Id).IsNeededFor(consumer);
+						predicateGroupJoining = items1.PredicateGroupJoining(items2, (item1, item2) => item1 != null && item2 != null && item1.Id == item2.Id).For(consumer);
 						items2[index] = new Item(newItemId);
-						predicateGroupJoining.ValidateConsistency();						
+						predicateGroupJoining.ValidateInternalConsistency();						
 						consumer.Dispose();
 					}
 				}
@@ -196,9 +208,9 @@ namespace ObservableComputations.Test
 						trace(testNum = "8", ids1, ids2, newItemId, index, indexOld, indexNew);
 						items1 = getObservableCollection(ids1);
 						items2 = getObservableCollection(ids2);
-						predicateGroupJoining = items1.PredicateGroupJoining(items2, (item1, item2) => item1 != null && item2 != null && item1.Id == item2.Id).IsNeededFor(consumer);
+						predicateGroupJoining = items1.PredicateGroupJoining(items2, (item1, item2) => item1 != null && item2 != null && item1.Id == item2.Id).For(consumer);
 						items1.Move(indexOld, indexNew);
-						predicateGroupJoining.ValidateConsistency();						
+						predicateGroupJoining.ValidateInternalConsistency();						
 						consumer.Dispose();
 					}
 				}
@@ -210,9 +222,9 @@ namespace ObservableComputations.Test
 						trace(testNum = "9", ids1, ids2, newItemId, index, indexOld, indexNew);
 						items1 = getObservableCollection(ids1);
 						items2 = getObservableCollection(ids2);
-						predicateGroupJoining = items1.PredicateGroupJoining(items2, (item1, item2) => item1 != null && item2 != null && item1.Id == item2.Id).IsNeededFor(consumer);
+						predicateGroupJoining = items1.PredicateGroupJoining(items2, (item1, item2) => item1 != null && item2 != null && item1.Id == item2.Id).For(consumer);
 						items2.Move(indexOld, indexNew);
-						predicateGroupJoining.ValidateConsistency();						
+						predicateGroupJoining.ValidateInternalConsistency();						
 						consumer.Dispose();
 					}
 				}
@@ -227,6 +239,8 @@ namespace ObservableComputations.Test
 				_textFileOutputLog.AppentLine(e.StackTrace);
 				throw new Exception(traceString, e);
 			}
+
+			writeUsefulTest(getTestString(ids1, ids2));
 		}
 
 		private void trace(string num, int[] ids1, int[] ids2, int newId, int index, int indexOld, int indexNew)
@@ -258,5 +272,8 @@ namespace ObservableComputations.Test
 		}
 
 
+		public PredicateGroupJoiningTests(bool debug) : base(debug)
+		{
+		}
 	}
 }

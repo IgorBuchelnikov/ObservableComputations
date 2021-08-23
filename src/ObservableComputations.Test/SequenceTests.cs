@@ -1,12 +1,16 @@
-﻿using System.ComponentModel;
+﻿// Copyright (c) 2019-2021 Buchelnikov Igor Vladimirovich. All rights reserved
+// Buchelnikov Igor Vladimirovich licenses this file to you under the MIT license.
+// The LICENSE file is located at https://github.com/IgorBuchelnikov/ObservableComputations/blob/master/LICENSE
+
+using System.ComponentModel;
 using NUnit.Framework;
 
 namespace ObservableComputations.Test
 {
-	[TestFixture]
-	class SequenceTests
+	[TestFixture(false)]
+	public partial class SequenceTests : TestBase
 	{
-        Consumer consumer = new Consumer();
+		OcConsumer consumer = new OcConsumer();
 
 		class Count : INotifyPropertyChanged
 		{
@@ -33,15 +37,15 @@ namespace ObservableComputations.Test
 			Count countInstance = new Count();
 			int count = initialCount;
 			countInstance.CountValue = count;
-			SequenceComputing sequenceComputing = Expr.Is(() => countInstance.CountValue).Computing().SequenceComputing().IsNeededFor(consumer);
-			sequenceComputing.ValidateConsistency();
+			SequenceComputing sequenceComputing = Expr.Is(() => countInstance.CountValue).Computing().SequenceComputing().For(consumer);
+			sequenceComputing.ValidateInternalConsistency();
 					
 			void test()
 			{
 				do
 				{
 					countInstance.CountValue = count;
-					sequenceComputing.ValidateConsistency();
+					sequenceComputing.ValidateInternalConsistency();
 					count = count + increment;
 				} while (count >= 0 && count <= 4);
 			}
@@ -53,8 +57,12 @@ namespace ObservableComputations.Test
 
 			test();
 
-            consumer.Dispose();
+			consumer.Dispose();
 
+		}
+
+		public SequenceTests(bool debug) : base(debug)
+		{
 		}
 	}
 }

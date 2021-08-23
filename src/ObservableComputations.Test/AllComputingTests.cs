@@ -1,4 +1,8 @@
-﻿using System.Collections.Generic;
+﻿// Copyright (c) 2019-2021 Buchelnikov Igor Vladimirovich. All rights reserved
+// Buchelnikov Igor Vladimirovich licenses this file to you under the MIT license.
+// The LICENSE file is located at https://github.com/IgorBuchelnikov/ObservableComputations/blob/master/LICENSE
+
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
@@ -6,10 +10,10 @@ using NUnit.Framework;
 
 namespace ObservableComputations.Test
 {
-	[TestFixture]
-	public class AllComputingTests
+	[TestFixture(false)]
+	public partial class AllComputingTests : TestBase
 	{
-        Consumer consumer = new Consumer();
+		OcConsumer consumer = new OcConsumer();
 
 		public class Item : INotifyPropertyChanged
 		{
@@ -57,8 +61,8 @@ namespace ObservableComputations.Test
 		{
 			ObservableCollection<Item> items = new ObservableCollection<Item>();
 
-			AllComputing<Item> allComputing = items.AllComputing(item => item.IsActive).IsNeededFor(consumer);
-			allComputing.ValidateConsistency();
+			AllComputing<Item> allComputing = items.AllComputing(item => item.IsActive).For(consumer);
+			allComputing.ValidateInternalConsistency();
 		}
 
 		[Test, Combinatorial]
@@ -83,10 +87,10 @@ namespace ObservableComputations.Test
 
 			);
 
-			AllComputing<Item> allComputing = items.AllComputing(item => item.IsActive).IsNeededFor(consumer);
-			allComputing.ValidateConsistency();
+			AllComputing<Item> allComputing = items.AllComputing(item => item.IsActive).For(consumer);
+			allComputing.ValidateInternalConsistency();
 			items[index].IsActive = newValue;
-			allComputing.ValidateConsistency();
+			allComputing.ValidateInternalConsistency();
 		}
 
 		[Test, Combinatorial]
@@ -110,10 +114,10 @@ namespace ObservableComputations.Test
 
 			);
 
-			AllComputing<Item> allComputing = items.AllComputing(item => item.IsActive).IsNeededFor(consumer);
-			allComputing.ValidateConsistency();
+			AllComputing<Item> allComputing = items.AllComputing(item => item.IsActive).For(consumer);
+			allComputing.ValidateInternalConsistency();
 			items.RemoveAt(index);
-			allComputing.ValidateConsistency();
+			allComputing.ValidateInternalConsistency();
 		}
 
 		[Test, Combinatorial]
@@ -127,10 +131,10 @@ namespace ObservableComputations.Test
 				}
 			);
 
-			AllComputing<Item> allComputing = items.AllComputing(item => item.IsActive).IsNeededFor(consumer);
-			allComputing.ValidateConsistency();
+			AllComputing<Item> allComputing = items.AllComputing(item => item.IsActive).For(consumer);
+			allComputing.ValidateInternalConsistency();
 			items.RemoveAt(0);
-			allComputing.ValidateConsistency();
+			allComputing.ValidateInternalConsistency();
 		}
 
 		[Test, Combinatorial]
@@ -155,10 +159,10 @@ namespace ObservableComputations.Test
 
 			);
 
-			AllComputing<Item> allComputing = items.AllComputing(item => item.IsActive).IsNeededFor(consumer);
-			allComputing.ValidateConsistency();
+			AllComputing<Item> allComputing = items.AllComputing(item => item.IsActive).For(consumer);
+			allComputing.ValidateInternalConsistency();
 			items.Insert(index, new Item(newValue));
-			allComputing.ValidateConsistency();
+			allComputing.ValidateInternalConsistency();
 		}
 
 		[Test, Combinatorial]
@@ -167,10 +171,10 @@ namespace ObservableComputations.Test
 		{
 			ObservableCollection<Item> items = new ObservableCollection<Item>();
 
-			AllComputing<Item> allComputing = items.AllComputing(item => item.IsActive).IsNeededFor(consumer);
-			allComputing.ValidateConsistency();
+			AllComputing<Item> allComputing = items.AllComputing(item => item.IsActive).For(consumer);
+			allComputing.ValidateInternalConsistency();
 			items.Insert(0, new Item(newValue));
-			allComputing.ValidateConsistency();
+			allComputing.ValidateInternalConsistency();
 		}
 
 		[Test, Combinatorial]
@@ -195,10 +199,10 @@ namespace ObservableComputations.Test
 
 			);
 
-			AllComputing<Item> allComputing = items.AllComputing(item => item.IsActive).IsNeededFor(consumer);
-			allComputing.ValidateConsistency();
+			AllComputing<Item> allComputing = items.AllComputing(item => item.IsActive).For(consumer);
+			allComputing.ValidateInternalConsistency();
 			items.Move(oldIndex, newIndex);
-			allComputing.ValidateConsistency();
+			allComputing.ValidateInternalConsistency();
 		}
 
 		[Test, Combinatorial]
@@ -223,10 +227,14 @@ namespace ObservableComputations.Test
 
 			);
 
-			AllComputing<Item> allComputing = items.AllComputing(item => item.IsActive).IsNeededFor(consumer);
-			allComputing.ValidateConsistency();
+			AllComputing<Item> allComputing = items.AllComputing(item => item.IsActive).For(consumer);
+			allComputing.ValidateInternalConsistency();
 			items[index] = new Item(itemNew);
-			allComputing.ValidateConsistency();
-		}		
+			allComputing.ValidateInternalConsistency();
+		}
+
+		public AllComputingTests(bool debug) : base(debug)
+		{
+		}
 	}
 }

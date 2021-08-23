@@ -1,33 +1,40 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFrameworks>net461;netcoreapp2.0;netstandard2.0</TargetFrameworks>
+    <TargetFrameworks>net461;netcoreapp2.1;netstandard2.0</TargetFrameworks>
     <SignAssembly>true</SignAssembly>
     <Platforms>AnyCPU;x86</Platforms>
-    <LangVersion>7.3</LangVersion>
+    <LangVersion>7.1</LangVersion>
     <DelaySign>false</DelaySign>
     <AssemblyOriginatorKeyFile>assembly_strong_name_key.snk</AssemblyOriginatorKeyFile>
-    <Authors>Igor Buchelnikov  (igor_buchelnikov_github@mail.ru)</Authors>
-    <Company>Igor Buchelnikov  (igor_buchelnikov_github@mail.ru)</Company>
-    <Description>Cross-platform .NET library for computations whose arguments and results are objects that implement INotifyPropertyChanged and INotifyCollectionChanged (ObservableCollection) interfaces. The computations includes ones similar to standart LINQ, the computation of arbitrary expression and additional features. The computations are implemented as extension methods, like LINQ ones. ObservableComputations is easy to use and powerful implementation of reactive programming paradigm. With ObservableComputations, your code will fit more to the functional style than with standard LINQ.</Description>
-    <PackageLicenseUrl>https://github.com/IgorBuchelnikov/ObservableComputations/blob/master/LICENSE</PackageLicenseUrl>
+	<PublicSign Condition=" '$(OS)' != 'Windows_NT' ">true</PublicSign>
+    <Authors>Igor Buchelnikov (igor_buchelnikov_github@mail.ru)</Authors>
+    <Company>Igor Buchelnikov (igor_buchelnikov_github@mail.ru)</Company>
+    <Description>Cross-platform .NET library for computations whose arguments and results are objects that implement INotifyPropertyChanged and INotifyCollectionChanged (ObservableCollection) interfaces. The computations include ones similar to LINQ (collections), the computation of arbitrary expression (scalar value), and additional features. The computations are implemented as extension methods, like LINQ ones. You can combine calls of ObservableComputations extension methods including chaining and nesting, as you do for LINQ methods. Computations in background threads, including parallel ones, as well as time-related processing of CollectionChanged and PropertyChanged events, are supported. ObservableComputations is easy to use and powerful implementation of reactive programming paradigm. With ObservableComputations, your code will fit more to the functional style than with standard LINQ.</Description>
+    <PackageLicenseUrl></PackageLicenseUrl>
     <PackageProjectUrl>https://github.com/IgorBuchelnikov/ObservableComputations</PackageProjectUrl>
     <RepositoryUrl>https://github.com/IgorBuchelnikov/ObservableComputations.git</RepositoryUrl>
     <RepositoryType>Git</RepositoryType>
-    <PackageTags>react reactive dynamic INotifyPropertyChanged INotifyCollectionChanged ObservableCollection observable computation observer data view binding bindable bind binding continuous live fresh linq declarative functional programming paradigm</PackageTags>
+    <PackageTags>linq functional functional-programming observable declarative reactive-programming reactive-extensions functional-reactive-programming dataflow rx continuous bind hacktoberfest inotifypropertychanged dynamic-data rx-observable reactive-collections declarative-programming observablecollection inotifycollectionchanged</PackageTags>
     <NeutralLanguage>en</NeutralLanguage>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
-    <PackageReleaseNotes>new feature: ItemsProcessing, ValuesProcessing, Lock setting properties of computation result change request handlers
+    <PackageReleaseNotes>* New features
+- specifying a default value for the all scalar operators (reduces verbosity)
+- CollectionItemProcessing (reduces verbosity)
 
-fixed: debuging</PackageReleaseNotes>
-    <Version>1.4.0</Version>
+* Renamed
+— CollectionProcessing -&gt; CollectionItemsProcessing</PackageReleaseNotes>
+    <Version>2.2.0</Version>
     <AssemblyName>ObservableComputations</AssemblyName>
     <PackageId>ObservableComputations</PackageId>
     <Product>ObservableComputations</Product>
-    <AssemblyVersion>1.4.0.0</AssemblyVersion>
-    <FileVersion>1.4.0.0</FileVersion>
-    <PackageIconUrl>https://raw.githubusercontent.com/IgorBuchelnikov/ObservableComputations/master/icon_32x32.ico</PackageIconUrl>
+    <AssemblyVersion>2.2.0.0</AssemblyVersion>
+    <FileVersion>2.2.0.0</FileVersion>
+    <PackageIconUrl></PackageIconUrl>
+    <PackageLicenseFile>LICENSE</PackageLicenseFile>
+    <Copyright>Igor Buchelnikov (c)</Copyright>
+    <PackageIcon>icon_32x32.png</PackageIcon>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug|net472|x86'">
@@ -48,6 +55,10 @@ fixed: debuging</PackageReleaseNotes>
     <DebugSymbols>true</DebugSymbols>
   </PropertyGroup>
 
+  <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|net461|AnyCPU'">
+    <Optimize>true</Optimize>
+  </PropertyGroup>
+
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -61,6 +72,14 @@ fixed: debuging</PackageReleaseNotes>
     <None Update="ExtensionMethods.ttinclude">
       <Generator>TextTemplatingFileGenerator</Generator>
       <LastGenOutput>ExtensionMethods.generated.cs</LastGenOutput>
+    </None>
+    <None Include="..\..\icon_32x32.png">
+      <Pack>True</Pack>
+      <PackagePath></PackagePath>
+    </None>
+    <None Include="..\..\LICENSE">
+      <Pack>True</Pack>
+      <PackagePath></PackagePath>
     </None>
   </ItemGroup>  
   

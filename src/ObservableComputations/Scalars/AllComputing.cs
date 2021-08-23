@@ -1,25 +1,29 @@
-﻿using System;
+﻿// Copyright (c) 2019-2021 Buchelnikov Igor Vladimirovich. All rights reserved
+// Buchelnikov Igor Vladimirovich licenses this file to you under the MIT license.
+// The LICENSE file is located at https://github.com/IgorBuchelnikov/ObservableComputations/blob/master/LICENSE
+
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Collections.Specialized;
+using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Linq.Expressions;
 
 namespace ObservableComputations
 {
-	public class AllComputing<TSourceItem> : Computing<bool>, IHasSourceCollections
+	public class AllComputing<TSourceItem> : Computing<bool>, IHasSources
 	{
 		// ReSharper disable once MemberCanBePrivate.Global
-		public IReadScalar<INotifyCollectionChanged> SourceScalar => _sourceScalar;
+		public virtual IReadScalar<INotifyCollectionChanged> SourceScalar => _sourceScalar;
 
 		// ReSharper disable once MemberCanBePrivate.Global
-		public INotifyCollectionChanged Source => _source;
+		public virtual INotifyCollectionChanged Source => _source;
 
 		// ReSharper disable once MemberCanBePrivate.Global
 		public Expression<Func<TSourceItem, bool>> PredicateExpression => _predicateExpression;
 
-		public ReadOnlyCollection<INotifyCollectionChanged> SourceCollections => new ReadOnlyCollection<INotifyCollectionChanged>(new []{Source});
-		public ReadOnlyCollection<IReadScalar<INotifyCollectionChanged>> SourceCollectionScalars => new ReadOnlyCollection<IReadScalar<INotifyCollectionChanged>>(new []{SourceScalar});
+		public virtual ReadOnlyCollection<object> Sources => new ReadOnlyCollection<object>(new object[]{Source, SourceScalar});
 
 		private readonly IReadScalar<INotifyCollectionChanged> _sourceScalar;
 		private readonly INotifyCollectionChanged _source;
@@ -28,7 +32,8 @@ namespace ObservableComputations
 		[ObservableComputationsCall]
 		public AllComputing(
 			IReadScalar<INotifyCollectionChanged> sourceScalar, 
-			Expression<Func<TSourceItem, bool>> predicateExpression) : base(getValueExpression(sourceScalar, predicateExpression))
+			Expression<Func<TSourceItem, bool>> predicateExpression) 
+			: base(getValueExpression(sourceScalar, predicateExpression))
 		{
 			_sourceScalar = sourceScalar;
 			_predicateExpression = predicateExpression;
@@ -69,14 +74,15 @@ namespace ObservableComputations
 			return negativePredicateExpression;
 		}
 
-		public void ValidateConsistency()
+		[ExcludeFromCodeCoverage]
+		internal void ValidateInternalConsistency()
 		{
 			IList<TSourceItem> source = (IList<TSourceItem>) _sourceScalar.getValue(_source, new ObservableCollection<TSourceItem>());
 
 			Func<TSourceItem, bool> predicate = _predicateExpression.Compile();
 
 			if (_value != source.All(predicate))
-				throw new ObservableComputationsException(this, "Consistency violation: AllComputing.1");
+				throw new ValidateInternalConsistencyException("Consistency violation: AllComputing.1");
 		}
 	}
 }

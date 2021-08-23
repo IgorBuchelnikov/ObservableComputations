@@ -1719,8 +1719,8 @@ namespace ObservableComputationsExamples
 
 
 
-## Overlapping changes processing
-When the handler of PropetyChanged or CollectionChanged event of computation is being executed that computation is in the process of some change of source and is in an inconsistent state (has *IsConsistent* == false). All the changes of sources made at that time (overlapping changes) will be deferred until the computation completes the processing of the original change of the source.
+## Overlapped changes processing
+When the handler of PropetyChanged or CollectionChanged event of computation is being executed, that computation is processing some change of source and is in an inconsistent state (has *IsConsistent* == false). All changes of sources made at that time (overlapping changes) will be deferred until the computation completes the processing of the original source change.
 Consider the following code:
 
 ```csharp
@@ -1812,7 +1812,7 @@ namespace ObservableComputationsExamples
 }
 ```
 
-In the code above we have a collection of relations: *relations*. That collection has redundancy: if the collection contains relation A to B as a parent, it must contain corresponding relation: B to A as a child, and vise versa. Also, we have the computed collection of ordered relations: *orderedRelations*. Our task is to support the integrity of relations collection: if someone changes it we have to react so the collection restores integrity. Imagine that the only way to do it is to subscribe to CollectionChanged event of *orderedRelations* collection (for some reason we cannot subscribe to CollectionChanged event of *relations* collection). In the code above we consider only one type of change: Add.
+In the code above we have a collection of relations: *relations*. That collection has redundancy: if the collection contains relation A to B as a parent, it must contain corresponding relation: B to A as a child, and vise versa. Also, we have the computed collection of ordered relations: *orderedRelations*. Our task is to support the integrity of relations collection: if someone changes it, we have to react, so the collection restores integrity. Imagine that the only way to do it is to subscribe to CollectionChanged event of *orderedRelations* collection (for some reason we cannot subscribe to CollectionChanged event of *relations* collection). In the code above we consider only one type of change: Add.
 
 ## Debugging
 

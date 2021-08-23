@@ -705,7 +705,7 @@ namespace ObservableComputations
 
 				var middleItemOrderingValue = _orderingValues[middleIndex];
 
-				var comparisonWithMiddleItem = _comparer.Compare(orderingValue, middleItemOrderingValue);
+				var comparisonWithMiddleItem = Math.Sign(_comparer.Compare(orderingValue, middleItemOrderingValue));
 
 				if (comparisonWithMiddleItem == 0)
 				{

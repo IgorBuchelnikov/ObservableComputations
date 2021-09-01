@@ -92,30 +92,25 @@ namespace ObservableComputations
 				Utils.replaceSource(ref _source, _sourceScalar, _downstreamConsumedComputings, _consumers, this,
 					out _sourceAsList, true);
 
-			if (_isActive)
+			if (_isActive && _source != null)
 			{
-				if (_source != null)
-				{
-					if (replaceSource)
-						Utils.subscribeSource(
-							out _sourceAsIHasTickTackVersion, 
-							_sourceAsList, 
-							ref _lastProcessedSourceTickTackVersion, 
-							ref _sourceAsINotifyPropertyChanged,
-							(ISourceIndexerPropertyTracker)this,
-							_source,
-							handleSourceCollectionChanged);
+				if (replaceSource)
+					Utils.subscribeSource(
+						out _sourceAsIHasTickTackVersion, 
+						_sourceAsList, 
+						ref _lastProcessedSourceTickTackVersion, 
+						ref _sourceAsINotifyPropertyChanged,
+						(ISourceIndexerPropertyTracker)this,
+						_source,
+						handleSourceCollectionChanged);
 
-					TResult value = default(TResult);
-					int count = _sourceAsList.Count;
-					for (int index = 0; index < count; index++)
-						value = aggregate(_sourceAsList[index], value);
-					setValue(value);
+				TResult value = default(TResult);
+				int count = _sourceAsList.Count;
+				for (int index = 0; index < count; index++)
+					value = aggregate(_sourceAsList[index], value);
+				setValue(value);
 
-					_sourceReadAndSubscribed = true;
-				}
-				else
-					setValue(default);
+				_sourceReadAndSubscribed = true;
 			}
 			else
 				setDefaultValue();

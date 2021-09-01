@@ -77,7 +77,7 @@ namespace ObservableComputations
 			if (_isActive)
 			{
 
-				_getValueExpressionWatcher = new ExpressionWatcher(_expressionInfo);
+				_getValueExpressionWatcher = new ExpressionWatcher(this, _expressionInfo);
 				Utils.initializeExpressionWatcherCurrentComputings(_getValueExpressionWatcher, _expressionInfo._callCount, this);
 				_getValueExpressionWatcher.ValueChanged = getValueExpressionWatcherOnValueChanged;
 				setValue(getResult());

@@ -774,7 +774,7 @@ namespace ObservableComputations
 
 				TOrderingValue middleItemOrderingValue = _orderingValues[middleIndex];
 
-				int comparisonWithMiddleItem = _comparer.Compare(orderingValue, middleItemOrderingValue);
+				int comparisonWithMiddleItem =  Math.Sign(_comparer.Compare(orderingValue, middleItemOrderingValue));
 
 				if (comparisonWithMiddleItem == 0)
 				{

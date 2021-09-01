@@ -11,11 +11,11 @@ namespace ObservableComputations
 
 	internal interface ISourceItemKeyChangeProcessor : ISourceItemChangeProcessor
 	{
-		void ProcessSourceItemChange(ExpressionWatcher expressionWatcher);
+		new void ProcessSourceItemChange(ExpressionWatcher expressionWatcher);
 	}
 
 	internal interface ISourceItemValueChangeProcessor : ISourceItemChangeProcessor
 	{
-		void ProcessSourceItemChange(ExpressionWatcher expressionWatcher);
+		new void ProcessSourceItemChange(ExpressionWatcher expressionWatcher);
 	}
 }

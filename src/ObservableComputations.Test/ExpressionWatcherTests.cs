@@ -94,7 +94,7 @@ namespace ObservableComputations.Test
 			bool raised = false;
 			Item item = new Item();
 			Expression<Func<bool>> expression = () => item.Num == "1";
-			ExpressionWatcher expressionWatcher = new ExpressionWatcher(
+			ExpressionWatcher expressionWatcher = new ExpressionWatcher(null, 
 				ExpressionWatcher.GetExpressionInfo(expression));
 			expressionWatcher.ValueChanged = (ew, sender, eventArgs) => { raised = true; };
 			item.Num = "1";
@@ -108,7 +108,7 @@ namespace ObservableComputations.Test
 			bool raised = false;
 			object item = new Item();
 			Expression<Func<bool>> expression = () => ((Item)item).Num == "1";
-			ExpressionWatcher expressionWatcher = new ExpressionWatcher(
+			ExpressionWatcher expressionWatcher = new ExpressionWatcher(null, 
 				ExpressionWatcher.GetExpressionInfo(expression));
 			expressionWatcher.ValueChanged = (ew, sender, eventArgs) => { raised = true; };
 			((Item)item).Num = "1";
@@ -122,7 +122,7 @@ namespace ObservableComputations.Test
 			bool raised = false;
 			Item item = new Item();
 			Expression<Func<string>> expression = () => (string)item.NumObject;
-			ExpressionWatcher expressionWatcher = new ExpressionWatcher(
+			ExpressionWatcher expressionWatcher = new ExpressionWatcher(null, 
 				ExpressionWatcher.GetExpressionInfo(expression));
 			expressionWatcher.ValueChanged = (ew, sender, eventArgs) => { raised = true; };
 			item.Num = "1";
@@ -137,7 +137,7 @@ namespace ObservableComputations.Test
 			Item item = new Item();
 			item.Num = "777";
 			Expression<Func<string>> expression = () => item.GetChild(item.AltNum).Num;
-			ExpressionWatcher expressionWatcher = new ExpressionWatcher(
+			ExpressionWatcher expressionWatcher = new ExpressionWatcher(null, 
 				ExpressionWatcher.GetExpressionInfo(expression));
 			expressionWatcher.ValueChanged = (ew, sender, eventArgs) => { raised = true; };
 			item.Num = "1";
@@ -156,7 +156,7 @@ namespace ObservableComputations.Test
 			item.Num = "777";
 			item.GetChild(item.AltNum).SetChild("888", new Item());
 			Expression<Func<string>> expression = () => item.GetChild(item.AltNum).GetChild("888").Num;
-			ExpressionWatcher expressionWatcher = new ExpressionWatcher(
+			ExpressionWatcher expressionWatcher = new ExpressionWatcher(null, 
 				ExpressionWatcher.GetExpressionInfo(expression));
 			expressionWatcher.ValueChanged = (ew, sender, eventArgs) => { raised = true; };
 			item.Num = "1";
@@ -176,7 +176,7 @@ namespace ObservableComputations.Test
 			item.Num = "777";
 			Expression<Func<string, string>> expression = n => item.GetChild(item.AltNum + n).Num;
 			object[] parameters = new object[]{"777"};
-			ExpressionWatcher expressionWatcher = new ExpressionWatcher(
+			ExpressionWatcher expressionWatcher = new ExpressionWatcher(null, 
 				ExpressionWatcher.GetExpressionInfo(expression), parameters);
 			expressionWatcher.ParameterValues.SequenceEqual(parameters);
 			expressionWatcher.ValueChanged = (ew, sender, eventArgs) => { raised = true; };
@@ -194,7 +194,7 @@ namespace ObservableComputations.Test
 			bool raised = false;
 			Item item = new Item();
 			Expression<Func<string>> expression = () => (item.Num == "777" ? item.GetChild("888") : item.GetChild("000")).Num;
-			ExpressionWatcher expressionWatcher = new ExpressionWatcher(
+			ExpressionWatcher expressionWatcher = new ExpressionWatcher(null, 
 				ExpressionWatcher.GetExpressionInfo(expression));
 			expressionWatcher.ValueChanged = (ew, sender, eventArgs) => { raised = true; };
 			item.Num = "777";
@@ -209,7 +209,7 @@ namespace ObservableComputations.Test
 			Item item = new Item();
 			item.Num = "777";
 			Expression<Func<string>> expression = () => (item.Num == "777" ? item.GetChild("888") : item.GetChild("000")).Num;
-			ExpressionWatcher expressionWatcher = new ExpressionWatcher(
+			ExpressionWatcher expressionWatcher = new ExpressionWatcher(null, 
 				ExpressionWatcher.GetExpressionInfo(expression));
 			expressionWatcher.ValueChanged = (ew, sender, eventArgs) => { raised = true; };
 			item.GetChild("888").Num = "888";
@@ -224,7 +224,7 @@ namespace ObservableComputations.Test
 			Item item = new Item();
 			item.Num = "777";
 			Expression<Func<int, string>> expression = n => (item.Num == "777" ? item.GetChild("888" + n) : item.GetChild("000")).Num;
-			ExpressionWatcher expressionWatcher = new ExpressionWatcher(
+			ExpressionWatcher expressionWatcher = new ExpressionWatcher(null, 
 				ExpressionWatcher.GetExpressionInfo(expression), new object[]{1});
 			expressionWatcher.ValueChanged = (ew, sender, eventArgs) => { raised = true; };
 			item.GetChild("888" + 1).Num = "888";
@@ -239,7 +239,7 @@ namespace ObservableComputations.Test
 			Item item = new Item();
 			item.Num = "777" + 1;
 			Expression<Func<int, string>> expression = n => (item.Num == "777" + n ? item.GetChild("888") : item.GetChild("000")).Num;
-			ExpressionWatcher expressionWatcher = new ExpressionWatcher(
+			ExpressionWatcher expressionWatcher = new ExpressionWatcher(null, 
 				ExpressionWatcher.GetExpressionInfo(expression), new object[]{1});
 			expressionWatcher.ValueChanged = (ew, sender, eventArgs) => { raised = true; };
 			item.GetChild("888").Num = "888";
@@ -254,7 +254,7 @@ namespace ObservableComputations.Test
 			bool raised = false;
 			Item item = new Item();
 			Expression<Func<string>> expression = () => item.GetChild("777").Num;
-			ExpressionWatcher expressionWatcher = new ExpressionWatcher(
+			ExpressionWatcher expressionWatcher = new ExpressionWatcher(null, 
 				ExpressionWatcher.GetExpressionInfo(expression));
 			expressionWatcher.ValueChanged = (ew, sender, eventArgs) => { raised = true; };
 			item.SetChild("777", new Item(){Num = "888"});
@@ -269,7 +269,7 @@ namespace ObservableComputations.Test
 			bool raised = false;
 			Item item = new Item();
 			Expression<Func<Item, string>> expression = i => i.GetChild(i.Num == "777" ? "888" : "999").Num;
-			ExpressionWatcher expressionWatcher = new ExpressionWatcher(
+			ExpressionWatcher expressionWatcher = new ExpressionWatcher(null, 
 				ExpressionWatcher.GetExpressionInfo(expression), new object[] {item});
 			expressionWatcher.ValueChanged = (ew, sender, eventArgs) => { raised = true; };
 			item.SetChild("000", new Item(){Num = "000"});
@@ -293,7 +293,7 @@ namespace ObservableComputations.Test
 			bool raised = false;
 			Item item = new Item();
 			Expression<Func<Item, string>> expression = i => i.GetChild("777").Num + i.GetChild("999").Num;
-			ExpressionWatcher expressionWatcher = new ExpressionWatcher(
+			ExpressionWatcher expressionWatcher = new ExpressionWatcher(null, 
 				ExpressionWatcher.GetExpressionInfo(expression), new object[]{item});
 			expressionWatcher.ValueChanged = (ew, sender, eventArgs) => { raised = true; };
 			item.SetChild("777", new Item(){Num = "888"});
@@ -312,7 +312,7 @@ namespace ObservableComputations.Test
 			Item item1 = new Item();
 			Item item2 = new Item();
 			Expression<Func<Item, Item, string>> expression = (i1, i2) => i1.GetChild("777").Num + i2.GetChild("999").Num;
-			ExpressionWatcher expressionWatcher = new ExpressionWatcher(
+			ExpressionWatcher expressionWatcher = new ExpressionWatcher(null, 
 				ExpressionWatcher.GetExpressionInfo(expression), new object[]{item1, item2});
 			expressionWatcher.ValueChanged = (ew, sender, eventArgs) => { raised = true; };
 			item1.SetChild("777", new Item(){Num = "888"});
@@ -330,7 +330,7 @@ namespace ObservableComputations.Test
 			bool raised = false;
 			object item = new Item();
 			Expression<Func<object, string>> expression = i => ((Item) i).GetChild("777").Num + ((Item) i).GetChild("999").Num;
-			ExpressionWatcher expressionWatcher = new ExpressionWatcher(
+			ExpressionWatcher expressionWatcher = new ExpressionWatcher(null, 
 				ExpressionWatcher.GetExpressionInfo(expression), new object[]{item});
 			expressionWatcher.ValueChanged = (ew, sender, eventArgs) => { raised = true; };
 			((Item)item).SetChild("777", new Item(){Num = "888"});
@@ -349,7 +349,7 @@ namespace ObservableComputations.Test
 			Item item1 = new Item();
 			Item item2 = new Item();
 			Expression<Func<string>> expression = () => item1.GetChild("777").Num + item2.GetChild("999").Num;
-			ExpressionWatcher expressionWatcher = new ExpressionWatcher(
+			ExpressionWatcher expressionWatcher = new ExpressionWatcher(null, 
 				ExpressionWatcher.GetExpressionInfo(expression));
 			expressionWatcher.ValueChanged = (ew, sender, eventArgs) => { raised = true; };
 			item1.SetChild("777", new Item(){Num = "888"});
@@ -369,7 +369,7 @@ namespace ObservableComputations.Test
 			Item item2 = new Item();
 			item1.Child = item2;
 			Expression<Func<string>> expression = () => item1.Child.Num;
-			ExpressionWatcher expressionWatcher = new ExpressionWatcher(
+			ExpressionWatcher expressionWatcher = new ExpressionWatcher(null, 
 				ExpressionWatcher.GetExpressionInfo(expression));
 			expressionWatcher.ValueChanged = (ew, sender, eventArgs) => { raised = true; };
 			item1.Child = new Item();

@@ -614,7 +614,7 @@ namespace ObservableComputations
 		{
 			if (!expressionContainsParametrizedLiveLinqCalls)
 			{
-				watcher = new ExpressionWatcher(valueSelectorExpressionInfo, sourceItems);
+				watcher = new ExpressionWatcher(current, valueSelectorExpressionInfo, sourceItems);
 				func = default(TExpressionCompiled);
 				nestedComputings = null;
 				expressionCallCount = valueSelectorExpressionInfo._callCount;
@@ -638,7 +638,7 @@ namespace ObservableComputations
 
 				ExpressionWatcher.ExpressionInfo expressionInfo =
 					ExpressionWatcher.GetExpressionInfo(predicateExpression);
-				watcher = new ExpressionWatcher(expressionInfo);
+				watcher = new ExpressionWatcher(current, expressionInfo);
 
 				expressionCallCount = expressionInfo._callCount;
 			}

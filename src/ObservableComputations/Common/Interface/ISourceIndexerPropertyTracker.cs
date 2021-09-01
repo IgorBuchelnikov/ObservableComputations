@@ -13,12 +13,12 @@ namespace ObservableComputations
 
 	internal interface ILeftSourceIndexerPropertyTracker : ISourceIndexerPropertyTracker
 	{
-		void HandleSourcePropertyChanged(object sender, PropertyChangedEventArgs propertyChangedEventArgs);
+		new void HandleSourcePropertyChanged(object sender, PropertyChangedEventArgs propertyChangedEventArgs);
 	}
 
 	internal interface IRightSourceIndexerPropertyTracker : ISourceIndexerPropertyTracker
 	{
-		void HandleSourcePropertyChanged(object sender, PropertyChangedEventArgs propertyChangedEventArgs);
+		new void HandleSourcePropertyChanged(object sender, PropertyChangedEventArgs propertyChangedEventArgs);
 	}
 
 

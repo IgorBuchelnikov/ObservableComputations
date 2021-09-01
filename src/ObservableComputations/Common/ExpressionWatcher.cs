@@ -12,6 +12,7 @@ namespace ObservableComputations
 {
 	internal sealed class ExpressionWatcher
 	{
+		IComputing _owner;
 		internal Position _position;
 		internal readonly PropertyChangedEventSubscription[] _propertyChangedEventSubscriptions;
 		internal readonly MethodChangedEventSubscription[] _methodChangedEventSubscriptions;
@@ -318,8 +319,9 @@ namespace ObservableComputations
 			if (expressionInfo._constantCallTrees != null) workWithCallTrees(expressionInfo._constantCallTrees);
 		}
 
-		internal ExpressionWatcher(ExpressionInfo expressionInfo)
+		internal ExpressionWatcher(IComputing owner, ExpressionInfo expressionInfo)
 		{
+			_owner = owner;
 			ExpressionToWatch = expressionInfo._expressionToWatch;
 			_parameterValues = null;
 			_propertyChangedEventSubscriptions = new PropertyChangedEventSubscription[expressionInfo._callCount];
@@ -348,8 +350,9 @@ namespace ObservableComputations
 			initialize(expressionInfo);
 		}
 
-		public ExpressionWatcher(ExpressionInfo expressionInfo, object[] parameters)
+		public ExpressionWatcher(IComputing owner, ExpressionInfo expressionInfo, object[] parameters)
 		{
+			_owner = owner;
 			ExpressionToWatch = expressionInfo._expressionToWatch;
 			_parameterValues = parameters;
 			_propertyChangedEventSubscriptions = new PropertyChangedEventSubscription[expressionInfo._callCount];
@@ -735,16 +738,18 @@ namespace ObservableComputations
 					_currentComputings[callIndex] = newComputingInternal;
 				}
 
+
+				string memberName = node._call.Name;
 				switch (node._call.Type)
 				{
 					case CallType.PropertyOrField:
+						
 
-						if (node._holder is INotifyPropertyChanged notifyPropertyChanged)
+						void subscribePropertyChanged(INotifyPropertyChanged notifyPropertyChanged)
 						{
-							string propertyName = node._call.Name;
 							node._propertyChangedEventHandler = (sender, args) =>
 							{
-								if (!_disposed && args.PropertyName == propertyName)
+								if (!_disposed && args.PropertyName == memberName)
 #if DEBUG
 									processChange(node, root, sender, args);
 #else
@@ -753,21 +758,34 @@ namespace ObservableComputations
 							};
 
 							notifyPropertyChanged.PropertyChanged += node._propertyChangedEventHandler;
-							_propertyChangedEventSubscriptions[callIndex] = new PropertyChangedEventSubscription(notifyPropertyChanged, node._propertyChangedEventHandler);
+							_propertyChangedEventSubscriptions[callIndex] =
+								new PropertyChangedEventSubscription(notifyPropertyChanged, node._propertyChangedEventHandler);
+						}
+
+
+						if (node._holder is ICanNotifyPropertyChanged canNotifyPropertyChanged)
+						{
+							if (canNotifyPropertyChanged.CanNotifyPropertyChanged(memberName, _rootExpressionWatcher._owner))
+								subscribePropertyChanged(canNotifyPropertyChanged);
+						}
+						else if (node._holder is INotifyPropertyChanged notifyPropertyChanged)
+						{
+							subscribePropertyChanged(notifyPropertyChanged);
 						}
 						break;
 					case CallType.Method:
-						if (node._holder is INotifyMethodChanged notifyMethodChanged)
+						int argumentsCount = node._call.GetArgumentValues.Length;
+
+						void subscribeMethodChanged(INotifyMethodChanged notifyMethodChanged)
 						{
-							CallTreeNode nodeCopy = node;
 							node._methodChangedEventHandler = (sender, args) =>
 							{
-								if (!_disposed && args.MethodName == nodeCopy._call.Name)
+								if (!_disposed && args.MethodName == memberName)
 								{
-									int length = nodeCopy._call.GetArgumentValues.Length;
-									object[] argumentValues = new object[length];
-									for (int index = 0; index < length; index++)
-										argumentValues[index] = nodeCopy._call.GetArgumentValues[index].DynamicInvoke(_parameterValues);
+
+									object[] argumentValues = new object[argumentsCount];
+									for (int index = 0; index < argumentsCount; index++)
+										argumentValues[index] = node._call.GetArgumentValues[index].DynamicInvoke(_parameterValues);
 
 									if (args.ArgumentsPredicate(argumentValues))
 #if DEBUG
@@ -776,11 +794,21 @@ namespace ObservableComputations
 										processChange(node, sender, args);
 #endif
 								}
-
 							};
-			
+
 							notifyMethodChanged.MethodChanged += node._methodChangedEventHandler;
-							_methodChangedEventSubscriptions[callIndex] = new MethodChangedEventSubscription(notifyMethodChanged, node._methodChangedEventHandler);
+							_methodChangedEventSubscriptions[callIndex] =
+								new MethodChangedEventSubscription(notifyMethodChanged, node._methodChangedEventHandler);
+						}
+
+						if (node._holder is ICanNotifyMethodChanged canNotifyMethodChanged)
+						{
+							if (canNotifyMethodChanged.CanNotifyMethodChanged(memberName, argumentsCount, _rootExpressionWatcher._owner))
+								subscribeMethodChanged(canNotifyMethodChanged);
+						}
+						else if (node._holder is INotifyMethodChanged notifyMethodChanged)
+						{
+							subscribeMethodChanged(notifyMethodChanged);
 						}
 
 						ExpressionWatcher[] nodeCallArguments = node._callArguments;

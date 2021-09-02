@@ -53,7 +53,14 @@ namespace ObservableComputations.Test
 			public void SetChild(string num, Item item)
 			{
 				_children[num] = item;
-				MethodChanged?.Invoke(this, new MethodChangedEventArgs(nameof(GetChild), args => args[0].Equals(num)));
+				Func<object[], bool> predicate = args => args[0].Equals(num);
+				string methodName = nameof(GetChild);
+				RaiseMethodChanged(methodName, predicate);
+			}
+
+			public void RaiseMethodChanged(string methodName, Func<object[], bool> predicate)
+			{
+				MethodChanged?.Invoke(this, new MethodChangedEventArgs(methodName, predicate));
 			}
 
 			public Item Child
@@ -65,6 +72,7 @@ namespace ObservableComputations.Test
 					onPropertyChanged("Child");
 				}
 			}
+
 
 			#region INotifyPropertyChanged imlementation
 			public event PropertyChangedEventHandler PropertyChanged;
@@ -86,6 +94,36 @@ namespace ObservableComputations.Test
 			public Delegate[] GetPropertyChangedInvocationList => PropertyChanged.GetInvocationList();
 
 			public event EventHandler<MethodChangedEventArgs> MethodChanged;
+		}
+
+		public class ItemWithConstantPropertyAndMethod : Item, ICanNotifyPropertyChanged, ICanNotifyMethodChanged
+		{
+			public int ConstantProperty => 1;
+			public int ConstantMethod() => 1;
+
+			public void RaiseConstantsChanged()
+			{
+				onPropertyChanged(nameof(ConstantProperty));
+				RaiseMethodChanged(nameof(ConstantMethod), objects => true);
+			}
+
+			#region Implementation of ICanNotifyPropertyChanged
+
+			public bool CanNotifyPropertyChanged(string propertyName, IComputing computing)
+			{
+				return propertyName != nameof(ConstantProperty);
+			}
+
+			#endregion
+
+			#region Implementation of ICanNotifyMethodChanged
+
+			public bool CanNotifyMethodChanged(string methodName, int argumentsCount, IComputing computing)
+			{
+				return methodName != nameof(ConstantMethod);
+			}
+
+			#endregion
 		}
 
 		[Test]
@@ -378,6 +416,23 @@ namespace ObservableComputations.Test
 			raised = false;
 			item1.Child.Num = "111";
 			Assert.IsTrue(raised);
+			expressionWatcher.Dispose();
+		}
+
+		[Test]
+		public void TestItemWithConstantPropertyAndMethod()
+		{
+			int raised = 0;
+			ItemWithConstantPropertyAndMethod item = new ItemWithConstantPropertyAndMethod();
+			Expression<Func<string>> expression = () => item.Num + item.ConstantMethod() + item.ConstantProperty;
+			ExpressionWatcher expressionWatcher = new ExpressionWatcher(null, 
+				ExpressionWatcher.GetExpressionInfo(expression));
+			expressionWatcher.ValueChanged = (ew, sender, eventArgs) => { raised++; };
+			item.Num = item.Num + 1;
+			Assert.AreEqual(raised, 1);
+			raised = 0;
+			item.RaiseConstantsChanged();
+			Assert.AreEqual(raised, 0);
 			expressionWatcher.Dispose();
 		}
 

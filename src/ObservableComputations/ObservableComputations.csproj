@@ -23,7 +23,7 @@
 - Ordering, ThenOrdering: Error if IComparer.Compare returns a number greater than 1 or smaller than -1
 - Aggregating: IsDefaulted is not set to true if source collection is null
 - Aggregating: Custom default value (DefaultValue property) is ignored if source collection is null</PackageReleaseNotes>
-    <Version>2.2.0</Version>
+    <Version>2.2.1</Version>
     <AssemblyName>ObservableComputations</AssemblyName>
     <PackageId>ObservableComputations</PackageId>
     <Product>ObservableComputations</Product>

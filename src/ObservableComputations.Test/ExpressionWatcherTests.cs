@@ -96,35 +96,35 @@ namespace ObservableComputations.Test
 			public event EventHandler<MethodChangedEventArgs> MethodChanged;
 		}
 
-		public class ItemWithConstantPropertyAndMethod : Item, ICanNotifyPropertyChanged, ICanNotifyMethodChanged
-		{
-			public int ConstantProperty => 1;
-			public int ConstantMethod() => 1;
+		//public class ItemWithConstantPropertyAndMethod : Item, ISelectiveNotifyPropertyChanged, ISelectiveNotifyMethodChanged
+		//{
+		//	public int ConstantProperty => 1;
+		//	public int ConstantMethod() => 1;
 
-			public void RaiseConstantsChanged()
-			{
-				onPropertyChanged(nameof(ConstantProperty));
-				RaiseMethodChanged(nameof(ConstantMethod), objects => true);
-			}
+		//	public void RaiseConstantsChanged()
+		//	{
+		//		onPropertyChanged(nameof(ConstantProperty));
+		//		RaiseMethodChanged(nameof(ConstantMethod), objects => true);
+		//	}
 
-			#region Implementation of ICanNotifyPropertyChanged
+		//	#region Implementation of ISelectiveNotifyPropertyChanged
 
-			public bool CanNotifyPropertyChanged(string propertyName, IComputing computing)
-			{
-				return propertyName != nameof(ConstantProperty);
-			}
+		//	public bool CanNotifyPropertyChanged(string propertyName, IComputing computing)
+		//	{
+		//		return propertyName != nameof(ConstantProperty);
+		//	}
 
-			#endregion
+		//	#endregion
 
-			#region Implementation of ICanNotifyMethodChanged
+		//	#region Implementation of ISelectiveNotifyMethodChanged
 
-			public bool CanNotifyMethodChanged(string methodName, int argumentsCount, IComputing computing)
-			{
-				return methodName != nameof(ConstantMethod);
-			}
+		//	public bool CanNotifyMethodChanged(string methodName, int argumentsCount, IComputing computing)
+		//	{
+		//		return methodName != nameof(ConstantMethod);
+		//	}
 
-			#endregion
-		}
+		//	#endregion
+		//}
 
 		[Test]
 		public void TestRaiseValueChanged1()
@@ -419,22 +419,22 @@ namespace ObservableComputations.Test
 			expressionWatcher.Dispose();
 		}
 
-		[Test]
-		public void TestItemWithConstantPropertyAndMethod()
-		{
-			int raised = 0;
-			ItemWithConstantPropertyAndMethod item = new ItemWithConstantPropertyAndMethod();
-			Expression<Func<string>> expression = () => item.Num + item.ConstantMethod() + item.ConstantProperty;
-			ExpressionWatcher expressionWatcher = new ExpressionWatcher(null, 
-				ExpressionWatcher.GetExpressionInfo(expression));
-			expressionWatcher.ValueChanged = (ew, sender, eventArgs) => { raised++; };
-			item.Num = item.Num + 1;
-			Assert.AreEqual(raised, 1);
-			raised = 0;
-			item.RaiseConstantsChanged();
-			Assert.AreEqual(raised, 0);
-			expressionWatcher.Dispose();
-		}
+		//[Test]
+		//public void TestItemWithConstantPropertyAndMethod()
+		//{
+		//	int raised = 0;
+		//	ItemWithConstantPropertyAndMethod item = new ItemWithConstantPropertyAndMethod();
+		//	Expression<Func<string>> expression = () => item.Num + item.ConstantMethod() + item.ConstantProperty;
+		//	ExpressionWatcher expressionWatcher = new ExpressionWatcher(null, 
+		//		ExpressionWatcher.GetExpressionInfo(expression));
+		//	expressionWatcher.ValueChanged = (ew, sender, eventArgs) => { raised++; };
+		//	item.Num = item.Num + 1;
+		//	Assert.AreEqual(raised, 1);
+		//	raised = 0;
+		//	item.RaiseConstantsChanged();
+		//	Assert.AreEqual(raised, 0);
+		//	expressionWatcher.Dispose();
+		//}
 
 		//[Test]
 		//public void TestWeakEventHandler()

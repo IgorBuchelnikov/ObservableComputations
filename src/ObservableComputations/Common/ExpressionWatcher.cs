@@ -743,9 +743,16 @@ namespace ObservableComputations
 				switch (node._call.Type)
 				{
 					case CallType.PropertyOrField:
-						
 
-						void subscribePropertyChanged(INotifyPropertyChanged notifyPropertyChanged)
+
+						//if (node._holder is ISelectiveNotifyPropertyChanged canNotifyPropertyChanged)
+						//{
+						//	if (canNotifyPropertyChanged.CanNotifyPropertyChanged(memberName, _rootExpressionWatcher._owner))
+						//		subscribePropertyChanged(canNotifyPropertyChanged);
+						//}
+						//else
+
+						if (node._holder is INotifyPropertyChanged notifyPropertyChanged)
 						{
 							node._propertyChangedEventHandler = (sender, args) =>
 							{
@@ -761,22 +768,17 @@ namespace ObservableComputations
 							_propertyChangedEventSubscriptions[callIndex] =
 								new PropertyChangedEventSubscription(notifyPropertyChanged, node._propertyChangedEventHandler);
 						}
-
-
-						if (node._holder is ICanNotifyPropertyChanged canNotifyPropertyChanged)
-						{
-							if (canNotifyPropertyChanged.CanNotifyPropertyChanged(memberName, _rootExpressionWatcher._owner))
-								subscribePropertyChanged(canNotifyPropertyChanged);
-						}
-						else if (node._holder is INotifyPropertyChanged notifyPropertyChanged)
-						{
-							subscribePropertyChanged(notifyPropertyChanged);
-						}
 						break;
 					case CallType.Method:
 						int argumentsCount = node._call.GetArgumentValues.Length;
 
-						void subscribeMethodChanged(INotifyMethodChanged notifyMethodChanged)
+						//if (node._holder is ISelectiveNotifyMethodChanged canNotifyMethodChanged)
+						//{
+						//	if (canNotifyMethodChanged.CanNotifyMethodChanged(memberName, argumentsCount, _rootExpressionWatcher._owner))
+						//		subscribeMethodChanged(canNotifyMethodChanged);
+						//}
+						//else 
+						if (node._holder is INotifyMethodChanged notifyMethodChanged)
 						{
 							node._methodChangedEventHandler = (sender, args) =>
 							{
@@ -799,16 +801,6 @@ namespace ObservableComputations
 							notifyMethodChanged.MethodChanged += node._methodChangedEventHandler;
 							_methodChangedEventSubscriptions[callIndex] =
 								new MethodChangedEventSubscription(notifyMethodChanged, node._methodChangedEventHandler);
-						}
-
-						if (node._holder is ICanNotifyMethodChanged canNotifyMethodChanged)
-						{
-							if (canNotifyMethodChanged.CanNotifyMethodChanged(memberName, argumentsCount, _rootExpressionWatcher._owner))
-								subscribeMethodChanged(canNotifyMethodChanged);
-						}
-						else if (node._holder is INotifyMethodChanged notifyMethodChanged)
-						{
-							subscribeMethodChanged(notifyMethodChanged);
 						}
 
 						ExpressionWatcher[] nodeCallArguments = node._callArguments;

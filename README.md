@@ -80,9 +80,11 @@ All ObservableComputations releases are available at [NuGet](https://www.nuget.o
 ## How can I contribute?
 * Presentations, blog posts, tutorials, feedbacks are needed
 * Documentation comments and corrections are welcome
+* Create a bug report
+* Propose a new feature
 * Create a demo application
-* Create xml documentation in the code
 * Create a unit test
+* Create xml documentation in the code
 * A pretty icon is needed
 
 ## Quick start
@@ -301,7 +303,7 @@ If you have complex computations, over frequently changing source data and\or da
 ### Clean and durable code
 
 - Less boilerplate imperative code. More clear declarative (functional style) code. Total code is reduced.
-- Less human error: computed data shown to the user will always correspond to the user input and the data loaded from external sources (DB, web service)
+- Less human error: computed data shown to the user will always correspond to the user input and the data loaded from external sources (DB, web service).
 - Source data loading code and UI data computation code can be clearly separated.
 - You do not need to worry about the fact that you forgot to update the calculated data. All calculated data will be updated automatically.
 

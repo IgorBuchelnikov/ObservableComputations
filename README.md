@@ -1,8 +1,8 @@
 [![Coverage Status](https://coveralls.io/repos/github/IgorBuchelnikov/ObservableComputations/badge.svg)](https://coveralls.io/github/IgorBuchelnikov/ObservableComputations)
 
-[![chat](https://img.shields.io/discord/854998812749332511?style=plastic)](https://discord.com/channels/854998812749332511/854998813180821515)
-
 [![Nuget package newest version](https://img.shields.io/nuget/v/ObservableComputations)](https://www.nuget.org/packages/ObservableComputations/) [![Nuget package downloads number](https://img.shields.io/nuget/dt/ObservableComputations)](https://www.nuget.org/packages/ObservableComputations/)
+
+[![chat](https://img.shields.io/discord/854998812749332511?style=plastic)](https://discord.com/channels/854998812749332511/854998813180821515)
 
 # ObservableComputations
 
@@ -2854,10 +2854,10 @@ namespace ObservableComputationsExample
 	}
 }
 ```
-In this example, when we double-click on an unpaid order, we make it paid. Since the *Paid* property, in this case, changes in the main thread, we cannot read it in the background thread of *_ocOcDispatcher*. In order to read this property in the background thread of *_ocOcDispatcher*, it is necessary to dispatch changes of that property into that thread. This is done using the  *PropertyDispatching&lt;THolder, TResult&gt;* class. Similar to the *CollectionDispatching* method, the constructor of the *PropertyDispatching&lt;THolder, TResult&gt;* class has the required parameter *destinationOcDispatcher* and the optional parameter *sourceOcDispatcher*. The difference is that 
+In this example, when we double-click on an unpaid order, we make it paid. In this case, since the *Paid* property changes in the main thread, we cannot read it in the background thread of *_ocOcDispatcher*. In order to read this property in the background thread of *_ocOcDispatcher*, it is necessary to dispatch changes of that property into that thread. This is done using the  *PropertyDispatching&lt;THolder, TResult&gt;* class. Similar to the *CollectionDispatching* method, the constructor of the *PropertyDispatching&lt;THolder, TResult&gt;* class has the required parameter *destinationOcDispatcher* and the optional parameter *sourceOcDispatcher*. The difference is that 
 
 * instead of enumerating the source collection and subscribing to the [CollectionChanged](https://docs.microsoft.com/en-us/dotnet/api/system.collections.specialized.inotifycollectionchanged.collectionchanged?view=netcore- 3.1) event, the property value is read and the [PropertyChanged](https://docs.microsoft.com/en-us/dotnet/api/system.componentmodel.inotifypropertychanged.propertychanged?view=netcore-3.1) event is subscribed. 
-* the value passed to the *sourceOcDispatcher* parameter is used to dispatch the property value change (setter of *PropertyDispatching&lt;THolder, TResult&gt;.Value*) to the *sourceOcDispatcher* thread, if this change is made in another thread.
+* the value passed to the *sourceOcDispatcher* parameter is used to dispatch the property value change (setter of *PropertyDispatching&lt;THolder, TResult&gt;.Value*) to the *sourceOcDispatcher* thread.
 
 Note how *DispatcherPriority.Background* is passed through *sourceOcDispatcherPriority* parameter of *PropertyDispatching* class constructor  to *WpfOcDispatcher.Invoke* method.
 

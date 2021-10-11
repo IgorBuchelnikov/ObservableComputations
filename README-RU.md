@@ -1,8 +1,8 @@
 [![Coverage Status](https://coveralls.io/repos/github/IgorBuchelnikov/ObservableComputations/badge.svg)](https://coveralls.io/github/IgorBuchelnikov/ObservableComputations)
 
-[![chat](https://img.shields.io/discord/854998812749332511?style=plastic)](https://discord.com/channels/854998812749332511/854998813180821515)
+[![Nuget package newest version](https://img.shields.io/nuget/v/ObservableComputations)](https://www.nuget.org/packages/ObservableComputations/) [![Nuget package downloads number](https://img.shields.io/nuget/dt/ObservableComputations)](https://www.nuget.org/packages/ObservableComputations/)
 
-[![NNuget package newest version](https://img.shields.io/nuget/v/ObservableComputations)](https://www.nuget.org/packages/ObservableComputations/) [![Nuget package downloads number](https://img.shields.io/nuget/dt/ObservableComputations)](https://www.nuget.org/packages/ObservableComputations/)
+[![chat](https://img.shields.io/discord/854998812749332511?style=plastic)](https://www.nuget.org/packages/ObservableComputations/)
 
 # ObservableComputations
 

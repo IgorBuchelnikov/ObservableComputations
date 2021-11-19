@@ -40,6 +40,10 @@ namespace ObservableComputations
 		void SetIsActive(bool value);
 		void SetInactivationInProgress(bool value);
 		void SetActivationInProgress(bool value);
+		void InitializeInvolvedMembersTreeNode(InvolvedMembersTreeNode involvedMembersTreeNode);
+
+		void RemoveInvolvedMembersTreeNode(InvolvedMembersTreeNode involvedMembersTreeNode);
+		void ProcessInvolvedMemberChanged(object source, string memberName, bool created);
 	}
 
 	internal interface ICanInitializeFromSource

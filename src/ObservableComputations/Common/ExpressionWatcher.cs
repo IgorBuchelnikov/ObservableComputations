@@ -12,7 +12,7 @@ namespace ObservableComputations
 {
 	internal sealed class ExpressionWatcher
 	{
-		IComputing _owner;
+		IComputingInternal _owner;
 		internal Position _position;
 		internal readonly PropertyChangedEventSubscription[] _propertyChangedEventSubscriptions;
 		internal readonly MethodChangedEventSubscription[] _methodChangedEventSubscriptions;
@@ -106,6 +106,49 @@ namespace ObservableComputations
 #endif
 		}
 
+		internal void FillInvolvedMembers(InvolvedMembersTreeNode involvedMembersTreeNode)
+		{
+			int length = _constantCallTrees.Length;
+			for (var index = 0; index < length; index++)
+			{
+				ConstantCallTrees constantCallTrees = _constantCallTrees[index];
+				fillInvolvedMemberFromCallTreeNodes(involvedMembersTreeNode, constantCallTrees.CallTrees);
+			}
+
+			length = _parameterCallTrees.Length;
+			for (var index = 0; index < length; index++)
+			{
+				ParameterCallTrees constantCallTrees = _parameterCallTrees[index];
+				fillInvolvedMemberFromCallTreeNodes(involvedMembersTreeNode, constantCallTrees.CallTrees);
+			}
+
+			length = _expressionCallTrees.Length;
+			for (var index = 0; index < length; index++)
+			{
+				ExpressionCallTrees constantCallTrees = _expressionCallTrees[index];
+				constantCallTrees.ExpressionWatcher.FillInvolvedMembers(involvedMembersTreeNode);
+				fillInvolvedMemberFromCallTreeNodes(involvedMembersTreeNode, constantCallTrees.CallTrees);
+			}
+		}
+
+		private static void fillInvolvedMemberFromCallTreeNodes(InvolvedMembersTreeNode involvedMembersTreeNode, CallTreeNode[] callTreeNodes)
+		{
+			int length = callTreeNodes.Length;
+			for (var index = 0; index < length; index++)
+			{
+				CallTreeNode callTreeNode = callTreeNodes[index];
+				object holder = callTreeNode._holder;
+
+				if (holder != null)
+					involvedMembersTreeNode.InvolvedMemebers[new InvolvedMember(holder, callTreeNode._call.Name)]++;
+
+				if (holder is IComputingInternal computingInternal)
+					involvedMembersTreeNode.AddChild(computingInternal);
+
+				if (callTreeNode._children != null)
+					fillInvolvedMemberFromCallTreeNodes(involvedMembersTreeNode, callTreeNode._children);
+			}
+		}
 
 
 #if DEBUG
@@ -319,7 +362,7 @@ namespace ObservableComputations
 			if (expressionInfo._constantCallTrees != null) workWithCallTrees(expressionInfo._constantCallTrees);
 		}
 
-		internal ExpressionWatcher(IComputing owner, ExpressionInfo expressionInfo)
+		internal ExpressionWatcher(IComputingInternal owner, ExpressionInfo expressionInfo)
 		{
 			_owner = owner;
 			ExpressionToWatch = expressionInfo._expressionToWatch;
@@ -350,7 +393,7 @@ namespace ObservableComputations
 			initialize(expressionInfo);
 		}
 
-		public ExpressionWatcher(IComputing owner, ExpressionInfo expressionInfo, object[] parameters)
+		public ExpressionWatcher(IComputingInternal owner, ExpressionInfo expressionInfo, object[] parameters)
 		{
 			_owner = owner;
 			ExpressionToWatch = expressionInfo._expressionToWatch;
@@ -691,6 +734,8 @@ namespace ObservableComputations
 						}
 					}
 				}
+
+				_rootExpressionWatcher._owner.ProcessInvolvedMemberChanged(node._holder, node._call.Name, false);
 			}
 			else if (!ReferenceEquals(holder, node._holder))
 			{
@@ -712,6 +757,8 @@ namespace ObservableComputations
 
 						break;
 				}
+
+				_rootExpressionWatcher._owner.ProcessInvolvedMemberChanged(node._holder, node._call.Name, false);
 
 				node._holder = holder;
 				int callIndex = node._call.Index;
@@ -822,7 +869,9 @@ namespace ObservableComputations
 								nodeCallArguments[index].ValueChanged = node._callArgumentChangedEventHandler;
 						}
 						break;
-				}			
+				}
+				
+				_rootExpressionWatcher._owner.ProcessInvolvedMemberChanged(holder, memberName, true);
 
 #if DEBUG
 				workWithCallTreeNodeChildren(node, root);	

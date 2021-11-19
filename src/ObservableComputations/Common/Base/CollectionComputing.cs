@@ -447,6 +447,50 @@ namespace ObservableComputations
 			_activationInProgress = value;
 		}
 
+		#region InvolvedMembers
+		private List<InvolvedMembersTreeNode> _involvedMembersTreeNodes;
+
+		void IComputingInternal.InitializeInvolvedMembersTreeNode(InvolvedMembersTreeNode involvedMembersTreeNode)
+		{
+			if (_involvedMembersTreeNodes == null)
+				_involvedMembersTreeNodes = new List<InvolvedMembersTreeNode>();
+
+			involvedMembersTreeNode.Computing = this;
+
+			_involvedMembersTreeNodes.Add(involvedMembersTreeNode);
+
+			InitializeInvolvedMembersTreeNodeImpl(involvedMembersTreeNode);
+		}
+
+		internal abstract void InitializeInvolvedMembersTreeNodeImpl(InvolvedMembersTreeNode involvedMembersTreeNode);
+
+		void IComputingInternal.RemoveInvolvedMembersTreeNode(InvolvedMembersTreeNode involvedMembersTreeNode)
+		{
+			_involvedMembersTreeNodes.Remove(involvedMembersTreeNode);
+
+			if (_involvedMembersTreeNodes.Count == 0)
+				_involvedMembersTreeNodes = null;
+		}
+
+		void IComputingInternal.ProcessInvolvedMemberChanged(object source, string memberName, bool created)
+		{
+			if (_involvedMembersTreeNodes == null) return;
+
+			InvolvedMemberChangedArgs args = new InvolvedMemberChangedArgs(source, memberName, created);
+			int count = _involvedMembersTreeNodes.Count;
+			for (var index = 0; index < count; index++) 
+				_involvedMembersTreeNodes[index].Handler(args);
+
+			if (!created && source is IComputingInternal computingInternal)
+			{
+				int count1 = _involvedMembersTreeNodes.Count;
+				for (var index = 0; index < count1; index++) 
+					_involvedMembersTreeNodes[index].RemoveChild(computingInternal);
+			}
+		}
+
+		#endregion
+
 		public ReadOnlyCollection<OcConsumer> Consumers =>
 			new ReadOnlyCollection<OcConsumer>(_consumers.Union(_downstreamConsumedComputings.SelectMany(c => c.Consumers)).ToList());
 

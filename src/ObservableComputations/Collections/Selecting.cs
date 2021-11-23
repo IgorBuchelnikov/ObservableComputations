@@ -241,6 +241,20 @@ namespace ObservableComputations
 			}
 		}
 
+		internal override void InitializeInvolvedMembersTreeNodeImpl(InvolvedMembersTreeNode involvedMembersTreeNode)
+		{
+			int itemInfosCount = _itemInfos.Count;
+
+			for (var index = 0; index < itemInfosCount; index++)
+				_itemInfos[index].ExpressionWatcher.FillInvolvedMembers(involvedMembersTreeNode);
+
+			if (_sourceScalar is IComputingInternal sourceScalarComputing)
+				involvedMembersTreeNode.AddChild(sourceScalarComputing);
+
+			if (_source is IComputingInternal sourceComputing)
+				involvedMembersTreeNode.AddChild(sourceComputing);
+		}
+
 		internal override void addToUpstreamComputings(IComputingInternal computing)
 		{
 			Utils.AddDownstreamConsumedComputing(computing, _sourceScalar, _source);

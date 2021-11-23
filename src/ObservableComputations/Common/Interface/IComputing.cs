@@ -30,6 +30,7 @@ namespace ObservableComputations
 		void AddDownstreamConsumedComputing(IComputingInternal computing);
 		void RemoveDownstreamConsumedComputing(IComputingInternal computing);
 		IEnumerable<OcConsumer> Consumers { get; }
+		List<InvolvedMembersTreeNode> InvolvedMembersTreeNodes { get; }
 		void RaiseConsistencyRestored();
 		void AddToUpstreamComputings(IComputingInternal computing);
 		void RemoveFromUpstreamComputings(IComputingInternal computing);

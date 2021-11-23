@@ -450,6 +450,8 @@ namespace ObservableComputations
 		#region InvolvedMembers
 		private List<InvolvedMembersTreeNode> _involvedMembersTreeNodes;
 
+		List<InvolvedMembersTreeNode> IComputingInternal.InvolvedMembersTreeNodes => _involvedMembersTreeNodes;
+
 		void IComputingInternal.InitializeInvolvedMembersTreeNode(InvolvedMembersTreeNode involvedMembersTreeNode)
 		{
 			if (_involvedMembersTreeNodes == null)
@@ -478,14 +480,31 @@ namespace ObservableComputations
 
 			InvolvedMemberChangedArgs args = new InvolvedMemberChangedArgs(source, memberName, created);
 			int count = _involvedMembersTreeNodes.Count;
-			for (var index = 0; index < count; index++) 
+			for (var index = 0; index < count; index++)
+			{
 				_involvedMembersTreeNodes[index].Handler(args);
 
-			if (!created && source is IComputingInternal computingInternal)
+				if (created)
+					_involvedMembersTreeNodes[index].InvolvedMemebers[new InvolvedMember(source, memberName)]++;
+				else
+				{
+					InvolvedMember involvedMember = new InvolvedMember(source, memberName);
+					_involvedMembersTreeNodes[index].InvolvedMemebers[involvedMember]--;
+					if (_involvedMembersTreeNodes[index].InvolvedMemebers[involvedMember] == 0)
+						_involvedMembersTreeNodes[index].InvolvedMemebers.Remove(involvedMember);
+				}
+			}
+
+			if (source is IComputingInternal computingInternal)
 			{
 				int count1 = _involvedMembersTreeNodes.Count;
-				for (var index = 0; index < count1; index++) 
-					_involvedMembersTreeNodes[index].RemoveChild(computingInternal);
+				for (var index = 0; index < count1; index++)
+				{
+					if (created)
+						_involvedMembersTreeNodes[index].AddChild(computingInternal);
+					else
+						_involvedMembersTreeNodes[index].RemoveChild(computingInternal);
+				}
 			}
 		}
 

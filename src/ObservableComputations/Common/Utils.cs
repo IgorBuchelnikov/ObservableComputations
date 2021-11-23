@@ -230,6 +230,20 @@ namespace ObservableComputations
 
 			if (originalSource != newSource)
 			{
+				if (computing.InvolvedMembersTreeNodes != null)
+				{
+					for (var index = 0; index < computing.InvolvedMembersTreeNodes.Count; index++)
+					{
+						InvolvedMembersTreeNode involvedMembersTreeNode = computing.InvolvedMembersTreeNodes[index];
+
+						if (originalSource != null) 
+							involvedMembersTreeNode.RemoveChild(originalSource);
+
+						if (newSource != null) 
+							involvedMembersTreeNode.AddChild(newSource);
+					}
+				}
+
 				for (int index = 0; index < downstreamConsumedComputings.Count; index++)
 				{
 					IComputingInternal downstreamConsumedComputing = downstreamConsumedComputings[index];
@@ -267,11 +281,11 @@ namespace ObservableComputations
 			sourceAsList.CollectionChanged += handleLeftSourceCollectionChanged;
 		}
 
-		internal static void initializeSourceScalar<TSource>(IReadScalar<INotifyCollectionChanged> sourceScalar, ref TSource source, PropertyChangedEventHandler newSourceScalarOnPropertyChanged)
+		internal static void initializeSourceScalar<TSource>(IReadScalar<INotifyCollectionChanged> sourceScalar, ref TSource source, PropertyChangedEventHandler sourceScalarOnPropertyChanged)
 		{
 			if (sourceScalar != null)
 			{
-				sourceScalar.PropertyChanged += newSourceScalarOnPropertyChanged;
+				sourceScalar.PropertyChanged += sourceScalarOnPropertyChanged;
 				source = (TSource) sourceScalar.Value;
 			}
 		}

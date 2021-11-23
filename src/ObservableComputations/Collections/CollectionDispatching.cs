@@ -331,6 +331,11 @@ namespace ObservableComputations
 				action();
 		}
 
+		internal override void InitializeInvolvedMembersTreeNodeImpl(InvolvedMembersTreeNode involvedMembersTreeNode)
+		{
+
+		}
+
 		protected override void raisePropertyChanged(PropertyChangedEventArgs e)
 		{
 			_destinationOcDispatcher.Invoke(

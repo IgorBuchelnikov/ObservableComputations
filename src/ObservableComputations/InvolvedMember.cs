@@ -30,13 +30,34 @@ namespace ObservableComputations
 			}
 		}
 
+		internal class InvolvedMemberEqualityComparer : IEqualityComparer<InvolvedMember>
+		{
+			#region Implementation of IEqualityComparer<in InvolvedMember>
+
+			public bool Equals(InvolvedMember x, InvolvedMember y)
+			{
+				return ReferenceEquals(x.Source, y.Source) && string.Equals(x.MemberName, y.MemberName);
+			}
+
+			public int GetHashCode(InvolvedMember obj)
+			{
+				unchecked
+				{
+					return obj.Source.GetHashCode() + obj.MemberName.GetHashCode();					
+				}
+			}
+
+			#endregion
+		}
+
 		internal class InvolvedMembersTreeNode
 		{
 			public IComputingInternal Computing;
 			public Action<InvolvedMemberChangedArgs> Handler;
-			public Dictionary<InvolvedMember, int> InvolvedMemebers = new Dictionary<InvolvedMember, int>();
+			public Dictionary<InvolvedMember, int> InvolvedMemebers = new Dictionary<InvolvedMember, int>(_comparer);
 			private Dictionary<IComputingInternal, int> ChildrenComputings;
 			public List<InvolvedMembersTreeNode> Children;
+			private static InvolvedMemberEqualityComparer _comparer = new InvolvedMemberEqualityComparer();
 
 			public InvolvedMembersTreeNode(Action<InvolvedMemberChangedArgs> handler)
 			{
@@ -52,17 +73,14 @@ namespace ObservableComputations
 				}
 
 				ChildrenComputings[computing]++;
-				if (ChildrenComputings[computing] == 1)
-				{
-					InvolvedMembersTreeNode node = new InvolvedMembersTreeNode(args => Handler(args));
-					Children.Add(node);
-					computing.InitializeInvolvedMembersTreeNode(node);
-				}
+				if (ChildrenComputings[computing] > 1) return;
+				InvolvedMembersTreeNode node = new InvolvedMembersTreeNode(args => Handler(args));
+				Children.Add(node);
+				computing.InitializeInvolvedMembersTreeNode(node);
 			}
 
 			public void RemoveChild(IComputingInternal computing)
 			{
-
 				ChildrenComputings[computing]--;
 
 				if (ChildrenComputings[computing] == 0)
@@ -71,7 +89,7 @@ namespace ObservableComputations
 					for (var index = 0; index < count; index++) 
 						if (Children[index].Computing == computing)
 						{
-							Children[index].Dispose(Handler);
+							Children[index].Clear(Handler);
 							break;
 						}
 				}
@@ -88,7 +106,7 @@ namespace ObservableComputations
 				}
 			}
 
-			private void Dispose(Action<InvolvedMemberChangedArgs> handler)
+			public void Clear(Action<InvolvedMemberChangedArgs> handler)
 			{
 				Computing.RemoveInvolvedMembersTreeNode(this);
 
@@ -96,10 +114,8 @@ namespace ObservableComputations
 					handler(new InvolvedMemberChangedArgs(involvedMemeber.Source, involvedMemeber.MemberName, false));
 
 				int count = Children.Count;
-				for (var index = 0; index < count; index++)
-				{
-					Children[index].Dispose(handler);		
-				}	
+				for (var index = 0; index < count; index++) 
+					Children[index].Clear(handler);
 			}
 
 		}

@@ -599,7 +599,7 @@ namespace ObservableComputations
 						{
 							CallTreeNodeInfo callTreeNode = resultCallTrees[i];
 							Call call = callTreeNode._call;
-							if (call.Name == currentCall.Name
+							if (string.Equals(call.Name, currentCall.Name)
 								&& (call.Type != CallType.Method || call.Arguments.Count == 0)) //Если метод с аргументами, то считаем, что по любому это разные вызовы. Не учитываем, что метод мог быть вызван с одинаковыми аргуметами
 							{
 								rootResultPpa = callTreeNode;
@@ -626,7 +626,7 @@ namespace ObservableComputations
 						for (int i = 0; i < childrenCount; i++)
 						{
 							CallTreeNodeInfo callTreeNode = callTreeNodeInfo._children[i];
-							if (callTreeNode._call.Name == currentCall.Name)
+							if (string.Equals(callTreeNode._call.Name, currentCall.Name))
 							{
 								newCurrentResultPpa = callTreeNode;
 								break;
@@ -803,7 +803,7 @@ namespace ObservableComputations
 						{
 							node._propertyChangedEventHandler = (sender, args) =>
 							{
-								if (!_disposed && args.PropertyName == memberName)
+								if (!_disposed && string.Equals(args.PropertyName, memberName))
 #if DEBUG
 									processChange(node, root, sender, args);
 #else
@@ -829,7 +829,7 @@ namespace ObservableComputations
 						{
 							node._methodChangedEventHandler = (sender, args) =>
 							{
-								if (!_disposed && args.MethodName == memberName)
+								if (!_disposed && string.Equals(args.MethodName, memberName))
 								{
 
 									object[] argumentValues = new object[argumentsCount];

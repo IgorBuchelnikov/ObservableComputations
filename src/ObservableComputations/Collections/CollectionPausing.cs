@@ -427,6 +427,14 @@ namespace ObservableComputations
 
 		#endregion
 
+		internal override void InitializeInvolvedMembersTreeNodeImpl(InvolvedMembersTreeNode involvedMembersTreeNode)
+		{
+			if (_isPausedScalar is IComputingInternal isPausedScalarComputingInternal)
+				involvedMembersTreeNode.AddChild(isPausedScalarComputingInternal);
+
+			Utils.AddInvolvedMembersTreeNodeChildren(involvedMembersTreeNode, _sourceScalar, _source);
+		}
+
 		[ExcludeFromCodeCoverage]
 		internal void ValidateInternalConsistency()
 		{

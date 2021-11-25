@@ -232,14 +232,15 @@ namespace ObservableComputations
 			{
 				if (computing.InvolvedMembersTreeNodes != null)
 				{
-					for (var index = 0; index < computing.InvolvedMembersTreeNodes.Count; index++)
+					int count = computing.InvolvedMembersTreeNodes.Count;
+					for (var index = 0; index < count; index++)
 					{
 						InvolvedMembersTreeNode involvedMembersTreeNode = computing.InvolvedMembersTreeNodes[index];
 
-						if (originalSource != null) 
+						if (originalSource != null)
 							involvedMembersTreeNode.RemoveChild(originalSource);
 
-						if (newSource != null) 
+						if (newSource != null)
 							involvedMembersTreeNode.AddChild(newSource);
 					}
 				}
@@ -1184,6 +1185,18 @@ namespace ObservableComputations
 		{
 			(source as IComputingInternal)?.RemoveDownstreamConsumedComputing(computing);
 			(sourceScalar as IComputingInternal)?.RemoveDownstreamConsumedComputing(computing);
+		}
+
+		internal static void AddInvolvedMembersTreeNodeChildren(
+			InvolvedMembersTreeNode involvedMembersTreeNode, 
+			IReadScalar<INotifyCollectionChanged> sourceScalar, 
+			INotifyCollectionChanged source)
+		{
+			if (sourceScalar is IComputingInternal sourceScalarComputing)
+				involvedMembersTreeNode.AddChild(sourceScalarComputing);
+
+			if (source is IComputingInternal sourceComputing)
+				involvedMembersTreeNode.AddChild(sourceComputing);
 		}
 
 		internal static readonly PropertyChangedEventArgs InsertItemIntoGroupRequestHandlerPropertyChangedEventArgs = new PropertyChangedEventArgs("InsertItemIntoGroupRequestHandler");

@@ -248,11 +248,7 @@ namespace ObservableComputations
 			for (var index = 0; index < itemInfosCount; index++)
 				_itemInfos[index].ExpressionWatcher.FillInvolvedMembers(involvedMembersTreeNode);
 
-			if (_sourceScalar is IComputingInternal sourceScalarComputing)
-				involvedMembersTreeNode.AddChild(sourceScalarComputing);
-
-			if (_source is IComputingInternal sourceComputing)
-				involvedMembersTreeNode.AddChild(sourceComputing);
+			Utils.AddInvolvedMembersTreeNodeChildren(involvedMembersTreeNode, _sourceScalar, _source);
 		}
 
 		internal override void addToUpstreamComputings(IComputingInternal computing)

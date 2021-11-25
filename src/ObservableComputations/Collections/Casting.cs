@@ -174,10 +174,6 @@ namespace ObservableComputations
 			}
 		}
 
-		internal override void InitializeInvolvedMembersTreeNodeImpl(InvolvedMembersTreeNode involvedMembersTreeNode)
-		{
-			
-		}
 
 		internal override void addToUpstreamComputings(IComputingInternal computing)
 		{
@@ -212,6 +208,11 @@ namespace ObservableComputations
 		}
 
 		#endregion
+
+		internal override void InitializeInvolvedMembersTreeNodeImpl(InvolvedMembersTreeNode involvedMembersTreeNode)
+		{
+			Utils.AddInvolvedMembersTreeNodeChildren(involvedMembersTreeNode, _sourceScalar, _source);
+		}
 
 		[ExcludeFromCodeCoverage]
 		internal void ValidateInternalConsistency()

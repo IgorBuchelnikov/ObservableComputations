@@ -448,7 +448,7 @@ namespace ObservableComputations
 		}
 
 		#region InvolvedMembers
-		private List<InvolvedMembersTreeNode> _involvedMembersTreeNodes;
+		internal List<InvolvedMembersTreeNode> _involvedMembersTreeNodes;
 
 		List<InvolvedMembersTreeNode> IComputingInternal.InvolvedMembersTreeNodes => _involvedMembersTreeNodes;
 

@@ -86,8 +86,8 @@ namespace ObservableComputations
 		{
 			if (_comparerScalar != null)
 			{
-				_comparerScalarPropertyChangedEventHandler = getScalarValueChangedHandler(() =>
-					_comparer = _comparerScalar.Value ?? Comparer<TOrderingValue>.Default,
+				_comparerScalarPropertyChangedEventHandler = getScalarValueChangedHandler(
+					() =>_comparer = _comparerScalar.Value ?? Comparer<TOrderingValue>.Default,
 					() => processSource(false));
 				_comparerScalar.PropertyChanged += _comparerScalarPropertyChangedEventHandler;
 				_comparer = _comparerScalar.Value;

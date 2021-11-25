@@ -475,6 +475,12 @@ namespace ObservableComputations
 					for (int index = 0; index < count; index++)				
 						baseInsertItem(rangePositionPlainIndex1 + index, sourceCopy[index]);
 
+					if (_involvedMembersTreeNodes != null && addedItem is IComputingInternal addedItemComputingInternal)
+					{
+						int count1 = _involvedMembersTreeNodes.Count;
+						for (var index = 0; index < count1; index++)
+							_involvedMembersTreeNodes[index].AddChild(addedItemComputingInternal);
+					}
 					break;
 				case NotifyCollectionChangedAction.Remove:
 					//if (e.OldItems.Count > 1) throw new ObservableComputationsException(this, "Removing of multiple items is not supported");
@@ -489,6 +495,13 @@ namespace ObservableComputations
 					for (int index = count - 1; index >= 0; index--)
 						baseRemoveItem(rangePositionPlainIndex + index);
 
+					if (_involvedMembersTreeNodes != null && oldItem is IComputingInternal oldItemComputingInternal)
+					{
+						int count1 = _involvedMembersTreeNodes.Count;
+						for (var index = 0; index < count1; index++)
+							_involvedMembersTreeNodes[index].RemoveChild(oldItemComputingInternal);
+					}
+
 					break;
 				case NotifyCollectionChangedAction.Replace:
 					ItemInfo itemInfo2;
@@ -500,6 +513,25 @@ namespace ObservableComputations
 					itemInfo2 = _itemInfos[oldStartingIndex];
 					registerSourceItem(newItem, itemInfo2);
 					replaceItem(itemInfo2.SourceCopy, itemInfo2);
+
+					if (_involvedMembersTreeNodes != null)
+					{
+						IComputingInternal oldItemComputingInternal1 = e.OldItems[0] as IComputingInternal;
+						IComputingInternal newItemComputingInternal1 = newItem as IComputingInternal;
+
+						if (oldItemComputingInternal1 != null || newItemComputingInternal1 != null)
+						{
+							int count1 = _involvedMembersTreeNodes.Count;
+							for (var index = 0; index < count1; index++)
+							{
+								if (oldItemComputingInternal1 != null)
+									_involvedMembersTreeNodes[index].RemoveChild(oldItemComputingInternal1);
+
+								if (newItemComputingInternal1 != null)
+									_involvedMembersTreeNodes[index].AddChild(newItemComputingInternal1);
+							}
+						}
+					}
 					break;
 				case NotifyCollectionChangedAction.Move:
 					int oldIndex = e.OldStartingIndex;
@@ -532,7 +564,25 @@ namespace ObservableComputations
 
 					break;
 				case NotifyCollectionChangedAction.Reset:
+					void processInvolvedMembersTreeNodes(bool add)
+					{
+						if (_involvedMembersTreeNodes != null)
+						{
+							int count3 = _involvedMembersTreeNodes.Count;
+							for (var index3 = 0; index3 < count3; index3++)
+							{
+								int count2 = _sourcesAsList.Count;
+								for (var index2 = 0; index2 < count2; index2++)
+									if (_sourcesAsList[index2] is IComputingInternal sourceItemComputing)
+										if (add) _involvedMembersTreeNodes[index3].AddChild(sourceItemComputing);
+										else _involvedMembersTreeNodes[index3].RemoveChild(sourceItemComputing);
+							}
+						}
+					}
+
+					processInvolvedMembersTreeNodes(false);
 					processSource(false);
+					processInvolvedMembersTreeNodes(true);
 					break;
 			}
 		}
@@ -558,6 +608,16 @@ namespace ObservableComputations
 						newItem[rangePositionLength + i]);
 
 			_sourceRangePositions.ModifyLength(itemInfo.Index, newItemCount - rangePositionLength);
+		}
+
+		internal override void InitializeInvolvedMembersTreeNodeImpl(InvolvedMembersTreeNode involvedMembersTreeNode)
+		{
+			Utils.AddInvolvedMembersTreeNodeChildren(involvedMembersTreeNode, _sourceScalar, _source);
+
+			int count = _sourcesAsList.Count;
+			for (var index = 0; index < count; index++)
+				if (_sourcesAsList[index] is IComputingInternal sourceItemComputing)
+					involvedMembersTreeNode.AddChild(sourceItemComputing);
 		}
 
 		internal override void addToUpstreamComputings(IComputingInternal computing)

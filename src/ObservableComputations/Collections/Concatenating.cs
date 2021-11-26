@@ -566,17 +566,16 @@ namespace ObservableComputations
 				case NotifyCollectionChangedAction.Reset:
 					void processInvolvedMembersTreeNodes(bool add)
 					{
-						if (_involvedMembersTreeNodes != null)
+						if (_involvedMembersTreeNodes == null) return;
+
+						int count3 = _involvedMembersTreeNodes.Count;
+						for (var index3 = 0; index3 < count3; index3++)
 						{
-							int count3 = _involvedMembersTreeNodes.Count;
-							for (var index3 = 0; index3 < count3; index3++)
-							{
-								int count2 = _sourcesAsList.Count;
-								for (var index2 = 0; index2 < count2; index2++)
-									if (_sourcesAsList[index2] is IComputingInternal sourceItemComputing)
-										if (add) _involvedMembersTreeNodes[index3].AddChild(sourceItemComputing);
-										else _involvedMembersTreeNodes[index3].RemoveChild(sourceItemComputing);
-							}
+							int count2 = _sourcesAsList.Count;
+							for (var index2 = 0; index2 < count2; index2++)
+								if (_sourcesAsList[index2] is IComputingInternal sourceItemComputing)
+									if (add) _involvedMembersTreeNodes[index3].AddChild(sourceItemComputing);
+									else _involvedMembersTreeNodes[index3].RemoveChild(sourceItemComputing);
 						}
 					}
 
@@ -612,7 +611,8 @@ namespace ObservableComputations
 
 		internal override void InitializeInvolvedMembersTreeNodeImpl(InvolvedMembersTreeNode involvedMembersTreeNode)
 		{
-			Utils.AddInvolvedMembersTreeNodeChildren(involvedMembersTreeNode, _sourceScalar, _source);
+			Utils.AddInvolvedMembersTreeNodeChild(involvedMembersTreeNode, _sourceScalar);
+			Utils.AddInvolvedMembersTreeNodeChild(involvedMembersTreeNode, _source);
 
 			int count = _sourcesAsList.Count;
 			for (var index = 0; index < count; index++)

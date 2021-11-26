@@ -248,7 +248,8 @@ namespace ObservableComputations
 			for (var index = 0; index < itemInfosCount; index++)
 				_itemInfos[index].ExpressionWatcher.FillInvolvedMembers(involvedMembersTreeNode);
 
-			Utils.AddInvolvedMembersTreeNodeChildren(involvedMembersTreeNode, _sourceScalar, _source);
+			Utils.AddInvolvedMembersTreeNodeChild(involvedMembersTreeNode, _sourceScalar);
+			Utils.AddInvolvedMembersTreeNodeChild(involvedMembersTreeNode, _source);
 		}
 
 		internal override void addToUpstreamComputings(IComputingInternal computing)

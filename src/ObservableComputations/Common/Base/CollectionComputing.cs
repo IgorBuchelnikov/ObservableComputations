@@ -454,13 +454,7 @@ namespace ObservableComputations
 
 		void IComputingInternal.InitializeInvolvedMembersTreeNode(InvolvedMembersTreeNode involvedMembersTreeNode)
 		{
-			if (_involvedMembersTreeNodes == null)
-				_involvedMembersTreeNodes = new List<InvolvedMembersTreeNode>();
-
-			involvedMembersTreeNode.Computing = this;
-
-			_involvedMembersTreeNodes.Add(involvedMembersTreeNode);
-
+			Utils.InitializeInvolvedMembersTreeNode(involvedMembersTreeNode, this, ref _involvedMembersTreeNodes);
 			InitializeInvolvedMembersTreeNodeImpl(involvedMembersTreeNode);
 		}
 
@@ -468,46 +462,13 @@ namespace ObservableComputations
 
 		void IComputingInternal.RemoveInvolvedMembersTreeNode(InvolvedMembersTreeNode involvedMembersTreeNode)
 		{
-			_involvedMembersTreeNodes.Remove(involvedMembersTreeNode);
-
-			if (_involvedMembersTreeNodes.Count == 0)
-				_involvedMembersTreeNodes = null;
+			Utils.RemoveInvolvedMembersTreeNode(involvedMembersTreeNode, ref _involvedMembersTreeNodes);
 		}
 
 		void IComputingInternal.ProcessInvolvedMemberChanged(object source, string memberName, bool created)
 		{
-			if (_involvedMembersTreeNodes == null) return;
-
-			InvolvedMemberChangedArgs args = new InvolvedMemberChangedArgs(source, memberName, created);
-			int count = _involvedMembersTreeNodes.Count;
-			for (var index = 0; index < count; index++)
-			{
-				_involvedMembersTreeNodes[index].Handler(args);
-
-				if (created)
-					_involvedMembersTreeNodes[index].InvolvedMemebers[new InvolvedMember(source, memberName)]++;
-				else
-				{
-					InvolvedMember involvedMember = new InvolvedMember(source, memberName);
-					_involvedMembersTreeNodes[index].InvolvedMemebers[involvedMember]--;
-					if (_involvedMembersTreeNodes[index].InvolvedMemebers[involvedMember] == 0)
-						_involvedMembersTreeNodes[index].InvolvedMemebers.Remove(involvedMember);
-				}
-			}
-
-			if (source is IComputingInternal computingInternal)
-			{
-				int count1 = _involvedMembersTreeNodes.Count;
-				for (var index = 0; index < count1; index++)
-				{
-					if (created)
-						_involvedMembersTreeNodes[index].AddChild(computingInternal);
-					else
-						_involvedMembersTreeNodes[index].RemoveChild(computingInternal);
-				}
-			}
+			Utils.ProcessInvolvedMemberChanged(source, memberName, created, _involvedMembersTreeNodes);
 		}
-
 		#endregion
 
 		public ReadOnlyCollection<OcConsumer> Consumers =>

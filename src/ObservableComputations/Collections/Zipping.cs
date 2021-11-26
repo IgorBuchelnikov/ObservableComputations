@@ -621,6 +621,14 @@ namespace ObservableComputations
 			Utils.clearCachcedSourceScalarValue(_rightSourceScalar, ref _rightSource);
 		}
 
+		internal override void InitializeInvolvedMembersTreeNodeImpl(InvolvedMembersTreeNode involvedMembersTreeNode)
+		{
+			Utils.AddInvolvedMembersTreeNodeChild(involvedMembersTreeNode, _leftSourceScalar);
+			Utils.AddInvolvedMembersTreeNodeChild(involvedMembersTreeNode, _leftSource);
+			Utils.AddInvolvedMembersTreeNodeChild(involvedMembersTreeNode, _rightSourceScalar);
+			Utils.AddInvolvedMembersTreeNodeChild(involvedMembersTreeNode, _rightSource);
+		}
+
 		[ExcludeFromCodeCoverage]
 		internal void ValidateInternalConsistency()
 		{

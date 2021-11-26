@@ -68,6 +68,11 @@ namespace ObservableComputations
 			}
 		}
 
+		internal override void InitializeInvolvedMembersTreeNodeImpl(InvolvedMembersTreeNode involvedMembersTreeNode)
+		{
+			Utils.AddInvolvedMembersTreeNodeChild(involvedMembersTreeNode, _countScalar);
+		}
+
 		#region Overrides of CollectionComputing<int>
 
 		protected override void processSource()

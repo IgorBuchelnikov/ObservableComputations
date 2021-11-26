@@ -169,6 +169,12 @@ namespace ObservableComputations
 			}
 		}
 
+		internal override void InitializeInvolvedMembersTreeNodeImpl(InvolvedMembersTreeNode involvedMembersTreeNode)
+		{
+			Utils.AddInvolvedMembersTreeNodeChild(involvedMembersTreeNode, _sourceScalar);
+			Utils.AddInvolvedMembersTreeNodeChild(involvedMembersTreeNode, _source);
+		}
+
 		internal override void addToUpstreamComputings(IComputingInternal computing)
 		{
 			Utils.AddDownstreamConsumedComputing(computing, _sourceScalar, _source);

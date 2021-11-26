@@ -856,6 +856,39 @@ namespace ObservableComputations
 
 		#endregion
 
+		#region InvolvedMembers
+		internal List<InvolvedMembersTreeNode> _involvedMembersTreeNodes;
+
+		List<InvolvedMembersTreeNode> IComputingInternal.InvolvedMembersTreeNodes => _involvedMembersTreeNodes;
+
+		void IComputingInternal.InitializeInvolvedMembersTreeNode(InvolvedMembersTreeNode involvedMembersTreeNode)
+		{
+			Utils.InitializeInvolvedMembersTreeNode(involvedMembersTreeNode, this, ref _involvedMembersTreeNodes);
+			Utils.AddInvolvedMembersTreeNodeChild(involvedMembersTreeNode, _sourceScalar);
+			Utils.AddInvolvedMembersTreeNodeChild(involvedMembersTreeNode, _source);
+
+			int itemInfosCount = _itemInfos.Count;
+			for (var index = 0; index < itemInfosCount; index++)
+			{
+				KeyValueExpressionItemInfo<TKey, TValue> itemInfo = _itemInfos[index];
+				itemInfo.KeyExpressionWatcher.FillInvolvedMembers(involvedMembersTreeNode);
+				itemInfo.ValueExpressionWatcher.FillInvolvedMembers(involvedMembersTreeNode);
+			}
+
+			Utils.AddInvolvedMembersTreeNodeChild(involvedMembersTreeNode, _equalityComparerScalar);
+		}
+
+		void IComputingInternal.RemoveInvolvedMembersTreeNode(InvolvedMembersTreeNode involvedMembersTreeNode)
+		{
+			Utils.RemoveInvolvedMembersTreeNode(involvedMembersTreeNode, ref _involvedMembersTreeNodes);
+		}
+
+		void IComputingInternal.ProcessInvolvedMemberChanged(object source, string memberName, bool created)
+		{
+			Utils.ProcessInvolvedMemberChanged(source, memberName, created, _involvedMembersTreeNodes);
+		}
+		#endregion
+
 		#region IEnumerable<out T>
 
 		public IEnumerator<KeyValuePair<TKey, TValue>> GetEnumerator()

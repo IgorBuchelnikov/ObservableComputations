@@ -429,10 +429,10 @@ namespace ObservableComputations
 
 		internal override void InitializeInvolvedMembersTreeNodeImpl(InvolvedMembersTreeNode involvedMembersTreeNode)
 		{
-			if (_isPausedScalar is IComputingInternal isPausedScalarComputingInternal)
-				involvedMembersTreeNode.AddChild(isPausedScalarComputingInternal);
+			Utils.AddInvolvedMembersTreeNodeChild(involvedMembersTreeNode, _isPausedScalar);
 
-			Utils.AddInvolvedMembersTreeNodeChildren(involvedMembersTreeNode, _sourceScalar, _source);
+			Utils.AddInvolvedMembersTreeNodeChild(involvedMembersTreeNode, _sourceScalar);
+			Utils.AddInvolvedMembersTreeNodeChild(involvedMembersTreeNode, _source);
 		}
 
 		[ExcludeFromCodeCoverage]

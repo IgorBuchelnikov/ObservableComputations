@@ -1187,16 +1187,62 @@ namespace ObservableComputations
 			(sourceScalar as IComputingInternal)?.RemoveDownstreamConsumedComputing(computing);
 		}
 
-		internal static void AddInvolvedMembersTreeNodeChildren(
-			InvolvedMembersTreeNode involvedMembersTreeNode, 
-			IReadScalar<INotifyCollectionChanged> sourceScalar, 
-			INotifyCollectionChanged source)
+		internal static void InitializeInvolvedMembersTreeNode(
+			InvolvedMembersTreeNode involvedMembersTreeNode,
+			IComputingInternal computing, ref List<InvolvedMembersTreeNode> involvedMembersTreeNodes)
 		{
-			if (sourceScalar is IComputingInternal sourceScalarComputing)
-				involvedMembersTreeNode.AddChild(sourceScalarComputing);
+			if (involvedMembersTreeNodes == null)
+				involvedMembersTreeNodes = new List<InvolvedMembersTreeNode>();
 
-			if (source is IComputingInternal sourceComputing)
-				involvedMembersTreeNode.AddChild(sourceComputing);
+			involvedMembersTreeNode.Computing = computing;
+		}
+
+		internal static void RemoveInvolvedMembersTreeNode(InvolvedMembersTreeNode involvedMembersTreeNode, ref List<InvolvedMembersTreeNode> involvedMembersTreeNodes)
+		{
+			involvedMembersTreeNodes.Remove(involvedMembersTreeNode);
+
+			if (involvedMembersTreeNodes.Count == 0)
+				involvedMembersTreeNodes = null;
+		}
+	
+		internal static void ProcessInvolvedMemberChanged(object source, string memberName, bool created, List<InvolvedMembersTreeNode> involvedMembersTreeNodes)
+		{
+			if (involvedMembersTreeNodes == null) return;
+
+			InvolvedMemberChangedArgs args = new InvolvedMemberChangedArgs(source, memberName, created);
+			int count = involvedMembersTreeNodes.Count;
+			for (var index = 0; index < count; index++)
+			{
+				involvedMembersTreeNodes[index].Handler(args);
+
+				if (created)
+					involvedMembersTreeNodes[index].InvolvedMemebers[new InvolvedMember(source, memberName)]++;
+				else
+				{
+					InvolvedMember involvedMember = new InvolvedMember(source, memberName);
+					involvedMembersTreeNodes[index].InvolvedMemebers[involvedMember]--;
+					if (involvedMembersTreeNodes[index].InvolvedMemebers[involvedMember] == 0)
+						involvedMembersTreeNodes[index].InvolvedMemebers.Remove(involvedMember);
+				}
+			}
+
+			if (source is IComputingInternal computingInternal)
+			{
+				int count1 = involvedMembersTreeNodes.Count;
+				for (var index = 0; index < count1; index++)
+				{
+					if (created)
+						involvedMembersTreeNodes[index].AddChild(computingInternal);
+					else
+						involvedMembersTreeNodes[index].RemoveChild(computingInternal);
+				}
+			}
+		}	
+		
+		internal static void AddInvolvedMembersTreeNodeChild(InvolvedMembersTreeNode involvedMembersTreeNode, object child)
+		{
+			if (child is IComputingInternal computing)
+				involvedMembersTreeNode.AddChild(computing);
 		}
 
 		internal static readonly PropertyChangedEventArgs InsertItemIntoGroupRequestHandlerPropertyChangedEventArgs = new PropertyChangedEventArgs("InsertItemIntoGroupRequestHandler");

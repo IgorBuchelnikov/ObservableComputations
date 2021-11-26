@@ -909,6 +909,19 @@ namespace ObservableComputations
 				this);
 		}
 
+		internal override void InitializeInvolvedMembersTreeNodeImpl(InvolvedMembersTreeNode involvedMembersTreeNode)
+		{
+			int itemInfosCount = _itemInfos.Count;
+
+			for (var index = 0; index < itemInfosCount; index++)
+				_itemInfos[index].ExpressionWatcher.FillInvolvedMembers(involvedMembersTreeNode);
+
+			Utils.AddInvolvedMembersTreeNodeChild(involvedMembersTreeNode, _leftSourceScalar);
+			Utils.AddInvolvedMembersTreeNodeChild(involvedMembersTreeNode, _leftSource);
+			Utils.AddInvolvedMembersTreeNodeChild(involvedMembersTreeNode, _rightSourceScalar);
+			Utils.AddInvolvedMembersTreeNodeChild(involvedMembersTreeNode, _rightSource);
+		}
+
 		[ExcludeFromCodeCoverage]
 		internal void ValidateInternalConsistency()
 		{

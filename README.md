@@ -79,7 +79,7 @@ All ObservableComputations releases are available at [NuGet](https://www.nuget.o
 
 ## How can I contribute?
 * Presentations, blog posts, tutorials, feedbacks are needed
-* Documentation comments and corrections are welcome
+* Documentation comments and corrections are welcome (I'm not an English speaker)
 * Create a bug report
 * Propose a new feature
 * Create a demo application
@@ -290,7 +290,7 @@ Now *discountedPriceExpression* can be reused for other instances of *Order* cla
 
 ### UI binding
 
-WPF, Xamarin, Blazor. You can bind UI controls to the instances of ObservableComputations classes (*Filtering*, *Computing*, etc.). If you do it, you do not have to worry about forgetting to call [PropertyChanged](https://docs.microsoft.com/en-us/dotnet/api/system.componentmodel.inotifypropertychanged?view=netframework-4.8) for the computed properties or manually process change in some collection. With ObservableComputations, you define how the value should be computed ([declarative style](https://en.wikipedia.org/wiki/Declarative_programming)), everything else ObservableComputations will do. 
+WPF, Xamarin, Blazor. You can bind UI controls to the instances of ObservableComputations classes (*Filtering*, *Computing*, etc.). If you do it, you do not have to worry about forgetting to call [PropertyChanged](https://docs.microsoft.com/en-us/dotnet/api/system.componentmodel.inotifypropertychanged?view=netframework-4.8) for the computed properties or manually process a change in some collection. With ObservableComputations, you define how the value should be computed ([declarative style](https://en.wikipedia.org/wiki/Declarative_programming)), everything else ObservableComputations will do. 
 
 ### Asynchronous programming
 

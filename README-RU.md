@@ -834,7 +834,7 @@ namespace ObservableComputationsExamples
 Класс *OcConsumer* реализует интерфейс [IDisposable](https://docs.microsoft.com/en-us/dotnet/api/system.idisposable?view=net-5.0). При вызове *consumer.Dispose()* *consumer* отказывается от всех своих вычислений. 
 Один экземпляр *OcConsumer* может нуждаться в нескольких вычисления. Вычисление может быть необходимым для нескольких  экземпляров *OcConsumer*. Только когда от вычисления откажутся все экземпляры *OcConsumer* оно становится неактивным. 
 Сказанное выше можно проиллюстрировать диаграммой состояний:
- ![Ж](https://raw.githubusercontent.com/IgorBuchelnikov/ObservableComputations/master/doc/%D0%96%D0%B8%D0%B7%D0%BD%D0%B5%D0%BD%D0%BD%D1%8B%D0%B9%20%D1%86%D0%B8%D0%BA%D0%BB%20%D0%BE%D0%B1%D0%BE%D0%B7%D1%80%D0%B5%D0%B2%D0%B0%D0%B5%D0%BC%D0%BE%D0%B3%D0%BE%20%D0%B2%D1%8B%D1%87%D0%B8%D1%81%D0%BB%D0%B5%D0%BD%D0%B8%D1%8F.png)
+ ![Жизненный цикл вычисления](https://raw.githubusercontent.com/IgorBuchelnikov/ObservableComputations/master/doc/%D0%96%D0%B8%D0%B7%D0%BD%D0%B5%D0%BD%D0%BD%D1%8B%D0%B9%20%D1%86%D0%B8%D0%BA%D0%BB%20%D0%BE%D0%B1%D0%BE%D0%B7%D1%80%D0%B5%D0%B2%D0%B0%D0%B5%D0%BC%D0%BE%D0%B3%D0%BE%20%D0%B2%D1%8B%D1%87%D0%B8%D1%81%D0%BB%D0%B5%D0%BD%D0%B8%D1%8F.png)
 
 ## Передача аргументов как обозреваемых и не обозреваемых
 

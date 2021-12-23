@@ -1062,6 +1062,7 @@ namespace ObservableComputations
 
 			Utils.AddInvolvedMembersTreeNodeChild(involvedMembersTreeNode, _sourceScalar);
 			Utils.AddInvolvedMembersTreeNodeChild(involvedMembersTreeNode, _source);
+			Utils.AddInvolvedMembersTreeNodeChild(involvedMembersTreeNode, _comparerScalar);
 			Utils.AddInvolvedMembersTreeNodeChild(involvedMembersTreeNode, _sortDirectionScalar);
 		}
 

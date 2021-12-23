@@ -364,6 +364,30 @@ namespace ObservableComputations
 
 		#endregion 
 
+		#region InvolvedMembers
+		internal List<InvolvedMembersTreeNode> _involvedMembersTreeNodes;
+
+		List<InvolvedMembersTreeNode> IComputingInternal.InvolvedMembersTreeNodes => _involvedMembersTreeNodes;
+
+		void IComputingInternal.InitializeInvolvedMembersTreeNode(InvolvedMembersTreeNode involvedMembersTreeNode)
+		{
+			Utils.InitializeInvolvedMembersTreeNode(involvedMembersTreeNode, this, ref _involvedMembersTreeNodes);
+			InitializeInvolvedMembersTreeNodeImpl(involvedMembersTreeNode);
+		}
+
+		internal abstract void InitializeInvolvedMembersTreeNodeImpl(InvolvedMembersTreeNode involvedMembersTreeNode);
+
+		void IComputingInternal.RemoveInvolvedMembersTreeNode(InvolvedMembersTreeNode involvedMembersTreeNode)
+		{
+			Utils.RemoveInvolvedMembersTreeNode(involvedMembersTreeNode, ref _involvedMembersTreeNodes);
+		}
+
+		void IComputingInternal.ProcessInvolvedMemberChanged(object source, string memberName, bool created)
+		{
+			Utils.ProcessInvolvedMemberChanged(source, memberName, created, _involvedMembersTreeNodes);
+		}
+		#endregion
+
 		#region INotifyPropertyChanged imlementation
 		public event PropertyChangedEventHandler PropertyChanged;
 		#endregion

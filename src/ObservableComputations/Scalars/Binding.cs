@@ -125,5 +125,10 @@ namespace ObservableComputations
 		}
 
 		#endregion
+
+		internal override void InitializeInvolvedMembersTreeNodeImpl(InvolvedMembersTreeNode involvedMembersTreeNode)
+		{
+			Utils.AddInvolvedMembersTreeNodeChild(involvedMembersTreeNode, _source);
+		}
 	}
 }

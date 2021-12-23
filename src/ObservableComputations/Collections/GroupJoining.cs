@@ -262,20 +262,13 @@ namespace ObservableComputations
 
 		protected override void initialize()
 		{
-			if (_innerSourceScalar != null)
-			{
-				if (_equalityComparerScalar != null)
-					_grouping = _innerSourceScalar.Grouping(_innerKeySelector, _equalityComparerScalar);
-				else
-					_grouping = _innerSourceScalar.Grouping(_innerKeySelector, _equalityComparer);
-			}
-			else
-			{
-				if (_equalityComparerScalar != null)
-					_grouping = _innerSource.Grouping(_innerKeySelector, _equalityComparerScalar);
-				else
-					_grouping = _innerSource.Grouping(_innerKeySelector, _equalityComparer);			   
-			}
+			_grouping = _innerSourceScalar != null
+				? _equalityComparerScalar != null
+					? _innerSourceScalar.Grouping(_innerKeySelector, _equalityComparerScalar)
+					: _innerSourceScalar.Grouping(_innerKeySelector, _equalityComparer)
+				: _equalityComparerScalar != null
+					? _innerSource.Grouping(_innerKeySelector, _equalityComparerScalar)
+					: _innerSource.Grouping(_innerKeySelector, _equalityComparer);
 
 			((IComputingInternal) _grouping).AddDownstreamConsumedComputing(this);
 			subscribeToGroupingCollectionChanged();
@@ -545,6 +538,20 @@ namespace ObservableComputations
 						processSource(false);
 						break;
 				}
+		}
+
+		internal override void InitializeInvolvedMembersTreeNodeImpl(InvolvedMembersTreeNode involvedMembersTreeNode)
+		{
+			int itemInfosCount = _itemInfos.Count;
+
+			for (var index = 0; index < itemInfosCount; index++)
+				_itemInfos[index].ExpressionWatcher.FillInvolvedMembers(involvedMembersTreeNode);
+
+			Utils.AddInvolvedMembersTreeNodeChild(involvedMembersTreeNode, _innerSourceScalar);
+			Utils.AddInvolvedMembersTreeNodeChild(involvedMembersTreeNode, _innerSource);
+			Utils.AddInvolvedMembersTreeNodeChild(involvedMembersTreeNode, _equalityComparerScalar);
+
+			((IComputingInternal)_grouping).InitializeInvolvedMembersTreeNode(involvedMembersTreeNode);
 		}
 
 		internal override void addToUpstreamComputings(IComputingInternal computing)

@@ -383,6 +383,13 @@ namespace ObservableComputations
 
 		#endregion
 
+		internal override void InitializeInvolvedMembersTreeNodeImpl(InvolvedMembersTreeNode involvedMembersTreeNode)
+		{
+			Utils.AddInvolvedMembersTreeNodeChild(involvedMembersTreeNode, _sourceScalar);
+			Utils.AddInvolvedMembersTreeNodeChild(involvedMembersTreeNode, _source);
+			Utils.AddInvolvedMembersTreeNodeChild(involvedMembersTreeNode, _comparerScalar);
+		}
+
 		[ExcludeFromCodeCoverage]
 		internal void ValidateInternalConsistency()
 		{

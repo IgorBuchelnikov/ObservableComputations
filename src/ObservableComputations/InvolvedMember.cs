@@ -64,6 +64,21 @@ namespace ObservableComputations
 				Handler = handler;
 			}
 
+			public void RegisterInvolvedMember(InvolvedMember involvedMember)
+			{
+				if (InvolvedMemebers.ContainsKey(involvedMember))
+					InvolvedMemebers[involvedMember]++;
+				else
+					InvolvedMemebers.Add(involvedMember, 1);
+			}
+
+			public void UnregisterInvolvedMember(InvolvedMember involvedMember)
+			{
+				InvolvedMemebers[involvedMember]--;
+				if (InvolvedMemebers[involvedMember] == 0)
+					InvolvedMemebers.Remove(involvedMember);
+			}
+
 			public void AddChild(IComputingInternal computing)
 			{
 				if (Children == null)
@@ -72,7 +87,11 @@ namespace ObservableComputations
 					ChildrenComputings = new Dictionary<IComputingInternal, int>();
 				}
 
-				ChildrenComputings[computing]++;
+				if (ChildrenComputings.ContainsKey(computing))
+					ChildrenComputings[computing]++;
+				else
+					ChildrenComputings.Add(computing, 1);
+
 				if (ChildrenComputings[computing] > 1) return;
 				InvolvedMembersTreeNode node = new InvolvedMembersTreeNode(args => Handler(args));
 				Children.Add(node);
@@ -85,6 +104,8 @@ namespace ObservableComputations
 
 				if (ChildrenComputings[computing] == 0)
 				{
+					ChildrenComputings.Remove(computing);
+
 					int count = Children.Count;
 					for (var index = 0; index < count; index++) 
 						if (Children[index].Computing == computing)

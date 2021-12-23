@@ -235,13 +235,11 @@ namespace ObservableComputations
 					int count = computing.InvolvedMembersTreeNodes.Count;
 					for (var index = 0; index < count; index++)
 					{
-						InvolvedMembersTreeNode involvedMembersTreeNode = computing.InvolvedMembersTreeNodes[index];
-
 						if (originalSource != null)
-							involvedMembersTreeNode.RemoveChild(originalSource);
+							computing.InvolvedMembersTreeNodes[index].RemoveChild(originalSource);
 
 						if (newSource != null)
-							involvedMembersTreeNode.AddChild(newSource);
+							computing.InvolvedMembersTreeNodes[index].AddChild(newSource);
 					}
 				}
 
@@ -1216,14 +1214,9 @@ namespace ObservableComputations
 				involvedMembersTreeNodes[index].Handler(args);
 
 				if (created)
-					involvedMembersTreeNodes[index].InvolvedMemebers[new InvolvedMember(source, memberName)]++;
+					involvedMembersTreeNodes[index].RegisterInvolvedMember(new InvolvedMember(source, memberName));
 				else
-				{
-					InvolvedMember involvedMember = new InvolvedMember(source, memberName);
-					involvedMembersTreeNodes[index].InvolvedMemebers[involvedMember]--;
-					if (involvedMembersTreeNodes[index].InvolvedMemebers[involvedMember] == 0)
-						involvedMembersTreeNodes[index].InvolvedMemebers.Remove(involvedMember);
-				}
+					involvedMembersTreeNodes[index].UnregisterInvolvedMember(new InvolvedMember(source, memberName));
 			}
 
 			if (source is IComputingInternal computingInternal)

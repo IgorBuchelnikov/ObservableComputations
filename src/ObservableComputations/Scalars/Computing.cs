@@ -116,5 +116,10 @@ namespace ObservableComputations
 		}
 
 		#endregion
+
+		internal override void InitializeInvolvedMembersTreeNodeImpl(InvolvedMembersTreeNode involvedMembersTreeNode)
+		{
+			_getValueExpressionWatcher.FillInvolvedMembers(involvedMembersTreeNode);
+		}
 	}
 }

@@ -306,6 +306,12 @@ namespace ObservableComputations
 			_lastChangesToApplyOnResumeCount = newValue;
 		}
 
+		internal override void InitializeInvolvedMembersTreeNodeImpl(InvolvedMembersTreeNode involvedMembersTreeNode)
+		{
+			Utils.AddInvolvedMembersTreeNodeChild(involvedMembersTreeNode, _source);
+			Utils.AddInvolvedMembersTreeNodeChild(involvedMembersTreeNode, _isPausedScalar);
+		}
+
 		[ExcludeFromCodeCoverage]
 		internal void ValidateInternalConsistency()
 		{

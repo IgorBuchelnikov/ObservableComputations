@@ -434,6 +434,13 @@ namespace ObservableComputations
 			}
 		}
 
+		internal override void InitializeInvolvedMembersTreeNodeImpl(InvolvedMembersTreeNode involvedMembersTreeNode)
+		{
+			Utils.AddInvolvedMembersTreeNodeChild(involvedMembersTreeNode, _sourceScalar);
+			Utils.AddInvolvedMembersTreeNodeChild(involvedMembersTreeNode, _source);
+			Utils.AddInvolvedMembersTreeNodeChild(involvedMembersTreeNode, _separatorScalar);
+		}
+
 		[ExcludeFromCodeCoverage]
 		internal void ValidateInternalConsistency()
 		{

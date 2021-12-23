@@ -957,6 +957,18 @@ namespace ObservableComputations
 					? group
 					: null;
 
+		internal override void InitializeInvolvedMembersTreeNodeImpl(InvolvedMembersTreeNode involvedMembersTreeNode)
+		{
+			int itemInfosCount = _itemInfos.Count;
+
+			for (var index = 0; index < itemInfosCount; index++)
+				_itemInfos[index].ExpressionWatcher.FillInvolvedMembers(involvedMembersTreeNode);
+
+			Utils.AddInvolvedMembersTreeNodeChild(involvedMembersTreeNode, _sourceScalar);
+			Utils.AddInvolvedMembersTreeNodeChild(involvedMembersTreeNode, _source);
+			Utils.AddInvolvedMembersTreeNodeChild(involvedMembersTreeNode, _equalityComparerScalar);
+		}
+
 		[ExcludeFromCodeCoverage]
 		internal void ValidateInternalConsistency()
 		{

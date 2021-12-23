@@ -108,26 +108,37 @@ namespace ObservableComputations
 
 		internal void FillInvolvedMembers(InvolvedMembersTreeNode involvedMembersTreeNode)
 		{
-			int length = _constantCallTrees.Length;
-			for (var index = 0; index < length; index++)
+			int length;
+
+			if (_constantCallTrees != null)
 			{
-				ConstantCallTrees constantCallTrees = _constantCallTrees[index];
-				fillInvolvedMemberFromCallTreeNodes(involvedMembersTreeNode, constantCallTrees.CallTrees);
+				length = _constantCallTrees.Length;
+				for (var index = 0; index < length; index++)
+				{
+					ConstantCallTrees constantCallTrees = _constantCallTrees[index];
+					fillInvolvedMemberFromCallTreeNodes(involvedMembersTreeNode, constantCallTrees.CallTrees);
+				}
 			}
 
-			length = _parameterCallTrees.Length;
-			for (var index = 0; index < length; index++)
+			if (_parameterCallTrees != null)
 			{
-				ParameterCallTrees constantCallTrees = _parameterCallTrees[index];
-				fillInvolvedMemberFromCallTreeNodes(involvedMembersTreeNode, constantCallTrees.CallTrees);
+				length = _parameterCallTrees.Length;
+				for (var index = 0; index < length; index++)
+				{
+					ParameterCallTrees constantCallTrees = _parameterCallTrees[index];
+					fillInvolvedMemberFromCallTreeNodes(involvedMembersTreeNode, constantCallTrees.CallTrees);
+				}
 			}
 
-			length = _expressionCallTrees.Length;
-			for (var index = 0; index < length; index++)
+			if (_expressionCallTrees != null)
 			{
-				ExpressionCallTrees constantCallTrees = _expressionCallTrees[index];
-				constantCallTrees.ExpressionWatcher.FillInvolvedMembers(involvedMembersTreeNode);
-				fillInvolvedMemberFromCallTreeNodes(involvedMembersTreeNode, constantCallTrees.CallTrees);
+				length = _expressionCallTrees.Length;
+				for (var index = 0; index < length; index++)
+				{
+					ExpressionCallTrees constantCallTrees = _expressionCallTrees[index];
+					constantCallTrees.ExpressionWatcher.FillInvolvedMembers(involvedMembersTreeNode);
+					fillInvolvedMemberFromCallTreeNodes(involvedMembersTreeNode, constantCallTrees.CallTrees);
+				}
 			}
 		}
 
@@ -140,7 +151,7 @@ namespace ObservableComputations
 				object holder = callTreeNode._holder;
 
 				if (holder != null)
-					involvedMembersTreeNode.InvolvedMemebers[new InvolvedMember(holder, callTreeNode._call.Name)]++;
+					involvedMembersTreeNode.RegisterInvolvedMember(new InvolvedMember(holder, callTreeNode._call.Name));
 
 				if (holder is IComputingInternal computingInternal)
 					involvedMembersTreeNode.AddChild(computingInternal);

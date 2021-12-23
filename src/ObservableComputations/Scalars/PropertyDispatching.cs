@@ -207,5 +207,10 @@ namespace ObservableComputations
 				_destinationOcDispatcherParameter,
 				this);
 		}
+
+		internal override void InitializeInvolvedMembersTreeNodeImpl(InvolvedMembersTreeNode involvedMembersTreeNode)
+		{
+			Utils.AddInvolvedMembersTreeNodeChild(involvedMembersTreeNode, _source);
+		}
 	}
 }

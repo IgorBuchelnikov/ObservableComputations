@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFrameworks>net461;netcoreapp2.1;netstandard2.0</TargetFrameworks>
+    <TargetFrameworks>net461;net48;netcoreapp2.1;netcoreapp3.1;net5.0;netstandard2.0</TargetFrameworks>
     <SignAssembly>true</SignAssembly>
     <Platforms>AnyCPU;x86</Platforms>
     <LangVersion>7.1</LangVersion>
@@ -19,20 +19,22 @@
     <NeutralLanguage>en</NeutralLanguage>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
-    <PackageReleaseNotes>* Bug fixes
-- Ordering, ThenOrdering: Error if IComparer.Compare returns a number greater than 1 or smaller than -1
-- Aggregating: IsDefaulted is not set to true if source collection is null
-- Aggregating: Custom default value (DefaultValue property) is ignored if source collection is null</PackageReleaseNotes>
-    <Version>2.2.1</Version>
+    <PackageReleaseNotes>* New feature
+- NullPropagating operator
+- Targeting to net core 3.1 and net 5</PackageReleaseNotes>
+    <Version>2.3.0</Version>
     <AssemblyName>ObservableComputations</AssemblyName>
     <PackageId>ObservableComputations</PackageId>
     <Product>ObservableComputations</Product>
-    <AssemblyVersion>2.2.1.0</AssemblyVersion>
-    <FileVersion>2.2.1.0</FileVersion>
+    <AssemblyVersion>2.3.0.0</AssemblyVersion>
+    <FileVersion>2.3.0.0</FileVersion>
     <PackageIconUrl></PackageIconUrl>
     <PackageLicenseFile>LICENSE</PackageLicenseFile>
     <Copyright>Igor Buchelnikov (c)</Copyright>
     <PackageIcon>icon_32x32.png</PackageIcon>
+	<IncludeSymbols>true</IncludeSymbols>
+	<SymbolPackageFormat>snupkg</SymbolPackageFormat>
+	<ContinuousIntegrationBuild>true</ContinuousIntegrationBuild>		
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug|net472|x86'">
@@ -55,7 +57,7 @@
 
   <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|net461|AnyCPU'">
     <Optimize>true</Optimize>
-  </PropertyGroup>
+  </PropertyGroup>  
 
   <ItemGroup>
     <Reference Include="System" />

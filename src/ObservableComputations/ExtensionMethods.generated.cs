@@ -18480,6 +18480,29 @@ namespace ObservableComputations
 		}
 
 		#endregion
+		#region NullPropagating
+
+		[ObservableComputationsCall]
+		public static ObservableComputations.NullPropagating<TValue, TResult> NullPropagating<TValue, TResult>(this
+			 ObservableComputations.IReadScalar<TValue> source,
+			 System.Linq.Expressions.Expression<System.Func<TValue, TResult>> getValueExpression)
+		where TValue : class		{
+			return new ObservableComputations.NullPropagating<TValue, TResult>(
+				source: source,
+				getValueExpression: getValueExpression);
+		}
+
+		[ObservableComputationsCall]
+		public static ObservableComputations.NullPropagating<TValue, TResult> NullPropagating<TValue, TResult>(this
+			 Expression<Func<TValue>> source,
+			 System.Linq.Expressions.Expression<System.Func<TValue, TResult>> getValueExpression)
+		where TValue : class		{
+			return new ObservableComputations.NullPropagating<TValue, TResult>(
+				source: new Computing<TValue>(source),
+				getValueExpression: getValueExpression);
+		}
+
+		#endregion
 		#region OfTypeComputing
 
 		[ObservableComputationsCall]
@@ -30194,7 +30217,7 @@ namespace ObservableComputations
 		[ObservableComputationsCall]
 		public static ObservableComputations.WeakPreviousTracking<TResult> WeakPreviousTracking<TResult>(this
 			 ObservableComputations.IReadScalar<TResult> source)
-where TResult : class		{
+		where TResult : class		{
 			return new ObservableComputations.WeakPreviousTracking<TResult>(
 				source: source);
 		}
@@ -30202,7 +30225,7 @@ where TResult : class		{
 		[ObservableComputationsCall]
 		public static ObservableComputations.WeakPreviousTracking<TResult> WeakPreviousTracking<TResult>(this
 			 Expression<Func<TResult>> source)
-where TResult : class		{
+		where TResult : class		{
 			return new ObservableComputations.WeakPreviousTracking<TResult>(
 				source: new Computing<TResult>(source));
 		}

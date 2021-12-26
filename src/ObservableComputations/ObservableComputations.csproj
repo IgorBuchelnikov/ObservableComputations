@@ -33,8 +33,7 @@
     <Copyright>Igor Buchelnikov (c)</Copyright>
     <PackageIcon>icon_32x32.png</PackageIcon>
 	<IncludeSymbols>true</IncludeSymbols>
-	<SymbolPackageFormat>snupkg</SymbolPackageFormat>
-	<ContinuousIntegrationBuild>true</ContinuousIntegrationBuild>		
+	<SymbolPackageFormat>snupkg</SymbolPackageFormat>	
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug|net472|x86'">

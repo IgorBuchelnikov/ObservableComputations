@@ -31,22 +31,21 @@ namespace ObservableComputations
 		{
 			_source = source;
 			_getValueExpression = getValueExpression;
-			_computing = new Computing<TResult>(getNullPropagatingExpression(source, getValueExpression));
-		}
 
-		private static Expression<Func<TResult>> getNullPropagatingExpression(IReadScalar<TValue> source, Expression<Func<TValue, TResult>> getValueExpression)
-		{
 			MemberExpression getSourceValueExpression = Expression.PropertyOrField(Expression.Constant(source), nameof(IReadScalar<TValue>.Value));
 
-			Expression getValueExpressionLocal = new ReplaceParameterVisitor(new Dictionary<ParameterExpression, Expression>() { { getValueExpression.Parameters[0], getSourceValueExpression } }).Visit(getValueExpression.Body);
-
-			return Expression.Lambda<Func<TResult>>(
-				Expression.Condition(
-					Expression.NotEqual(
-						getSourceValueExpression,
-						Expression.Constant(null, typeof(TValue))),
-					getValueExpressionLocal,
-					Expression.Constant(default(TResult), typeof(TResult))));
+			_computing = new Computing<TResult>(
+				Expression.Lambda<Func<TResult>>(
+					Expression.Condition(
+						Expression.NotEqual(
+							getSourceValueExpression,
+							Expression.Constant(null, typeof(TValue))),
+						new ReplaceParameterVisitor(
+							new Dictionary<ParameterExpression, Expression>()
+							{
+								{ getValueExpression.Parameters[0], getSourceValueExpression }
+							}).Visit(getValueExpression.Body),
+						Expression.Constant(default(TResult), typeof(TResult)))));
 		}
 
 		private void handleSourceScalarPropertyChanged(object sender, PropertyChangedEventArgs e)

@@ -29,7 +29,7 @@ ObservableComputations is easy to use and powerful implementation of [reactive p
 
 ## Analogs
 
-The closest analogs of ObservableComputations are the following libraries: [Obtics](https://archive.codeplex.com/?p=obtics), [OLinq](https://github.com/wasabii/OLinq), [NFM.Expressions](https://github.com/NMFCode/NMF), [BindableLinq](https://github.com/svn2github/bindablelinq), [ContinuousLinq](https://github.com/ismell/Continuous-LINQ).
+The closest analogs of ObservableComputations are the following libraries: [Obtics](https://github.com/IgorBuchelnikov/Obtics), [OLinq](https://github.com/wasabii/OLinq), [NFM.Expressions](https://github.com/NMFCode/NMF), [BindableLinq](https://github.com/svn2github/bindablelinq), [ContinuousLinq](https://github.com/ismell/Continuous-LINQ).
 
 ### [Reactive Extensions](https://github.com/dotnet/reactive)
 <details>

@@ -1469,7 +1469,7 @@ Delegate passed to the *newItemProcessor* parameter is called
 * when [activating](#two-computation-states-active-and-inactive) instance of *CollectionProcessing&lt;TSourceItem, TReturnValue&gt;* class (if the source collection (*onlineClients*) contains elements at the time of activation),
 * when adding an item to the source collection (*onlineClients*),
 * when replacing an item in the source collection (setting the collection item by index),
-* when [resetting](https://docs.microsoft.com/en-us/dotnet/api/system.collections.specialized.notifycollectionchangedaction?view=net-5.0) the source collection and it contains items after [reset](https://docs.microsoft.com/en-us/dotnet/api/system.collections.specialized.notifycollectionchangedaction?view=net-5.0,
+* when [resetting](https://docs.microsoft.com/en-us/dotnet/api/system.collections.specialized.notifycollectionchangedaction?view=net-5.0) the source collection and it contains items after [reset](https://docs.microsoft.com/en-us/dotnet/api/system.collections.specialized.notifycollectionchangedaction?view=net-5.0),
 * when [source collection is passed as a scalar](#passing-source-collection-argument-as-observable) (*IReadScalar&lt;TValue&gt;*), and its value changes to the collection that contains the elements.
 
 The delegate passed to the *oldItemProcessor* parameter is called

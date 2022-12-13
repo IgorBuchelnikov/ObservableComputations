@@ -436,6 +436,7 @@ namespace ObservableComputations
 		bool _inactivationInProgress;
 		public bool ActivationInProgress => _activationInProgress;
 		public bool InactivationInProgress => _inactivationInProgress;
+		public abstract IEnumerable<IComputing> UpstreamComputingsDirect { get; }
 
 		void IComputingInternal.SetInactivationInProgress(bool value)
 		{
@@ -446,30 +447,25 @@ namespace ObservableComputations
 		{
 			_activationInProgress = value;
 		}
-
-		#region InvolvedMembers
-		internal List<InvolvedMembersTreeNode> _involvedMembersTreeNodes;
-
-		List<InvolvedMembersTreeNode> IComputingInternal.InvolvedMembersTreeNodes => _involvedMembersTreeNodes;
-
-		void IComputingInternal.InitializeInvolvedMembersTreeNode(InvolvedMembersTreeNode involvedMembersTreeNode)
+		
+		void IComputingInternal.RegisterInvolvedMembersAccumulator(
+			InvolvedMembersAccumulator involvedMembersAccumulator)
 		{
-			Utils.InitializeInvolvedMembersTreeNode(involvedMembersTreeNode, this, ref _involvedMembersTreeNodes);
-			InitializeInvolvedMembersTreeNodeImpl(involvedMembersTreeNode);
+			RegisterInvolvedMembersAccumulatorImpl(involvedMembersAccumulator);
+			Utils.RegisterInvolvedMembersAccumulatorInUpstreamComputings(involvedMembersAccumulator, ref _involvedMembersAccumulators, (List<IComputing>)UpstreamComputingsDirect);
 		}
 
-		internal abstract void InitializeInvolvedMembersTreeNodeImpl(InvolvedMembersTreeNode involvedMembersTreeNode);
+		internal virtual void RegisterInvolvedMembersAccumulatorImpl(InvolvedMembersAccumulator involvedMembersAccumulator) { }
 
-		void IComputingInternal.RemoveInvolvedMembersTreeNode(InvolvedMembersTreeNode involvedMembersTreeNode)
+		void IComputingInternal.UnregisterInvolvedMembersAccumulator(InvolvedMembersAccumulator involvedMembersAccumulator)
 		{
-			Utils.RemoveInvolvedMembersTreeNode(involvedMembersTreeNode, ref _involvedMembersTreeNodes);
+			UnregisterInvolvedMembersAccumulatorImpl(involvedMembersAccumulator);
+			Utils.UnregisterInvolvedMembersAccumulator(involvedMembersAccumulator, ref _involvedMembersAccumulators, (List<IComputing>)UpstreamComputingsDirect);
 		}
 
-		void IComputingInternal.ProcessInvolvedMemberChanged(object source, string memberName, bool created)
-		{
-			Utils.ProcessInvolvedMemberChanged(source, memberName, created, _involvedMembersTreeNodes);
-		}
-		#endregion
+		internal virtual void UnregisterInvolvedMembersAccumulatorImpl(InvolvedMembersAccumulator involvedMembersAccumulator) { }
+
+		List<InvolvedMembersAccumulator> IComputingInternal.InvolvedMembersAccumulators => _involvedMembersAccumulators;
 
 		public ReadOnlyCollection<OcConsumer> Consumers =>
 			new ReadOnlyCollection<OcConsumer>(_consumers.Union(_downstreamConsumedComputings.SelectMany(c => c.Consumers)).ToList());
@@ -598,6 +594,8 @@ namespace ObservableComputations
 
 		internal abstract void addToUpstreamComputings(IComputingInternal computing);
 		internal abstract void removeFromUpstreamComputings(IComputingInternal computing);
+
+		private List<InvolvedMembersAccumulator> _involvedMembersAccumulators;
 
 		#region Overrides of Object
 

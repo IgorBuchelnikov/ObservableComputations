@@ -3,6 +3,7 @@
 // The LICENSE file is located at https://github.com/IgorBuchelnikov/ObservableComputations/blob/master/LICENSE
 
 using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Diagnostics.CodeAnalysis;
@@ -160,9 +161,14 @@ namespace ObservableComputations
 				this);
 		}
 
-		internal override void InitializeInvolvedMembersTreeNodeImpl(InvolvedMembersTreeNode involvedMembersTreeNode)
+		public override IEnumerable<IComputing> UpstreamComputingsDirect
 		{
-			Utils.AddInvolvedMembersTreeNodeChild(involvedMembersTreeNode, _source);
+			get
+			{
+				List<IComputing> computings = new List<IComputing>();
+				Utils.FillUpstreamComputingsDirect(computings, _source);
+				return computings;
+			}
 		}
 
 		[ExcludeFromCodeCoverage]

@@ -218,6 +218,7 @@ namespace ObservableComputations
 		bool _inactivationInProgress;
 		public bool ActivationInProgress => _activationInProgress;
 		public bool InactivationInProgress => _inactivationInProgress;
+		public abstract IEnumerable<IComputing> UpstreamComputingsDirect { get; }
 
 		void IComputingInternal.SetInactivationInProgress(bool value)
 		{
@@ -229,6 +230,30 @@ namespace ObservableComputations
 			_activationInProgress = value;
 		}
 
+		private List<InvolvedMembersAccumulator> _involvedMembersAccumulators;
+
+		void IComputingInternal.RegisterInvolvedMembersAccumulator(
+			InvolvedMembersAccumulator involvedMembersAccumulator)
+		{
+			RegisterInvolvedMembersAccumulatorImpl(involvedMembersAccumulator);
+			Utils.RegisterInvolvedMembersAccumulatorInUpstreamComputings(involvedMembersAccumulator, ref _involvedMembersAccumulators, (List<IComputing>)UpstreamComputingsDirect);
+		}
+
+		internal virtual void RegisterInvolvedMembersAccumulatorImpl(InvolvedMembersAccumulator involvedMembersAccumulator) { }
+
+		void IComputingInternal.UnregisterInvolvedMembersAccumulator(InvolvedMembersAccumulator involvedMembersAccumulator)
+		{
+			UnregisterInvolvedMembersAccumulatorImpl(involvedMembersAccumulator);
+			Utils.UnregisterInvolvedMembersAccumulator(involvedMembersAccumulator, ref _involvedMembersAccumulators, (List<IComputing>)UpstreamComputingsDirect);
+		}
+
+		internal virtual void UnregisterInvolvedMembersAccumulatorImpl(InvolvedMembersAccumulator involvedMembersAccumulator) { }
+
+		List<InvolvedMembersAccumulator> IComputingInternal.InvolvedMembersAccumulators => _involvedMembersAccumulators;
+
+		public ReadOnlyCollection<OcConsumer> Consumers =>
+			new ReadOnlyCollection<OcConsumer>(_consumers.Union(_downstreamConsumedComputings.SelectMany(c => c.Consumers)).ToList());
+
 		protected abstract void processSource();
 		protected abstract void initialize();
 		protected abstract void uninitialize();
@@ -239,9 +264,6 @@ namespace ObservableComputations
 
 		protected readonly List<OcConsumer> _consumers = new List<OcConsumer>();
 		internal readonly List<IComputingInternal> _downstreamConsumedComputings = new List<IComputingInternal>();
-
-		public ReadOnlyCollection<OcConsumer> Consumers =>
-			new ReadOnlyCollection<OcConsumer>(_consumers.Union(_downstreamConsumedComputings.SelectMany(c => c.Consumers)).ToList());
 
 		#region Implementation of IComputingInternal
 		IEnumerable<OcConsumer> IComputingInternal.Consumers => _consumers;
@@ -362,30 +384,6 @@ namespace ObservableComputations
 			PropertyChanged?.Invoke(this, Utils.IsDefaultedPropertyChangedEventArgs);
 		}
 
-		#endregion 
-
-		#region InvolvedMembers
-		internal List<InvolvedMembersTreeNode> _involvedMembersTreeNodes;
-
-		List<InvolvedMembersTreeNode> IComputingInternal.InvolvedMembersTreeNodes => _involvedMembersTreeNodes;
-
-		void IComputingInternal.InitializeInvolvedMembersTreeNode(InvolvedMembersTreeNode involvedMembersTreeNode)
-		{
-			Utils.InitializeInvolvedMembersTreeNode(involvedMembersTreeNode, this, ref _involvedMembersTreeNodes);
-			InitializeInvolvedMembersTreeNodeImpl(involvedMembersTreeNode);
-		}
-
-		internal abstract void InitializeInvolvedMembersTreeNodeImpl(InvolvedMembersTreeNode involvedMembersTreeNode);
-
-		void IComputingInternal.RemoveInvolvedMembersTreeNode(InvolvedMembersTreeNode involvedMembersTreeNode)
-		{
-			Utils.RemoveInvolvedMembersTreeNode(involvedMembersTreeNode, ref _involvedMembersTreeNodes);
-		}
-
-		void IComputingInternal.ProcessInvolvedMemberChanged(object source, string memberName, bool created)
-		{
-			Utils.ProcessInvolvedMemberChanged(source, memberName, created, _involvedMembersTreeNodes);
-		}
 		#endregion
 
 		#region INotifyPropertyChanged imlementation

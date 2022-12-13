@@ -169,11 +169,16 @@ namespace ObservableComputations
 			}
 		}
 
-		internal override void InitializeInvolvedMembersTreeNodeImpl(InvolvedMembersTreeNode involvedMembersTreeNode)
+		public override IEnumerable<IComputing> UpstreamComputingsDirect
 		{
-			Utils.AddInvolvedMembersTreeNodeChild(involvedMembersTreeNode, _sourceScalar);
-			Utils.AddInvolvedMembersTreeNodeChild(involvedMembersTreeNode, _source);
+			get
+			{
+				List<IComputing> computings = new List<IComputing>();
+				Utils.FillUpstreamComputingsDirect(computings, _source, _sourceScalar);
+				return computings;
+			}
 		}
+
 
 		internal override void addToUpstreamComputings(IComputingInternal computing)
 		{
@@ -208,6 +213,7 @@ namespace ObservableComputations
 		}
 
 		#endregion
+
 
 		[ExcludeFromCodeCoverage]
 		internal void ValidateInternalConsistency()

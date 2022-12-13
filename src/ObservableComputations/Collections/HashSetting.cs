@@ -474,6 +474,8 @@ namespace ObservableComputations
 			PropertyChanged?.Invoke(this, eventArgs);
 		}
 
+
+
 		[ExcludeFromCodeCoverage]
 		internal void ValidateInternalConsistency()
 		{
@@ -667,32 +669,23 @@ namespace ObservableComputations
 		#endregion
 
 		#region InvolvedMembers
-		internal List<InvolvedMembersTreeNode> _involvedMembersTreeNodes;
-
-		List<InvolvedMembersTreeNode> IComputingInternal.InvolvedMembersTreeNodes => _involvedMembersTreeNodes;
-
-		void IComputingInternal.InitializeInvolvedMembersTreeNode(InvolvedMembersTreeNode involvedMembersTreeNode)
+		public IEnumerable<IComputing> UpstreamComputingsDirect
 		{
-			Utils.InitializeInvolvedMembersTreeNode(involvedMembersTreeNode, this, ref _involvedMembersTreeNodes);
-			Utils.AddInvolvedMembersTreeNodeChild(involvedMembersTreeNode, _sourceScalar);
-			Utils.AddInvolvedMembersTreeNodeChild(involvedMembersTreeNode, _source);
-
-			int itemInfosCount = _itemInfos.Count;
-			for (var index = 0; index < itemInfosCount; index++)
-				_itemInfos[index].ExpressionWatcher.FillInvolvedMembers(involvedMembersTreeNode);
-
-			Utils.AddInvolvedMembersTreeNodeChild(involvedMembersTreeNode, _equalityComparerScalar);
+			get
+			{
+				List<IComputing> computings = new List<IComputing>();
+				Utils.FillUpstreamComputingsDirect(computings, _source, _sourceScalar, _itemInfos, _keyNestedComputings);
+				if (_equalityComparerScalar is IComputing equalityComparerScalarComputing)
+					computings.Add(equalityComparerScalarComputing);
+				return computings;
+			}
 		}
 
-		void IComputingInternal.RemoveInvolvedMembersTreeNode(InvolvedMembersTreeNode involvedMembersTreeNode)
-		{
-			Utils.RemoveInvolvedMembersTreeNode(involvedMembersTreeNode, ref _involvedMembersTreeNodes);
-		}
+		void IComputingInternal.RegisterInvolvedMembersAccumulator(InvolvedMembersAccumulator involvedMembersAccumulator) => 
+			Utils.ProcessInvolvedMembersAccumulator(this, involvedMembersAccumulator, _itemInfos, true);
 
-		void IComputingInternal.ProcessInvolvedMemberChanged(object source, string memberName, bool created)
-		{
-			Utils.ProcessInvolvedMemberChanged(source, memberName, created, _involvedMembersTreeNodes);
-		}
+		void IComputingInternal.UnregisterInvolvedMembersAccumulator(InvolvedMembersAccumulator involvedMembersAccumulator) => 
+			Utils.ProcessInvolvedMembersAccumulator(this, involvedMembersAccumulator, _itemInfos, false);
 		#endregion
 
 		#region IEnumerable<out T>

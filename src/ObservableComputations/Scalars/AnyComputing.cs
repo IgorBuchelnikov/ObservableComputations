@@ -405,16 +405,21 @@ namespace ObservableComputations
 			calculateValue();
 		}
 
-		internal override void InitializeInvolvedMembersTreeNodeImpl(InvolvedMembersTreeNode involvedMembersTreeNode)
+		public override IEnumerable<IComputing> UpstreamComputingsDirect
 		{
-			int itemInfosCount = _itemInfos.Count;
-
-			for (var index = 0; index < itemInfosCount; index++)
-				_itemInfos[index].ExpressionWatcher.FillInvolvedMembers(involvedMembersTreeNode);
-
-			Utils.AddInvolvedMembersTreeNodeChild(involvedMembersTreeNode, _sourceScalar);
-			Utils.AddInvolvedMembersTreeNodeChild(involvedMembersTreeNode, _source);
+			get
+			{
+				List<IComputing> computings = new List<IComputing>();
+				Utils.FillUpstreamComputingsDirect(computings, _source, _sourceScalar, _itemInfos, _nestedComputings);
+				return computings;
+			}
 		}
+
+		internal override void RegisterInvolvedMembersAccumulatorImpl(InvolvedMembersAccumulator involvedMembersAccumulator) => 
+			Utils.ProcessInvolvedMembersAccumulator(this, involvedMembersAccumulator, _itemInfos, true);
+
+		internal override void UnregisterInvolvedMembersAccumulatorImpl(InvolvedMembersAccumulator involvedMembersAccumulator) => 
+			Utils.ProcessInvolvedMembersAccumulator(this, involvedMembersAccumulator, _itemInfos, false);
 
 		[ExcludeFromCodeCoverage]
 		internal void ValidateInternalConsistency()

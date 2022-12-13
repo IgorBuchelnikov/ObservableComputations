@@ -7,6 +7,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Collections.Specialized;
 using System.ComponentModel;
+using System.Linq;
 using System.Linq.Expressions;
 using System.Threading;
 
@@ -109,6 +110,7 @@ namespace ObservableComputations
 			EventUnsubscriber.QueueSubscriptions(propertyChangedEventSubscriptions, methodChangedEventSubscriptions);
 		}
 
+		// TODO change to itemInfoRemoveDownstreamConsumedComputing
 		private static void disposeNestedComputings(IComputingInternal computing, List<IComputingInternal> nestedComputings)
 		{
 			if (nestedComputings != null)
@@ -116,6 +118,10 @@ namespace ObservableComputations
 				int nestedComputingsCount = nestedComputings.Count;
 				for (int computingIndex = 0; computingIndex < nestedComputingsCount; computingIndex++)
 					nestedComputings[computingIndex].RemoveDownstreamConsumedComputing(computing);
+
+				if (computing.InvolvedMembersAccumulators != null)
+					for (int computingIndex = 0; computingIndex < nestedComputingsCount; computingIndex++)
+						nestedComputings[computingIndex].UnregisterInvolvedMembersAccumulator(computing.InvolvedMembersAccumulators);
 			}
 		}
 
@@ -230,29 +236,27 @@ namespace ObservableComputations
 
 			if (originalSource != newSource)
 			{
-				if (computing.InvolvedMembersTreeNodes != null)
-				{
-					int count = computing.InvolvedMembersTreeNodes.Count;
-					for (var index = 0; index < count; index++)
-					{
-						if (originalSource != null)
-							computing.InvolvedMembersTreeNodes[index].RemoveChild(originalSource);
-
-						if (newSource != null)
-							computing.InvolvedMembersTreeNodes[index].AddChild(newSource);
-					}
-				}
-
 				for (int index = 0; index < downstreamConsumedComputings.Count; index++)
 				{
 					IComputingInternal downstreamConsumedComputing = downstreamConsumedComputings[index];
 					originalSource?.RemoveDownstreamConsumedComputing(downstreamConsumedComputing);
 					newSource?.AddDownstreamConsumedComputing(downstreamConsumedComputing);
+
+					if (downstreamConsumedComputing.InvolvedMembersAccumulators != null)
+					{
+						originalSource?.UnregisterInvolvedMembersAccumulator(downstreamConsumedComputing.InvolvedMembersAccumulators);
+						newSource?.RegisterInvolvedMembersAccumulator(downstreamConsumedComputing.InvolvedMembersAccumulators);
+					}
+					
 				}
 
 				originalSource?.RemoveDownstreamConsumedComputing(computing);
-				if (consumers.Count > 0)
-					newSource?.AddDownstreamConsumedComputing(computing);
+				if (consumers.Count > 0 && newSource != null)
+				{
+					newSource.AddDownstreamConsumedComputing(computing);
+					if (computing.InvolvedMembersAccumulators != null)
+						newSource.RegisterInvolvedMembersAccumulator(computing.InvolvedMembersAccumulators);
+				}
 			}
 
 			if (setSourceAsList)
@@ -296,6 +300,11 @@ namespace ObservableComputations
 				int nestedComputingsCount = nestedComputings.Count;
 				for (int computingIndex = 0; computingIndex < nestedComputingsCount; computingIndex++)
 					nestedComputings[computingIndex].AddDownstreamConsumedComputing(computing);
+
+				if (computing.InvolvedMembersAccumulators != null)
+					for (int computingIndex = 0; computingIndex < nestedComputingsCount; computingIndex++)
+						nestedComputings[computingIndex]
+							.RegisterInvolvedMembersAccumulator(computing.InvolvedMembersAccumulators);
 			}
 		}
 
@@ -306,6 +315,10 @@ namespace ObservableComputations
 				int nestedComputingsCount = computingInternals.Count;
 				for (int computingIndex = 0; computingIndex < nestedComputingsCount; computingIndex++)
 					computingInternals[computingIndex].RemoveDownstreamConsumedComputing(computing);
+
+				if (computing.InvolvedMembersAccumulators != null)
+					for (int computingIndex = 0; computingIndex < nestedComputingsCount; computingIndex++)
+						computingInternals[computingIndex].UnregisterInvolvedMembersAccumulator(computing.InvolvedMembersAccumulators);
 			}
 		}
 
@@ -485,7 +498,7 @@ namespace ObservableComputations
 			IComputingInternal computing) 
 			where TCanProcessSourceItemChange : ISourceItemChangeProcessor
 		{
-			processExpressionWatcherNestedComputings(expressionWatcher, thisAsCanProcessSourceItemChange);
+			processExpressionWatcherCurrentComputingsChanges(expressionWatcher, thisAsCanProcessSourceItemChange);
 
 			bool canProcessNow = isConsistent && (rootSourceWrapper || observableCollectionWithTickTackVersion.TickTackVersion == lastProcessedSourceTickTackVersion);
 
@@ -521,7 +534,7 @@ namespace ObservableComputations
 			int deferredProcessingsCount,
 			IComputingInternal computing) where TCanProcessSourceItemChange : ISourceItemChangeProcessor
 		{
-			processExpressionWatcherNestedComputings(expressionWatcher, thisAsCanProcessSourceItemChange);
+			processExpressionWatcherCurrentComputingsChanges(expressionWatcher, thisAsCanProcessSourceItemChange);
 
 			bool canProcessNow = isConsistent
 				&& (rootSourceWrapper1 || observableCollectionWithTickTackVersion1.TickTackVersion == lastProcessedSource1TickTackVersion)
@@ -540,7 +553,7 @@ namespace ObservableComputations
 				ref handledEventArgs, canProcessNow, computing);
 		}
 
-		internal static void processExpressionWatcherNestedComputings(
+		internal static void processExpressionWatcherCurrentComputingsChanges(
 			ExpressionWatcher expressionWatcher, 
 			IComputingInternal computing)
 		{
@@ -565,6 +578,14 @@ namespace ObservableComputations
 				{
 					callReturningComputing.OldComputing?.RemoveDownstreamConsumedComputing(computing);
 					newComputing?.AddDownstreamConsumedComputing(computing);
+
+					if (computing.InvolvedMembersAccumulators != null)
+					{
+						callReturningComputing.OldComputing
+							?.UnregisterInvolvedMembersAccumulator(computing.InvolvedMembersAccumulators);
+						newComputing
+							?.RegisterInvolvedMembersAccumulator(computing.InvolvedMembersAccumulators);
+					}
 				}
 			}
 		}
@@ -625,14 +646,7 @@ namespace ObservableComputations
 			bool expressionContainsParametrizedLiveLinqCalls,
 			ExpressionWatcher.ExpressionInfo valueSelectorExpressionInfo)
 		{
-			if (!expressionContainsParametrizedLiveLinqCalls)
-			{
-				watcher = new ExpressionWatcher(current, valueSelectorExpressionInfo, sourceItems);
-				func = default(TExpressionCompiled);
-				nestedComputings = null;
-				expressionCallCount = valueSelectorExpressionInfo._callCount;
-			}
-			else
+			if (expressionContainsParametrizedLiveLinqCalls)
 			{
 				Expression<TExpressionCompiled> deparametrizedPredicateExpression =
 					(Expression<TExpressionCompiled>) expression.ApplyParameters(sourceItems);
@@ -649,11 +663,24 @@ namespace ObservableComputations
 				for (int computingIndex = 0; computingIndex < nestedComputingsCount; computingIndex++)
 					nestedComputings[computingIndex].AddDownstreamConsumedComputing(current);
 
+				if (current.InvolvedMembersAccumulators != null)
+					for (int computingIndex = 0; computingIndex < nestedComputingsCount; computingIndex++)
+						nestedComputings[computingIndex]
+							.RegisterInvolvedMembersAccumulator(current.InvolvedMembersAccumulators);
+
+
 				ExpressionWatcher.ExpressionInfo expressionInfo =
 					ExpressionWatcher.GetExpressionInfo(predicateExpression);
 				watcher = new ExpressionWatcher(current, expressionInfo);
 
 				expressionCallCount = expressionInfo._callCount;
+			}
+			else
+			{
+				watcher = new ExpressionWatcher(current, valueSelectorExpressionInfo, sourceItems);
+				func = default(TExpressionCompiled);
+				nestedComputings = null;
+				expressionCallCount = valueSelectorExpressionInfo._callCount;
 			}
 
 			initializeExpressionWatcherCurrentComputings(watcher, expressionCallCount, current);
@@ -665,14 +692,121 @@ namespace ObservableComputations
 			IComputingInternal current)
 		{
 			for (int computingIndex = 0; computingIndex < expressionCallCount; computingIndex++)
-				watcher._currentComputings[computingIndex]?.AddDownstreamConsumedComputing(current);
+				watcher?._currentComputings[computingIndex].AddDownstreamConsumedComputing(current);
+
+			if (current.InvolvedMembersAccumulators != null)
+				for (int computingIndex = 0; computingIndex < expressionCallCount; computingIndex++)
+					watcher?._currentComputings[computingIndex]
+						.RegisterInvolvedMembersAccumulator(current.InvolvedMembersAccumulators);
+		}
+
+		internal static void RegisterInvolvedMembersAccumulator(
+			this IComputingInternal computing, 
+			List<InvolvedMembersAccumulator> involvedMembersAccumulators)
+		{
+			for (var index = 0; index < involvedMembersAccumulators.Count; index++)
+				computing.RegisterInvolvedMembersAccumulator(involvedMembersAccumulators[index]);
+		}
+
+		internal static void UnregisterInvolvedMembersAccumulator(this IComputingInternal computing, List<InvolvedMembersAccumulator> involvedMembersAccumulators)
+		{
+			for (var index = 0; index < involvedMembersAccumulators.Count; index++)
+				computing.UnregisterInvolvedMembersAccumulator(involvedMembersAccumulators[index]);
+		}
+
+		internal static void RegisterInvolvedMembersAccumulatorInUpstreamComputings(
+			InvolvedMembersAccumulator involvedMembersAccumulator, 
+			ref List<InvolvedMembersAccumulator> involvedMembersAccumulators, 
+			List<IComputing> upstreamComputingsDirect) 
+		{
+			if (involvedMembersAccumulators == null)
+				involvedMembersAccumulators = new List<InvolvedMembersAccumulator>();
+
+			involvedMembersAccumulators.Add(involvedMembersAccumulator);
+
+			bool include;
+			for (int i = 0; i < upstreamComputingsDirect.Count; i++)
+			{
+				var computing = (IComputingInternal) upstreamComputingsDirect[i];
+
+				include = true;
+				if (involvedMembersAccumulator.ExcludedComputings != null)
+					for (var index = 0; index < involvedMembersAccumulator.ExcludedComputings.Length; index++)
+					{
+						if (ReferenceEquals(involvedMembersAccumulator.ExcludedComputings[index], computing))
+						{
+							include = false;
+							break;
+						}
+					}
+
+				if (include)
+					computing.RegisterInvolvedMembersAccumulator(involvedMembersAccumulator);
+			}
+		}
+
+		internal static void UnregisterInvolvedMembersAccumulator(
+			InvolvedMembersAccumulator involvedMembersAccumulator, 
+			ref List<InvolvedMembersAccumulator> involvedMembersAccumulators, 
+			List<IComputing> upstreamComputingsDirect)
+		{
+			for (int index = 0; index < upstreamComputingsDirect.Count; index++)
+			{
+				var computing = (IComputingInternal) upstreamComputingsDirect[index];
+				if (involvedMembersAccumulators.Remove(involvedMembersAccumulator))
+					computing.UnregisterInvolvedMembersAccumulator(involvedMembersAccumulator);
+			}
+
+			if (involvedMembersAccumulators.Count == 0)
+				involvedMembersAccumulators = null;
+		}
+
+		internal static void ProcessInvolvedMembersAccumulator<TItemInfo>(
+			IComputingInternal current,
+			InvolvedMembersAccumulator involvedMembersAccumulator, 
+			List<TItemInfo> itemInfos,
+			bool register)
+			where TItemInfo : ExpressionItemInfo
+		{
+			if (register ? involvedMembersAccumulator.RegisterComputing(current) : involvedMembersAccumulator.UnregisterComputing(current))
+			{
+				int itemInfosCount = itemInfos.Count;
+				for (var index = 0; index < itemInfosCount; index++)
+					itemInfos[index].ExpressionWatcher
+						.ProcessInvolvedMembersAccumulator(involvedMembersAccumulator, register);
+			}
+		}
+
+		internal static void ProcessInvolvedMembersAccumulator<TKey, TValue>(
+			IComputingInternal current,
+			InvolvedMembersAccumulator involvedMembersAccumulator, 
+			List<KeyValueExpressionItemInfo<TKey, TValue>> itemInfos,
+			bool register)
+		{
+			if (register ? involvedMembersAccumulator.RegisterComputing(current) : involvedMembersAccumulator.UnregisterComputing(current))
+			{
+				int itemInfosCount = itemInfos.Count;
+				for (var index = 0; index < itemInfosCount; index++)
+				{
+					itemInfos[index].KeyExpressionWatcher
+						.ProcessInvolvedMembersAccumulator(involvedMembersAccumulator, register);
+
+					itemInfos[index].ValueExpressionWatcher
+						.ProcessInvolvedMembersAccumulator(involvedMembersAccumulator, register);
+				}
+			}
 		}
 
 		private static void itemInfoRemoveDownstreamConsumedComputing(List<IComputingInternal> nestedComputings, IComputingInternal current)
 		{
+			if (nestedComputings == null) return;
 			int nestedComputingsCount = nestedComputings.Count;
 			for (int computingIndex = 0; computingIndex < nestedComputingsCount; computingIndex++)
 				nestedComputings[computingIndex].RemoveDownstreamConsumedComputing(current);
+
+			if (current.InvolvedMembersAccumulators != null)
+				for (int computingIndex = 0; computingIndex < nestedComputingsCount; computingIndex++)
+					nestedComputings[computingIndex].UnregisterInvolvedMembersAccumulator(current.InvolvedMembersAccumulators);
 		}
 
 		internal static void construct<TOrderingValue>(int sourceCapacity,
@@ -1051,6 +1185,10 @@ namespace ObservableComputations
 
 		internal static void disposeExpressionWatcher(ExpressionWatcher watcher, List<IComputingInternal> nestedComputings, IComputingInternal current, bool expressionContainsParametrizedObservableComputationsCalls)
 		{
+			if (current.InvolvedMembersAccumulators != null)
+				for (var index = 0; index < current.InvolvedMembersAccumulators.Count; index++)
+					watcher.ProcessInvolvedMembersAccumulator(current.InvolvedMembersAccumulators[index], false);
+
 			watcher.Dispose();
 			EventUnsubscriber.QueueSubscriptions(watcher._propertyChangedEventSubscriptions,
 				watcher._methodChangedEventSubscriptions);
@@ -1153,6 +1291,10 @@ namespace ObservableComputations
 			int currentComputingsLength = watcher._currentComputings.Length;
 			for (int computingIndex = 0; computingIndex < currentComputingsLength; computingIndex++)
 				watcher._currentComputings[computingIndex]?.RemoveDownstreamConsumedComputing(current);
+
+			if (current.InvolvedMembersAccumulators != null)
+				for (int computingIndex = 0; computingIndex < currentComputingsLength; computingIndex++)
+					watcher._currentComputings[computingIndex]?.UnregisterInvolvedMembersAccumulator(current.InvolvedMembersAccumulators);
 		}
 
 		internal static void removeDownstreamConsumedComputing<TItemInfo>(List<TItemInfo> itemInfos, IComputingInternal current) where TItemInfo : ExpressionItemInfo
@@ -1185,57 +1327,130 @@ namespace ObservableComputations
 			(sourceScalar as IComputingInternal)?.RemoveDownstreamConsumedComputing(computing);
 		}
 
-		internal static void InitializeInvolvedMembersTreeNode(
-			InvolvedMembersTreeNode involvedMembersTreeNode,
-			IComputingInternal computing, ref List<InvolvedMembersTreeNode> involvedMembersTreeNodes)
+		internal static void FillUpstreamComputingsDirect(
+			List<IComputing> computings,
+			object par1)
 		{
-			if (involvedMembersTreeNodes == null)
-				involvedMembersTreeNodes = new List<InvolvedMembersTreeNode>();
+			IComputing addingComputing;
 
-			involvedMembersTreeNode.Computing = computing;
+			addingComputing = par1 as IComputing;
+			if (addingComputing != null) computings.Add(addingComputing);
 		}
 
-		internal static void RemoveInvolvedMembersTreeNode(InvolvedMembersTreeNode involvedMembersTreeNode, ref List<InvolvedMembersTreeNode> involvedMembersTreeNodes)
+		internal static void FillUpstreamComputingsDirect(
+			List<IComputing> computings,
+			object par1,
+			object par2)
 		{
-			involvedMembersTreeNodes.Remove(involvedMembersTreeNode);
+			IComputing addingComputing;
 
-			if (involvedMembersTreeNodes.Count == 0)
-				involvedMembersTreeNodes = null;
+			addingComputing = par1 as IComputing;
+			if (addingComputing != null) computings.Add(addingComputing);
+
+			addingComputing = par2 as IComputing;
+			if (addingComputing != null) computings.Add(addingComputing);
 		}
-	
-		internal static void ProcessInvolvedMemberChanged(object source, string memberName, bool created, List<InvolvedMembersTreeNode> involvedMembersTreeNodes)
+
+		internal static void FillUpstreamComputingsDirect(
+			List<IComputing> computings,
+			object par1,
+			object par2,
+			object par3)
 		{
-			if (involvedMembersTreeNodes == null) return;
+			IComputing addingComputing;
 
-			InvolvedMemberChangedArgs args = new InvolvedMemberChangedArgs(source, memberName, created);
-			int count = involvedMembersTreeNodes.Count;
-			for (var index = 0; index < count; index++)
-			{
-				involvedMembersTreeNodes[index].Handler(args);
+			addingComputing = par1 as IComputing;
+			if (addingComputing != null) computings.Add(addingComputing);
 
-				if (created)
-					involvedMembersTreeNodes[index].RegisterInvolvedMember(new InvolvedMember(source, memberName));
-				else
-					involvedMembersTreeNodes[index].UnregisterInvolvedMember(new InvolvedMember(source, memberName));
-			}
+			addingComputing = par2 as IComputing;
+			if (addingComputing != null) computings.Add(addingComputing);	
 
-			if (source is IComputingInternal computingInternal)
-			{
-				int count1 = involvedMembersTreeNodes.Count;
-				for (var index = 0; index < count1; index++)
-				{
-					if (created)
-						involvedMembersTreeNodes[index].AddChild(computingInternal);
-					else
-						involvedMembersTreeNodes[index].RemoveChild(computingInternal);
-				}
-			}
-		}	
-		
-		internal static void AddInvolvedMembersTreeNodeChild(InvolvedMembersTreeNode involvedMembersTreeNode, object child)
+			addingComputing = par3 as IComputing;
+			if (addingComputing != null) computings.Add(addingComputing);	
+		}
+
+		internal static void FillUpstreamComputingsDirect(
+			List<IComputing> computings,
+			object par1,
+			object par2,
+			object par3,
+			object par4)
 		{
-			if (child is IComputingInternal computing)
-				involvedMembersTreeNode.AddChild(computing);
+			IComputing addingComputing;
+
+			addingComputing = par1 as IComputing;
+			if (addingComputing != null) computings.Add(addingComputing);
+
+			addingComputing = par2 as IComputing;
+			if (addingComputing != null) computings.Add(addingComputing);	
+
+			addingComputing = par3 as IComputing;
+			if (addingComputing != null) computings.Add(addingComputing);	
+
+			addingComputing = par4 as IComputing;
+			if (addingComputing != null) computings.Add(addingComputing);
+		}
+
+		internal static void FillUpstreamComputingsDirect<TItemInfo>(
+			List<IComputing> computings,
+			INotifyCollectionChanged source,
+			IReadScalar<INotifyCollectionChanged> sourceScalar, 
+			List<TItemInfo> itemInfos, 
+			List<IComputingInternal> nestedComputings) where TItemInfo : ExpressionItemInfo
+		{
+			FillUpstreamComputingsDirect(computings, source, sourceScalar);
+			FillUpstreamComputingsDirectFromExpressionItemInfos(computings, itemInfos);
+			FillUpstreamComputingsDirect(computings, nestedComputings);
+		}
+
+		internal static void FillUpstreamComputingsDirect(List<IComputing> computings, List<IComputingInternal> nestedComputings)
+		{
+			if (nestedComputings != null)
+			{
+				int nestedComputingsCount = nestedComputings.Count;
+				for (int i = 0; i < nestedComputingsCount; i++)
+					computings.Add(nestedComputings[i]);
+			}
+		}
+
+		internal static void FillUpstreamComputingsDirectFromExpressionItemInfos<TItemInfo>(
+			List<IComputing> computings, 
+			List<TItemInfo> itemInfos)
+			where TItemInfo : ExpressionItemInfo
+		{
+			int itemInfosCount = itemInfos.Count;
+			for (var index = 0; index < itemInfosCount; index++)
+			{
+				FillUpstreamComputingsDirect(
+					computings,
+					itemInfos[index].ExpressionWatcher._currentComputings);
+			}
+		}
+
+		internal static void FillUpstreamComputingsDirectFromKeyValueExpressionItemInfos<TItemInfo, TKey, TValue>(
+			List<IComputing> computings,
+			List<TItemInfo> itemInfos)
+			where TItemInfo : KeyValueExpressionItemInfo<TKey, TValue>
+		{
+			int itemInfosCount = itemInfos.Count;
+			for (var index = 0; index < itemInfosCount; index++)
+			{
+				FillUpstreamComputingsDirect(
+					computings,
+					itemInfos[index].KeyExpressionWatcher._currentComputings);
+				FillUpstreamComputingsDirect(
+					computings, 
+					itemInfos[index].ValueExpressionWatcher._currentComputings);
+			}
+		}
+
+		private static void FillUpstreamComputingsDirect(List<IComputing> computings,
+			IComputingInternal[] currentComputings)
+		{
+			int currentComputingsLength = currentComputings.Length;
+			for (int i = 0; i < currentComputingsLength; i++)
+				if (currentComputings[i] != null)
+					computings.Add(currentComputings[i]);
 		}
 
 		internal static readonly PropertyChangedEventArgs InsertItemIntoGroupRequestHandlerPropertyChangedEventArgs = new PropertyChangedEventArgs("InsertItemIntoGroupRequestHandler");

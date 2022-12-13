@@ -638,6 +638,27 @@ namespace ObservableComputations
 			PropertyChanged?.Invoke(this, eventArgs);
 		}
 
+		public IEnumerable<IComputing> UpstreamComputingsDirect
+		{
+			get
+			{
+				List<IComputing> computings = new List<IComputing>();
+				Utils.FillUpstreamComputingsDirect(computings, _source, _sourceScalar);
+				Utils.FillUpstreamComputingsDirectFromKeyValueExpressionItemInfos<KeyValueExpressionItemInfo<TKey, TValue>, TKey, TValue>(computings, _itemInfos);
+				Utils.FillUpstreamComputingsDirect(computings, _keyNestedComputings);
+				Utils.FillUpstreamComputingsDirect(computings, _valueNestedComputings);
+				if (_equalityComparerScalar is IComputing equalityComparerScalarComputing)
+					computings.Add(equalityComparerScalarComputing);
+				return computings;
+			}
+		}
+
+		void IComputingInternal.RegisterInvolvedMembersAccumulator(InvolvedMembersAccumulator involvedMembersAccumulator) => 
+			Utils.ProcessInvolvedMembersAccumulator(this, involvedMembersAccumulator, _itemInfos, true);
+
+		void IComputingInternal.UnregisterInvolvedMembersAccumulator(InvolvedMembersAccumulator involvedMembersAccumulator) => 
+			Utils.ProcessInvolvedMembersAccumulator(this, involvedMembersAccumulator, _itemInfos, false);
+
 		[ExcludeFromCodeCoverage]
 		internal void ValidateInternalConsistency()
 		{
@@ -868,8 +889,8 @@ namespace ObservableComputations
 			for (var index = 0; index < itemInfosCount; index++)
 			{
 				KeyValueExpressionItemInfo<TKey, TValue> itemInfo = _itemInfos[index];
-				itemInfo.KeyExpressionWatcher.FillInvolvedMembers(involvedMembersTreeNode);
-				itemInfo.ValueExpressionWatcher.FillInvolvedMembers(involvedMembersTreeNode);
+				itemInfo.KeyExpressionWatcher.ProcessInvolvedMembersAccumulator(involvedMembersTreeNode);
+				itemInfo.ValueExpressionWatcher.ProcessInvolvedMembersAccumulator(involvedMembersTreeNode);
 			}
 			
 			Utils.AddInvolvedMembersTreeNodeChild(involvedMembersTreeNode, _equalityComparerScalar);

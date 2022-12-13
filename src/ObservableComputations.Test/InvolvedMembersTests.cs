@@ -54,25 +54,22 @@ namespace ObservableComputations.Test
 		public void TestSelecting()
 		{
 			OcConsumer consumer = new OcConsumer();
+			Item item1 = new Item();
 
 			ObservableCollection<Item> items = new ObservableCollection<Item>(
 				new[]
 				{
-					new Item()
+					item1
 				}
 			);
 
-			Scalar<ObservableCollection<Item>> sourceScalar = new Scalar<ObservableCollection<Item>>(items.Selecting(i => i));
-			Expression<Func<ObservableCollection<Item>>> sourceExpr = () => sourceScalar.Value;
-			Selecting<Item, string> selecting = sourceExpr.Selecting(i => i.Num).For(consumer);
+			Selecting<Item, string> selecting = items.Selecting(i => i.Num).For(consumer);
 
-			InvolvedMembersTreeNode node = new InvolvedMembersTreeNode(args =>
-			{
-				
-			});
+			InvolvedMembersTreeNode node = new InvolvedMembersTreeNode(args => { });
 
 			((IComputingInternal)selecting).InitializeInvolvedMembersTreeNode(node);
-
+			items.Add(new Item());
+			Assert.IsTrue(node.InvolvedMembersWithDescedants.SequenceEqual(new []{new InvolvedMember(item1, nameof(Item.Num))}));
 
 		}
 

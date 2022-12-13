@@ -1053,18 +1053,22 @@ namespace ObservableComputations
 				&& _source.Compare(sourceIndex1, sourceIndex2);
 		}
 
-		internal override void InitializeInvolvedMembersTreeNodeImpl(InvolvedMembersTreeNode involvedMembersTreeNode)
+		public override IEnumerable<IComputing> UpstreamComputingsDirect
 		{
-			int itemInfosCount = _itemInfos.Count;
-
-			for (var index = 0; index < itemInfosCount; index++)
-				_itemInfos[index].ExpressionWatcher.FillInvolvedMembers(involvedMembersTreeNode);
-
-			Utils.AddInvolvedMembersTreeNodeChild(involvedMembersTreeNode, _sourceScalar);
-			Utils.AddInvolvedMembersTreeNodeChild(involvedMembersTreeNode, _source);
-			Utils.AddInvolvedMembersTreeNodeChild(involvedMembersTreeNode, _comparerScalar);
-			Utils.AddInvolvedMembersTreeNodeChild(involvedMembersTreeNode, _sortDirectionScalar);
+			get
+			{
+				List<IComputing> computings = new List<IComputing>();
+				Utils.FillUpstreamComputingsDirect(computings, _source, _sourceScalar, _itemInfos, _nestedComputings);
+				Utils.FillUpstreamComputingsDirect(computings, _source, _comparerScalar, _sortDirectionScalar);
+				return computings;
+			}
 		}
+
+		internal override void RegisterInvolvedMembersAccumulatorImpl(InvolvedMembersAccumulator involvedMembersAccumulator) => 
+			Utils.ProcessInvolvedMembersAccumulator(this, involvedMembersAccumulator, _itemInfos, true);
+
+		internal override void UnregisterInvolvedMembersAccumulatorImpl(InvolvedMembersAccumulator involvedMembersAccumulator) => 
+			Utils.ProcessInvolvedMembersAccumulator(this, involvedMembersAccumulator, _itemInfos, false);
 
 		[ExcludeFromCodeCoverage]
 		void IOrderingInternal<TSourceItem>.ValidateInternalConsistency()

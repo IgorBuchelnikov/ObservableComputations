@@ -13,14 +13,13 @@ namespace ObservableComputations
 	internal sealed class CallToConstantConverter : ExpressionVisitor
 	{
 		private readonly IEnumerable<ParameterExpression> _parameterExpressions;
-		public readonly List<IComputingInternal> NestedComputings;
+		public List<IComputingInternal> NestedComputings;
 
 		public bool ContainsParametrizedObservableComputationCalls;
 
 		public CallToConstantConverter(IEnumerable<ParameterExpression> parameterExpressions = null)
 		{
 			_parameterExpressions = parameterExpressions;
-			NestedComputings = new List<IComputingInternal>();
 		}
 
 		#region Overrides of ExpressionVisitor
@@ -54,7 +53,10 @@ namespace ObservableComputations
 		protected override Expression VisitConstant(ConstantExpression node)
 		{
 			if (node.Value is IComputingInternal computing)
+			{
+				if (NestedComputings == null) NestedComputings = new List<IComputingInternal>();
 				NestedComputings.Add(computing);
+			}
 
 			return base.VisitConstant(node);
 		}
@@ -64,6 +66,7 @@ namespace ObservableComputations
 			ConstantExpression getConstantExpressionLocal()
 			{
 				IComputingInternal nestedComputing = (IComputingInternal) Expression.Lambda(node).Compile().DynamicInvoke();
+				if (NestedComputings == null) NestedComputings = new List<IComputingInternal>();
 				NestedComputings.Add(nestedComputing);
 				return Expression.Constant(nestedComputing, node.Type);
 			}
@@ -73,19 +76,13 @@ namespace ObservableComputations
 				ParametersFinder parametersFinder = new ParametersFinder(_parameterExpressions);
 				parametersFinder.Visit(node);
 
-				if (!parametersFinder.ParametersFound)
-				{
-					return getConstantExpressionLocal();
-				}
-				else
-				{
+				if (parametersFinder.ParametersFound)
 					ContainsParametrizedObservableComputationCalls = parametersFinder.ParametersFound;
-				}
+				else
+					return getConstantExpressionLocal();
 			}
 			else
-			{
 				return getConstantExpressionLocal();
-			}
 
 			return null;
 		}

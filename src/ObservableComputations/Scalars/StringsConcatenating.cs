@@ -434,11 +434,14 @@ namespace ObservableComputations
 			}
 		}
 
-		internal override void InitializeInvolvedMembersTreeNodeImpl(InvolvedMembersTreeNode involvedMembersTreeNode)
+		public override IEnumerable<IComputing> UpstreamComputingsDirect
 		{
-			Utils.AddInvolvedMembersTreeNodeChild(involvedMembersTreeNode, _sourceScalar);
-			Utils.AddInvolvedMembersTreeNodeChild(involvedMembersTreeNode, _source);
-			Utils.AddInvolvedMembersTreeNodeChild(involvedMembersTreeNode, _separatorScalar);
+			get
+			{
+				List<IComputing> computings = new List<IComputing>();
+				Utils.FillUpstreamComputingsDirect(computings, _source, _sourceScalar, _separatorScalar);
+				return computings;
+			}
 		}
 
 		[ExcludeFromCodeCoverage]

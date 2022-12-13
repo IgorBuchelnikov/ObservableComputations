@@ -609,15 +609,24 @@ namespace ObservableComputations
 			_sourceRangePositions.ModifyLength(itemInfo.Index, newItemCount - rangePositionLength);
 		}
 
-		internal override void InitializeInvolvedMembersTreeNodeImpl(InvolvedMembersTreeNode involvedMembersTreeNode)
+		public override IEnumerable<IComputing> UpstreamComputingsDirect
 		{
-			Utils.AddInvolvedMembersTreeNodeChild(involvedMembersTreeNode, _sourceScalar);
-			Utils.AddInvolvedMembersTreeNodeChild(involvedMembersTreeNode, _source);
+			get
+			{
+				List<IComputing> computings = new List<IComputing>();
+				Utils.FillUpstreamComputingsDirect(computings, _source, _sourceScalar);
 
-			int count = _sourcesAsList.Count;
-			for (var index = 0; index < count; index++)
-				if (_sourcesAsList[index] is IComputingInternal sourceItemComputing)
-					involvedMembersTreeNode.AddChild(sourceItemComputing);
+				IComputing sourceItemComputing;
+				int count = _sourcesAsList.Count;
+				for (var index = 0; index < count; index++)
+				{
+					sourceItemComputing = _sourcesAsList[index] as IComputing;
+					if (sourceItemComputing != null)
+						computings.Add(sourceItemComputing);
+				}
+
+				return computings;
+			}
 		}
 
 		internal override void addToUpstreamComputings(IComputingInternal computing)

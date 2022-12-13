@@ -871,8 +871,8 @@ namespace ObservableComputations
 			for (var index = 0; index < itemInfosCount; index++)
 			{
 				KeyValueExpressionItemInfo<TKey, TValue> itemInfo = _itemInfos[index];
-				itemInfo.KeyExpressionWatcher.FillInvolvedMembers(involvedMembersTreeNode);
-				itemInfo.ValueExpressionWatcher.FillInvolvedMembers(involvedMembersTreeNode);
+				itemInfo.KeyExpressionWatcher.ProcessInvolvedMembersAccumulator(involvedMembersTreeNode);
+				itemInfo.ValueExpressionWatcher.ProcessInvolvedMembersAccumulator(involvedMembersTreeNode);
 			}
 
 			Utils.AddInvolvedMembersTreeNodeChild(involvedMembersTreeNode, _equalityComparerScalar);
@@ -888,6 +888,20 @@ namespace ObservableComputations
 			Utils.ProcessInvolvedMemberChanged(source, memberName, created, _involvedMembersTreeNodes);
 		}
 		#endregion
+
+		public IEnumerable<IComputing> UpstreamComputingsDirect
+		{
+			get
+			{
+				List<IComputing> computings = new List<IComputing>();
+				Utils.FillUpstreamComputingsDirect(computings, _source, _sourceScalar);
+				Utils.FillUpstreamComputingsDirectFromKeyValueExpressionItemInfos<KeyValueExpressionItemInfo<TKey, TValue>, TKey, TValue>(computings, _itemInfos);
+				Utils.FillUpstreamComputingsDirect(computings, _keyNestedComputings);
+				Utils.FillUpstreamComputingsDirect(computings, _valueNestedComputings);
+				return computings;
+			}
+		}
+
 
 		#region IEnumerable<out T>
 

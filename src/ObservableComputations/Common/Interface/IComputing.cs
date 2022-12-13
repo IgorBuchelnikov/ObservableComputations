@@ -15,6 +15,7 @@ namespace ObservableComputations
 		bool IsActive { get; }
 		bool ActivationInProgress {get; }
 		bool InactivationInProgress {get; }
+		IEnumerable<IComputing> UpstreamComputingsDirect { get; }
 	}
 
 	public interface IEventHandler
@@ -30,7 +31,6 @@ namespace ObservableComputations
 		void AddDownstreamConsumedComputing(IComputingInternal computing);
 		void RemoveDownstreamConsumedComputing(IComputingInternal computing);
 		IEnumerable<OcConsumer> Consumers { get; }
-		List<InvolvedMembersTreeNode> InvolvedMembersTreeNodes { get; }
 		void RaiseConsistencyRestored();
 		void AddToUpstreamComputings(IComputingInternal computing);
 		void RemoveFromUpstreamComputings(IComputingInternal computing);
@@ -41,10 +41,9 @@ namespace ObservableComputations
 		void SetIsActive(bool value);
 		void SetInactivationInProgress(bool value);
 		void SetActivationInProgress(bool value);
-		void InitializeInvolvedMembersTreeNode(InvolvedMembersTreeNode involvedMembersTreeNode);
-
-		void RemoveInvolvedMembersTreeNode(InvolvedMembersTreeNode involvedMembersTreeNode);
-		void ProcessInvolvedMemberChanged(object source, string memberName, bool created);
+		void RegisterInvolvedMembersAccumulator(InvolvedMembersAccumulator involvedMembersAccumulator);
+		void UnregisterInvolvedMembersAccumulator(InvolvedMembersAccumulator involvedMembersAccumulator);
+		List<InvolvedMembersAccumulator> InvolvedMembersAccumulators {get;}
 	}
 
 	internal interface ICanInitializeFromSource

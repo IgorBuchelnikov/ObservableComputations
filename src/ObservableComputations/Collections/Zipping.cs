@@ -621,12 +621,15 @@ namespace ObservableComputations
 			Utils.clearCachcedSourceScalarValue(_rightSourceScalar, ref _rightSource);
 		}
 
-		internal override void InitializeInvolvedMembersTreeNodeImpl(InvolvedMembersTreeNode involvedMembersTreeNode)
+		public override IEnumerable<IComputing> UpstreamComputingsDirect
 		{
-			Utils.AddInvolvedMembersTreeNodeChild(involvedMembersTreeNode, _leftSourceScalar);
-			Utils.AddInvolvedMembersTreeNodeChild(involvedMembersTreeNode, _leftSource);
-			Utils.AddInvolvedMembersTreeNodeChild(involvedMembersTreeNode, _rightSourceScalar);
-			Utils.AddInvolvedMembersTreeNodeChild(involvedMembersTreeNode, _rightSource);
+			get
+			{
+				List<IComputing> computings = new List<IComputing>();
+				Utils.FillUpstreamComputingsDirect(computings, _leftSource, _leftSourceScalar);
+				Utils.FillUpstreamComputingsDirect(computings, _rightSource, _rightSourceScalar);
+				return computings;
+			}
 		}
 
 		[ExcludeFromCodeCoverage]

@@ -39,7 +39,7 @@ namespace ObservableComputations
 
 		private void getValueExpressionWatcherOnValueChanged(ExpressionWatcher expressionWatcher, object sender, EventArgs eventArgs)
 		{
-			Utils.processExpressionWatcherNestedComputings(expressionWatcher, this);
+			Utils.processExpressionWatcherCurrentComputingsChanges(expressionWatcher, this);
 			Utils.processChange(
 				sender, 
 				eventArgs, 
@@ -117,9 +117,20 @@ namespace ObservableComputations
 
 		#endregion
 
-		internal override void InitializeInvolvedMembersTreeNodeImpl(InvolvedMembersTreeNode involvedMembersTreeNode)
+		public override IEnumerable<IComputing> UpstreamComputingsDirect
 		{
-			_getValueExpressionWatcher.FillInvolvedMembers(involvedMembersTreeNode);
+			get
+			{
+				List<IComputing> computings = new List<IComputing>();
+				Utils.FillUpstreamComputingsDirect(computings, _getValueExpressionWatcher._currentComputings);
+				return computings;
+			}
 		}
+
+		internal override void RegisterInvolvedMembersAccumulatorImpl(InvolvedMembersAccumulator involvedMembersAccumulator) => 
+			_getValueExpressionWatcher.ProcessInvolvedMembersAccumulator(involvedMembersAccumulator, true);
+
+		internal override void UnregisterInvolvedMembersAccumulatorImpl(InvolvedMembersAccumulator involvedMembersAccumulator) => 
+			_getValueExpressionWatcher.ProcessInvolvedMembersAccumulator(involvedMembersAccumulator, false);
 	}
 }

@@ -1146,6 +1146,8 @@ namespace ObservableComputations
 
 		public int Index => _position.Index;
 
+		public override IEnumerable<IComputing> UpstreamComputingsDirect => new List<IComputing>(new []{_grouping});
+
 		public override ICollectionComputing Parent => _grouping;
 
 		#region Overrides of ObservableCollection<TResult>

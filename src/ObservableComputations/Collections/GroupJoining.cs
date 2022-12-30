@@ -970,6 +970,7 @@ namespace ObservableComputations
 		}
 		#endregion
 
+		public override IEnumerable<IComputing> UpstreamComputingsDirect => new List<IComputing>(new []{_groupJoining});
 		public override ICollectionComputing Parent => _groupJoining;
 
 		public ReadOnlyCollection<int> InnerSourceItemIndices => 

@@ -465,6 +465,7 @@ namespace ObservableComputations
 
 		internal virtual void UnregisterInvolvedMembersAccumulatorImpl(InvolvedMembersAccumulator involvedMembersAccumulator) { }
 
+		private List<InvolvedMembersAccumulator> _involvedMembersAccumulators;
 		List<InvolvedMembersAccumulator> IComputingInternal.InvolvedMembersAccumulators => _involvedMembersAccumulators;
 
 		public ReadOnlyCollection<OcConsumer> Consumers =>
@@ -594,8 +595,6 @@ namespace ObservableComputations
 
 		internal abstract void addToUpstreamComputings(IComputingInternal computing);
 		internal abstract void removeFromUpstreamComputings(IComputingInternal computing);
-
-		private List<InvolvedMembersAccumulator> _involvedMembersAccumulators;
 
 		#region Overrides of Object
 

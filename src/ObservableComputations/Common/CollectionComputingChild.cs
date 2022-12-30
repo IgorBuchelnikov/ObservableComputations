@@ -3,6 +3,7 @@
 // The LICENSE file is located at https://github.com/IgorBuchelnikov/ObservableComputations/blob/master/LICENSE
 
 using System;
+using System.Collections.Generic;
 using System.Collections.Specialized;
 
 namespace ObservableComputations
@@ -35,6 +36,7 @@ namespace ObservableComputations
 
 		public bool ActivationInProgress => Parent.ActivationInProgress;
 		public bool InactivationInProgress => Parent.InactivationInProgress;
+		public abstract IEnumerable<IComputing> UpstreamComputingsDirect { get; }
 
 		protected internal void insertItem(int index, TItem item)
 		{

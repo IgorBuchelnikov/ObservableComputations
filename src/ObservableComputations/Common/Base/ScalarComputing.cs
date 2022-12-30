@@ -230,8 +230,6 @@ namespace ObservableComputations
 			_activationInProgress = value;
 		}
 
-		private List<InvolvedMembersAccumulator> _involvedMembersAccumulators;
-
 		void IComputingInternal.RegisterInvolvedMembersAccumulator(
 			InvolvedMembersAccumulator involvedMembersAccumulator)
 		{
@@ -249,6 +247,7 @@ namespace ObservableComputations
 
 		internal virtual void UnregisterInvolvedMembersAccumulatorImpl(InvolvedMembersAccumulator involvedMembersAccumulator) { }
 
+		private List<InvolvedMembersAccumulator> _involvedMembersAccumulators;
 		List<InvolvedMembersAccumulator> IComputingInternal.InvolvedMembersAccumulators => _involvedMembersAccumulators;
 
 		public ReadOnlyCollection<OcConsumer> Consumers =>

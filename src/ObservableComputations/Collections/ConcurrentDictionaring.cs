@@ -641,6 +641,21 @@ namespace ObservableComputations
 			PropertyChanged?.Invoke(this, eventArgs);
 		}
 
+		void IComputingInternal.RegisterInvolvedMembersAccumulator(InvolvedMembersAccumulator involvedMembersAccumulator)
+		{
+			Utils.ProcessInvolvedMembersAccumulator(this, involvedMembersAccumulator, _itemInfos, true);
+			Utils.RegisterInvolvedMembersAccumulatorInUpstreamComputings(involvedMembersAccumulator, ref _involvedMembersAccumulators, (List<IComputing>)UpstreamComputingsDirect);
+		}
+
+		void IComputingInternal.UnregisterInvolvedMembersAccumulator(InvolvedMembersAccumulator involvedMembersAccumulator)
+		{
+			Utils.ProcessInvolvedMembersAccumulator(this, involvedMembersAccumulator, _itemInfos, false);
+			Utils.UnregisterInvolvedMembersAccumulator(involvedMembersAccumulator, ref _involvedMembersAccumulators, (List<IComputing>)UpstreamComputingsDirect);
+		}
+
+		private List<InvolvedMembersAccumulator> _involvedMembersAccumulators;
+		List<InvolvedMembersAccumulator> IComputingInternal.InvolvedMembersAccumulators => _involvedMembersAccumulators;
+
 		[ExcludeFromCodeCoverage]
 		internal void ValidateInternalConsistency()
 		{
@@ -854,39 +869,6 @@ namespace ObservableComputations
 			ConsistencyRestored?.Invoke(this, null);
 		}
 
-		#endregion
-
-		#region InvolvedMembers
-		internal List<InvolvedMembersTreeNode> _involvedMembersTreeNodes;
-
-		List<InvolvedMembersTreeNode> IComputingInternal.InvolvedMembersTreeNodes => _involvedMembersTreeNodes;
-
-		void IComputingInternal.InitializeInvolvedMembersTreeNode(InvolvedMembersTreeNode involvedMembersTreeNode)
-		{
-			Utils.InitializeInvolvedMembersTreeNode(involvedMembersTreeNode, this, ref _involvedMembersTreeNodes);
-			Utils.AddInvolvedMembersTreeNodeChild(involvedMembersTreeNode, _sourceScalar);
-			Utils.AddInvolvedMembersTreeNodeChild(involvedMembersTreeNode, _source);
-
-			int itemInfosCount = _itemInfos.Count;
-			for (var index = 0; index < itemInfosCount; index++)
-			{
-				KeyValueExpressionItemInfo<TKey, TValue> itemInfo = _itemInfos[index];
-				itemInfo.KeyExpressionWatcher.ProcessInvolvedMembersAccumulator(involvedMembersTreeNode);
-				itemInfo.ValueExpressionWatcher.ProcessInvolvedMembersAccumulator(involvedMembersTreeNode);
-			}
-
-			Utils.AddInvolvedMembersTreeNodeChild(involvedMembersTreeNode, _equalityComparerScalar);
-		}
-
-		void IComputingInternal.RemoveInvolvedMembersTreeNode(InvolvedMembersTreeNode involvedMembersTreeNode)
-		{
-			Utils.RemoveInvolvedMembersTreeNode(involvedMembersTreeNode, ref _involvedMembersTreeNodes);
-		}
-
-		void IComputingInternal.ProcessInvolvedMemberChanged(object source, string memberName, bool created)
-		{
-			Utils.ProcessInvolvedMemberChanged(source, memberName, created, _involvedMembersTreeNodes);
-		}
 		#endregion
 
 		public IEnumerable<IComputing> UpstreamComputingsDirect

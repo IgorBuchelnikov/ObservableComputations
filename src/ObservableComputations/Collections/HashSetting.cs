@@ -681,11 +681,21 @@ namespace ObservableComputations
 			}
 		}
 
-		void IComputingInternal.RegisterInvolvedMembersAccumulator(InvolvedMembersAccumulator involvedMembersAccumulator) => 
+		void IComputingInternal.RegisterInvolvedMembersAccumulator(InvolvedMembersAccumulator involvedMembersAccumulator)
+		{
 			Utils.ProcessInvolvedMembersAccumulator(this, involvedMembersAccumulator, _itemInfos, true);
+			Utils.RegisterInvolvedMembersAccumulatorInUpstreamComputings(involvedMembersAccumulator, ref _involvedMembersAccumulators, (List<IComputing>)UpstreamComputingsDirect);
 
-		void IComputingInternal.UnregisterInvolvedMembersAccumulator(InvolvedMembersAccumulator involvedMembersAccumulator) => 
+		}
+
+		void IComputingInternal.UnregisterInvolvedMembersAccumulator(InvolvedMembersAccumulator involvedMembersAccumulator)
+		{
 			Utils.ProcessInvolvedMembersAccumulator(this, involvedMembersAccumulator, _itemInfos, false);
+			Utils.UnregisterInvolvedMembersAccumulator(involvedMembersAccumulator, ref _involvedMembersAccumulators, (List<IComputing>)UpstreamComputingsDirect);
+		}
+
+		private List<InvolvedMembersAccumulator> _involvedMembersAccumulators;
+		List<InvolvedMembersAccumulator> IComputingInternal.InvolvedMembersAccumulators => _involvedMembersAccumulators;
 		#endregion
 
 		#region IEnumerable<out T>

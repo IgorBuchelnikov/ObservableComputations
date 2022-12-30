@@ -705,7 +705,8 @@ namespace ObservableComputations
 			List<InvolvedMembersAccumulator> involvedMembersAccumulators)
 		{
 			for (var index = 0; index < involvedMembersAccumulators.Count; index++)
-				computing.RegisterInvolvedMembersAccumulator(involvedMembersAccumulators[index]);
+				if (CheckForExcludedComputing(involvedMembersAccumulators[index].ExcludedComputings, computing))
+					computing.RegisterInvolvedMembersAccumulator(involvedMembersAccumulators[index]);
 		}
 
 		internal static void UnregisterInvolvedMembersAccumulator(this IComputingInternal computing, List<InvolvedMembersAccumulator> involvedMembersAccumulators)
@@ -729,20 +730,28 @@ namespace ObservableComputations
 			{
 				var computing = (IComputingInternal) upstreamComputingsDirect[i];
 
-				include = true;
-				if (involvedMembersAccumulator.ExcludedComputings != null)
-					for (var index = 0; index < involvedMembersAccumulator.ExcludedComputings.Length; index++)
-					{
-						if (ReferenceEquals(involvedMembersAccumulator.ExcludedComputings[index], computing))
-						{
-							include = false;
-							break;
-						}
-					}
-
-				if (include)
+				if (CheckForExcludedComputing(involvedMembersAccumulator.ExcludedComputings, computing))
 					computing.RegisterInvolvedMembersAccumulator(involvedMembersAccumulator);
 			}
+		}
+
+		private static bool CheckForExcludedComputing(
+			IComputing[] excludedComputings,
+			IComputingInternal computing)
+		{
+			bool include;
+			include = true;
+			if (excludedComputings != null)
+				for (var index = 0; index < excludedComputings.Length; index++)
+				{
+					if (ReferenceEquals(excludedComputings[index], computing))
+					{
+						include = false;
+						break;
+					}
+				}
+
+			return include;
 		}
 
 		internal static void UnregisterInvolvedMembersAccumulator(

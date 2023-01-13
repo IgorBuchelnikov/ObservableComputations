@@ -139,9 +139,7 @@ namespace ObservableComputations
 				rangePosition.PlainIndex = lastRangePosition.PlainIndex + lastRangePosition.Length;			
 			}
 			else
-			{
-				rangePosition.PlainIndex = 0;	
-			}
+				rangePosition.PlainIndex = 0;
 
 			List.Add(rangePosition);
 			return rangePosition;

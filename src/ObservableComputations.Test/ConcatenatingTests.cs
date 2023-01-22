@@ -507,6 +507,85 @@ namespace ObservableComputations.Test
 			consumer.Dispose();
 		}
 
+
+		[Test]
+		public void TestConcatenating4()
+		{
+			OcConsumer consumer = new OcConsumer();
+
+			ObservableCollection<ObservableCollection<Item>> items = new ObservableCollection<ObservableCollection<Item>>(
+				new[]
+				{
+					new ObservableCollection<Item>(
+						new[]
+						{
+							new Item(),
+							new Item(),
+							new Item(),
+							new Item()
+						}
+					),
+					new ObservableCollection<Item>(
+						new[]
+						{
+							new Item(),
+							new Item(),
+							new Item(),
+							new Item()
+						}
+					).Selecting(i => i).For(consumer)
+				}
+			);
+
+
+			Concatenating<Item> concatenating1 = items.Concatenating();
+			Selecting<Item, Item> concatenating = concatenating1.Selecting(i => i).SetDebugTag("1").For(consumer);
+			Selecting<Item, Item> concatenating2 = concatenating1.Selecting(i => i).SetDebugTag("2").For(consumer);
+			concatenating1.For(consumer);
+			consumer.Dispose();
+
+			Assert.AreEqual(concatenating1.IsActive, false);
+		}
+
+		[Test]
+		public void TestConcatenating5()
+		{
+			OcConsumer consumer = new OcConsumer();
+
+			ObservableCollection<ObservableCollection<Item>> items = new ObservableCollection<ObservableCollection<Item>>(
+				new[]
+				{
+					new ObservableCollection<Item>(
+						new[]
+						{
+							new Item(),
+							new Item(),
+							new Item(),
+							new Item()
+						}
+					),
+					new ObservableCollection<Item>(
+						new[]
+						{
+							new Item(),
+							new Item(),
+							new Item(),
+							new Item()
+						}
+					).Selecting(i => i)
+				}
+			);
+
+
+			Concatenating<Item> concatenating1 = items.Concatenating().For(consumer);
+			Assert.AreEqual(((CollectionComputing<Item>) items[1]).IsActive, true);
+			concatenating1.ValidateInternalConsistency();
+
+			consumer.Dispose();
+
+			Assert.AreEqual(((CollectionComputing<Item>) items[1]).IsActive, false);
+		}
+
 		public ConcatenatingTests(bool debug) : base(debug)
 		{
 		}

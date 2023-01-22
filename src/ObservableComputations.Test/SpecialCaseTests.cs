@@ -1668,6 +1668,26 @@ namespace ObservableComputations.Test
 			consumer.Dispose();
 		}
 
+		[Test]
+		public void TestNestedComputings()
+		{
+			ObservableCollection<Item> items = new ObservableCollection<Item>(
+				new[]
+				{
+					new Item(false),
+					new Item(false),
+					new Item(false),
+					new Item(false)
+				}
+			);
+
+			OcConsumer consumer = new OcConsumer();
+			Selecting<Item, int> selecting = items.Selecting(i => items.Selecting(i2 => i2).Count).For(consumer);
+			
+			selecting.ValidateInternalConsistency();
+			consumer.Dispose();
+		}
+
 		public SpecialCaseTests(bool debug) : base(debug)
 		{
 		}

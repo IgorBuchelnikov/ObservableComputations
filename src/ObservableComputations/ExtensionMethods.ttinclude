@@ -59,7 +59,12 @@
 
 					if (classInFile.FullName.Contains("WeakPreviousTracking"))
 					{
-						genericConstraints = "where TResult : class";
+						genericConstraints = "		where TResult : class";
+					}
+
+					if (classInFile.FullName.Contains("NullPropagating"))
+					{
+						genericConstraints = "		where TValue : class";
 					}
 
 					List<ExtensionMethod> classExtensionMethods = new List<ExtensionMethod>();

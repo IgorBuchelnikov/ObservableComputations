@@ -54,6 +54,17 @@ namespace ObservableComputations.Test
 			Assert.IsTrue(raised);
 		}
 
+		[Test]
+		public void TestRaiseValueChanged2()
+		{
+			bool raised = false;
+			Order order = new Order();
+			Computing<string> computing = new Computing<string>(() =>  new Computing<string>(() => order.Num).Value).For(consumer);
+			computing.PropertyChanged += (sender, args) => { if (args.PropertyName == "Value") raised = true; };
+			order.Num = "1";
+			Assert.IsTrue(raised);
+		}
+
 		public ComputingTests(bool debug) : base(debug)
 		{
 		}

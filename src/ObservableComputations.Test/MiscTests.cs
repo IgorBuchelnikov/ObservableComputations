@@ -236,6 +236,19 @@ namespace ObservableComputations.Test
 		}
 
 		[Test]
+		public void DownstreamConsumedComputings()
+		{
+			ObservableCollection<int> observableCollection = new ObservableCollection<int>();
+			OcConsumer ocConsumer1 = new OcConsumer();
+			OcConsumer ocConsumer2 = new OcConsumer();
+			var selecting = observableCollection.Selecting(i => i).SetDebugTag("0");
+			var selecting2 = selecting.Selecting(i => i).SetDebugTag("1").For(ocConsumer1);
+			var selecting3 = selecting.Selecting(i => i).SetDebugTag("2").For(ocConsumer2);
+			ocConsumer2.Dispose();
+			ocConsumer1.Dispose();
+		}
+
+		[Test]
 		public void MinimizingModeTest()
 		{
 			ObservableCollection<int> observableCollection = new ObservableCollection<int>();

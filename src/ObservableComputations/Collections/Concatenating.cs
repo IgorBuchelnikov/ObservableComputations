@@ -37,7 +37,6 @@ namespace ObservableComputations
 
 		private readonly ISourceCollectionChangeProcessor _thisAsSourceCollectionChangeProcessor;
 		private bool _initialized;
-		private IComputingInternal _addToUpstreamComputing;
 
 		private sealed class ItemInfo : RangePosition, ISourceCollectionChangeProcessor
 		{
@@ -158,7 +157,14 @@ namespace ObservableComputations
 					}
 
 					if (itemInfo.SourceScalar != null)
-						itemInfo.SourceScalar.PropertyChanged -= itemInfo.SourceScalarPropertyChangedEventHandler;				   
+					{
+						itemInfo.SourceScalar.PropertyChanged -= itemInfo.SourceScalarPropertyChangedEventHandler;
+					}	
+					
+					if (itemInfo.SourceScalar is IComputingInternal sourceScalarComputing) 
+						sourceScalarComputing.RemoveDownstreamConsumedComputing(this);
+					else if (itemInfo.Source is IComputingInternal sourceComputing) 
+						sourceComputing.RemoveDownstreamConsumedComputing(this);
 				}
 
 				Utils.initializeItemInfos(
@@ -202,11 +208,13 @@ namespace ObservableComputations
 				for (int index = 0; index < count; index++)
 				{
 					object sourceItemObject = sourcesCopy[index];
+					addDownstreamConsumedComputing(sourceItemObject);
 					IList sourceItem = sourceItemObject is IReadScalar<object> sourceItemScalar 
 						? (IList)sourceItemScalar.Value : (IList) sourceItemObject;
 					int sourceItemCount = sourceItem?.Count ?? 0;
 					ItemInfo itemInfo = _sourceRangePositions.Add(sourceItemCount);
 					registerSourceItem(sourceItemObject, itemInfo);
+
 					IList<TSourceItem> sourceCopy = itemInfo.SourceCopy;
 
 					for (int sourceSourceIndex = 0; sourceSourceIndex < sourceItemCount; sourceSourceIndex++)
@@ -236,9 +244,12 @@ namespace ObservableComputations
 		private void registerSourceItem(object sourceItemObject, ItemInfo itemInfo)
 		{
 			itemInfo.Concatenating = this;
+
 			IReadScalar<object> sourceScalar = sourceItemObject as IReadScalar<object>;
+
 			itemInfo.SourceScalar = sourceScalar;
 			INotifyCollectionChanged source = sourceScalar != null ? (INotifyCollectionChanged)sourceScalar.Value : (INotifyCollectionChanged)sourceItemObject;
+
 			registerSourceItem(itemInfo, source);
 
 			if (sourceScalar != null)
@@ -268,6 +279,12 @@ namespace ObservableComputations
 
 				sourceScalar.PropertyChanged += itemInfo.SourceScalarPropertyChangedEventHandler;
 			}
+		}
+
+		private void addDownstreamConsumedComputing(object sourceItemObject)
+		{
+			if (sourceItemObject is IComputingInternal sourceItemObjectcomputing)
+				sourceItemObjectcomputing.AddDownstreamConsumedComputing(this);
 		}
 
 		private void registerSourceItem(ItemInfo itemInfo, INotifyCollectionChanged source)
@@ -302,10 +319,12 @@ namespace ObservableComputations
 			IList source = (IList) itemInfo.Source;
 			if (source != null)
 			{
-				IList<TSourceItem> sourceCopy = new List<TSourceItem>(source.Count);
+				int sourceCount = source.Count;
+				IList<TSourceItem> sourceCopy = new List<TSourceItem>(sourceCount);
 				itemInfo.SourceCopy = sourceCopy;
-				foreach (TSourceItem sourceItem in source)
-					sourceCopy.Add(sourceItem);
+				for (var index = 0; index < sourceCount; index++)
+					sourceCopy.Add((TSourceItem) source[index]);
+				
 			}
 			else
 				itemInfo.SourceCopy = null;
@@ -318,6 +337,9 @@ namespace ObservableComputations
 			if (!replace) _sourceRangePositions.Remove(itemInfo.Index);
 
 			unregisterSourceItem(itemInfo);
+
+			if (itemInfo.SourceScalar is IComputingInternal sourceScalar) 
+				sourceScalar.RemoveDownstreamConsumedComputing(this);
 
 			if (itemInfo.SourceScalar != null)
 			{
@@ -349,6 +371,8 @@ namespace ObservableComputations
 				itemInfo.SourceAsINotifyPropertyChanged = null;
 				itemInfo.SourcePropertyChangedEventHandler = null;
 			}
+
+
 		}	
 
 		private void handleSourceCollectionChanged(object sender, NotifyCollectionChangedEventArgs e, ItemInfo itemInfo)
@@ -467,6 +491,7 @@ namespace ObservableComputations
 					object addedItem = e.NewItems[0];
 					int newStartingIndex = e.NewStartingIndex;
 					itemInfo = _sourceRangePositions.Insert(newStartingIndex, 0);
+					addDownstreamConsumedComputing(addedItem);
 					registerSourceItem(addedItem, itemInfo);
 					int rangePositionPlainIndex1 = itemInfo.PlainIndex;
 					IList<TSourceItem> sourceCopy = itemInfo.SourceCopy;
@@ -511,6 +536,7 @@ namespace ObservableComputations
 					int oldStartingIndex = e.OldStartingIndex;
 					unregisterSourceItem(oldStartingIndex, true);
 					itemInfo2 = _itemInfos[oldStartingIndex];
+					addDownstreamConsumedComputing(newItem);
 					registerSourceItem(newItem, itemInfo2);
 					replaceItem(itemInfo2.SourceCopy, itemInfo2);
 
@@ -632,46 +658,24 @@ namespace ObservableComputations
 		internal override void addToUpstreamComputings(IComputingInternal computing)
 		{
 			Utils.AddDownstreamConsumedComputing(computing, _sourceScalar, _source);
-			if (_initialized)
-				processSourceUpstreamComputings(computing, true);
-			else
-				_addToUpstreamComputing = computing;
 		}
 
 		internal override void removeFromUpstreamComputings(IComputingInternal computing)		
 		{
 			Utils.RemoveDownstreamConsumedComputing(computing, _sourceScalar, _source);
-			processSourceUpstreamComputings(computing, false);
-		}
-
-		private void processSourceUpstreamComputings(IComputingInternal computing, bool addOrRemove)
-		{
-			if (_source is IList sourceAsList)
-			{
-				int count = sourceAsList.Count;
-				for (int sourceIndex = 0; sourceIndex < count; sourceIndex++)
-				{
-					IComputingInternal computingInternal = sourceAsList[sourceIndex] as IComputingInternal;
-
-					if (addOrRemove)
-						computingInternal?.AddDownstreamConsumedComputing(computing);
-					else
-						computingInternal?.RemoveDownstreamConsumedComputing(computing);
-				}
-			}
 		}
 
 		protected override void initialize()
 		{
 			Utils.initializeSourceScalar(_sourceScalar, ref _source, scalarValueChangedHandler);
+
 			_initialized = true;
-			processSourceUpstreamComputings(_addToUpstreamComputing, true);
-			_addToUpstreamComputing = null;
 		}
 
 		protected override void uninitialize()
 		{
 			Utils.unsubscribeSourceScalar(_sourceScalar, scalarValueChangedHandler);
+
 			_initialized = false;
 		}
 

@@ -97,7 +97,7 @@ namespace ObservableComputations.Test
 		{
 			EventArgs args = new MethodChangedEventArgs("SomeMethod", objects => true);
 			string str = args.ToStringAlt();
-			Regex regex = new Regex(@"\(MethodChangedEventArgs \(MethodName = 'SomeMethod', ArgumentsPredicate.GetHashCode\(\) = \d+\)");
+			Regex regex = new Regex(@"\(MethodChangedEventArgs \(MethodName = 'SomeMethod', ArgumentsPredicate.GetHashCode\(\) = -?\d+\)");
 			Assert.IsTrue(regex.Match(str).Success);
 		}
 

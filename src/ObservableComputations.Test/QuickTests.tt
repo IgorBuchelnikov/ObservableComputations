@@ -47,7 +47,7 @@ namespace ObservableComputations.Test
 		{
 			testNum++;
 
-			if (extensionMethod.Name == "Summarizing")
+			if (extensionMethod.Name == "NullPropagating")
 			{
 			}
 
@@ -264,6 +264,7 @@ namespace ObservableComputations.Test
 				{
 #>
 				<#=sync#>((Scalar<<#=argument.scalarType#>>)<#=argument.name#>).Change(<#=scalarAlternativeValue#>);
+				testing.ValidateInternalConsistency();
 <#
 				}
 			}
@@ -361,6 +362,7 @@ namespace ObservableComputations.Test
 			|| extensionMethodName == "Ordering"
 			|| extensionMethodName == "ThenOrdering") 
 			type = type.Replace("TSourceItem", "int");
+		if (extensionMethodName == "NullPropagating") type = type.Replace("TValue", "Item");
 		type = type.Replace("TSourceItem1", "Item");
 		type = type.Replace("TSourceItem2", "Item");
 		type = type.Replace("TOuterSourceItem", "Item");
@@ -571,6 +573,9 @@ namespace ObservableComputations.Test
 			case "TResult":
 				result = extensionMethodName != "WeakPreviousTracking" ? "0" : "new Item(1, true)";
 				break;
+			case "TValue":
+				result = "new Item(1, true)";
+				break;
 			case "System.ComponentModel.INotifyPropertyChanged":
 				result = "new Item(1, true)";
 				break;
@@ -597,6 +602,9 @@ namespace ObservableComputations.Test
 				break;
 			case "object":
 				result = "new object()";
+				break;
+			case "System.Linq.Expressions.Expression<System.Func<TValue, TResult>>":
+				result = "i => i.Num";
 				break;
 			default:
 				throw new Exception($"Unexpected type {type}");
@@ -825,6 +833,12 @@ namespace ObservableComputations.Test
 				else if (extensionMethodName == "FirstComputing"
 					|| extensionMethodName == "LastComputing")
 					result.Add("new QuickTests.Item(1, true)");
+				else if (extensionMethodName == "NullPropagating")
+				{
+					result.Add("null");
+					result.Add("new QuickTests.Item(1, true)");
+					result.Add("null");
+				}
 				else
 					result.Add("null");
 				break;

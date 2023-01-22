@@ -349,7 +349,7 @@ namespace ObservableComputations
 			// ReSharper disable once PossibleNullReferenceException
 			if (_itemInfos.Count != source.Count)
 				throw new ValidateInternalConsistencyException("Consistency violation: Selecting.1");
-			Func<TSourceItem, TResultItem> selector = _selectorExpressionOriginal.Compile();
+			Func<TSourceItem, TResultItem> selector = _selectorExpression.Compile();
 
 			// ReSharper disable once ConditionIsAlwaysTrueOrFalse
 			if (source != null)

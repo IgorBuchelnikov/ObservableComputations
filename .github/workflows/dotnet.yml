@@ -2,9 +2,9 @@ name: .NET
 
 on:
   push:
-    branches: [ master ]
+    branches: [ ObservableValidation ]
   pull_request:
-    branches: [ master ]
+    branches: [ ObservableValidation ]
 
 jobs:
   build:

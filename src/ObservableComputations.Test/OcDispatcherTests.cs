@@ -443,8 +443,8 @@ namespace ObservableComputations.Test
 			bool invoked1 = false;
 			bool invoked2 = false;
 			bool freezed = false;
-			InvocationResult<bool> invocationResult = null;
 			InvocationResult<bool> invocationResult1 = null;
+			InvocationResult<bool> invocationResult2 = null;
 
 			dispatcher.InvokeAsync(() =>
 			{
@@ -455,7 +455,13 @@ namespace ObservableComputations.Test
 				});
 
 
-				invocationResult = dispatcher.Invoke(() => invoked1 = true);
+				invocationResult1 = dispatcher.Invoke(() => 
+				{
+					mre.Wait();
+					invoked1 = true;
+					return true;
+				});
+
 			});
 
 			Thread thread = new Thread(
@@ -466,7 +472,12 @@ namespace ObservableComputations.Test
 						
 					}
 
-					invocationResult1 = dispatcher.Invoke(() => invoked2 = true);
+					invocationResult2 = dispatcher.Invoke(() => 
+						{
+							mre.Wait();
+							invoked2 = true;
+							return true;
+						});
 				});
 			thread.Start();
 
@@ -490,8 +501,8 @@ namespace ObservableComputations.Test
 
 			Assert.IsFalse(invoked1);
 			Assert.IsFalse(invoked2);
-			Assert.AreEqual(invocationResult.Invocation.Status, InvocationStatus.Canceled);
 			Assert.AreEqual(invocationResult1.Invocation.Status, InvocationStatus.Canceled);
+			Assert.AreEqual(invocationResult2.Invocation.Status, InvocationStatus.Canceled);
 		}
 
 		[Test]

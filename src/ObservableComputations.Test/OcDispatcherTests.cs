@@ -442,7 +442,6 @@ namespace ObservableComputations.Test
 			ManualResetEventSlim mre = new ManualResetEventSlim(false);
 			bool invoked1 = false;
 			bool invoked2 = false;
-			bool freezed = false;
 			InvocationResult<bool> invocationResult1 = null;
 			InvocationResult<bool> invocationResult2 = null;
 
@@ -450,35 +449,21 @@ namespace ObservableComputations.Test
 			{
 				dispatcher.InvokeAsync(() =>
 				{
-					freezed = true;
 					mre.Wait();
 				});
 
-
-				invocationResult1 = dispatcher.Invoke(() => 
-				{
-					mre.Wait();
-					invoked1 = true;
-					return true;
-				});
+				mre.Wait();
+				invocationResult1 = dispatcher.Invoke(() => invoked1 = true);
 
 			});
 
 			Thread thread = new Thread(
 				() => 
 				{
-					while (!freezed)
-					{
-						
-					}
-
-					invocationResult2 = dispatcher.Invoke(() => 
-						{
-							mre.Wait();
-							invoked2 = true;
-							return true;
-						});
+					mre.Wait();
+					invocationResult2 = dispatcher.Invoke(() => invoked2 = true);
 				});
+
 			thread.Start();
 
 			ManualResetEventSlim mreDisposed = new ManualResetEventSlim(false);
@@ -488,11 +473,6 @@ namespace ObservableComputations.Test
 					&& dispatcher.Status == OcDispatcherStatus.Disposed)
 					mreDisposed.Set();
 			};
-
-			while (dispatcher.GetQueueCount() != 2)
-			{
-				
-			}
 
 			dispatcher.Dispose();
 			mre.Set();
